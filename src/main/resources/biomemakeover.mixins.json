@@ -1,12 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.example.mixin",
+  "package": "party.lemons.biomemakeover.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "HugeBrownMushroomFeatureMixin",
+    "DefaultBiomeFeaturesMixin"
   ],
   "client": [
-    "ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
