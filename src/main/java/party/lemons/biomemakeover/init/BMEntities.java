@@ -6,9 +6,11 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.BuiltinBiomes;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DragonlingEntity;
 import party.lemons.biomemakeover.entity.GhoulFishEntity;
+import party.lemons.biomemakeover.util.RegistryHelper;
 
 public class BMEntities
 {
@@ -17,7 +19,14 @@ public class BMEntities
 
 	public static void init()
 	{
-		Registry.register(Registry.ENTITY_TYPE, new Identifier(BiomeMakeover.MODID, "ghoul_fish"), GHOUL_FISH);
-		Registry.register(Registry.ENTITY_TYPE, new Identifier(BiomeMakeover.MODID, "dragonling"), DRAGONLING);
+		RegistryHelper.register(Registry.ENTITY_TYPE, EntityType.class, BMEntities.class);
+	//	Registry.register(Registry.ENTITY_TYPE, new Identifier(BiomeMakeover.MODID, "ghoul_fish"), GHOUL_FISH);
+//		Registry.register(Registry.ENTITY_TYPE, new Identifier(BiomeMakeover.MODID, "dragonling"), DRAGONLING);
+
+		initSpawns();
+	}
+
+	private static void initSpawns()
+	{
 	}
 }

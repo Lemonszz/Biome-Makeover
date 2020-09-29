@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.biome.BiomeKeys;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMWorldGen;
 
@@ -15,6 +16,7 @@ public class BiomeMakeover implements ModInitializer
 	public void onInitialize()
 	{
 		BMEntities.init();
+		BMBlocks.init();
 		BMWorldGen.init();
 	}
 
