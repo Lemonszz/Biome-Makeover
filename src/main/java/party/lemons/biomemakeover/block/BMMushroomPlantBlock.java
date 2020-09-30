@@ -12,12 +12,13 @@ import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 public class BMMushroomPlantBlock extends MushroomPlantBlock implements BlockWithItem {
 
-    private ConfiguredFeature giantShroomFeature;
+    private Supplier<ConfiguredFeature> giantShroomFeature;
 
-    public BMMushroomPlantBlock(ConfiguredFeature giantShroomFeature, Settings settings) {
+    public BMMushroomPlantBlock(Supplier<ConfiguredFeature> giantShroomFeature, Settings settings) {
         super(settings);
 
         this.giantShroomFeature = giantShroomFeature;
@@ -29,7 +30,7 @@ public class BMMushroomPlantBlock extends MushroomPlantBlock implements BlockWit
 
     public boolean trySpawningBigMushroom(ServerWorld serverWorld, BlockPos pos, BlockState state, Random random) {
         serverWorld.removeBlock(pos, false);
-        if (giantShroomFeature.generate(serverWorld, serverWorld.getChunkManager().getChunkGenerator(), random, pos)) {
+        if (giantShroomFeature.get().generate(serverWorld, serverWorld.getChunkManager().getChunkGenerator(), random, pos)) {
             return true;
         } else {
             serverWorld.setBlockState(pos, state, 3);

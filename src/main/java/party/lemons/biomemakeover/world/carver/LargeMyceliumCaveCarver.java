@@ -10,17 +10,20 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.CaveCarver;
 import org.apache.commons.lang3.mutable.MutableBoolean;
+import party.lemons.biomemakeover.init.BMBlocks;
 
 import java.util.BitSet;
 import java.util.Random;
 import java.util.function.Function;
 
-public class LargeCaveCarver extends CaveCarver
+public class LargeMyceliumCaveCarver extends CaveCarver
 {
 	private BlockState MYCELIUM = Blocks.MYCELIUM.getDefaultState();
+	private BlockState MYCELIUM_SPROUTS = BMBlocks.MYCELIUM_SPROUTS.getDefaultState();
+	private BlockState MYCELIUM_ROOTS = BMBlocks.MYCELIUM_ROOTS.getDefaultState();
 	private BlockState DIRT = Blocks.DIRT.getDefaultState();
 
-	public LargeCaveCarver(Codec<ProbabilityConfig> codec, int i) {
+	public LargeMyceliumCaveCarver(Codec<ProbabilityConfig> codec, int i) {
 		super(codec, i);
 	}
 
@@ -42,6 +45,8 @@ public class LargeCaveCarver extends CaveCarver
 			} else {
 				if (y == 10) {
 					chunk.setBlockState(mutable, MYCELIUM, false);
+					if(random.nextInt(5) == 0)
+						chunk.setBlockState(mutable.up(), random.nextBoolean() ? MYCELIUM_SPROUTS : MYCELIUM_ROOTS, false);
 				}
 				else if(y < 10)
 				{

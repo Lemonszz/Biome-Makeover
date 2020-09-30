@@ -1,0 +1,11 @@
+{
+  "button_mushrooms": {
+    "subtitle": "subtitles.biomemakeover.button_mushrooms",
+    "sounds": [
+      {
+        "name": "biomemakeover:button_mushrooms",
+        "stream": true
+      }
+    ]
+  }
+}

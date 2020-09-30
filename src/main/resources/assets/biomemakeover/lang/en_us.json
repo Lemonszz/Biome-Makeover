@@ -1,0 +1,15 @@
+{
+  "itemGroup.biomemakeover.biomemakeover" : "Biome Makeover",
+  "subtab.all" : "All",
+  "subtab.mushroom_fields" : "Mushroom Fields",
+  "block.biomemakeover.purple_glowshroom" : "Purple Glowshroom",
+  "block.biomemakeover.purple_glowshroom_block" : "Purple Glowshroom Block",
+  "block.biomemakeover.mycelium_sprouts" : "Mycelium Sprouts",
+  "block.biomemakeover.tall_brown_mushroom" : "Tall Brown Mushroom",
+  "block.biomemakeover.tall_red_mushroom" : "Tall Red Mushroom",
+  "block.biomemakeover.potted_mycelium_roots" : "Potted Mycelium Roots",
+  "block.biomemakeover.mycelium_roots" : "Mycelium Roots",
+  "item.biomemakeover.button_mushrooms_music_disk" : "Music Disk",
+  "item.biomemakeover.glowshroom_stew" : "Glowshroom Stew",
+  "item.biomemakeover.button_mushrooms_music_disk.desc" : "Podington Bear - Button Mushrooms"
+}

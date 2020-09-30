@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "HugeBrownMushroomFeatureMixin",
-    "DefaultBiomeFeaturesMixin"
+    "DefaultBiomeFeaturesMixin",
+    "BiomeEffectsMixin"
   ],
   "client": [
+    "client.CreativeInventoryScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
