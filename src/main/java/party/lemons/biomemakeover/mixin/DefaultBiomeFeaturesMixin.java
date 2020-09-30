@@ -17,8 +17,8 @@ public class DefaultBiomeFeaturesMixin
 	{
 		builder.carver(GenerationStep.Carver.AIR, BMWorldGen.LARGE_CAVE_CONFIGURED_CARVER);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND_SHROOMS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_GLOWSHROOMS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND_SHROOMS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_SPROUTS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_ROOTS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND_GLOWSHROOMS);
