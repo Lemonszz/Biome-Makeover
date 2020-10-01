@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.mixin;
 
+import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -16,7 +17,10 @@ public class DefaultBiomeFeaturesMixin
 	private static void addToMushroomFields(GenerationSettings.Builder builder, CallbackInfo cbi)
 	{
 		builder.carver(GenerationStep.Carver.AIR, BMWorldGen.LARGE_CAVE_CONFIGURED_CARVER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, BMWorldGen.MYCELIUM_PATCH);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_ROOTS_UNDERGROUND);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_SPROUTS_UNDERGROUND);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_GLOWSHROOMS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND_SHROOMS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_SPROUTS);
