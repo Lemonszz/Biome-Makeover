@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:mushroom_stem_brick"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:mushroom_stem_brick",
+    "count": 6
+  }
+}

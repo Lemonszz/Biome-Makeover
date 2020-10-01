@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:brown_mushroom_brick"
+  },
+  "result": "biomemakeover:brown_mushroom_brick_slab",
+  "count": 2
+}
