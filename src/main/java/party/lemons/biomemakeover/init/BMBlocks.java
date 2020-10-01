@@ -8,6 +8,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.BlockWithItem;
+import party.lemons.biomemakeover.util.DecorationBlockInfo;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
 public class BMBlocks
@@ -28,7 +29,22 @@ public class BMBlocks
     public static final BMTallMushroomBlock TALL_RED_MUSHROOM = new BMTallMushroomBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
     public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
 
-    public static void init()
+    public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo RED_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("red_mushroom_brick", RED_MUSHROOM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock BROWN_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo BROWN_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("brown_mushroom_brick", BROWN_MUSHROOM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock PURPLE_GLOWSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo PURPLE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("purple_glowshroom_brick", PURPLE_GLOWSHROOM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock GREEN_GLOWSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo GREEN_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("green_glowshroom_brick", GREEN_GLOWSHROOM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock ORANGE_GLOWSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo ORANGE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("orange_glowshroom_brick", ORANGE_GLOWSHROOM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock GLOWSHROOM_STEM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock MUSHROOM_STEM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("mushroom_stem_brick", MUSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+
+	public static void init()
     {
         RegistryHelper.register(Registry.BLOCK, Block.class, BMBlocks.class, (reg, bl, id)->{
 
@@ -41,6 +57,14 @@ public class BMBlocks
 
             Registry.register(Registry.ITEM, id, info.makeItem());
         });
+
+        RED_MUSHROOM_BRICK_DECORATION.register();
+        BROWN_MUSHROOM_BRICK_DECORATION.register();
+        PURPLE_GLOWSROOM_BRICK_DECORATION.register();
+        GREEN_GLOWSROOM_BRICK_DECORATION.register();
+        ORANGE_GLOWSROOM_BRICK_DECORATION.register();
+        GLOWSHROOM_STEM_BRICK_DECORATION.register();
+        MUSHROOM_STEM_BRICK_DECORATION.register();
     }
 
     public static FabricBlockSettings settings(Material material, float hardness)

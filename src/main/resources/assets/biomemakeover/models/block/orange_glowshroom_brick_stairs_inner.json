@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/orange_glowshroom_brick",
+    "top": "biomemakeover:block/orange_glowshroom_brick",
+    "side": "biomemakeover:block/orange_glowshroom_brick"
+  }
+}

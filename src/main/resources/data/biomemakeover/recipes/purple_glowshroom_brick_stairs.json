@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:purple_glowshroom_brick"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:purple_glowshroom_brick_stairs",
+    "count": 4
+  }
+}
