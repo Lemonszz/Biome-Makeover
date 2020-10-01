@@ -26,7 +26,10 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.MYCELIUM_SPROUTS,
 				BMBlocks.POTTED_MYCELIUM_ROOTS,
 				BMBlocks.TALL_BROWN_MUSHROOM,
-				BMBlocks.TALL_RED_MUSHROOM
+				BMBlocks.TALL_RED_MUSHROOM,
+				BMBlocks.PURPLE_GLOWSHROOM,
+				BMBlocks.GREEN_GLOWSHROOM,
+				BMBlocks.ORANGE_GLOWSHROOM
 		);
 	}
 }

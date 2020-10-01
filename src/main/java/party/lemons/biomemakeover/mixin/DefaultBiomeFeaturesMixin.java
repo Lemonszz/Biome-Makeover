@@ -26,6 +26,7 @@ public class DefaultBiomeFeaturesMixin
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_SPROUTS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_ROOTS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND_GLOWSHROOMS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.ORANGE_GLOWSHROOM_PATCH);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_TALL_SHROOMS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_TALL_SHROOMS_UNDERGROUND);
 	}

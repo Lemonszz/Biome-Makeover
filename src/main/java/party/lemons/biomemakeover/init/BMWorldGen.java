@@ -36,7 +36,9 @@ public class BMWorldGen
 	public static final UndergroundHugeRedMushroomFeature UNDERGROUND_HUGE_RED_MUSHROOM_FEATURE = new UndergroundHugeRedMushroomFeature(HugeMushroomFeatureConfig.CODEC);
 	public static final UndergroundHugePurpleGlowshroomFeature UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE = new UndergroundHugePurpleGlowshroomFeature(HugeMushroomFeatureConfig.CODEC);
 	public static final UndergroundHugeGreenGlowshroomFeature UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE = new UndergroundHugeGreenGlowshroomFeature(HugeMushroomFeatureConfig.CODEC);
+	public static final HugeOrangeGlowshroomFeature HUGE_ORANGE_GLOWSHROOM_FEATURE = new HugeOrangeGlowshroomFeature(HugeMushroomFeatureConfig.CODEC);
 	public static final GrassPatchFeature UNDERGROUND_MYCELIUM = new GrassPatchFeature(GrassPatchFeatureConfig.CODEC);
+	public static final OrangeMushroomFeature ORANGE_MUSHROOM_FEATURE = new OrangeMushroomFeature(ProbabilityConfig.CODEC);
 
 	//Conf Features
 	//2 tall Shrooms patch
@@ -50,17 +52,19 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> MUSHROOM_FIELD_ROOTS_UNDERGROUND = Feature.RANDOM_PATCH.configure(MUSHROOM_ROOTS_UNDERGROUND_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).spreadHorizontally().repeat(20);
 
 	//Underground mycelium patches
-	public static final ConfiguredFeature<?, ?> MYCELIUM_PATCH = UNDERGROUND_MYCELIUM.configure(UNDERGROUND_MYCELIUM_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).spreadHorizontally().repeatRandomly(4);
+	public static final ConfiguredFeature<?, ?> MYCELIUM_PATCH = UNDERGROUND_MYCELIUM.configure(UNDERGROUND_MYCELIUM_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).spreadHorizontally().repeatRandomly(10);
 
 	//Lil shrooms patch
 	public static final ConfiguredFeature<?, ?> PURPLE_GLOWSHROOM_PATCH = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.PURPLE_GLOWSHROOM.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()));
 	public static final ConfiguredFeature<?, ?> GREEN_GLOWSHROOM_PATCH = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.GREEN_GLOWSHROOM.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()));
+	public static final ConfiguredFeature<?, ?> ORANGE_GLOWSHROOM_PATCH = ORANGE_MUSHROOM_FEATURE.configure(new ProbabilityConfig(0.06F)).decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 60))).repeat(2);
 
 	//
 	public static final ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugeRedMushroomFeature> UNDERGROUND_HUGE_RED_MUSHROOM_FEATURE_CONFIGURED = (ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugeRedMushroomFeature>) UNDERGROUND_HUGE_RED_MUSHROOM_FEATURE.configure(new HugeMushroomFeatureConfig(new SimpleBlockStateProvider(Blocks.RED_MUSHROOM_BLOCK.getDefaultState()), new SimpleBlockStateProvider(Blocks.MUSHROOM_STEM.getDefaultState()), 2));
 	public static final ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugeBrownMushroomFeature> UNDERGROUND_HUGE_BROWN_MUSHROOM_FEATURE_CONFIGURED = (ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugeBrownMushroomFeature>) UNDERGROUND_HUGE_BROWN_MUSHROOM_FEATURE.configure(new HugeMushroomFeatureConfig(new SimpleBlockStateProvider(Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState()), new SimpleBlockStateProvider(Blocks.MUSHROOM_STEM.getDefaultState()), 3));
 	public static final ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugePurpleGlowshroomFeature> UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED = (ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugePurpleGlowshroomFeature>) UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE.configure(new HugeMushroomFeatureConfig(new SimpleBlockStateProvider(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.getDefaultState()), new SimpleBlockStateProvider(BMBlocks.GLOWSHROOM_STEM.getDefaultState()), 1));
 	public static final ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugeGreenGlowshroomFeature> UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED = (ConfiguredFeature<HugeMushroomFeatureConfig, UndergroundHugeGreenGlowshroomFeature>) UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE.configure(new HugeMushroomFeatureConfig(new SimpleBlockStateProvider(BMBlocks.GREEN_GLOWSHROOM_BLOCK.getDefaultState()), new SimpleBlockStateProvider(BMBlocks.GLOWSHROOM_STEM.getDefaultState()), 2));
+	public static final ConfiguredFeature<HugeMushroomFeatureConfig, HugeOrangeGlowshroomFeature> HUGE_ORANGE_GLOWSHROOM_FEATURE_CONFIGURED = (ConfiguredFeature<HugeMushroomFeatureConfig, HugeOrangeGlowshroomFeature>) HUGE_ORANGE_GLOWSHROOM_FEATURE.configure(new HugeMushroomFeatureConfig(new SimpleBlockStateProvider(BMBlocks.ORANGE_GLOWSHROOM_BLOCK.getDefaultState()), new SimpleBlockStateProvider(BMBlocks.GLOWSHROOM_STEM.getDefaultState()), 1));
 
 	public static final ConfiguredFeature<?, ?> MUSHROOM_FIELD_UNDERGROUND = Feature.RANDOM_BOOLEAN_SELECTOR.configure(new RandomBooleanFeatureConfig(() ->UNDERGROUND_HUGE_RED_MUSHROOM_FEATURE_CONFIGURED, () ->UNDERGROUND_HUGE_BROWN_MUSHROOM_FEATURE_CONFIGURED)).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(100);
 	public static final ConfiguredFeature<?, ?> MUSHROOM_FIELD_GLOWSHROOMS = Feature.RANDOM_BOOLEAN_SELECTOR.configure(new RandomBooleanFeatureConfig(() ->UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, () ->UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED)).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(100);

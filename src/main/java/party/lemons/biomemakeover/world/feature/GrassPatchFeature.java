@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.world.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -24,7 +25,7 @@ public class GrassPatchFeature extends Feature<GrassPatchFeatureConfig> {
         int range = RandomUtil.randomRange(4, 4 + featureConfig.size);
         BlockPos.Mutable mp = new BlockPos.Mutable();
 
-        for(int yy = -range; yy < range; yy++)
+        for(int yy = range - 1; yy > -range; yy--)
         {
             for(int xx = -range; xx < range; xx++)
             {
@@ -33,7 +34,7 @@ public class GrassPatchFeature extends Feature<GrassPatchFeatureConfig> {
                     mp.set(blockPos, xx, yy, zz);
 
                     BlockState currentState = world.getBlockState(mp);
-                    boolean isSide = yy == -range || yy == range || xx == -range || xx == range || zz == -range || zz == range;
+                    boolean isSide = yy == -range || yy == range - 1 || xx == -range || xx == range - 1 || zz == -range || zz == range - 1;
                     if(isSide && random.nextBoolean())
                         continue;
 
@@ -41,7 +42,9 @@ public class GrassPatchFeature extends Feature<GrassPatchFeatureConfig> {
                     {
                         if(world.isAir(mp.up()))
                             world.setBlockState(mp, featureConfig.grass.getBlockState(random, mp), 3);
-                        else
+                        else if(world.getBlockState(mp.up()).isOf(featureConfig.grass.getBlockState(random, mp).getBlock())
+                                || world.getBlockState(mp.up(2)).isOf(featureConfig.grass.getBlockState(random, mp).getBlock())
+                                || (world.getBlockState(mp.up(3)).isOf(featureConfig.grass.getBlockState(random, mp).getBlock()) && random.nextBoolean()))
                             world.setBlockState(mp, featureConfig.dirt.getBlockState(random, mp), 3);
                     }
                 }

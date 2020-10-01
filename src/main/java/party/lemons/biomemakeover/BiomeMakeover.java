@@ -28,7 +28,7 @@ public class BiomeMakeover implements ModInitializer
 
 		//TOOD: Move
 		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELDS), 0xad3fe4);
-		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELD_SHORE), 0x633fe4);
+		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELD_SHORE), 0x5d3fe4);
 	}
 
 	public static Identifier ID(String path)
