@@ -1,8 +1,12 @@
 package party.lemons.biomemakeover.init;
 
+import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.block.Blocks;
+import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
@@ -11,21 +15,28 @@ import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
 import party.lemons.biomemakeover.world.feature.*;
 import party.lemons.biomemakeover.world.feature.config.GrassPatchFeatureConfig;
+import party.lemons.biomemakeover.world.structure.MushroomHouseGenerator;
 
 public class BMWorldGen
 {
+	//Structure
+	public static final StructurePieceType MUSHROOM_HOUSE_PIECE = MushroomHouseGenerator.MushroomHousePiece::new;
+	public static final StructureFeature<DefaultFeatureConfig> MUSHROOM_HOUSE = new MushroomHouseFeature(DefaultFeatureConfig.CODEC);
+	public static final ConfiguredStructureFeature<?, ?> MUSHROOM_HOUSE_CONFIGURED = MUSHROOM_HOUSE.configure(DefaultFeatureConfig.DEFAULT);
+
 	//Configs
 	public static final RandomPatchFeatureConfig MUSHROOM_SPROUTS_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MYCELIUM_SPROUTS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
 	public static final RandomPatchFeatureConfig MUSHROOM_SPROUTS_UNDERGROUND_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MYCELIUM_SPROUTS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).cannotProject().tries(32).build();
 	public static final RandomPatchFeatureConfig MUSHROOM_ROOTS_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MYCELIUM_ROOTS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(20).build();
 	public static final RandomPatchFeatureConfig MUSHROOM_ROOTS_UNDERGROUND_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MYCELIUM_ROOTS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).cannotProject().tries(20).build();
 	public static final GrassPatchFeatureConfig UNDERGROUND_MYCELIUM_CONFIG = new GrassPatchFeatureConfig(new SimpleBlockStateProvider(Blocks.MYCELIUM.getDefaultState()), new SimpleBlockStateProvider(Blocks.DIRT.getDefaultState()), 8);
+	public static final GrassPatchFeatureConfig DEEP_UNDERGROUND_MYCELIUM_CONFIG = new GrassPatchFeatureConfig(new SimpleBlockStateProvider(BMBlocks.DEEP_MYCELIUM.getDefaultState()), new SimpleBlockStateProvider(Blocks.DIRT.getDefaultState()), 8);
 
 	//Carvers
 	public static final LargeMyceliumCaveCarver LARGE_MYCELIUM_CAVE_CARVER = new LargeMyceliumCaveCarver(ProbabilityConfig.CODEC, 256);
@@ -52,7 +63,8 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> MUSHROOM_FIELD_ROOTS_UNDERGROUND = Feature.RANDOM_PATCH.configure(MUSHROOM_ROOTS_UNDERGROUND_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).spreadHorizontally().repeat(20);
 
 	//Underground mycelium patches
-	public static final ConfiguredFeature<?, ?> MYCELIUM_PATCH = UNDERGROUND_MYCELIUM.configure(UNDERGROUND_MYCELIUM_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).spreadHorizontally().repeatRandomly(10);
+	public static final ConfiguredFeature<?, ?> MYCELIUM_PATCH = UNDERGROUND_MYCELIUM.configure(UNDERGROUND_MYCELIUM_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).spreadHorizontally().repeatRandomly(5);
+	public static final ConfiguredFeature<?, ?> DEEP_MYCELIUM_PATCH = UNDERGROUND_MYCELIUM.configure(DEEP_UNDERGROUND_MYCELIUM_CONFIG).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 35))).spreadHorizontally().repeatRandomly(5);
 
 	//Lil shrooms patch
 	public static final ConfiguredFeature<?, ?> PURPLE_GLOWSHROOM_PATCH = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.PURPLE_GLOWSHROOM.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()));
@@ -75,9 +87,17 @@ public class BMWorldGen
 
 	public static void init()
 	{
+		RegistryHelper.register(Registry.STRUCTURE_PIECE, StructurePieceType.class, BMWorldGen.class);
+		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.FEATURE, Feature.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.CARVER, Carver.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeature.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_CARVER, ConfiguredCarver.class, BMWorldGen.class);
+
+		FabricStructureBuilder.create(BiomeMakeover.ID("mushroom_house"), MUSHROOM_HOUSE)
+				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
+				.defaultConfig(11, 5, 6969)
+				.adjustsSurface()
+				.register();
 	}
 }

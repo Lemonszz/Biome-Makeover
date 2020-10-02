@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 public class LargeMyceliumCaveCarver extends CaveCarver
 {
-	private BlockState MYCELIUM = Blocks.MYCELIUM.getDefaultState();
+	private BlockState MYCELIUM = BMBlocks.DEEP_MYCELIUM.getDefaultState();
 	private BlockState MYCELIUM_SPROUTS = BMBlocks.MYCELIUM_SPROUTS.getDefaultState();
 	private BlockState MYCELIUM_ROOTS = BMBlocks.MYCELIUM_ROOTS.getDefaultState();
 	private BlockState DIRT = Blocks.DIRT.getDefaultState();

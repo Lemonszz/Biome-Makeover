@@ -13,6 +13,9 @@ group = project.maven_group
 repositories {
 	maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
 }
+minecraft {
+	accessWidener "src/main/resources/biomemakeover.accesswidener"
+}
 
 dependencies {
 	//to change the versions see the gradle.properties file
