@@ -7,7 +7,9 @@
     "HugeBrownMushroomFeatureMixin",
     "DefaultBiomeFeaturesMixin",
     "BiomeEffectsMixin",
-    "MyceliumBlockMixin"
+    "MyceliumBlockMixin",
+    "MushroomBlockMixin",
+    "HoeItemMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin"
