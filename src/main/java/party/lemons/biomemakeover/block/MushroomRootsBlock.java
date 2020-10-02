@@ -19,6 +19,6 @@ public class MushroomRootsBlock extends RootsBlock implements BlockWithItem
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos)
 	{
-		return floor.isOf(Blocks.MYCELIUM) || floor.isOf(BMBlocks.DEEP_MYCELIUM) || super.canPlantOnTop(floor, world, pos);
+		return floor.isOf(Blocks.MYCELIUM) || super.canPlantOnTop(floor, world, pos);
 	}
 }

@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -26,6 +27,7 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.TraderOfferList;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.entity.ai.DoorOpenInteractGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
@@ -38,23 +40,27 @@ public class MushroomVillagerEntity extends AbstractTraderEntity
 	public MushroomVillagerEntity(World world)
 	{
 		super(BMEntities.MUSHROOM_TRADER, world);
+
+		((MobNavigation)this.getNavigation()).setCanPathThroughDoors(false);
+		this.getNavigation().setCanSwim(true);
 	}
 
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new StopFollowingCustomerGoal(this));
-		this.goalSelector.add(1, new FleeEntityGoal(this, ZombieEntity.class, 8.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new FleeEntityGoal(this, EvokerEntity.class, 12.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new FleeEntityGoal(this, VindicatorEntity.class, 8.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new FleeEntityGoal(this, VexEntity.class, 8.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new FleeEntityGoal(this, PillagerEntity.class, 15.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new FleeEntityGoal(this, IllusionerEntity.class, 12.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new FleeEntityGoal(this, ZoglinEntity.class, 10.0F, 0.5D, 0.5D));
-		this.goalSelector.add(1, new EscapeDangerGoal(this, 0.5D));
-		this.goalSelector.add(1, new LookAtCustomerGoal(this));
-		this.goalSelector.add(4, new GoToWalkTargetGoal(this, 0.35D));
-		this.goalSelector.add(9, new WanderNearTargetGoal(this, 0.35F, 5.0F));
-		this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
+		this.goalSelector.add(1, new DoorOpenInteractGoal(this, true));
+		this.goalSelector.add(2, new FleeEntityGoal(this, ZombieEntity.class, 8.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new FleeEntityGoal(this, EvokerEntity.class, 12.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new FleeEntityGoal(this, VindicatorEntity.class, 8.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new FleeEntityGoal(this, VexEntity.class, 8.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new FleeEntityGoal(this, PillagerEntity.class, 15.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new FleeEntityGoal(this, IllusionerEntity.class, 12.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new FleeEntityGoal(this, ZoglinEntity.class, 10.0F, 0.5D, 0.5D));
+		this.goalSelector.add(2, new EscapeDangerGoal(this, 0.5D));
+		this.goalSelector.add(2, new LookAtCustomerGoal(this));
+		this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.25D));
+		this.goalSelector.add(4, new WanderNearTargetGoal(this, 0.35F, 5.0F));
+		this.goalSelector.add(5, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
 	}
 
 	@Override

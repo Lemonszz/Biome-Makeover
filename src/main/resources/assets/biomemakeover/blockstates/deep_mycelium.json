@@ -1,7 +1,27 @@
 {
   "variants": {
-    "": {
-      "model": "biomemakeover:block/deep_mycelium"
+    "snowy=false": [
+      {
+        "model": "biomemakeover:block/deep_mycelium"
+      },
+      {
+        "model": "biomemakeover:block/deep_mycelium",
+
+        "y": 90
+      },
+      {
+        "model": "biomemakeover:block/deep_mycelium",
+
+        "y": 180
+      },
+      {
+        "model": "biomemakeover:block/deep_mycelium",
+
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "minecraft:block/grass_block_snow"
     }
   }
 }
