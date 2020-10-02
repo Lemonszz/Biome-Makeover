@@ -46,22 +46,32 @@ public class UndergroundHugePurpleGlowshroomFeature extends HugeMushroomFeature
 								.with(MushroomBlock.WEST, isWest)
 								.with(MushroomBlock.EAST, isEast)
 								.with(MushroomBlock.NORTH, isNorth)
+								.with(MushroomBlock.DOWN, false)
 								.with(MushroomBlock.SOUTH, isSouth);
+
+						//if(isMiddle)
+						//	st = st.with(MushroomBlock.DOWN, false);
 
 						world.setBlockState(mutable, st, 3);
 
-						if(isMiddle) world.setBlockState(mutable.up(), config.capProvider.getBlockState(random, start), 3);
-						else world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start), 3);
+						if(isMiddle) world.setBlockState(mutable.up(),
+								config.capProvider.getBlockState(random, start), 3);
+						else world.setBlockState(mutable.down(),
+								config.capProvider.getBlockState(random, start)
+								.with(MushroomBlock.WEST, isWest)
+								.with(MushroomBlock.EAST, isEast)
+								.with(MushroomBlock.NORTH, isNorth)
+								.with(MushroomBlock.SOUTH, isSouth), 3);
 					}
 				}
 			}
 
 		}
 		mutable.set(start, 0, y - 2, 0);
-		world.setBlockState(mutable.west(size), config.capProvider.getBlockState(random, start), 3);
-		world.setBlockState(mutable.east(size), config.capProvider.getBlockState(random, start), 3);
-		world.setBlockState(mutable.north(size), config.capProvider.getBlockState(random, start), 3);
-		world.setBlockState(mutable.south(size), config.capProvider.getBlockState(random, start), 3);
+		world.setBlockState(mutable.west(size), config.capProvider.getBlockState(random, start).with(MushroomBlock.EAST, false), 3);
+		world.setBlockState(mutable.east(size), config.capProvider.getBlockState(random, start).with(MushroomBlock.WEST, false), 3);
+		world.setBlockState(mutable.north(size), config.capProvider.getBlockState(random, start).with(MushroomBlock.SOUTH, false), 3);
+		world.setBlockState(mutable.south(size), config.capProvider.getBlockState(random, start).with(MushroomBlock.NORTH, false), 3);
 	}
 
 	public boolean generate(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, HugeMushroomFeatureConfig hugeMushroomFeatureConfig) {

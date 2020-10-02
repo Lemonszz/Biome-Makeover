@@ -51,12 +51,13 @@ public class HugeOrangeGlowshroomFeature extends HugeMushroomFeature
 								.with(MushroomBlock.WEST, isWest)
 								.with(MushroomBlock.EAST, isEast)
 								.with(MushroomBlock.NORTH, isNorth)
+								.with(MushroomBlock.DOWN, false)
 								.with(MushroomBlock.SOUTH, isSouth);
 
 						world.setBlockState(mutable, st, 3);
 
 						if(isMiddle) world.setBlockState(mutable.up(), config.capProvider.getBlockState(random, start), 3);
-						else world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start), 3);
+						else world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start).with(MushroomBlock.DOWN, false), 3);
 					}
 				}
 			}
@@ -66,10 +67,10 @@ public class HugeOrangeGlowshroomFeature extends HugeMushroomFeature
 		mutable.set(start, 0, y - 1, 0);
 		for(int i = 0; i < 2; i++)
 		{
-			set(world, mutable.west(2), st);
-			set(world, mutable.east(2), st);
-			set(world, mutable.north(2), st);
-			set(world, mutable.south(2), st);
+			set(world, mutable.west(2), st.with(MushroomBlock.EAST, false));
+			set(world, mutable.east(2), st.with(MushroomBlock.WEST, false));
+			set(world, mutable.north(2), st.with(MushroomBlock.SOUTH, false));
+			set(world, mutable.south(2), st.with(MushroomBlock.NORTH, false));
 
 			mutable.set(start, 0, y - 2, 0);
 		}

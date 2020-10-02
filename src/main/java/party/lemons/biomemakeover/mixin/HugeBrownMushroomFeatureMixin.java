@@ -54,7 +54,11 @@ public class HugeBrownMushroomFeatureMixin
 						if(!isFlat)
 						{
 							if(isMiddle) world.setBlockState(mutable.up(), config.capProvider.getBlockState(random, start), 3);
-							else world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start), 3);
+							else world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start)
+									.with(MushroomBlock.WEST, isWest)
+									.with(MushroomBlock.EAST, isEast)
+									.with(MushroomBlock.NORTH, isNorth)
+									.with(MushroomBlock.SOUTH, isSouth), 3);
 						}
 					}
 				}

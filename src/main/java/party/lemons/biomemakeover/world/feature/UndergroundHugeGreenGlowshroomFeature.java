@@ -41,8 +41,19 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 
 					if (yy >= y || (isXCorner != isZCorner || (yy == y - 3) && !isMiddle)) {
 						mutable.set(start, xx, yy, zz);
-						if (!world.getBlockState(mutable).isOpaqueFullCube(world, mutable))
-							this.setBlockState(world, mutable, (config.capProvider.getBlockState(random, start).with(MushroomBlock.UP, yy >= y - 1)).with(MushroomBlock.WEST, xx < -k).with(MushroomBlock.EAST, xx > k).with(MushroomBlock.NORTH, zz < -k).with(MushroomBlock.SOUTH, zz > k));
+						if (!world.getBlockState(mutable).isOpaqueFullCube(world, mutable)) {
+							BlockState ss = (config.capProvider.getBlockState(random, start)
+									.with(MushroomBlock.UP, true))
+									.with(MushroomBlock.WEST, xx < -k)
+									.with(MushroomBlock.EAST, xx > k)
+									.with(MushroomBlock.NORTH, zz < -k)
+									.with(MushroomBlock.SOUTH, zz > k);
+
+							if(yy == y) {
+								ss = ss.with(MushroomBlock.EAST, true).with(MushroomBlock.DOWN, false).with(MushroomBlock.WEST, true).with(MushroomBlock.NORTH, true).with(MushroomBlock.SOUTH, true);
+							}
+							this.setBlockState(world, mutable, ss);
+						}
 					}
 				}
 			}
@@ -53,14 +64,16 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 		BlockState st = config.capProvider.getBlockState(random, start);
 		set(world, mutable.up(), st);
 
+		boolean top = true;
 		int off = config.capSize;
 		for(int i = 0; i < 2; i++)
 		{
-			set(world, mutable.west(off), st);
-			set(world, mutable.east(off), st);
-			set(world, mutable.north(off), st);
-			set(world, mutable.south(off), st);
+			world.setBlockState(mutable.west(off), config.capProvider.getBlockState(random, start).with(MushroomBlock.EAST, top), 3);
+			world.setBlockState(mutable.east(off), config.capProvider.getBlockState(random, start).with(MushroomBlock.WEST, top), 3);
+			world.setBlockState(mutable.north(off), config.capProvider.getBlockState(random, start).with(MushroomBlock.SOUTH, top), 3);
+			world.setBlockState(mutable.south(off), config.capProvider.getBlockState(random, start).with(MushroomBlock.NORTH, top), 3);
 
+			top = false;
 			mutable.set(start, 0, y - 4, 0);
 		}
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_single_face",
+  "textures": {
+    "texture": "biomemakeover:block/green_glowshroom_block"
+  }
+}
