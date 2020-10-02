@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "icon": "assets/biomemakeover/icon.png",
-
+  "accessWidener" : "biomemakeover.accesswidener",
   "environment": "*",
   "entrypoints": {
     "main": [

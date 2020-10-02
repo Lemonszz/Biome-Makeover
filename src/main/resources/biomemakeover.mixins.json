@@ -9,7 +9,8 @@
     "BiomeEffectsMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
-    "HoeItemMixin"
+    "HoeItemMixin",
+    "FeatureMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin"

@@ -6,6 +6,7 @@ import net.minecraft.block.RootsBlock;
 import net.minecraft.block.SproutsBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
 public class MushroomRootsBlock extends RootsBlock implements BlockWithItem
@@ -18,6 +19,6 @@ public class MushroomRootsBlock extends RootsBlock implements BlockWithItem
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos)
 	{
-		return floor.isOf(Blocks.MYCELIUM) || super.canPlantOnTop(floor, world, pos);
+		return floor.isOf(Blocks.MYCELIUM) || floor.isOf(BMBlocks.DEEP_MYCELIUM) || super.canPlantOnTop(floor, world, pos);
 	}
 }
