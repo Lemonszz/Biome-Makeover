@@ -2,7 +2,6 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.block.Blocks;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -21,14 +20,10 @@ import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
 import party.lemons.biomemakeover.world.feature.*;
 import party.lemons.biomemakeover.world.feature.config.GrassPatchFeatureConfig;
-import party.lemons.biomemakeover.world.structure.MushroomHouseGenerator;
 
 public class BMWorldGen
 {
 	//Structure
-	public static final StructurePieceType MUSHROOM_HOUSE_PIECE = MushroomHouseGenerator.MushroomHousePiece::new;
-	public static final StructureFeature<DefaultFeatureConfig> MUSHROOM_HOUSE = new MushroomHouseFeature(DefaultFeatureConfig.CODEC);
-	public static final ConfiguredStructureFeature<?, ?> MUSHROOM_HOUSE_CONFIGURED = MUSHROOM_HOUSE.configure(DefaultFeatureConfig.DEFAULT);
 
 	//Configs
 	public static final RandomPatchFeatureConfig MUSHROOM_SPROUTS_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MYCELIUM_SPROUTS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
@@ -92,10 +87,5 @@ public class BMWorldGen
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeature.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_CARVER, ConfiguredCarver.class, BMWorldGen.class);
 
-		FabricStructureBuilder.create(BiomeMakeover.ID("mushroom_house"), MUSHROOM_HOUSE)
-				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
-				.defaultConfig(11, 5, 6969)
-				.adjustsSurface()
-				.register();
 	}
 }

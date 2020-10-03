@@ -9,10 +9,12 @@
     "BiomeEffectsMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
-    "HoeItemMixin"
+    "HoeItemMixin",
+    "MooshroomEntityMixin"
   ],
   "client": [
-    "client.CreativeInventoryScreenMixin"
+    "client.CreativeInventoryScreenMixin",
+    "client.BatEntityModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
