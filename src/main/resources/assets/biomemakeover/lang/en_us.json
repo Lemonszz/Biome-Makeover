@@ -41,8 +41,22 @@
   "block.biomemakeover.tall_brown_mushroom" : "Tall Brown Mushroom",
   "block.biomemakeover.tall_red_mushroom" : "Tall Red Mushroom",
   "block.biomemakeover.potted_mycelium_roots" : "Potted Mycelium Roots",
+  "block.biomemakeover.potted_purple_glowshroom" : "Potted Purple Glowshroom",
+  "block.biomemakeover.potted_green_glowshroom" : "Potted Green Glowshroom",
+  "block.biomemakeover.potted_orange_glowshroom" : "Potted Orange Glowshroom",
+  "block.biomemakeover.potted_blighted_balsa_sapling" : "Potted Blighted Balsa Sapling",
   "block.biomemakeover.mycelium_roots" : "Mycelium Roots",
+  "block.biomemakeover.blighted_balsa_log" : "Blighted Balsa Log",
+  "block.biomemakeover.stripped_blighted_balsa_log" : "Stripped Blighted Balsa Log",
+  "block.biomemakeover.blighted_balsa_planks" : "Blighted Balsa Planks",
+  "block.biomemakeover.blighted_balsa_leaves" : "Blighted Balsa Leaves",
+  "block.biomemakeover.blighted_balsa_sapling" : "Blighted Balsa Sapling",
   "item.biomemakeover.button_mushrooms_music_disk" : "Music Disk",
   "item.biomemakeover.glowshroom_stew" : "Glowshroom Stew",
-  "item.biomemakeover.button_mushrooms_music_disk.desc" : "Podington Bear - Button Mushrooms"
+  "item.biomemakeover.glowfish_bucket" : "Bucket of Glowfish",
+  "item.biomemakeover.glowfish" : "Glowfish",
+  "item.biomemakeover.button_mushrooms_music_disk.desc" : "Podington Bear - Button Mushrooms",
+  "entity.biomemakeover.blightbat" : "Blightbat",
+  "entity.biomemakeover.glowfish" : "Glowfish",
+  "entity.biomemakeover.mushroom_trader" : "Mushroom Trader"
 }

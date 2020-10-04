@@ -23,7 +23,7 @@ public class MushroomVillagerFeatureRenderer<T extends MushroomVillagerEntity> e
 	public void render(MatrixStack ms, VertexConsumerProvider vcp, int i, T e, float f, float g, float h, float j, float k, float l) {
 		if (!e.isBaby() && !e.isInvisible()) {
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-			BlockState shroom = BMBlocks.PURPLE_GLOWSHROOM.getDefaultState();
+			BlockState shroom = BMBlocks.GREEN_GLOWSHROOM.getDefaultState();
 			int m = LivingEntityRenderer.getOverlay(e, 0.0F);
 
 			ms.push();

@@ -1,25 +1,34 @@
 package party.lemons.biomemakeover.init;
 
-import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
+import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
+import net.minecraft.world.gen.foliage.BushFoliagePlacer;
+import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.PineFoliagePlacer;
 import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import party.lemons.biomemakeover.BiomeMakeover;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
+import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
 import party.lemons.biomemakeover.world.feature.*;
 import party.lemons.biomemakeover.world.feature.config.GrassPatchFeatureConfig;
+import party.lemons.biomemakeover.world.feature.foliage.BalsaTrunkPlacer;
+import party.lemons.biomemakeover.world.feature.foliage.BaslaFoliagePlacer;
+
+import java.util.OptionalInt;
 
 public class BMWorldGen
 {
@@ -44,6 +53,11 @@ public class BMWorldGen
 	public static final HugeOrangeGlowshroomFeature HUGE_ORANGE_GLOWSHROOM_FEATURE = new HugeOrangeGlowshroomFeature(HugeMushroomFeatureConfig.CODEC);
 	public static final GrassPatchFeature UNDERGROUND_MYCELIUM = new GrassPatchFeature(GrassPatchFeatureConfig.CODEC);
 	public static final OrangeMushroomFeature ORANGE_MUSHROOM_FEATURE = new OrangeMushroomFeature(ProbabilityConfig.CODEC);
+
+	//Tree
+	public static final TrunkPlacerType<BalsaTrunkPlacer> BLIGHTED_BALDA_TRUNK = new TrunkPlacerType<>(BalsaTrunkPlacer.CODEC);
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> BLIGHTED_BALSA = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BLIGHTED_BALSA_LOG.getDefaultState()), new SimpleBlockStateProvider(BMBlocks.BLIGHTED_BALSA_LEAVES.getDefaultState()), new PineFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), UniformIntDistribution.of(3, 1)), new BalsaTrunkPlacer(4, 6, 8), new ThreeLayersFeatureSize(1, 1, 0, 1, 2,OptionalInt.empty()))).ignoreVines().build());
+	public static final ConfiguredFeature<?, ?> BLIGHTED_BALSA_TREES = BLIGHTED_BALSA.applyChance(15);
 
 	//Conf Features
 	//2 tall Shrooms patch
@@ -86,6 +100,7 @@ public class BMWorldGen
 		RegistryHelper.register(Registry.CARVER, Carver.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeature.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_CARVER, ConfiguredCarver.class, BMWorldGen.class);
+		RegistryHelper.register(Registry.TRUNK_PLACER_TYPE, TrunkPlacerType.class, BMWorldGen.class);
 
 	}
 }

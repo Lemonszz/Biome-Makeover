@@ -10,11 +10,14 @@
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
     "HoeItemMixin",
-    "MooshroomEntityMixin"
+    "MooshroomEntityMixin",
+    "AxeItemMixin",
+    "PlantBlockMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
-    "client.BatEntityModelMixin"
+    "client.BatEntityModelMixin",
+    "client.SalmonEntityModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,14 +2,18 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.BlockWithItem;
 import party.lemons.biomemakeover.util.DecorationBlockInfo;
 import party.lemons.biomemakeover.util.RegistryHelper;
+import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 
 public class BMBlocks
 {
@@ -23,13 +27,15 @@ public class BMBlocks
 
     public static final MushroomSproutsBlock MYCELIUM_SPROUTS = new MushroomSproutsBlock(settings(Material.field_26708, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final MushroomRootsBlock MYCELIUM_ROOTS = new MushroomRootsBlock(settings(Material.field_26708, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.ROOTS));
-	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
-	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
-	public static final FlowerPotBlock POTTED_GREEN_GLOWSHROOM = new FlowerPotBlock(GREEN_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
-	public static final FlowerPotBlock POTTED_ORANGE_GLOWSHROOM = new FlowerPotBlock(ORANGE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 
 	public static final BMTallMushroomBlock TALL_BROWN_MUSHROOM = new BMTallMushroomBlock(Blocks.BROWN_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
     public static final BMTallMushroomBlock TALL_RED_MUSHROOM = new BMTallMushroomBlock(Blocks.RED_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
+
+    public static final BMPillarBlock BLIGHTED_BALSA_LOG = new BMPillarBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMBlock BLIGHTED_BALSA_PLANKS = new BMBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMPillarBlock STRIPPED_BLIGHTED_BALSA_LOG = new BMPillarBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMLeavesBlock BLIGHTED_BALSA_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+	public static final BMSaplingBlock BLIGHTED_BALSA_SAPLING = new BMSaplingBlock(new BalsaSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
     public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
     public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
@@ -46,6 +52,13 @@ public class BMBlocks
 	public static final DecorationBlockInfo GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS)).all();
 	public static final BMBlock MUSHROOM_STEM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
 	public static final DecorationBlockInfo MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("mushroom_stem_brick", MUSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+
+	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
+	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
+	public static final FlowerPotBlock POTTED_GREEN_GLOWSHROOM = new FlowerPotBlock(GREEN_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
+	public static final FlowerPotBlock POTTED_ORANGE_GLOWSHROOM = new FlowerPotBlock(ORANGE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
+	public static final FlowerPotBlock POTTED_BLIGHTED_BALSA_SAPLING = new FlowerPotBlock(BLIGHTED_BALSA_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
+
 
 	public static void init()
     {
@@ -74,4 +87,15 @@ public class BMBlocks
     {
         return FabricBlockSettings.of(material).hardness(hardness).resistance(hardness);
     }
+
+	public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+		return type == EntityType.OCELOT || type == EntityType.PARROT;
+	}
+
+	public static Boolean never(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+		return false;
+	}
+	public static Boolean always(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+		return true;
+	}
 }

@@ -5,8 +5,10 @@ import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.feature.VillagerHeldItemFeatureRenderer;
 import net.minecraft.client.render.entity.model.VillagerResemblingModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.passive.SalmonEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.entity.MushroomVillagerEntity;
 import party.lemons.biomemakeover.entity.render.feature.MushroomVillagerFeatureRenderer;
 
@@ -19,6 +21,12 @@ public class MushroomVillagerRender extends MobEntityRenderer<MushroomVillagerEn
 		this.addFeature(new HeadFeatureRenderer(this));
 		this.addFeature(new VillagerHeldItemFeatureRenderer(this));
 		this.addFeature(new MushroomVillagerFeatureRenderer(this));
+	}
+
+	@Override
+	protected int getBlockLight(MushroomVillagerEntity entity, BlockPos blockPos)
+	{
+		return 15;
 	}
 
 	public Identifier getTexture(MushroomVillagerEntity wanderingTraderEntity) {
