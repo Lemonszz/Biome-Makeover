@@ -12,7 +12,8 @@
     "HoeItemMixin",
     "MooshroomEntityMixin",
     "AxeItemMixin",
-    "PlantBlockMixin"
+    "PlantBlockMixin",
+    "SpawnRestrictionMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
