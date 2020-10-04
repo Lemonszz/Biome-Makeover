@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -28,6 +29,20 @@ public class BMItems
 	public static void init()
 	{
 		RegistryHelper.register(Registry.ITEM, Item.class, BMItems.class);
+
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.PURPLE_GLOWSHROOM, 0.70F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ORANGE_GLOWSHROOM, 0.70F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM, 0.70F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_SAPLING, 0.4F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.PURPLE_GLOWSHROOM_BLOCK, 0.9F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM_BLOCK, 0.9F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ORANGE_GLOWSHROOM_BLOCK, 0.9F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GLOWSHROOM_STEM, 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.MYCELIUM_ROOTS, 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.MYCELIUM_SPROUTS, 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_BROWN_MUSHROOM, 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_RED_MUSHROOM, 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_LEAVES, 0.3F);
 	}
 
 	public static Item.Settings settings()
