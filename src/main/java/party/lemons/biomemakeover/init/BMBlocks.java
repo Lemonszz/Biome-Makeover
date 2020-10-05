@@ -36,6 +36,13 @@ public class BMBlocks
 	public static final BMPillarBlock STRIPPED_BLIGHTED_BALSA_LOG = new BMPillarBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
 	public static final BMLeavesBlock BLIGHTED_BALSA_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
 	public static final BMSaplingBlock BLIGHTED_BALSA_SAPLING = new BMSaplingBlock(new BalsaSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMPressurePlateBlock BLIGHTED_BALSA_PRESSURE_PLATE = new BMPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, settings(Material.WOOD, 0.5F).noCollision().sounds(BlockSoundGroup.WOOD));
+	public static final BMFenceBlock BLIGHTED_BALSA_FENCE = new BMFenceBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMFenceGate BLIGHTED_BALSA_FENCE_GATE = new BMFenceGate(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMButtonBlock BLIGHTED_BALSA_BUTTON = new BMButtonBlock(settings(Material.SUPPORTED, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMTrapdoorBlock BLIGHTED_BALSA_TRAPDOOR = new BMTrapdoorBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final BMDoorBlock BLIGHTED_BALSA_DOOR = new BMDoorBlock(settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD));
+	public static final DecorationBlockInfo BLIGHTED_BALSA_DECORATION = new DecorationBlockInfo("blighted_balsa", BLIGHTED_BALSA_PLANKS, settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).slab().stair();
 
     public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
     public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
@@ -74,6 +81,7 @@ public class BMBlocks
             Registry.register(Registry.ITEM, id, info.makeItem());
         });
 
+        BLIGHTED_BALSA_DECORATION.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
         PURPLE_GLOWSROOM_BRICK_DECORATION.register();
