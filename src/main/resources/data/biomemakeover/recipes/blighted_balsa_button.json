@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:blighted_balsa_planks"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:blighted_balsa_button",
+    "count": 1
+  }
+}
