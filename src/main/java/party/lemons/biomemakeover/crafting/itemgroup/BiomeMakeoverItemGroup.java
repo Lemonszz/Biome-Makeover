@@ -23,6 +23,6 @@ public class BiomeMakeoverItemGroup extends TabbedItemGroup
 	@Override
 	public ItemStack createIcon()
 	{
-		return new ItemStack(BMBlocks.MYCELIUM_ROOTS);
+		return new ItemStack(BMItems.ICON_ITEM);
 	}
 }

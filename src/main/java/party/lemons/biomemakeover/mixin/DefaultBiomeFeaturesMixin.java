@@ -23,7 +23,6 @@ public class DefaultBiomeFeaturesMixin
 		builder.carver(GenerationStep.Carver.AIR, BMWorldGen.LARGE_CAVE_CONFIGURED_CARVER);
 		builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, BMWorldGen.MYCELIUM_PATCH);
 
-
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.BLIGHTED_BALSA_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_UNDERGROUND);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BMWorldGen.MUSHROOM_FIELD_ROOTS_UNDERGROUND);
