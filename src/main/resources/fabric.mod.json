@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "biomemakeover",
   "version": "${version}",
-
   "name": "Biome Makeover",
   "description": "Biome Makeover is a mod designed to modernise vanilla's biomes.",
   "authors": [
@@ -28,7 +27,6 @@
   "mixins": [
     "biomemakeover.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
