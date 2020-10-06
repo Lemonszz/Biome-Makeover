@@ -4,10 +4,15 @@
   "version": "${version}",
 
   "name": "Biome Makeover",
-  "description": "",
+  "description": "Biome Makeover is a mod designed to modernise vanilla's biomes.",
   "authors": [
-    "Lemons"
+    "LASER KNIGHTS"
   ],
+  "contact": {
+    "issues": "https://github.com/Lemonszz/Biome-Makeover/issues",
+    "sources": "https://github.com/Lemonszz/Biome-Makeover/",
+    "homepage": "httpsL//youtube.com/LASERKNIGHTS"
+  },
   "license": "MIT",
   "icon": "assets/biomemakeover/icon.png",
   "accessWidener" : "biomemakeover.accesswidener",
