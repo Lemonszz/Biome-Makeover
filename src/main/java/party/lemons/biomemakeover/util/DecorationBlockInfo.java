@@ -89,7 +89,7 @@ public class DecorationBlockInfo
 		void onCreateBlock(Block block);
 	}
 
-	enum Type
+	public enum Type
 	{
 		SLAB("slab"),
 		STAIR("stairs"),

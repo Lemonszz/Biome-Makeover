@@ -13,6 +13,7 @@ import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.BlockWithItem;
 import party.lemons.biomemakeover.util.DecorationBlockInfo;
 import party.lemons.biomemakeover.util.RegistryHelper;
+import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 
 public class BMBlocks
@@ -59,6 +60,11 @@ public class BMBlocks
 	public static final DecorationBlockInfo GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS)).all();
 	public static final BMBlock MUSHROOM_STEM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
 	public static final DecorationBlockInfo MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("mushroom_stem_brick", MUSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock BLIGHTED_COBBLESTONE = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).requiresTool());
+	public static final DecorationBlockInfo BLIGHTED_COBBLESTONE_DECORATION = new DecorationBlockInfo("blighted_cobblestone", BLIGHTED_COBBLESTONE, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	public static final BMBlock BLIGHTED_STONE_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).requiresTool());
+	public static final DecorationBlockInfo BLIGHTED_STONE_BRICKS_DECORATION = new DecorationBlockInfo("blighted_stone_bricks", BLIGHTED_STONE_BRICKS, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -89,6 +95,17 @@ public class BMBlocks
         ORANGE_GLOWSROOM_BRICK_DECORATION.register();
         GLOWSHROOM_STEM_BRICK_DECORATION.register();
         MUSHROOM_STEM_BRICK_DECORATION.register();
+        BLIGHTED_COBBLESTONE_DECORATION.register();
+        BLIGHTED_STONE_BRICKS_DECORATION.register();
+
+        registerFlammable(BLIGHTED_BALSA_PLANKS, 5, 20);
+        registerFlammable(BLIGHTED_BALSA_LOG, 5, 5);
+        registerFlammable(STRIPPED_BLIGHTED_BALSA_LOG, 5, 5);
+        registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
+        registerFlammable(BLIGHTED_BALSA_FENCE, 5, 20);
+        registerFlammable(BLIGHTED_BALSA_FENCE_GATE, 5, 20);
+        registerFlammable(BLIGHTED_BALSA_DECORATION.get(DecorationBlockInfo.Type.STAIR), 5, 20);
+        registerFlammable(BLIGHTED_BALSA_DECORATION.get(DecorationBlockInfo.Type.SLAB), 5, 20);
     }
 
     public static FabricBlockSettings settings(Material material, float hardness)
@@ -98,6 +115,11 @@ public class BMBlocks
 
 	public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
 		return type == EntityType.OCELOT || type == EntityType.PARROT;
+	}
+
+	public static void registerFlammable(Block block, int burnChance, int spreadChance)
+	{
+		((FireBlockAccessor)Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
 	}
 
 	public static Boolean never(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {

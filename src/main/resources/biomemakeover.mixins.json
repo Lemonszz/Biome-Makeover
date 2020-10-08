@@ -13,7 +13,8 @@
     "MooshroomEntityMixin",
     "AxeItemMixin",
     "PlantBlockMixin",
-    "SpawnRestrictionMixin"
+    "SpawnRestrictionMixin",
+    "FireBlockMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

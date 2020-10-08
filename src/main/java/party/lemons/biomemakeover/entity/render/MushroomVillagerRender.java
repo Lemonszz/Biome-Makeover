@@ -9,12 +9,13 @@ import net.minecraft.entity.passive.SalmonEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.MushroomVillagerEntity;
 import party.lemons.biomemakeover.entity.render.feature.MushroomVillagerFeatureRenderer;
 
 public class MushroomVillagerRender extends MobEntityRenderer<MushroomVillagerEntity, VillagerResemblingModel<MushroomVillagerEntity>>
 {
-	private static final Identifier TEXTURE = new Identifier("textures/entity/wandering_trader.png");
+	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/mushroom_trader.png");
 
 	public MushroomVillagerRender(EntityRenderDispatcher entityRenderDispatcher) {
 		super(entityRenderDispatcher, new VillagerResemblingModel(0.0F), 0.5F);

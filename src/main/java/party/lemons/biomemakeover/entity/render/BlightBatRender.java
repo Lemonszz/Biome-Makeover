@@ -11,11 +11,12 @@ import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.BlightbatEntity;
 import party.lemons.biomemakeover.entity.render.feature.BlightbatFeatureRenderer;
 
 public class BlightBatRender extends MobEntityRenderer<BatEntity, EntityModel<BatEntity>> {
-    private static final Identifier TEXTURE = new Identifier("textures/entity/bat.png");
+    private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/glowbat.png");
 
     public BlightBatRender(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new BatEntityModel(), 0.25F);
