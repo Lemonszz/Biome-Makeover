@@ -13,7 +13,7 @@
     "homepage": "httpsL//youtube.com/LASERKNIGHTS"
   },
   "license": "MIT",
-  "icon": "assets/biomemakeover/icon.png",
+  "icon": "assets/biomemakeover/logo.png",
   "accessWidener" : "biomemakeover.accesswidener",
   "environment": "*",
   "entrypoints": {
