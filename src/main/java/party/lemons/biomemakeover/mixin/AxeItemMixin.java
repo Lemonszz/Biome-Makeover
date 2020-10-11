@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.util.WoodTypeInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class AxeItemMixin
 	private static void onInit(CallbackInfo cbi)
 	{
 		STRIPPED_BLOCKS = new HashMap<>(STRIPPED_BLOCKS);
-		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_LOG, BMBlocks.STRIPPED_BLIGHTED_BALSA_LOG);
+		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STRIPPED_LOG));
+		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.WOOD), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STRIPPED_WOOD));
 	}
 }

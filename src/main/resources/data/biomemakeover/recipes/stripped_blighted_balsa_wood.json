@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:stripped_blighted_balsa_log"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:stripped_blighted_balsa_wood",
+    "count": 4
+  }
+}
