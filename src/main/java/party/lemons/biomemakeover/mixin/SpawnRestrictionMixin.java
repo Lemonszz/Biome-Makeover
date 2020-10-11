@@ -22,6 +22,6 @@ public class SpawnRestrictionMixin
 	@Inject(at = @At("TAIL"), method = "<clinit>")
 	private static void onInit(CallbackInfo cbi)
 	{
-		RESTRICTIONS.put(BMEntities.GLOWFISH, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.IN_WATER, (e, world, spawnReason, pos, b)->world.getBlockState(pos).isOf(Blocks.WATER) && world.getBlockState(pos.up()).isOf(Blocks.WATER)));
+		BMEntities.registerSpawnRestrictions(RESTRICTIONS);
 	}
 }
