@@ -68,6 +68,8 @@
     "biomemakeover:cooked_glowfish",
     "biomemakeover:glowfish_spawn_egg",
     "biomemakeover:blightbat_spawn_egg",
-    "biomemakeover:mushroom_trader_spawn_egg"
+    "biomemakeover:mushroom_trader_spawn_egg",
+    "biomemakeover:blighted_balsa_wood",
+    "biomemakeover:stripped_blighted_balsa_wood"
   ]
 }
