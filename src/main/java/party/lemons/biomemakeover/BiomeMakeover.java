@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -9,6 +10,7 @@ import net.minecraft.world.biome.BuiltinBiomes;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.access.BiomeEffectsAccessor;
+import party.lemons.biomemakeover.world.WindSystem;
 
 public class BiomeMakeover implements ModInitializer
 {
@@ -25,6 +27,8 @@ public class BiomeMakeover implements ModInitializer
 		BMEntities.init();
 		BMBlocks.init();
 		BMItems.init();
+
+		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
 
 		//TOOD: Move
 		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELDS), 0xad3fe4);

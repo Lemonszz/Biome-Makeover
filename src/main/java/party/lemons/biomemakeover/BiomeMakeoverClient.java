@@ -7,6 +7,7 @@ import net.minecraft.client.render.RenderLayer;
 import party.lemons.biomemakeover.entity.render.BlightBatRender;
 import party.lemons.biomemakeover.entity.render.GlowfishRender;
 import party.lemons.biomemakeover.entity.render.MushroomVillagerRender;
+import party.lemons.biomemakeover.entity.render.TumbleweedRender;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMNetwork;
@@ -19,6 +20,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.MUSHROOM_TRADER, (r, c)->new MushroomVillagerRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.BLIGHTBAT, (r, c)->new BlightBatRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GLOWFISH, (r, c)->new GlowfishRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.TUMBLEWEED, (r, c)->new TumbleweedRender(r));
 
 		BMNetwork.initClient();
 
@@ -36,7 +38,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.PURPLE_GLOWSHROOM,
 				BMBlocks.GREEN_GLOWSHROOM,
 				BMBlocks.ORANGE_GLOWSHROOM,
-				BMBlocks.BLIGHTED_BALSA_SAPLING
+				BMBlocks.BLIGHTED_BALSA_SAPLING,
+				BMBlocks.TUMBLEWEED
 		);
 	}
 }

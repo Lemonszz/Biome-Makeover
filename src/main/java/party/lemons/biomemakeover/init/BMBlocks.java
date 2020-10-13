@@ -55,6 +55,7 @@ public class BMBlocks
 	public static final BMBlock BLIGHTED_STONE_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).requiresTool());
 	public static final DecorationBlockInfo BLIGHTED_STONE_BRICKS_DECORATION = new DecorationBlockInfo("blighted_stone_bricks", BLIGHTED_STONE_BRICKS, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 
+	public static final BMBlock TUMBLEWEED = new BMBlock(settings(Material.PLANT, 0));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
