@@ -5,6 +5,7 @@ import net.minecraft.entity.MovementType;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -22,6 +23,7 @@ public class TumbleweedEntity extends Entity
 	private double disX = 0;
 	private double disZ = 0;
 	private float windOffset = 0;
+	private float acceleration = 0.0025F;
 
 	public TumbleweedEntity(World world)
 	{
@@ -60,14 +62,20 @@ public class TumbleweedEntity extends Entity
 
 		if(!world.isClient())
 		{
-			vX = WindSystem.windX * windOffset;
+			vX = step(getVelocity().getX(), (WindSystem.windX * windOffset), acceleration);
+			vZ = step(getVelocity().getZ(), (WindSystem.windZ * windOffset), acceleration);
 			vY = getVelocity().getY();
-			vZ = WindSystem.windZ * windOffset;
 
 			if(onGround)
 			{
-				vY = Math.abs(prevVelocity.y) * 0.75D;
-				if(vY < 0.1F) vY = 0.4F;
+				vY = MathHelper.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
+			}
+
+			if(isTouchingWater())
+			{
+				vX *= 0.75F;
+				vZ *= 0.75F;
+				vY = 0.1F;
 			}
 		}
 		else
@@ -122,6 +130,13 @@ public class TumbleweedEntity extends Entity
 		return true;
 	}
 
+	private double step(double val, double target, double step)
+	{
+		if(val < target)
+			return Math.min(val + step, target);
+		else
+			return Math.max(val - step, target);
+	}
 
 	@Override
 	public Packet<?> createSpawnPacket()
