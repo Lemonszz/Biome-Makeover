@@ -10,12 +10,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 
 @Mixin(DefaultBiomeFeatures.class)
 public class DefaultBiomeFeaturesMixin
 {
-	@Inject(at= @At("HEAD"), method = "addMushroomFieldsFeatures")
+	@Inject(at = @At("HEAD"), method = "addMushroomFieldsFeatures")
 	private static void addToMushroomFields(GenerationSettings.Builder builder, CallbackInfo cbi)
 	{
 		builder.carver(GenerationStep.Carver.AIR, BMWorldGen.LARGE_CAVE_CONFIGURED_CARVER);
@@ -41,5 +42,12 @@ public class DefaultBiomeFeaturesMixin
 		builder.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(BMEntities.MUSHROOM_TRADER, 1, 1, 1));
 		builder.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(BMEntities.BLIGHTBAT, 5, 1, 1));
 		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(BMEntities.GLOWFISH, 7, 2, 7));
+	}
+
+	@Inject(at = @At("HEAD"), method = "addBadlandsUndergroundStructures")
+	private static void addBadlandsUndergroundStructures(GenerationSettings.Builder builder, CallbackInfo cbi)
+	{
+		builder.structureFeature(BMStructures.GHOST_TOWN_CONFIGURED);
+		builder.feature(GenerationStep.Feature.SURFACE_STRUCTURES, BMWorldGen.SURFACE_FOSSIL);
 	}
 }

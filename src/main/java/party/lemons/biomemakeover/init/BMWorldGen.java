@@ -60,6 +60,10 @@ public class BMWorldGen
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> BLIGHTED_BALSA = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.BLIGHTED_BALSA_LEAVES.getDefaultState()), new PineFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), UniformIntDistribution.of(3, 1)), new BalsaTrunkPlacer(4, 6, 8), new ThreeLayersFeatureSize(1, 1, 0, 1, 2,OptionalInt.empty()))).ignoreVines().build());
 	public static final ConfiguredFeature<?, ?> BLIGHTED_BALSA_TREES = BLIGHTED_BALSA.applyChance(15);
 
+	//Badlands
+	public static final SurfaceFossilFeature SURFACE_FOSSIL_FEATURE = new SurfaceFossilFeature(DefaultFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?,?> SURFACE_FOSSIL = SURFACE_FOSSIL_FEATURE.configure(DefaultFeatureConfig.DEFAULT).applyChance(100);
+
 	//Conf Features
 	//2 tall Shrooms patch
 	public static final ConfiguredFeature<?,?> TALL_RED_MUSHROOM_PATCH = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.TALL_RED_MUSHROOM.getDefaultState()), new DoublePlantPlacer())).tries(64).cannotProject().build());
@@ -102,6 +106,5 @@ public class BMWorldGen
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeature.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_CARVER, ConfiguredCarver.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.TRUNK_PLACER_TYPE, TrunkPlacerType.class, BMWorldGen.class);
-
 	}
 }
