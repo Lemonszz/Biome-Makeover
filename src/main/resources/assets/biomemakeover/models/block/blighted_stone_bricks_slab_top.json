@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/slab",
+  "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "biomemakeover:block/blighted_stone_bricks",
     "top": "biomemakeover:block/blighted_stone_bricks",
