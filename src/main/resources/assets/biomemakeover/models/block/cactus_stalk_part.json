@@ -1,8 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "biomemakeover:block/arm_cactus",
-		"1": "biomemakeover:block/arm_cactus_2",
+		"1": "biomemakeover:block/arm_cactus",
 		"particle": "biomemakeover:block/arm_cactus"
 	},
 	"elements": [
@@ -12,11 +11,11 @@
 			"rotation": {"angle": 0, "axis": "y", "origin": [12, 16, 8]},
 			"faces": {
 				"north": {"uv": [4, 8, 12, 16], "texture": "#1"},
-				"east": {"uv": [5, 3, 10, 11], "rotation": 180, "texture": "#1"},
+				"east": {"uv": [4, 3, 12.02, 7], "rotation": 270, "texture": "#1"},
 				"south": {"uv": [4, 2, 12, 10], "texture": "#1"},
-				"west": {"uv": [5, 2, 10, 10], "texture": "#1"},
+				"west": {"uv": [4, 12, 12.02, 16], "rotation": 270, "texture": "#1"},
 				"up": {"uv": [4, 3, 12, 8], "texture": "#1"},
-				"down": {"uv": [4, 3, 12, 8], "texture": "#1"}
+				"down": {"uv": [4, 6, 12.02, 10], "texture": "#1"}
 			}
 		}
 	]

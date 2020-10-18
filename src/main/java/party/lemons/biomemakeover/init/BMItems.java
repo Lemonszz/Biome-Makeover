@@ -59,4 +59,5 @@ public class BMItems
 	}
 
 	public static final Tag<Item> MUSHROOM_FIELDS = TagRegistry.item(BiomeMakeover.ID("mushroom_fields"));
+	public static final Tag<Item> BADLANDS = TagRegistry.item(BiomeMakeover.ID("badlands"));
 }

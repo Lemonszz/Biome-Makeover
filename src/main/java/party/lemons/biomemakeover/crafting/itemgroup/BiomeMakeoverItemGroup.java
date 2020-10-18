@@ -18,6 +18,7 @@ public class BiomeMakeoverItemGroup extends TabbedItemGroup
 	public void initTabs(List<ItemTab> tabs)
 	{
 		tabs.add(new ItemTab(new ItemStack(BMBlocks.TALL_RED_MUSHROOM), "mushroom_fields", BMItems.MUSHROOM_FIELDS));
+		tabs.add(new ItemTab(new ItemStack(BMBlocks.SAGUARO_CACTUS), "badlands", BMItems.BADLANDS));
 	}
 
 	@Override

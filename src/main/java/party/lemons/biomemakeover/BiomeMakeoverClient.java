@@ -40,7 +40,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.ORANGE_GLOWSHROOM,
 				BMBlocks.BLIGHTED_BALSA_SAPLING,
 				BMBlocks.TUMBLEWEED,
-				BMBlocks.ARM_CACTUS
+				BMBlocks.SAGUARO_CACTUS
 		);
 	}
 }

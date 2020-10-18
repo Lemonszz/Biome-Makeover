@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "biomemakeover:block/blue_terracotta_brick",
+    "top": "biomemakeover:block/blue_terracotta_brick",
+    "side": "biomemakeover:block/blue_terracotta_brick"
+  }
+}

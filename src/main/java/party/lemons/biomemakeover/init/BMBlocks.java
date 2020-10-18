@@ -3,10 +3,14 @@ package party.lemons.biomemakeover.init;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.BlockWithItem;
 import party.lemons.biomemakeover.util.DecorationBlockInfo;
@@ -57,8 +61,7 @@ public class BMBlocks
 
 	public static final BMBlock TUMBLEWEED = new BMBlock(settings(Material.PLANT, 0));
 
-	public static final ArmCactusBlock ARM_CACTUS = new ArmCactusBlock(settings(Material.CACTUS, 0.4F));
-
+	public static final SaguaroCactusBlock SAGUARO_CACTUS = new SaguaroCactusBlock(settings(Material.CACTUS, 0.4F).sounds(BlockSoundGroup.WOOL).ticksRandomly());
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_GREEN_GLOWSHROOM = new FlowerPotBlock(GREEN_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -90,6 +93,25 @@ public class BMBlocks
         MUSHROOM_STEM_BRICK_DECORATION.register();
         BLIGHTED_COBBLESTONE_DECORATION.register();
         BLIGHTED_STONE_BRICKS_DECORATION.register();
+
+	    BMBlock terracorra_bricks = new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE));
+	    Registry.register(Registry.BLOCK, BiomeMakeover.ID("terracotta_bricks"), terracorra_bricks);
+	    BlockItem tbItem = new BlockItem(terracorra_bricks, BMItems.settings());
+	    Registry.register(Registry.ITEM, BiomeMakeover.ID("terracotta_bricks"), tbItem);
+	    DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracorra_bricks, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	    terracottaBrick.register();
+
+        for(DyeColor dye : DyeColor.values())
+        {
+			BMBlock bl = new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE));
+			Registry.register(Registry.BLOCK, BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"), bl);
+
+	        BlockItem it = new BlockItem(bl, BMItems.settings());
+	        Registry.register(Registry.ITEM, BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"), it);
+
+	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", bl, settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+            dec.register();
+        }
 
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.PLANK), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG), 5, 5);
