@@ -3,13 +3,16 @@ package party.lemons.biomemakeover.world.feature;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.structure.pool.StructurePools;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
-import net.minecraft.structure.processor.StructureProcessorLists;
+import net.minecraft.structure.processor.*;
+import net.minecraft.structure.rule.AlwaysTrueRuleTest;
+import net.minecraft.structure.rule.BlockMatchRuleTest;
+import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -26,27 +29,43 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMStructures;
+import party.lemons.biomemakeover.util.JigsawHelper;
 
 import java.util.List;
 import java.util.Random;
 
 public class GhostTownFeature extends JigsawFeature
 {
-	private static final StructurePool POOL = StructurePools.register(new StructurePool(BiomeMakeover.ID("ghost_town/centers"), new Identifier("empty"), ImmutableList.of(Pair.of(StructurePoolElement.method_30426("biomemakeover:ghost_town/centers/crossroads", StructureProcessorLists.STREET_PLAINS), 50)), StructurePool.Projection.RIGID));
+	public static final StructureProcessorList ROADS_PROCESSOR = JigsawHelper.register(
+			new StructureProcessorList(ImmutableList.of(new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new BlockMatchRuleTest(Blocks.GRASS_PATH), new BlockMatchRuleTest(Blocks.WATER), Blocks.OAK_PLANKS.getDefaultState()), new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.GRASS_PATH, 0.1F), AlwaysTrueRuleTest.INSTANCE, Blocks.RED_SAND.getDefaultState()), new StructureProcessorRule(new BlockMatchRuleTest(Blocks.RED_SAND), new BlockMatchRuleTest(Blocks.WATER), Blocks.WATER.getDefaultState()), new StructureProcessorRule(new BlockMatchRuleTest(Blocks.DIRT), new BlockMatchRuleTest(Blocks.WATER), Blocks.WATER.getDefaultState())))))
+			, "roads_ghosttown");
 
-	public static final StructurePoolFeatureConfig CONFIG = new StructurePoolFeatureConfig(()->POOL, 6);
+	static
+	{
+		StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/roads"), new Identifier("village/plains/terminators"), ImmutableList.of(
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 10),
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_02", ROADS_PROCESSOR), 20),
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_03", ROADS_PROCESSOR), 5)
+		), StructurePool.Projection.RIGID));
+		StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/buildings"), new Identifier("village/plains/terminators"), ImmutableList.of(Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_small_01", ROADS_PROCESSOR), 2), Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_medium_01", ROADS_PROCESSOR), 2), Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_01", ROADS_PROCESSOR), 2)), StructurePool.Projection.RIGID));
+	}
+
+	private static final StructurePool POOL = StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/centers"), new Identifier("empty"), ImmutableList.of(Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/centers/crossroads_01", ROADS_PROCESSOR), 1), Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 1)), StructurePool.Projection.RIGID));
+
+
+	public static final StructurePoolFeatureConfig CONFIG = new StructurePoolFeatureConfig(()->POOL, 2);
 
 	public GhostTownFeature(Codec<StructurePoolFeatureConfig> codec)
 	{
 		super(codec, 0, true, true);
 	}
 
-	private static final Identifier CROSSROADS = BiomeMakeover.ID("ghost_town/crossroads");
+	//private static final Identifier CROSSROADS = BiomeMakeover.ID("ghosttown/crossroads");
 
-	public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation, List<StructurePiece> pieces)
+/*	public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation, List<StructurePiece> pieces)
 	{
 		pieces.add(new GhostTownPiece(manager, pos, CROSSROADS, rotation));
-	}
+	}*/
 
 	public static class GhostTownPiece extends SimpleStructurePiece
 	{
@@ -97,6 +116,7 @@ public class GhostTownFeature extends JigsawFeature
 		}
 	}
 
+	/*
 	private static class Start extends StructureStart<DefaultFeatureConfig>
 	{
 		public Start(StructureFeature<DefaultFeatureConfig> feature, int chunkX, int chunkZ, BlockBox box, int references, long seed)
@@ -118,5 +138,5 @@ public class GhostTownFeature extends JigsawFeature
 			setBoundingBoxFromChildren();
 
 		}
-	}
+	}*/
 }

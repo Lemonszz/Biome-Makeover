@@ -82,7 +82,9 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 
 		if(( !isBig && random.nextInt(10) == 0) || (isBig && random.nextInt(50) == 0))
 		{
-			generateCactus(world, random.nextBoolean(), new BlockPos(pos.getX(), centerEndY, pos.getZ()), random, true);
+			BlockPos nextPos =  new BlockPos(pos.getX(), centerEndY, pos.getZ());
+			if(world.getBlockState(nextPos).isAir())
+				generateCactus(world, random.nextBoolean(), nextPos, random, true);
 		}
 		return true;
 	}
@@ -106,7 +108,7 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 								.with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction.getOpposite()), true), 2);
 
 		p.move(Direction.UP);
-		int amt = Math.max(1, (centerHeight - p.getY()) + RandomUtil.randomRange(-3, 2));
+		int amt = Math.max(1, (centerHeight - p.getY()) + RandomUtil.randomRange(-3, -1));
 		for(int i = 0; i < amt; i++)
 		{
 			if(!world.getBlockState(p).isAir())
