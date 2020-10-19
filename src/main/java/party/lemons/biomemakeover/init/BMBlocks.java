@@ -102,7 +102,7 @@ public class BMBlocks
         for(DyeColor dye : DyeColor.values())
         {
         	BlockItemPair brick = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"));
-	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick, settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick.getBlock(), settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
             dec.register();
         }
 
@@ -117,7 +117,6 @@ public class BMBlocks
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STAIR), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.SLAB), 5, 20);
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
-
     }
 
     public static BlockItemPair registerBlockAndItem(Block block, Identifier id)
@@ -141,12 +140,5 @@ public class BMBlocks
 	public static void registerFlammable(Block block, int burnChance, int spreadChance)
 	{
 		((FireBlockAccessor)Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
-	}
-
-	public static Boolean never(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-		return false;
-	}
-	public static Boolean always(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-		return true;
 	}
 }
