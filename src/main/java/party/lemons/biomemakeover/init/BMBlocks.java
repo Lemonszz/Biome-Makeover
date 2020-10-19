@@ -7,15 +7,14 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+import org.lwjgl.system.CallbackI;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.*;
-import party.lemons.biomemakeover.util.BlockWithItem;
-import party.lemons.biomemakeover.util.DecorationBlockInfo;
-import party.lemons.biomemakeover.util.RegistryHelper;
-import party.lemons.biomemakeover.util.WoodTypeInfo;
+import party.lemons.biomemakeover.util.*;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 
@@ -83,6 +82,7 @@ public class BMBlocks
             Registry.register(Registry.ITEM, id, info.makeItem());
         });
 
+        /* Simple decoration registers */
         BLIGHTED_BALSA_WOOD_INFO.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
@@ -94,25 +94,19 @@ public class BMBlocks
         BLIGHTED_COBBLESTONE_DECORATION.register();
         BLIGHTED_STONE_BRICKS_DECORATION.register();
 
-	    BMBlock terracorra_bricks = new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE));
-	    Registry.register(Registry.BLOCK, BiomeMakeover.ID("terracotta_bricks"), terracorra_bricks);
-	    BlockItem tbItem = new BlockItem(terracorra_bricks, BMItems.settings());
-	    Registry.register(Registry.ITEM, BiomeMakeover.ID("terracotta_bricks"), tbItem);
-	    DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracorra_bricks, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+        /* Terracotta Bricks */
+        BlockItemPair terracottaBricks = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID("terracotta_bricks"));
+	    DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracottaBricks.getBlock(), settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 	    terracottaBrick.register();
 
         for(DyeColor dye : DyeColor.values())
         {
-			BMBlock bl = new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE));
-			Registry.register(Registry.BLOCK, BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"), bl);
-
-	        BlockItem it = new BlockItem(bl, BMItems.settings());
-	        Registry.register(Registry.ITEM, BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"), it);
-
-	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", bl, settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+        	BlockItemPair brick = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"));
+	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick, settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
             dec.register();
         }
 
+        /* Flammables */
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.PLANK), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG), 5, 5);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.WOOD), 5, 5);
@@ -125,6 +119,15 @@ public class BMBlocks
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
 
     }
+
+    public static BlockItemPair registerBlockAndItem(Block block, Identifier id)
+	{
+		BlockItem bi = new BlockItem(block, BMItems.settings());
+		Registry.register(Registry.BLOCK, id, block);
+		Registry.register(Registry.ITEM, id, bi);
+
+		return BlockItemPair.of(block, bi);
+	}
 
     public static FabricBlockSettings settings(Material material, float hardness)
     {
