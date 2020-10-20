@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.init;
 
+import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,8 @@ import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.*;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
+
+import java.util.Map;
 
 public class BMBlocks
 {
@@ -95,7 +98,25 @@ public class BMBlocks
         BLIGHTED_STONE_BRICKS_DECORATION.register();
 
         /* Terracotta Bricks */
-        BlockItemPair terracottaBricks = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID("terracotta_bricks"));
+		Map<DyeColor, Block> vanillaTerracotta = Maps.newHashMap();
+		vanillaTerracotta.put(DyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.RED, Blocks.RED_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.BLUE, Blocks.BLUE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.BROWN, Blocks.BROWN_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.CYAN, Blocks.CYAN_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.GRAY, Blocks.GRAY_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.GREEN, Blocks.GREEN_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.LIME, Blocks.LIME_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.MAGENTA, Blocks.MAGENTA_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.ORANGE, Blocks.ORANGE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.PINK, Blocks.PINK_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.PURPLE, Blocks.PURPLE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.WHITE, Blocks.WHITE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
+
+		BlockItemPair terracottaBricks = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID("terracotta_bricks"));
 	    DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracottaBricks.getBlock(), settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 	    terracottaBrick.register();
 
@@ -104,6 +125,8 @@ public class BMBlocks
         	BlockItemPair brick = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"));
 	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick.getBlock(), settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
             dec.register();
+
+            BRICK_TO_TERRACOTTA.put(brick.getBlock(), vanillaTerracotta.get(dye));
         }
 
         /* Flammables */
@@ -119,12 +142,13 @@ public class BMBlocks
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
     }
 
+    public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();
+
     public static BlockItemPair registerBlockAndItem(Block block, Identifier id)
 	{
 		BlockItem bi = new BlockItem(block, BMItems.settings());
 		Registry.register(Registry.BLOCK, id, block);
 		Registry.register(Registry.ITEM, id, bi);
-
 		return BlockItemPair.of(block, bi);
 	}
 
@@ -137,8 +161,7 @@ public class BMBlocks
 		return type == EntityType.OCELOT || type == EntityType.PARROT;
 	}
 
-	public static void registerFlammable(Block block, int burnChance, int spreadChance)
-	{
-		((FireBlockAccessor)Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
+	public static void registerFlammable(Block block, int burnChance, int spreadChance) {
+		((FireBlockAccessor) Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
 	}
 }
