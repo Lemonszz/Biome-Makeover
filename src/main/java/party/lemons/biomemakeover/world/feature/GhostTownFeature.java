@@ -34,21 +34,28 @@ public class GhostTownFeature extends JigsawFeature
 									new StructureProcessorRule(new BlockMatchRuleTest(Blocks.DIRT), new BlockMatchRuleTest(Blocks.WATER), Blocks.WATER.getDefaultState())))))
 			, "roads_ghosttown");
 
-	private static final List<StructureProcessorRule> BUILDING_RULES = Lists.newArrayList();
-	static {
+	//Centers
+	private static final StructurePool POOL = StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/centers"), new Identifier("empty"), ImmutableList.of(
+			Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/centers/crossroads_01", ROADS_PROCESSOR), 1),
+			Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 1)
+	), StructurePool.Projection.RIGID));
+
+
+	public static final StructurePoolFeatureConfig CONFIG = new StructurePoolFeatureConfig(()->POOL, 3);
+
+	public static void init()
+	{
+		List<StructureProcessorRule> BUILDING_RULES = Lists.newArrayList();
 		for(Block bl : BMBlocks.BRICK_TO_TERRACOTTA.keySet())
 		{
 			BUILDING_RULES.add(new StructureProcessorRule(new RandomBlockMatchRuleTest(bl, 0.25F), AlwaysTrueRuleTest.INSTANCE, BMBlocks.BRICK_TO_TERRACOTTA.get(bl).getDefaultState()));
 		}
-	}
 
-	public static final StructureProcessorList BUILDING_PROCESSOR = JigsawHelper.register(
-			new StructureProcessorList(ImmutableList.of(
-					new RuleStructureProcessor(BUILDING_RULES))), "buildings_ghosttown");
+		StructureProcessorList BUILDING_PROCESSOR = JigsawHelper.register(
+				new StructureProcessorList(ImmutableList.of(
+						new RuleStructureProcessor(BUILDING_RULES))), "buildings_ghosttown");
 
-	//TODO: why is this in a static block? just make it a static member like center pool?
-	static
-	{
+
 		//Roads,
 		StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/roads"), new Identifier("village/plains/terminators"), ImmutableList.of(
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 1),
@@ -59,19 +66,21 @@ public class GhostTownFeature extends JigsawFeature
 		//Buildings
 		StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/buildings"), new Identifier("village/plains/terminators"), ImmutableList.of(
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_small_01", BUILDING_PROCESSOR), 2),
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_small_02", BUILDING_PROCESSOR), 2),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_medium_01", BUILDING_PROCESSOR), 2),
-				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_01", BUILDING_PROCESSOR), 2)
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_medium_02", BUILDING_PROCESSOR), 2),
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_01", BUILDING_PROCESSOR), 2),
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_02", BUILDING_PROCESSOR), 2)
+		), StructurePool.Projection.RIGID));
+
+		//Buildings
+		StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/decoration"), new Identifier("empty"), ImmutableList.of(
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/barrel_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/hay_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/lamp_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/well_decoration"), 2)
 		), StructurePool.Projection.RIGID));
 	}
-
-	//Centers
-	private static final StructurePool POOL = StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/centers"), new Identifier("empty"), ImmutableList.of(
-			Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/centers/crossroads_01", BUILDING_PROCESSOR), 1),
-			Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/roads/street_01", BUILDING_PROCESSOR), 1)
-	), StructurePool.Projection.RIGID));
-
-
-	public static final StructurePoolFeatureConfig CONFIG = new StructurePoolFeatureConfig(()->POOL, 2);
 
 	public GhostTownFeature(Codec<StructurePoolFeatureConfig> codec)
 	{

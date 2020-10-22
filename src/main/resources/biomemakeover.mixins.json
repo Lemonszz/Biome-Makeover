@@ -14,12 +14,15 @@
     "AxeItemMixin",
     "PlantBlockMixin",
     "SpawnRestrictionMixin",
-    "FireBlockMixin"
+    "FireBlockMixin",
+    "PillagerSpawnerMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
     "client.BatEntityModelMixin",
-    "client.SalmonEntityModelMixin"
+    "client.SalmonEntityModelMixin",
+    "client.ArmorStandRendererMixin",
+    "client.PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

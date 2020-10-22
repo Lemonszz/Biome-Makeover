@@ -15,6 +15,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.item.BMItem;
 import party.lemons.biomemakeover.item.BMMusicDiskItem;
 import party.lemons.biomemakeover.item.FakeItem;
+import party.lemons.biomemakeover.item.HatItem;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
 public class BMItems
@@ -32,6 +33,10 @@ public class BMItems
 	public static final Item GLOWFISH_SPAWN_EGG = new SpawnEggItem(BMEntities.GLOWFISH, 0xff7b00, 0xffd7b3, settings());
 	public static final Item MUSHROOM_TRADER_SPAWN_EGG = new SpawnEggItem(BMEntities.MUSHROOM_TRADER, 0x37ff00, 0xb1ff9c, settings());
 	public static final Item BLIGHTBAT_SPAWN_EGG = new SpawnEggItem(BMEntities.BLIGHTBAT, 0xae00ff, 0xdf9ffc, settings());
+
+	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
+
+
 	public static final Item ICON_ITEM = new FakeItem();
 
 	public static void init()

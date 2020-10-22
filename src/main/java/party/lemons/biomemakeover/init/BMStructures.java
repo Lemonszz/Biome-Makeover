@@ -21,6 +21,7 @@ public class BMStructures
 	public static void init()
 	{
 		RegistryHelper.register(Registry.STRUCTURE_PIECE, StructurePieceType.class, BMStructures.class);
+		GhostTownFeature.init();
 
 		FabricStructureBuilder.create(BiomeMakeover.ID("ghost_town"), GHOST_TOWN)
 				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
