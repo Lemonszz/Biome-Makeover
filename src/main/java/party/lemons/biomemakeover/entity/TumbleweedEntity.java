@@ -24,6 +24,7 @@ public class TumbleweedEntity extends Entity
 	private double disZ = 0;
 	private float windOffset = 0;
 	private float acceleration = 0.0025F;
+	private float age = 0;
 
 	public TumbleweedEntity(World world)
 	{
@@ -40,6 +41,10 @@ public class TumbleweedEntity extends Entity
 	@Override
 	public void tick()
 	{
+		age++;
+		if(age > 1500)
+			kill();
+
 		if(!isTouchingWater())
 			this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
 

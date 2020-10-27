@@ -60,7 +60,7 @@ public class SurfaceFossilFeature extends FossilFeature
 
 		ChunkPos chunkPos = new ChunkPos(blockPos);
 		BlockBox blockBox = new BlockBox(chunkPos.getStartX(), 0, chunkPos.getStartZ(), chunkPos.getEndX(), 256, chunkPos.getEndZ());
-		StructurePlacementData placeData = (new StructurePlacementData()).setRotation(rot).setBoundingBox(blockBox).setRandom(random).addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
+		StructurePlacementData placeData = (new StructurePlacementData()).setRotation(rot).setBoundingBox(blockBox).setRandom(random).addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 		BlockPos size = structure.getRotatedSize(rot);
 		int x = random.nextInt(16 - size.getX());
 		int z = random.nextInt(16 - size.getZ());
@@ -68,7 +68,7 @@ public class SurfaceFossilFeature extends FossilFeature
 		int y = 256;
 		for(int xx = 0; xx < size.getX(); xx++) {
 			for(int zz = 0; zz < size.getZ(); ++zz) {
-				y = Math.min(y, structureWorldAccess.getTopY(Heightmap.Type.WORLD_SURFACE_WG, blockPos.getX() + xx + x, blockPos.getZ() + zz + z));
+				y = Math.min(y, structureWorldAccess.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, blockPos.getX() + xx + x, blockPos.getZ() + zz + z));
 			}
 		}
 		if(fossilIndex < 4)

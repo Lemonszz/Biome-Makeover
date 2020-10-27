@@ -50,5 +50,6 @@ public class DefaultBiomeFeaturesMixin
 		builder.structureFeature(BMStructures.GHOST_TOWN_CONFIGURED);
 		builder.feature(GenerationStep.Feature.SURFACE_STRUCTURES, BMWorldGen.SURFACE_FOSSIL);
 		builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, BMWorldGen.SAGUARO_CACTUS);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, BMWorldGen.PAY_DIRT);
 	}
 }

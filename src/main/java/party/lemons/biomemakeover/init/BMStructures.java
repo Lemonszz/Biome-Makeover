@@ -24,7 +24,7 @@ public class BMStructures
 		GhostTownFeature.init();
 
 		FabricStructureBuilder.create(BiomeMakeover.ID("ghost_town"), GHOST_TOWN)
-				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
+				.step(GenerationStep.Feature.UNDERGROUND_DECORATION)
 				.defaultConfig(32, 12, 6969)
 				.adjustsSurface()
 				.register();

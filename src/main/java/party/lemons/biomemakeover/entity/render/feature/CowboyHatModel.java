@@ -11,9 +11,10 @@ import net.minecraft.entity.Entity;
 public class CowboyHatModel<T extends Entity> extends EntityModel<T> implements ModelWithHead, ModelWithHat
 {
 	private final ModelPart head;
-	private final ModelPart main;
 	private final ModelPart left;
+	private final ModelPart main;
 	private final ModelPart right;
+	private final ModelPart bone;
 
 
 	public CowboyHatModel() {
@@ -22,25 +23,29 @@ public class CowboyHatModel<T extends Entity> extends EntityModel<T> implements 
 
 		head = new ModelPart(this);
 		head.setPivot(0.0F, 0.0F, 0.0F);
-		head.setTextureOffset(32, 32).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -1.0F, true);
+		head.setTextureOffset(32, 32).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, true);
+
+		left = new ModelPart(this);
+		left.setPivot(6.0F, -6.0F, 0.0F);
+		head.addChild(left);
+		setRotationAngle(left, 0.0F, 0.0F, 0.2618F);
+		left.setTextureOffset(32, 45).addCuboid(0.0F, -2.0F, -8.0F, 0.1F, 2.0F, 16.0F, 0.0F, false);
 
 		main = new ModelPart(this);
 		main.setPivot(0.0F, -6.0F, 0.0F);
 		head.addChild(main);
 		main.setTextureOffset(32, 0).addCuboid(-4.0F, -4.0F, -4.0F, 8.0F, 4.0F, 8.0F, 0.0F, false);
-		main.setTextureOffset(0, 12).addCuboid(-8.0F, 0.0F, -8.0F, 16.0F, 0.0F, 16.0F, 0.0F, false);
-
-		left = new ModelPart(this);
-		left.setPivot(6.0F, 0.0F, 0.0F);
-		main.addChild(left);
-		setRotationAngle(left, 0.0F, 0.0F, 0.2618F);
-		left.setTextureOffset(32, 46).addCuboid(0.0F, -2.0F, -8.0F, 0.0F, 2.0F, 16.0F, 0.0F, false);
 
 		right = new ModelPart(this);
-		right.setPivot(-6.0F, 0.0F, 0.0F);
-		main.addChild(right);
+		right.setPivot(-6.0F, -6.0F, 0.0F);
+		head.addChild(right);
 		setRotationAngle(right, 0.0F, 0.0F, -0.2618F);
-		right.setTextureOffset(0, 46).addCuboid(0.0F, -2.0F, -8.0F, 0.0F, 2.0F, 16.0F, 0.0F, false);
+		right.setTextureOffset(0, 45).addCuboid(0.0F, -2.0F, -8.0F, 0.1F, 2.0F, 16.0F, 0.0F, false);
+
+		bone = new ModelPart(this);
+		bone.setPivot(0.0F, 24.0F, 0.0F);
+		head.addChild(bone);
+		bone.setTextureOffset(0, 12).addCuboid(-8.0F, -30.0F, -8.0F, 16.0F, 0.1F, 16.0F, 0.0F, false);
 	}
 
 	@Override

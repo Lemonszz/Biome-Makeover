@@ -16,6 +16,7 @@ import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.access.BiomeEffectsAccessor;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
+import party.lemons.biomemakeover.world.TumbleweedSpawner;
 import party.lemons.biomemakeover.world.WindSystem;
 
 public class BiomeMakeover implements ModInitializer
@@ -36,6 +37,7 @@ public class BiomeMakeover implements ModInitializer
 		BMWorldGen.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
+		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);
 
 		//TOOD: Move
 		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELDS), 0xad3fe4);

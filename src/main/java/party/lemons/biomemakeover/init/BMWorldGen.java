@@ -65,6 +65,8 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?,?> SURFACE_FOSSIL = SURFACE_FOSSIL_FEATURE.configure(DefaultFeatureConfig.DEFAULT).applyChance(100);
 	public static final SaguaroCactusFeature SAGUARO_CACTUS_FEATURE = new SaguaroCactusFeature(DefaultFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> SAGUARO_CACTUS = SAGUARO_CACTUS_FEATURE.configure(DefaultFeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(12);
+	public static final PayDirtFeature PAY_DIRT_FEATURE = new PayDirtFeature(DefaultFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> PAY_DIRT = PAY_DIRT_FEATURE.configure(DefaultFeatureConfig.DEFAULT).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(30, 0, 80))).spreadHorizontally().repeat(10);
 
 	//Conf Features
 	//2 tall Shrooms patch

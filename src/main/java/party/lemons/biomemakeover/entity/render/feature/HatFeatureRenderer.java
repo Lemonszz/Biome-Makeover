@@ -1,8 +1,6 @@
 package party.lemons.biomemakeover.entity.render.feature;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -30,10 +28,11 @@ public class HatFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>
 	{
 		if(!entity.getEquippedStack(EquipmentSlot.HEAD).isEmpty() && entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof HatItem)
 		{
+			matrices.scale(1.05F,1.05F,1.05F);
 			CowboyHatModel<T> hatModel = new CowboyHatModel<>();
 			((ModelWithHead)this.getContextModel()).getHead().rotate(matrices);
 
-			VertexConsumer vertexConsumer = ItemRenderer.getArmorVertexConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(this.getTexture(entity)), true, false);
+			VertexConsumer vertexConsumer = ItemRenderer.getArmorVertexConsumer(vertexConsumers, hatModel.getLayer(this.getTexture(entity)), true, false);
 			hatModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
 		}
 	}

@@ -16,5 +16,10 @@ public final class RandomUtil
 		return RANDOM.nextBoolean() ? value : -value;
 	}
 
+	public static int randomDirection(int value)
+	{
+		return RANDOM.nextBoolean() ? value : -value;
+	}
+
 	private RandomUtil(){}
 }
