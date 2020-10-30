@@ -65,6 +65,8 @@ public class BMBlocks
 	public static final Block TUMBLEWEED = new Block(settings(Material.PLANT, 0));
 
 	public static final SaguaroCactusBlock SAGUARO_CACTUS = new SaguaroCactusBlock(settings(Material.CACTUS, 0.4F).sounds(BlockSoundGroup.WOOL).ticksRandomly());
+	public static final BMBlock BARREL_CACTUS = new BarrelCactusBlock(settings(Material.CACTUS, 0).sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
+
 	public static final BMBlock PAYDIRT = new BMBlock(settings(Material.SOIL, 1.4F).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.GRAVEL));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));

@@ -1,6 +1,8 @@
 package party.lemons.biomemakeover.entity.render;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -34,8 +36,8 @@ public class TumbleweedRender extends EntityRenderer<TumbleweedEntity>
 		matrices.translate(-0.5D, -0.5D, 0.5D);
 		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
 
+		MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(BMBlocks.TUMBLEWEED.getDefaultState(), matrices, vertexConsumers, light,  OverlayTexture.DEFAULT_UV);
 
-		TntMinecartEntityRenderer.renderFlashingBlock(BMBlocks.TUMBLEWEED.getDefaultState(), matrices, vertexConsumers, light, false);
 		matrices.pop();
 	}
 

@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "minecraft:gravel"
+              "name": "biomemakeover:paydirt"
             },
             {
               "type": "minecraft:group",
