@@ -15,14 +15,16 @@
     "PlantBlockMixin",
     "SpawnRestrictionMixin",
     "FireBlockMixin",
-    "PillagerSpawnerMixin"
+    "PillagerSpawnerMixin",
+    "HorseEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
     "client.BatEntityModelMixin",
     "client.SalmonEntityModelMixin",
     "client.ArmorStandRendererMixin",
-    "client.PlayerRendererMixin"
+    "client.PlayerRendererMixin",
+    "client.HorseEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

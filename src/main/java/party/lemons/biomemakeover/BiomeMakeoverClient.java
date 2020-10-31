@@ -8,10 +8,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.resource.ResourceManager;
-import party.lemons.biomemakeover.entity.render.BlightBatRender;
-import party.lemons.biomemakeover.entity.render.GlowfishRender;
-import party.lemons.biomemakeover.entity.render.MushroomVillagerRender;
-import party.lemons.biomemakeover.entity.render.TumbleweedRender;
+import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMNetwork;
@@ -27,6 +24,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.BLIGHTBAT, (r, c)->new BlightBatRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GLOWFISH, (r, c)->new GlowfishRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.TUMBLEWEED, (r, c)->new TumbleweedRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.COWBOY, (r, c)->new CowboyRender(r));
 
 		BMNetwork.initClient();
 

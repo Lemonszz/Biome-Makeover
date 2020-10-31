@@ -18,6 +18,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.util.HorseHat;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 
 import java.util.Random;
@@ -34,24 +36,17 @@ public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 		Biome.Category category = biome.getCategory();
 		if(category == Biome.Category.MESA)
 		{
-			System.out.println("WHAT");
-
 			BlockState blockState = world.getBlockState(pos);
-			if (!SpawnHelper.isClearForSpawn(world, pos, blockState, blockState.getFluidState(), EntityType.PILLAGER)) {
-				System.out.println("b1");
-
+			if (!SpawnHelper.isClearForSpawn(world, pos, blockState, blockState.getFluidState(), BMEntities.COWBOY)) {
 				cbi.setReturnValue(false);
 				return;
-			} else if (!PatrolEntity.canSpawn(EntityType.PILLAGER, world, SpawnReason.PATROL, pos, random))
+			} else if (!PatrolEntity.canSpawn(BMEntities.COWBOY, world, SpawnReason.PATROL, pos, random))
 			{
-				System.out.println("b2");
-
 				cbi.setReturnValue(false);
 				return;
-			} else {
-				System.out.println("c1");
-
-				PatrolEntity patrolEntity = EntityType.PILLAGER.create(world);
+			}
+			else {
+				PatrolEntity patrolEntity = BMEntities.COWBOY.create(world);
 				if (patrolEntity != null)
 				{
 					HorseEntity horseEntity = EntityType.HORSE.create(world);
@@ -61,21 +56,18 @@ public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 					if (captain) {
 						patrolEntity.setPatrolLeader(true);
 						patrolEntity.setRandomPatrolTarget();
+
+						((HorseHat)horseEntity).setHat();
 					}
 
 					patrolEntity.updatePosition(pos.getX(), pos.getY(), pos.getZ());
 					patrolEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null, null);
 					world.spawnEntityAndPassengers(horseEntity);
 
-					System.out.println("c4");
-
 					cbi.setReturnValue(true);
-
 					return;
 				}
 				else {
-					System.out.println("b6");
-
 					cbi.setReturnValue(false);
 					return;
 				}
