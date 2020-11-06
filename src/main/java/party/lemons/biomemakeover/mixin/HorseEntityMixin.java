@@ -53,7 +53,15 @@ public class HorseEntityMixin extends HorseBaseEntity implements HorseHat
 	public boolean canImmediatelyDespawn(double distanceSquared)
 	{
 		if(getPrimaryPassenger() == null)
+		{
+			if(isSaddled() || hasArmorInSlot() || isLeashed())
+			{
+				cowboySpawned = false;
+				return false;
+			}
+
 			return cowboySpawned;
+		}
 		else
 		{
 			if(getPrimaryPassenger() instanceof PatrolEntity)
