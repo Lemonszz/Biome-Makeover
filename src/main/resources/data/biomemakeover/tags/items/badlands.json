@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "biomemakeover:saguaro_cactus",
+    "biomemakeover:paydirt",
+    "biomemakeover:cowboy_hat",
+    "biomemakeover:ghost_spawn_egg",
+    "biomemakeover:poltergeist",
     "biomemakeover:terracotta_bricks",
     "biomemakeover:black_terracotta_bricks",
     "biomemakeover:red_terracotta_bricks",
@@ -19,7 +23,6 @@
     "biomemakeover:magenta_terracotta_bricks",
     "biomemakeover:orange_terracotta_bricks",
     "biomemakeover:white_terracotta_bricks",
-
     "biomemakeover:terracotta_brick_slab",
     "biomemakeover:black_terracotta_brick_slab",
     "biomemakeover:red_terracotta_brick_slab",
@@ -37,7 +40,6 @@
     "biomemakeover:magenta_terracotta_brick_slab",
     "biomemakeover:orange_terracotta_brick_slab",
     "biomemakeover:white_terracotta_brick_slab",
-
     "biomemakeover:terracotta_brick_wall",
     "biomemakeover:black_terracotta_brick_wall",
     "biomemakeover:red_terracotta_brick_wall",
@@ -55,7 +57,6 @@
     "biomemakeover:magenta_terracotta_brick_wall",
     "biomemakeover:orange_terracotta_brick_wall",
     "biomemakeover:white_terracotta_brick_wall",
-
     "biomemakeover:terracotta_brick_stairs",
     "biomemakeover:black_terracotta_brick_stairs",
     "biomemakeover:red_terracotta_brick_stairs",

@@ -2,15 +2,14 @@ package party.lemons.biomemakeover.block.blockentity;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Tickable;
-import net.minecraft.world.BlockView;
 import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.util.PoltergeistHandler;
 
-public class PoltergeisterBlockEntity extends BlockEntity implements Tickable
+public class PoltergeistBlockEntity extends BlockEntity implements Tickable
 {
-	public PoltergeisterBlockEntity()
+	public PoltergeistBlockEntity()
 	{
-		super(BMBlockEntities.POLTERGEISTER);
+		super(BMBlockEntities.POLTERGEIST);
 	}
 
 	@Override

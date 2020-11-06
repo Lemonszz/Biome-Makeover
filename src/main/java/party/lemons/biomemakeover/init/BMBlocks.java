@@ -71,7 +71,7 @@ public class BMBlocks
 	public static final BMBlock BARREL_CACTUS = new BarrelCactusBlock(settings(Material.CACTUS, 0).sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
 
 	public static final BMBlock PAYDIRT = new BMBlock(settings(Material.SOIL, 1.4F).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.GRAVEL));
-	public static final BMBlock POLTERGEISTER = new PoltergeisterBlock(settings(POLTERGEISTER_MATERIAL, 1.4F).sounds(BlockSoundGroup.LODESTONE));
+	public static final BMBlock POLTERGEIST = new PoltergeisterBlock(settings(POLTERGEISTER_MATERIAL, 1.4F).sounds(BlockSoundGroup.LODESTONE));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -79,6 +79,7 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_ORANGE_GLOWSHROOM = new FlowerPotBlock(ORANGE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_BLIGHTED_BALSA_SAPLING = new FlowerPotBlock(BLIGHTED_BALSA_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_SAGUARO_CACTUS = new FlowerPotBlock(SAGUARO_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 
 	public static void init()

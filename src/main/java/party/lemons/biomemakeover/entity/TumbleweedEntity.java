@@ -1,14 +1,21 @@
 package party.lemons.biomemakeover.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.world.WindSystem;
@@ -74,6 +81,7 @@ public class TumbleweedEntity extends Entity
 			if(onGround)
 			{
 				vY = MathHelper.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
+				this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, 0.25F, 1.0F);
 			}
 
 			if(isTouchingWater())
@@ -87,6 +95,7 @@ public class TumbleweedEntity extends Entity
 		{
 			if(onGround)
 			{
+				makeParticles(15);
 				xRot = (float) -(disX / 0.25D);
 				zRot = (float) (disZ / 0.25D);
 			}
@@ -106,6 +115,28 @@ public class TumbleweedEntity extends Entity
 			setVelocity(vX, vY, vZ);
 			velocityDirty = true;
 			velocityModified = true;
+		}
+	}
+
+	@Override
+	public void kill()
+	{
+		makeParticles(30);
+		super.kill();
+	}
+
+	public boolean damage(DamageSource source, float amount) {
+		this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, 0.25F, 1.0F);
+		kill();
+
+		return true;
+	}
+
+	public void makeParticles(int count)
+	{
+		for(int i = 0; i < count; i++)
+		{
+			world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, BMBlocks.TUMBLEWEED.getDefaultState()), -0.5D + (getX() + random.nextDouble()), getY() + random.nextDouble(), -0.5D + (getZ() + random.nextDouble()), 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -131,7 +162,9 @@ public class TumbleweedEntity extends Entity
 		return !this.removed;
 	}
 
-	public boolean method_30949(Entity entity) {
+	@Override
+	public boolean collidesWith(Entity other)
+	{
 		return true;
 	}
 
@@ -141,6 +174,12 @@ public class TumbleweedEntity extends Entity
 			return Math.min(val + step, target);
 		else
 			return Math.max(val - step, target);
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state)
+	{
+		super.playStepSound(pos, state);
 	}
 
 	@Override

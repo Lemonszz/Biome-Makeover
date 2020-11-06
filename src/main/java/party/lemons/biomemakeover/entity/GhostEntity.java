@@ -163,7 +163,7 @@ public class GhostEntity extends HostileEntity implements Angerable
 	}
 
 	private void playAngerSound() {
-		this.playSound(BMEffects.GHOST_ANGRY, this.getSoundVolume() * 2.0F, this.getSoundPitch() * 1.8F);
+		this.playSound(BMEffects.GHOST_ANGRY, this.getSoundVolume() * 2.0F, this.getSoundPitch());
 	}
 
 	public void chooseRandomAngerTime() {
@@ -382,7 +382,7 @@ public class GhostEntity extends HostileEntity implements Angerable
 		{
 			LivingEntity target = GhostEntity.this.getTarget();
 			Vec3d targetPosition = target.getCameraPosVec(1.0F);
-			GhostEntity.this.moveControl.moveTo(targetPosition.x, targetPosition.y, targetPosition.z, 1.0D);
+			GhostEntity.this.moveControl.moveTo(targetPosition.x, targetPosition.y, targetPosition.z, 1.25D);
 			GhostEntity.this.setCharging(true);
 			GhostEntity.this.playSound(BMEffects.GHOST_CHARGE, 1.0F, 1.0F);
 		}
@@ -400,7 +400,7 @@ public class GhostEntity extends HostileEntity implements Angerable
 			if(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(target))
 				setTarget(null);
 
-			if (GhostEntity.this.getBoundingBox().intersects(target.getBoundingBox()))
+			if (GhostEntity.this.getBoundingBox().expand(2F).intersects(target.getBoundingBox()))
 			{
 				GhostEntity.this.tryAttack(target);
 				GhostEntity.this.setCharging(false);

@@ -1,12 +1,10 @@
 package party.lemons.biomemakeover.entity.render;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
@@ -76,7 +74,6 @@ public class TumbleweedRender extends EntityRenderer<TumbleweedEntity>
 				s0 * v0.getW() + s1 * v1.getW()
 		);
 	}
-
 
 	@Override
 	public Identifier getTexture(TumbleweedEntity entity)
