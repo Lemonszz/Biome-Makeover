@@ -59,6 +59,7 @@ public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 
 						((HorseHat)horseEntity).setHat();
 					}
+					((HorseHat)horseEntity).setCowboySpawned();
 
 					patrolEntity.updatePosition(pos.getX(), pos.getY(), pos.getZ());
 					patrolEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null, null);

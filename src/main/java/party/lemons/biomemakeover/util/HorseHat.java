@@ -4,4 +4,5 @@ public interface HorseHat
 {
 	boolean hasHat();
 	void setHat();
+	void setCowboySpawned();
 }
