@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "HugeBrownMushroomFeatureMixin",
-    "DefaultBiomeFeaturesMixin",
     "BiomeEffectsMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
@@ -16,7 +15,8 @@
     "SpawnRestrictionMixin",
     "FireBlockMixin",
     "PillagerSpawnerMixin",
-    "HorseEntityMixin"
+    "HorseEntityMixin",
+    "NoiseChunkGeneratorMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

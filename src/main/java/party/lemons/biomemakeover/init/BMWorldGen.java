@@ -1,9 +1,18 @@
 package party.lemons.biomemakeover.init;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BuiltinBiomes;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.carver.Carver;
@@ -21,6 +30,7 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
@@ -29,10 +39,58 @@ import party.lemons.biomemakeover.world.feature.config.GrassPatchFeatureConfig;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaTrunkPlacer;
 import party.lemons.biomemakeover.world.feature.foliage.BaslaFoliagePlacer;
 
+import java.util.Locale;
 import java.util.OptionalInt;
+import java.util.function.Predicate;
+
+import static net.minecraft.world.gen.GenerationStep.Carver.AIR;
+import static net.minecraft.world.gen.GenerationStep.Feature.*;
 
 public class BMWorldGen
 {
+	private static final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.categories(Biome.Category.MUSHROOM);
+	private static final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.categories(Biome.Category.MESA);
+
+	private static void doModifications()
+	{
+		mushroomModifications();
+		badlandsModifications();
+	}
+
+	private static void mushroomModifications()
+	{
+		BiomeModifications.addCarver(MUSHROOM_BIOMES, AIR, rk(LARGE_CAVE_CONFIGURED_CARVER));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, UNDERGROUND_DECORATION, rk(MYCELIUM_PATCH));
+
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(BLIGHTED_BALSA_TREES));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_UNDERGROUND));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_ROOTS_UNDERGROUND));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_SPROUTS_UNDERGROUND));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_GLOWSHROOMS));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_UNDERGROUND_SHROOMS));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_SPROUTS));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_ROOTS));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_UNDERGROUND_GLOWSHROOMS));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(ORANGE_GLOWSHROOM_PATCH));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_TALL_SHROOMS));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_TALL_SHROOMS_UNDERGROUND));
+
+		BiomeModifications.addSpawn(MUSHROOM_BIOMES, SpawnGroup.AMBIENT, BMEntities.MUSHROOM_TRADER, 1, 1, 1);
+		BiomeModifications.addSpawn(MUSHROOM_BIOMES, SpawnGroup.AMBIENT, BMEntities.BLIGHTBAT, 5, 1, 1);
+		BiomeModifications.addSpawn(MUSHROOM_BIOMES, SpawnGroup.WATER_AMBIENT, BMEntities.GLOWFISH, 7, 2, 7);
+	}
+
+	private static void badlandsModifications()
+	{
+		BiomeModifications.addStructure(BADLANDS_BIOMES, rk(BMStructures.GHOST_TOWN_CONFIGURED));
+
+		BiomeModifications.addFeature(BADLANDS_BIOMES, SURFACE_STRUCTURES, rk(SURFACE_FOSSIL));
+		BiomeModifications.addFeature(BADLANDS_BIOMES, LOCAL_MODIFICATIONS, rk(SAGUARO_CACTUS));
+		BiomeModifications.addFeature(BADLANDS_BIOMES, UNDERGROUND_DECORATION, rk(PAY_DIRT));
+
+	}
+
+
 	//Structure
 
 	//Configs
@@ -110,5 +168,26 @@ public class BMWorldGen
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeature.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_CARVER, ConfiguredCarver.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.TRUNK_PLACER_TYPE, TrunkPlacerType.class, BMWorldGen.class);
+
+		doModifications();
+	}
+
+	private static <T> RegistryKey<T> key(RegistryKey<Registry<T>> registry, String path) {
+		return RegistryKey.of(registry, BiomeMakeover.ID(path.toLowerCase(Locale.ROOT)));
+	}
+
+	public static RegistryKey<ConfiguredCarver<?>> rk(ConfiguredCarver carver)
+	{
+		return BuiltinRegistries.CONFIGURED_CARVER.getKey(carver).get();
+	}
+
+	public static RegistryKey<ConfiguredFeature<?, ?>> rk(ConfiguredFeature carver)
+	{
+		return BuiltinRegistries.CONFIGURED_FEATURE.getKey(carver).get();
+	}
+
+	public static RegistryKey<ConfiguredStructureFeature<?, ?>> rk(ConfiguredStructureFeature carver)
+	{
+		return BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(carver).get();
 	}
 }

@@ -24,12 +24,14 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.JigsawFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.JigsawHelper;
 
 import java.util.List;
@@ -59,6 +61,16 @@ public class GhostTownFeature extends JigsawFeature
 
 
 	public static final StructurePoolFeatureConfig CONFIG = new StructurePoolFeatureConfig(()->POOL, 3);
+
+	@Override
+	public List<SpawnSettings.SpawnEntry> getMonsterSpawns()
+	{
+		return SPAWNS;
+	}
+
+	private static final List<SpawnSettings.SpawnEntry> SPAWNS = Lists.newArrayList(
+			new SpawnSettings.SpawnEntry(BMEntities.GHOST, 8, 1, 1)
+	);
 
 	public static void init()
 	{

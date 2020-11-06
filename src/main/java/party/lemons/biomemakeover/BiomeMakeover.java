@@ -14,6 +14,7 @@ import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.gen.PillagerSpawner;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.init.*;
+import party.lemons.biomemakeover.util.PoltergeistHandler;
 import party.lemons.biomemakeover.util.access.BiomeEffectsAccessor;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.world.TumbleweedSpawner;
@@ -33,8 +34,11 @@ public class BiomeMakeover implements ModInitializer
 		BMEntities.init();
 		BMBlocks.init();
 		BMItems.init();
+		BMBlockEntities.init();
 		BMStructures.init();
 		BMWorldGen.init();
+
+		PoltergeistHandler.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
 		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);

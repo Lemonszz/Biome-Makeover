@@ -25,12 +25,11 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 
 	protected void generateCap(WorldAccess world, Random random, BlockPos start, int y, BlockPos.Mutable mutable, HugeMushroomFeatureConfig config) {
 		for(int yy = y - 3; yy <= y; ++yy) {
-			int size = yy < y ? config.capSize : config.capSize - 1;
-			int k = config.capSize - 2;
+			int size = yy < y ? config.foliageRadius : config.foliageRadius - 1;
+			int k = config.foliageRadius - 2;
 
 			for(int xx = -size; xx <= size; ++xx) {
 				for(int zz = -size; zz <= size; ++zz) {
-					boolean isTop = size == config.capSize -1;
 					boolean isMinX = xx == -size;
 					boolean isMaxX = xx == size;
 					boolean isMinZ = zz == -size;
@@ -65,7 +64,7 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 		set(world, mutable.up(), st);
 
 		boolean top = true;
-		int off = config.capSize;
+		int off = config.foliageRadius;
 		for(int i = 0; i < 2; i++)
 		{
 			world.setBlockState(mutable.west(off), config.capProvider.getBlockState(random, start).with(MushroomBlock.EAST, top), 3);

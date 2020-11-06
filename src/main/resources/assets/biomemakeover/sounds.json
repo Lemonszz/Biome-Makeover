@@ -7,5 +7,41 @@
         "stream": true
       }
     ]
+  },
+  "ghost_charge": {
+    "subtitle": "subtitles.biomemakeover.ghost.charge",
+    "sounds": [
+      "biomemakeover:ghost_charge_1",
+      "biomemakeover:ghost_charge_2"
+    ]
+  },
+  "ghost_death": {
+    "subtitle": "subtitles.biomemakeover.ghost.death",
+    "sounds": [
+      "biomemakeover:ghost_death_1",
+      "biomemakeover:ghost_death_2"
+    ]
+  },
+  "ghost_hurt": {
+    "subtitle": "subtitles.biomemakeover.ghost.hurt",
+    "sounds": [
+      "biomemakeover:ghost_hurt_1",
+      "biomemakeover:ghost_hurt_2",
+      "biomemakeover:ghost_hurt_3"
+    ]
+  },
+  "ghost_idle": {
+    "subtitle": "subtitles.biomemakeover.ghost.idle",
+    "sounds": [
+      "biomemakeover:ghost_idle_1",
+      "biomemakeover:ghost_idle_2",
+      "biomemakeover:ghost_idle_3"
+    ]
+  },
+  "ghost_angry": {
+    "subtitle": "subtitles.biomemakeover.ghost.angry",
+    "sounds": [
+      "biomemakeover:ghost_angry"
+    ]
   }
 }
