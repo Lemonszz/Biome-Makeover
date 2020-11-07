@@ -126,8 +126,11 @@ public class TumbleweedEntity extends Entity
 	}
 
 	public boolean damage(DamageSource source, float amount) {
-		this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, 0.25F, 1.0F);
-		kill();
+		if(source != DamageSource.CACTUS)
+		{
+			this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, 0.25F, 1.0F);
+			kill();
+		}
 
 		return true;
 	}
