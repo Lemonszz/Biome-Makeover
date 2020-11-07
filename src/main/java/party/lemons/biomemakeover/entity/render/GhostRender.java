@@ -20,4 +20,5 @@ public class GhostRender extends MobEntityRenderer<GhostEntity, GhostEntityModel
 	{
 		return TEXTURE;
 	}
+
 }

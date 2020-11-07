@@ -187,7 +187,6 @@ public class GhostEntity extends HostileEntity implements Angerable
 			tag.putInt("HomeZ", this.homePosition.getZ());
 		}
 	}
-
 	@Override
 	public void readCustomDataFromTag(CompoundTag tag) {
 		super.readCustomDataFromTag(tag);
