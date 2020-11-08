@@ -43,5 +43,14 @@
     "sounds": [
       "biomemakeover:ghost_angry"
     ]
+  },
+  "scuttler_rattle": {
+    "subtitle": "subtitles.biomemakeover.scuttler.rattle",
+    "sounds": [
+      "biomemakeover:rattle_1",
+      "biomemakeover:rattle_2",
+      "biomemakeover:rattle_3",
+      "biomemakeover:rattle_4"
+    ]
   }
 }

@@ -26,6 +26,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.TUMBLEWEED, (r, c)->new TumbleweedRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.COWBOY, (r, c)->new CowboyRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GHOST, (r, c)->new GhostRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.SCUTTLER, (r, c)->new ScuttlerRender(r));
 
 		BMNetwork.initClient();
 

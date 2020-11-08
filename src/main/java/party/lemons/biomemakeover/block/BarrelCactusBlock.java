@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -54,5 +55,9 @@ public class BarrelCactusBlock extends BMBlock
 
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		entity.damage(DamageSource.CACTUS, 1.0F);
+	}
+
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+		return false;
 	}
 }

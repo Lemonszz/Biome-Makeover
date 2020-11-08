@@ -95,7 +95,7 @@
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:cowboy_hat"
+          "name": "biomemakeover:cowboy_hat"
         }
       ]
     }

@@ -21,6 +21,7 @@ public class BMEntities
 	public static final EntityType<TumbleweedEntity> TUMBLEWEED = FabricEntityTypeBuilder.<TumbleweedEntity>create(SpawnGroup.MISC, (t, w)->new TumbleweedEntity(w)).dimensions(EntityDimensions.fixed(0.7F, 0.7F)).trackRangeBlocks(12).build();
 	public static final EntityType<CowboyEntity> COWBOY = FabricEntityTypeBuilder.<CowboyEntity>create(SpawnGroup.MONSTER, (t, w)->new CowboyEntity(w)).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).spawnableFarFromPlayer().trackRangeBlocks(12).build();
 	public static final EntityType<GhostEntity> GHOST = FabricEntityTypeBuilder.<GhostEntity>create(SpawnGroup.MONSTER, (t, w)->new GhostEntity(w)).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).spawnableFarFromPlayer().trackRangeBlocks(12).build();
+	public static final EntityType<ScuttlerEntity> SCUTTLER = FabricEntityTypeBuilder.<ScuttlerEntity>create(SpawnGroup.CREATURE, (t, w)->new ScuttlerEntity(w)).dimensions(EntityDimensions.fixed(0.8F, 0.6F)).trackRangeBlocks(12).build();
 
 	public static void init()
 	{

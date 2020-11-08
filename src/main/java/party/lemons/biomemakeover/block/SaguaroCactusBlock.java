@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
@@ -188,6 +189,10 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		entity.damage(DamageSource.CACTUS, 1.0F);
+	}
+
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+		return false;
 	}
 
 }
