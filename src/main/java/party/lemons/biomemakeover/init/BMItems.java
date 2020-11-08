@@ -36,7 +36,7 @@ public class BMItems
 	public static final Item GHOST_SPAWN_EGG = new SpawnEggItem(BMEntities.GHOST, 0x566b6b, 0xb5fffe, settings());
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
-
+	public static final Item ECTOPLASM = new BMItem(settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 
@@ -57,6 +57,8 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_BROWN_MUSHROOM.asItem(), 0.7F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_RED_MUSHROOM.asItem(), 0.7F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_LEAVES.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SAGUARO_CACTUS.asItem(), 0.15F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BARREL_CACTUS.asItem(), 0.3F);
 	}
 
 	public static Item.Settings settings()

@@ -4,10 +4,17 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.BuiltinBiomes;
@@ -54,6 +61,36 @@ public class BiomeMakeover implements ModInitializer
 						((PillagerSpawnerAccess)new PillagerSpawner()).spawn(c.getSource().getWorld(), BlockPosArgumentType.getBlockPos(c, "pos"), BoolArgumentType.getBool(c, "leader"));
 						return 1;
 					}))));
+		});
+
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->{
+			if(!player.isSpectator())
+			{
+				ItemStack stack = player.getStackInHand(hand);
+				if(!stack.isEmpty() && stack.getItem() == BMItems.ECTOPLASM)
+				{
+					BlockPos pos = hitResult.getBlockPos();
+					BlockState state = world.getBlockState(pos);
+					if(state.getBlock() == Blocks.COMPOSTER)
+					{
+						int level = state.get(ComposterBlock.LEVEL);
+						if(level > 0)
+						{
+							if(!world.isClient())
+							{
+								world.syncWorldEvent(1500, pos, 1);
+								world.setBlockState(pos, BMBlocks.ECTOPLASM_COMPOSTER.getDefaultState().with(ComposterBlock.LEVEL, level));
+
+								if(!player.isCreative())
+									stack.decrement(1);
+							}
+							return ActionResult.SUCCESS;
+						}
+					}
+				}
+			}
+
+			return ActionResult.PASS;
 		});
 	}
 

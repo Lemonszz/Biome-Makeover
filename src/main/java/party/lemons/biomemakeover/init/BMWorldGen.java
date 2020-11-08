@@ -7,6 +7,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructurePieceType;
+import net.minecraft.structure.processor.StructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -162,9 +164,12 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> MUSHROOM_FIELD_UNDERGROUND_SHROOMS = Feature.RANDOM_BOOLEAN_SELECTOR.configure(new RandomBooleanFeatureConfig(() ->ConfiguredFeatures.PATCH_BROWN_MUSHROOM, () ->ConfiguredFeatures.PATCH_RED_MUSHROOM)).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(40);
 	public static final ConfiguredFeature<?, ?> MUSHROOM_FIELD_UNDERGROUND_GLOWSHROOMS = Feature.RANDOM_BOOLEAN_SELECTOR.configure(new RandomBooleanFeatureConfig(() ->PURPLE_GLOWSHROOM_PATCH, () ->GREEN_GLOWSHROOM_PATCH)).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 0, 55))).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(30).repeat(12);
 
+	public static final StructureProcessorType<GhostTownFeature.GhostTownLootProcessor> GHOST_TOWN_PROCESSOR = ()->GhostTownFeature.GhostTownLootProcessor.CODEC;
+
 	public static void init()
 	{
 		RegistryHelper.register(Registry.STRUCTURE_PIECE, StructurePieceType.class, BMWorldGen.class);
+		RegistryHelper.register(Registry.STRUCTURE_PROCESSOR, StructureProcessorType.class, BMWorldGen.class);
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.FEATURE, Feature.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.CARVER, Carver.class, BMWorldGen.class);
@@ -173,10 +178,6 @@ public class BMWorldGen
 		RegistryHelper.register(Registry.TRUNK_PLACER_TYPE, TrunkPlacerType.class, BMWorldGen.class);
 
 		doModifications();
-	}
-
-	private static <T> RegistryKey<T> key(RegistryKey<Registry<T>> registry, String path) {
-		return RegistryKey.of(registry, BiomeMakeover.ID(path.toLowerCase(Locale.ROOT)));
 	}
 
 	public static RegistryKey<ConfiguredCarver<?>> rk(ConfiguredCarver carver)

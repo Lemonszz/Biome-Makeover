@@ -16,7 +16,8 @@
     "FireBlockMixin",
     "PillagerSpawnerMixin",
     "HorseEntityMixin",
-    "NoiseChunkGeneratorMixin"
+    "NoiseChunkGeneratorMixin",
+    "ComposterInventoryMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

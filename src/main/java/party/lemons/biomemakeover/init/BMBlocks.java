@@ -72,6 +72,7 @@ public class BMBlocks
 
 	public static final BMBlock PAYDIRT = new BMBlock(settings(Material.SOIL, 1.4F).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.GRAVEL));
 	public static final BMBlock POLTERGEIST = new PoltergeisterBlock(settings(POLTERGEISTER_MATERIAL, 1.4F).sounds(BlockSoundGroup.LODESTONE));
+	public static final Block ECTOPLASM_COMPOSTER = new EctoplasmComposterBlock(settings(Material.WOOD, 0.6F).sounds(BlockSoundGroup.WOOD));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));

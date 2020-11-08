@@ -5,11 +5,11 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.structure.MarginedStructureStart;
-import net.minecraft.structure.PlainsVillageData;
-import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.StructureManager;
+import net.minecraft.block.entity.BarrelBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -18,11 +18,13 @@ import net.minecraft.structure.processor.*;
 import net.minecraft.structure.rule.AlwaysTrueRuleTest;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
+import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -32,7 +34,9 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.JigsawHelper;
+import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.List;
 
@@ -80,9 +84,10 @@ public class GhostTownFeature extends JigsawFeature
 			BUILDING_RULES.add(new StructureProcessorRule(new RandomBlockMatchRuleTest(bl, 0.25F), AlwaysTrueRuleTest.INSTANCE, BMBlocks.BRICK_TO_TERRACOTTA.get(bl).getDefaultState()));
 		}
 
+
 		StructureProcessorList BUILDING_PROCESSOR = JigsawHelper.register(
 				new StructureProcessorList(ImmutableList.of(
-						new RuleStructureProcessor(BUILDING_RULES))), "buildings_ghosttown");
+						new RuleStructureProcessor(BUILDING_RULES), new GhostTownLootProcessor())), "buildings_ghosttown");
 
 		//Roads,
 		StructurePools.register(new StructurePool(BiomeMakeover.ID("ghosttown/roads"), new Identifier("village/plains/terminators"), ImmutableList.of(
@@ -139,5 +144,35 @@ public class GhostTownFeature extends JigsawFeature
 	public GhostTownFeature(Codec<StructurePoolFeatureConfig> codec)
 	{
 		super(codec, 0, true, true);
+	}
+
+	public static class GhostTownLootProcessor extends StructureProcessor
+	{
+		public static final GhostTownLootProcessor INSTANCE = new GhostTownLootProcessor();
+		public static final Codec<GhostTownLootProcessor> CODEC = Codec.unit(() ->INSTANCE);
+
+
+		@Override
+		public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo info, Structure.StructureBlockInfo info2, StructurePlacementData data)
+		{
+			BlockState blockState = info2.state;
+			if(blockState.getBlock() == Blocks.BARREL)
+			{
+				BlockEntity be = worldView.getBlockEntity(blockPos);
+				if(be != null && be instanceof BarrelBlockEntity)
+				{
+					BarrelBlockEntity barrel = (BarrelBlockEntity) be;
+					barrel.setLootTable(BiomeMakeover.ID("ghost_town/loot_" + RandomUtil.RANDOM.nextInt(3)), RandomUtil.RANDOM.nextLong());
+				}
+			}
+
+			return info2;
+		}
+
+		@Override
+		protected StructureProcessorType<?> getType()
+		{
+			return BMWorldGen.GHOST_TOWN_PROCESSOR;
+		}
 	}
 }
