@@ -14,6 +14,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BuiltinBiomes;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
@@ -92,6 +93,7 @@ public class BMWorldGen
 		BiomeModifications.addFeature(BADLANDS_BIOMES, UNDERGROUND_DECORATION, rk(PAY_DIRT));
 		BiomeModifications.addFeature(BADLANDS_BIOMES, VEGETAL_DECORATION, rk(BARREL_CACTUS));
 
+		BiomeModifications.addSpawn(BADLANDS_BIOMES, SpawnGroup.CREATURE, BMEntities.SCUTTLER, 4, 1, 2);
 	}
 
 

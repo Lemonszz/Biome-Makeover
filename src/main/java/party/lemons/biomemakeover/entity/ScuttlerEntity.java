@@ -1,8 +1,10 @@
 package party.lemons.biomemakeover.entity;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -15,7 +17,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 
@@ -64,7 +68,9 @@ public class ScuttlerEntity extends AnimalEntity
 			rattleTime++;
 
 			if(dir != Math.signum(Math.sin(rattleTime)))
-				playSound(BMEffects.SCUTTLER_RATTLE, 0.5F, 0.75F + random.nextFloat());
+			{
+				playSound(BMEffects.SCUTTLER_RATTLE, 0.25F, 0.75F + random.nextFloat());
+			}
 		}
 	}
 
@@ -81,6 +87,16 @@ public class ScuttlerEntity extends AnimalEntity
 
 		if(data == RATTLING)
 			rattleTime = 0;
+	}
+
+	@Override
+	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+		return world.getRandom().nextBoolean() && world.getEntitiesByClass(ScuttlerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(50), (e)->true).isEmpty() &&  super.canSpawn(world, spawnReason);
+	}
+
+	@Override
+	public int getLimitPerChunk() {
+		return 1;
 	}
 
 	@Override
@@ -126,7 +142,7 @@ public class ScuttlerEntity extends AnimalEntity
 							this.withinRangePredicate,
 							this.scuttler, this.scuttler.getX(), this.scuttler.getY(), this.scuttler.getZ(),
 							this.scuttler.getBoundingBox().expand(this.distance, 3.0D, this.distance));
-			if (this.targetEntity == null)
+			if (this.targetEntity == null || !scuttler.canSee(targetEntity) || scuttler.isTouchingWater())
 			{
 				return false;
 			}
