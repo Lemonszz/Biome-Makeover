@@ -2,19 +2,36 @@
   "variants": {
     "": [
       {
-        "model": "biomemakeover:block/paydirt"
+        "model": "biomemakeover:block/paydirt",
+        "weight": 20
       },
       {
-      "model": "biomemakeover:block/paydirt",
-      "y": 90, "x": 90
+        "model": "biomemakeover:block/paydirt_2",
+        "weight": 1
       },
       {
-      "model": "biomemakeover:block/paydirt",
-      "y": 180, "x": 180
+        "model": "biomemakeover:block/paydirt_3",
+        "weight": 1
       },
       {
-      "model": "biomemakeover:block/paydirt",
-      "y": 270, "x": 270
+        "model": "biomemakeover:block/paydirt_4",
+        "weight": 2
+      },
+      {
+        "model": "biomemakeover:block/paydirt_5",
+        "weight": 3
+      },
+      {
+        "model": "biomemakeover:block/paydirt_6",
+        "weight": 3
+      },
+      {
+        "model": "biomemakeover:block/paydirt_7",
+        "weight": 5
+      },
+      {
+        "model": "biomemakeover:block/paydirt_8",
+        "weight": 5
       }
     ]
   }

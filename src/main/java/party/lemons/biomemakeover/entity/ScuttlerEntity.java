@@ -1,5 +1,8 @@
 package party.lemons.biomemakeover.entity;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -7,6 +10,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -16,6 +20,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
@@ -75,12 +80,6 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
-	public boolean shouldSpawnSprintingParticles()
-	{
-		return getMoveControl().isMoving();
-	}
-
-	@Override
 	public void onTrackedDataSet(TrackedData<?> data)
 	{
 		super.onTrackedDataSet(data);
@@ -109,9 +108,48 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions)
+	{
+		return 0.2F;
+	}
+
+	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity)
 	{
 		return null;
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state)
+	{
+		if (!state.getMaterial().isLiquid()) {
+			playSound(BMEffects.SCUTTLER_STEP, 0.10F, 1.25F + random.nextFloat());
+			spawnSprintingParticles();
+		}
+	}
+
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return BMEffects.SCUTTLER_DEATH;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
+		return BMEffects.SCUTTLER_HURT;
+	}
+
+	@Override
+	protected SoundEvent getAmbientSound()
+	{
+		return BMEffects.SCUTTLER_RATTLE;
+	}
+
+	@Override
+	public int getMinAmbientSoundDelay()
+	{
+		return super.getMinAmbientSoundDelay() * 3;
 	}
 
 	private static class RattleGoal<T extends LivingEntity> extends Goal
@@ -136,13 +174,16 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean canStart()
 		{
+			if(scuttler.isTouchingWater())
+				return false;
+
 			this.targetEntity = scuttler.world.
 					getClosestEntityIncludingUngeneratedChunks(
 							targetClass,
 							this.withinRangePredicate,
 							this.scuttler, this.scuttler.getX(), this.scuttler.getY(), this.scuttler.getZ(),
 							this.scuttler.getBoundingBox().expand(this.distance, 3.0D, this.distance));
-			if (this.targetEntity == null || !scuttler.canSee(targetEntity) || scuttler.isTouchingWater())
+			if (this.targetEntity == null || !scuttler.canSee(targetEntity) || !targetEntity.canSee(scuttler))
 			{
 				return false;
 			}
@@ -156,7 +197,7 @@ public class ScuttlerEntity extends AnimalEntity
 		public boolean shouldContinue()
 		{
 			double d = scuttler.distanceTo(targetEntity);
-			return d > distance / 2 && d < distance;
+			return d > distance / 2 && d < distance && scuttler.canSee(targetEntity) && targetEntity.canSee(scuttler);
 		}
 
 		@Override

@@ -52,5 +52,28 @@
       "biomemakeover:rattle_3",
       "biomemakeover:rattle_4"
     ]
+  },
+  "scuttler_step": {
+    "subtitle": "subtitles.biomemakeover.scuttler.step",
+    "sounds": [
+      "biomemakeover:scuttler_step_1",
+      "biomemakeover:scuttler_step_2",
+      "biomemakeover:scuttler_step_3",
+      "biomemakeover:scuttler_step_4"
+    ]
+  },
+  "scuttler_hurt": {
+    "subtitle": "subtitles.biomemakeover.scuttler.hurt",
+    "sounds": [
+      "biomemakeover:scuttler_hurt_1",
+      "biomemakeover:scuttler_hurt_2"
+    ]
+  },
+  "scuttler_death": {
+    "subtitle": "subtitles.biomemakeover.scuttler.death",
+    "sounds": [
+      "biomemakeover:scuttler_death_1",
+      "biomemakeover:scuttler_death_2"
+    ]
   }
 }

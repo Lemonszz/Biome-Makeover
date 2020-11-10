@@ -151,6 +151,7 @@
   "item.biomemakeover.mushroom_trader_spawn_egg" : "Mushroom Trader Spawn Egg",
   "item.biomemakeover.glowfish_spawn_egg" : "Glowfish Spawn Egg",
   "item.biomemakeover.blightbat_spawn_egg" : "Blightbat Spawn Egg",
+  "item.biomemakeover.scuttler_spawn_egg" : "Scuttler Spawn Egg",
   "item.biomemakeover.ghost_spawn_egg" : "Ghost Spawn Egg",
   "item.biomemakeover.glowshroom_stew" : "Glowshroom Stew",
   "item.biomemakeover.glowfish_bucket" : "Bucket of Glowfish",
@@ -165,11 +166,14 @@
   "entity.biomemakeover.cowboy" : "Cowboy Pillager",
   "entity.biomemakeover.ghost" : "Ghost",
   "entity.biomemakeover.tumbleweed" : "Tumbleweed",
+  "entity.biomemakeover.scuttler" : "Scuttler",
   "subtitles.biomemakeover.ghost.charge": "Ghost Shrieks",
   "subtitles.biomemakeover.ghost.death": "Ghost Dies",
   "subtitles.biomemakeover.ghost.hurt": "Ghost Hurts",
   "subtitles.biomemakeover.ghost.angry": "Ghost Screams",
   "subtitles.biomemakeover.ghost.charge": "Ghost Charges",
   "subtitles.biomemakeover.ghost.idle": "Ghost Moans",
-  "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles"
+  "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles",
+  "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",
+  "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles"
 }

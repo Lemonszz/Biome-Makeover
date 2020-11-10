@@ -20,6 +20,6 @@ public class DefaultBiomeCreatorMixin
             cancellable = true)
     private static void createBadlands(ConfiguredSurfaceBuilder arg0, float arg1, float arg2, boolean arg3, boolean arg4, CallbackInfoReturnable<Biome> cir, SpawnSettings.Builder builder)
     {
-        builder = builder.spawnCost(BMEntities.SCUTTLER, 0.7D, 0.15D);
+        builder = builder.creatureSpawnProbability(0.025F).spawnCost(BMEntities.SCUTTLER, 0.3D, 0.4D);
     }
 }
