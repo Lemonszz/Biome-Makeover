@@ -1,19 +1,30 @@
-package party.lemons.biomemakeover.util;
+package party.lemons.biomemakeover.world;
 
 import com.google.common.collect.Maps;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.enchantment.SoulSpeedEnchantment;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.init.BMNetwork;
+import party.lemons.biomemakeover.util.NetworkUtil;
 
 import java.util.Map;
+import java.util.Random;
 
 public class PoltergeistHandler
 {
@@ -75,6 +86,15 @@ public class PoltergeistHandler
 			return false;
 		}));
 
+		registerBehaviour(BlockTags.FENCE_GATES, ((w, p, st)->{
+
+			st = st.cycle(FenceGateBlock.OPEN);
+			w.setBlockState(p, st, 10);
+			w.syncWorldEvent(null, st.get(FenceGateBlock.OPEN) ? 1008 : 1014, p, 0);
+
+			return true;
+		}));
+
 		registerBehaviour(Blocks.DAYLIGHT_DETECTOR, ((w, p, st)->
 		{
 			BlockState blockState = st.cycle(DaylightDetectorBlock.INVERTED);
@@ -106,7 +126,19 @@ public class PoltergeistHandler
 		pZ += pos.getZ();
 
 		BlockPos checkPos = new BlockPos(pX - half, pY - half, pZ - half);
-		PoltergeistHandler.doBehaviour(world, checkPos);
+		if(PoltergeistHandler.doBehaviour(world, checkPos))
+		{
+			Random random = world.random;
+
+			PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+			data.writeInt(checkPos.getX());
+			data.writeInt(checkPos.getY());
+			data.writeInt(checkPos.getZ());
+			NetworkUtil.serverSendToNearby(world, BMNetwork.SPAWN_POLTERGEIGHT_PARTICLE, data, checkPos.getX(), checkPos.getY(), checkPos.getZ());
+
+			float pitch = random.nextFloat() * 0.4F + random.nextFloat() > 0.9F ? 0.6F : 0.0F;
+			world.playSound(null, pos, SoundEvents.PARTICLE_SOUL_ESCAPE, SoundCategory.BLOCKS, pitch, 0.6F + random.nextFloat() * 0.4F);
+		}
 	}
 
 	public interface PoltergeistBehaviour
@@ -120,6 +152,9 @@ public class PoltergeistHandler
 
 		BlockState state = world.getBlockState(pos);
 		Block bl = state.getBlock();
+
+		if(state.isAir() || state.isOf(Blocks.STONE))
+			return false;
 
 		if(BEHAVIOUR_BLOCK.containsKey(bl))
 		{

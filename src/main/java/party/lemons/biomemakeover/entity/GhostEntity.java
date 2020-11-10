@@ -23,7 +23,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.util.PoltergeistHandler;
+import party.lemons.biomemakeover.world.PoltergeistHandler;
 
 import java.util.EnumSet;
 import java.util.UUID;

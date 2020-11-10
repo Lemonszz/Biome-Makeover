@@ -3,7 +3,7 @@ package party.lemons.biomemakeover.block.blockentity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Tickable;
 import party.lemons.biomemakeover.init.BMBlockEntities;
-import party.lemons.biomemakeover.util.PoltergeistHandler;
+import party.lemons.biomemakeover.world.PoltergeistHandler;
 
 public class PoltergeistBlockEntity extends BlockEntity implements Tickable
 {
