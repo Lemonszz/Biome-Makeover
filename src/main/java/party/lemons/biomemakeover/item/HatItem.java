@@ -37,7 +37,7 @@ public class HatItem extends ArmorItem
 		@Override
 		public int getProtectionAmount(EquipmentSlot slot)
 		{
-			return 0;
+			return 2;
 		}
 
 		@Override
