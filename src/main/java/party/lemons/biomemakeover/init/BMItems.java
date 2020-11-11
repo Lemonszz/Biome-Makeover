@@ -42,7 +42,6 @@ public class BMItems
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
-	public static Item BARREL_CACTUS_FLOWERED;
 
 	public static void init()
 	{

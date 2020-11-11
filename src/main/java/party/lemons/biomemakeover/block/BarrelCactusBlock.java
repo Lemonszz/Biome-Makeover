@@ -3,15 +3,13 @@ package party.lemons.biomemakeover.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -31,12 +29,12 @@ import java.util.Random;
 public class BarrelCactusBlock extends BMBlock
 {
 	protected static final VoxelShape SHAPE = Block.createCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D);
-	public static final BooleanProperty FLOWERED = BooleanProperty.of("flowered");
+	private final boolean flowered;
 
-	public BarrelCactusBlock(FabricBlockSettings settings)
+	public BarrelCactusBlock(boolean flowered, FabricBlockSettings settings)
 	{
-		super(settings.ticksRandomly());
-		this.setDefaultState(stateManager.getDefaultState().with(FLOWERED, false));
+		super(settings);
+		this.flowered = flowered;
 	}
 
 	@Override
@@ -49,8 +47,8 @@ public class BarrelCactusBlock extends BMBlock
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if(!state.get(FLOWERED) && world.getBaseLightLevel(pos, 0) >= 9 && random.nextInt(7) == 0)
-			world.setBlockState(pos, state.with(FLOWERED, true));
+		if(!flowered && world.getBaseLightLevel(pos, 0) >= 9 && random.nextInt(7) == 0)
+			world.setBlockState(pos, BMBlocks.BARREL_CACTUS_FLOWERED.getDefaultState());
 	}
 
 	@Override
@@ -74,31 +72,21 @@ public class BarrelCactusBlock extends BMBlock
 		return SHAPE;
 	}
 
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		entity.damage(DamageSource.CACTUS, 1.0F);
+	@Override
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity)
+	{
+		if (!entity.isSneaking())
+		{
+			if(entity instanceof ItemEntity && entity.age < 30)
+				return;
+
+			entity.damage(DamageSource.CACTUS, 1.0F);
+		}
+
+		super.onEntityCollision(state, world, pos, entity);
 	}
 
 	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
 		return false;
-	}
-
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder)
-	{
-		builder.add(FLOWERED);
-	}
-
-	@Override
-	public void registerItem(Identifier id)
-	{
-		Registry.register(Registry.ITEM, id, new BlockItem(this, makeItemSettings()));
-
-		BMItems.BARREL_CACTUS_FLOWERED = new BlockStateItem(getDefaultState().with(FLOWERED, true), "flowered", makeItemSettings());
-		Registry.register(Registry.ITEM, BiomeMakeover.ID(id.getPath() + "_flowered"), BMItems.BARREL_CACTUS_FLOWERED);
-	}
-
-	public static boolean isFloweredItem(ItemStack stack)
-	{
-		return stack.getItem() == BMItems.BARREL_CACTUS_FLOWERED;
 	}
 }

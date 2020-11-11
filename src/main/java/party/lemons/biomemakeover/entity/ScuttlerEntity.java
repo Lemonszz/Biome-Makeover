@@ -43,7 +43,7 @@ public class ScuttlerEntity extends AnimalEntity
 {
 	private static TrackedData<Boolean> RATTLING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static TrackedData<Boolean> EATING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMItems.BARREL_CACTUS_FLOWERED);
+	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMBlocks.BARREL_CACTUS_FLOWERED);
 	private AttributeContainer attributeContainer;
 	public float rattleTime = 0;
 	private int eatCooldown = 100;
@@ -58,7 +58,7 @@ public class ScuttlerEntity extends AnimalEntity
 
 	@Override
 	protected void initGoals() {
-		TEMPT_ITEM = Ingredient.ofItems(BMItems.BARREL_CACTUS_FLOWERED);
+		TEMPT_ITEM = Ingredient.ofItems(BMBlocks.BARREL_CACTUS_FLOWERED);
 
 		this.temptGoal = new TemptGoal(this, 0.7D, TEMPT_ITEM, true);
 
@@ -149,6 +149,14 @@ public class ScuttlerEntity extends AnimalEntity
 			}
 			return actionResult;
 		}
+	}
+
+	@Override
+	public boolean isInvulnerableTo(DamageSource damageSource) {
+		if(damageSource == DamageSource.CACTUS)
+			return true;
+
+		return super.isInvulnerableTo(damageSource);
 	}
 
 	@Override
@@ -401,9 +409,9 @@ public class ScuttlerEntity extends AnimalEntity
 			if(eatTime <= 1)
 			{
 				BlockState st = world.getBlockState(targetPos);
-				if(st.isOf(BMBlocks.BARREL_CACTUS) && st.get(BarrelCactusBlock.FLOWERED))
+				if(st.isOf(BMBlocks.BARREL_CACTUS_FLOWERED))
 				{
-					world.setBlockState(targetPos, st.with(BarrelCactusBlock.FLOWERED, false));
+					world.setBlockState(targetPos, BMBlocks.BARREL_CACTUS.getDefaultState());
 					ItemScatterer.spawn(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETAL));
 					eatCooldown = 100 + random.nextInt(200);
 				}
@@ -417,7 +425,7 @@ public class ScuttlerEntity extends AnimalEntity
 				return false;
 
 			BlockState st = world.getBlockState(targetPos);
-			if(!st.isOf(BMBlocks.BARREL_CACTUS) || !st.get(BarrelCactusBlock.FLOWERED))
+			if(!st.isOf(BMBlocks.BARREL_CACTUS_FLOWERED))
 				return false;
 
 			return squaredDistanceTo(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 2;
@@ -448,7 +456,7 @@ public class ScuttlerEntity extends AnimalEntity
 				{
 					m.set(x, startPos.getY(), z);
 					BlockState checkState = world.getBlockState(m);
-					if(checkState.isOf(BMBlocks.BARREL_CACTUS) && checkState.get(BarrelCactusBlock.FLOWERED))
+					if(checkState.isOf(BMBlocks.BARREL_CACTUS_FLOWERED))
 					{
 						spots.add(new BlockPos(m.getX(), m.getY(), m.getZ()));
 					}

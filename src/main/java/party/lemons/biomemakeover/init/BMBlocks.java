@@ -68,7 +68,8 @@ public class BMBlocks
 	public static final Block TUMBLEWEED = new Block(settings(Material.PLANT, 0));
 
 	public static final SaguaroCactusBlock SAGUARO_CACTUS = new SaguaroCactusBlock(settings(Material.CACTUS, 0.4F).sounds(BlockSoundGroup.WOOL).ticksRandomly());
-	public static final BMBlock BARREL_CACTUS = new BarrelCactusBlock(settings(Material.CACTUS, 0).sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
+	public static final BMBlock BARREL_CACTUS = new BarrelCactusBlock(false, settings(Material.CACTUS, 0).ticksRandomly().sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
+	public static final BMBlock BARREL_CACTUS_FLOWERED = new BarrelCactusBlock(true, settings(Material.CACTUS, 0).sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
 
 	public static final BMBlock PAYDIRT = new BMBlock(settings(Material.SOIL, 1.4F).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.GRAVEL));
 	public static final BMBlock POLTERGEIST = new PoltergeisterBlock(settings(POLTERGEISTER_MATERIAL, 1.4F).sounds(BlockSoundGroup.LODESTONE));
@@ -82,7 +83,6 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_SAGUARO_CACTUS = new FlowerPotBlock(SAGUARO_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
-
 
 	public static void init()
     {

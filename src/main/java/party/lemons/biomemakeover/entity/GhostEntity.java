@@ -206,8 +206,21 @@ public class GhostEntity extends HostileEntity implements Angerable
 	}
 
 	@Override
-	public boolean damage(DamageSource source, float amount) {
-		return !this.isInvulnerableTo(source) && super.damage(source, amount);
+	public boolean isInvulnerableTo(DamageSource damageSource) {
+		if(     damageSource == DamageSource.LAVA ||
+				damageSource == DamageSource.IN_WALL ||
+				damageSource == DamageSource.CACTUS ||
+				damageSource == DamageSource.DROWN ||
+				damageSource == DamageSource.SWEET_BERRY_BUSH ||
+				damageSource == DamageSource.HOT_FLOOR ||
+				damageSource == DamageSource.FLY_INTO_WALL ||
+				damageSource == DamageSource.FALLING_BLOCK ||
+				damageSource == DamageSource.FALL ||
+				damageSource == DamageSource.ANVIL
+		)
+			return true;
+
+		return super.isInvulnerableTo(damageSource);
 	}
 
 	@Override
@@ -246,6 +259,8 @@ public class GhostEntity extends HostileEntity implements Angerable
 	private BlockPos getHomePosition() {
 		return this.homePosition;
 	}
+
+
 
 	class GhostMoveControl extends MoveControl {
 		private GhostMoveControl(GhostEntity owner) {
