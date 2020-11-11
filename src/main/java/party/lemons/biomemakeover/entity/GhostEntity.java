@@ -224,6 +224,12 @@ public class GhostEntity extends HostileEntity implements Angerable
 	}
 
 	@Override
+	public int getLimitPerChunk()
+	{
+		return 1;
+	}
+
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return this.hasAngerTime() ? BMEffects.GHOST_ANGRY : BMEffects.GHOST_IDLE;
 	}
@@ -259,8 +265,6 @@ public class GhostEntity extends HostileEntity implements Angerable
 	private BlockPos getHomePosition() {
 		return this.homePosition;
 	}
-
-
 
 	class GhostMoveControl extends MoveControl {
 		private GhostMoveControl(GhostEntity owner) {

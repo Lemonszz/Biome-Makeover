@@ -41,7 +41,7 @@ public class BarrelCactusBlock extends BMBlock
 	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos)
 	{
 		BlockState checkState = world.getBlockState(pos.down());
-		return checkState.isOf(Blocks.SAND) || checkState.isOf(Blocks.RED_SAND);
+		return checkState.isOf(Blocks.SAND) || checkState.isOf(Blocks.RED_SAND) || checkState.isOf(Blocks.CACTUS) || checkState.isOf(BMBlocks.SAGUARO_CACTUS);
 	}
 
 	@Override
