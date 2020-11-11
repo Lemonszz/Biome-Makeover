@@ -81,6 +81,7 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_BLIGHTED_BALSA_SAPLING = new FlowerPotBlock(BLIGHTED_BALSA_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_SAGUARO_CACTUS = new FlowerPotBlock(SAGUARO_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 
 	public static void init()

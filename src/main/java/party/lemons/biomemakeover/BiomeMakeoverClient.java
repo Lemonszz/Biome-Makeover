@@ -40,6 +40,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.POTTED_ORANGE_GLOWSHROOM,
 				BMBlocks.POTTED_BLIGHTED_BALSA_SAPLING,
 				BMBlocks.POTTED_BARREL_CACTUS,
+				BMBlocks.POTTED_FLOWERED_BARREL_CACTUS,
 				BMBlocks.POTTED_SAGUARO_CACTUS,
 				BMBlocks.TALL_BROWN_MUSHROOM,
 				BMBlocks.TALL_RED_MUSHROOM,

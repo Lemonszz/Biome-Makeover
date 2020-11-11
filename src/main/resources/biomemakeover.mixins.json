@@ -19,7 +19,8 @@
     "NoiseChunkGeneratorMixin",
     "ComposterInventoryMixin",
     "LandPathNodeMakerMixin",
-    "DefaultBiomeCreatorMixin"
+    "DefaultBiomeCreatorMixin",
+    "FlowerPotBlockMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

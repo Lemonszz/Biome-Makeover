@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class GhostEntity extends HostileEntity implements Angerable
 {
-	private static final TrackedData<Byte> GHOST_FLAGS = DataTracker.registerData(GhostEntity.class, TrackedDataHandlerRegistry.BYTE);
+	private static final TrackedData<Boolean> IsCharging = DataTracker.registerData(GhostEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final IntRange WANDER_RANGE_HORIZONTAL = IntRange.between(-7, 7);
 	private static final IntRange WANDER_RANGE_VERTICAL = IntRange.between(-5, 5);
 	private static final double CHARGE_MIN_DISTANCE = 2;
@@ -73,7 +73,7 @@ public class GhostEntity extends HostileEntity implements Angerable
 	protected void initDataTracker()
 	{
 		super.initDataTracker();
-		this.dataTracker.startTracking(GHOST_FLAGS, (byte)0);
+		this.dataTracker.startTracking(IsCharging, false);
 	}
 
 	@Override
@@ -234,28 +234,13 @@ public class GhostEntity extends HostileEntity implements Angerable
 		return BMEffects.GHOST_DEATH;
 	}
 
-	private boolean areFlagsSet(int mask) {
-		int i = this.dataTracker.get(GHOST_FLAGS);
-		return (i & mask) != 0;
-	}
+	private void setCharging(boolean charging) {
 
-	private void setGhostFlag(int mask, boolean value) {
-		int i = this.dataTracker.get(GHOST_FLAGS);
-		if (value) {
-			i = i | mask;
-		} else {
-			i = i & ~mask;
-		}
-
-		this.dataTracker.set(GHOST_FLAGS, (byte)(i & 255));
+		this.dataTracker.set(IsCharging, charging);
 	}
 
 	public boolean isCharging() {
-		return this.areFlagsSet(1);
-	}
-
-	public void setCharging(boolean charging) {
-		this.setGhostFlag(1, charging);
+		return dataTracker.get(IsCharging);
 	}
 
 	private BlockPos getHomePosition() {
