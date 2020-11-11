@@ -35,6 +35,7 @@ import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.block.BarrelCactusBlock;
 import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
@@ -131,7 +132,7 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> SAGUARO_CACTUS = SAGUARO_CACTUS_FEATURE.configure(DefaultFeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(12);
 	public static final PayDirtFeature PAY_DIRT_FEATURE = new PayDirtFeature(DefaultFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> PAY_DIRT = PAY_DIRT_FEATURE.configure(DefaultFeatureConfig.DEFAULT).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(30, 0, 80))).spreadHorizontally().repeat(10);
-	public static final ConfiguredFeature<?, ?> BARREL_CACTUS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BARREL_CACTUS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build());
+	public static final ConfiguredFeature<?, ?> BARREL_CACTUS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BARREL_CACTUS.getDefaultState().with(BarrelCactusBlock.FLOWERED, true)), SimpleBlockPlacer.INSTANCE)).tries(6).build());
 
 	//Conf Features
 	//2 tall Shrooms patch

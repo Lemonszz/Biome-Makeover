@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "flowered=true": {
+      "model": "biomemakeover:block/flowered_barrel_cactus"
+    },
+    "flowered=false": {
       "model": "biomemakeover:block/barrel_cactus"
     }
   }

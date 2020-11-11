@@ -38,8 +38,10 @@ public class BMItems
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
 	public static final Item ECTOPLASM = new BMItem(settings());
+	public static final Item PINK_PETAL = new BMItem(settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
+	public static Item BARREL_CACTUS_FLOWERED;
 
 	public static void init()
 	{

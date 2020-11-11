@@ -37,9 +37,9 @@ public class BiomeMakeover implements ModInitializer
 		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
 
 		BMEffects.init();
-		BMEntities.init();
 		BMBlocks.init();
 		BMItems.init();
+		BMEntities.init();
 		BMBlockEntities.init();
 		BMStructures.init();
 		BMWorldGen.init();

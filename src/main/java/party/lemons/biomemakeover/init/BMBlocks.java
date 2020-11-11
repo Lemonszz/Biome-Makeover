@@ -94,7 +94,8 @@ public class BMBlocks
             if(!info.hasItem())
                 return;
 
-            Registry.register(Registry.ITEM, id, info.makeItem());
+            info.registerItem(id);
+        //    Registry.register(Registry.ITEM, id, info.makeItem());
         });
 
         /* Simple decoration registers */

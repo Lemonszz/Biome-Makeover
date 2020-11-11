@@ -1,9 +1,13 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
+import net.minecraft.client.render.entity.model.SheepEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.ScuttlerEntity;
 
@@ -20,6 +24,7 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	private final ModelPart tail2;
 	private final ModelPart tail3;
 	private final ModelPart rattler;
+	private static boolean baby;
 
 	public ScuttlerModel() {
 		this.textureHeight = 64;
@@ -34,7 +39,7 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 		body.setTextureOffset(0, 9).addCuboid(-0.5F, -2.5F, 5.5F, 1.0F, 1.0F, 2.0F, 0.0F, false);
 		body.setTextureOffset(0, 9).addCuboid(-0.5F, -2.5F, 9.5F, 1.0F, 1.0F, 2.0F, 0.0F, false);
 
-		head = new ModelPart(this);
+		head = new BigHeadPart(this);
 		head.setPivot(0.0F, 0.0F, 0.0F);
 		body.addChild(head);
 		setRotationAngle(head, -0.2618F, 0.0F, 0.0F);
@@ -99,6 +104,10 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	@Override
 	public void setAngles(ScuttlerEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
+		baby = false;
+		if(entity.isBaby())
+			baby = true;
+
 		setRotationAngle(body, 0.2618F, 0.0F, 0.0F);
 		setRotationAngle(head, -0.2618F, 0.0F, 0.0F);
 		setRotationAngle(jaw, 0.1309F, 0.0F, 0.0F);
@@ -128,7 +137,11 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 		this.tail.roll += MathHelper.sin(entity.rattleTime);
 		this.tail3.roll += -MathHelper.sin(entity.rattleTime);
 		this.rattler.roll += -MathHelper.sin(entity.rattleTime);
+
+		if(entity.getDataTracker().get(ScuttlerEntity.EATING))
+			this.head.pitch = -MathHelper.cos(entity.eatTime * 0.6F + pi) * 0.3F;
 	}
+
 
 	public Iterable<ModelPart> getParts() {
 		return ImmutableList.of(this.body);
@@ -144,5 +157,34 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	public ModelPart getHead()
 	{
 		return this.head;
+	}
+
+	private class BigHeadPart extends ModelPart
+	{
+
+		public BigHeadPart(Model model)
+		{
+			super(model);
+		}
+
+		public BigHeadPart(Model model, int textureOffsetU, int textureOffsetV)
+		{
+			super(model, textureOffsetU, textureOffsetV);
+		}
+
+		public BigHeadPart(int textureWidth, int textureHeight, int textureOffsetU, int textureOffsetV)
+		{
+			super(textureWidth, textureHeight, textureOffsetU, textureOffsetV);
+		}
+
+		@Override
+		public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha)
+		{
+			matrices.push();
+			if(baby)
+				matrices.scale(1.6F, 1.6F, 1.6F);
+			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+			matrices.pop();
+		}
 	}
 }

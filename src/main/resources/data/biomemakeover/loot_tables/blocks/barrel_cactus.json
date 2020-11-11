@@ -5,15 +5,43 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "biomemakeover:barrel_cactus"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "biomemakeover:barrel_cactus",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "biomemakeover:barrel_cactus",
+                  "properties": {
+                    "flowered": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "biomemakeover:barrel_cactus_flowered",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "biomemakeover:barrel_cactus",
+                  "properties": {
+                    "flowered": true
+                  }
+                }
+              ]
+            }
+          ]
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+          ]
     }
   ]
 }

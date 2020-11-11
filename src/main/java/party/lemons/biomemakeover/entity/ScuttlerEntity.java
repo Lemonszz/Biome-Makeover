@@ -1,13 +1,10 @@
 package party.lemons.biomemakeover.entity;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -18,24 +15,41 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import party.lemons.biomemakeover.block.BarrelCactusBlock;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class ScuttlerEntity extends AnimalEntity
 {
 	private static TrackedData<Boolean> RATTLING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static TrackedData<Boolean> EATING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMItems.BARREL_CACTUS_FLOWERED);
 	private AttributeContainer attributeContainer;
 	public float rattleTime = 0;
+	private int eatCooldown = 100;
+	public int eatTime = 0;
+	private boolean passive = false;
+	private TemptGoal temptGoal;
 
 	public ScuttlerEntity(World world)
 	{
@@ -44,29 +58,38 @@ public class ScuttlerEntity extends AnimalEntity
 
 	@Override
 	protected void initGoals() {
+		TEMPT_ITEM = Ingredient.ofItems(BMItems.BARREL_CACTUS_FLOWERED);
+
+		this.temptGoal = new TemptGoal(this, 0.7D, TEMPT_ITEM, true);
+
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new RattleGoal<>(this, 20.0F, PlayerEntity.class));
-		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25D));
+		this.goalSelector.add(2, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(3, new AnimalMateGoal(this, 1.0D));
-		this.goalSelector.add(4, new FleeEntityGoal<>(this, PlayerEntity.class, 16.0F, 1.6D, 1.4D, (livingEntity) ->true));
-		this.goalSelector.add(5, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.add(6, new AvoidDaylightGoal(1.0D));
-		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(9, new LookAroundGoal(this));
+		this.goalSelector.add(4, temptGoal);
+		this.goalSelector.add(5, new FleeEntityGoal<>(this, PlayerEntity.class, 16.0F, 1.6D, 1.4D, (livingEntity) ->!passive));
+		this.goalSelector.add(6, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.add(7, new EatFlowerGoal());
+		this.goalSelector.add(8, new AvoidDaylightGoal(1.0D));
+		this.goalSelector.add(9, new WanderAroundFarGoal(this, 1.0D));
+		this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(11, new LookAroundGoal(this));
 	}
 
 	@Override
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(RATTLING, false);
+		this.dataTracker.startTracking(EATING, false);
 	}
 
 	@Override
 	public void tick()
 	{
 		super.tick();
-
+		eatCooldown--;
+		if(dataTracker.get(EATING))
+			eatTime--;
 		if(dataTracker.get(RATTLING))
 		{
 			double dir = Math.signum(Math.sin(rattleTime));
@@ -80,6 +103,74 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		Item item = itemStack.getItem();
+		if (this.world.isClient)
+		{
+			if (passive)
+			{
+				return ActionResult.SUCCESS;
+			}
+			else
+			{
+				return !this.isBreedingItem(itemStack) || this.getHealth() >= this.getMaxHealth() && passive ? ActionResult.PASS : ActionResult.SUCCESS;
+			}
+		}
+		else
+		{
+			if (passive)
+			{
+				if (item.isFood() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
+					this.eat(player, itemStack);
+					this.heal((float)item.getFoodComponent().getHunger());
+					return ActionResult.CONSUME;
+				}
+			}
+			else if (this.isBreedingItem(itemStack))
+			{
+				this.eat(player, itemStack);
+				if (this.random.nextInt(3) == 0)
+				{
+					passive = true;
+					this.world.sendEntityStatus(this, (byte)7);
+				}
+				else
+				{
+					this.world.sendEntityStatus(this, (byte)6);
+				}
+				this.setPersistent();
+				return ActionResult.CONSUME;
+			}
+			ActionResult actionResult;
+			actionResult = super.interactMob(player, hand);
+			if (actionResult.isAccepted()) {
+				this.setPersistent();
+			}
+			return actionResult;
+		}
+	}
+
+	@Override
+	public boolean isBreedingItem(ItemStack stack) {
+		return TEMPT_ITEM.test(stack);
+	}
+
+	@Override
+	public boolean canBeLeashedBy(PlayerEntity player)
+	{
+		return super.canBeLeashedBy(player) && isPassive();
+	}
+
+	@Override
+	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity)
+	{
+		ScuttlerEntity baby = BMEntities.SCUTTLER.create(world);
+		baby.setPassive(true);
+		return baby;
+	}
+
+	@Override
 	public void onTrackedDataSet(TrackedData<?> data)
 	{
 		super.onTrackedDataSet(data);
@@ -88,14 +179,30 @@ public class ScuttlerEntity extends AnimalEntity
 			rattleTime = 0;
 	}
 
-	@Override
-	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
-		return world.getRandom().nextBoolean() && world.getEntitiesByClass(ScuttlerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(50), (e)->true).isEmpty() &&  super.canSpawn(world, spawnReason);
+	public boolean isPassive()
+	{
+		return passive;
+	}
+
+	public void setPassive(boolean passive)
+	{
+		this.passive = passive;
 	}
 
 	@Override
-	public int getLimitPerChunk() {
-		return 1;
+	public void writeCustomDataToTag(CompoundTag tag)
+	{
+		super.writeCustomDataToTag(tag);
+		tag.putBoolean("Passive", passive);
+		tag.putInt("EatCooldown", eatCooldown);
+	}
+
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag)
+	{
+		super.readCustomDataFromTag(tag);
+		passive = tag.getBoolean("Passive");
+		eatCooldown = tag.getInt("EatCooldown");
 	}
 
 	@Override
@@ -105,18 +212,6 @@ public class ScuttlerEntity extends AnimalEntity
 			attributeContainer =  new AttributeContainer(
 					MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
 		return attributeContainer;
-	}
-
-	@Override
-	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions)
-	{
-		return 0.2F;
-	}
-
-	@Override
-	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity)
-	{
-		return null;
 	}
 
 	@Override
@@ -152,6 +247,23 @@ public class ScuttlerEntity extends AnimalEntity
 		return super.getMinAmbientSoundDelay() * 3;
 	}
 
+	@Override
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions)
+	{
+		return 0.2F;
+	}
+
+	@Override
+	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+		return world.getRandom().nextBoolean() && world.getEntitiesByClass(ScuttlerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(50), (e)->true).isEmpty() &&  super.canSpawn(world, spawnReason);
+	}
+
+	@Override
+	public int getLimitPerChunk() {
+		return 1;
+	}
+
+
 	private static class RattleGoal<T extends LivingEntity> extends Goal
 	{
 		private ScuttlerEntity scuttler;
@@ -174,7 +286,7 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean canStart()
 		{
-			if(scuttler.isTouchingWater())
+			if(scuttler.isTouchingWater() || scuttler.isPassive())
 				return false;
 
 			this.targetEntity = scuttler.world.
@@ -251,6 +363,100 @@ public class ScuttlerEntity extends AnimalEntity
 			{
 				return false;
 			}
+		}
+	}
+
+	public class EatFlowerGoal extends Goal
+	{
+		private BlockPos targetPos;
+
+		public EatFlowerGoal()
+		{
+			this.setControls(EnumSet.of(Goal.Control.MOVE, Control.LOOK));
+		}
+
+		@Override
+		public boolean canStart()
+		{
+			if(eatCooldown > 0)
+				return false;
+
+			BlockPos eatPos = findCactus();
+			if(eatPos != null)
+			{
+				targetPos = eatPos;
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public void tick()
+		{
+			if(squaredDistanceTo(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) > 2F)
+			{
+				getMoveControl().moveTo(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F, 0.6F);
+			}
+			getLookControl().lookAt(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F);
+			if(eatTime <= 1)
+			{
+				BlockState st = world.getBlockState(targetPos);
+				if(st.isOf(BMBlocks.BARREL_CACTUS) && st.get(BarrelCactusBlock.FLOWERED))
+				{
+					world.setBlockState(targetPos, st.with(BarrelCactusBlock.FLOWERED, false));
+					ItemScatterer.spawn(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETAL));
+					eatCooldown = 100 + random.nextInt(200);
+				}
+			}
+		}
+
+		@Override
+		public boolean shouldContinue()
+		{
+			if(eatTime <= 0 || eatCooldown > 0)
+				return false;
+
+			BlockState st = world.getBlockState(targetPos);
+			if(!st.isOf(BMBlocks.BARREL_CACTUS) || !st.get(BarrelCactusBlock.FLOWERED))
+				return false;
+
+			return squaredDistanceTo(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 2;
+		}
+
+		@Override
+		public void start()
+		{
+			dataTracker.set(EATING, true);
+			eatTime = 20 + random.nextInt(40);
+		}
+
+		@Override
+		public void stop()
+		{
+			dataTracker.set(EATING, false);
+		}
+
+		private BlockPos findCactus()
+		{
+			BlockPos startPos = getBlockPos();
+			List<BlockPos> spots = Lists.newArrayList();
+
+			BlockPos.Mutable m = new BlockPos.Mutable(startPos.getX(), startPos.getY(), startPos.getZ());
+			for(int x = startPos.getX() - 2; x < startPos.getX() + 2; x++)
+			{
+				for(int z = startPos.getZ() - 2; z < startPos.getZ() + 2; z++)
+				{
+					m.set(x, startPos.getY(), z);
+					BlockState checkState = world.getBlockState(m);
+					if(checkState.isOf(BMBlocks.BARREL_CACTUS) && checkState.get(BarrelCactusBlock.FLOWERED))
+					{
+						spots.add(new BlockPos(m.getX(), m.getY(), m.getZ()));
+					}
+				}
+			}
+			if(spots.isEmpty())
+				return null;
+			return spots.get(world.random.nextInt(spots.size()));
 		}
 	}
 
