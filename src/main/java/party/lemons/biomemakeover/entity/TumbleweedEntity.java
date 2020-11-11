@@ -1,21 +1,18 @@
 package party.lemons.biomemakeover.entity;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.world.WindSystem;
@@ -37,12 +34,6 @@ public class TumbleweedEntity extends Entity
 	{
 		super(BMEntities.TUMBLEWEED, world);
 		windOffset = 1F - (world.getRandom().nextFloat() / 3);
-	}
-
-	@Override
-	protected void initDataTracker()
-	{
-
 	}
 
 	@Override
@@ -81,7 +72,7 @@ public class TumbleweedEntity extends Entity
 			if(onGround)
 			{
 				vY = MathHelper.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
-				this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, 0.25F, 1.0F);
+				this.playSound(BMEffects.TUMBLEWEED_TUMBLE, 0.25F, 1.0F);
 			}
 
 			if(isTouchingWater())
@@ -125,22 +116,35 @@ public class TumbleweedEntity extends Entity
 		super.kill();
 	}
 
+	@Override
+	protected void initDataTracker()
+	{
+
+	}
+
+	@Override
 	public boolean damage(DamageSource source, float amount) {
 		if(source != DamageSource.CACTUS)
 		{
-			this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, 0.25F, 1.0F);
+			this.playSound(BMEffects.TUMBLEWEED_BREAK, 0.25F, 1.0F);
 			kill();
 		}
 
 		return true;
 	}
 
-	public void makeParticles(int count)
+	private void makeParticles(int count)
 	{
 		for(int i = 0; i < count; i++)
 		{
 			world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, BMBlocks.TUMBLEWEED.getDefaultState()), -0.5D + (getX() + random.nextDouble()), getY() + random.nextDouble(), -0.5D + (getZ() + random.nextDouble()), 0.0D, 0.0D, 0.0D);
 		}
+	}
+
+	@Override
+	public boolean isPushable()
+	{
+		return true;
 	}
 
 	@Override
@@ -156,11 +160,6 @@ public class TumbleweedEntity extends Entity
 	}
 
 	@Override
-	public boolean isPushable()
-	{
-		return true;
-	}
-
 	public boolean collides() {
 		return !this.removed;
 	}
@@ -177,12 +176,6 @@ public class TumbleweedEntity extends Entity
 			return Math.min(val + step, target);
 		else
 			return Math.max(val - step, target);
-	}
-
-	@Override
-	protected void playStepSound(BlockPos pos, BlockState state)
-	{
-		super.playStepSound(pos, state);
 	}
 
 	@Override

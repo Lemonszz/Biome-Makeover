@@ -24,7 +24,6 @@ public class BMItems
 	public static final FoodComponent GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.1F).hunger(1).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
 	public static final FoodComponent COOKED_GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.6F).hunger(5).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
 
-	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().rarity(Rarity.RARE));
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
 	public static final Item GLOWFISH_BUCKET = new FishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
@@ -40,6 +39,9 @@ public class BMItems
 	public static final Item ECTOPLASM = new BMItem(settings());
 	public static final Item PINK_PETAL = new BMItem(settings());
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
+
+	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().rarity(Rarity.RARE));
+	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().rarity(Rarity.RARE));
 
 	public static final Item ICON_ITEM = new FakeItem();
 

@@ -8,6 +8,15 @@
       }
     ]
   },
+  "ghost_town": {
+  "subtitle": "subtitles.biomemakeover.ghost_town",
+  "sounds": [
+    {
+      "name": "biomemakeover:ghost_town",
+      "stream": true
+    }
+  ]
+  },
   "ghost_charge": {
     "subtitle": "subtitles.biomemakeover.ghost.charge",
     "sounds": [
@@ -75,5 +84,55 @@
       "biomemakeover:scuttler_death_1",
       "biomemakeover:scuttler_death_2"
     ]
+  },
+  "tumbleweed_tumble": {
+    "sounds": [
+      {
+        "name": "block/sweet_berry_bush/place1",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place2",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place3",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place4",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place5",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place6",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.biomemakeover.tumbleweed.tumble"
+  },
+  "tumbleweed_break": {
+    "sounds": [
+      {
+        "name": "block/sweet_berry_bush/break1",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/break2",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/break3",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/break4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.biomemakeover.tumbleweed.break"
   }
 }

@@ -149,6 +149,7 @@
   "block.biomemakeover.paydirt" : "Pay Dirt",
   "block.biomemakeover.ectoplasm_composter" : "Composter",
   "item.biomemakeover.button_mushrooms_music_disk" : "Music Disc",
+  "item.biomemakeover.ghost_town_music_disk" : "Music Disc",
   "item.biomemakeover.mushroom_trader_spawn_egg" : "Mushroom Trader Spawn Egg",
   "item.biomemakeover.glowfish_spawn_egg" : "Glowfish Spawn Egg",
   "item.biomemakeover.blightbat_spawn_egg" : "Blightbat Spawn Egg",
@@ -158,6 +159,7 @@
   "item.biomemakeover.glowfish_bucket" : "Bucket of Glowfish",
   "item.biomemakeover.glowfish" : "Glowfish",
   "item.biomemakeover.button_mushrooms_music_disk.desc" : "Podington Bear - Button Mushrooms",
+  "item.biomemakeover.ghost_town_music_disk.desc" : "Lobo Loco - Ghost Town",
   "item.biomemakeover.cooked_glowfish" : "Cooked Glowfish",
   "item.biomemakeover.cowboy_hat" : "Cowboy Hat",
   "item.biomemakeover.ectoplasm" : "Ectoplasm",
@@ -176,5 +178,7 @@
   "subtitles.biomemakeover.ghost.idle": "Ghost Moans",
   "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles",
   "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",
-  "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles"
+  "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",
+  "subtitles.biomemakeover.tumbleweed.tumble": "Tumbleweed Tumbles",
+  "subtitles.biomemakeover.tumbleweed.breaks": "Tumbleweed Breaks"
 }
