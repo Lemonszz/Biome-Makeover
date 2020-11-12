@@ -1,6 +1,5 @@
 {
   "button_mushrooms": {
-    "subtitle": "subtitles.biomemakeover.button_mushrooms",
     "sounds": [
       {
         "name": "biomemakeover:button_mushrooms",
@@ -9,7 +8,6 @@
     ]
   },
   "ghost_town": {
-  "subtitle": "subtitles.biomemakeover.ghost_town",
   "sounds": [
     {
       "name": "biomemakeover:ghost_town",

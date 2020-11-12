@@ -40,8 +40,8 @@ public class BMItems
 	public static final Item PINK_PETAL = new BMItem(settings());
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
-	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().rarity(Rarity.RARE));
-	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().rarity(Rarity.RARE));
+	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
+	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
 
 	public static final Item ICON_ITEM = new FakeItem();
 
