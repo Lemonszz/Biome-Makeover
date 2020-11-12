@@ -35,7 +35,7 @@ public class BMItems
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
 	public static final Item ECTOPLASM = new BMItem(settings());
-	public static final Item PINK_PETAL = new BMItem(settings());
+	public static final Item PINK_PETALS = new BMItem(settings());
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));

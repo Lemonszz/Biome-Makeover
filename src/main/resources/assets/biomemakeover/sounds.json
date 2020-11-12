@@ -132,5 +132,93 @@
       }
     ],
     "subtitle": "subtitles.biomemakeover.tumbleweed.break"
+  },
+  "poltergeist_action": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed1",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed2",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed3",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed4",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed5",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed6",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed7",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed8",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed9",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed10",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed11",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed12",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed13",
+        "volume": 0.25
+      }
+    ],
+    "subtitle": "subtitles.biomemakeover.poltergeist.action"
+  },
+  "poltergeist_toggle": {
+    "sounds": [
+      "enchant/soulspeed/soulspeed1",
+      "enchant/soulspeed/soulspeed2",
+      "enchant/soulspeed/soulspeed3",
+      "enchant/soulspeed/soulspeed4",
+      "enchant/soulspeed/soulspeed5",
+      "enchant/soulspeed/soulspeed6",
+      "enchant/soulspeed/soulspeed7",
+      "enchant/soulspeed/soulspeed8",
+      "enchant/soulspeed/soulspeed9",
+      "enchant/soulspeed/soulspeed10",
+      "enchant/soulspeed/soulspeed11",
+      "enchant/soulspeed/soulspeed12",
+      "enchant/soulspeed/soulspeed13"
+    ],
+    "subtitle": "subtitles.biomemakeover.poltergeist.toggle"
   }
 }

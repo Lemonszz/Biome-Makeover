@@ -42,7 +42,7 @@ public class ScuttlerEntity extends AnimalEntity
 {
 	private static final TrackedData<Boolean> RATTLING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Boolean> EATING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMBlocks.BARREL_CACTUS_FLOWERED);
+	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMItems.PINK_PETALS);
 	private AttributeContainer attributeContainer;
 	public float rattleTime = 0;
 	private int eatCooldown = 100;
@@ -57,7 +57,7 @@ public class ScuttlerEntity extends AnimalEntity
 
 	@Override
 	protected void initGoals() {
-		TEMPT_ITEM = Ingredient.ofItems(BMBlocks.BARREL_CACTUS_FLOWERED);
+		TEMPT_ITEM = Ingredient.ofItems(BMItems.PINK_PETALS);
 
 		this.temptGoal = new TemptGoal(this, 0.7D, TEMPT_ITEM, true);
 
@@ -304,17 +304,21 @@ public class ScuttlerEntity extends AnimalEntity
 							this.scuttler.getBoundingBox().expand(this.distance, 3.0D, this.distance));
 			if (this.targetEntity == null || !scuttler.canSee(targetEntity) || !targetEntity.canSee(scuttler))
 			{
+
 				return false;
 			}
 			else
 			{
-				return scuttler.distanceTo(targetEntity) >= distance / 2;
+				return !targetEntity.isHolding(BMItems.PINK_PETALS) && scuttler.distanceTo(targetEntity) >= distance / 2;
 			}
 		}
 
 		@Override
 		public boolean shouldContinue()
 		{
+			if(targetEntity.isHolding(BMItems.PINK_PETALS))
+				return false;
+
 			double d = scuttler.distanceTo(targetEntity);
 			return d > distance / 2 && d < distance && scuttler.canSee(targetEntity) && targetEntity.canSee(scuttler);
 		}
@@ -411,7 +415,7 @@ public class ScuttlerEntity extends AnimalEntity
 				if(st.isOf(BMBlocks.BARREL_CACTUS_FLOWERED))
 				{
 					world.setBlockState(targetPos, BMBlocks.BARREL_CACTUS.getDefaultState());
-					ItemScatterer.spawn(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETAL));
+					ItemScatterer.spawn(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETALS));
 					eatCooldown = 100 + random.nextInt(200);
 				}
 			}

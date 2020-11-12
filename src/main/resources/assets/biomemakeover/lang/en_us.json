@@ -163,7 +163,7 @@
   "item.biomemakeover.cooked_glowfish" : "Cooked Glowfish",
   "item.biomemakeover.cowboy_hat" : "Cowboy Hat",
   "item.biomemakeover.ectoplasm" : "Ectoplasm",
-  "item.biomemakeover.pink_petal" : "Pink Petal",
+  "item.biomemakeover.pink_petals" : "Pink Petals",
   "item.biomemakeover.scuttler_tail" : "Scuttler Tail",
   "entity.biomemakeover.blightbat" : "Blightbat",
   "entity.biomemakeover.glowfish" : "Glowfish",
@@ -181,5 +181,7 @@
   "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",
   "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",
   "subtitles.biomemakeover.tumbleweed.tumble": "Tumbleweed Tumbles",
-  "subtitles.biomemakeover.tumbleweed.break": "Tumbleweed Breaks"
+  "subtitles.biomemakeover.tumbleweed.break": "Tumbleweed Breaks",
+  "subtitles.biomemakeover.poltergeist.toggle": "Poltergeist Toggles",
+  "subtitles.biomemakeover.poltergeist.action": "Poltergeist Interacts"
 }

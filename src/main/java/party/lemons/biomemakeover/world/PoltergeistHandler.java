@@ -12,6 +12,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMNetwork;
 import party.lemons.biomemakeover.util.NetworkUtil;
 
@@ -122,15 +123,20 @@ public class PoltergeistHandler
 		{
 			Random random = world.random;
 
-			PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-			data.writeInt(checkPos.getX());
-			data.writeInt(checkPos.getY());
-			data.writeInt(checkPos.getZ());
-			NetworkUtil.serverSendToNearby(world, BMNetwork.SPAWN_POLTERGEIGHT_PARTICLE, data, checkPos.getX(), checkPos.getY(), checkPos.getZ());
+			doParticles(world, checkPos);
 
 			float pitch = random.nextFloat() * 0.4F + random.nextFloat() > 0.9F ? 0.6F : 0.0F;
-			world.playSound(null, pos, SoundEvents.PARTICLE_SOUL_ESCAPE, SoundCategory.BLOCKS, pitch, 0.6F + random.nextFloat() * 0.4F);
+			world.playSound(null, pos, BMEffects.POLTERGEIST_ACTION, SoundCategory.BLOCKS, pitch, 0.6F + random.nextFloat() * 0.4F);
 		}
+	}
+
+	public static void doParticles(World world, BlockPos pos)
+	{
+		PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+		data.writeInt(pos.getX());
+		data.writeInt(pos.getY());
+		data.writeInt(pos.getZ());
+		NetworkUtil.serverSendToNearby(world, BMNetwork.SPAWN_POLTERGEIGHT_PARTICLE, data, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public interface PoltergeistBehaviour

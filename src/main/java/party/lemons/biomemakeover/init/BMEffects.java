@@ -20,6 +20,8 @@ public class BMEffects
 	public static final SoundEvent SCUTTLER_DEATH = new SoundEvent(BiomeMakeover.ID("scuttler_death"));
 	public static final SoundEvent TUMBLEWEED_TUMBLE = new SoundEvent(BiomeMakeover.ID("tumbleweed_tumble"));
 	public static final SoundEvent TUMBLEWEED_BREAK = new SoundEvent(BiomeMakeover.ID("tumbleweed_break"));
+	public static final SoundEvent POLTERGEIST_ACTION = new SoundEvent(BiomeMakeover.ID("poltergeist_action"));
+	public static final SoundEvent POLTERGEIST_TOGGLE = new SoundEvent(BiomeMakeover.ID("poltergeist_toggle"));
 
 	public static void init()
 	{
