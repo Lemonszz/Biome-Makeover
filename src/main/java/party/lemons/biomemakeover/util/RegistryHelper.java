@@ -3,16 +3,14 @@ package party.lemons.biomemakeover.util;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.BiomeMakeover;
-import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Locale;
 
 public final class RegistryHelper {
 
+    @SafeVarargs
     public static <T> void register(Registry<T> registry, Class typeClass, Class from, RegistryCallback<T>... callbacks)
     {
         try {
@@ -47,5 +45,5 @@ public final class RegistryHelper {
         void callback(Registry<T> registry, T registryObject, Identifier identifier);
     }
 
-    private RegistryHelper(){};
+    private RegistryHelper(){}
 }

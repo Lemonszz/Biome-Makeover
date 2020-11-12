@@ -1,14 +1,11 @@
 package party.lemons.biomemakeover.entity.render;
 
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.SalmonEntityRenderer;
-import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.SalmonEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.entity.render.feature.BlightbatFeatureRenderer;
 import party.lemons.biomemakeover.entity.render.feature.GlowfishFeatureRenderer;
 
 public class GlowfishRender extends SalmonEntityRenderer

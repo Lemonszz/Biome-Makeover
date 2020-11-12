@@ -5,19 +5,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.BMStairBlock;
 import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.item.BMItem;
 
 import java.util.Map;
 
 public class DecorationBlockInfo
 {
-	private Map<Type, Block> blocks = Maps.newHashMap();
+	private final Map<Type, Block> blocks = Maps.newHashMap();
 	private final String name;
 	private final Block.Settings settings;
 	private final Block base;
@@ -96,7 +94,7 @@ public class DecorationBlockInfo
 		STAIR("stairs"),
 		WALL("wall");
 
-		private String postfix;
+		private final String postfix;
 
 		Type(String postfix)
 		{

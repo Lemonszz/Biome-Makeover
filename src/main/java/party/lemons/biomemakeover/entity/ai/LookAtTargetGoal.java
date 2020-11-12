@@ -1,16 +1,14 @@
 package party.lemons.biomemakeover.entity.ai;
 
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.SpellcastingIllagerEntity;
 
 import java.util.EnumSet;
 
 public class LookAtTargetGoal extends Goal
 {
-	private PathAwareEntity entity;
+	private final PathAwareEntity entity;
 
 	public LookAtTargetGoal(PathAwareEntity entity)
 	{
@@ -23,16 +21,7 @@ public class LookAtTargetGoal extends Goal
 		return entity.getTarget() != null;
 	}
 
-	public void start()
-	{
-		super.start();
-	}
-
-	public void stop()
-	{
-		super.stop();
-	}
-
+	@Override
 	public void tick()
 	{
 		if(entity.getTarget() != null)

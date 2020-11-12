@@ -6,7 +6,6 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
-import net.minecraft.client.render.entity.model.SheepEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.ScuttlerEntity;
@@ -104,9 +103,7 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	@Override
 	public void setAngles(ScuttlerEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
-		baby = false;
-		if(entity.isBaby())
-			baby = true;
+		baby = entity.isBaby();
 
 		setRotationAngle(body, 0.2618F, 0.0F, 0.0F);
 		setRotationAngle(head, -0.2618F, 0.0F, 0.0F);
@@ -159,10 +156,10 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 		return this.head;
 	}
 
-	private class BigHeadPart extends ModelPart
+	private static class BigHeadPart extends ModelPart
 	{
 
-		public BigHeadPart(Model model)
+		BigHeadPart(Model model)
 		{
 			super(model);
 		}

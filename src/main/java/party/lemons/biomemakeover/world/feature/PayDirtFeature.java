@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class PayDirtFeature extends Feature<DefaultFeatureConfig>
 {
-	private BlockState PAY_DIRT = BMBlocks.PAYDIRT.getDefaultState();
+	private final BlockState PAY_DIRT = BMBlocks.PAYDIRT.getDefaultState();
 
 	public PayDirtFeature(Codec<DefaultFeatureConfig> configCodec)
 	{
@@ -34,16 +34,12 @@ public class PayDirtFeature extends Feature<DefaultFeatureConfig>
 			int zSize = random.nextInt(4);
 			float distance = (float)(xSize + ySize + zSize) * 0.333F + 0.5F;
 
-			Iterator box = BlockPos.iterate(blockPos.add(-xSize, -ySize, -zSize), blockPos.add(xSize, ySize, zSize)).iterator();
-			while(box.hasNext())
+			for(BlockPos generatePos : BlockPos.iterate(blockPos.add(-xSize, -ySize, -zSize), blockPos.add(xSize, ySize, zSize)))
 			{
-				BlockPos generatePos = (BlockPos)box.next();
-
 				BlockState currentState = world.getBlockState(generatePos);
-				if(currentState.getBlock() == Blocks.WATER || currentState.isAir())
-					continue;
+				if(currentState.getBlock() == Blocks.WATER || currentState.isAir()) continue;
 
-				if (generatePos.getSquaredDistance(blockPos) <= (double)(distance * distance))
+				if(generatePos.getSquaredDistance(blockPos) <= (double) (distance * distance))
 				{
 					boolean found = false;
 					for(Direction dir : Direction.values())
@@ -56,8 +52,7 @@ public class PayDirtFeature extends Feature<DefaultFeatureConfig>
 						}
 					}
 
-					if(!found)
-						continue;
+					if(!found) continue;
 
 					world.setBlockState(generatePos, PAY_DIRT, 4);
 				}

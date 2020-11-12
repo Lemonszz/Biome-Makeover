@@ -2,10 +2,9 @@ package party.lemons.biomemakeover.world.feature;
 
 import com.mojang.serialization.Codec;
 import java.util.Random;
-import net.minecraft.block.BlockState;
+
 import net.minecraft.block.MushroomBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.HugeMushroomFeatureConfig;
 import party.lemons.biomemakeover.world.feature.UndergroundHugeMushroomFeature;

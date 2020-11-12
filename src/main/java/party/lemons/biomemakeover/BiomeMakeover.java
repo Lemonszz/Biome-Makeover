@@ -54,13 +54,12 @@ public class BiomeMakeover implements ModInitializer
 		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELD_SHORE), 0x5d3fe4);
 
 		//TOOD: Move
-		CommandRegistrationCallback.EVENT.register((d, ded)->{
-			d.register(CommandManager.literal("pillager").requires((serverCommandSource) ->serverCommandSource.hasPermissionLevel(2))
-					.then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).then(CommandManager.argument("leader", BoolArgumentType.bool()).executes(c->{
-						((PillagerSpawnerAccess)new PillagerSpawner()).spawn(c.getSource().getWorld(), BlockPosArgumentType.getBlockPos(c, "pos"), BoolArgumentType.getBool(c, "leader"));
-						return 1;
-					}))));
-		});
+		CommandRegistrationCallback.EVENT.register((d, ded)->
+				d.register(CommandManager.literal("pillager").requires((serverCommandSource) ->serverCommandSource.hasPermissionLevel(2))
+				.then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).then(CommandManager.argument("leader", BoolArgumentType.bool()).executes(c->{
+					((PillagerSpawnerAccess)new PillagerSpawner()).spawn(c.getSource().getWorld(), BlockPosArgumentType.getBlockPos(c, "pos"), BoolArgumentType.getBool(c, "leader"));
+					return 1;
+				})))));
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->{
 			if(!player.isSpectator())

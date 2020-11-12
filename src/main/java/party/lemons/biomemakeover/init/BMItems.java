@@ -2,8 +2,6 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;

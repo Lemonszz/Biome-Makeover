@@ -1,16 +1,13 @@
 package party.lemons.biomemakeover.mixin;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.entity.passive.HorseEntity;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.SpawnHelper;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.PillagerSpawner;
 import org.spongepowered.asm.mixin.Mixin;

@@ -5,16 +5,11 @@ import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class S2C_DoPoltergeightParticle implements PacketConsumer
 {

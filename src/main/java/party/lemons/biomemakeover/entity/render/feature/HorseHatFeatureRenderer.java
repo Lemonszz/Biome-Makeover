@@ -8,21 +8,17 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
-import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.item.HatItem;
 import party.lemons.biomemakeover.util.HorseHat;
 
 public class HorseHatFeatureRenderer<M extends EntityModel<HorseEntity>> extends FeatureRenderer<HorseEntity, M>
 {
-	public static Identifier HAT_TEXTURE = BiomeMakeover.ID("textures/misc/cowboy_hat.png");
+	public static final Identifier HAT_TEXTURE = BiomeMakeover.ID("textures/misc/cowboy_hat.png");
 
 	//TODO: Support more hat models
 

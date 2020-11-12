@@ -29,7 +29,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import party.lemons.biomemakeover.block.BarrelCactusBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
@@ -41,8 +40,8 @@ import java.util.function.Predicate;
 
 public class ScuttlerEntity extends AnimalEntity
 {
-	private static TrackedData<Boolean> RATTLING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static TrackedData<Boolean> EATING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final TrackedData<Boolean> RATTLING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<Boolean> EATING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMBlocks.BARREL_CACTUS_FLOWERED);
 	private AttributeContainer attributeContainer;
 	public float rattleTime = 0;
@@ -274,9 +273,9 @@ public class ScuttlerEntity extends AnimalEntity
 
 	private static class RattleGoal<T extends LivingEntity> extends Goal
 	{
-		private ScuttlerEntity scuttler;
-		private float distance;
-		private Class<T> targetClass;
+		private final ScuttlerEntity scuttler;
+		private final float distance;
+		private final Class<T> targetClass;
 		T targetEntity;
 		private final TargetPredicate withinRangePredicate;
 

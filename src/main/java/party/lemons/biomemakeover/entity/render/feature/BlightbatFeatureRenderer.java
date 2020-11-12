@@ -1,21 +1,16 @@
 package party.lemons.biomemakeover.entity.render.feature;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.BatEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.VillagerResemblingModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.passive.BatEntity;
-import party.lemons.biomemakeover.entity.BlightbatEntity;
-import party.lemons.biomemakeover.entity.MushroomVillagerEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.access.BatEntityModelAccessor;
 

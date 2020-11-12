@@ -27,7 +27,7 @@ public class TumbleweedEntity extends Entity
 	private double disX = 0;
 	private double disZ = 0;
 	private float windOffset = 0;
-	private float acceleration = 0.0025F;
+	private final float acceleration = 0.0025F;
 	private float age = 0;
 
 	public TumbleweedEntity(World world)

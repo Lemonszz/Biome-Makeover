@@ -2,7 +2,6 @@ package party.lemons.biomemakeover.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import org.lwjgl.system.CallbackI;
 
 public class BlockItemPair
 {

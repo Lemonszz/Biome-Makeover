@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 {
-	private SaguaroCactusBlock CACTUS = BMBlocks.SAGUARO_CACTUS;
+	private final SaguaroCactusBlock CACTUS = BMBlocks.SAGUARO_CACTUS;
 	private final Direction[] NORTH_SOUTH = {Direction.NORTH, Direction.SOUTH};
 	private final Direction[] EAST_WEST = {Direction.EAST, Direction.WEST};
 
@@ -68,9 +68,8 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 
 		if(has2Arms)
 		{
-			for(int i = 0; i < directions.length; i++)
+			for(Direction d : directions)
 			{
-				Direction d = directions[i];
 				generateArm(world, d, p.getX(), pos.getY() + armStart, p.getZ(), centerEndY);
 				armStart = RandomUtil.randomRange(1, centerHeight - 2);
 			}
@@ -80,7 +79,7 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 			generateArm(world, directions[random.nextInt(directions.length)], p.getX(), pos.getY() + armStart, p.getZ(), centerEndY);
 		}
 
-		if(( !isBig && random.nextInt(10) == 0) || (isBig && random.nextInt(50) == 0))
+		if((!isBig && random.nextInt(10) == 0) || (isBig && random.nextInt(50) == 0))
 		{
 			BlockPos nextPos =  new BlockPos(pos.getX(), centerEndY, pos.getZ());
 			if(world.getBlockState(nextPos).isAir())

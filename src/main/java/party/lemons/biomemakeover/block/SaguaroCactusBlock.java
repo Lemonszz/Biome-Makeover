@@ -29,12 +29,12 @@ import java.util.Random;
 
 public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 {
-	public static BooleanProperty HORIZONTAL = BooleanProperty.of("horizontal");
-	public static DirectionProperty HORIZONTAL_DIRECTION = HorizontalFacingBlock.FACING;
-	public static BooleanProperty NORTH = BooleanProperty.of("north");
-	public static BooleanProperty SOUTH = BooleanProperty.of("south");
-	public static BooleanProperty EAST = BooleanProperty.of("east");
-	public static BooleanProperty WEST = BooleanProperty.of("west");
+	public static final BooleanProperty HORIZONTAL = BooleanProperty.of("horizontal");
+	public static final DirectionProperty HORIZONTAL_DIRECTION = HorizontalFacingBlock.FACING;
+	public static final BooleanProperty NORTH = BooleanProperty.of("north");
+	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
+	public static final BooleanProperty EAST = BooleanProperty.of("east");
+	public static final BooleanProperty WEST = BooleanProperty.of("west");
 
 	public SaguaroCactusBlock(Settings settings)
 	{
