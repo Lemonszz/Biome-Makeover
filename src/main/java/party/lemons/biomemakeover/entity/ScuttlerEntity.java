@@ -56,7 +56,8 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
-	protected void initGoals() {
+	protected void initGoals()
+	{
 		TEMPT_ITEM = Ingredient.ofItems(BMItems.PINK_PETALS);
 
 		this.temptGoal = new TemptGoal(this, 0.7D, TEMPT_ITEM, true);
@@ -76,7 +77,8 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
-	protected void initDataTracker() {
+	protected void initDataTracker()
+	{
 		super.initDataTracker();
 		this.dataTracker.startTracking(RATTLING, false);
 		this.dataTracker.startTracking(EATING, false);
@@ -102,7 +104,8 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
-	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+	public ActionResult interactMob(PlayerEntity player, Hand hand)
+	{
 		ItemStack itemStack = player.getStackInHand(hand);
 		Item item = itemStack.getItem();
 		if (this.world.isClient)
@@ -151,7 +154,8 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
-	public boolean isInvulnerableTo(DamageSource damageSource) {
+	public boolean isInvulnerableTo(DamageSource damageSource)
+	{
 		if(damageSource == DamageSource.CACTUS)
 			return true;
 
@@ -261,7 +265,8 @@ public class ScuttlerEntity extends AnimalEntity
 	}
 
 	@Override
-	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason)
+	{
 		return world.getRandom().nextBoolean() && world.getEntitiesByClass(ScuttlerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(50), (e)->true).isEmpty() &&  super.canSpawn(world, spawnReason);
 	}
 
@@ -269,7 +274,6 @@ public class ScuttlerEntity extends AnimalEntity
 	public int getLimitPerChunk() {
 		return 1;
 	}
-
 
 	private static class RattleGoal<T extends LivingEntity> extends Goal
 	{
@@ -470,5 +474,4 @@ public class ScuttlerEntity extends AnimalEntity
 			return spots.get(world.random.nextInt(spots.size()));
 		}
 	}
-
 }

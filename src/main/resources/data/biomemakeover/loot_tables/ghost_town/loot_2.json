@@ -96,6 +96,11 @@
           "type": "minecraft:item",
           "weight": 5,
           "name": "biomemakeover:cowboy_hat"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "biomemakeover:ghost_town_music_disk"
         }
       ]
     }

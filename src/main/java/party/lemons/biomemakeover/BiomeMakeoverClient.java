@@ -45,7 +45,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.TUMBLEWEED,
 				BMBlocks.SAGUARO_CACTUS,
 				BMBlocks.BARREL_CACTUS,
-				BMBlocks.BARREL_CACTUS_FLOWERED
+				BMBlocks.BARREL_CACTUS_FLOWERED,
+				BMBlocks.POLTERGEIST
 		);
 	}
 }

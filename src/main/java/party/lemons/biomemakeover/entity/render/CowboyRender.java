@@ -5,12 +5,13 @@ import net.minecraft.client.render.entity.IllagerEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
 import net.minecraft.client.render.entity.model.IllagerEntityModel;
 import net.minecraft.util.Identifier;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.CowboyEntity;
 import party.lemons.biomemakeover.entity.render.feature.HatFeatureRenderer;
 
 public class CowboyRender extends IllagerEntityRenderer<CowboyEntity>
 {
-	private static final Identifier TEXTURE = new Identifier("textures/entity/illager/pillager.png");
+	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/cowboy.png");
 
 	public CowboyRender(EntityRenderDispatcher entityRenderDispatcher)
 	{
