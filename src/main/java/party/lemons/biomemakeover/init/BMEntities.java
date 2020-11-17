@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.mob.GuardianEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import party.lemons.biomemakeover.entity.*;
@@ -31,5 +32,6 @@ public class BMEntities
 	public static void registerSpawnRestrictions(Map<EntityType<?>, SpawnRestriction.Entry> restrictions)
 	{
 		restrictions.put(BMEntities.GLOWFISH, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.IN_WATER, (e, world, spawnReason, pos, b)->world.getBlockState(pos).isOf(Blocks.WATER) && world.getBlockState(pos.up()).isOf(Blocks.WATER)));
+		restrictions.put(BMEntities.SCUTTLER, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, (e, world, spawnReason, pos, b)->world.getBlockState(pos.down()).isOpaque()));
 	}
 }

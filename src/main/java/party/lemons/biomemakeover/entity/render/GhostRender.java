@@ -11,6 +11,7 @@ import party.lemons.biomemakeover.entity.GhostEntity;
 public class GhostRender extends MobEntityRenderer<GhostEntity, GhostEntityModel>
 {
 	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/ghost.png");
+	private static final Identifier TEXTURE_ANGRY = BiomeMakeover.ID("textures/entity/ghost_angry.png");
 
 	public GhostRender(EntityRenderDispatcher entityRenderDispatcher)
 	{
@@ -26,6 +27,6 @@ public class GhostRender extends MobEntityRenderer<GhostEntity, GhostEntityModel
 
 	public Identifier getTexture(GhostEntity entity)
 	{
-		return TEXTURE;
+		return entity.isCharging() ? TEXTURE_ANGRY : TEXTURE;
 	}
 }

@@ -104,6 +104,7 @@ public class GhostTownFeature extends JigsawFeature
 				Pair.of(StructurePoolElement.method_30426( "biomemakeover:ghosttown/houses/house_small_09", BUILDING_PROCESSOR), 20),
 				Pair.of(StructurePoolElement.method_30426( "biomemakeover:ghosttown/houses/house_small_10", BUILDING_PROCESSOR), 20),
 				Pair.of(StructurePoolElement.method_30426( "biomemakeover:ghosttown/houses/house_small_11", BUILDING_PROCESSOR), 20),
+				Pair.of(StructurePoolElement.method_30426( "biomemakeover:ghosttown/houses/house_small_12", BUILDING_PROCESSOR), 20),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_medium_01", BUILDING_PROCESSOR), 15),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_medium_02", BUILDING_PROCESSOR), 15),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_medium_03", BUILDING_PROCESSOR), 15),
@@ -114,6 +115,7 @@ public class GhostTownFeature extends JigsawFeature
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_02", BUILDING_PROCESSOR), 8),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_03", BUILDING_PROCESSOR), 8),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_04", BUILDING_PROCESSOR), 8),
+				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/houses/house_large_05", BUILDING_PROCESSOR), 8),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/decoration/water_tower_1", BUILDING_PROCESSOR), 15),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/decoration/water_tower_2", BUILDING_PROCESSOR), 15)
 		), StructurePool.Projection.RIGID));
@@ -128,6 +130,12 @@ public class GhostTownFeature extends JigsawFeature
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/trough_decoration"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/lamp_decoration_2"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/cactus_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/barrel_cactus_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/bell_decoration_1"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/dead_bush_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/hay_well_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/tree_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/tree_decoration_2"), 2),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/decoration/water_tower_2", BUILDING_PROCESSOR), 2)
 		), StructurePool.Projection.RIGID));
 	}

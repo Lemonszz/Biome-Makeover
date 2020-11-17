@@ -14,9 +14,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.recipe.Ingredient;
@@ -42,12 +44,12 @@ public class ScuttlerEntity extends AnimalEntity
 {
 	private static final TrackedData<Boolean> RATTLING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Boolean> EATING = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<Boolean> PASSIVE = DataTracker.registerData(ScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public Ingredient TEMPT_ITEM = Ingredient.ofItems(BMItems.PINK_PETALS);
 	private AttributeContainer attributeContainer;
 	public float rattleTime = 0;
 	private int eatCooldown = 100;
 	public int eatTime = 0;
-	private boolean passive = false;
 	private TemptGoal temptGoal;
 
 	public ScuttlerEntity(World world)
@@ -60,14 +62,14 @@ public class ScuttlerEntity extends AnimalEntity
 	{
 		TEMPT_ITEM = Ingredient.ofItems(BMItems.PINK_PETALS);
 
-		this.temptGoal = new TemptGoal(this, 0.7D, TEMPT_ITEM, true);
+		this.temptGoal = new TemptGoal(this, 0.7D, TEMPT_ITEM, false);
 
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new RattleGoal<>(this, 20.0F, PlayerEntity.class));
-		this.goalSelector.add(2, new EscapeDangerGoal(this, 1.25D));
-		this.goalSelector.add(3, new AnimalMateGoal(this, 1.0D));
-		this.goalSelector.add(4, temptGoal);
-		this.goalSelector.add(5, new FleeEntityGoal<>(this, PlayerEntity.class, 16.0F, 1.6D, 1.4D, (livingEntity) ->!passive));
+		this.goalSelector.add(1, temptGoal);
+		this.goalSelector.add(2, new RattleGoal<>(this, 20.0F, PlayerEntity.class));
+		this.goalSelector.add(3, new EscapeDangerGoal(this, 1.25D));
+		this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
+		this.goalSelector.add(5, new FleeEntityGoal<>(this, PlayerEntity.class, 16.0F, 1.6D, 1.4D, (livingEntity) ->!isPassive()));
 		this.goalSelector.add(6, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.add(7, new EatFlowerGoal());
 		this.goalSelector.add(8, new AvoidDaylightGoal(1.0D));
@@ -82,6 +84,7 @@ public class ScuttlerEntity extends AnimalEntity
 		super.initDataTracker();
 		this.dataTracker.startTracking(RATTLING, false);
 		this.dataTracker.startTracking(EATING, false);
+		this.dataTracker.startTracking(PASSIVE, false);
 	}
 
 	@Override
@@ -101,6 +104,10 @@ public class ScuttlerEntity extends AnimalEntity
 				playSound(BMEffects.SCUTTLER_RATTLE, 0.25F, 0.75F + random.nextFloat());
 			}
 		}
+		else
+		{
+			rattleTime = 0;
+		}
 	}
 
 	@Override
@@ -110,18 +117,14 @@ public class ScuttlerEntity extends AnimalEntity
 		Item item = itemStack.getItem();
 		if (this.world.isClient)
 		{
-			if (passive)
+			if (this.isBreedingItem(itemStack))
 			{
 				return ActionResult.SUCCESS;
-			}
-			else
-			{
-				return !this.isBreedingItem(itemStack) || this.getHealth() >= this.getMaxHealth() && passive ? ActionResult.PASS : ActionResult.SUCCESS;
 			}
 		}
 		else
 		{
-			if (passive)
+			if (dataTracker.get(PASSIVE))
 			{
 				if (item.isFood() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
 					this.eat(player, itemStack);
@@ -134,7 +137,7 @@ public class ScuttlerEntity extends AnimalEntity
 				this.eat(player, itemStack);
 				if (this.random.nextInt(3) == 0)
 				{
-					passive = true;
+					dataTracker.set(PASSIVE, true);
 					this.world.sendEntityStatus(this, (byte)7);
 				}
 				else
@@ -144,13 +147,8 @@ public class ScuttlerEntity extends AnimalEntity
 				this.setPersistent();
 				return ActionResult.CONSUME;
 			}
-			ActionResult actionResult;
-			actionResult = super.interactMob(player, hand);
-			if (actionResult.isAccepted()) {
-				this.setPersistent();
-			}
-			return actionResult;
 		}
+		return super.interactMob(player, hand);
 	}
 
 	@Override
@@ -192,19 +190,19 @@ public class ScuttlerEntity extends AnimalEntity
 
 	public boolean isPassive()
 	{
-		return passive;
+		return dataTracker.get(PASSIVE);
 	}
 
 	public void setPassive(boolean passive)
 	{
-		this.passive = passive;
+		dataTracker.set(PASSIVE, passive);
 	}
 
 	@Override
 	public void writeCustomDataToTag(CompoundTag tag)
 	{
 		super.writeCustomDataToTag(tag);
-		tag.putBoolean("Passive", passive);
+		tag.putBoolean("Passive", isPassive());
 		tag.putInt("EatCooldown", eatCooldown);
 	}
 
@@ -212,7 +210,7 @@ public class ScuttlerEntity extends AnimalEntity
 	public void readCustomDataFromTag(CompoundTag tag)
 	{
 		super.readCustomDataFromTag(tag);
-		passive = tag.getBoolean("Passive");
+		setPassive(tag.getBoolean("Passive"));
 		eatCooldown = tag.getInt("EatCooldown");
 	}
 
