@@ -18,8 +18,8 @@
     "HorseEntityMixin",
     "NoiseChunkGeneratorMixin",
     "ComposterInventoryMixin",
-    "LandPathNodeMakerMixin",
-    "DefaultBiomeCreatorMixin"
+    "DefaultBiomeCreatorMixin",
+    "LandPathNodeMakerMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
