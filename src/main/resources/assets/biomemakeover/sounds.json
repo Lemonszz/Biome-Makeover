@@ -1,11 +1,224 @@
 {
   "button_mushrooms": {
-    "subtitle": "subtitles.biomemakeover.button_mushrooms",
     "sounds": [
       {
         "name": "biomemakeover:button_mushrooms",
         "stream": true
       }
     ]
+  },
+  "ghost_town": {
+  "sounds": [
+    {
+      "name": "biomemakeover:ghost_town",
+      "stream": true
+    }
+  ]
+  },
+  "ghost_charge": {
+    "subtitle": "subtitles.biomemakeover.ghost.charge",
+    "sounds": [
+      "biomemakeover:ghost_charge_1",
+      "biomemakeover:ghost_charge_2"
+    ]
+  },
+  "ghost_death": {
+    "subtitle": "subtitles.biomemakeover.ghost.death",
+    "sounds": [
+      "biomemakeover:ghost_death_1",
+      "biomemakeover:ghost_death_2"
+    ]
+  },
+  "ghost_hurt": {
+    "subtitle": "subtitles.biomemakeover.ghost.hurt",
+    "sounds": [
+      "biomemakeover:ghost_hurt_1",
+      "biomemakeover:ghost_hurt_2",
+      "biomemakeover:ghost_hurt_3"
+    ]
+  },
+  "ghost_idle": {
+    "subtitle": "subtitles.biomemakeover.ghost.idle",
+    "sounds": [
+      "biomemakeover:ghost_idle_1",
+      "biomemakeover:ghost_idle_2",
+      "biomemakeover:ghost_idle_3"
+    ]
+  },
+  "ghost_angry": {
+    "subtitle": "subtitles.biomemakeover.ghost.angry",
+    "sounds": [
+      "biomemakeover:ghost_angry"
+    ]
+  },
+  "scuttler_rattle": {
+    "subtitle": "subtitles.biomemakeover.scuttler.rattle",
+    "sounds": [
+      "biomemakeover:rattle_1",
+      "biomemakeover:rattle_2",
+      "biomemakeover:rattle_3",
+      "biomemakeover:rattle_4"
+    ]
+  },
+  "scuttler_step": {
+    "subtitle": "subtitles.biomemakeover.scuttler.step",
+    "sounds": [
+      "biomemakeover:scuttler_step_1",
+      "biomemakeover:scuttler_step_2",
+      "biomemakeover:scuttler_step_3",
+      "biomemakeover:scuttler_step_4"
+    ]
+  },
+  "scuttler_hurt": {
+    "subtitle": "subtitles.biomemakeover.scuttler.hurt",
+    "sounds": [
+      "biomemakeover:scuttler_hurt_1",
+      "biomemakeover:scuttler_hurt_2"
+    ]
+  },
+  "scuttler_death": {
+    "subtitle": "subtitles.biomemakeover.scuttler.death",
+    "sounds": [
+      "biomemakeover:scuttler_death_1",
+      "biomemakeover:scuttler_death_2"
+    ]
+  },
+  "tumbleweed_tumble": {
+    "sounds": [
+      {
+        "name": "block/sweet_berry_bush/place1",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place2",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place3",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place4",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place5",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/place6",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.biomemakeover.tumbleweed.tumble"
+  },
+  "tumbleweed_break": {
+    "sounds": [
+      {
+        "name": "block/sweet_berry_bush/break1",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/break2",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/break3",
+        "volume": 0.8
+      },
+      {
+        "name": "block/sweet_berry_bush/break4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.biomemakeover.tumbleweed.break"
+  },
+  "poltergeist_action": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed1",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed2",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed3",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed4",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed5",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed6",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed7",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed8",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed9",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed10",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed11",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed12",
+        "volume": 0.25
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "enchant/soulspeed/soulspeed13",
+        "volume": 0.25
+      }
+    ],
+    "subtitle": "subtitles.biomemakeover.poltergeist.action"
+  },
+  "poltergeist_toggle": {
+    "sounds": [
+      "enchant/soulspeed/soulspeed1",
+      "enchant/soulspeed/soulspeed2",
+      "enchant/soulspeed/soulspeed3",
+      "enchant/soulspeed/soulspeed4",
+      "enchant/soulspeed/soulspeed5",
+      "enchant/soulspeed/soulspeed6",
+      "enchant/soulspeed/soulspeed7",
+      "enchant/soulspeed/soulspeed8",
+      "enchant/soulspeed/soulspeed9",
+      "enchant/soulspeed/soulspeed10",
+      "enchant/soulspeed/soulspeed11",
+      "enchant/soulspeed/soulspeed12",
+      "enchant/soulspeed/soulspeed13"
+    ],
+    "subtitle": "subtitles.biomemakeover.poltergeist.toggle"
   }
 }

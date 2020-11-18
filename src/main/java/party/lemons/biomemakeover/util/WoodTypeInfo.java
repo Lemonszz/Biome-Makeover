@@ -16,11 +16,11 @@ import java.util.Map;
 
 public class WoodTypeInfo
 {
-	private Map<Type, Block> blocks = Maps.newHashMap();
+	private final Map<Type, Block> blocks = Maps.newHashMap();
 	private final String name;
 	private final Block.Settings settings;
 	private final DecorationBlockInfo.Callback callback;
-	private BlockState defaultState;
+	private final BlockState defaultState;
 
 	public WoodTypeInfo(String name, Block.Settings settings)
 	{
@@ -143,7 +143,8 @@ public class WoodTypeInfo
 		TRAP_DOOR("", "trapdoor"),
 		DOOR("", "door");
 
-		private String postfix, prefix;
+		private final String postfix;
+		private final String prefix;
 
 		Type(String prefix, String postfix)
 		{

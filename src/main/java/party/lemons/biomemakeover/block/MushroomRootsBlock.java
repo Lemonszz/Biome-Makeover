@@ -3,10 +3,8 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.RootsBlock;
-import net.minecraft.block.SproutsBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
 public class MushroomRootsBlock extends RootsBlock implements BlockWithItem

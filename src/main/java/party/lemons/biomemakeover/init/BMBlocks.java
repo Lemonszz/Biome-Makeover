@@ -1,22 +1,30 @@
 package party.lemons.biomemakeover.init;
 
+import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.*;
-import party.lemons.biomemakeover.util.BlockWithItem;
-import party.lemons.biomemakeover.util.DecorationBlockInfo;
-import party.lemons.biomemakeover.util.RegistryHelper;
-import party.lemons.biomemakeover.util.WoodTypeInfo;
+import party.lemons.biomemakeover.util.*;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 
+import java.util.Map;
+
 public class BMBlocks
 {
+	public static final Material POLTERGEISTER_MATERIAL = new Material(MaterialColor.WHITE, false, true, true, false, true, false, PistonBehavior.BLOCK);
+
     public static final BMMushroomPlantBlock PURPLE_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
     public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
     public static final UnderwaterMushroomPlantBlock ORANGE_GLOWSHROOM = new UnderwaterMushroomPlantBlock(()->BMWorldGen.HUGE_ORANGE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
@@ -25,8 +33,8 @@ public class BMBlocks
     public static final BMMushroomBlock GREEN_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
     public static final BMMushroomBlock ORANGE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
 
-    public static final MushroomSproutsBlock MYCELIUM_SPROUTS = new MushroomSproutsBlock(settings(Material.field_26708, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.NETHER_SPROUTS));
-	public static final MushroomRootsBlock MYCELIUM_ROOTS = new MushroomRootsBlock(settings(Material.field_26708, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.ROOTS));
+    public static final MushroomSproutsBlock MYCELIUM_SPROUTS = new MushroomSproutsBlock(settings(Material.NETHER_SHOOTS, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.NETHER_SPROUTS));
+	public static final MushroomRootsBlock MYCELIUM_ROOTS = new MushroomRootsBlock(settings(Material.NETHER_SHOOTS, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.ROOTS));
 
 	public static final BMTallMushroomBlock TALL_BROWN_MUSHROOM = new BMTallMushroomBlock(Blocks.BROWN_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
     public static final BMTallMushroomBlock TALL_RED_MUSHROOM = new BMTallMushroomBlock(Blocks.RED_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
@@ -55,13 +63,24 @@ public class BMBlocks
 	public static final BMBlock BLIGHTED_STONE_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).requiresTool());
 	public static final DecorationBlockInfo BLIGHTED_STONE_BRICKS_DECORATION = new DecorationBlockInfo("blighted_stone_bricks", BLIGHTED_STONE_BRICKS, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 
+	public static final Block TUMBLEWEED = new Block(settings(Material.PLANT, 0));
+
+	public static final SaguaroCactusBlock SAGUARO_CACTUS = new SaguaroCactusBlock(settings(Material.CACTUS, 0.4F).sounds(BlockSoundGroup.WOOL).ticksRandomly());
+	public static final BMBlock BARREL_CACTUS = new BarrelCactusBlock(false, settings(Material.CACTUS, 0).ticksRandomly().sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
+	public static final BMBlock BARREL_CACTUS_FLOWERED = new BarrelCactusBlock(true, settings(Material.CACTUS, 0).sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
+
+	public static final BMBlock PAYDIRT = new BMBlock(settings(Material.SOIL, 1.4F).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.GRAVEL));
+	public static final BMBlock POLTERGEIST = new PoltergeistBlock(settings(POLTERGEISTER_MATERIAL, 1.4F).luminance((bs)->bs.get(PoltergeistBlock.ENABLED) ? 7 : 0).sounds(BlockSoundGroup.LODESTONE));
+	public static final Block ECTOPLASM_COMPOSTER = new EctoplasmComposterBlock(settings(Material.WOOD, 0.6F).sounds(BlockSoundGroup.WOOD));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_GREEN_GLOWSHROOM = new FlowerPotBlock(GREEN_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_ORANGE_GLOWSHROOM = new FlowerPotBlock(ORANGE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_BLIGHTED_BALSA_SAPLING = new FlowerPotBlock(BLIGHTED_BALSA_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
-
+	public static final FlowerPotBlock POTTED_SAGUARO_CACTUS = new FlowerPotBlock(SAGUARO_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS_FLOWERED, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 	public static void init()
     {
@@ -74,9 +93,11 @@ public class BMBlocks
             if(!info.hasItem())
                 return;
 
-            Registry.register(Registry.ITEM, id, info.makeItem());
+            info.registerItem(id);
+        //    Registry.register(Registry.ITEM, id, info.makeItem());
         });
 
+        /* Simple decoration registers */
         BLIGHTED_BALSA_WOOD_INFO.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
@@ -88,6 +109,39 @@ public class BMBlocks
         BLIGHTED_COBBLESTONE_DECORATION.register();
         BLIGHTED_STONE_BRICKS_DECORATION.register();
 
+        /* Terracotta Bricks */
+		Map<DyeColor, Block> vanillaTerracotta = Maps.newHashMap();
+		vanillaTerracotta.put(DyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.RED, Blocks.RED_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.BLUE, Blocks.BLUE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.BROWN, Blocks.BROWN_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.CYAN, Blocks.CYAN_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.GRAY, Blocks.GRAY_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.GREEN, Blocks.GREEN_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.LIME, Blocks.LIME_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.MAGENTA, Blocks.MAGENTA_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.ORANGE, Blocks.ORANGE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.PINK, Blocks.PINK_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.PURPLE, Blocks.PURPLE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.WHITE, Blocks.WHITE_TERRACOTTA);
+		vanillaTerracotta.put(DyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
+
+		BlockItemPair terracottaBricks = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID("terracotta_bricks"));
+	    DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracottaBricks.getBlock(), settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	    terracottaBrick.register();
+
+        for(DyeColor dye : DyeColor.values())
+        {
+        	BlockItemPair brick = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"));
+	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick.getBlock(), settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+            dec.register();
+
+            BRICK_TO_TERRACOTTA.put(brick.getBlock(), vanillaTerracotta.get(dye));
+        }
+
+        /* Flammables */
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.PLANK), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG), 5, 5);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.WOOD), 5, 5);
@@ -98,8 +152,17 @@ public class BMBlocks
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STAIR), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.SLAB), 5, 20);
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
-
     }
+
+    public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();
+
+    public static BlockItemPair registerBlockAndItem(Block block, Identifier id)
+	{
+		BlockItem bi = new BlockItem(block, BMItems.settings());
+		Registry.register(Registry.BLOCK, id, block);
+		Registry.register(Registry.ITEM, id, bi);
+		return BlockItemPair.of(block, bi);
+	}
 
     public static FabricBlockSettings settings(Material material, float hardness)
     {
@@ -110,15 +173,7 @@ public class BMBlocks
 		return type == EntityType.OCELOT || type == EntityType.PARROT;
 	}
 
-	public static void registerFlammable(Block block, int burnChance, int spreadChance)
-	{
-		((FireBlockAccessor)Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
-	}
-
-	public static Boolean never(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-		return false;
-	}
-	public static Boolean always(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-		return true;
+	public static void registerFlammable(Block block, int burnChance, int spreadChance) {
+		((FireBlockAccessor) Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
 	}
 }

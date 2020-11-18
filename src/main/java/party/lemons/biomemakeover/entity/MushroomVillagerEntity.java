@@ -9,13 +9,10 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.AbstractTraderEntity;
-import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -28,8 +25,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TraderOfferList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -38,7 +35,7 @@ import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
 
-public class MushroomVillagerEntity extends AbstractTraderEntity
+public class MushroomVillagerEntity extends MerchantEntity
 {
 	public AttributeContainer attributeContainer;
 
@@ -82,7 +79,7 @@ public class MushroomVillagerEntity extends AbstractTraderEntity
 		TradeOffers.Factory[] tradesCommon = TRADES.get(1);
 		TradeOffers.Factory[] tradesRare = TRADES.get(2);
 		if (tradesCommon != null && tradesRare != null) {
-			TraderOfferList traderOfferList = this.getOffers();
+			TradeOfferList traderOfferList = this.getOffers();
 			this.fillRecipesFromPool(traderOfferList, tradesCommon, 5);
 			int i = this.random.nextInt(tradesRare.length);
 			TradeOffers.Factory factory = tradesRare[i];
@@ -126,8 +123,6 @@ public class MushroomVillagerEntity extends AbstractTraderEntity
 		if(getY() > 56)
 			return false;
 
-		//BatEntity
-		//return super.canSpawn(world, spawnReason);
 		return world.getEntitiesByClass(MushroomVillagerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(20), (e)->true).isEmpty() &&  super.canSpawn(world, spawnReason);
 	}
 
@@ -137,7 +132,7 @@ public class MushroomVillagerEntity extends AbstractTraderEntity
 	}
 
 	@Override
-	public boolean isLeveledTrader()
+	public boolean isLeveledMerchant()
 	{
 		return false;
 	}

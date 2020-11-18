@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/lime_terracotta_brick",
+    "top": "biomemakeover:block/lime_terracotta_brick",
+    "side": "biomemakeover:block/lime_terracotta_brick"
+  }
+}

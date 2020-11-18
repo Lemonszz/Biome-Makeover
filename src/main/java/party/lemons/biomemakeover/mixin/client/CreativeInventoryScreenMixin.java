@@ -20,7 +20,7 @@ import java.util.List;
 @Mixin(CreativeInventoryScreen.class)
 public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScreen<CreativeInventoryScreen.CreativeScreenHandler>
 {
-	private List<ItemGroupTabWidget> tabButtons = Lists.newArrayList();
+	private final List<ItemGroupTabWidget> tabButtons = Lists.newArrayList();
 	private ItemGroupTabWidget selectedSubtab;
 
 	@Inject(at = @At("HEAD"), method = "setSelectedTab(Lnet/minecraft/item/ItemGroup;)V")

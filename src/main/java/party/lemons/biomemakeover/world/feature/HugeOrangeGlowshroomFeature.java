@@ -1,21 +1,17 @@
 package party.lemons.biomemakeover.world.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MushroomBlock;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.HugeMushroomFeature;
 import net.minecraft.world.gen.feature.HugeMushroomFeatureConfig;
-import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Random;
 
@@ -26,7 +22,7 @@ public class HugeOrangeGlowshroomFeature extends HugeMushroomFeature
 	}
 
 	protected void generateCap(WorldAccess world, Random random, BlockPos start, int y, BlockPos.Mutable mutable, HugeMushroomFeatureConfig config) {
-		int size = config.capSize;
+		int size = config.foliageRadius;
 
 		for(int xx = -size; xx <= size; ++xx)
 		{
@@ -126,7 +122,7 @@ public class HugeOrangeGlowshroomFeature extends HugeMushroomFeature
 		int i = pos.getY();
 		if (i >= 1 && i + height + 1 < 256) {
 			for(int j = 0; j <= height; ++j) {
-				int k = this.getCapSize(-1, -1, config.capSize, j);
+				int k = this.getCapSize(-1, -1, config.foliageRadius, j);
 
 				for(int l = -k; l <= k; ++l) {
 					for(int m = -k; m <= k; ++m) {

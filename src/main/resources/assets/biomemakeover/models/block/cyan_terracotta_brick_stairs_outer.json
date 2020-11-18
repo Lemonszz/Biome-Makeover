@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/cyan_terracotta_brick",
+    "top": "biomemakeover:block/cyan_terracotta_brick",
+    "side": "biomemakeover:block/cyan_terracotta_brick"
+  }
+}

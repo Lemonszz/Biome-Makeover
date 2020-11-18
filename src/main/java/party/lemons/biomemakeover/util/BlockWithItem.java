@@ -3,6 +3,8 @@ package party.lemons.biomemakeover.util;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.BiomeMakeover;
 
 public interface BlockWithItem
@@ -20,5 +22,10 @@ public interface BlockWithItem
     default Item makeItem()
     {
         return new BlockItem((Block)this, makeItemSettings());
+    }
+
+    default void registerItem(Identifier id)
+    {
+        Registry.register(Registry.ITEM, id, makeItem());
     }
 }

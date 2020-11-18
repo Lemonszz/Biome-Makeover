@@ -1,0 +1,95 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "horizontal": "true",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "horizontal": "true",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk",
+        "uvlock": false,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "horizontal": "true",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk",
+        "uvlock": false,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "horizontal": "true",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk",
+        "uvlock": false,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "horizontal": "false"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_regular",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk_part",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk_part",
+        "y": 90,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk_part",
+        "y": 180,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "biomemakeover:block/cactus_stalk_part",
+        "y": 270,
+        "uvlock": false
+      }
+    }
+  ]
+}

@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -47,7 +46,7 @@ public abstract class UndergroundHugeMushroomFeature extends Feature<HugeMushroo
 				return false;
 			} else {
 				for(int j = 0; j <= height; ++j) {
-					BlockState st = world.getBlockState(mutable.set((Vec3i)pos, 0, j, 0));
+					BlockState st = world.getBlockState(mutable.set(pos, 0, j, 0));
 					if (!st.isAir() && !st.isIn(BlockTags.LEAVES)) {
 						return false;
 					}

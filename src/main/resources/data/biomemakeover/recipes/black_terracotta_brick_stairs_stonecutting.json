@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:black_terracotta_bricks"
+  },
+  "result": "biomemakeover:black_terracotta_brick_stairs",
+  "count": 1
+}

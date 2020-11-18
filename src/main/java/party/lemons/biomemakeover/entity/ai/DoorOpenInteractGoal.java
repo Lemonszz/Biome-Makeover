@@ -14,10 +14,6 @@ public class DoorOpenInteractGoal extends LongDoorInteractGoal
 	@Override
 	public boolean canStart()
 	{
-		if(mob.getNavigation() instanceof MobNavigation)
-		{
-			return true;
-		}
-		return false;
+		return mob.getNavigation() instanceof MobNavigation;
 	}
 }

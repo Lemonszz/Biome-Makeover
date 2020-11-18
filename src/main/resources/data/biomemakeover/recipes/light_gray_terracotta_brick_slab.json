@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:light_gray_terracotta_bricks"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:light_gray_terracotta_brick_slab",
+    "count": 6
+  }
+}

@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "HugeBrownMushroomFeatureMixin",
-    "DefaultBiomeFeaturesMixin",
     "BiomeEffectsMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
@@ -14,12 +13,21 @@
     "AxeItemMixin",
     "PlantBlockMixin",
     "SpawnRestrictionMixin",
-    "FireBlockMixin"
+    "FireBlockMixin",
+    "PillagerSpawnerMixin",
+    "HorseEntityMixin",
+    "NoiseChunkGeneratorMixin",
+    "ComposterInventoryMixin",
+    "LandPathNodeMakerMixin",
+    "DefaultBiomeCreatorMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
     "client.BatEntityModelMixin",
-    "client.SalmonEntityModelMixin"
+    "client.SalmonEntityModelMixin",
+    "client.ArmorStandRendererMixin",
+    "client.PlayerRendererMixin",
+    "client.HorseEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.passive.SalmonEntity;
 import party.lemons.biomemakeover.entity.render.GlowfishRender;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.util.access.BatEntityModelAccessor;
 import party.lemons.biomemakeover.util.access.SalmonEntityModelAccessor;
 
 public class GlowfishFeatureRenderer extends FeatureRenderer<SalmonEntity, SalmonEntityModel<SalmonEntity>>

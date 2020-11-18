@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/light_blue_terracotta_brick",
+    "top": "biomemakeover:block/light_blue_terracotta_brick",
+    "side": "biomemakeover:block/light_blue_terracotta_brick"
+  }
+}

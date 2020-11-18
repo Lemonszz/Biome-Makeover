@@ -13,11 +13,10 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import party.lemons.biomemakeover.util.BlockWithItem;
 
 public class BMTallMushroomBlock extends BMTallFlowerBlock
 {
-	private Block dropBlock;
+	private final Block dropBlock;
 
 	public BMTallMushroomBlock(Block dropBlock, Settings settings)
 	{

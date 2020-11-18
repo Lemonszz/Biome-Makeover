@@ -5,7 +5,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.SproutsBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
 public class MushroomSproutsBlock extends SproutsBlock implements BlockWithItem
