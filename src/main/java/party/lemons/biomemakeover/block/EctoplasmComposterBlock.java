@@ -9,6 +9,7 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import party.lemons.biomemakeover.init.BMCriterion;
 
 public class EctoplasmComposterBlock extends ComposterBlock
 {
@@ -43,6 +45,8 @@ public class EctoplasmComposterBlock extends ComposterBlock
 			return ActionResult.success(world.isClient);
 		} else if (currentLevel == 8) {
 			emptyFullComposter(world, pos);
+			if(!world.isClient())
+				BMCriterion.ECTOPLASM_COMPOST.trigger((ServerPlayerEntity) player);
 			return ActionResult.success(world.isClient);
 		} else {
 			return ActionResult.PASS;

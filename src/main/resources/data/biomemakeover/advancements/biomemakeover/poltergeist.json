@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/compost_soul_soil",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:poltergeist"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.poltergeist.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.poltergeist.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:poltergeist"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get"
+    ]
+  ]
+}

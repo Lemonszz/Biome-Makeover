@@ -1,0 +1,41 @@
+{
+  "parent": "biomemakeover:biomemakeover/blighted_balsa_sapling",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:purple_glowshroom"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.all_shrooms.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.all_shrooms.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_shrooms": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:purple_glowshroom"
+          },
+          {
+            "item": "biomemakeover:green_glowshroom"
+          },
+          {
+            "item": "biomemakeover:orange_glowshroom"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_shrooms"
+    ]
+  ]
+}

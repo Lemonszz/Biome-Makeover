@@ -1,0 +1,28 @@
+{
+  "parent": "biomemakeover:biomemakeover/ghost_town",
+  "display": {
+    "icon": {
+      "item": "minecraft:soul_soil"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.compost_soul_soil.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.compost_soul_soil.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_soil": {
+      "trigger": "biomemakeover:ectoplasm_compost"
+    }
+  },
+  "requirements": [
+    [
+      "get_soil"
+    ]
+  ]
+}

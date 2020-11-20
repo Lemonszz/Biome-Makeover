@@ -20,6 +20,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.PillagerSpawner;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.init.*;
+import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
 import party.lemons.biomemakeover.util.access.BiomeEffectsAccessor;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
@@ -37,12 +38,14 @@ public class BiomeMakeover implements ModInitializer
 		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
 
 		BMEffects.init();
+		BoatTypes.init();
 		BMBlocks.init();
 		BMItems.init();
 		BMEntities.init();
 		BMBlockEntities.init();
 		BMStructures.init();
 		BMWorldGen.init();
+		BMCriterion.init();
 
 		PoltergeistHandler.init();
 

@@ -24,7 +24,7 @@ public class AxeItemMixin
 	private static void onInit(CallbackInfo cbi)
 	{
 		STRIPPED_BLOCKS = new HashMap<>(STRIPPED_BLOCKS);
-		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STRIPPED_LOG));
-		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.WOOD), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STRIPPED_WOOD));
+		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG));
+		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD));
 	}
 }

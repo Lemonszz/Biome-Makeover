@@ -10,10 +10,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.item.BMItem;
-import party.lemons.biomemakeover.item.BMMusicDiskItem;
-import party.lemons.biomemakeover.item.FakeItem;
-import party.lemons.biomemakeover.item.HatItem;
+import party.lemons.biomemakeover.item.*;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
 public class BMItems
@@ -23,7 +20,7 @@ public class BMItems
 	public static final FoodComponent COOKED_GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.6F).hunger(5).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
 
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
-	public static final Item GLOWFISH_BUCKET = new FishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
+	public static final Item GLOWFISH_BUCKET = new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
 	public static final Item COOKED_GLOWFISH = new Item(settings().food(COOKED_GLOWFISH_FOOD));
 
@@ -62,6 +59,7 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_LEAVES.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SAGUARO_CACTUS.asItem(), 0.15F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BARREL_CACTUS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.PINK_PETALS.asItem(), 0.3F);
 	}
 
 	public static Item.Settings settings()

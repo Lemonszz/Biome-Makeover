@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:blighted_balsa_sapling"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.blighted_balsa_sapling.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.blighted_balsa_sapling.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:blighted_balsa_sapling"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

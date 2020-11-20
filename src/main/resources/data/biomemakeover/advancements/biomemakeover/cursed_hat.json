@@ -1,0 +1,38 @@
+{
+  "parent": "biomemakeover:biomemakeover/ghost_town",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:cowboy_hat"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.cursed_hat.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.cursed_hat.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wear_hat": {
+      "trigger": "biomemakeover:wear_armor",
+      "conditions": {
+        "item": {
+          "item": "biomemakeover:cowboy_hat",
+          "enchantments": [
+            {
+              "enchantment":"minecraft:binding_curse"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "wear_hat"
+    ]
+  ]
+}

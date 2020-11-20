@@ -19,7 +19,11 @@
     "NoiseChunkGeneratorMixin",
     "ComposterInventoryMixin",
     "DefaultBiomeCreatorMixin",
-    "LandPathNodeMakerMixin"
+    "LandPathNodeMakerMixin",
+    "BoatEntityMixin",
+    "InventoryChangedCriterionMixin",
+    "SignTypeMixin",
+    "BlockEntityTypeMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

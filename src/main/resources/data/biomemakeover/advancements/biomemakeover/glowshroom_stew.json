@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/all_glowshrooms",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:glowshroom_stew"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.glowshroom_stew.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.glowshroom_stew.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:glowshroom_stew"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

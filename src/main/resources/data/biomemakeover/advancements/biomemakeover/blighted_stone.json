@@ -1,0 +1,46 @@
+{
+  "parent": "biomemakeover:biomemakeover/all_glowshrooms",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:blighted_cobblestone"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.blighted_stone.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.blighted_stone.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_cobble": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:blighted_cobblestone"
+          }
+        ]
+      }
+    },
+    "get_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:blighted_stone_bricks"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_cobble",
+      "get_brick"
+    ]
+  ]
+}

@@ -10,6 +10,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
@@ -17,6 +18,8 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.*;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
+import party.lemons.biomemakeover.util.access.SignTypeHelper;
+import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 
 import java.util.Map;
@@ -39,7 +42,7 @@ public class BMBlocks
 	public static final BMTallMushroomBlock TALL_BROWN_MUSHROOM = new BMTallMushroomBlock(Blocks.BROWN_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
     public static final BMTallMushroomBlock TALL_RED_MUSHROOM = new BMTallMushroomBlock(Blocks.RED_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
 
-    public static final WoodTypeInfo BLIGHTED_BALSA_WOOD_INFO = new WoodTypeInfo("blighted_balsa", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
+    public static WoodTypeInfo BLIGHTED_BALSA_WOOD_INFO = new WoodTypeInfo("blighted_balsa", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
 	public static final BMLeavesBlock BLIGHTED_BALSA_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
 	public static final BMSaplingBlock BLIGHTED_BALSA_SAPLING = new BMSaplingBlock(new BalsaSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
@@ -70,7 +73,7 @@ public class BMBlocks
 	public static final BMBlock BARREL_CACTUS_FLOWERED = new BarrelCactusBlock(true, settings(Material.CACTUS, 0).sounds(BlockSoundGroup.WOOL).nonOpaque().breakInstantly().noCollision());
 
 	public static final BMBlock PAYDIRT = new BMBlock(settings(Material.SOIL, 1.4F).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.GRAVEL));
-	public static final BMBlock POLTERGEIST = new PoltergeistBlock(settings(POLTERGEISTER_MATERIAL, 1.4F).luminance((bs)->bs.get(PoltergeistBlock.ENABLED) ? 7 : 0).sounds(BlockSoundGroup.LODESTONE));
+	public static final BMBlock POLTERGEIST = new PoltergeistBlock(settings(POLTERGEISTER_MATERIAL, 1.0F).luminance((bs)->bs.get(PoltergeistBlock.ENABLED) ? 7 : 0).sounds(BlockSoundGroup.LODESTONE));
 	public static final Block ECTOPLASM_COMPOSTER = new EctoplasmComposterBlock(settings(Material.WOOD, 0.6F).sounds(BlockSoundGroup.WOOD));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -81,6 +84,8 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_SAGUARO_CACTUS = new FlowerPotBlock(SAGUARO_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS_FLOWERED, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+
+	public static final SignType BLIGHTED_BALSA_ST = SignTypeHelper.register(new SignType("blighted_balsa"));
 
 	public static void init()
     {
@@ -98,6 +103,8 @@ public class BMBlocks
         });
 
         /* Simple decoration registers */
+	    //TODO:
+	    BLIGHTED_BALSA_WOOD_INFO = BLIGHTED_BALSA_WOOD_INFO.boat(()->BoatTypes.BLIGHTED_BALSA).sign(BLIGHTED_BALSA_ST);
         BLIGHTED_BALSA_WOOD_INFO.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
@@ -142,15 +149,15 @@ public class BMBlocks
         }
 
         /* Flammables */
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.PLANK), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.LOG), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.WOOD), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STRIPPED_LOG), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STRIPPED_WOOD), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.FENCE), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.STAIR), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.get(WoodTypeInfo.Type.SLAB), 5, 20);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.PLANK), 5, 20);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), 5, 5);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), 5, 5);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG), 5, 5);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD), 5, 5);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE), 5, 20);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
     }
 

@@ -3,3 +3,4 @@ accessible class net/minecraft/village/TradeOffers$SellItemFactory
 accessible class net/minecraft/entity/SpawnRestriction$Entry
 accessible class net/minecraft/block/ComposterBlock$ComposterInventory
 accessible method net/minecraft/world/gen/trunk/TrunkPlacerType <init> (Lcom/mojang/serialization/Codec;)V
+accessible method net/minecraft/util/SignType <init> (Ljava/lang/String;)V
