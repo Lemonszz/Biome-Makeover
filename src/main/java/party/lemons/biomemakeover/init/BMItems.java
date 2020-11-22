@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;
@@ -29,6 +30,7 @@ public class BMItems
 	public static final Item BLIGHTBAT_SPAWN_EGG = new SpawnEggItem(BMEntities.BLIGHTBAT, 0xae00ff, 0xdf9ffc, settings());
 	public static final Item GHOST_SPAWN_EGG = new SpawnEggItem(BMEntities.GHOST, 0x566b6b, 0xb5fffe, settings());
 	public static final Item SCUTTLER_SPAWN_EGG = new SpawnEggItem(BMEntities.SCUTTLER, 0x473427, 0x806553, settings());
+	public static final Item COWBOY_SPAWN_EGG = new SpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, settings());
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
 	public static final Item ECTOPLASM = new BMItem(settings());

@@ -29,6 +29,7 @@ public class TumbleweedEntity extends Entity
 	private float windOffset = 0;
 	private final float acceleration = 0.0025F;
 	private float age = 0;
+	private int stuckX, stuckZ, staticTime;
 
 	public TumbleweedEntity(World world)
 	{
@@ -107,6 +108,21 @@ public class TumbleweedEntity extends Entity
 			velocityDirty = true;
 			velocityModified = true;
 		}
+
+		if((int)getX() == stuckX && (int)getZ() == stuckZ)
+		{
+			staticTime++;
+			if(staticTime >= 100)
+			{
+				kill();
+			}
+		}
+		else
+		{
+			staticTime = 0;
+		}
+		stuckX = (int)getX();
+		stuckZ = (int)getZ();
 	}
 
 	@Override
