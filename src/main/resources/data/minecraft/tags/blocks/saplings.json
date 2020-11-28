@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "biomemakeover:blighted_balsa_sapling"
+    "biomemakeover:blighted_balsa_sapling",
+    "biomemakeover:willow_sapling",
+    "biomemakeover:cypress_sapling"
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=1": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=2": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=3": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=4": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=5": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=6": {
+      "model": "biomemakeover:block/peat_farmland_dry"
+    },
+    "moisture=7": {
+      "model": "biomemakeover:block/peat_farmland"
+    }
+  }
+}

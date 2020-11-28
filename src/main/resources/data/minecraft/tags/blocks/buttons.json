@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "biomemakeover:blighted_balsa_button"
+    "biomemakeover:blighted_balsa_button",
+    "biomemakeover:willow_button"
   ]
 }

@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import party.lemons.biomemakeover.init.BMBlocks;
 
 @Mixin(PlantBlock.class)
 public class PlantBlockMixin
@@ -16,7 +17,7 @@ public class PlantBlockMixin
 	@Inject(at = @At("RETURN"), method = "canPlantOnTop", cancellable = true)
 	public void canPlantOnTop(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cbi)
 	{
-		if(floor.isOf(Blocks.MYCELIUM))
+		if(floor.isOf(Blocks.MYCELIUM) || floor.isOf(BMBlocks.PEAT) || floor.isOf(BMBlocks.PEAT_FARMLAND))
 			cbi.setReturnValue(true);
 	}
 }

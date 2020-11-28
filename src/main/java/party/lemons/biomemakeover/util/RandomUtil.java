@@ -21,5 +21,10 @@ public final class RandomUtil
 		return RANDOM.nextBoolean() ? value : -value;
 	}
 
+	public static <T> T choose(T... values)
+	{
+		return values[RANDOM.nextInt(values.length)];
+	}
+
 	private RandomUtil(){}
 }

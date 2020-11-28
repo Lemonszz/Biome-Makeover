@@ -21,6 +21,7 @@ public class BoatTypes
 	}
 
 	public static final BoatType BLIGHTED_BALSA = new BoatType(BiomeMakeover.ID("blighted_balsa"), ()->BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getItem(WoodTypeInfo.Type.BOAT));
+	public static final BoatType WILLOW = new BoatType(BiomeMakeover.ID("willow"), ()->BMBlocks.WILLOW_WOOD_INFO.getItem(WoodTypeInfo.Type.BOAT));
 
 	//Vanilla Types
 	public static final BoatType ACACIA = new VanillaBoatType(BiomeMakeover.ID("acacia"), BoatEntity.Type.ACACIA, Items.ACACIA_BOAT);

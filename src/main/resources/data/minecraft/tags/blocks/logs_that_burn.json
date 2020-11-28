@@ -2,8 +2,11 @@
   "replace": false,
   "values": [
     "biomemakeover:blighted_balsa_log",
+    "biomemakeover:willow_log",
     "biomemakeover:stripped_blighted_balsa_log",
+    "biomemakeover:stripped_willow_log",
     "biomemakeover:blighted_balsa_wood",
-    "biomemakeover:stripped_blighted_balsa_wood"
+    "biomemakeover:stripped_blighted_balsa_wood",
+    "biomemakeover:stripped_willow_wood"
   ]
 }

@@ -113,7 +113,7 @@ public class WoodTypeInfo
 
 	public WoodTypeInfo boat(Supplier<BoatType> boatType)
 	{
-		set(Type.BOAT, new BMBoatItem(()->boatType.get(), BMItems.settings()));
+		set(Type.BOAT, new BMBoatItem(()->boatType.get(), BMItems.settings().maxCount(1)));
 		return this;
 	}
 

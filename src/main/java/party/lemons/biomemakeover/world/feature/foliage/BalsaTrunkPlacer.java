@@ -27,7 +27,7 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 	@Override
 	protected TrunkPlacerType<?> getType()
 	{
-		return BMWorldGen.BLIGHTED_BALDA_TRUNK;
+		return BMWorldGen.BLIGHTED_BALSA_TRUNK;
 	}
 
 	@Override

@@ -1,10 +1,17 @@
 package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.Maps;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.render.chunk.ChunkRendererRegion;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
@@ -14,13 +21,17 @@ import net.minecraft.util.SignType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.*;
+import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.util.access.SignTypeHelper;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
+import party.lemons.biomemakeover.world.feature.foliage.CypressSaplingGenerator;
+import party.lemons.biomemakeover.world.feature.foliage.WillowSaplingGenerator;
 
 import java.util.Map;
 
@@ -76,6 +87,18 @@ public class BMBlocks
 	public static final BMBlock POLTERGEIST = new PoltergeistBlock(settings(POLTERGEISTER_MATERIAL, 1.0F).luminance((bs)->bs.get(PoltergeistBlock.ENABLED) ? 7 : 0).sounds(BlockSoundGroup.LODESTONE));
 	public static final Block ECTOPLASM_COMPOSTER = new EctoplasmComposterBlock(settings(Material.WOOD, 0.6F).sounds(BlockSoundGroup.WOOD));
 
+	public static WoodTypeInfo WILLOW_WOOD_INFO = new WoodTypeInfo("willow", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
+
+	public static final BMBlock WILLOWING_BRANCHES = new WillowingBranchesBlock(settings(Material.PLANT, 0.1F).ticksRandomly().sounds(BlockSoundGroup.VINE).noCollision().nonOpaque());
+	public static final BMSaplingBlock WILLOW_SAPLING = new BMSaplingBlock(new WillowSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMSaplingBlock CYPRESS_SAPLING = new BMSaplingBlock(new CypressSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 1.5F));
+	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 1.5F).ticksRandomly().nonOpaque());
+	public static final ReedBlock CATTAIL = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
+	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
+	public static final SmallLilyPadBlock SMALL_LILY_PAD = new SmallLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BlockSoundGroup.LILY_PAD));
+	public static final BMLeavesBlock WILLOW_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_GREEN_GLOWSHROOM = new FlowerPotBlock(GREEN_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -84,8 +107,10 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_SAGUARO_CACTUS = new FlowerPotBlock(SAGUARO_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS_FLOWERED, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_WILLOW_SAPLING = new FlowerPotBlock(WILLOW_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 	public static final SignType BLIGHTED_BALSA_ST = SignTypeHelper.register(new SignType("blighted_balsa"));
+	public static final SignType WILLOW_ST = SignTypeHelper.register(new SignType("willow"));
 
 	public static void init()
     {
@@ -105,7 +130,9 @@ public class BMBlocks
         /* Simple decoration registers */
 	    //TODO:
 	    BLIGHTED_BALSA_WOOD_INFO = BLIGHTED_BALSA_WOOD_INFO.boat(()->BoatTypes.BLIGHTED_BALSA).sign(BLIGHTED_BALSA_ST);
+	    WILLOW_WOOD_INFO = WILLOW_WOOD_INFO.boat(()->BoatTypes.WILLOW).sign(WILLOW_ST);
         BLIGHTED_BALSA_WOOD_INFO.register();
+	    WILLOW_WOOD_INFO.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
         PURPLE_GLOWSROOM_BRICK_DECORATION.register();
@@ -149,6 +176,8 @@ public class BMBlocks
         }
 
         /* Flammables */
+
+	    //TODO: function
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.PLANK), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), 5, 5);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), 5, 5);
@@ -159,6 +188,54 @@ public class BMBlocks
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
 	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.PLANK), 5, 20);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), 5, 5);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), 5, 5);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG), 5, 5);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD), 5, 5);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE), 5, 20);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
+	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
+	    registerFlammable(WILLOW_LEAVES, 5, 60);
+
+	    ColorProviderRegistry.BLOCK.register(
+			    (state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(),
+			    BMBlocks.WILLOWING_BRANCHES, BMBlocks.WILLOW_LEAVES);
+
+
+	    ColorProviderRegistry.BLOCK.register(
+			    (state, world, pos, tintIndex)->{
+			    	int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+
+				    int r = color >> 16 & 0xFF;
+				    int g = color >> 8 & 0xFF;
+				    int b = color & 0xFF;
+
+				    int rShift = -10;
+				    int gShift = 10;
+				    int bShift = -10;
+				    if(world instanceof ChunkRenderRegionAccess)
+				    {
+				    	if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+					    {
+						    rShift = -20;
+						    gShift = 40;
+						    bShift = -20;
+					    }
+				    }
+
+
+					    color = (Math.max(0, Math.min(0xFF, r + rShift)) << 16) + Math.max(0, Math.min(0xFF, g + gShift) << 8) + Math.max(0, Math.min(0xFF, b + bShift));
+
+				    return color;
+			    }, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD
+	    );
+
+	    ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
+		    BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
+		    return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
+	    }, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD);
     }
 
     public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();

@@ -8,6 +8,7 @@ import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMNetwork;
+import party.lemons.biomemakeover.util.WoodTypeInfo;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
@@ -22,6 +23,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GHOST, (r, c)->new GhostRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.SCUTTLER, (r, c)->new ScuttlerRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.BM_BOAT, (r, c)->new BMBoatRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.TOAD, (r, c)->new ToadRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.DRAGONFLY, (r, c)->new DragonflyRender(r));
 
 		BMNetwork.initClient();
 
@@ -47,7 +50,15 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.SAGUARO_CACTUS,
 				BMBlocks.BARREL_CACTUS,
 				BMBlocks.BARREL_CACTUS_FLOWERED,
-				BMBlocks.POLTERGEIST
+				BMBlocks.POLTERGEIST,
+				BMBlocks.WILLOWING_BRANCHES,
+				BMBlocks.CATTAIL,
+				BMBlocks.REED,
+				BMBlocks.SMALL_LILY_PAD,
+				BMBlocks.WILLOW_LEAVES,
+				BMBlocks.WILLOW_SAPLING,
+				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
+				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR)
 		);
 	}
 }

@@ -31,8 +31,11 @@
     "client.SalmonEntityModelMixin",
     "client.ArmorStandRendererMixin",
     "client.PlayerRendererMixin",
-    "client.HorseEntityRendererMixin"
-  ],
+    "client.HorseEntityRendererMixin",
+    "client.CuboidMixin",
+    "client.ChunkRenderRegionMixin"
+  ]
+,
   "injectors": {
     "defaultRequire": 1
   }
