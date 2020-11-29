@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.init;
 
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -13,14 +12,13 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.DefaultBiomeCreator;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
@@ -79,6 +77,15 @@ public class BMWorldGen
 
 	private static void mushroomModifications()
 	{
+		BiomeModifications.create(BiomeMakeover.ID("mf_water"))
+				.add(ModificationPhase.POST_PROCESSING, BiomeSelectors.includeByKey(BiomeKeys.MUSHROOM_FIELDS), (s)->{
+					s.getEffects().setWaterColor(0xad3fe4);
+				});
+		BiomeModifications.create(BiomeMakeover.ID("mfs_water"))
+				.add(ModificationPhase.POST_PROCESSING, BiomeSelectors.includeByKey(BiomeKeys.MUSHROOM_FIELD_SHORE), (s)->{
+					s.getEffects().setWaterColor(0x5d3fe4);
+				});
+
 		BiomeModifications.addCarver(MUSHROOM_BIOMES, AIR, rk(LARGE_CAVE_CONFIGURED_CARVER));
 		BiomeModifications.addFeature(MUSHROOM_BIOMES, UNDERGROUND_DECORATION, rk(MYCELIUM_PATCH));
 
