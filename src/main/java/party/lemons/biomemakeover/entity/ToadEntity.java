@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.entity;
 import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.control.JumpControl;
@@ -19,15 +20,21 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.MathUtils;
+import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -48,8 +55,6 @@ public class ToadEntity extends AnimalEntity
 	public ToadEntity(World world)
 	{
 		super(BMEntities.TOAD, world);
-		this.jumpControl = new ToadJumpControl(this);
-		this.moveControl = new ToadMoveControl(this);
 	}
 
 	@Override
@@ -97,6 +102,13 @@ public class ToadEntity extends AnimalEntity
 		dataTracker.set(TONGUE_ENTITY, -1);
 	}
 
+	public float getPathfindingFavor(BlockPos pos, WorldView world)
+	{
+		 if(world.getBlockState(pos).isIn(BMBlocks.LILY_PADS))
+		 	return 100;
+
+		return super.getPathfindingFavor(pos, world);
+	}
 
 	private TargetPredicate predicate = new TargetPredicate().setPredicate((e)->e.distanceTo(e) < 10);
 
@@ -105,15 +117,13 @@ public class ToadEntity extends AnimalEntity
 	{
 		super.tick();
 
-
 		if(hasTongueEntity())
 		{
 			Entity e = world.getEntityById(getTongueEntityID());
 			if(e != null)
 			{
 				getLookControl().lookAt(e.getX(), (e.getBoundingBox().minY + e.getBoundingBox().maxY) / 2.0D - 0.5F, e.getZ(), 100, 100);
-				headYaw = getTargetYaw();
-				pitch = getTargetPitch();
+				bodyYaw = getTargetYaw();
 
 				float speed = 10;
 				targetToungeDistance = (this.distanceTo(e) * 16) - ((float)(e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
@@ -138,17 +148,9 @@ public class ToadEntity extends AnimalEntity
 
 	public boolean isToungeReady()
 	{
-		float yaw = Math.abs(((headYaw + 1) % 360) - getTargetYaw());
+		float yaw = Math.abs(((bodyYaw + 1) % 360) - getTargetYaw());
 		boolean dis = Math.abs(toungeDistance - targetToungeDistance) < 5;
-		return dis && Math.abs(pitch - getTargetPitch()) < 4F && (yaw < 4F || yaw >= 360);
-	}
-
-	protected float getTargetPitch() {
-		double d = lookControl.getLookX() - getX();
-		double e = lookControl.getLookY() - getEyeY();
-		double f = lookControl.getLookZ() - getZ();
-		double g = MathHelper.sqrt(d * d + f * f);
-		return (float)(-(MathHelper.atan2(e, g) * 57.2957763671875D));
+		return dis && (yaw < 4F || yaw >= 360);
 	}
 
 	protected float getTargetYaw() {
@@ -179,135 +181,19 @@ public class ToadEntity extends AnimalEntity
 			--this.ticksUntilJump;
 		}
 
-		if (this.onGround) {
-			if (!this.lastOnGround)
-			{
-				this.setJumping(false);
-				this.scheduleJump();
-			}
-
-			ToadEntity.ToadJumpControl rabbitJumpControl = (ToadEntity.ToadJumpControl)this.jumpControl;
-			if (!rabbitJumpControl.isActive()) {
-				if (this.moveControl.isMoving() && this.ticksUntilJump == 0) {
-					Path path = this.navigation.getCurrentPath();
-					Vec3d vec3d = new Vec3d(this.moveControl.getTargetX(), this.moveControl.getTargetY(), this.moveControl.getTargetZ());
-					if (path != null && !path.isFinished()) {
-						vec3d = path.getNodePosition(this);
-					}
-
-					this.lookTowards(vec3d.x, vec3d.z);
-					this.startJump();
-				}
-			} else if (!rabbitJumpControl.method_27313()) { //TODO: What are these
-				this.method_6611();
-			}
+		if(ticksUntilJump <= 0 && moveControl.isMoving())
+		{
+			ticksUntilJump = RandomUtil.randomRange(20, 100);
+			jump();
+			this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 		}
 
 		this.lastOnGround = this.onGround;
 	}
 
-	private void lookTowards(double x, double z) {
-		this.yaw = (float)(MathHelper.atan2(z - this.getZ(), x - this.getX()) * 57.2957763671875D) - 90.0F;
-	}
-
-	public boolean shouldSpawnSprintingParticles() {
-		return false;
-	}
-
-	protected float getJumpVelocity() {
-		/*if (!this.horizontalCollision && (!this.moveControl.isMoving() || this.moveControl.getTargetY() <= this.getY() + 0.5D)) {
-			Path path = this.navigation.getCurrentPath();
-			if (path != null && !path.isFinished()) {
-				Vec3d vec3d = path.getNodePosition(this);
-				if (vec3d.y > this.getY() + 0.5D) {
-					return 0.5F;
-				}
-			}
-
-			return this.moveControl.getSpeed() <= 0.6D ? 0.2F : 0.3F;
-		} else {
-			return 0.5F;
-		}*/
-		return super.getJumpVelocity();
-	}
-
-	protected void jump() {
-		super.jump();
-		double d = this.moveControl.getSpeed();
-		if (d > 0.0D) {
-			double e = squaredHorizontalLength(this.getVelocity());
-			if (e < 0.01D) {
-				this.updateVelocity(0.1F, new Vec3d(0.0D, 0.0D, 1.0D));
-			}
-		}
-
-		if (!this.world.isClient) {
-			this.world.sendEntityStatus(this, (byte)1);
-		}
-
-	}
-
-	@Environment(EnvType.CLIENT)
-	public float getJumpProgress(float delta) {
-		return this.jumpDuration == 0 ? 0.0F : ((float)this.jumpTicks + delta) / (float)this.jumpDuration;
-	}
-
-	public void setSpeed(double speed) {
-		this.getNavigation().setSpeed(speed);
-		this.moveControl.moveTo(this.moveControl.getTargetX(), this.moveControl.getTargetY(), this.moveControl.getTargetZ(), speed);
-	}
-
-	public void setJumping(boolean jumping) {
-		super.setJumping(jumping);
-		if (jumping) {
-			this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
-		}
-	}
-
-	public void startJump() {
-		this.setJumping(true);
-		this.jumpDuration = 10;
-		this.jumpTicks = 0;
-	}
-
-	private void method_6611() {
-		((ToadJumpControl)this.jumpControl).method_27311(true);
-	}
-
-	private void method_6621() {
-		((ToadJumpControl)this.jumpControl).method_27311(false);
-	}
-
-	private void doScheduleJump() {
-		if (this.moveControl.getSpeed() < 2.2D) {
-			this.ticksUntilJump = 10;
-		} else {
-			this.ticksUntilJump = 1;
-		}
-
-	}
-
-	private void scheduleJump() {
-		this.doScheduleJump();
-		this.method_6621();
-	}
-
-	public void tickMovement() {
-		super.tickMovement();
-		if (this.jumpTicks != this.jumpDuration) {
-			++this.jumpTicks;
-		} else if (this.jumpDuration != 0) {
-			this.jumpTicks = 0;
-			this.jumpDuration = 0;
-			this.setJumping(false);
-		}
-
-	}
-
 	protected SoundEvent getJumpSound() {
 		return SoundEvents.ENTITY_RABBIT_JUMP;
 	}
-
 
 	@Override
 	public AttributeContainer getAttributes()
@@ -322,69 +208,6 @@ public class ToadEntity extends AnimalEntity
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity)
 	{
 		return null;
-	}
-
-	static class ToadMoveControl extends MoveControl
-	{
-		private final ToadEntity toad;
-		private double rabbitSpeed;
-
-		public ToadMoveControl(ToadEntity owner) {
-			super(owner);
-			this.toad = owner;
-		}
-
-		public void tick() {
-			if (this.toad.onGround && !this.toad.jumping && !((ToadEntity.ToadJumpControl)this.toad.jumpControl).isActive()) {
-				this.toad.setSpeed(0.0D);
-			} else if (this.isMoving()) {
-				this.toad.setSpeed(this.rabbitSpeed);
-			}
-
-			super.tick();
-		}
-
-		public void moveTo(double x, double y, double z, double speed) {
-			if (this.toad.isTouchingWater()) {
-				speed = 1.5D;
-			}
-
-			super.moveTo(x, y, z, speed);
-			if (speed > 0.0D) {
-				this.rabbitSpeed = speed;
-			}
-
-		}
-	}
-
-	public class ToadJumpControl extends JumpControl
-	{
-		private final ToadEntity toad;
-		private boolean field_24091;
-
-		public ToadJumpControl(ToadEntity toad) {
-			super(toad);
-			this.toad = toad;
-		}
-
-		public boolean isActive() {
-			return this.active;
-		}
-
-		public boolean method_27313() {
-			return this.field_24091;
-		}
-
-		public void method_27311(boolean bl) {
-			this.field_24091 = bl;
-		}
-
-		public void tick() {
-			if (this.active) {
-				this.toad.startJump();
-				this.active = false;
-			}
-		}
 	}
 
 	private class LookAtTongueTarget extends Goal

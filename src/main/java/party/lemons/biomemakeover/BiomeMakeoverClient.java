@@ -25,6 +25,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.BM_BOAT, (r, c)->new BMBoatRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.TOAD, (r, c)->new ToadRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.DRAGONFLY, (r, c)->new DragonflyRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.DECAYED, (r, c)->new DecayedRender(r));
 
 		BMNetwork.initClient();
 
@@ -57,6 +58,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.SMALL_LILY_PAD,
 				BMBlocks.WILLOW_LEAVES,
 				BMBlocks.WILLOW_SAPLING,
+				BMBlocks.CYPRESS_SAPLING,
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR)
 		);

@@ -13,6 +13,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.carver.Carver;
@@ -27,8 +28,10 @@ import net.minecraft.world.gen.foliage.*;
 import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.block.SmallLilyPadBlock;
 import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
@@ -73,6 +76,8 @@ public class BMWorldGen
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(FALLEN_WILLOW));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
+		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_LILY_PADS));
+		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_REEDS));
 	}
 
 	private static void mushroomModifications()
@@ -151,9 +156,9 @@ public class BMWorldGen
 	public static final TrunkPlacerType<CypressTrunkPlacer> CYPRESS_TRUNK = new TrunkPlacerType<>(CypressTrunkPlacer.CODEC);
 	public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE = new FoliagePlacerType<>(WillowFoliagePlacer.CODEC);
 
-	public static final ConfiguredFeature<?, ?> WILLOW_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), 3, true), new WillowTrunkPlacer(6, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
+	public static final ConfiguredFeature<?, ?> WILLOW_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), 3, true), new WillowTrunkPlacer(6, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(1).build()));
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
-	public static final ConfiguredFeature<?, ?> CYPRESS_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.JUNGLE_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.ACACIA_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
+	public static final ConfiguredFeature<?, ?> CYPRESS_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.JUNGLE_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.ACACIA_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(3).build()));
 
 	//Badlands
 	public static final SurfaceFossilFeature SURFACE_FOSSIL_FEATURE = new SurfaceFossilFeature(DefaultFeatureConfig.CODEC);
@@ -166,9 +171,13 @@ public class BMWorldGen
 
 	//Swamp
 	public static final FallenLogFeature FALLEN_WILLOW_FEATURE = new FallenLogFeature(FallenLogFeatureConfig.CODEC);
-	public static final ConfiguredFeature<?, ?> FALLEN_WILLOW = FALLEN_WILLOW_FEATURE.configure(new FallenLogFeatureConfig(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), FallenLogFeatureConfig.defaultMushrooms(), UniformIntDistribution.of(6, 3), 10)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.1F, 1)));
+	public static final ConfiguredFeature<?, ?> FALLEN_WILLOW = FALLEN_WILLOW_FEATURE.configure(new FallenLogFeatureConfig(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), defaultMushrooms(), UniformIntDistribution.of(6, 3), 10)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.1F, 1)));
 	public static final ConfiguredFeature<?, ?> SWAMP_BIG_RED_SHROOMS = ConfiguredFeatures.HUGE_RED_MUSHROOM.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.08F, 2)));
 	public static final ConfiguredFeature<?, ?> SWAMP_BIG_BROWN_SHROOMS = ConfiguredFeatures.HUGE_BROWN_MUSHROOM.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.08F, 2)));
+	public static final ConfiguredFeature<?, ?> SMALL_LILY_PADS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(smallPads(), SimpleBlockPlacer.INSTANCE)).tries(5).needsWater().build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(4);
+
+	public static final ReedFeature REED_FEATURE = new ReedFeature(RandomPatchFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> SWAMP_REEDS = REED_FEATURE.configure((new RandomPatchFeatureConfig.Builder(reeds(), DoublePlantPlacer.INSTANCE)).tries(20).spreadX(4).spreadZ(4).spreadY(0).build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(10);
 
 	//Conf Features
 	//2 tall Shrooms patch
@@ -233,5 +242,33 @@ public class BMWorldGen
 	public static RegistryKey<ConfiguredStructureFeature<?, ?>> rk(ConfiguredStructureFeature carver)
 	{
 		return BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(carver).get();
+	}
+
+	public static WeightedBlockStateProvider smallPads()
+	{
+		WeightedBlockStateProvider states = new WeightedBlockStateProvider();
+		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 1), 10);
+		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 2), 10);
+		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 3), 10);
+		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 0 ), 10);
+		return states;
+	}
+
+	public static WeightedBlockStateProvider defaultMushrooms()
+	{
+		WeightedBlockStateProvider states = new WeightedBlockStateProvider();
+		states.addState(Blocks.RED_MUSHROOM.getDefaultState(), 10);
+		states.addState(Blocks.BROWN_MUSHROOM.getDefaultState(), 10);
+
+		return states;
+	}
+
+	public static WeightedBlockStateProvider reeds()
+	{
+		WeightedBlockStateProvider states = new WeightedBlockStateProvider();
+		states.addState(BMBlocks.CATTAIL.getDefaultState(), 5);
+		states.addState(BMBlocks.REED.getDefaultState(), 10);
+
+		return states;
 	}
 }

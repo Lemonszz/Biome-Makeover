@@ -4,64 +4,117 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
-import net.minecraft.client.util.math.MatrixStack;
 import party.lemons.biomemakeover.entity.DragonflyEntity;
 
 public class DragonflyEntityModel extends CompositeEntityModel<DragonflyEntity> implements ModelWithHead
 {
 	private final ModelPart body;
 	private final ModelPart head;
-	private final ModelPart feeler_left;
-	private final ModelPart feeler_left2;
-	private final ModelPart wings_left;
-	private final ModelPart wings_right;
+	private final ModelPart wingsw;
+	private final ModelPart right_top;
+	private final ModelPart topwing_r1;
+	private final ModelPart right_bottom;
+	private final ModelPart bottomwing_r1;
+	private final ModelPart wingse;
+	private final ModelPart left_top;
+	private final ModelPart topwing_r2;
+	private final ModelPart left_bottom;
+	private final ModelPart bottomwing_r2;
 
-	public DragonflyEntityModel()
-	{
+
+	public DragonflyEntityModel() {
 		textureWidth = 32;
 		textureHeight = 32;
 
 		body = new ModelPart(this);
-		body.setPivot(0.0F, 24.0F, 0.0F);
-		body.setTextureOffset(0, 0).addCuboid(-1.0F, -2.0F, -5.0F, 2.0F, 2.0F, 10.0F, 0.0F, false);
-		body.setTextureOffset(0, 0).addCuboid(-0.5F, -1.5F, 5.0F, 1.0F, 1.0F, 2.0F, 0.0F, false);
+		body.setPivot(-1.0F, 22.0F, -0.5F);
+		body.setTextureOffset(0, 0).addCuboid(1.5F, 0.9F, 0.5F, 1.0F, 1.0F, 0.0F, 0.0F, false);
+		body.setTextureOffset(0, 0).addCuboid(1.5F, 0.9F, -0.5F, 1.0F, 1.0F, 0.0F, 0.0F, false);
+		body.setTextureOffset(0, 0).addCuboid(1.5F, 0.9F, 1.5F, 1.0F, 1.0F, 0.0F, 0.0F, false);
+		body.setTextureOffset(0, 0).addCuboid(-1.5F, 0.9F, -0.5F, 1.0F, 1.0F, 0.0F, 0.0F, false);
+		body.setTextureOffset(0, 0).addCuboid(-1.5F, 0.9F, 0.5F, 1.0F, 1.0F, 0.0F, 0.0F, false);
+		body.setTextureOffset(0, 0).addCuboid(-1.5F, 0.9F, 1.5F, 1.0F, 1.0F, 0.0F, 0.0F, false);
+		body.setTextureOffset(9, 9).addCuboid(-0.5F, -1.1F, -1.5F, 2.0F, 2.0F, 3.0F, 0.0F, false);
+		body.setTextureOffset(0, 4).addCuboid(0.0F, -0.6F, 1.5F, 1.0F, 1.0F, 5.0F, 0.0F, false);
 
 		head = new ModelPart(this);
-		head.setPivot(0.0F, 0.0F, 0.0F);
+		head.setPivot(0.5F, 0.4F, -1.5F);
 		body.addChild(head);
-		head.setTextureOffset(0, 16).addCuboid(-1.5F, -2.5F, -8.0F, 3.0F, 3.0F, 3.0F, 0.0F, false);
+		head.setTextureOffset(0, 12).addCuboid(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 2.0F, 0.0F, false);
 
-		feeler_left = new ModelPart(this);
-		feeler_left.setPivot(1.0F, -2.0F, -7.5F);
-		head.addChild(feeler_left);
-		setRotationAngle(feeler_left, 0.2618F, -0.48F, 0.0F);
-		feeler_left.setTextureOffset(0, 2).addCuboid(0.0F, -2.0F, -0.5F, 0.0F, 2.0F, 1.0F, 0.0F, false);
+		wingsw = new ModelPart(this);
+		wingsw.setPivot(-0.5F, -1.0F, -0.5F);
+		body.addChild(wingsw);
 
-		feeler_left2 = new ModelPart(this);
-		feeler_left2.setPivot(-1.0F, -2.0F, -7.5F);
-		head.addChild(feeler_left2);
-		setRotationAngle(feeler_left2, 0.2618F, 0.48F, 0.0F);
-		feeler_left2.setTextureOffset(2, 2).addCuboid(0.0F, -2.0F, -0.5F, 0.0F, 2.0F, 1.0F, 0.0F, false);
 
-		wings_left = new ModelPart(this);
-		wings_left.setPivot(1.0F, -2.0F, 0.0F);
-		body.addChild(wings_left);
-		setRotationAngle(wings_left, 0.0F, 0.0F, -0.2618F);
-		wings_left.setTextureOffset(10, 12).addCuboid(0.0F, 0.0F, -4.0F, 5.0F, 0.0F, 4.0F, 0.0F, false);
-		wings_left.setTextureOffset(0, 12).addCuboid(0.0F, 0.0F, 0.0F, 5.0F, 0.0F, 4.0F, 0.0F, false);
+		right_top = new ModelPart(this);
+		right_top.setPivot(0.0F, 0.0F, 0.0F);
+		wingsw.addChild(right_top);
 
-		wings_right = new ModelPart(this);
-		wings_right.setPivot(-1.0F, -2.0F, 0.0F);
-		body.addChild(wings_right);
-		setRotationAngle(wings_right, 0.0F, 0.0F, 0.2618F);
-		wings_right.setTextureOffset(10, 4).addCuboid(-5.0F, 0.0F, -4.0F, 5.0F, 0.0F, 4.0F, 0.0F, false);
-		wings_right.setTextureOffset(10, 0).addCuboid(-5.0F, 0.0F, 0.0F, 5.0F, 0.0F, 4.0F, 0.0F, false);
+
+		topwing_r1 = new ModelPart(this);
+		topwing_r1.setPivot(0.0F, -0.1F, 0.0F);
+		right_top.addChild(topwing_r1);
+		setRotationAngle(topwing_r1, 0.0F, 0.0F, 0.7854F);
+		topwing_r1.setTextureOffset(0, 0).addCuboid(-5.5F, 0.1F, -1.0F, 6.0F, 0.0F, 2.0F, 0.0F, false);
+
+		right_bottom = new ModelPart(this);
+		right_bottom.setPivot(0.0F, 0.0F, 0.0F);
+		wingsw.addChild(right_bottom);
+
+
+		bottomwing_r1 = new ModelPart(this);
+		bottomwing_r1.setPivot(0.0F, 0.4F, 0.0F);
+		right_bottom.addChild(bottomwing_r1);
+		setRotationAngle(bottomwing_r1, 0.0F, 0.0F, -0.2618F);
+		bottomwing_r1.setTextureOffset(0, 0).addCuboid(-5.0F, -0.4F, -1.0F, 5.0F, 0.0F, 2.0F, 0.0F, false);
+
+		wingse = new ModelPart(this);
+		wingse.setPivot(1.5F, -1.0F, -0.5F);
+		body.addChild(wingse);
+
+
+		left_top = new ModelPart(this);
+		left_top.setPivot(0.0F, 0.0F, 0.0F);
+		wingse.addChild(left_top);
+
+
+		topwing_r2 = new ModelPart(this);
+		topwing_r2.setPivot(0.0F, 0.0F, 0.0F);
+		left_top.addChild(topwing_r2);
+		setRotationAngle(topwing_r2, 0.0F, 0.0F, -0.7854F);
+		topwing_r2.setTextureOffset(0, 0).addCuboid(-0.5F, 0.0F, -1.0F, 6.0F, 0.0F, 2.0F, 0.0F, false);
+
+		left_bottom = new ModelPart(this);
+		left_bottom.setPivot(0.3F, 0.0F, 0.0F);
+		wingse.addChild(left_bottom);
+
+
+		bottomwing_r2 = new ModelPart(this);
+		bottomwing_r2.setPivot(-0.3F, 0.0F, 0.0F);
+		left_bottom.addChild(bottomwing_r2);
+		setRotationAngle(bottomwing_r2, 0.0F, 0.0F, 0.2618F);
+		bottomwing_r2.setTextureOffset(0, 0).addCuboid(0.0F, 0.0F, -1.0F, 5.0F, 0.0F, 2.0F, 0.0F, false);
 	}
 
 	@Override
 	public void setAngles(DragonflyEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
-
+		float change = 0.436332F; // 20 degrees
+		if(entity.age % 2 == 0)
+		{
+			right_top.roll = change;
+			left_top.roll = change;
+			right_bottom.roll = -change;
+			left_bottom.roll = -change;
+		}
+		else
+		{
+			right_top.roll = -change;
+			left_top.roll = -change;
+			left_bottom.roll = change;
+			right_bottom.roll = change;
+		}
 	}
 
 	@Override
@@ -70,10 +123,10 @@ public class DragonflyEntityModel extends CompositeEntityModel<DragonflyEntity> 
 		return ImmutableList.of(body);
 	}
 
-	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.pitch = x;
-		modelRenderer.yaw = y;
-		modelRenderer.roll = z;
+	public void setRotationAngle(ModelPart modelPart, float x, float y, float z) {
+		modelPart.pitch = x;
+		modelPart.yaw = y;
+		modelPart.roll = z;
 	}
 
 	@Override

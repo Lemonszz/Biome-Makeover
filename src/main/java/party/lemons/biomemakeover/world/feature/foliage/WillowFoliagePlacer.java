@@ -9,6 +9,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.feature.TreeFeature;

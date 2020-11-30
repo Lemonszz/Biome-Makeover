@@ -12,15 +12,6 @@ import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
 public class FallenLogFeatureConfig implements FeatureConfig
 {
-	public static WeightedBlockStateProvider defaultMushrooms()
-	{
-		WeightedBlockStateProvider states = new WeightedBlockStateProvider();
-		states.addState(Blocks.RED_MUSHROOM.getDefaultState(), 10);
-		states.addState(Blocks.BROWN_MUSHROOM.getDefaultState(), 10);
-
-		return states;
-	}
-
 	public static final Codec<FallenLogFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
 		return instance.group(
 		BlockStateProvider.TYPE_CODEC.fieldOf("log").forGetter((c) -> {

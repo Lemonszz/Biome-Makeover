@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.init;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -15,6 +16,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
@@ -90,8 +92,8 @@ public class BMBlocks
 	public static WoodTypeInfo WILLOW_WOOD_INFO = new WoodTypeInfo("willow", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
 
 	public static final BMBlock WILLOWING_BRANCHES = new WillowingBranchesBlock(settings(Material.PLANT, 0.1F).ticksRandomly().sounds(BlockSoundGroup.VINE).noCollision().nonOpaque());
-	public static final BMSaplingBlock WILLOW_SAPLING = new BMSaplingBlock(new WillowSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final BMSaplingBlock CYPRESS_SAPLING = new BMSaplingBlock(new CypressSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMSaplingBlock WILLOW_SAPLING = new WaterSaplingBlock(new WillowSaplingGenerator(), 1, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMSaplingBlock CYPRESS_SAPLING = new WaterSaplingBlock(new CypressSaplingGenerator(), 3, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 1.5F));
 	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 1.5F).ticksRandomly().nonOpaque());
 	public static final ReedBlock CATTAIL = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
@@ -200,24 +202,19 @@ public class BMBlocks
 	    registerFlammable(WILLOW_LEAVES, 5, 60);
 
 	    ColorProviderRegistry.BLOCK.register(
-			    (state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(),
-			    BMBlocks.WILLOWING_BRANCHES, BMBlocks.WILLOW_LEAVES);
+			    (state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor());
 
 
 	    ColorProviderRegistry.BLOCK.register(
 			    (state, world, pos, tintIndex)->{
-			    	int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-
-				    int r = color >> 16 & 0xFF;
-				    int g = color >> 8 & 0xFF;
-				    int b = color & 0xFF;
+				    int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
 
 				    int rShift = -10;
 				    int gShift = 10;
 				    int bShift = -10;
 				    if(world instanceof ChunkRenderRegionAccess)
 				    {
-				    	if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+					    if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
 					    {
 						    rShift = -20;
 						    gShift = 40;
@@ -225,11 +222,23 @@ public class BMBlocks
 					    }
 				    }
 
+				    return MathUtils.colourBoost(color, rShift, gShift, bShift);
+			    }, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD
+	    );
 
-					    color = (Math.max(0, Math.min(0xFF, r + rShift)) << 16) + Math.max(0, Math.min(0xFF, g + gShift) << 8) + Math.max(0, Math.min(0xFF, b + bShift));
+	    ColorProviderRegistry.BLOCK.register(
+			    (state, world, pos, tintIndex)->{
+				    int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+				    if(world instanceof ChunkRenderRegionAccess)
+				    {
+					    if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+					    {
+						    return MathUtils.colourBoost(color, -10, 15, -10);
+					    }
+				    }
 
 				    return color;
-			    }, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD
+			    }, BMBlocks.WILLOWING_BRANCHES, BMBlocks.WILLOW_LEAVES
 	    );
 
 	    ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
@@ -260,4 +269,7 @@ public class BMBlocks
 	public static void registerFlammable(Block block, int burnChance, int spreadChance) {
 		((FireBlockAccessor) Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
 	}
+
+	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));
+
 }

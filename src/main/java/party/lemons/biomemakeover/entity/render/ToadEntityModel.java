@@ -5,127 +5,109 @@ import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.util.math.Vector4f;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix3f;
 import net.minecraft.util.math.Matrix4f;
 import party.lemons.biomemakeover.entity.ToadEntity;
+import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.access.CuboidAccessor;
 
-public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements ModelWithHead
+public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 {
 	private final ModelPart body;
+	private final ModelPart backlege;
+	private final ModelPart backlegw;
+	private final ModelPart eyeballw;
+	private final ModelPart eyeballe;
+	private final ModelPart lips;
+	private final ModelPart lipBottom;
+	private final ModelPart lipTop;
+	private final ModelPart frontlegw;
 	private final ModelPart cube_r1;
-	private final ModelPart leg_back_left_top;
-	private final ModelPart leg_back_left_bottom;
-	private final ModelPart leg_back_left_top2;
-	private final ModelPart leg_back_left_bottom2;
-	private final ModelPart leg_front_left;
+	private final ModelPart frontlege;
 	private final ModelPart cube_r2;
-	private final ModelPart leg_front_right;
-	private final ModelPart cube_r3;
-	private final ModelPart head;
-	private final ModelPart top;
-	private final ModelPart cube_r4;
-	private final ModelPart cube_r5;
-	private final ModelPart jaw;
 	private final ModelPart tounge;
 
-	public ToadEntityModel()
-	{
+	public ToadEntityModel() {
 		textureWidth = 64;
 		textureHeight = 64;
 
 		body = new ModelPart(this);
-		body.setPivot(0.0F, 24.0F, 0.0F);
+		body.setPivot(0.0F, 24.0F, -0.2727F);
+		body.setTextureOffset(0, 0).addCuboid(-4.0F, -8.0F, -2.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
+		body.setTextureOffset(10, 24).addCuboid(1.0F, -10.0F, -1.0F, 2.0F, 2.0F, 3.0F, 0.0F, false);
+		body.setTextureOffset(0, 24).addCuboid(-3.0F, -10.0F, -1.0F, 2.0F, 2.0F, 3.0F, 0.0F, false);
+
+		backlege = new ModelPart(this);
+		backlege.setPivot(-4.0F, -3.0F, 5.0F);
+		body.addChild(backlege);
+		backlege.setTextureOffset(8, 16).addCuboid(-2.0F, 2.0F, -4.0F, 2.0F, 1.0F, 2.0F, 0.0F, false);
+		backlege.setTextureOffset(12, 16).addCuboid(-2.0F, -1.0F, -2.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
+
+		backlegw = new ModelPart(this);
+		backlegw.setPivot(4.0F, -3.0F, 5.0F);
+		body.addChild(backlegw);
+		backlegw.setTextureOffset(0, 16).addCuboid(0.0F, -1.0F, -2.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
+		backlegw.setTextureOffset(24, 0).addCuboid(0.0F, 2.0F, -4.0F, 2.0F, 1.0F, 2.0F, 0.0F, false);
+
+		eyeballw = new ModelPart(this);
+		eyeballw.setPivot(2.5F, -9.5F, 0.5F);
+		body.addChild(eyeballw);
+		eyeballw.setTextureOffset(18, 28).addCuboid(0.0F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+
+		eyeballe = new ModelPart(this);
+		eyeballe.setPivot(-2.5F, -9.5F, 0.5F);
+		body.addChild(eyeballe);
+		eyeballe.setTextureOffset(24, 3).addCuboid(-1.0F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+
+		lips = new ModelPart(this);
+		lips.setPivot(0.0F, -4.0F, -2.0F);
+		body.addChild(lips);
+
+		lipBottom = new ModelPart(this);
+		lipBottom.setPivot(0.0F, 0.0F, 0.0F);
+		lips.addChild(lipBottom);
+		lipBottom.setTextureOffset(20, 18).addCuboid(-3.0F, 1.0F, -1.0F, 6.0F, 1.0F, 1.0F, 0.0F, false);
+
+		lipTop = new ModelPart(this);
+		lipTop.setPivot(0.0F, 0.0F, 0.0F);
+		lips.addChild(lipTop);
+		lipTop.setTextureOffset(20, 16).addCuboid(-3.0F, 0.0F, -1.0F, 6.0F, 1.0F, 1.0F, 0.0F, false);
+
+		frontlegw = new ModelPart(this);
+		frontlegw.setPivot(4.0F, -5.0F, -1.0F);
+		body.addChild(frontlegw);
 
 
 		cube_r1 = new ModelPart(this);
-		cube_r1.setPivot(0.0F, -5.5F, -1.0F);
-		body.addChild(cube_r1);
-		setRotationAngle(cube_r1, -0.2618F, 0.0F, 0.0F);
-		cube_r1.setTextureOffset(0, 0).addCuboid(-2.5F, -2.5F, -4.0F, 5.0F, 5.0F, 10.0F, 0.0F, false);
+		cube_r1.setPivot(0.0F, -1.0F, 1.0F);
+		frontlegw.addChild(cube_r1);
+		setRotationAngle(cube_r1, -0.3491F, 0.0F, 0.0F);
+		cube_r1.setTextureOffset(22, 22).addCuboid(0.0F, 0.684F, -1.3794F, 2.0F, 6.0F, 2.0F, 0.0F, false);
 
-		leg_back_left_top = new ModelPart(this);
-		leg_back_left_top.setPivot(1.5F, -4.5F, 2.5F);
-		body.addChild(leg_back_left_top);
-		setRotationAngle(leg_back_left_top, 0.3927F, 0.0F, 0.0F);
-		leg_back_left_top.setTextureOffset(0, 22).addCuboid(0.0F, -1.8415F, -2.7304F, 2.0F, 3.0F, 4.0F, 0.0F, false);
-
-		leg_back_left_bottom = new ModelPart(this);
-		leg_back_left_bottom.setPivot(1.0F, 1.9239F, 3.1173F);
-		leg_back_left_top.addChild(leg_back_left_bottom);
-		leg_back_left_bottom.setTextureOffset(26, 27).addCuboid(-1.0F, -0.8328F, -5.6951F, 2.0F, 3.0F, 2.0F, 0.0F, false);
-
-		leg_back_left_top2 = new ModelPart(this);
-		leg_back_left_top2.setPivot(-3.9F, -5.5F, 2.5F);
-		body.addChild(leg_back_left_top2);
-		setRotationAngle(leg_back_left_top2, 0.3927F, 0.0F, 0.0F);
-		leg_back_left_top2.setTextureOffset(20, 0).addCuboid(0.4F, -0.9176F, -3.1131F, 2.0F, 3.0F, 4.0F, 0.0F, false);
-
-		leg_back_left_bottom2 = new ModelPart(this);
-		leg_back_left_bottom2.setPivot(1.0F, 2.8478F, 2.7346F);
-		leg_back_left_top2.addChild(leg_back_left_bottom2);
-		leg_back_left_bottom2.setTextureOffset(20, 24).addCuboid(-0.6F, -0.8328F, -5.6951F, 2.0F, 3.0F, 2.0F, 0.0F, false);
-
-		leg_front_left = new ModelPart(this);
-		leg_front_left.setPivot(0.0F, 0.0F, 0.0F);
-		body.addChild(leg_front_left);
+		frontlege = new ModelPart(this);
+		frontlege.setPivot(-4.0F, -5.0F, -1.0F);
+		body.addChild(frontlege);
 
 
 		cube_r2 = new ModelPart(this);
-		cube_r2.setPivot(2.5F, -5.5F, -3.0F);
-		leg_front_left.addChild(cube_r2);
-		setRotationAngle(cube_r2, -0.2618F, 0.0F, 0.0F);
-		cube_r2.setTextureOffset(12, 24).addCuboid(-1.0F, -0.4659F, -1.2588F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-
-		leg_front_right = new ModelPart(this);
-		leg_front_right.setPivot(-3.0F, -4.9659F, -2.2588F);
-		body.addChild(leg_front_right);
-
-
-		cube_r3 = new ModelPart(this);
-		cube_r3.setPivot(0.5F, -0.5341F, -0.7412F);
-		leg_front_right.addChild(cube_r3);
-		setRotationAngle(cube_r3, -0.2618F, 0.0F, 0.0F);
-		cube_r3.setTextureOffset(0, 0).addCuboid(-1.0F, -0.4659F, -1.2588F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-
-		head = new ModelPart(this);
-		head.setPivot(-0.025F, -6.7F, -3.375F);
-		body.addChild(head);
-		head.setTextureOffset(0, 29).addCuboid(-1.475F, -1.0F, -2.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
-
-		top = new ModelPart(this);
-		top.setPivot(0.0F, 0.0F, 0.0F);
-		head.addChild(top);
-		top.setTextureOffset(15, 17).addCuboid(-2.475F, -2.3F, -4.625F, 5.0F, 2.0F, 5.0F, 0.0F, false);
-
-		cube_r4 = new ModelPart(this);
-		cube_r4.setPivot(-1.775F, -2.7F, -2.625F);
-		top.addChild(cube_r4);
-		setRotationAngle(cube_r4, 0.0F, 0.0F, -0.1745F);
-		cube_r4.setTextureOffset(28, 0).addCuboid(-1.0F, -0.5F, -1.0F, 2.0F, 1.0F, 2.0F, 0.0F, false);
-
-		cube_r5 = new ModelPart(this);
-		cube_r5.setPivot(1.725F, -2.7F, -2.625F);
-		top.addChild(cube_r5);
-		setRotationAngle(cube_r5, 0.0F, 0.0F, 0.1745F);
-		cube_r5.setTextureOffset(20, 7).addCuboid(-1.0F, -0.5F, -1.0F, 2.0F, 1.0F, 2.0F, 0.0F, false);
-
-		jaw = new ModelPart(this);
-		jaw.setPivot(0.025F, 6.7F, 3.375F);
-		head.addChild(jaw);
-		jaw.setTextureOffset(0, 15).addCuboid(-2.5F, -7.0F, -8.0F, 5.0F, 2.0F, 5.0F, 0.0F, false);
+		cube_r2.setPivot(0.0F, 5.0F, -2.0F);
+		frontlege.addChild(cube_r2);
+		setRotationAngle(cube_r2, -0.3491F, 0.0F, 0.0F);
+		cube_r2.setTextureOffset(0, 0).addCuboid(-2.0F, -6.0F, 0.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
 
 		tounge = new TonguePart(this);
-		tounge.setPivot(0.025F, -0.5F, -1.5F);
-		head.addChild(tounge);
-		tounge.setTextureOffset(0, 29).addCuboid(-1.475F, -1.0F, -2.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
+		tounge.setPivot(0.0F, 0.0F, 0.0F);
+		body.addChild(tounge);
+		tounge.setTextureOffset(0, 30).addCuboid(-0.9F, -3.0F, -2.0F, 2.0F, 1.0F, 1.0F, 0.0F, false);
 	}
+
 
 	static float tongueDistance;
 	static ToadEntity entity;
@@ -135,11 +117,17 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 	{
 		ToadEntityModel.entity = entity;
 		float pi = (float)Math.PI;
-		this.head.pitch = -0.2618F + (headPitch * 0.0175F);
-		this.head.yaw = headYaw * 0.0175F;
+
+		this.frontlege.pitch = MathHelper.cos(limbAngle * 1) * 1.4F * limbDistance;
+		this.frontlegw.pitch = MathHelper.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
+		this.backlege.pitch = -MathHelper.cos(limbAngle * 1) * 1.4F * limbDistance;
+		this.backlegw.pitch = -MathHelper.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
 
 		if(entity.hasTongueEntity())
 		{
+			lipTop.pivotY = MathUtils.approachValue(lipTop.pivotY, -1F, 0.5F);
+			lipBottom.pivotY = MathUtils.approachValue(lipBottom.pivotY, 1F, 0.5F);
+
 			Entity e = entity.world.getEntityById(entity.getTongueEntityID());
 			if(e != null && entity.isToungeReady())
 			{
@@ -147,6 +135,10 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 			}
 			else
 				tongueDistance = 0;
+		}else
+		{
+			lipTop.pivotY = MathUtils.approachValue(lipTop.pivotY, 0, 0.10F);
+			lipBottom.pivotY = MathUtils.approachValue(lipBottom.pivotY, 0, 0.10F);
 		}
 	}
 
@@ -161,12 +153,6 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 		modelRenderer.pitch = x;
 		modelRenderer.yaw = y;
 		modelRenderer.roll = z;
-	}
-
-	@Override
-	public ModelPart getHead()
-	{
-		return head;
 	}
 
 	private static class TonguePart extends ModelPart
@@ -198,9 +184,6 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 				ModelPart.Quad quad = var13[var15];
 				Vector3f vector3f = quad.direction.copy();
 				vector3f.transform(matrix3f);
-				float f = vector3f.getX();
-				float g = vector3f.getY();
-				float h = vector3f.getZ();
 
 				for(int i = 0; i < 4; ++i) {
 					ModelPart.Vertex vertex = quad.vertices[i];
