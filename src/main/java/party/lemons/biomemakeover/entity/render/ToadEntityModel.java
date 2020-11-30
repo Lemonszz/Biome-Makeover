@@ -5,11 +5,11 @@ import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
+import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.util.math.Vector4f;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ShieldItem;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix3f;
 import net.minecraft.util.math.Matrix4f;
@@ -18,7 +18,7 @@ import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.access.CuboidAccessor;
 
-public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
+public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements ModelWithHead
 {
 	private final ModelPart body;
 	private final ModelPart backlege;
@@ -32,7 +32,7 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 	private final ModelPart cube_r1;
 	private final ModelPart frontlege;
 	private final ModelPart cube_r2;
-	private final ModelPart tounge;
+	private final ModelPart tongue;
 
 	public ToadEntityModel() {
 		textureWidth = 64;
@@ -102,10 +102,10 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 		setRotationAngle(cube_r2, -0.3491F, 0.0F, 0.0F);
 		cube_r2.setTextureOffset(0, 0).addCuboid(-2.0F, -6.0F, 0.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
 
-		tounge = new TonguePart(this);
-		tounge.setPivot(0.0F, 0.0F, 0.0F);
-		body.addChild(tounge);
-		tounge.setTextureOffset(0, 30).addCuboid(-0.9F, -3.0F, -2.0F, 2.0F, 1.0F, 1.0F, 0.0F, false);
+		tongue = new TonguePart(this);
+		tongue.setPivot(0.1F, 0.0F, -4.1273F);
+		body.addChild(tongue);
+		tongue.setTextureOffset(0, 30).addCuboid(-1.0F, -1.5F, -0.8F, 2.0F, 1.0F, 1.0F, 0.0F, false);
 	}
 
 
@@ -129,7 +129,7 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 			lipBottom.pivotY = MathUtils.approachValue(lipBottom.pivotY, 1F, 0.5F);
 
 			Entity e = entity.world.getEntityById(entity.getTongueEntityID());
-			if(e != null && entity.isToungeReady())
+			if(e != null && entity.isTongueReady())
 			{
 				tongueDistance = (entity.distanceTo(e) * 16) - ((float)(e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
 			}
@@ -140,6 +140,9 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 			lipTop.pivotY = MathUtils.approachValue(lipTop.pivotY, 0, 0.10F);
 			lipBottom.pivotY = MathUtils.approachValue(lipBottom.pivotY, 0, 0.10F);
 		}
+
+		tongue.pitch = -0.2618F + (headPitch * 0.0175F);
+		tongue.yaw = headYaw * 0.0175F;
 	}
 
 	@Override
@@ -155,6 +158,12 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 		modelRenderer.roll = z;
 	}
 
+	@Override
+	public ModelPart getHead()
+	{
+		return tongue;
+	}
+
 	private static class TonguePart extends ModelPart
 	{
 		TonguePart(Model model)
@@ -166,7 +175,23 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity>
 		public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha)
 		{
 			ModelPart.Cuboid cube = getRandomCuboid(RandomUtil.RANDOM);
+			matrices.push();
+			if (this.roll != 0.0F) {
+				matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(this.roll));
+			}
+
+			if (this.yaw != 0.0F) {
+				matrices.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(this.yaw));
+			}
+
+			if (this.pitch != 0.0F) {
+				matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(this.pitch));
+			}
+
+
 			drawBox(matrices, vertices, cube.minX, cube.minY, cube.minZ, cube.maxX, cube.maxY, cube.minZ - entity.toungeDistance, light, overlay);
+
+			matrices.pop();
 			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 		}
 

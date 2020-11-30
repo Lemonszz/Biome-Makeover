@@ -146,17 +146,25 @@ public class ToadEntity extends AnimalEntity
 
 	}
 
-	public boolean isToungeReady()
+	public boolean isTongueReady()
 	{
 		float yaw = Math.abs(((bodyYaw + 1) % 360) - getTargetYaw());
 		boolean dis = Math.abs(toungeDistance - targetToungeDistance) < 5;
 		return dis && (yaw < 4F || yaw >= 360);
 	}
 
-	protected float getTargetYaw() {
-		double d = lookControl.getLookX() - getX();
-		double e = lookControl.getLookZ() - getZ();
-		return (float)(MathHelper.atan2(e, d) * 57.2957763671875D) - 90.0F;
+	public float getTargetYaw() {
+		double xx = lookControl.getLookX() - getX();
+		double zz = lookControl.getLookZ() - getZ();
+		return (float)(MathHelper.atan2(zz, xx) * 57.2957763671875D) - 90.0F;
+	}
+
+	public float getTargetPitch() {
+		double xx = lookControl.getLookX() - getX();
+		double yy = lookControl.getLookY() - getEyeY();
+		double zz = lookControl.getLookZ() - getZ();
+		double sqrt = MathHelper.sqrt(xx * xx + zz * zz);
+		return (float)(-(MathHelper.atan2(yy, sqrt) * 57.2957763671875D));
 	}
 
 	public void mobTick() {

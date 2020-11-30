@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.goal.*;
@@ -9,6 +10,7 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -49,6 +51,18 @@ public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 		return attributeContainer;
 	}
 
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+		return false;
+	}
+
+	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+	}
+
+	protected boolean hasWings() {
+		return true;
+	}
+
+
 	protected EntityNavigation createNavigation(World world) {
 		BirdNavigation birdNavigation = new BirdNavigation(this, world) {
 			public boolean isValidPosition(BlockPos pos) {
@@ -60,5 +74,4 @@ public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 		birdNavigation.setCanEnterOpenDoors(true);
 		return birdNavigation;
 	}
-
 }

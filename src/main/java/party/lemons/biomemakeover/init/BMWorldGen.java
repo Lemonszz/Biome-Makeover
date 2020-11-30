@@ -13,6 +13,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.DefaultBiomeCreator;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
@@ -78,6 +79,10 @@ public class BMWorldGen
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_LILY_PADS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_REEDS));
+		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(PEAT));
+
+		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.CREATURE, BMEntities.TOAD, 20, 2, 4);
+		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.DRAGONFLY, 13, 1, 2);
 	}
 
 	private static void mushroomModifications()
@@ -178,6 +183,9 @@ public class BMWorldGen
 
 	public static final ReedFeature REED_FEATURE = new ReedFeature(RandomPatchFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> SWAMP_REEDS = REED_FEATURE.configure((new RandomPatchFeatureConfig.Builder(reeds(), DoublePlantPlacer.INSTANCE)).tries(20).spreadX(4).spreadZ(4).spreadY(0).build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(10);
+
+	public static final PeatFeature PEAT_FEATURE = new PeatFeature(DefaultFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> PEAT = PEAT_FEATURE.configure(DefaultFeatureConfig.INSTANCE).decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP).applyChance(4);
 
 	//Conf Features
 	//2 tall Shrooms patch
