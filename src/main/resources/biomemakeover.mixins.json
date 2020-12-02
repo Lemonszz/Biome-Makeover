@@ -22,7 +22,8 @@
     "BoatEntityMixin",
     "InventoryChangedCriterionMixin",
     "SignTypeMixin",
-    "BlockEntityTypeMixin"
+    "BlockEntityTypeMixin",
+    "BoneMealItemMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

@@ -11,6 +11,9 @@ import net.minecraft.entity.ai.pathing.SwimNavigation;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -18,27 +21,39 @@ import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import party.lemons.biomemakeover.init.BMEntities;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
 
 public class DecayedEntity extends ZombieEntity
 {
+	private static final TrackedData<Boolean> SHIELD_DOWN = DataTracker.registerData(DecayedEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
 	private boolean targetingUnderwater;
 	protected final SwimNavigation waterNavigation;
 	protected final MobNavigation landNavigation;
 	private AttributeContainer attributeContainer;
-
+	private int shieldDisableTime = 0;
+	private int shieldHealth = 30;
 
 	public DecayedEntity(World world)
 	{
 		super(BMEntities.DECAYED, world);
-	//	this.stepHeight = 1.0F;
 		this.moveControl = new DecayedMoveControl(this);
 		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
 		this.waterNavigation = new SwimNavigation(this, world);
@@ -46,16 +61,69 @@ public class DecayedEntity extends ZombieEntity
 	}
 
 	protected void initCustomGoals() {
-		this.goalSelector.add(1, new SurfaceWanderGoal(this, 1.0D));
-		this.goalSelector.add(2, new ZombieAttackGoal(this, 1.0D, false));
+		this.goalSelector.add(2, new SurfaceWanderGoal(this, 1.0D));
+		this.goalSelector.add(1, new ZombieAttackGoal(this, 1.0D, false));
 		this.goalSelector.add(5, new LeaveWaterGoal(this, 1.0D));
 		this.goalSelector.add(6, new TargetAboveWaterGoal(this, 1.0D, this.world.getSeaLevel()));
 		this.goalSelector.add(7, new WanderAroundGoal(this, 1.0D));
-		this.targetSelector.add(1, (new RevengeGoal(this, DrownedEntity.class)).setGroupRevenge(ZombifiedPiglinEntity.class));
-		this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, 10, true, false, (e)->true));
+		this.targetSelector.add(1, (new RevengeGoal(this, DecayedEntity.class)).setGroupRevenge(ZombifiedPiglinEntity.class));
+		this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, 0, true, false, (e)->true));
 		this.targetSelector.add(3, new FollowTargetGoal(this, MerchantEntity.class, false));
 		this.targetSelector.add(3, new FollowTargetGoal(this, IronGolemEntity.class, true));
 		this.targetSelector.add(5, new FollowTargetGoal(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_TURTLE_ON_LAND_FILTER));
+	}
+
+	@Override
+	protected void initDataTracker()
+	{
+		super.initDataTracker();
+		dataTracker.startTracking(SHIELD_DOWN, false);
+	}
+
+	@Override
+	protected void mobTick()
+	{
+		super.mobTick();
+		if(!isSubmergedInWater() && isAttacking() && !dataTracker.get(SHIELD_DOWN))
+			setCurrentHand(Hand.OFF_HAND);
+		else
+			clearActiveItem();
+
+		if(!world.isClient())
+		{
+			if(shieldDisableTime > 0)
+			{
+				shieldDisableTime--;
+				if(shieldDisableTime <= 0)
+				{
+					dataTracker.set(SHIELD_DOWN, false);
+				}
+			}
+			else if(shieldDisableTime > 0 && !dataTracker.get(SHIELD_DOWN))
+			{
+				dataTracker.set(SHIELD_DOWN, true);
+			}
+		}
+	}
+
+	@Override
+	protected void damageShield(float amount)
+	{
+		if (world.isClient() || !(this.activeItemStack.getItem() instanceof ShieldItem))
+			return;
+
+		shieldHealth -= amount;
+		if(shieldHealth <= 0)
+		{
+			clearActiveItem();
+			setStackInHand(Hand.OFF_HAND, ItemStack.EMPTY);
+			playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + this.world.random.nextFloat() * 0.4F);
+		}
+		else
+		{
+			this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 0.8F + this.world.random.nextFloat() * 0.4F);
+			shieldDisableTime = Math.max((int)(13F + (amount * 3F)), shieldDisableTime);
+		}
 	}
 
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData, CompoundTag entityTag)
@@ -81,6 +149,28 @@ public class DecayedEntity extends ZombieEntity
 		return attributeContainer;
 	}
 
+	public boolean hasShield()
+	{
+		for(Hand hand : Hand.values())
+		{
+			ItemStack st = getStackInHand(hand);
+			if(!st.isEmpty() && st.getItem() == Items.SHIELD)
+				return true;
+		}
+
+		return false;
+	}
+
+	public ItemStack getShieldStack()
+	{
+		for(Hand hand : Hand.values())
+		{
+			ItemStack st = getStackInHand(hand);
+			if(!st.isEmpty() && st.getItem() == Items.SHIELD)
+				return st;
+		}
+		return ItemStack.EMPTY;
+	}
 
 	protected boolean shouldBreakDoors() {
 		return false;
@@ -109,6 +199,7 @@ public class DecayedEntity extends ZombieEntity
 	protected ItemStack getSkull() {
 		return ItemStack.EMPTY;
 	}
+
 	protected boolean canConvertInWater() {
 		return false;
 	}
@@ -132,7 +223,7 @@ public class DecayedEntity extends ZombieEntity
 
 	public void travel(Vec3d movementInput) {
 		if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
-			this.updateVelocity(0.1F, movementInput);
+			this.updateVelocity(0.05F, movementInput);
 			this.move(MovementType.SELF, this.getVelocity());
 			this.setVelocity(this.getVelocity().multiply(0.9D));
 		} else {
@@ -143,12 +234,15 @@ public class DecayedEntity extends ZombieEntity
 
 	public void updateSwimming() {
 		if (!this.world.isClient) {
+			if(isTouchingWater())
+				stepHeight = 1;
+			else
+				stepHeight = 0.5F;
+
 			if (this.canMoveVoluntarily() && this.submergedInWater && this.isTargetingUnderwater()) {
 				this.navigation = this.waterNavigation;
-				stepHeight = 1;
 				this.setSwimming(true);
 			} else {
-				stepHeight = 0.5F;
 				this.navigation = this.landNavigation;
 				this.setSwimming(false);
 			}
@@ -160,19 +254,24 @@ public class DecayedEntity extends ZombieEntity
 		this.targetingUnderwater = targetingUnderwater;
 	}
 
-	protected boolean hasFinishedCurrentPath() {
-		Path path = this.getNavigation().getCurrentPath();
-		if (path != null) {
-			BlockPos blockPos = path.getTarget();
-			if (blockPos != null) {
-				double d = this.squaredDistanceTo((double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ());
-				if (d < 4.0D) {
-					return true;
-				}
-			}
-		}
+	@Override
+	public void writeCustomDataToTag(CompoundTag tag)
+	{
+		super.writeCustomDataToTag(tag);
+		tag.putInt("ShieldHealth", shieldHealth);
+	}
 
-		return false;
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag)
+	{
+		super.readCustomDataFromTag(tag);
+		if(tag.contains("ShieldHealth"))
+			shieldHealth = tag.getInt("ShieldHealth");
+	}
+
+	public static boolean validSpawn(EntityType<?> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		boolean validReasons = world.getDifficulty() != Difficulty.PEACEFUL && isSpawnDark(world, pos, random) && (spawnReason == SpawnReason.SPAWNER || world.getFluidState(pos).isIn(FluidTags.WATER));
+		return validReasons && pos.getY() <= world.getSeaLevel();
 	}
 
 

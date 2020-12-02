@@ -82,6 +82,7 @@ public class BMWorldGen
 		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(PEAT));
 
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.CREATURE, BMEntities.TOAD, 20, 2, 4);
+		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.MONSTER, BMEntities.DECAYED, 60, 1, 1);
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.DRAGONFLY, 13, 1, 2);
 	}
 
