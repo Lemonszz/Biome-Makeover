@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "up=false": {
+      "model": "biomemakeover:block/lightning_bug_bottle"
+    },
+    "up=true": {
+      "model": "biomemakeover:block/lightning_bug_bottle_up"
+    }
+  }
+}

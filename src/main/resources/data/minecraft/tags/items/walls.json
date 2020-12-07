@@ -8,6 +8,8 @@
     "biomemakeover:purple_glowshroom_brick_wall",
     "biomemakeover:green_glowshroom_brick_wall",
     "biomemakeover:orange_glowshroom_brick_wall",
+    "biomemakeover:blighted_cobblestone_wall",
+    "biomemakeover:blighted_stone_bricks_wall",
     "biomemakeover:terracotta_brick_wall",
     "biomemakeover:black_terracotta_brick_wall",
     "biomemakeover:red_terracotta_brick_wall",
@@ -24,6 +26,7 @@
     "biomemakeover:light_blue_terracotta_brick_wall",
     "biomemakeover:magenta_terracotta_brick_wall",
     "biomemakeover:orange_terracotta_brick_wall",
-    "biomemakeover:white_terracotta_brick_wall"
+    "biomemakeover:white_terracotta_brick_wall",
+    "biomemakeover:dried_peat_bricks_wall"
   ]
 }

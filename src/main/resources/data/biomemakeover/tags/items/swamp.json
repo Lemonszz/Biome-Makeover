@@ -24,6 +24,14 @@
     "biomemakeover:willow_pressure_plate",
     "biomemakeover:willow_slab",
     "biomemakeover:willow_boat",
-    "biomemakeover:willow_sign"
+    "biomemakeover:willow_sign",
+    "biomemakeover:toad_spawn_egg",
+    "biomemakeover:dragonfly_spawn_egg",
+    "biomemakeover:lightning_bug_spawn_egg",
+    "biomemakeover:decayed_spawn_egg",
+    "biomemakeover:dried_peat_bricks",
+    "biomemakeover:dried_peat_bricks_stairs",
+    "biomemakeover:dried_peat_bricks_slab",
+    "biomemakeover:dried_peat_bricks_wall"
   ]
 }

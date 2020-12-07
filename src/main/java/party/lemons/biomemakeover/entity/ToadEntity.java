@@ -1,16 +1,8 @@
 package party.lemons.biomemakeover.entity;
 
-import com.google.common.collect.Lists;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.control.JumpControl;
-import net.minecraft.entity.ai.control.LookControl;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -18,21 +10,17 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -47,8 +35,10 @@ public class ToadEntity extends AnimalEntity
 	private int jumpDuration;
 	private boolean lastOnGround;
 	private int ticksUntilJump;
-	public float toungeDistance;
-	public float targetToungeDistance;
+	public float tongueDistance;
+	public float targetTongueDistance;
+	public float mouthDistance = 0;
+	public int eatCooldown = 0;
 
 	private AttributeContainer attributeContainer;
 
@@ -63,7 +53,6 @@ public class ToadEntity extends AnimalEntity
 		super.initDataTracker();
 		this.dataTracker.startTracking(TONGUE_ENTITY, -1);
 	}
-
 
 	@Override
 	protected void initGoals()
@@ -120,28 +109,30 @@ public class ToadEntity extends AnimalEntity
 		if(hasTongueEntity())
 		{
 			Entity e = world.getEntityById(getTongueEntityID());
-			if(e != null)
+			if(e != null && !e.hasVehicle())
 			{
-				getLookControl().lookAt(e.getX(), (e.getBoundingBox().minY + e.getBoundingBox().maxY) / 2.0D - 0.5F, e.getZ(), 100, 100);
+				getLookControl().lookAt(e.getX(), (e.getBoundingBox().minY + 0.25F), e.getZ(), 100, 100);
 				bodyYaw = getTargetYaw();
+				headYaw = getTargetYaw();
+				pitch = getTargetPitch();
 
 				float speed = 10;
-				targetToungeDistance = (this.distanceTo(e) * 16) - ((float)(e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
-				if(toungeDistance > targetToungeDistance)
+				targetTongueDistance = (this.distanceTo(e) * 16) - ((float)(e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
+				if(tongueDistance > targetTongueDistance)
 					speed *= 2;
 
-				toungeDistance = MathUtils.approachValue(toungeDistance, targetToungeDistance, speed);
+				tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);
 			}
 			else//TODO: clean this
 			{
-				targetToungeDistance = 0;
-				toungeDistance = MathUtils.approachValue(toungeDistance, 0, 20);
+				targetTongueDistance = 0;
+				tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);
 			}
 		}
 		else
 		{
-			targetToungeDistance = 0;
-			toungeDistance = MathUtils.approachValue(toungeDistance, 0, 20);
+			targetTongueDistance = 0;
+			tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);
 		}
 
 	}
@@ -149,7 +140,7 @@ public class ToadEntity extends AnimalEntity
 	public boolean isTongueReady()
 	{
 		float yaw = Math.abs(((bodyYaw + 1) % 360) - getTargetYaw());
-		boolean dis = Math.abs(toungeDistance - targetToungeDistance) < 5;
+		boolean dis = Math.abs(tongueDistance - targetTongueDistance) < 5;
 		return dis && (yaw < 4F || yaw >= 360);
 	}
 
@@ -167,21 +158,31 @@ public class ToadEntity extends AnimalEntity
 		return (float)(-(MathHelper.atan2(yy, sqrt) * 57.2957763671875D));
 	}
 
+	public boolean canUseTongue()
+	{
+		return !this.hasVehicle();
+	}
+
 	public void mobTick() {
 
-		if(!hasTongueEntity())
+		eatCooldown--;
+		if(eatCooldown <= 0 && !hasTongueEntity())
 		{
 			List<ToadTargetEntity> targets = world.getEntitiesByClass(ToadTargetEntity.class, getBoundingBox().expand(3, 3, 3), (e)->canSee(e) && !e.isBeingEaten());
 			ToadTargetEntity closest = world.getClosestEntity(targets, predicate, this, getX(), getY(), getZ());
 
-			if(closest == null || targets.isEmpty())
+			if(!canUseTongue() || closest == null || closest.hasVehicle() || targets.isEmpty())
 				clearTongueEntity();
-			else setTongueEntity(closest);
+			else
+			{
+				eatCooldown = 350;
+				setTongueEntity(closest);
+			}
 		}
 		else
 		{
 			Entity e = world.getEntityById(getTongueEntityID());
-			if(e == null || !e.isAlive())
+			if(!canUseTongue() || e == null || !e.isAlive())
 				clearTongueEntity();
 		}
 

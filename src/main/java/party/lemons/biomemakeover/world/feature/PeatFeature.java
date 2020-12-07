@@ -38,6 +38,7 @@ public class PeatFeature extends Feature<DefaultFeatureConfig>
 		if(!isWaterNearby(world, centerPos))
 			return false;
 
+		int placeCount = 0;
 		for(int xx = centerPos.getX() - radius; xx <= centerPos.getX() + radius; xx++)
 		{
 			for(int zz = centerPos.getZ() - radius; zz <= centerPos.getZ() + radius; zz++)
@@ -47,18 +48,42 @@ public class PeatFeature extends Feature<DefaultFeatureConfig>
 				if (offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
 				{
 					BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
-					if(world.getBlockState(placePos.up()).isOf(Blocks.GRASS_BLOCK))
+					BlockState upState = world.getBlockState(placePos.up());
+					if(upState.isOf(Blocks.GRASS_BLOCK))
 					{
 						placePeat(placePos, world, random, 5);
 						if(random.nextInt(20) == 0)
 						{
-							world.setBlockState(placePos.up(), BMBlocks.PEAT.getDefaultState(), 2);
+							world.setBlockState(placePos.up(), BMBlocks.MOSSY_PEAT.getDefaultState(), 2);
 						}
+						placeCount++;
 						success = true;
 					}
 				}
 			}
 		}
+
+		if(placeCount > 5)
+		{
+			for(int xx = centerPos.getX() - radius; xx <= centerPos.getX() + radius; xx++)
+			{
+				for(int zz = centerPos.getZ() - radius; zz <= centerPos.getZ() + radius; zz++)
+				{
+					int offsetX = xx - centerPos.getX();
+					int offsetZ = zz - centerPos.getZ();
+					if(offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
+					{
+						BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
+						BlockState upState = world.getBlockState(placePos.up());
+						if(random.nextInt(5) == 0 && world.getBlockState(placePos).isOpaque() && upState.isOf(Blocks.WATER) && world.getBlockState(placePos.up(2)).isAir())
+						{
+							world.setBlockState(placePos, BMBlocks.MOSSY_PEAT.getDefaultState(), 2);
+						}
+					}
+				}
+			}
+		}
+
 		return success;
 	}
 

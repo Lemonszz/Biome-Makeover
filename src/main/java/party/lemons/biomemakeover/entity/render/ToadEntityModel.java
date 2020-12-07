@@ -125,9 +125,7 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 
 		if(entity.hasTongueEntity())
 		{
-			lipTop.pivotY = MathUtils.approachValue(lipTop.pivotY, -1F, 0.5F);
-			lipBottom.pivotY = MathUtils.approachValue(lipBottom.pivotY, 1F, 0.5F);
-
+			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 1, 0.5F);
 			Entity e = entity.world.getEntityById(entity.getTongueEntityID());
 			if(e != null && entity.isTongueReady())
 			{
@@ -137,9 +135,10 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 				tongueDistance = 0;
 		}else
 		{
-			lipTop.pivotY = MathUtils.approachValue(lipTop.pivotY, 0, 0.10F);
-			lipBottom.pivotY = MathUtils.approachValue(lipBottom.pivotY, 0, 0.10F);
+			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 0, 0.10F);
 		}
+		lipTop.pivotY = -entity.mouthDistance;
+		lipBottom.pivotY = entity.mouthDistance;
 
 		tongue.pitch = -0.2618F + (headPitch * 0.0175F);
 		tongue.yaw = headYaw * 0.0175F;
@@ -189,7 +188,7 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 			}
 
 
-			drawBox(matrices, vertices, cube.minX, cube.minY, cube.minZ, cube.maxX, cube.maxY, cube.minZ - entity.toungeDistance, light, overlay);
+			drawBox(matrices, vertices, cube.minX, cube.minY, cube.minZ, cube.maxX, cube.maxY, cube.minZ - entity.tongueDistance, light, overlay);
 
 			matrices.pop();
 			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);

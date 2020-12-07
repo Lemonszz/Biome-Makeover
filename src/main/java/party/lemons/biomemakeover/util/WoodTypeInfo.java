@@ -89,13 +89,13 @@ public class WoodTypeInfo
 
 	public WoodTypeInfo trapdoor()
 	{
-		set(Type.TRAP_DOOR, new BMTrapdoorBlock(settings));
+		set(Type.TRAP_DOOR, new BMTrapdoorBlock(settings.nonOpaque()));
 		return this;
 	}
 
 	public WoodTypeInfo door()
 	{
-		set(Type.DOOR, new BMDoorBlock(settings));
+		set(Type.DOOR, new BMDoorBlock(settings.nonOpaque()));
 		return this;
 	}
 

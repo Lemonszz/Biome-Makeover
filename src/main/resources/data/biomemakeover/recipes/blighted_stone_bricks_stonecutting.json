@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:blighted_cobblestone"
+  },
+  "result": "biomemakeover:blighted_stone_bricks",
+  "count": 1
+}

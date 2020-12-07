@@ -1,33 +1,26 @@
 package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.render.chunk.ChunkRendererRegion;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.SignType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.util.*;
-import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.util.access.SignTypeHelper;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
@@ -40,6 +33,7 @@ import java.util.Map;
 public class BMBlocks
 {
 	public static final Material POLTERGEISTER_MATERIAL = new Material(MaterialColor.WHITE, false, true, true, false, true, false, PistonBehavior.BLOCK);
+	public static final BlockSoundGroup BM_LILY_PAD_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, SoundEvents.BLOCK_WET_GRASS_BREAK, SoundEvents.BLOCK_WET_GRASS_STEP, SoundEvents.BLOCK_LILY_PAD_PLACE, SoundEvents.BLOCK_WET_GRASS_HIT, SoundEvents.BLOCK_WET_GRASS_FALL);
 
     public static final BMMushroomPlantBlock PURPLE_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
     public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
@@ -94,12 +88,18 @@ public class BMBlocks
 	public static final BMBlock WILLOWING_BRANCHES = new WillowingBranchesBlock(settings(Material.PLANT, 0.1F).ticksRandomly().sounds(BlockSoundGroup.VINE).noCollision().nonOpaque());
 	public static final BMSaplingBlock WILLOW_SAPLING = new WaterSaplingBlock(new WillowSaplingGenerator(), 1, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMSaplingBlock CYPRESS_SAPLING = new WaterSaplingBlock(new CypressSaplingGenerator(), 3, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 1.5F));
-	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 1.5F).ticksRandomly().nonOpaque());
+	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.WET_GRASS));
+	public static final BMBlock DRIED_PEAT = new BMBlock(settings(Material.SOIL, 1F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.NETHERRACK));
+	public static final BMSpreadableBlock MOSSY_PEAT = new BMSpreadableBlock(settings(Material.SOIL, 0.5F).ticksRandomly().sounds(BlockSoundGroup.WET_GRASS), new Lazy<>(()->PEAT));
+	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).ticksRandomly().nonOpaque());
+	public static final BMBlock DRIED_PEAT_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool());
+	public static final DecorationBlockInfo DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("dried_peat_bricks", DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+
 	public static final ReedBlock CATTAIL = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
-	public static final SmallLilyPadBlock SMALL_LILY_PAD = new SmallLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BlockSoundGroup.LILY_PAD));
+	public static final SmallLilyPadBlock SMALL_LILY_PAD = new SmallLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BM_LILY_PAD_SOUNDS));
 	public static final BMLeavesBlock WILLOW_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, 0.5F).luminance(15).nonOpaque());
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -144,6 +144,7 @@ public class BMBlocks
         MUSHROOM_STEM_BRICK_DECORATION.register();
         BLIGHTED_COBBLESTONE_DECORATION.register();
         BLIGHTED_STONE_BRICKS_DECORATION.register();
+        DRIED_PEAT_BRICKS_DECORATION.register();
 
         /* Terracotta Bricks */
 		Map<DyeColor, Block> vanillaTerracotta = Maps.newHashMap();
@@ -201,50 +202,6 @@ public class BMBlocks
 	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
 	    registerFlammable(WILLOW_LEAVES, 5, 60);
 
-	    ColorProviderRegistry.BLOCK.register(
-			    (state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor());
-
-
-	    ColorProviderRegistry.BLOCK.register(
-			    (state, world, pos, tintIndex)->{
-				    int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-
-				    int rShift = -10;
-				    int gShift = 10;
-				    int bShift = -10;
-				    if(world instanceof ChunkRenderRegionAccess)
-				    {
-					    if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
-					    {
-						    rShift = -20;
-						    gShift = 40;
-						    bShift = -20;
-					    }
-				    }
-
-				    return MathUtils.colourBoost(color, rShift, gShift, bShift);
-			    }, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD
-	    );
-
-	    ColorProviderRegistry.BLOCK.register(
-			    (state, world, pos, tintIndex)->{
-				    int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-				    if(world instanceof ChunkRenderRegionAccess)
-				    {
-					    if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
-					    {
-						    return MathUtils.colourBoost(color, -10, 15, -10);
-					    }
-				    }
-
-				    return color;
-			    }, BMBlocks.WILLOWING_BRANCHES, BMBlocks.WILLOW_LEAVES
-	    );
-
-	    ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
-		    BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
-		    return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
-	    }, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD);
     }
 
     public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();

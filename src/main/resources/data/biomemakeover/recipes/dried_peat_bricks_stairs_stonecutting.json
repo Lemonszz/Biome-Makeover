@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:dried_peat_bricks"
+  },
+  "result": "biomemakeover:dried_peat_bricks_stairs",
+  "count": 1
+}

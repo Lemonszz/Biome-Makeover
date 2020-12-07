@@ -7,6 +7,7 @@
     "HugeBrownMushroomFeatureMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
+    "LilyPadBlockMixin",
     "HoeItemMixin",
     "MooshroomEntityMixin",
     "AxeItemMixin",

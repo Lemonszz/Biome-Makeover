@@ -9,6 +9,9 @@ public class MathUtils
 {
 	public static float approachValue(float current, float target, float step)
 	{
+		if(current == target)
+			return target;
+
 		if(current < target)
 		{
 			return Math.min(current + step, target);
