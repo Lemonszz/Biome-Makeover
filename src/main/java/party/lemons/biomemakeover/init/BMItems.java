@@ -42,6 +42,8 @@ public class BMItems
 	public static final Item PINK_PETALS = new BMItem(settings());
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
+	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
+
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
 
@@ -55,6 +57,8 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ORANGE_GLOWSHROOM.asItem(), 0.70F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM.asItem(), 0.70F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_SAPLING.asItem(), 0.4F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BALD_CYPRESS_SAPLING.asItem(), 0.4F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOW_SAPLING.asItem(), 0.4F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.asItem(), 0.9F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM_BLOCK.asItem(), 0.9F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ORANGE_GLOWSHROOM_BLOCK.asItem(), 0.9F);
@@ -64,9 +68,15 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_BROWN_MUSHROOM.asItem(), 0.7F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_RED_MUSHROOM.asItem(), 0.7F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_LEAVES.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOW_LEAVES.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BALD_CYPRESS_LEAVES.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.CATTAIL.asItem(), 0.5F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.REED.asItem(), 0.2F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SMALL_LILY_PAD.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SAGUARO_CACTUS.asItem(), 0.15F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BARREL_CACTUS.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.PINK_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOWING_BRANCHES.asItem(), 0.3F);
 	}
 
 	public static Item.Settings settings()

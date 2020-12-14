@@ -102,6 +102,9 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.POTTED_BARREL_CACTUS,
 				BMBlocks.POTTED_FLOWERED_BARREL_CACTUS,
 				BMBlocks.POTTED_SAGUARO_CACTUS,
+				BMBlocks.POTTED_BALD_CYPRESS_SAPLING,
+				BMBlocks.POTTED_WILLOW_SAPLING,
+				BMBlocks.POTTED_SAGUARO_CACTUS,
 				BMBlocks.TALL_BROWN_MUSHROOM,
 				BMBlocks.TALL_RED_MUSHROOM,
 				BMBlocks.PURPLE_GLOWSHROOM,
@@ -119,9 +122,11 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.SMALL_LILY_PAD,
 				BMBlocks.WILLOW_LEAVES,
 				BMBlocks.WILLOW_SAPLING,
-				BMBlocks.CYPRESS_SAPLING,
+				BMBlocks.BALD_CYPRESS_SAPLING,
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
-				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR)
+				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
+				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
+				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR)
 		);
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTripwire(),

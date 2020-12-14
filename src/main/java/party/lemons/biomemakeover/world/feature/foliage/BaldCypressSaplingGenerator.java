@@ -7,11 +7,11 @@ import party.lemons.biomemakeover.init.BMWorldGen;
 
 import java.util.Random;
 
-public class CypressSaplingGenerator extends SaplingGenerator
+public class BaldCypressSaplingGenerator extends SaplingGenerator
 {
 	@Override
 	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl)
 	{
-		return (ConfiguredFeature<TreeFeatureConfig, ?>) BMWorldGen.CYPRESS_TREE;
+		return (ConfiguredFeature<TreeFeatureConfig, ?>) BMWorldGen.BALD_CYPRESS_TREE;
 	}
 }

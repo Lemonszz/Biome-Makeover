@@ -25,7 +25,7 @@ import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.util.access.SignTypeHelper;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
-import party.lemons.biomemakeover.world.feature.foliage.CypressSaplingGenerator;
+import party.lemons.biomemakeover.world.feature.foliage.BaldCypressSaplingGenerator;
 import party.lemons.biomemakeover.world.feature.foliage.WillowSaplingGenerator;
 
 import java.util.Map;
@@ -84,10 +84,11 @@ public class BMBlocks
 	public static final Block ECTOPLASM_COMPOSTER = new EctoplasmComposterBlock(settings(Material.WOOD, 0.6F).sounds(BlockSoundGroup.WOOD));
 
 	public static WoodTypeInfo WILLOW_WOOD_INFO = new WoodTypeInfo("willow", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
+	public static WoodTypeInfo BALD_CYPRESS_WOOD_INFO = new WoodTypeInfo("bald_cypress", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
 
 	public static final BMBlock WILLOWING_BRANCHES = new WillowingBranchesBlock(settings(Material.PLANT, 0.1F).ticksRandomly().sounds(BlockSoundGroup.VINE).noCollision().nonOpaque());
 	public static final BMSaplingBlock WILLOW_SAPLING = new WaterSaplingBlock(new WillowSaplingGenerator(), 1, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final BMSaplingBlock CYPRESS_SAPLING = new WaterSaplingBlock(new CypressSaplingGenerator(), 3, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMSaplingBlock BALD_CYPRESS_SAPLING = new WaterSaplingBlock(new BaldCypressSaplingGenerator(), 3, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.WET_GRASS));
 	public static final BMBlock DRIED_PEAT = new BMBlock(settings(Material.SOIL, 1F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.NETHERRACK));
 	public static final BMSpreadableBlock MOSSY_PEAT = new BMSpreadableBlock(settings(Material.SOIL, 0.5F).ticksRandomly().sounds(BlockSoundGroup.WET_GRASS), new Lazy<>(()->PEAT));
@@ -99,6 +100,7 @@ public class BMBlocks
 	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final SmallLilyPadBlock SMALL_LILY_PAD = new SmallLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BM_LILY_PAD_SOUNDS));
 	public static final BMLeavesBlock WILLOW_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+	public static final BMLeavesBlock BALD_CYPRESS_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
 	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, 0.5F).luminance(15).nonOpaque());
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -110,9 +112,11 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS_FLOWERED, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_WILLOW_SAPLING = new FlowerPotBlock(WILLOW_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_BALD_CYPRESS_SAPLING = new FlowerPotBlock(BALD_CYPRESS_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 	public static final SignType BLIGHTED_BALSA_ST = SignTypeHelper.register(new SignType("blighted_balsa"));
 	public static final SignType WILLOW_ST = SignTypeHelper.register(new SignType("willow"));
+	public static final SignType BALD_CYPRESS_ST = SignTypeHelper.register(new SignType("bald_cypress"));
 
 	public static void init()
     {
@@ -133,8 +137,10 @@ public class BMBlocks
 	    //TODO:
 	    BLIGHTED_BALSA_WOOD_INFO = BLIGHTED_BALSA_WOOD_INFO.boat(()->BoatTypes.BLIGHTED_BALSA).sign(BLIGHTED_BALSA_ST);
 	    WILLOW_WOOD_INFO = WILLOW_WOOD_INFO.boat(()->BoatTypes.WILLOW).sign(WILLOW_ST);
+	    BALD_CYPRESS_WOOD_INFO = BALD_CYPRESS_WOOD_INFO.boat(()->BoatTypes.BALD_CYPRESS).sign(BALD_CYPRESS_ST);
         BLIGHTED_BALSA_WOOD_INFO.register();
 	    WILLOW_WOOD_INFO.register();
+	    BALD_CYPRESS_WOOD_INFO.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
         PURPLE_GLOWSROOM_BRICK_DECORATION.register();
@@ -181,26 +187,12 @@ public class BMBlocks
         /* Flammables */
 
 	    //TODO: function
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.PLANK), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD), 5, 5);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
+	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO);
         registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.PLANK), 5, 20);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), 5, 5);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), 5, 5);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG), 5, 5);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD), 5, 5);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE), 5, 20);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
-	    registerFlammable(WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
+		registerFlammable(WILLOW_WOOD_INFO);
 	    registerFlammable(WILLOW_LEAVES, 5, 60);
+	    registerFlammable(BALD_CYPRESS_WOOD_INFO);
+	    registerFlammable(BALD_CYPRESS_LEAVES, 5, 60);
 
     }
 
@@ -225,6 +217,19 @@ public class BMBlocks
 
 	public static void registerFlammable(Block block, int burnChance, int spreadChance) {
 		((FireBlockAccessor) Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
+	}
+
+	public static void registerFlammable(WoodTypeInfo info)
+	{
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.PLANK), 5, 20);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.LOG), 5, 5);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.WOOD), 5, 5);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.STRIPPED_LOG), 5, 5);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD), 5, 5);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.FENCE), 5, 20);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
+		registerFlammable(info.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
 	}
 
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));

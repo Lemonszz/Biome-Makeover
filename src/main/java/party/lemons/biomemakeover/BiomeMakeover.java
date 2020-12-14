@@ -17,6 +17,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.PillagerSpawner;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
+import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
@@ -40,11 +41,13 @@ public class BiomeMakeover implements ModInitializer
 		BMItems.init();
 		BMEntities.init();
 		BMBlockEntities.init();
+		BMPotions.init();
 		BMStructures.init();
 		BMWorldGen.init();
 		BMCriterion.init();
 
 		PoltergeistHandler.init();
+		WitchQuestHandler.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
 		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);

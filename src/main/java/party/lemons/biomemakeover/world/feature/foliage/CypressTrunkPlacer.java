@@ -8,6 +8,7 @@ import net.minecraft.block.PillarBlock;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -53,7 +54,7 @@ public class CypressTrunkPlacer extends TrunkPlacer
 		{
 			HorizontalDirection dir = HorizontalDirection.random(random);
 			BlockPos offsetStart = dir.offset(pos);
-			for(int j = 0; j < 1 + random.nextInt(3); j++)
+			for(int j = 0; j < 1 + random.nextInt(8); j++)
 			{
 				method_27402(world, random, offsetStart.up(j), set, blockBox, treeFeatureConfig);
 			}
@@ -62,7 +63,7 @@ public class CypressTrunkPlacer extends TrunkPlacer
 		//Branches
 		for(int i = 0; i < 1 + random.nextInt(4); i++)
 		{
-			int offset = 4 + random.nextInt(trunkHeight - 4);
+			int offset = 7 + random.nextInt(trunkHeight - 4);
 			Direction dir = Direction.random(random);
 			BlockPos trunkPos = pos.offset(dir).up(offset);
 

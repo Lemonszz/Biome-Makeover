@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "biomemakeover:blighted_balsa_pressure_plate"
+    "biomemakeover:blighted_balsa_pressure_plate",
+    "biomemakeover:willow_pressure_plate",
+    "biomemakeover:bald_cypress_pressure_plate"
   ]
 }

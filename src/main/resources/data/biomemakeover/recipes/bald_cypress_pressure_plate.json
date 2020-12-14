@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:bald_cypress_planks"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:bald_cypress_pressure_plate",
+    "count": 1
+  }
+}

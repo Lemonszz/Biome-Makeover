@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_rh",
+  "textures": {
+    "top": "biomemakeover:block/bald_cypress_door_top",
+    "bottom": "biomemakeover:block/bald_cypress_door_bottom"
+  }
+}

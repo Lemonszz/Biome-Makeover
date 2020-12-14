@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "biomemakeover:block/cypress_sapling"
+    "cross": "biomemakeover:block/bald_cypress_sapling"
   }
 }

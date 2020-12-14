@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "biomemakeover:block/bald_cypress_log",
+    "side": "biomemakeover:block/bald_cypress_log"
+  }
+}

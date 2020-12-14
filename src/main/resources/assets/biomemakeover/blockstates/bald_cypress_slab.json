@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/bald_cypress_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/bald_cypress_planks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/bald_cypress_slab_top"
+    }
+  }
+}

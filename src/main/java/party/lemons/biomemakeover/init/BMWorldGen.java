@@ -11,6 +11,7 @@ import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.DefaultBiomeCreator;
@@ -74,6 +75,7 @@ public class BMWorldGen
 					}
 				});
 
+		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(BALD_CYPRESS_TREES));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(FALLEN_WILLOW));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
@@ -163,9 +165,11 @@ public class BMWorldGen
 	public static final TrunkPlacerType<CypressTrunkPlacer> CYPRESS_TRUNK = new TrunkPlacerType<>(CypressTrunkPlacer.CODEC);
 	public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE = new FoliagePlacerType<>(WillowFoliagePlacer.CODEC);
 
+	public static final WaterTreeFeature WATER_TREE = new WaterTreeFeature(TreeFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> WILLOW_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), 3, true), new WillowTrunkPlacer(6, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(1).build()));
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
-	public static final ConfiguredFeature<?, ?> CYPRESS_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.JUNGLE_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.ACACIA_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(3).build()));
+	public static final ConfiguredFeature<?, ?> BALD_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.BALD_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
+	public static final ConfiguredFeature<?, ?> BALD_CYPRESS_TREES = BALD_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.5F, 2)));
 
 	//Badlands
 	public static final SurfaceFossilFeature SURFACE_FOSSIL_FEATURE = new SurfaceFossilFeature(DefaultFeatureConfig.CODEC);
