@@ -6,6 +6,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.PacketByteBuf;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WitchQuestList extends ArrayList<WitchQuest>
 {
@@ -25,6 +26,15 @@ public class WitchQuestList extends ArrayList<WitchQuest>
 		for(int i = 0; i < size; i++)
 		{
 			add(new WitchQuest(buffer));
+		}
+	}
+
+	public void populate(Random random)
+	{
+		clear();
+		for(int i = 0; i < 3; i++)
+		{
+			add(WitchQuestHandler.createQuest(random));
 		}
 	}
 

@@ -1,7 +1,9 @@
 package party.lemons.biomemakeover.crafting.witch;
 
 import net.fabricmc.fabric.api.util.NbtType;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -42,7 +44,7 @@ public class WitchQuest
 	public WitchQuest(PacketByteBuf buffer)
 	{
 		rarityPoints = buffer.readFloat();
-		int length = buffer.readInt();
+		int length = buffer.readByte() & 255;;
 		requiredItems = new ItemStack[length];
 
 		for(int i = 0; i < length; i++)
@@ -59,16 +61,51 @@ public class WitchQuest
 	public boolean hasItems(Inventory inventory)
 	{
 		int size = getRequiredItems().length;
-		ItemStack[] stacks = new ItemStack[size];
 		for(int i = 0; i < size; i++)
 		{
 			ItemStack st = getRequiredItems()[i];
 			int count = inventory.count(st.getItem());
 
-			if(count < st.getCooldown())
+			if(count < st.getCount())
 				return false;
 		}
 		return true;
+	}
+
+	//Assumes inventory has items!!
+	public void consumeItems(PlayerInventory inventory)
+	{
+		for(int i = 0; i < inventory.size(); i++)
+		{
+			ItemStack invStack = inventory.getStack(i);
+			if(invStack.isEmpty())
+				continue;
+
+			for(ItemStack stack : getRequiredItems())
+			{
+				if(stack.isEmpty())
+					continue;
+
+				if(stack.getItem() == invStack.getItem())
+				{
+					if(stack.getCount() <= invStack.getCount())
+					{
+						invStack.decrement(stack.getCount());
+						stack.setCount(0);
+					}
+					else
+					{
+						stack.decrement(invStack.getCount());
+						invStack.setCount(0);
+					}
+				}
+			}
+		}
+	}
+
+	public float getPoints()
+	{
+		return rarityPoints;
 	}
 
 	@Override
@@ -93,6 +130,7 @@ public class WitchQuest
 		{
 			items.add(requiredItems[i].toTag(new CompoundTag()));
 		}
+		tag.put("Items", items);
 		return tag;
 	}
 
@@ -107,4 +145,5 @@ public class WitchQuest
 			buffer.writeItemStack(requiredItems[i]);
 		}
 	}
+
 }

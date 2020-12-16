@@ -9,9 +9,20 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.command.argument.BlockPosArgumentType;
+import net.minecraft.data.server.BarterLootTableGenerator;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.BlazeEntity;
+import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +36,8 @@ import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.world.TumbleweedSpawner;
 import party.lemons.biomemakeover.world.WindSystem;
 
+import java.util.List;
+
 public class BiomeMakeover implements ModInitializer
 {
 	public static final String MODID = "biomemakeover";
@@ -34,6 +47,7 @@ public class BiomeMakeover implements ModInitializer
 	public void onInitialize()
 	{
 		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
+
 
 		BMEffects.init();
 		BoatTypes.init();
@@ -45,7 +59,9 @@ public class BiomeMakeover implements ModInitializer
 		BMStructures.init();
 		BMWorldGen.init();
 		BMCriterion.init();
+		BMScreens.init();
 
+		BMNetwork.initCommon();
 		PoltergeistHandler.init();
 		WitchQuestHandler.init();
 
@@ -61,6 +77,7 @@ public class BiomeMakeover implements ModInitializer
 				})))));
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->{
+
 			if(!player.isSpectator())
 			{
 				ItemStack stack = player.getStackInHand(hand);

@@ -4,12 +4,19 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.DisableableFollowTargetGoal;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.WitchEntity;
+import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.MerchantScreenHandler;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,10 +25,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import party.lemons.biomemakeover.crafting.witch.WitchQuest;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestEntity;
+import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestList;
+import party.lemons.biomemakeover.entity.ai.WitchLookAtCustomerGoal;
+import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
 import party.lemons.biomemakeover.init.BMItems;
-
-import java.util.function.Predicate;
 
 @Mixin(WitchEntity.class)
 public abstract class WitchEntityMixin extends RaiderEntity implements WitchQuestEntity
@@ -29,11 +37,15 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	@Shadow private DisableableFollowTargetGoal<PlayerEntity> attackPlayerGoal;
 	private PlayerEntity customer;
 	private WitchQuestList quests;
+	private int replenishTime;
+	private int despawnShield = 0;
 
-	protected WitchEntityMixin(EntityType<? extends RaiderEntity> entityType, World world)
+	@Inject(at = @At("TAIL"), method = "<init>")
+	public void onConstruct(EntityType<? extends WitchEntity> entityType, World world, CallbackInfo cbi)
 	{
-		super(entityType, world);
 		quests = new WitchQuestList();
+		quests.populate(getRandom());
+		replenishTime = world.random.nextInt(24000);
 	}
 
 	@Inject(at = @At("TAIL"), method = "initGoals")
@@ -43,12 +55,86 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 		attackPlayerGoal = new DisableableFollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, (e)->e.getType() == EntityType.PLAYER && !canInteract((PlayerEntity) e));
 		this.targetSelector.add(3, attackPlayerGoal);
 
-		System.out.println("REPLACE SUCCESS??");
+		this.goalSelector.add(1, new WitchStopFollowingCustomerGoal(((WitchEntity)(Object)this)));
+		this.goalSelector.add(1, new WitchLookAtCustomerGoal(((WitchEntity)(Object)this)));
+	}
+
+	@Override
+	protected ActionResult interactMob(PlayerEntity player, Hand hand)
+	{
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.getItem() != Items.VILLAGER_SPAWN_EGG && this.isAlive() && !this.hasCustomer() && canInteract(player))
+		{
+			if(!this.world.isClient)
+			{
+				despawnShield = 12000;
+				this.setCurrentCustomer(player);
+				this.sendQuests(player, this.getDisplayName());
+			}
+			return ActionResult.success(this.world.isClient);
+		}
+		else
+		{
+			return super.interactMob(player, hand);
+		}
+	}
+
+	@Override
+	protected void mobTick()
+	{
+		super.mobTick();
+		if(!world.isClient())
+		{
+			if(despawnShield > 0) despawnShield--;
+
+			if(replenishTime > 0) replenishTime--;
+			else
+			{
+				for(int i = quests.size(); i < 3; i++)
+				{
+					quests.add(WitchQuestHandler.createQuest(random));
+				}
+				replenishTime = 3000 + random.nextInt(21000);
+			}
+		}
+	}
+
+	protected void resetCustomer() {
+		this.setCurrentCustomer(null);
+	}
+
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		this.resetCustomer();
+	}
+
+	@Override
+	public boolean cannotDespawn()
+	{
+		if(despawnShield > 0)
+			return true;
+
+		return super.cannotDespawn();
+	}
+
+	@Override
+	public boolean canImmediatelyDespawn(double distanceSquared)
+	{
+		if(despawnShield > 0)
+			return false;
+
+		return super.canImmediatelyDespawn(distanceSquared);
 	}
 
 	public void setCurrentCustomer(PlayerEntity customer)
 	{
 		this.customer = customer;
+	}
+
+	public boolean hasCustomer()
+	{
+		return getCurrentCustomer() != null;
 	}
 
 	@Override
@@ -87,6 +173,12 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 
 	}
 
+	@Override
+	public World getWitchWorld()
+	{
+		return world;
+	}
+
 	public SoundEvent getYesSound()
 	{
 		return SoundEvents.ENTITY_WITCH_CELEBRATE;
@@ -96,6 +188,8 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	{
 		super.writeCustomDataToTag(tag);
 		tag.put("Quests", quests.toTag());
+		tag.putInt("DespawnShield", despawnShield);
+		tag.putInt("ReplenishTime", replenishTime);
 	}
 
 	@Override
@@ -103,5 +197,12 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	{
 		super.readCustomDataFromTag(tag);
 		quests = new WitchQuestList(tag.getCompound("Quests"));
+		despawnShield = tag.getInt("DespawnShield");
+		replenishTime = tag.getInt("ReplenishTime");
+	}
+
+	protected WitchEntityMixin(EntityType<? extends RaiderEntity> entityType, World world)
+	{
+		super(entityType, world);
 	}
 }

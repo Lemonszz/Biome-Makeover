@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.color.world.BiomeColors;
@@ -13,11 +14,9 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
+import party.lemons.biomemakeover.crafting.witch.screen.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
-import party.lemons.biomemakeover.init.BMBlockEntities;
-import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMNetwork;
+import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
@@ -41,6 +40,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG, (r, c)->new LightningBugRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
+
+		ScreenRegistry.register(BMScreens.WITCH, WitchScreen::new);
 
 		BMNetwork.initClient();
 

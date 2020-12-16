@@ -13,6 +13,7 @@ import party.lemons.biomemakeover.init.BMPotions;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.List;
+import java.util.Random;
 
 public enum QuestRewardTable
 {
@@ -25,6 +26,12 @@ public enum QuestRewardTable
 	QuestRewardTable(Lazy<List<RewardItem>> itemTable)
 	{
 		this.itemTable = itemTable;
+	}
+
+	public ItemStack pickRandom(Random random)
+	{
+		List<RewardItem> rewards = itemTable.get();
+		return rewards.get(random.nextInt(rewards.size())).getRewardStack().copy();
 	}
 
 	private static List<RewardItem> createItemTable()
