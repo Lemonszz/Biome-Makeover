@@ -1,14 +1,19 @@
 package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.DrownedEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.item.Item;
+import net.minecraft.tag.EntityTypeTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.*;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
@@ -28,7 +33,9 @@ public class BMEntities
 	public static final EntityType<ToadEntity> TOAD = FabricEntityTypeBuilder.<ToadEntity>create(SpawnGroup.CREATURE, (t, w)->new ToadEntity(w)).dimensions(EntityDimensions.fixed(0.8F, 0.6F)).trackRangeBlocks(12).build();
 	public static final EntityType<DragonflyEntity> DRAGONFLY = FabricEntityTypeBuilder.<DragonflyEntity>create(SpawnGroup.AMBIENT, (t, w)->new DragonflyEntity(w)).dimensions(EntityDimensions.fixed(0.8F, 0.6F)).trackRangeBlocks(12).build();
 	public static final EntityType<LightningBugEntity> LIGHTNING_BUG = FabricEntityTypeBuilder.<LightningBugEntity>create(SpawnGroup.AMBIENT, (t, w)->new LightningBugEntity(w)).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).trackRangeBlocks(12).build();
+	public static final EntityType<LightningBugEntity> LIGHTNING_BUG_ALTERNATE = FabricEntityTypeBuilder.<LightningBugEntity>create(SpawnGroup.MISC, (t, w)->new LightningBugEntity(w, true)).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).trackRangeBlocks(12).build();
 	public static final EntityType<BMBoatEntity> BM_BOAT = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new).trackable(128, 3).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).build();
+	public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new).trackable(4, 10).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build();
 
 	public static void init()
 	{
@@ -48,4 +55,6 @@ public class BMEntities
 	public static boolean isValidAnimalSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
 	}
+
+	public static final Tag<EntityType<?>> LIGHTNING_BUG_TAG = TagRegistry.entityType(BiomeMakeover.ID("lightning_bug"));
 }

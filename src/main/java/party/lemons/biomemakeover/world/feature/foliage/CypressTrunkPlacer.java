@@ -39,13 +39,13 @@ public class CypressTrunkPlacer extends TrunkPlacer
 	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> set, BlockBox blockBox, TreeFeatureConfig treeFeatureConfig)
 	{
 		//Change ground under to dirt
-		method_27400(world, pos.down());
+		setToDirt(world, pos.down());
 
 		List<FoliagePlacer.TreeNode> nodes = Lists.newArrayList();
 		for(int i = 0; i < trunkHeight; ++i)
 		{
 			//Place trunk
-			method_27402(world, random, pos.up(i), set, blockBox, treeFeatureConfig);
+			getAndSetState(world, random, pos.up(i), set, blockBox, treeFeatureConfig);
 		}
 		nodes.add(new FoliagePlacer.TreeNode(pos.up(trunkHeight), 1, true));
 
@@ -56,7 +56,7 @@ public class CypressTrunkPlacer extends TrunkPlacer
 			BlockPos offsetStart = dir.offset(pos);
 			for(int j = 0; j < 1 + random.nextInt(8); j++)
 			{
-				method_27402(world, random, offsetStart.up(j), set, blockBox, treeFeatureConfig);
+				getAndSetState(world, random, offsetStart.up(j), set, blockBox, treeFeatureConfig);
 			}
 		}
 
@@ -77,7 +77,7 @@ public class CypressTrunkPlacer extends TrunkPlacer
 
 	protected static boolean setBranch(ModifiableTestableWorld modifiableTestableWorld, Random random, BlockPos blockPos, Set<BlockPos> set, BlockBox blockBox, BlockState st) {
 		if (TreeFeature.canReplace(modifiableTestableWorld, blockPos)) {
-			method_27404(modifiableTestableWorld, blockPos,st, blockBox);
+			setBlockState(modifiableTestableWorld, blockPos,st, blockBox);
 			set.add(blockPos.toImmutable());
 			return true;
 		} else {

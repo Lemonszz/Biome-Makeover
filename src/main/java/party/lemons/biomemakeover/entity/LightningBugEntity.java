@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.goal.Goal;
@@ -11,7 +12,9 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
@@ -20,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import party.lemons.biomemakeover.entity.ai.FlyWanderAroundGoal;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.util.NetworkUtil;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -35,6 +39,7 @@ public class LightningBugEntity extends ToadTargetEntity
 	public float prevRed = -1;
 	public float prevGreen = -1;
 	public float prevBlue = -1;
+	private boolean isAlternate = false;
 
 	public LightningBugEntity(World world)
 	{
@@ -46,6 +51,41 @@ public class LightningBugEntity extends ToadTargetEntity
 		this.setPathfindingPenalty(PathNodeType.COCOA, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.FENCE, -1.0F);
 		age += world.random.nextInt(10000);
+	}
+
+	public LightningBugEntity(EntityType<LightningBugEntity> type, World world)
+	{
+		super(type, world);
+		this.moveControl = new FlightMoveControl(this, 20, true);
+		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
+		this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 16.0F);
+		this.setPathfindingPenalty(PathNodeType.COCOA, -1.0F);
+		this.setPathfindingPenalty(PathNodeType.FENCE, -1.0F);
+		age += world.random.nextInt(10000);
+	}
+
+	public LightningBugEntity(World world, boolean isAlternate)
+	{
+		this(BMEntities.LIGHTNING_BUG_ALTERNATE, world);
+		this.isAlternate = true;
+	}
+
+	@Override
+	public void baseTick()
+	{
+		if(firstUpdate && !isAlternate)
+		{
+			for(int i = 0; i < random.nextInt(3); i++)
+			{
+				LightningBugEntity alternate =  BMEntities.LIGHTNING_BUG_ALTERNATE.create(world);
+				alternate.isAlternate = true;
+				alternate.updatePosition(getX(), getY(), getZ());
+				world.spawnEntity(alternate);
+			}
+		}
+
+		super.baseTick();
 	}
 
 	public float getPathfindingFavor(BlockPos pos, WorldView world) {
@@ -128,7 +168,14 @@ public class LightningBugEntity extends ToadTargetEntity
 				this.groupSize = 1;
 			}
 		}
+	}
 
+	@Override
+	public void tickMovement()
+	{
+		super.tickMovement();
+
+		if(random.nextInt(200) == 0) NetworkUtil.doLightningEntity(world, this, 2);
 	}
 
 	public boolean hasOthersInGroup() {

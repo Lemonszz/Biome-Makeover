@@ -220,5 +220,11 @@
       "enchant/soulspeed/soulspeed13"
     ],
     "subtitle": "subtitles.biomemakeover.poltergeist.toggle"
-  }
+  },
+  "entity.lightning_bottle.throw": {
+  "sounds": [
+    "random/bow"
+  ],
+  "subtitle": "subtitles.entity.lightning_bottle.throw"
+}
 }

@@ -11,11 +11,18 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.util.RegistryHelper;
 import party.lemons.biomemakeover.world.feature.GhostTownFeature;
+import party.lemons.biomemakeover.world.feature.SunkenRuinFeature;
+import party.lemons.biomemakeover.world.feature.SunkenRuinFeature.SunkenRuinFeatureConfig;
 
 public class BMStructures
 {
 	public static final StructureFeature<StructurePoolFeatureConfig> GHOST_TOWN = new GhostTownFeature(StructurePoolFeatureConfig.CODEC);
 	public static final ConfiguredStructureFeature<?, ?> GHOST_TOWN_CONFIGURED = GHOST_TOWN.configure(GhostTownFeature.CONFIG);
+
+	public static final StructureFeature<SunkenRuinFeatureConfig> SUNKEN_RUIN = new SunkenRuinFeature(SunkenRuinFeatureConfig.CODEC);
+	public static final ConfiguredStructureFeature<?, ?> SUNKEN_RUIN_CONFIGURED = SUNKEN_RUIN.configure(new SunkenRuinFeatureConfig(0.5F, 0.5F));
+
+	public static final StructurePieceType SUNKEN_RUIN_PIECE = SunkenRuinFeature.Piece::new;
 
 	public static void init()
 	{
@@ -26,6 +33,11 @@ public class BMStructures
 				.step(GenerationStep.Feature.UNDERGROUND_DECORATION)
 				.defaultConfig(32, 12, 6969)
 				.adjustsSurface()
+				.register();
+
+		FabricStructureBuilder.create(BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN)
+				.step(GenerationStep.Feature.LOCAL_MODIFICATIONS)
+				.defaultConfig(16, 6, 420)
 				.register();
 
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMStructures.class);

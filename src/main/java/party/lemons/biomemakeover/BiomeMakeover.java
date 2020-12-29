@@ -5,17 +5,18 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.data.server.BarterLootTableGenerator;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.mob.PiglinEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContext;
@@ -24,11 +25,15 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.PillagerSpawner;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
+import party.lemons.biomemakeover.entity.LightningBugEntity;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
@@ -105,6 +110,25 @@ public class BiomeMakeover implements ModInitializer
 			}
 
 			return ActionResult.PASS;
+		});
+
+		UseEntityCallback.EVENT.register((pl, world, hand, entity, hr)->{
+			ItemStack stack = pl.getStackInHand(hand);
+
+			if(!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE)
+			{
+				if(entity instanceof LightningBugEntity)
+				{
+					if(!world.isClient())
+					{
+						ItemUsage.method_30012(stack, pl, new ItemStack(BMBlocks.LIGHTNING_BUG_BOTTLE));
+						entity.remove();
+					}
+					return ActionResult.SUCCESS;
+				}
+			}
+			return ActionResult.PASS;
+
 		});
 	}
 

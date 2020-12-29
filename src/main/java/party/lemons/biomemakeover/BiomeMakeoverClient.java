@@ -2,6 +2,7 @@ package party.lemons.biomemakeover;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -10,8 +11,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.ExperienceOrbEntityRenderer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.BlockItem;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
 import party.lemons.biomemakeover.crafting.witch.screen.WitchScreen;
@@ -20,9 +29,11 @@ import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
+import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
+
 	@Override
 	public void onInitializeClient()
 	{
@@ -38,6 +49,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.DRAGONFLY, (r, c)->new DragonflyRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.DECAYED, (r, c)->new DecayedRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG, (r, c)->new LightningBugRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG_ALTERNATE, (r, c)->new LightningBugRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE, (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer()));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
 
@@ -45,10 +58,14 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		BMNetwork.initClient();
 
+		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
+
 		//TODO: move this
 		ColorProviderRegistry.BLOCK.register(
 				(state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor());
 
+		ColorProviderRegistry.BLOCK.register(
+				(state, world, pos, tintIndex)->0x84ab6f, BMBlocks.BALD_CYPRESS_LEAVES);
 
 		ColorProviderRegistry.BLOCK.register(
 				(state, world, pos, tintIndex)->{
@@ -89,7 +106,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
 			BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
 			return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
-		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD);
+		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.BALD_CYPRESS_LEAVES);
 
 		//TODO: Move this
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
@@ -127,11 +144,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
-				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR)
-		);
-
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTripwire(),
+				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.LIGHTNING_BUG_BOTTLE
-				);
+		);
 	}
 }

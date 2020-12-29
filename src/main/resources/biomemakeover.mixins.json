@@ -35,7 +35,8 @@
     "client.PlayerRendererMixin",
     "client.HorseEntityRendererMixin",
     "client.CuboidMixin",
-    "client.ChunkRenderRegionMixin"
+    "client.ChunkRenderRegionMixin",
+    "client.WorldRendererMixin"
   ]
 ,
   "injectors": {

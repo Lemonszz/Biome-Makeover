@@ -33,7 +33,7 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 	@Override
 	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> set, BlockBox blockBox, TreeFeatureConfig treeFeatureConfig)
 	{
-		method_27400(world, pos.down());    //Set dirt
+		setToDirt(world, pos.down());    //Set dirt
 
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
 		Direction direction = Direction.Type.HORIZONTAL.random(random);
@@ -56,7 +56,7 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 			}
 
 			//Set Tree block?
-			if (method_27402(world, random, mpos.set(xx, yPosition, zz), set, blockBox, treeFeatureConfig)) {
+			if (getAndSetState(world, random, mpos.set(xx, yPosition, zz), set, blockBox, treeFeatureConfig)) {
 				yy = yPosition + 1;
 			}
 		}
@@ -81,7 +81,7 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 						int s = pos.getY() + r;
 						xx += branchDirection.getOffsetX();
 						zz += branchDirection.getOffsetZ();
-						if(method_27402(world, random, mpos.set(xx, s, zz), set, blockBox, treeFeatureConfig) && random.nextInt(3) == 0)
+						if(getAndSetState(world, random, mpos.set(xx, s, zz), set, blockBox, treeFeatureConfig) && random.nextInt(3) == 0)
 						{
 							yy = s + 1;
 						}

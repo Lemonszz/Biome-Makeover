@@ -80,6 +80,16 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	}
 
 	@Override
+	protected void dropLoot(DamageSource source, boolean causedByPlayer)
+	{
+		if(causedByPlayer && random.nextInt(20) == 0)
+		{
+			dropStack(new ItemStack(BMItems.WITCH_HAT));
+		}
+		super.dropLoot(source, causedByPlayer);
+	}
+
+	@Override
 	protected void mobTick()
 	{
 		super.mobTick();

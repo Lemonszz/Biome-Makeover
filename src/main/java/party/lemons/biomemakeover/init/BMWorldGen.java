@@ -75,6 +75,8 @@ public class BMWorldGen
 					}
 				});
 
+		BiomeModifications.addStructure(SWAMP_BIOMES, rk(BMStructures.SUNKEN_RUIN_CONFIGURED));
+
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(BALD_CYPRESS_TREES));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(FALLEN_WILLOW));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
@@ -85,8 +87,8 @@ public class BMWorldGen
 
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.CREATURE, BMEntities.TOAD, 20, 2, 4);
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.MONSTER, BMEntities.DECAYED, 60, 1, 1);
-		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.DRAGONFLY, 13, 1, 2);
-		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.LIGHTNING_BUG, 13, 1, 6);
+		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.DRAGONFLY, 20, 3, 8);
+		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.LIGHTNING_BUG, 13, 1, 1);
 	}
 
 	private static void mushroomModifications()
@@ -145,7 +147,7 @@ public class BMWorldGen
 
 	//Carvers
 	public static final LargeMyceliumCaveCarver LARGE_MYCELIUM_CAVE_CARVER = new LargeMyceliumCaveCarver(ProbabilityConfig.CODEC, 256);
-	public static final ConfiguredCarver<ProbabilityConfig> LARGE_CAVE_CONFIGURED_CARVER = LARGE_MYCELIUM_CAVE_CARVER.method_28614(new ProbabilityConfig(0.15F));
+	public static final ConfiguredCarver<ProbabilityConfig> LARGE_CAVE_CONFIGURED_CARVER = LARGE_MYCELIUM_CAVE_CARVER.configure(new ProbabilityConfig(0.15F));
 
 	//Features
 	public static final UndergroundHugeBrownMushroomFeature UNDERGROUND_HUGE_BROWN_MUSHROOM_FEATURE = new UndergroundHugeBrownMushroomFeature(HugeMushroomFeatureConfig.CODEC);

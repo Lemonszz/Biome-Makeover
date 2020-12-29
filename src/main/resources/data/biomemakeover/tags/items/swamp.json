@@ -12,6 +12,7 @@
     "biomemakeover:willow_log",
     "biomemakeover:willow_planks",
     "biomemakeover:stripped_willow_log",
+    "biomemakeover:stripped_willow_wood",
     "biomemakeover:willow_stairs",
     "biomemakeover:willow_fence",
     "biomemakeover:willow_fence_gate",
@@ -28,6 +29,7 @@
     "biomemakeover:bald_cypress_log",
     "biomemakeover:bald_cypress_planks",
     "biomemakeover:stripped_bald_cypress_log",
+    "biomemakeover:stripped_bald_cypress_wood",
     "biomemakeover:bald_cypress_stairs",
     "biomemakeover:bald_cypress_fence",
     "biomemakeover:bald_cypress_fence_gate",
@@ -47,6 +49,8 @@
     "biomemakeover:dried_peat_bricks",
     "biomemakeover:dried_peat_bricks_stairs",
     "biomemakeover:dried_peat_bricks_slab",
-    "biomemakeover:dried_peat_bricks_wall"
+    "biomemakeover:dried_peat_bricks_wall",
+    "biomemakeover:witch_hat",
+    "biomemakeover:lightning_bug_bottle"
   ]
 }

@@ -9,7 +9,7 @@
       "model": "biomemakeover:block/stripped_bald_cypress_log"
     },
     "axis=z": {
-      "model": "biomemakeover:block/stripped_bald_cypress_horizontal",
+      "model": "biomemakeover:block/stripped_bald_cypress_log_horizontal",
       "x": 90
     }
   }

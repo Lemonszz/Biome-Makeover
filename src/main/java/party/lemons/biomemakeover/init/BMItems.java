@@ -34,7 +34,7 @@ public class BMItems
 	public static final Item COWBOY_SPAWN_EGG = new SpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, settings());
 	public static final Item TOAD_SPAWN_EGG = new SpawnEggItem(BMEntities.TOAD, 0x4b8252, 0x614d33, settings());
 	public static final Item DRAGONFLY_SPAWN_EGG = new SpawnEggItem(BMEntities.DRAGONFLY, 0xc7b634, 0xf2ebb6, settings());
-	public static final Item LIGHTNING_BUG_SPAWN_EGG = new SpawnEggItem(BMEntities.LIGHTNING_BUG, 0x62c961, 0x96ebe1, settings());
+	public static final Item LIGHTNING_BUG_SPAWN_EGG = new SpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, settings());
 	public static final Item DECAYED_SPAWN_EGG = new SpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, settings());
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
@@ -43,6 +43,7 @@ public class BMItems
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
 	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
+	public static final Item LIGHTNING_IN_A_BOTTLE = new LightningBottleItem(settings());
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));

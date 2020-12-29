@@ -45,7 +45,7 @@ public class WillowFoliagePlacer extends FoliagePlacer
 			else
 				baseHeight = Math.max(radius + treeNode.getFoliageRadius() - placeOffset / 2, 0);
 
-			this.generate(world, random, config, treeNode.getCenter(), baseHeight, leaves, placeOffset, treeNode.isGiantTrunk(), box);
+			this.generateSquare(world, random, config, treeNode.getCenter(), baseHeight, leaves, placeOffset, treeNode.isGiantTrunk(), box);
 		}
 
 		BlockBox leafBox = BlockBox.empty();

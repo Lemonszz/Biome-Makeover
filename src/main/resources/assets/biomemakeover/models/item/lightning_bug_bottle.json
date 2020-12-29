@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "biomemakeover:item/lightning_bug_in_a_bottle"
+  }
+}
