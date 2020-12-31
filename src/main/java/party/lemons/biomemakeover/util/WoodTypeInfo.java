@@ -83,7 +83,7 @@ public class WoodTypeInfo
 
 	public WoodTypeInfo button()
 	{
-		set(Type.BUTTON, new BMButtonBlock(settings));
+		set(Type.BUTTON, new BMButtonBlock(settings.noCollision()));
 		return this;
 	}
 
