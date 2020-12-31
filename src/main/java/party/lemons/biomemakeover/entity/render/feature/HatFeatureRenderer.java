@@ -39,12 +39,14 @@ public class HatFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>
 		ItemStack headSlot = entity.getEquippedStack(EquipmentSlot.HEAD);
 		if(!headSlot.isEmpty() && headSlot.getItem() instanceof HatItem)
 		{
+			matrices.push();
 			matrices.scale(1.05F,1.05F,1.05F);
 			EntityModel hatModel = MODELS.get(headSlot.getItem());
 			((ModelWithHead)this.getContextModel()).getHead().rotate(matrices);
 
 			VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, hatModel.getLayer(this.getTexture(entity)), true, false);
 			hatModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
+			matrices.pop();
 		}
 	}
 
