@@ -20,7 +20,7 @@ public class BMStructures
 	public static final ConfiguredStructureFeature<?, ?> GHOST_TOWN_CONFIGURED = GHOST_TOWN.configure(GhostTownFeature.CONFIG);
 
 	public static final StructureFeature<SunkenRuinFeatureConfig> SUNKEN_RUIN = new SunkenRuinFeature(SunkenRuinFeatureConfig.CODEC);
-	public static final ConfiguredStructureFeature<?, ?> SUNKEN_RUIN_CONFIGURED = SUNKEN_RUIN.configure(new SunkenRuinFeatureConfig(0.5F, 0.5F));
+	public static final ConfiguredStructureFeature<?, ?> SUNKEN_RUIN_CONFIGURED = SUNKEN_RUIN.configure(new SunkenRuinFeatureConfig(0.8F, 0.6F));
 
 	public static final StructurePieceType SUNKEN_RUIN_PIECE = SunkenRuinFeature.Piece::new;
 

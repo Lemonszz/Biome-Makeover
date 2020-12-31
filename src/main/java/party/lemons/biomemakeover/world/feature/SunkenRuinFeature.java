@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.world.feature;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
@@ -41,6 +42,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.RandomUtil;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -49,11 +51,16 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
 {
 	private static final Identifier[] LARGE_PIECES = new Identifier[]{
 		BiomeMakeover.ID("sunken_ruins/sunken_1"),
-		BiomeMakeover.ID("sunken_ruins/sunken_2")
+		BiomeMakeover.ID("sunken_ruins/sunken_2"),
+		BiomeMakeover.ID("sunken_ruins/sunken_3")
 	};
 	private static final Identifier[] SMALL_PIECES = new Identifier[]{
-			BiomeMakeover.ID("sunken_ruins/sunken_1"),
-			BiomeMakeover.ID("sunken_ruins/sunken_2")
+			BiomeMakeover.ID("sunken_ruins/sunken_small_1"),
+			BiomeMakeover.ID("sunken_ruins/sunken_small_2"),
+			BiomeMakeover.ID("sunken_ruins/sunken_small_3"),
+			BiomeMakeover.ID("sunken_ruins/sunken_small_4"),
+			BiomeMakeover.ID("sunken_ruins/sunken_small_5"),
+			BiomeMakeover.ID("sunken_ruins/sunken_small_6")
 	};
 
 
@@ -216,7 +223,37 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
 			this.pos = new BlockPos(this.pos.getX(), yy, this.pos.getZ());
 			BlockPos blockPos2 = Structure.transformAround(new BlockPos(this.structure.getSize().getX() - 1, 0, this.structure.getSize().getZ() - 1), BlockMirror.NONE, this.rotation, BlockPos.ORIGIN).add(this.pos);
 			this.pos = new BlockPos(this.pos.getX(), this.method_14829(this.pos, world, blockPos2) - RandomUtil.randomRange(1, 2), this.pos.getZ());
-			return super.generate(world, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+			boolean generate = super.generate(world, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+
+			if(generate)
+			{
+				//TODO: optimise?
+				List<Structure.StructureBlockInfo> dirt = this.structure.getInfosForBlock(this.pos, this.placementData, Blocks.DIRT);
+				for(Structure.StructureBlockInfo info : dirt)
+				{
+					if(!world.getBlockState(info.pos.up()).isOpaque())
+						world.setBlockState(info.pos, Blocks.GRASS.getDefaultState(), 2);
+				}
+
+				List<Structure.StructureBlockInfo> clay = this.structure.getInfosForBlock(this.pos, this.placementData, Blocks.CLAY);
+				for(Structure.StructureBlockInfo info : clay)
+				{
+					if(!world.getBlockState(info.pos.up()).isOpaque())
+						world.setBlockState(info.pos, Blocks.GRASS.getDefaultState(), 2);
+					else
+						world.setBlockState(info.pos, Blocks.DIRT.getDefaultState(), 2);
+				}
+
+				List<Structure.StructureBlockInfo> sand = this.structure.getInfosForBlock(this.pos, this.placementData, Blocks.SAND);
+				for(Structure.StructureBlockInfo info : sand)
+				{
+					if(!world.getBlockState(info.pos.up()).isOpaque())
+						world.setBlockState(info.pos, Blocks.GRASS.getDefaultState(), 2);
+					else
+						world.setBlockState(info.pos, Blocks.DIRT.getDefaultState(), 2);
+				}
+			}
+			return generate;
 		}
 
 		private int method_14829(BlockPos blockPos, BlockView blockView, BlockPos blockPos2) {

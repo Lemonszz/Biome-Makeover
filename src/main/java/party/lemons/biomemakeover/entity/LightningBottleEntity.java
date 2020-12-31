@@ -7,6 +7,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.projectile.thrown.ExperienceBottleEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
@@ -24,9 +25,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.init.BMNetwork;
+import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
 
@@ -62,6 +61,8 @@ public class LightningBottleEntity extends ThrownItemEntity
 
 		if (!this.world.isClient)
 		{
+			world.playSound(null, getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.NEUTRAL, 100F, 0.8F + this.random.nextFloat() * 0.2F);
+
 			Box box = this.getBoundingBox().expand(4.0D, 2.0D, 4.0D);
 			List<LivingEntity> entities = this.world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.VALID_LIVING_ENTITY);
 			if (!entities.isEmpty())
@@ -76,6 +77,7 @@ public class LightningBottleEntity extends ThrownItemEntity
 					{
 						int fireTicks = e.getFireTicks();
 						boolean isInvul = e.isInvulnerable();
+
 						LightningEntity dummyLightning = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
 						dummyLightning.setPos(e.getX(), e.getY(), e.getZ());
 						e.setInvulnerable(true);
@@ -84,13 +86,43 @@ public class LightningBottleEntity extends ThrownItemEntity
 						e.setFireTicks(fireTicks);
 						e.setInvulnerable(isInvul);
 						dummyLightning.remove();
-
-						NetworkUtil.doLightningEntity(world, e, 100);
 					}
 				}
 			}
 
+			//Loop through again to grab transformed entities for damage & effect
+			entities = this.world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.VALID_LIVING_ENTITY);
+			if (!entities.isEmpty())
+			{
+				Iterator<LivingEntity> iterator = entities.iterator();
 
+				while(iterator.hasNext())
+				{
+					LivingEntity e = iterator.next();
+					double distance = this.squaredDistanceTo(e);
+					if (distance < 16.0D)
+					{
+						NetworkUtil.doLightningEntity(world, e, 100);
+
+						if(!e.hasStatusEffect(BMPotions.SHOCKED))
+						{
+							e.addStatusEffect(new StatusEffectInstance(BMPotions.SHOCKED, 1000, 0));
+						}
+						else
+						{
+							e.addStatusEffect(new StatusEffectInstance(BMPotions.SHOCKED, 1000, Math.min(3, e.getStatusEffect(BMPotions.SHOCKED).getAmplifier() + 1)));
+						}
+						e.damage(DamageSource.magic(this, this.getOwner()), 0);
+						if(getOwner() instanceof LivingEntity)
+						{
+							e.setAttacker((LivingEntity) getOwner());
+						}
+
+						if(e.getHealth() > e.getMaxHealth())
+							e.setHealth(e.getMaxHealth());
+					}
+				}
+			}
 			this.remove();
 
 		}

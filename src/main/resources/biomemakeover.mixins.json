@@ -25,7 +25,8 @@
     "SignTypeMixin",
     "BlockEntityTypeMixin",
     "BoneMealItemMixin",
-    "WitchEntityMixin"
+    "WitchEntityMixin",
+    "ItemStackMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

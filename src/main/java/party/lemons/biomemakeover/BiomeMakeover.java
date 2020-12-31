@@ -61,6 +61,7 @@ public class BiomeMakeover implements ModInitializer
 		BMEntities.init();
 		BMBlockEntities.init();
 		BMPotions.init();
+		BMEnchantments.init();
 		BMStructures.init();
 		BMWorldGen.init();
 		BMCriterion.init();
