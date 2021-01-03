@@ -22,9 +22,27 @@ public class BMItems
 	public static final FoodComponent COOKED_GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.6F).hunger(5).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
 
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
-	public static final Item GLOWFISH_BUCKET = new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
 	public static final Item COOKED_GLOWFISH = new Item(settings().food(COOKED_GLOWFISH_FOOD));
+
+	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
+	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
+
+	public static final Item ECTOPLASM = new BMItem(settings());
+	public static final Item PINK_PETALS = new BMItem(settings());
+	public static final Item MAGENTA_PETALS = new BMItem(settings());
+	public static final Item SCUTTLER_TAIL = new BMItem(settings());
+
+	public static final Item LIGHTNING_IN_A_BOTTLE = new LightningBottleItem(settings());
+	public static final Item DRAGONFLY_WING = new Item(settings());
+	public static final Item BAT_WING = new Item(settings());
+	public static final Item BLIGHTBAT_WING = new Item(settings());
+
+	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
+	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
+
+	public static final Item GLOWFISH_BUCKET = new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
+	public static final Item TADPOLE_BUCKET = new FishBucketItem(BMEntities.TADPOLE, Fluids.WATER, settings().maxCount(1));
 
 	public static final Item GLOWFISH_SPAWN_EGG = new SpawnEggItem(BMEntities.GLOWFISH, 0xff7b00, 0xffd7b3, settings());
 	public static final Item MUSHROOM_TRADER_SPAWN_EGG = new SpawnEggItem(BMEntities.MUSHROOM_TRADER, 0x37ff00, 0xb1ff9c, settings());
@@ -33,20 +51,11 @@ public class BMItems
 	public static final Item SCUTTLER_SPAWN_EGG = new SpawnEggItem(BMEntities.SCUTTLER, 0x473427, 0x806553, settings());
 	public static final Item COWBOY_SPAWN_EGG = new SpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, settings());
 	public static final Item TOAD_SPAWN_EGG = new SpawnEggItem(BMEntities.TOAD, 0x4b8252, 0x614d33, settings());
+	public static final Item TADPOLE_SPAWN_EGG = new SpawnEggItem(BMEntities.TADPOLE, 0x67824b, 0x614d33, settings());
 	public static final Item DRAGONFLY_SPAWN_EGG = new SpawnEggItem(BMEntities.DRAGONFLY, 0xc7b634, 0xf2ebb6, settings());
 	public static final Item LIGHTNING_BUG_SPAWN_EGG = new SpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, settings());
 	public static final Item DECAYED_SPAWN_EGG = new SpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, settings());
-
-	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
-	public static final Item ECTOPLASM = new BMItem(settings());
-	public static final Item PINK_PETALS = new BMItem(settings());
-	public static final Item SCUTTLER_TAIL = new BMItem(settings());
-
-	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
-	public static final Item LIGHTNING_IN_A_BOTTLE = new LightningBottleItem(settings());
-
-	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
-	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
+	public static final Item GIANT_SLIME_SPAWN_EGG = new SpawnEggItem(BMEntities.GIANT_SLIME, 0x3ea05f, 0x7EBF6E, settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 

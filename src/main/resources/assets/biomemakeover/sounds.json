@@ -222,9 +222,16 @@
     "subtitle": "subtitles.biomemakeover.poltergeist.toggle"
   },
   "entity.lightning_bottle.throw": {
-  "sounds": [
-    "random/bow"
-  ],
-  "subtitle": "subtitles.entity.lightning_bottle.throw"
-}
+    "sounds": [
+      "random/bow"
+    ],
+    "subtitle": "subtitles.entity.lightning_bottle.throw"
+  },
+  "entity.toad.have_baby": {
+    "sounds": [
+      "mob/turtle/egg/drop_egg1",
+      "mob/turtle/egg/drop_egg2"
+    ],
+    "subtitle": "subtitles.entity.toad.have_baby"
+  }
 }

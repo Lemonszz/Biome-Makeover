@@ -37,7 +37,7 @@ public class BMStructures
 
 		FabricStructureBuilder.create(BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN)
 				.step(GenerationStep.Feature.LOCAL_MODIFICATIONS)
-				.defaultConfig(16, 6, 420)
+				.defaultConfig(24, 9, 420)
 				.register();
 
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMStructures.class);

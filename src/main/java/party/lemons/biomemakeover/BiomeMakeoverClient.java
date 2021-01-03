@@ -2,6 +2,7 @@ package party.lemons.biomemakeover;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
@@ -46,11 +47,13 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.SCUTTLER, (r, c)->new ScuttlerRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.BM_BOAT, (r, c)->new BMBoatRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.TOAD, (r, c)->new ToadRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.TADPOLE, (r, c)->new TadpoleRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.DRAGONFLY, (r, c)->new DragonflyRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.DECAYED, (r, c)->new DecayedRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG, (r, c)->new LightningBugRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG_ALTERNATE, (r, c)->new LightningBugRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE, (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.GIANT_SLIME, (r, c)->new GiantSlimeRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
 
@@ -85,7 +88,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 					}
 
 					return MathUtils.colourBoost(color, rShift, gShift, bShift);
-				}, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD
+				}, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD, BMBlocks.WATER_LILY
 		);
 
 		ColorProviderRegistry.BLOCK.register(
@@ -107,6 +110,23 @@ public class BiomeMakeoverClient implements ClientModInitializer
 			BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
 			return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
 		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.BALD_CYPRESS_LEAVES);
+
+		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
+			if(tintIndex == 0)
+			{
+				BlockState blockState = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+				return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
+			}
+			return 0xFFFFFF;
+		}, BMBlocks.WATER_LILY);
+
+		ClientTickEvents.END_WORLD_TICK.register((w)->{
+			if(GiantSlimeRender.DUMMY_DECAYED != null)
+			{
+				GiantSlimeRender.DUMMY_DECAYED.age++;
+				GiantSlimeRender.DUMMY_DECAYED.tick();
+			}
+		});
 
 		//TODO: Move this
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
@@ -145,7 +165,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
 				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
-				BMBlocks.LIGHTNING_BUG_BOTTLE
+				BMBlocks.LIGHTNING_BUG_BOTTLE,
+				BMBlocks.WATER_LILY
 		);
 	}
 }

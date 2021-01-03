@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -50,6 +52,7 @@ public class DecayedEntity extends ZombieEntity
 	private AttributeContainer attributeContainer;
 	private int shieldDisableTime = 0;
 	private int shieldHealth = 30;
+	private boolean isDummy = false;
 
 	public DecayedEntity(World world)
 	{
@@ -232,6 +235,16 @@ public class DecayedEntity extends ZombieEntity
 
 	}
 
+	@Override
+	@Environment(EnvType.CLIENT)
+	public float getLeaningPitch(float tickDelta)
+	{
+		if(isDummy())
+			return 3F;
+
+		return super.getLeaningPitch(tickDelta);
+	}
+
 	public void updateSwimming() {
 		if (!this.world.isClient) {
 			if(isTouchingWater())
@@ -248,6 +261,16 @@ public class DecayedEntity extends ZombieEntity
 			}
 		}
 
+	}
+
+	public void setDummy()
+	{
+		this.isDummy = true;
+	}
+
+	public boolean isDummy()
+	{
+		return isDummy;
 	}
 
 	public void setTargetingUnderwater(boolean targetingUnderwater) {

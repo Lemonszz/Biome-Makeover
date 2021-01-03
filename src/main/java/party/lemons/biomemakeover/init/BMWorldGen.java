@@ -14,8 +14,6 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.biome.DefaultBiomeCreator;
-import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.carver.Carver;
@@ -81,12 +79,13 @@ public class BMWorldGen
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(FALLEN_WILLOW));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
-		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_LILY_PADS));
+		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_AND_FLOWERED_PADS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_REEDS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(PEAT));
 
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.CREATURE, BMEntities.TOAD, 20, 2, 4);
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.MONSTER, BMEntities.DECAYED, 60, 1, 1);
+		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.MONSTER, BMEntities.GIANT_SLIME, 60, 1, 1);
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.DRAGONFLY, 20, 3, 8);
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.AMBIENT, BMEntities.LIGHTNING_BUG, 13, 1, 1);
 	}
@@ -171,7 +170,7 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> WILLOW_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), 3, true), new WillowTrunkPlacer(6, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(1).build()));
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
 	public static final ConfiguredFeature<?, ?> BALD_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.BALD_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
-	public static final ConfiguredFeature<?, ?> BALD_CYPRESS_TREES = BALD_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.5F, 2)));
+	public static final ConfiguredFeature<?, ?> BALD_CYPRESS_TREES = BALD_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.5F, 4)));
 
 	//Badlands
 	public static final SurfaceFossilFeature SURFACE_FOSSIL_FEATURE = new SurfaceFossilFeature(DefaultFeatureConfig.CODEC);
@@ -187,7 +186,7 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> FALLEN_WILLOW = FALLEN_WILLOW_FEATURE.configure(new FallenLogFeatureConfig(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), defaultMushrooms(), UniformIntDistribution.of(6, 3), 10)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.1F, 1)));
 	public static final ConfiguredFeature<?, ?> SWAMP_BIG_RED_SHROOMS = ConfiguredFeatures.HUGE_RED_MUSHROOM.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.08F, 2)));
 	public static final ConfiguredFeature<?, ?> SWAMP_BIG_BROWN_SHROOMS = ConfiguredFeatures.HUGE_BROWN_MUSHROOM.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.08F, 2)));
-	public static final ConfiguredFeature<?, ?> SMALL_LILY_PADS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(smallPads(), SimpleBlockPlacer.INSTANCE)).tries(5).needsWater().build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(4);
+	public static final ConfiguredFeature<?, ?> SMALL_AND_FLOWERED_PADS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(BMPads(), SimpleBlockPlacer.INSTANCE)).tries(5).needsWater().build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(4);
 
 	public static final ReedFeature REED_FEATURE = new ReedFeature(RandomPatchFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> SWAMP_REEDS = REED_FEATURE.configure((new RandomPatchFeatureConfig.Builder(reeds(), DoublePlantPlacer.INSTANCE)).tries(20).spreadX(4).spreadZ(4).spreadY(0).build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(10);
@@ -260,13 +259,14 @@ public class BMWorldGen
 		return BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(carver).get();
 	}
 
-	public static WeightedBlockStateProvider smallPads()
+	public static WeightedBlockStateProvider BMPads()
 	{
 		WeightedBlockStateProvider states = new WeightedBlockStateProvider();
 		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 1), 10);
 		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 2), 10);
 		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 3), 10);
 		states.addState(BMBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilyPadBlock.PADS, 0 ), 10);
+		states.addState(BMBlocks.WATER_LILY.getDefaultState(), 20);
 		return states;
 	}
 

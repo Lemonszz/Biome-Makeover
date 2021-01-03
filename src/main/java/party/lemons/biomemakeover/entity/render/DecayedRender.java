@@ -14,17 +14,17 @@ import party.lemons.biomemakeover.entity.DecayedEntity;
 import party.lemons.biomemakeover.entity.render.feature.DecayedOverlayFeatureRenderer;
 import party.lemons.biomemakeover.entity.render.feature.DecayedItemFeatureRenderer;
 
-public class DecayedRender extends ZombieBaseEntityRenderer<DecayedEntity, DecayedEntityModel<DecayedEntity>>
+public class DecayedRender extends ZombieBaseEntityRenderer<DecayedEntity, DecayedEntityModel>
 {
-	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/decayed_inner_layer.png");
+	public static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/decayed_inner_layer.png");
 
 	public DecayedRender(EntityRenderDispatcher entityRenderDispatcher)
 	{
 		super(entityRenderDispatcher, new DecayedEntityModel(0.0F, 0.0F, 64, 64), new DecayedEntityModel(0.5F, true), new DecayedEntityModel(1.0F, true));
 		this.features.removeIf((f)->f instanceof HeldItemFeatureRenderer);
 
-		this.addFeature(new DecayedOverlayFeatureRenderer<DecayedEntity>(this));
-		this.addFeature(new DecayedItemFeatureRenderer<>(this));
+		this.addFeature(new DecayedOverlayFeatureRenderer(this));
+		this.addFeature(new DecayedItemFeatureRenderer(this));
 	}
 
 	public Identifier getTexture(ZombieEntity zombieEntity)

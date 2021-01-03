@@ -1,16 +1,16 @@
 package party.lemons.biomemakeover.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -18,7 +18,9 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import party.lemons.biomemakeover.block.blockentity.LightningBugBottleBlockEntity;
 
-public class LightningBugBottleBlock extends BMBlock implements BlockEntityProvider
+import static net.minecraft.state.property.Properties.WATERLOGGED;
+
+public class LightningBugBottleBlock extends BMBlock implements BlockEntityProvider, Waterloggable
 {
 	public static final BooleanProperty UPPER = BooleanProperty.of("up");
 
@@ -29,11 +31,17 @@ public class LightningBugBottleBlock extends BMBlock implements BlockEntityProvi
 	{
 		super(settings);
 
-		this.setDefaultState(this.getStateManager().getDefaultState().with(UPPER, false));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(UPPER, false).with(WATERLOGGED, false));
 	}
 
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return getDefaultState().with(UPPER, ctx.getSide() == Direction.DOWN);
+		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
+
+		return getDefaultState().with(UPPER, ctx.getSide() == Direction.DOWN).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+	}
+
+	public FluidState getFluidState(BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context)
@@ -46,6 +54,7 @@ public class LightningBugBottleBlock extends BMBlock implements BlockEntityProvi
 	{
 		super.appendProperties(builder);
 		builder.add(UPPER);
+		builder.add(WATERLOGGED);
 	}
 
 	public PistonBehavior getPistonBehavior(BlockState state) {

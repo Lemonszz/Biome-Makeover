@@ -56,11 +56,13 @@ public final class BMWorldEvents
 					}
 					else
 					{
-						placeState = Blocks.LILY_PAD.getDefaultState();
+						if(random.nextInt(4) == 0)
+							placeState = BMBlocks.WATER_LILY.getDefaultState();
+						else
+							placeState = Blocks.LILY_PAD.getDefaultState();
 					}
 				}
 			}
-
 
 			if (placeState.canPlaceAt(world, placePos))
 			{

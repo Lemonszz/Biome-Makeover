@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "biomemakeover:block/water_lily"
+      },
+      {
+        "model": "biomemakeover:block/water_lily",
+        "y": 90
+      },
+      {
+        "model": "biomemakeover:block/water_lily",
+        "y": 180
+      },
+      {
+        "model": "biomemakeover:block/water_lily",
+        "y": 270
+      }
+    ]
+  }
+}

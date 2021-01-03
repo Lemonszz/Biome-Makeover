@@ -26,6 +26,7 @@ public class BMEffects
 	public static final SoundEvent POLTERGEIST_ACTION = new SoundEvent(BiomeMakeover.ID("poltergeist_action"));
 	public static final SoundEvent POLTERGEIST_TOGGLE = new SoundEvent(BiomeMakeover.ID("poltergeist_toggle"));
 	public static final SoundEvent LIGHTNING_BOTTLE_THROW = new SoundEvent(BiomeMakeover.ID("entity.lightning_bottle.throw"));
+	public static final SoundEvent TOAD_HAVE_BABY = new SoundEvent(BiomeMakeover.ID("entity.toad.have_baby"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 

@@ -99,6 +99,7 @@ public class BMBlocks
 	public static final ReedBlock CATTAIL = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final SmallLilyPadBlock SMALL_LILY_PAD = new SmallLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BM_LILY_PAD_SOUNDS));
+	public static final WaterLilyPadBlock WATER_LILY = new WaterLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BM_LILY_PAD_SOUNDS));
 	public static final BMLeavesBlock WILLOW_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
 	public static final BMLeavesBlock BALD_CYPRESS_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
 	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, 0.5F).luminance(15).nonOpaque());

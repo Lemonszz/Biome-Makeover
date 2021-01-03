@@ -14,15 +14,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Arm;
 import party.lemons.biomemakeover.entity.DecayedEntity;
+import party.lemons.biomemakeover.entity.render.DecayedEntityModel;
 
-public class DecayedItemFeatureRenderer<T extends DecayedEntity, M extends EntityModel<T> & ModelWithArms> extends HeldItemFeatureRenderer<T, M>
+public class DecayedItemFeatureRenderer extends HeldItemFeatureRenderer<DecayedEntity, DecayedEntityModel>
 {
-	public DecayedItemFeatureRenderer(FeatureRendererContext<T, M> featureRendererContext)
+	public DecayedItemFeatureRenderer(FeatureRendererContext<DecayedEntity, DecayedEntityModel> featureRendererContext)
 	{
 		super(featureRendererContext);
 	}
 
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
+	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, DecayedEntity livingEntity, float f, float g, float h, float j, float k, float l) {
 		boolean isRightHanded = livingEntity.getMainArm() == Arm.RIGHT;
 
 		ItemStack leftHand = isRightHanded ? livingEntity.getOffHandStack() : livingEntity.getMainHandStack();

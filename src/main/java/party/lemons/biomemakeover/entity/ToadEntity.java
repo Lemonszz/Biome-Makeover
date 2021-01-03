@@ -1,26 +1,50 @@
 package party.lemons.biomemakeover.entity;
 
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TurtleEggBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -39,12 +63,14 @@ public class ToadEntity extends AnimalEntity
 	public float targetTongueDistance;
 	public float mouthDistance = 0;
 	public int eatCooldown = 0;
+	public boolean hasBaby;
 
 	private AttributeContainer attributeContainer;
 
 	public ToadEntity(World world)
 	{
 		super(BMEntities.TOAD, world);
+		this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
 	}
 
 	@Override
@@ -57,12 +83,12 @@ public class ToadEntity extends AnimalEntity
 	@Override
 	protected void initGoals()
 	{
-		this.goalSelector.add(0, new LookAtTongueTarget(this));
-		this.goalSelector.add(1, new SwimGoal(this));
-		//this.goalSelector.add(1, new RabbitEntity.EscapeDangerGoal(this, 2.2D));
+		this.goalSelector.add(0, new SwimGoal(this));
+		this.goalSelector.add(1, new LookAtTongueTarget(this));
+		this.goalSelector.add(0, new MakeTadpoleGoal(this, 1.0D, 10));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 0.8D));
-		//this.goalSelector.add(3, new TemptGoal(this, 1.0D, Ingredient.ofItems(Items.CARROT, Items.GOLDEN_CARROT, Blocks.DANDELION), false));
 		this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.6D));
+		this.goalSelector.add(3, new TemptGoal(this, 1.0D, Ingredient.ofItems(BMItems.DRAGONFLY_WING, Items.SPIDER_EYE), false));
 		this.goalSelector.add(11, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.goalSelector.add(12, new LookAroundGoal(this));
 	}
@@ -106,6 +132,9 @@ public class ToadEntity extends AnimalEntity
 	{
 		super.tick();
 
+		if(hasBaby && getBreedingAge() == 0)
+			hasBaby = false;
+
 		if(hasTongueEntity())
 		{
 			Entity e = world.getEntityById(getTongueEntityID());
@@ -134,7 +163,6 @@ public class ToadEntity extends AnimalEntity
 			targetTongueDistance = 0;
 			tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);
 		}
-
 	}
 
 	public boolean isTongueReady()
@@ -161,6 +189,10 @@ public class ToadEntity extends AnimalEntity
 	public boolean canUseTongue()
 	{
 		return !this.hasVehicle();
+	}
+
+	public boolean isBreedingItem(ItemStack stack) {
+		return stack.getItem() == BMItems.DRAGONFLY_WING || stack.getItem() == Items.SPIDER_EYE;
 	}
 
 	public void mobTick() {
@@ -214,8 +246,52 @@ public class ToadEntity extends AnimalEntity
 	}
 
 	@Override
+	public void writeCustomDataToTag(CompoundTag tag)
+	{
+		super.writeCustomDataToTag(tag);
+		tag.putBoolean("HasBaby", hasBaby);
+	}
+
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag)
+	{
+		super.readCustomDataFromTag(tag);
+		hasBaby = tag.getBoolean("HasBaby");
+	}
+
+	public void setHasBaby(boolean hasBaby)
+	{
+		this.hasBaby = hasBaby;
+	}
+
+	public void breed(ServerWorld serverWorld, AnimalEntity other) {
+
+		ServerPlayerEntity player = this.getLovingPlayer();
+		if (player == null && other.getLovingPlayer() != null)
+		{
+			player = other.getLovingPlayer();
+		}
+
+		if (player != null) {
+			player.incrementStat(Stats.ANIMALS_BRED);
+			Criteria.BRED_ANIMALS.trigger(player, this, other, null);
+		}
+
+		setHasBaby(true);
+		this.setBreedingAge(6000);
+		other.setBreedingAge(6000);
+		this.resetLoveTicks();
+		other.resetLoveTicks();
+		serverWorld.sendEntityStatus(this, (byte)18);
+		if (serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+			serverWorld.spawnEntity(new ExperienceOrbEntity(serverWorld, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+		}
+	}
+
+	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity)
 	{
+		//Unused!!
 		return null;
 	}
 
@@ -237,9 +313,66 @@ public class ToadEntity extends AnimalEntity
 		}
 
 		@Override
+
 		public boolean shouldContinue()
 		{
 			return toad.hasTongueEntity();
+		}
+	}
+
+	public class MakeTadpoleGoal extends MoveToTargetPosGoal
+	{
+		private ToadEntity toad;
+
+		public MakeTadpoleGoal(ToadEntity toad, double speed, int range)
+		{
+			super(toad, speed, range, 5);
+			this.toad = toad;
+		}
+
+		public boolean canStart() {
+			return this.toad.hasBaby ? super.canStart() : false;
+		}
+
+		public boolean shouldContinue() {
+			return super.shouldContinue() && this.toad.hasBaby;
+		}
+
+		@Override
+		public void tick()
+		{
+			super.tick();
+
+			BlockPos blockPos = this.mob.getBlockPos();
+			if(getTargetPos().isWithinDistance(toad.getPos(), 2F))
+			{
+				getNavigation().startMovingTo(targetPos.getX() + 0.5F, targetPos.getY(), targetPos.getZ() + 0.5F, 1F);
+			}
+
+			if (toad.isTouchingWater()) {
+				ServerWorld world = (ServerWorld) this.toad.world;
+				this.toad.setHasBaby(false);
+
+				TadpoleEntity tadpole = BMEntities.TADPOLE.create(world);
+				if (tadpole != null) {
+					world.playSound(null, blockPos, BMEffects.TOAD_HAVE_BABY, SoundCategory.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
+					tadpole.setBaby(true);
+					tadpole.refreshPositionAndAngles(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
+					world.spawnEntityAndPassengers(tadpole);
+				}
+			}
+
+		}
+
+		public double getDesiredSquaredDistanceToTarget() {
+			return 0.0D;
+		}
+
+		@Override
+		protected boolean isTargetPos(WorldView world, BlockPos pos)
+		{
+			FluidState state = world.getFluidState(pos);
+			return state.isStill() && state.isIn(FluidTags.WATER) && world.getBlockState(pos.up()).isAir();
 		}
 	}
 }
