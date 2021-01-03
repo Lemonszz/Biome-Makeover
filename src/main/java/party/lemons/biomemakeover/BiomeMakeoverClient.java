@@ -2,7 +2,6 @@ package party.lemons.biomemakeover;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
@@ -12,15 +11,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.ExperienceOrbEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.client.render.entity.ItemEntityRenderer;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.BlockItem;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
@@ -68,7 +61,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				(state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor());
 
 		ColorProviderRegistry.BLOCK.register(
-				(state, world, pos, tintIndex)->0x84ab6f, BMBlocks.BALD_CYPRESS_LEAVES);
+				(state, world, pos, tintIndex)->0x84ab6f, BMBlocks.SWAMP_CYPRESS_LEAVES);
 
 		ColorProviderRegistry.BLOCK.register(
 				(state, world, pos, tintIndex)->{
@@ -109,7 +102,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
 			BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
 			return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
-		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.BALD_CYPRESS_LEAVES);
+		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.SWAMP_CYPRESS_LEAVES);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
 			if(tintIndex == 0)
@@ -119,14 +112,6 @@ public class BiomeMakeoverClient implements ClientModInitializer
 			}
 			return 0xFFFFFF;
 		}, BMBlocks.WATER_LILY);
-
-		ClientTickEvents.END_WORLD_TICK.register((w)->{
-			if(GiantSlimeRender.DUMMY_DECAYED != null)
-			{
-				GiantSlimeRender.DUMMY_DECAYED.age++;
-				GiantSlimeRender.DUMMY_DECAYED.tick();
-			}
-		});
 
 		//TODO: Move this
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
@@ -140,7 +125,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.POTTED_BARREL_CACTUS,
 				BMBlocks.POTTED_FLOWERED_BARREL_CACTUS,
 				BMBlocks.POTTED_SAGUARO_CACTUS,
-				BMBlocks.POTTED_BALD_CYPRESS_SAPLING,
+				BMBlocks.POTTED_SWAMP_CYPRESS_SAPLING,
 				BMBlocks.POTTED_WILLOW_SAPLING,
 				BMBlocks.POTTED_SAGUARO_CACTUS,
 				BMBlocks.TALL_BROWN_MUSHROOM,
@@ -160,11 +145,11 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.SMALL_LILY_PAD,
 				BMBlocks.WILLOW_LEAVES,
 				BMBlocks.WILLOW_SAPLING,
-				BMBlocks.BALD_CYPRESS_SAPLING,
+				BMBlocks.SWAMP_CYPRESS_SAPLING,
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
-				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
-				BMBlocks.BALD_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
+				BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
+				BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.LIGHTNING_BUG_BOTTLE,
 				BMBlocks.WATER_LILY
 		);

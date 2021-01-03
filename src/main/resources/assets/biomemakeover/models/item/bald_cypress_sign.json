@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "biomemakeover:item/bald_cypress_sign"
-  }
-}

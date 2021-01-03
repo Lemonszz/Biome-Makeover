@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "biomemakeover:block/swamp_cypress_leaves"
+  }
+}

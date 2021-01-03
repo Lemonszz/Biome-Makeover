@@ -15,6 +15,14 @@
     }
   ]
   },
+  "swamp_jives": {
+    "sounds": [
+      {
+        "name": "biomemakeover:swamp_jives",
+        "stream": true
+      }
+    ]
+  },
   "ghost_charge": {
     "subtitle": "subtitles.biomemakeover.ghost.charge",
     "sounds": [

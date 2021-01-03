@@ -1,9 +1,7 @@
 package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;
@@ -20,10 +18,14 @@ public class BMItems
 	public static final FoodComponent GLOWSHROOM_SOUP_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.6F).hunger(5).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 1200, 0), 1).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 1200, 0), 1).build();
 	public static final FoodComponent GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.1F).hunger(1).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
 	public static final FoodComponent COOKED_GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.6F).hunger(5).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
+	public static final FoodComponent COOKED_TOAD_FOOD = new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).meat().build();
+	public static final FoodComponent RAW_TOAD_FOOD = new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).meat().build();
 
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
 	public static final Item COOKED_GLOWFISH = new Item(settings().food(COOKED_GLOWFISH_FOOD));
+	public static final Item RAW_TOAD = new Item(settings().food(RAW_TOAD_FOOD));
+	public static final Item COOKED_TOAD = new Item(settings().food(COOKED_TOAD_FOOD));
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
 	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
@@ -33,13 +35,15 @@ public class BMItems
 	public static final Item MAGENTA_PETALS = new BMItem(settings());
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
-	public static final Item LIGHTNING_IN_A_BOTTLE = new LightningBottleItem(settings());
+	public static final Item LIGHTNING_BOTTLE = new LightningBottleItem(settings());
 	public static final Item DRAGONFLY_WING = new Item(settings());
 	public static final Item BAT_WING = new Item(settings());
 	public static final Item BLIGHTBAT_WING = new Item(settings());
+	public static final Item WART = new Item(settings());
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
+	public static final BMMusicDiskItem SWAMP_JIVES_MUSIC_DISK = new BMMusicDiskItem(1, BMEffects.SWAMP_JIVES, settings().maxCount(1).rarity(Rarity.RARE));
 
 	public static final Item GLOWFISH_BUCKET = new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
 	public static final Item TADPOLE_BUCKET = new FishBucketItem(BMEntities.TADPOLE, Fluids.WATER, settings().maxCount(1));
@@ -67,7 +71,7 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ORANGE_GLOWSHROOM.asItem(), 0.70F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM.asItem(), 0.70F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_SAPLING.asItem(), 0.4F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BALD_CYPRESS_SAPLING.asItem(), 0.4F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SWAMP_CYPRESS_SAPLING.asItem(), 0.4F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOW_SAPLING.asItem(), 0.4F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.asItem(), 0.9F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM_BLOCK.asItem(), 0.9F);
@@ -79,7 +83,7 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.TALL_RED_MUSHROOM.asItem(), 0.7F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLIGHTED_BALSA_LEAVES.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOW_LEAVES.asItem(), 0.3F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BALD_CYPRESS_LEAVES.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SWAMP_CYPRESS_LEAVES.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.CATTAIL.asItem(), 0.5F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.REED.asItem(), 0.2F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SMALL_LILY_PAD.asItem(), 0.3F);

@@ -17,10 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.loot.BinomialLootTableRange;
-import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootTableEntry;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -115,7 +112,7 @@ public class BiomeMakeover implements ModInitializer
 				{
 					if(!world.isClient())
 					{
-						ItemUsage.method_30012(stack, pl, new ItemStack(stack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_IN_A_BOTTLE));
+						ItemUsage.method_30012(stack, pl, new ItemStack(stack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
 						entity.remove();
 					}
 					return ActionResult.SUCCESS;

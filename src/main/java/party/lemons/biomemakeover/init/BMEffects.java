@@ -12,6 +12,7 @@ public class BMEffects
 {
 	public static final SoundEvent BUTTON_MUSHROOMS = new SoundEvent(BiomeMakeover.ID("button_mushrooms"));
 	public static final SoundEvent GHOST_TOWN = new SoundEvent(BiomeMakeover.ID("ghost_town"));
+	public static final SoundEvent SWAMP_JIVES = new SoundEvent(BiomeMakeover.ID("swamp_jives"));
 	public static final SoundEvent GHOST_CHARGE = new SoundEvent(BiomeMakeover.ID("ghost_charge"));
 	public static final SoundEvent GHOST_DEATH = new SoundEvent(BiomeMakeover.ID("ghost_death"));
 	public static final SoundEvent GHOST_IDLE = new SoundEvent(BiomeMakeover.ID("ghost_idle"));

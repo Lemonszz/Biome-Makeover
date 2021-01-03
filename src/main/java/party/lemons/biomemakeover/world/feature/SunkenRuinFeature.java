@@ -190,22 +190,24 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
 				world.setBlockState(pos, Blocks.CHEST.getDefaultState().with(ChestBlock.WATERLOGGED, world.getFluidState(pos).isIn(FluidTags.WATER)), 2);
 				BlockEntity blockEntity = world.getBlockEntity(pos);
 				if (blockEntity instanceof ChestBlockEntity) {
-					((ChestBlockEntity)blockEntity).setLootTable(this.large ? LootTables.UNDERWATER_RUIN_BIG_CHEST : LootTables.UNDERWATER_RUIN_SMALL_CHEST, random.nextLong());
+					((ChestBlockEntity)blockEntity).setLootTable(LOOT, random.nextLong());
 				}
-			} else if ("witch".equals(metadata))
+			} else if ("witch".equals(metadata) && random.nextBoolean())
 			{
-				WitchEntity witch = EntityType.WITCH.create(world.toServerWorld());
-				witch.setPersistent();
-				witch.refreshPositionAndAngles(pos, 0.0F, 0.0F);
-				witch.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null, null);
-				world.spawnEntityAndPassengers(witch);
-				if (pos.getY() > world.getSeaLevel())
+				if(world.getBlockState(pos.up()).isAir())
 				{
-					world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-				}
-				else
-				{
-					world.setBlockState(pos, Blocks.WATER.getDefaultState(), 2);
+					WitchEntity witch = EntityType.WITCH.create(world.toServerWorld());
+					witch.setPersistent();
+					witch.refreshPositionAndAngles(pos, 0.0F, 0.0F);
+					witch.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null, null);
+					world.spawnEntityAndPassengers(witch);
+					if(pos.getY() > world.getSeaLevel())
+					{
+						world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+					}else
+					{
+						world.setBlockState(pos, Blocks.WATER.getDefaultState(), 2);
+					}
 				}
 			}
 
@@ -315,4 +317,5 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
 		}
 	}
 
+	private static Identifier LOOT = BiomeMakeover.ID("sunken_ruin");
 }

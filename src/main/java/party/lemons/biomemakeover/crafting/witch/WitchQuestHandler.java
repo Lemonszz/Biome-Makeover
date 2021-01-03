@@ -68,6 +68,7 @@ public class WitchQuestHandler
 		addQuestItem(QuestCategory.SWAMP, QuestItem.of(Blocks.LILY_PAD, 1, 4));
 		addQuestItem(QuestCategory.SWAMP, QuestItem.of(Items.SLIME_BALL, 2, 4));
 		addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMItems.MAGENTA_PETALS, 3, 4));
+		addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMItems.WART, 5, 4));
 
 		addQuestItem(QuestCategory.OCEAN, QuestItem.of(Blocks.KELP, 0.8F, 5));
 		addQuestItem(QuestCategory.OCEAN, QuestItem.of(Blocks.SEAGRASS, 0.8F, 5));

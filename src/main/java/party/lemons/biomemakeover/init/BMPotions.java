@@ -7,12 +7,20 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.Potions;
+import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.util.registry.Registry;
+import org.spongepowered.asm.mixin.gen.Invoker;
+import party.lemons.biomemakeover.mixin.BrewingRecipeRegistryAccessor;
+import party.lemons.biomemakeover.statuseffect.AntidoteStatusEffect;
 import party.lemons.biomemakeover.statuseffect.BMStatusEffect;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
 public class BMPotions
 {
+	public static final StatusEffect SHOCKED = new BMStatusEffect(StatusEffectType.HARMFUL, 0x6effff).addAttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D, EntityAttributeModifier.Operation.ADDITION);
+	public static final StatusEffect ANTIDOTE = new AntidoteStatusEffect();
+
 	public static final Potion ADRENALINE = new Potion("adrenaline", new StatusEffectInstance(StatusEffects.STRENGTH, 2400, 1), new StatusEffectInstance(StatusEffects.SPEED, 2400, 1), new StatusEffectInstance(StatusEffects.RESISTANCE, 2400));
 	public static final Potion ASSASSIN = new Potion("assassin", new StatusEffectInstance(StatusEffects.INVISIBILITY, 2400), new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2400, 1), new StatusEffectInstance(StatusEffects.JUMP_BOOST, 2400, 2));
 	public static final Potion DARKNESS = new Potion("darkness", new StatusEffectInstance(StatusEffects.BLINDNESS, 300), new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0), new StatusEffectInstance(StatusEffects.WEAKNESS, 170, 0));
@@ -22,11 +30,13 @@ public class BMPotions
 	public static final Potion LIGHT_FOOTED = new Potion("light_footed", new StatusEffectInstance(StatusEffects.SPEED, 1200, 1), new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 0), new StatusEffectInstance(StatusEffects.SLOW_FALLING, 1200));
 	public static final Potion MINER = new Potion("miner", new StatusEffectInstance(StatusEffects.HASTE, 3600, 1), new StatusEffectInstance(StatusEffects.NIGHT_VISION, 4250, 0), new StatusEffectInstance(StatusEffects.SPEED, 1200));
 
-	public static final StatusEffect SHOCKED = new BMStatusEffect(StatusEffectType.HARMFUL, 0x6effff).addAttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D, EntityAttributeModifier.Operation.ADDITION);
+	public static final Potion ANTIDOTE_POT = new Potion("antidote", new StatusEffectInstance(ANTIDOTE, 1));
 
 	public static void init()
 	{
 		RegistryHelper.register(Registry.POTION, Potion.class, BMPotions.class);
 		RegistryHelper.register(Registry.STATUS_EFFECT, StatusEffect.class, BMPotions.class);
+
+		BrewingRecipeRegistryAccessor.registerPotionRecipe(Potions.AWKWARD, BMItems.WART, ANTIDOTE_POT);
 	}
 }

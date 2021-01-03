@@ -26,7 +26,9 @@
     "BlockEntityTypeMixin",
     "BoneMealItemMixin",
     "WitchEntityMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "BrewingRecipeRegistryAccessor",
+    "SlimeEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

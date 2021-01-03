@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "biomemakeover:block/swamp_cypress_log_top",
+    "side": "biomemakeover:block/swamp_cypress_log"
+  }
+}

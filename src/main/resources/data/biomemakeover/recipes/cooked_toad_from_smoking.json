@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "biomemakeover:raw_toad"
+  },
+  "result": "biomemakeover:cooked_toad",
+  "experience": 0.35,
+  "cookingtime": 100
+}

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "biomemakeover:block/bald_cypress_planks"
-  }
-}

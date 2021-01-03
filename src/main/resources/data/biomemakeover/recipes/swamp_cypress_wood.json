@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:swamp_cypress_log"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:swamp_cypress_wood",
+    "count": 4
+  }
+}

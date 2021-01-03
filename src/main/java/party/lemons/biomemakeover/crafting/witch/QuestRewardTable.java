@@ -9,6 +9,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.Lazy;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.init.BMPotions;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -63,7 +64,8 @@ public enum QuestRewardTable
 				new ItemStackRewardItem(new ItemStack(Items.GLISTERING_MELON_SLICE), 5, 15),
 				new ItemStackRewardItem(new ItemStack(Items.BLAZE_POWDER), 3, 25),
 				new ItemStackRewardItem(new ItemStack(Items.GHAST_TEAR), 1, 10),
-				new ItemStackRewardItem(new ItemStack(Items.RABBIT_FOOT), 1, 20)
+				new ItemStackRewardItem(new ItemStack(Items.RABBIT_FOOT), 1, 20),
+				new ItemStackRewardItem(new ItemStack(BMItems.WART), 1, 7)
 		);
 	}
 
@@ -107,7 +109,9 @@ public enum QuestRewardTable
 			new PotionRewardItem(Potions.LONG_WEAKNESS),
 			new PotionRewardItem(Potions.LUCK),
 			new PotionRewardItem(Potions.SLOW_FALLING),
-			new PotionRewardItem(Potions.LONG_SLOW_FALLING)
+			new PotionRewardItem(Potions.LONG_SLOW_FALLING),
+			new PotionRewardItem(BMPotions.ANTIDOTE_POT),
+			new ItemStackRewardItem(new ItemStack(BMItems.SWAMP_JIVES_MUSIC_DISK), 1 ,1)
 		);
 		return rewards;
 	}

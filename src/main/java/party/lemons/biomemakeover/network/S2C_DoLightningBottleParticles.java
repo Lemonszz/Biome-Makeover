@@ -1,13 +1,9 @@
 package party.lemons.biomemakeover.network;
 
-import com.ibm.icu.text.MessagePattern;
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.FireSmokeParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
@@ -40,7 +36,7 @@ public class S2C_DoLightningBottleParticles implements PacketConsumer
 			{
 				for(int i = 0; i < 8; ++i)
 				{
-					world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(BMItems.LIGHTNING_IN_A_BOTTLE)), dir.x, dir.y, dir.z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+					world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(BMItems.LIGHTNING_BOTTLE)), dir.x, dir.y, dir.z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
 				}
 				world.playSound(null, pos, SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F);
 			}

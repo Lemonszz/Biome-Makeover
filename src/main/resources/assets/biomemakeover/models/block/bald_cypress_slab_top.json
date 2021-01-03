@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "biomemakeover:block/bald_cypress_planks",
-    "top": "biomemakeover:block/bald_cypress_planks",
-    "side": "biomemakeover:block/bald_cypress_planks"
-  }
-}
