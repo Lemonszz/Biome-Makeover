@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.util.MathUtils;
 
 public class ToadTargetEntity extends PathAwareEntity
@@ -46,7 +47,11 @@ public class ToadTargetEntity extends PathAwareEntity
 				setPos(xx, yy, zz);
 				setVelocity(0, 0, 0);
 
-				if(distanceTo(eatenBy) <= 0.2F) remove();
+				if(distanceTo(eatenBy) <= 0.2F)
+				{
+					eatenBy.playSound(BMEffects.TOAD_SWALLOW, 1F, 1F + ((float)random.nextGaussian() / 5F));
+					remove();
+				}
 			}
 		}
 	}

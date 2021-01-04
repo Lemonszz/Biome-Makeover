@@ -28,6 +28,14 @@ public class BMEffects
 	public static final SoundEvent POLTERGEIST_TOGGLE = new SoundEvent(BiomeMakeover.ID("poltergeist_toggle"));
 	public static final SoundEvent LIGHTNING_BOTTLE_THROW = new SoundEvent(BiomeMakeover.ID("entity.lightning_bottle.throw"));
 	public static final SoundEvent TOAD_HAVE_BABY = new SoundEvent(BiomeMakeover.ID("entity.toad.have_baby"));
+	public static final SoundEvent TOAD_CROAK = new SoundEvent(BiomeMakeover.ID("entity.toad.croak"));
+	public static final SoundEvent TOAD_HURT = new SoundEvent(BiomeMakeover.ID("entity.toad.hurt"));
+	public static final SoundEvent TOAD_DEATH = new SoundEvent(BiomeMakeover.ID("entity.toad.death"));
+	public static final SoundEvent TOAD_MOUTH = new SoundEvent(BiomeMakeover.ID("entity.toad.mouth"));
+	public static final SoundEvent TOAD_SWALLOW = new SoundEvent(BiomeMakeover.ID("entity.toad.swallow"));
+	public static final SoundEvent DRAGONFLY_LOOP = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.loop"));
+	public static final SoundEvent DRAGONFLY_HURT = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.hurt"));
+	public static final SoundEvent DRAGONFLY_DEATH = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.death"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 

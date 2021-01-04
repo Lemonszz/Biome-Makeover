@@ -9,7 +9,6 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.feature.TreeFeature;
@@ -27,12 +26,12 @@ import java.util.Set;
 public class WillowFoliagePlacer extends FoliagePlacer
 {
 	protected final int height;
-	protected final boolean doVines;
+	protected final boolean doWillows;
 
-	public WillowFoliagePlacer(UniformIntDistribution radius, UniformIntDistribution offset, int height, boolean doVines) {
+	public WillowFoliagePlacer(UniformIntDistribution radius, UniformIntDistribution offset, int height, boolean doWillows) {
 		super(radius, offset);
 		this.height = height;
-		this.doVines = doVines;
+		this.doWillows = doWillows;
 	}
 
 	protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, FoliagePlacer.TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int offset, BlockBox box) {
@@ -65,7 +64,7 @@ public class WillowFoliagePlacer extends FoliagePlacer
 			}
 		}
 
-		if(doVines)
+		if(doWillows)   //TODO: this should be a tree decorator
 			for(int i = 0; i < 10; i++)
 			{
 				BlockPos.Mutable pos = new BlockPos.Mutable(RandomUtil.randomRange(box.minX, box.maxX), leafBox.minY, RandomUtil.randomRange(box.minZ, box.maxZ));
@@ -88,7 +87,6 @@ public class WillowFoliagePlacer extends FoliagePlacer
 					}
 				}
 			}
-
 	}
 
 	public int getRandomHeight(Random random, int trunkHeight, TreeFeatureConfig config) {
@@ -110,7 +108,7 @@ public class WillowFoliagePlacer extends FoliagePlacer
 
 	protected static <P extends WillowFoliagePlacer> Products.P4<RecordCodecBuilder.Mu<P>, UniformIntDistribution, UniformIntDistribution, Integer, Boolean> buildCodec(RecordCodecBuilder.Instance<P> instance)
 	{
-		return fillFoliagePlacerFields(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter((cdc) ->cdc.height)).and(Codec.BOOL.fieldOf("doVines").forGetter((cdc)->cdc.doVines));
+		return fillFoliagePlacerFields(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter((cdc) ->cdc.height)).and(Codec.BOOL.fieldOf("doWillows").forGetter((cdc)->cdc.doWillows));
 	}
 	public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->buildCodec(instance).apply(instance, WillowFoliagePlacer::new));
 }

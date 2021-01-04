@@ -51,8 +51,11 @@ public class WaterTallFlowerBlock extends BMTallFlowerBlock implements FluidFill
 
 	public void placeAt(WorldAccess world, BlockPos pos, int flags)
 	{
-		world.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER), flags);
-		world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
+		if (getDefaultState().canPlaceAt(world, pos) && world.isAir(pos.up()))
+		{
+			world.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER), flags);
+			world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
+		}
 	}
 
 	public boolean canFillWithFluid(BlockView world, BlockPos pos, BlockState state, Fluid fluid)

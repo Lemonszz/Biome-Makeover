@@ -9,7 +9,13 @@ import party.lemons.biomemakeover.entity.ToadEntity;
 
 public class DragonflyRender extends MobEntityRenderer<DragonflyEntity, DragonflyEntityModel>
 {
-	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/dragonfly.png");
+	private static final Identifier[] TEXTURE = {
+			BiomeMakeover.ID("textures/entity/dragonfly/dragonfly_0.png"),
+			BiomeMakeover.ID("textures/entity/dragonfly/dragonfly_1.png"),
+			BiomeMakeover.ID("textures/entity/dragonfly/dragonfly_2.png"),
+			BiomeMakeover.ID("textures/entity/dragonfly/dragonfly_3.png"),
+			BiomeMakeover.ID("textures/entity/dragonfly/dragonfly_4.png"),
+	};
 
 	public DragonflyRender(EntityRenderDispatcher rd)
 	{
@@ -19,6 +25,6 @@ public class DragonflyRender extends MobEntityRenderer<DragonflyEntity, Dragonfl
 	@Override
 	public Identifier getTexture(DragonflyEntity entity)
 	{
-		return TEXTURE;
+		return TEXTURE[entity.getVariant()];
 	}
 }

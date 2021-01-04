@@ -20,7 +20,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "biomemakeover:bald_cypress_sapling"
+          "name": "biomemakeover:swamp_cypress_sapling"
         }
       ],
       "conditions": [

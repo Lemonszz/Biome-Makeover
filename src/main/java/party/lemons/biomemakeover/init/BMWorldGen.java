@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.init;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -29,6 +30,7 @@ import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.tree.LeaveVineTreeDecorator;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.SmallLilyPadBlock;
@@ -80,7 +82,7 @@ public class BMWorldGen
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_AND_FLOWERED_PADS));
-		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_REEDS));
+		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(SWAMP_REEDS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(PEAT));
 
 		BiomeModifications.addSpawn(SWAMP_BIOMES, SpawnGroup.CREATURE, BMEntities.TOAD, 20, 2, 4);
@@ -169,7 +171,7 @@ public class BMWorldGen
 	public static final WaterTreeFeature WATER_TREE = new WaterTreeFeature(TreeFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> WILLOW_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), 3, true), new WillowTrunkPlacer(6, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(1).build()));
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
-	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
+	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of(LeaveVineTreeDecorator.INSTANCE)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREES = SWAMP_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.5F, 4)));
 
 	//Badlands

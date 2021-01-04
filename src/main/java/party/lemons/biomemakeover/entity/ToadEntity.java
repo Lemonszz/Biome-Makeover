@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -97,6 +98,10 @@ public class ToadEntity extends AnimalEntity
 	{
 		dataTracker.set(TONGUE_ENTITY, e.getEntityId());
 		e.setEatenBy(this);
+		if(!world.isClient())
+		{
+			this.playSound(BMEffects.TOAD_MOUTH, 1F, 1F + ((float)random.nextGaussian() / 5F));
+		}
 	}
 
 	public boolean hasTongueEntity()
@@ -293,6 +298,30 @@ public class ToadEntity extends AnimalEntity
 	{
 		//Unused!!
 		return null;
+	}
+
+	@Override
+	protected SoundEvent getAmbientSound()
+	{
+		return BMEffects.TOAD_CROAK;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return BMEffects.TOAD_DEATH;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
+		return BMEffects.TOAD_HURT;
+	}
+
+	@Override
+	protected float getSoundPitch()
+	{
+		return super.getSoundPitch() + ((float)random.nextGaussian() / 8F);
 	}
 
 	private class LookAtTongueTarget extends Goal

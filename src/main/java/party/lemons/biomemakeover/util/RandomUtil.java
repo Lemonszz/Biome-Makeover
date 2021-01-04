@@ -26,5 +26,18 @@ public final class RandomUtil
 		return values[RANDOM.nextInt(values.length)];
 	}
 
+	public static int randomBias(int min, int max)
+	{
+		int num = randomRange(min, max);
+		int mid = (max / 2) - (min / 2);
+		int halfMid = mid / 2;
+		if(num > mid)
+			num -= RANDOM.nextInt((halfMid + 1));
+		else if(num < mid)
+			num += RANDOM.nextInt((halfMid + 1));
+
+		return num;
+	}
+
 	private RandomUtil(){}
 }
