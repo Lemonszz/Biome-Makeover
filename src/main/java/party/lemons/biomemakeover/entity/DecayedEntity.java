@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -21,6 +22,7 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShieldItem;
@@ -36,6 +38,8 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import party.lemons.biomemakeover.init.BMEffects;
+import party.lemons.biomemakeover.init.BMEnchantments;
 import party.lemons.biomemakeover.init.BMEntities;
 
 import java.util.Objects;
@@ -134,7 +138,50 @@ public class DecayedEntity extends ZombieEntity
 		entityData = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 
 		setLeftHanded(random.nextBoolean());
-		this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+		if (this.random.nextFloat() < 0.15F * (difficulty.getClampedLocalDifficulty() + 1)) {
+			int armourLevel = 0;
+			float stopChance = this.world.getDifficulty() == Difficulty.HARD ? 0.05F : 0.1F;
+			if (this.random.nextFloat() < 0.2F) {
+				++armourLevel;
+			}
+
+			if (this.random.nextFloat() < 0.2F) {
+				++armourLevel;
+			}
+
+			if (this.random.nextFloat() < 0.2F) {
+				++armourLevel;
+			}
+
+			boolean stop = true;
+			EquipmentSlot[] slots = EquipmentSlot.values();
+			int length = slots.length;
+
+			for(int j = 0; j < length; ++j) {
+				EquipmentSlot equipmentSlot = slots[j];
+				if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR) {
+					ItemStack itemStack = this.getEquippedStack(equipmentSlot);
+					if (!stop && this.random.nextFloat() < stopChance) {
+						break;
+					}
+
+					stop = false;
+					if (itemStack.isEmpty())
+					{
+						Item item = getEquipmentForSlot(equipmentSlot, armourLevel);
+						if (item != null) {
+							ItemStack stack = new ItemStack(item);
+							stack.addEnchantment(BMEnchantments.DECAY_CURSE, random.nextInt(4));
+							this.equipStack(equipmentSlot, stack);
+						}
+					}
+				}
+			}
+		}
+
+		ItemStack shield = new ItemStack(Items.SHIELD);
+		shield.addEnchantment(BMEnchantments.DECAY_CURSE, random.nextInt(4));
+		this.equipStack(EquipmentSlot.OFFHAND, shield);
 		return entityData;
 	}
 
@@ -180,23 +227,23 @@ public class DecayedEntity extends ZombieEntity
 	}
 
 	protected SoundEvent getAmbientSound() {
-		return this.isTouchingWater() ? SoundEvents.ENTITY_DROWNED_AMBIENT_WATER : SoundEvents.ENTITY_DROWNED_AMBIENT;
+		return this.isTouchingWater() ? BMEffects.DECAYED_AMBIENT_WATER : BMEffects.DECAYED_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isTouchingWater() ? SoundEvents.ENTITY_DROWNED_HURT_WATER : SoundEvents.ENTITY_DROWNED_HURT;
+		return this.isTouchingWater() ? BMEffects.DECAYED_HURT_WATER : BMEffects.DECAYED_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-		return this.isTouchingWater() ? SoundEvents.ENTITY_DROWNED_DEATH_WATER : SoundEvents.ENTITY_DROWNED_DEATH;
+		return this.isTouchingWater() ? BMEffects.DECAYED_DEATH_WATER : BMEffects.DECAYED_DEATH;
 	}
 
 	protected SoundEvent getStepSound() {
-		return SoundEvents.ENTITY_DROWNED_STEP;
+		return BMEffects.DECAYED_STEP;
 	}
 
 	protected SoundEvent getSwimSound() {
-		return SoundEvents.ENTITY_DROWNED_SWIM;
+		return BMEffects.DECAYED_SWIM;
 	}
 
 	protected ItemStack getSkull() {

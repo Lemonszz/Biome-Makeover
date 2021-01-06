@@ -33,6 +33,7 @@ public class HoeItemMixin
         TILLED_BLOCKS = Maps.newHashMap(TILLED_BLOCKS);
 
         TILLED_BLOCKS.put(BMBlocks.PEAT, BMBlocks.PEAT_FARMLAND.getDefaultState());
+        TILLED_BLOCKS.put(BMBlocks.MOSSY_PEAT, BMBlocks.PEAT_FARMLAND.getDefaultState());
 
         EFFECTIVE_BLOCKS.addAll(Lists.newArrayList(
                 Blocks.MUSHROOM_STEM,
@@ -41,7 +42,10 @@ public class HoeItemMixin
                 BMBlocks.GLOWSHROOM_STEM,
                 BMBlocks.PURPLE_GLOWSHROOM_BLOCK,
                 BMBlocks.ORANGE_GLOWSHROOM_BLOCK,
-                BMBlocks.GREEN_GLOWSHROOM_BLOCK
+                BMBlocks.GREEN_GLOWSHROOM_BLOCK,
+                BMBlocks.SWAMP_CYPRESS_LEAVES,
+                BMBlocks.BLIGHTED_BALSA_LEAVES,
+                BMBlocks.WILLOW_LEAVES
         ));
     }
 

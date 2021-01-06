@@ -3,8 +3,8 @@
   "pools": [
     {
       "rolls": {
-        "min": 1.0,
-        "max": 5.0,
+        "min": 2.0,
+        "max": 8.0,
         "type": "minecraft:uniform"
       },
       "entries": [

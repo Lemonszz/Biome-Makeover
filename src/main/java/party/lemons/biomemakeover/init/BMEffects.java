@@ -36,6 +36,15 @@ public class BMEffects
 	public static final SoundEvent DRAGONFLY_LOOP = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.loop"));
 	public static final SoundEvent DRAGONFLY_HURT = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.hurt"));
 	public static final SoundEvent DRAGONFLY_DEATH = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.death"));
+	public static final SoundEvent DECAYED_SWIM = new SoundEvent(BiomeMakeover.ID("entity.decayed.swim"));
+	public static final SoundEvent DECAYED_STEP = new SoundEvent(BiomeMakeover.ID("entity.decayed.step"));
+	public static final SoundEvent DECAYED_HURT_WATER = new SoundEvent(BiomeMakeover.ID("entity.decayed.hurt_water"));
+	public static final SoundEvent DECAYED_HURT = new SoundEvent(BiomeMakeover.ID("entity.decayed.hurt"));
+	public static final SoundEvent DECAYED_DEATH_WATER = new SoundEvent(BiomeMakeover.ID("entity.decayed.death_water"));
+	public static final SoundEvent DECAYED_DEATH = new SoundEvent(BiomeMakeover.ID("entity.decayed.death"));
+	public static final SoundEvent DECAYED_AMBIENT_WATER = new SoundEvent(BiomeMakeover.ID("entity.decayed.ambient_water"));
+	public static final SoundEvent DECAYED_AMBIENT = new SoundEvent(BiomeMakeover.ID("entity.decayed.ambient"));
+	public static final SoundEvent BOTTLE_THUNDER = new SoundEvent(BiomeMakeover.ID("entity.lightning_bottle.thunder"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 

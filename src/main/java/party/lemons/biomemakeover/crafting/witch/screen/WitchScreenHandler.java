@@ -16,6 +16,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import party.lemons.biomemakeover.crafting.witch.*;
+import party.lemons.biomemakeover.init.BMCriterion;
 import party.lemons.biomemakeover.init.BMScreens;
 
 public class WitchScreenHandler extends ScreenHandler
@@ -132,6 +133,8 @@ public class WitchScreenHandler extends ScreenHandler
 			{
 				playerEntity.dropItem(inventory.getStack(0), true);
 			}
+			if(!playerEntity.world.isClient())
+				BMCriterion.WITCH_TRADE.trigger((ServerPlayerEntity) playerEntity);
 
 			ItemStack reward = WitchQuestHandler.getRewardFor(quest, playerEntity.getRandom());
 			witch.completeQuest(quest);

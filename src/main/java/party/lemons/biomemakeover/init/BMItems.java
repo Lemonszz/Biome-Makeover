@@ -36,7 +36,7 @@ public class BMItems
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
 	public static final Item LIGHTNING_BOTTLE = new LightningBottleItem(settings());
-	public static final Item DRAGONFLY_WING = new Item(settings());
+	public static final Item DRAGONFLY_WINGS = new Item(settings());
 	public static final Item BAT_WING = new Item(settings());
 	public static final Item BLIGHTBAT_WING = new Item(settings());
 	public static final Item WART = new Item(settings());
@@ -90,7 +90,11 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SAGUARO_CACTUS.asItem(), 0.15F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BARREL_CACTUS.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.PINK_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.MAGENTA_PETALS.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOWING_BRANCHES.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.MARIGOLD.asItem(), 0.65F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SWAMP_AZALEA.asItem(), 0.65F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WATER_LILY.asItem(), 0.8F);
 	}
 
 	public static Item.Settings settings()

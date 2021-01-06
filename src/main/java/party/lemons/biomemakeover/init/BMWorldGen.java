@@ -82,6 +82,7 @@ public class BMWorldGen
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_AND_FLOWERED_PADS));
+		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_FLOWERS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(SWAMP_REEDS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, TOP_LAYER_MODIFICATION, rk(PEAT));
 
@@ -195,6 +196,10 @@ public class BMWorldGen
 
 	public static final PeatFeature PEAT_FEATURE = new PeatFeature(DefaultFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> PEAT = PEAT_FEATURE.configure(DefaultFeatureConfig.INSTANCE).decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP).applyChance(4);
+
+	public static final ConfiguredFeature<?, ?> MARIGOLD = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MARIGOLD.getDefaultState()), new DoublePlantPlacer())).tries(32).cannotProject().build());
+	public static final ConfiguredFeature<?, ?> SWAMP_AZALEA = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_AZALEA.getDefaultState()), new DoublePlantPlacer())).tries(32).cannotProject().build());
+	public static final ConfiguredFeature<?, ?> SWAMP_FLOWERS =Feature.SIMPLE_RANDOM_SELECTOR.configure(new SimpleRandomFeatureConfig(ImmutableList.of(()->SWAMP_AZALEA, ()->MARIGOLD))).repeat(UniformIntDistribution.of(-1, 4)).decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(2);
 
 	//Conf Features
 	//2 tall Shrooms patch

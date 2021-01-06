@@ -2,6 +2,8 @@ package party.lemons.biomemakeover.network;
 
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.ParticlesMode;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -42,8 +44,10 @@ public class S2C_DoLightningBottleParticles implements PacketConsumer
 			}
 
 			ParticleEffect particleEffect = BMEffects.LIGHTNING_SPARK;
+			ParticlesMode mode = MinecraftClient.getInstance().options.particles;
+			int particleCount = mode == ParticlesMode.ALL ? 100 : mode == ParticlesMode.DECREASED ? 50 : 10;
 
-			for(int i = 0; i < 100; ++i) {
+			for(int i = 0; i < particleCount; ++i) {
 				double direction = random.nextDouble() * 4.0D;
 				double ac = random.nextDouble() * Math.PI * 2.0D;
 				double xVel = (Math.cos(ac) * direction) * 0.1D;

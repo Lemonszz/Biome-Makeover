@@ -1,11 +1,15 @@
 package party.lemons.biomemakeover.entity.render;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DragonflyEntity;
 import party.lemons.biomemakeover.entity.ToadEntity;
+import party.lemons.biomemakeover.util.sound.DragonflySoundInstance;
 
 public class DragonflyRender extends MobEntityRenderer<DragonflyEntity, DragonflyEntityModel>
 {
@@ -25,6 +29,12 @@ public class DragonflyRender extends MobEntityRenderer<DragonflyEntity, Dragonfl
 	@Override
 	public Identifier getTexture(DragonflyEntity entity)
 	{
-		return TEXTURE[entity.getVariant()];
+		if(!entity.hasPlayedLoop)
+		{
+			entity.hasPlayedLoop = true;
+			MinecraftClient.getInstance().getSoundManager().playNextTick(new DragonflySoundInstance(entity));
+		}
+
+		return TEXTURE[entity.getVariant() % TEXTURE.length];
 	}
 }

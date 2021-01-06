@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
@@ -89,10 +90,12 @@ public class BMBlocks
 	public static final BMBlock WILLOWING_BRANCHES = new WillowingBranchesBlock(settings(Material.PLANT, 0.1F).ticksRandomly().sounds(BlockSoundGroup.VINE).noCollision().nonOpaque());
 	public static final BMSaplingBlock WILLOW_SAPLING = new WaterSaplingBlock(new WillowSaplingGenerator(), 1, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMSaplingBlock SWAMP_CYPRESS_SAPLING = new WaterSaplingBlock(new SwampCypressSaplingGenerator(), 3, settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMTallFlowerBlock SWAMP_AZALEA = new BMTallFlowerBlock(settings(Material.PLANT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMTallFlowerBlock MARIGOLD = new BMTallFlowerBlock(settings(Material.PLANT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.WET_GRASS));
-	public static final BMBlock DRIED_PEAT = new BMBlock(settings(Material.SOIL, 1F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.NETHERRACK));
-	public static final BMSpreadableBlock MOSSY_PEAT = new BMSpreadableBlock(settings(Material.SOIL, 0.5F).ticksRandomly().sounds(BlockSoundGroup.WET_GRASS), new Lazy<>(()->PEAT));
-	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).ticksRandomly().nonOpaque());
+	public static final BMBlock DRIED_PEAT = new BMBlock(settings(Material.SOIL, 1F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.NETHERRACK));
+	public static final BMSpreadableBlock MOSSY_PEAT = new BMSpreadableBlock(settings(Material.SOIL, 0.5F).breakByTool(FabricToolTags.SHOVELS).ticksRandomly().sounds(BlockSoundGroup.WET_GRASS), new Lazy<>(()->PEAT));
+	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.WET_GRASS).ticksRandomly().nonOpaque());
 	public static final BMBlock DRIED_PEAT_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool());
 	public static final DecorationBlockInfo DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("dried_peat_bricks", DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 
@@ -195,6 +198,8 @@ public class BMBlocks
 	    registerFlammable(SWAMP_CYPRESS_WOOD_INFO);
 	    registerFlammable(SWAMP_CYPRESS_LEAVES, 5, 60);
 
+
+	    FuelRegistry.INSTANCE.add(DRIED_PEAT, 10000);
     }
 
     public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();
@@ -231,6 +236,9 @@ public class BMBlocks
 		registerFlammable(info.getBlock(WoodTypeInfo.Type.FENCE_GATE), 5, 20);
 		registerFlammable(info.getBlock(WoodTypeInfo.Type.STAIR), 5, 20);
 		registerFlammable(info.getBlock(WoodTypeInfo.Type.SLAB), 5, 20);
+		registerFlammable(WILLOWING_BRANCHES, 15, 100);
+		registerFlammable(SWAMP_AZALEA, 60, 100);
+		registerFlammable(MARIGOLD, 60, 100);
 	}
 
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));

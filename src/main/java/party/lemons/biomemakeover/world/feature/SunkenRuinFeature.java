@@ -201,7 +201,7 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
 					witch.refreshPositionAndAngles(pos, 0.0F, 0.0F);
 					witch.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null, null);
 					world.spawnEntityAndPassengers(witch);
-					if(pos.getY() > world.getSeaLevel())
+					if(pos.getY() >= world.getSeaLevel())
 					{
 						world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 					}else

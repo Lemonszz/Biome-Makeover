@@ -137,6 +137,10 @@ public class LightningBugEntity extends ToadTargetEntity
 		return this.leader != null && this.leader.isAlive();
 	}
 
+	protected void playStepSound(BlockPos pos, BlockState state) {
+	}
+
+
 	public LightningBugEntity joinGroupOf(LightningBugEntity groupLeader) {
 		this.leader = groupLeader;
 		groupLeader.increaseGroupSize();

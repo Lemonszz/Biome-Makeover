@@ -1,29 +1,24 @@
 package party.lemons.biomemakeover.entity;
 
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.TurtleEggBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.RabbitEntity;
-import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
@@ -35,8 +30,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameRules;
@@ -51,14 +44,16 @@ import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.UUID;
 
 public class ToadEntity extends AnimalEntity
 {
+	private static final UUID JUMP_SPEED_BOOST = UUID.fromString("0fa7caca-4f09-11eb-ae93-0242ac130002");
+	private static final EntityAttributeModifier JUMP_SPEED_BOOST_MOD =  new EntityAttributeModifier(JUMP_SPEED_BOOST, "Jump Speed Boost", 0.6F, EntityAttributeModifier.Operation.ADDITION);;
+
 	private static final TrackedData<Integer> TONGUE_ENTITY = DataTracker.registerData(ToadEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-	private int jumpTicks;
-	private int jumpDuration;
-	private boolean lastOnGround;
+	private boolean onGroundPrev;
 	private int ticksUntilJump;
 	public float tongueDistance;
 	public float targetTongueDistance;
@@ -88,8 +83,9 @@ public class ToadEntity extends AnimalEntity
 		this.goalSelector.add(1, new LookAtTongueTarget(this));
 		this.goalSelector.add(0, new MakeTadpoleGoal(this, 1.0D, 10));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 0.8D));
+		this.goalSelector.add(3, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.6D));
-		this.goalSelector.add(3, new TemptGoal(this, 1.0D, Ingredient.ofItems(BMItems.DRAGONFLY_WING, Items.SPIDER_EYE), false));
+		this.goalSelector.add(3, new TemptGoal(this, 1.0D, Ingredient.ofItems(BMItems.DRAGONFLY_WINGS, Items.SPIDER_EYE), false));
 		this.goalSelector.add(11, new LookAtEntityGoal(this, PlayerEntity.class, 10.0F));
 		this.goalSelector.add(12, new LookAroundGoal(this));
 	}
@@ -197,7 +193,7 @@ public class ToadEntity extends AnimalEntity
 	}
 
 	public boolean isBreedingItem(ItemStack stack) {
-		return stack.getItem() == BMItems.DRAGONFLY_WING || stack.getItem() == Items.SPIDER_EYE;
+		return stack.getItem() == BMItems.DRAGONFLY_WINGS || stack.getItem() == Items.SPIDER_EYE;
 	}
 
 	public void mobTick() {
@@ -231,10 +227,19 @@ public class ToadEntity extends AnimalEntity
 		{
 			ticksUntilJump = RandomUtil.randomRange(20, 100);
 			jump();
+			EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+			entityAttributeInstance.removeModifier(JUMP_SPEED_BOOST);
+			entityAttributeInstance.addTemporaryModifier(JUMP_SPEED_BOOST_MOD);
+
 			this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 		}
 
-		this.lastOnGround = this.onGround;
+		if(onGround && !onGroundPrev)
+		{
+			this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD);
+		}
+
+		onGroundPrev = onGround;
 	}
 
 	protected SoundEvent getJumpSound() {

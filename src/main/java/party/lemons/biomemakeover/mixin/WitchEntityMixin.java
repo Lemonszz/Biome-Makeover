@@ -4,7 +4,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.DisableableFollowTargetGoal;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,29 +17,45 @@ import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.screen.MerchantScreenHandler;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import party.lemons.biomemakeover.crafting.witch.WitchQuest;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestEntity;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestList;
 import party.lemons.biomemakeover.entity.ai.WitchLookAtCustomerGoal;
 import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMItems;
+import party.lemons.biomemakeover.init.BMPotions;
+import party.lemons.biomemakeover.util.access.StatusEffectAccess;
 
 @Mixin(WitchEntity.class)
 public abstract class WitchEntityMixin extends RaiderEntity implements WitchQuestEntity
 {
 	@Shadow private DisableableFollowTargetGoal<PlayerEntity> attackPlayerGoal;
+
+	@Shadow public abstract boolean isDrinking();
+
+	@Shadow private int drinkTimeLeft;
+
+	@Shadow public abstract void setDrinking(boolean drinking);
+
+	@Shadow @Final private static EntityAttributeModifier DRINKING_SPEED_PENALTY_MODIFIER;
 	private PlayerEntity customer;
 	private WitchQuestList quests;
 	private int replenishTime;
@@ -57,6 +78,55 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 
 		this.goalSelector.add(1, new WitchStopFollowingCustomerGoal(((WitchEntity)(Object)this)));
 		this.goalSelector.add(1, new WitchLookAtCustomerGoal(((WitchEntity)(Object)this)));
+	}
+
+	@ModifyVariable(at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/entity/mob/WitchEntity;equipStack(Lnet/minecraft/entity/EquipmentSlot;Lnet/minecraft/item/ItemStack;)V",
+			ordinal = 1),
+			method = "tickMovement")
+	public Potion changePotion(Potion potion)
+	{
+		if(random.nextFloat() < 0.10)
+		{
+			for(StatusEffectInstance effect : getStatusEffects())
+				if(!effect.getEffectType().isBeneficial())
+				{
+					return BMPotions.ANTIDOTE_POT;
+				}
+		}
+		return potion;
+	}
+
+	@Inject(at = @At("TAIL"), method = "tickMovement")
+	public void tickMovement(CallbackInfo cbi)
+	{
+		if(!isDrinking())
+		{
+			if(random.nextFloat() < 0.10)
+			{
+				boolean found = false;
+				for(StatusEffectInstance effect : getStatusEffects())
+					if(((StatusEffectAccess)effect.getEffectType()).getType() == StatusEffectType.HARMFUL)
+					{
+						found = true;
+						break;
+					}
+
+				if(found)
+				{
+					this.equipStack(EquipmentSlot.MAINHAND, PotionUtil.setPotion(new ItemStack(Items.POTION), BMPotions.ANTIDOTE_POT));
+					this.drinkTimeLeft = this.getMainHandStack().getMaxUseTime();
+					this.setDrinking(true);
+					if (!this.isSilent()) {
+						this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WITCH_DRINK, this.getSoundCategory(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
+					}
+
+					EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+					entityAttributeInstance.removeModifier(DRINKING_SPEED_PENALTY_MODIFIER);
+					entityAttributeInstance.addTemporaryModifier(DRINKING_SPEED_PENALTY_MODIFIER);
+				}
+			}
+		}
 	}
 
 	@Override

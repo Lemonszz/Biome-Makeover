@@ -47,6 +47,8 @@
     "biomemakeover:lightning_bug_spawn_egg",
     "biomemakeover:decayed_spawn_egg",
     "biomemakeover:dried_peat_bricks",
+    "biomemakeover:dried_peat",
+    "biomemakeover:mossy_peat",
     "biomemakeover:dried_peat_bricks_stairs",
     "biomemakeover:dried_peat_bricks_slab",
     "biomemakeover:dried_peat_bricks_wall",
@@ -57,11 +59,14 @@
     "biomemakeover:tadpole_bucket",
     "biomemakeover:swamp_jives_music_disk",
     "biomemakeover:bat_wing",
-    "biomemakeover:dragonfly_wing",
+    "biomemakeover:dragonfly_wings",
     "biomemakeover:magenta_petals",
     "biomemakeover:raw_toad",
     "biomemakeover:cooked_toad",
     "biomemakeover:water_lily",
-    "biomemakeover:water_lily"
+    "biomemakeover:swamp_azalea",
+    "biomemakeover:marigold",
+    "biomemakeover:wart",
+    "biomemakeover:lightning_bottle"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "biomemakeover:block/bald_cypress_sapling"
+    "plant": "biomemakeover:block/swamp_cypress_sapling"
   }
 }

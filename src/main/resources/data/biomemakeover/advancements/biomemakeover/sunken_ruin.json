@@ -1,0 +1,33 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:cauldron"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.sunken_ruin.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.sunken_ruin.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ruin": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "feature": "biomemakeover:sunken_ruin"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ruin"
+    ]
+  ]
+}

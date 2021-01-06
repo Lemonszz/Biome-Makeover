@@ -28,7 +28,9 @@
     "WitchEntityMixin",
     "ItemStackMixin",
     "BrewingRecipeRegistryAccessor",
-    "SlimeEntityMixin"
+    "SlimeEntityMixin",
+    "VillagerHostilesSensorMixin",
+    "StatusEffectMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

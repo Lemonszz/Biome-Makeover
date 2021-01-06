@@ -52,7 +52,7 @@ public class LightningBottleEntity extends ThrownItemEntity
 
 		if (!this.world.isClient)
 		{
-			world.playSound(null, getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.NEUTRAL, 100F, 0.8F + this.random.nextFloat() * 0.2F);
+			world.playSound(null, getBlockPos(), BMEffects.BOTTLE_THUNDER, SoundCategory.NEUTRAL, 50F, 0.8F + this.random.nextFloat() * 0.2F);
 
 			Box box = this.getBoundingBox().expand(4.0D, 2.0D, 4.0D);
 			List<LivingEntity> entities = this.world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.VALID_LIVING_ENTITY);

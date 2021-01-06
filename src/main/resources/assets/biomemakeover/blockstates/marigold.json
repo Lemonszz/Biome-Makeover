@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "biomemakeover:block/marigold_bottom"
+    },
+    "half=upper": [
+      {
+        "model": "biomemakeover:block/marigold_top"
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -46,7 +47,7 @@ public class WaterTallFlowerBlock extends BMTallFlowerBlock implements FluidFill
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos)
 	{
-		return super.canPlantOnTop(floor, world, pos);
+		return super.canPlantOnTop(floor, world, pos) || floor.isIn(BlockTags.SAND);
 	}
 
 	public void placeAt(WorldAccess world, BlockPos pos, int flags)

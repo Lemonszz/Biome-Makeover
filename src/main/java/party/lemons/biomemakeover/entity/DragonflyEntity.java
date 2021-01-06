@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EntityData;
@@ -32,7 +34,7 @@ import party.lemons.biomemakeover.util.sound.DragonflySoundInstance;
 
 public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 {
-	private boolean hasPlayedLoop = false;
+	public boolean hasPlayedLoop = false;
 	private AttributeContainer attributeContainer;
 	private static final TrackedData<Integer> VARIANT = DataTracker.registerData(DragonflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
@@ -113,11 +115,6 @@ public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 	public void setEntityId(int id)
 	{
 		super.setEntityId(id);
-		if(world.isClient() && !hasPlayedLoop)
-		{
-			hasPlayedLoop = true;
-			MinecraftClient.getInstance().getSoundManager().playNextTick(new DragonflySoundInstance(this));
-		}
 	}
 
 	protected void playStepSound(BlockPos pos, BlockState state) {

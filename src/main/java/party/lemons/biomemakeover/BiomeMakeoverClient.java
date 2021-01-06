@@ -151,7 +151,9 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
 				BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.LIGHTNING_BUG_BOTTLE,
-				BMBlocks.WATER_LILY
+				BMBlocks.WATER_LILY,
+				BMBlocks.SWAMP_AZALEA,
+				BMBlocks.MARIGOLD
 		);
 	}
 }

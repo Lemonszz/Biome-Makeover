@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:item/dragonfly_wing"
+    "layer0": "biomemakeover:block/swamp_azalea_top"
   }
 }

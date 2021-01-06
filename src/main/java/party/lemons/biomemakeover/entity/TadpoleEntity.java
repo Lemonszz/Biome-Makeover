@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.entity;
 
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -50,7 +49,7 @@ public class TadpoleEntity extends FishEntity
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WING)
+		if (!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WINGS)
 		{
 			if (this.isBaby()) {
 				itemStack.decrement(1);

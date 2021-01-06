@@ -362,5 +362,139 @@
       }
     ],
     "subtitle": "subtitles.entity.dragonfly.hurt"
-  }
+  },
+  "entity.decayed.ambient": {
+  "sounds": [
+    {
+      "name": "mob/drowned/idle1",
+      "volume": 0.9
+    },
+    {
+      "name": "mob/drowned/idle2",
+      "volume": 0.9
+    },
+    {
+      "name": "mob/drowned/idle3",
+      "volume": 0.9
+    },
+    {
+      "name": "mob/drowned/idle4",
+      "volume": 0.9
+    },
+    {
+      "name": "mob/drowned/idle5",
+      "volume": 0.9
+    }
+  ],
+  "subtitle": "subtitles.entity.decayed.ambient"
+},
+  "entity.decayed.ambient_water": {
+    "sounds": [
+      {
+        "name": "mob/drowned/water/idle1",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/water/idle2",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/water/idle3",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/water/idle4",
+        "volume": 0.9
+      }
+    ]
+  },
+  "entity.decayed.death": {
+    "sounds": [
+      {
+        "name": "mob/drowned/death1",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/death2",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.entity.decayed.death"
+  },
+  "entity.decayed.death_water": {
+    "sounds": [
+      {
+        "name": "mob/drowned/water/death1",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/water/death2",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.entity.decayed.death"
+  },
+  "entity.decayed.hurt": {
+    "sounds": [
+      {
+        "name": "mob/drowned/hurt1",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/hurt2",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/hurt3",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.entity.decayed.hurt"
+  },
+  "entity.decayed.hurt_water": {
+    "sounds": [
+      {
+        "name": "mob/drowned/water/hurt1",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/water/hurt2",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/drowned/water/hurt3",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.entity.decayed.hurt"
+  },
+  "entity.decayed.step": {
+    "sounds": [
+      "mob/drowned/step1",
+      "mob/drowned/step2",
+      "mob/drowned/step3",
+      "mob/drowned/step4",
+      "mob/drowned/step5"
+    ],
+    "subtitle": "subtitles.entity.decayed.step"
+  },
+  "entity.decayed.swim": {
+    "sounds": [
+      "liquid/swim1",
+      "liquid/swim2",
+      "liquid/swim3",
+      "liquid/swim4",
+      "liquid/swim5"
+    ],
+    "subtitle": "subtitles.entity.decayed.swim"
+  },
+  "entity.lightning_bottle.thunder":
+  {
+  "sounds": [
+    "ambient/weather/thunder1",
+    "ambient/weather/thunder2",
+    "ambient/weather/thunder3"
+  ],
+  "subtitle": "subtitles.entity.lightning_bolt.thunder"
+}
 }

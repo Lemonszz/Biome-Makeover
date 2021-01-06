@@ -117,11 +117,19 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 	{
 		ToadEntityModel.entity = entity;
 		float pi = (float)Math.PI;
+		float legAmount = 1.4F;
 
-		this.frontlege.pitch = MathHelper.cos(limbAngle * 1) * 1.4F * limbDistance;
-		this.frontlegw.pitch = MathHelper.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
-		this.backlege.pitch = -MathHelper.cos(limbAngle * 1) * 1.4F * limbDistance;
-		this.backlegw.pitch = -MathHelper.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
+		this.frontlege.pitch = MathHelper.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
+		this.backlege.pitch = MathHelper.cos(limbAngle * 1) * legAmount * limbDistance;
+
+		this.frontlegw.pitch = MathHelper.cos(limbAngle * 1) * 1.4F * limbDistance;
+		this.backlegw.pitch = MathHelper.cos(limbAngle * 1 + pi) * legAmount * limbDistance;
+
+		if(!entity.isOnGround())
+		{
+			this.backlegw.pitch = 2F;
+			this.backlege.pitch = 2F;
+		}
 
 		if(entity.hasTongueEntity())
 		{
