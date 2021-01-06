@@ -32,6 +32,7 @@ public class BMEffects
 	public static final SoundEvent TOAD_HURT = new SoundEvent(BiomeMakeover.ID("entity.toad.hurt"));
 	public static final SoundEvent TOAD_DEATH = new SoundEvent(BiomeMakeover.ID("entity.toad.death"));
 	public static final SoundEvent TOAD_MOUTH = new SoundEvent(BiomeMakeover.ID("entity.toad.mouth"));
+	public static final SoundEvent TOAD_JUMP = new SoundEvent(BiomeMakeover.ID("entity.toad.jump"));
 	public static final SoundEvent TOAD_SWALLOW = new SoundEvent(BiomeMakeover.ID("entity.toad.swallow"));
 	public static final SoundEvent DRAGONFLY_LOOP = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.loop"));
 	public static final SoundEvent DRAGONFLY_HURT = new SoundEvent(BiomeMakeover.ID("entity.dragonfly.hurt"));

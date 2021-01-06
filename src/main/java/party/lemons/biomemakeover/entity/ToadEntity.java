@@ -243,7 +243,7 @@ public class ToadEntity extends AnimalEntity
 	}
 
 	protected SoundEvent getJumpSound() {
-		return SoundEvents.ENTITY_RABBIT_JUMP;
+		return BMEffects.TOAD_JUMP;
 	}
 
 	@Override
