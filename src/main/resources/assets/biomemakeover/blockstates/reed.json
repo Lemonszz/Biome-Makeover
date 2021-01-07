@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "biomemakeover:block/cattail_bottom"
+    },
+    "half=upper": [
+      {
+        "model": "biomemakeover:block/reed_top"
+      },
+      {
+        "model": "biomemakeover:block/reed_top_2"
+      },
+      {
+        "model": "biomemakeover:block/reed_top_3"
+      },
+      {
+        "model": "biomemakeover:block/reed_top_4"
+      }
+    ]
+  }
+}

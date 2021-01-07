@@ -31,12 +31,21 @@
           "biome": "minecraft:mushroom_fields"
         }
       }
+    },
+    "enter_swamp": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "minecraft:swamp"
+        }
+      }
     }
   },
   "requirements": [
     [
       "enter_badlands",
-      "enter_mushroom_fields"
+      "enter_mushroom_fields",
+      "enter_swamp"
     ]
   ]
 }

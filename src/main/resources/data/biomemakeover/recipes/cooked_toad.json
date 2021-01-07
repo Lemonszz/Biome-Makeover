@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "biomemakeover:raw_toad"
+  },
+  "result": "biomemakeover:cooked_toad",
+  "experience": 0.35,
+  "cookingtime": 200
+}

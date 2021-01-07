@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:swamp_cypress_planks"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:swamp_cypress_button",
+    "count": 1
+  }
+}

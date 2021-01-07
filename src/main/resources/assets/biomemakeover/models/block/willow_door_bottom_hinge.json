@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_rh",
+  "textures": {
+    "top": "biomemakeover:block/willow_door_top",
+    "bottom": "biomemakeover:block/willow_door_bottom"
+  }
+}

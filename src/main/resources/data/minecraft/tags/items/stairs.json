@@ -8,6 +8,8 @@
     "biomemakeover:purple_glowshroom_brick_stairs",
     "biomemakeover:green_glowshroom_brick_stairs",
     "biomemakeover:orange_glowshroom_brick_stairs",
+    "biomemakeover:blighted_cobblestone_stairs",
+    "biomemakeover:blighted_stone_bricks_stairs",
     "biomemakeover:terracotta_brick_stairs",
     "biomemakeover:black_terracotta_brick_stairs",
     "biomemakeover:red_terracotta_brick_stairs",
@@ -24,6 +26,10 @@
     "biomemakeover:light_blue_terracotta_brick_stairs",
     "biomemakeover:magenta_terracotta_brick_stairs",
     "biomemakeover:orange_terracotta_brick_stairs",
-    "biomemakeover:white_terracotta_brick_stairs"
+    "biomemakeover:white_terracotta_brick_stairs",
+    "biomemakeover:blighted_balsa_stairs",
+    "biomemakeover:willow_stairs",
+    "biomemakeover:swamp_cypress_stairs",
+    "biomemakeover:dried_peat_bricks_stairs"
   ]
 }

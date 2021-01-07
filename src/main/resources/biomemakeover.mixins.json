@@ -5,9 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "HugeBrownMushroomFeatureMixin",
-    "BiomeEffectsMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
+    "LilyPadBlockMixin",
     "HoeItemMixin",
     "MooshroomEntityMixin",
     "AxeItemMixin",
@@ -23,7 +23,16 @@
     "BoatEntityMixin",
     "InventoryChangedCriterionMixin",
     "SignTypeMixin",
-    "BlockEntityTypeMixin"
+    "BlockEntityTypeMixin",
+    "BoneMealItemMixin",
+    "WitchEntityMixin",
+    "ItemStackMixin",
+    "BrewingRecipeRegistryAccessor",
+    "SlimeEntityMixin",
+    "VillagerHostilesSensorMixin",
+    "StatusEffectMixin",
+    "BrewingStandBlockEntityMixin",
+    "BrewingStandFuelSlotMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
@@ -31,8 +40,12 @@
     "client.SalmonEntityModelMixin",
     "client.ArmorStandRendererMixin",
     "client.PlayerRendererMixin",
-    "client.HorseEntityRendererMixin"
-  ],
+    "client.HorseEntityRendererMixin",
+    "client.CuboidMixin",
+    "client.ChunkRenderRegionMixin",
+    "client.WorldRendererMixin"
+  ]
+,
   "injectors": {
     "defaultRequire": 1
   }

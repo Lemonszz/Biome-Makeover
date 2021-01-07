@@ -1,0 +1,7 @@
+{
+  "parent": "biomemakeover:block/shaded_tinted_cross",
+  "ambientocclusion": true,
+  "textures": {
+    "cross": "biomemakeover:block/cattail_top_4"
+  }
+}

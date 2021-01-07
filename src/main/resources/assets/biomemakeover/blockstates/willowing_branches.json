@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "biomemakeover:block/willow_vine_0"
+    },
+    "stage=1": {
+      "model": "biomemakeover:block/willow_vine_1"
+    },
+    "stage=2": {
+      "model": "biomemakeover:block/willow_vine_2"
+    }
+  }
+}

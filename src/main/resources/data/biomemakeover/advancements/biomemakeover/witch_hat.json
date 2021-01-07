@@ -1,0 +1,33 @@
+{
+  "parent": "biomemakeover:biomemakeover/sunken_ruin",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:witch_hat"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.witch_hat.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.witch_hat.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wear_hat": {
+      "trigger": "biomemakeover:wear_armor",
+      "conditions": {
+        "item": {
+          "item": "biomemakeover:witch_hat"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "wear_hat"
+    ]
+  ]
+}

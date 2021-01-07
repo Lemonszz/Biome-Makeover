@@ -5,25 +5,31 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
+import net.minecraft.item.Items;
+import net.minecraft.loot.BinomialLootTableRange;
+import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.PillagerSpawner;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
+import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
+import party.lemons.biomemakeover.entity.LightningBugEntity;
 import party.lemons.biomemakeover.init.*;
+import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
-import party.lemons.biomemakeover.util.access.BiomeEffectsAccessor;
-import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.world.TumbleweedSpawner;
 import party.lemons.biomemakeover.world.WindSystem;
 
@@ -37,24 +43,26 @@ public class BiomeMakeover implements ModInitializer
 	{
 		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
 
+
 		BMEffects.init();
 		BoatTypes.init();
 		BMBlocks.init();
 		BMItems.init();
 		BMEntities.init();
 		BMBlockEntities.init();
+		BMPotions.init();
+		BMEnchantments.init();
 		BMStructures.init();
 		BMWorldGen.init();
 		BMCriterion.init();
+		BMScreens.init();
 
+		BMNetwork.initCommon();
 		PoltergeistHandler.init();
+		WitchQuestHandler.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
 		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);
-
-		//TOOD: Move
-		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELDS), 0xad3fe4);
-		BiomeEffectsAccessor.setWaterColor(BuiltinRegistries.BIOME.get(BiomeKeys.MUSHROOM_FIELD_SHORE), 0x5d3fe4);
 
 		//TOOD: Move
 		CommandRegistrationCallback.EVENT.register((d, ded)->
@@ -65,6 +73,7 @@ public class BiomeMakeover implements ModInitializer
 				})))));
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->{
+
 			if(!player.isSpectator())
 			{
 				ItemStack stack = player.getStackInHand(hand);
@@ -92,6 +101,37 @@ public class BiomeMakeover implements ModInitializer
 			}
 
 			return ActionResult.PASS;
+		});
+
+		UseEntityCallback.EVENT.register((pl, world, hand, entity, hr)->{
+			ItemStack stack = pl.getStackInHand(hand);
+
+			if(!stack.isEmpty() && (stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() == Items.EXPERIENCE_BOTTLE))
+			{
+				if(entity instanceof LightningBugEntity)
+				{
+					if(!world.isClient())
+					{
+						ItemStack result = ItemUsage.method_30012(stack, pl, new ItemStack(stack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
+						pl.setStackInHand(hand, result);
+						entity.remove();
+					}
+					return ActionResult.SUCCESS;
+				}
+			}
+			return ActionResult.PASS;
+
+		});
+
+		final Identifier BAT_LT_ID = new Identifier("minecraft", "entities/bat");
+		LootTableLoadingCallback.EVENT.register((rm, lm, id, supplier, setter)->{
+			if(id.equals(BAT_LT_ID))
+			{
+				FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder()
+						.rolls(BinomialLootTableRange.create(2, 0.5F))
+						.withEntry(ItemEntry.builder(BMItems.BAT_WING).build());
+				supplier.withPool(builder.build());
+			}
 		});
 	}
 

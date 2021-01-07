@@ -4,6 +4,16 @@
     "biomemakeover:blighted_balsa_log",
     "biomemakeover:stripped_blighted_balsa_log",
     "biomemakeover:blighted_balsa_wood",
-    "biomemakeover:stripped_blighted_balsa_wood"
+    "biomemakeover:stripped_blighted_balsa_wood",
+
+    "biomemakeover:willow_log",
+    "biomemakeover:stripped_willow_log",
+    "biomemakeover:willow_wood",
+    "biomemakeover:stripped_willow_wood",
+
+    "biomemakeover:swamp_cypress_log",
+    "biomemakeover:stripped_swamp_cypress_log",
+    "biomemakeover:swamp_cypress_wood",
+    "biomemakeover:stripped_swamp_cypress_wood"
   ]
 }

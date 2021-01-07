@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:water_lily"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:magenta_petals",
+    "count": 2
+  }
+}

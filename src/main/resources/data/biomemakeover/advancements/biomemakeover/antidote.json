@@ -1,0 +1,29 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:potion",
+      "nbt": "{Potion:\"biomemakeover:antidote_pot\"}"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.antidote.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.antidote.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_effect": {
+      "trigger": "biomemakeover:antidote"
+    }
+  },
+  "requirements": [
+    [
+      "has_effect"
+    ]
+  ]
+}

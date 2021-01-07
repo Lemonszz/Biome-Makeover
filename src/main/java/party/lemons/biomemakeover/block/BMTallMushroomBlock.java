@@ -27,7 +27,7 @@ public class BMTallMushroomBlock extends BMTallFlowerBlock
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit)
 	{
-		if(!world.isClient() && !player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).getItem() == Items.SHEARS)
+		if(dropBlock != null && !world.isClient() && !player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).getItem() == Items.SHEARS)
 		{
 			BlockPos dropPos = pos;
 			player.playSound(SoundEvents.BLOCK_BEEHIVE_SHEAR, 1F, 1F);

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:willow_planks"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:willow_button",
+    "count": 1
+  }
+}

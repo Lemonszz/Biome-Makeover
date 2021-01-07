@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "biomemakeover:blighted_balsa_planks"
+    "biomemakeover:blighted_balsa_planks",
+    "biomemakeover:willow_planks",
+    "biomemakeover:swamp_cypress_planks"
   ]
 }

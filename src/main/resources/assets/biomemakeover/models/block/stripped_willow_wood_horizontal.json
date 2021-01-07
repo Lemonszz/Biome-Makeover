@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "biomemakeover:block/stripped_willow_log",
+    "side": "biomemakeover:block/stripped_willow_log"
+  }
+}
