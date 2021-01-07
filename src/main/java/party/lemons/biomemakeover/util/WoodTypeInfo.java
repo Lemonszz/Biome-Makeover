@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.util;
 
 import com.google.common.collect.Maps;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
@@ -83,19 +84,19 @@ public class WoodTypeInfo
 
 	public WoodTypeInfo button()
 	{
-		set(Type.BUTTON, new BMButtonBlock(settings.noCollision()));
+		set(Type.BUTTON, new BMButtonBlock(FabricBlockSettings.copyOf(settings).noCollision()));
 		return this;
 	}
 
 	public WoodTypeInfo trapdoor()
 	{
-		set(Type.TRAP_DOOR, new BMTrapdoorBlock(settings.nonOpaque()));
+		set(Type.TRAP_DOOR, new BMTrapdoorBlock(FabricBlockSettings.copyOf(settings).nonOpaque()));
 		return this;
 	}
 
 	public WoodTypeInfo door()
 	{
-		set(Type.DOOR, new BMDoorBlock(settings.nonOpaque()));
+		set(Type.DOOR, new BMDoorBlock(FabricBlockSettings.copyOf(settings).nonOpaque()));
 		return this;
 	}
 

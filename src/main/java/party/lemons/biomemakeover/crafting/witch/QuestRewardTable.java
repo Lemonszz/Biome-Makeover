@@ -62,7 +62,7 @@ public enum QuestRewardTable
 				new ItemStackRewardItem(new ItemStack(Items.GUNPOWDER), 5, 25),
 				new ItemStackRewardItem(new ItemStack(Items.SPIDER_EYE), 5, 32),
 				new ItemStackRewardItem(new ItemStack(Items.GLISTERING_MELON_SLICE), 5, 15),
-				new ItemStackRewardItem(new ItemStack(Items.BLAZE_POWDER), 3, 25),
+				new ItemStackRewardItem(new ItemStack(BMItems.SOUL_EMBERS), 3, 5),
 				new ItemStackRewardItem(new ItemStack(Items.GHAST_TEAR), 1, 10),
 				new ItemStackRewardItem(new ItemStack(Items.RABBIT_FOOT), 1, 20),
 				new ItemStackRewardItem(new ItemStack(BMItems.WART), 1, 7)

@@ -30,7 +30,9 @@
     "BrewingRecipeRegistryAccessor",
     "SlimeEntityMixin",
     "VillagerHostilesSensorMixin",
-    "StatusEffectMixin"
+    "StatusEffectMixin",
+    "BrewingStandBlockEntityMixin",
+    "BrewingStandFuelSlotMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

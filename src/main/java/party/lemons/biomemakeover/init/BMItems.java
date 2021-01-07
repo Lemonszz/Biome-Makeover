@@ -40,6 +40,7 @@ public class BMItems
 	public static final Item BAT_WING = new Item(settings());
 	public static final Item BLIGHTBAT_WING = new Item(settings());
 	public static final Item WART = new Item(settings());
+	public static final Item SOUL_EMBERS = new Item(settings());
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
