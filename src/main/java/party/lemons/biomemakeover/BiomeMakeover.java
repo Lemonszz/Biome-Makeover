@@ -112,7 +112,8 @@ public class BiomeMakeover implements ModInitializer
 				{
 					if(!world.isClient())
 					{
-						ItemUsage.method_30012(stack, pl, new ItemStack(stack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
+						ItemStack result = ItemUsage.method_30012(stack, pl, new ItemStack(stack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
+						pl.setStackInHand(hand, result);
 						entity.remove();
 					}
 					return ActionResult.SUCCESS;
