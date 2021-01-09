@@ -32,6 +32,9 @@ import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
 import party.lemons.biomemakeover.world.TumbleweedSpawner;
 import party.lemons.biomemakeover.world.WindSystem;
+import party.lemons.biomemakeover.world.feature.mansion.MansionLayout;
+
+import java.util.Random;
 
 public class BiomeMakeover implements ModInitializer
 {
@@ -41,9 +44,6 @@ public class BiomeMakeover implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
-
-
 		BMEffects.init();
 		BoatTypes.init();
 		BMBlocks.init();
