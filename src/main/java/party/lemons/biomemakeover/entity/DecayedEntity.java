@@ -171,7 +171,7 @@ public class DecayedEntity extends ZombieEntity
 						Item item = getEquipmentForSlot(equipmentSlot, armourLevel);
 						if (item != null) {
 							ItemStack stack = new ItemStack(item);
-							stack.addEnchantment(BMEnchantments.DECAY_CURSE, random.nextInt(4));
+							stack.addEnchantment(BMEnchantments.DECAY_CURSE, 1 + random.nextInt(4));
 							this.equipStack(equipmentSlot, stack);
 						}
 					}
@@ -180,7 +180,7 @@ public class DecayedEntity extends ZombieEntity
 		}
 
 		ItemStack shield = new ItemStack(Items.SHIELD);
-		shield.addEnchantment(BMEnchantments.DECAY_CURSE, random.nextInt(4));
+		shield.addEnchantment(BMEnchantments.DECAY_CURSE, 1 + random.nextInt(4));
 		this.equipStack(EquipmentSlot.OFFHAND, shield);
 		return entityData;
 	}
