@@ -40,7 +40,7 @@ public class HatFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>
 		if(!headSlot.isEmpty() && headSlot.getItem() instanceof HatItem)
 		{
 			matrices.push();
-			matrices.scale(1.05F,1.05F,1.05F);
+			matrices.scale(1.2F,1.2F,1.2F);
 			EntityModel hatModel = MODELS.get(headSlot.getItem());
 			((ModelWithHead)this.getContextModel()).getHead().rotate(matrices);
 
