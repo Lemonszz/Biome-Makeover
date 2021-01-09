@@ -130,11 +130,9 @@ public class GhostTownFeature extends JigsawFeature
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/trough_decoration"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/lamp_decoration_2"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/cactus_decoration"), 2),
-				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/barrel_cactus_decoration"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/bell_decoration_1"), 2),
-				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/dead_bush_decoration"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/hay_well_decoration"), 2),
-				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/tree_decoration"), 2),
+				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/tree_decoration_1"), 2),
 				Pair.of(StructurePoolElement.method_30425("biomemakeover:ghosttown/decoration/tree_decoration_2"), 2),
 				Pair.of(StructurePoolElement.method_30426("biomemakeover:ghosttown/decoration/water_tower_2", BUILDING_PROCESSOR), 2)
 		), StructurePool.Projection.RIGID));
