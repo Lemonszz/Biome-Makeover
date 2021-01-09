@@ -27,10 +27,12 @@ public class MansionLayout
 		BlockPos.Mutable corridorStart = new BlockPos.Mutable(0, 0, 0);
 		for(int floor = 0; floor < floors; floor++)
 		{
-			placeCorridors(floor, floorCorridorTarget, corridorStart, random);
-			List<MansionRoom> rooms = placeRooms(floor, floorRoomTarget, random);
+			int corridorCount = placeCorridors(floor, floorCorridorTarget, corridorStart, random);
+			List<MansionRoom> rooms = null;
+			if(corridorCount > 0)
+				rooms = placeRooms(floor, floorRoomTarget, random);
 
-			if(floor < floors)
+			if(rooms != null && floor < floors && rooms.size() > 0)
 			{
 				MansionRoom stairCase = rooms.get(random.nextInt(rooms.size()));
 				stairCase.setRoomType(RoomType.STAIRS_UP);
@@ -40,6 +42,8 @@ public class MansionLayout
 				layout.put(stairPos, upStairs);
 				corridorStart.set(stairPos.up());
 			}
+			floorCorridorTarget /= 2F;
+			floorRoomTarget /= 2F;
 		}
 		layout.getEntries().forEach((rm)->rm.setLayout(this, random));
 
@@ -54,27 +58,34 @@ public class MansionLayout
 		}*/
 	}
 
-	public void placeCorridors(int y, int maxCount, BlockPos.Mutable pos, Random random)
+	public int placeCorridors(int y, int maxCount, BlockPos.Mutable pos, Random random)
 	{
+		int attempts = 500;
 		int placed = 0;
-		while(placed < maxCount)
+		while(placed < maxCount && attempts > 0)
 		{
 			if(!layout.contains(pos))
 			{
 				if(y != 0 && !layout.contains(pos.down()))
+				{
+					attempts--;
 					continue;
+				}
 
-				layout.put(pos, new MansionRoom(pos, RoomType.CORRIDOR));
+				layout.put(new BlockPos(pos), new MansionRoom(new BlockPos(pos), RoomType.CORRIDOR));
 				placed++;
 			}
 			pos = pos.move(Direction.fromHorizontal(random.nextInt(4)));
 		}
+
+		return placed;
 	}
 
 	public List<MansionRoom> placeRooms(int y, int maxCount, Random random)
 	{
 		int roomsPlaced = 0;
 		int roomTarget = maxCount;
+		int attempts = 500;
 		List<MansionRoom> rooms = Lists.newArrayList();
 
 		while(roomsPlaced < roomTarget)
@@ -84,7 +95,7 @@ public class MansionLayout
 					y,
 					RandomUtil.randomRange(layout.getMinZ(), layout.getMaxZ()));
 
-			if(layout.contains(randomPos))
+			if(attempts > 0 && layout.contains(randomPos))
 			{
 				if(y != 0 && !layout.contains(randomPos.down()))
 					continue;
@@ -101,6 +112,10 @@ public class MansionLayout
 					rooms.add(newRoom);
 					roomsPlaced++;
 				}
+			}
+			else
+			{
+				attempts--;
 			}
 		}
 		return rooms;

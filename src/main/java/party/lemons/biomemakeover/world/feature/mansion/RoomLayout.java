@@ -18,4 +18,15 @@ public class RoomLayout extends HashMap<Direction, Boolean>
 	{
 		return entrySet().size();
 	}
+
+	public int doorCount()
+	{
+		int count = 0;
+		for(int i = 0; i < 4; i++)
+		{
+			if(get(Direction.fromHorizontal(i)))
+				count++;
+		}
+		return count;
+	}
 }

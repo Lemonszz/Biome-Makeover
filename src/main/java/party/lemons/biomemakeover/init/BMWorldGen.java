@@ -56,12 +56,25 @@ public class BMWorldGen
 	private static final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.categories(Biome.Category.MUSHROOM);
 	private static final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.categories(Biome.Category.MESA);
 	private static final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.categories(Biome.Category.SWAMP);
+	private static final Predicate<BiomeSelectionContext> DARK_FOREST = BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST, BiomeKeys.DARK_FOREST_HILLS);
 
 	private static void doModifications()
 	{
 		mushroomModifications();
 		badlandsModifications();
 		swampModifications();
+		darkForestModifications();
+	}
+
+	private static void darkForestModifications()
+	{
+		BiomeModifications.create(BiomeMakeover.ID("replace_mansion"))
+				.add(ModificationPhase.REPLACEMENTS, DARK_FOREST, (c)->{
+					if(c.getGenerationSettings().removeBuiltInStructure(ConfiguredStructureFeatures.MANSION))
+					{
+						c.getGenerationSettings().addStructure(rk(BMStructures.MANSION_CONFIGURED));
+					}
+				});
 	}
 
 	private static void swampModifications()

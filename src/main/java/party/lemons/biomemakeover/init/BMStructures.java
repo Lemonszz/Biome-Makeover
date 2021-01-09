@@ -25,7 +25,7 @@ public class BMStructures
 	public static final ConfiguredStructureFeature<?, ?> SUNKEN_RUIN_CONFIGURED = SUNKEN_RUIN.configure(new SunkenRuinFeatureConfig(0.8F, 0.6F));
 
 	public static final StructureFeature<DefaultFeatureConfig> MANSION = new MansionFeature(DefaultFeatureConfig.CODEC);
-	public static final ConfiguredStructureFeature<?, ?> MANSION_CONFIGURED = MANSION.configure(new SunkenRuinFeatureConfig(0.8F, 0.6F));
+	public static final ConfiguredStructureFeature<?, ?> MANSION_CONFIGURED = MANSION.configure(DefaultFeatureConfig.INSTANCE);
 
 	public static final StructurePieceType SUNKEN_RUIN_PIECE = SunkenRuinFeature.Piece::new;
 	public static final StructurePieceType MANSION_PIECE = MansionFeature.Piece::new;
@@ -49,6 +49,7 @@ public class BMStructures
 		FabricStructureBuilder.create(BiomeMakeover.ID("mansion"), MANSION)
 				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
 				.defaultConfig(24, 9, 420)
+				//.adjustsSurface()
 				.register();
 
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMStructures.class);

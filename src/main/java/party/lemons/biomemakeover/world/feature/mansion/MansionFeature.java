@@ -15,10 +15,13 @@ import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.WoodlandMansionFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.Grid;
@@ -59,9 +62,32 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			Grid<MansionRoom> roomGrid = layout.getLayout();
 
 			roomGrid.getEntries().forEach(rm->{
-				BlockPos offsetPos = new BlockPos(12 * rm.getPosition().getX(), 12 * rm.getPosition().getY(), 12 * rm.getPosition().getZ());
-				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rm.getRotation(random)));
+				int xx = pos.getX() + (rm.getPosition().getX() * 12);
+				int yy = pos.getY() + (rm.getPosition().getY() * 7);
+				int zz = pos.getZ() + (rm.getPosition().getZ() * 12);
+
+				BlockPos offsetPos = new BlockPos(xx, yy, zz);
+				BlockRotation rotation =  rm.getRotation(random);
+				switch(rotation)
+				{
+					case NONE:
+						break;
+					case CLOCKWISE_90:
+						offsetPos = offsetPos.add(10, 0, 0);
+						break;
+					case CLOCKWISE_180:
+						offsetPos = offsetPos.add(10, 0, 10);
+						break;
+					case COUNTERCLOCKWISE_90:
+						offsetPos = offsetPos.add(0, 0, 10);
+						break;
+				}
+
+				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation));
+				//children.add(new Piece(manager, rm.getTemplate(random), offsetPos, BlockRotation.NONE));
 			});
+
+			this.setBoundingBoxFromChildren();
 		}
 
 		@Override
@@ -112,6 +138,12 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess serverWorldAccess, Random random, BlockBox boundingBox)
 		{
 
+		}
+
+		@Override
+		public boolean generate(StructureWorldAccess structureWorldAccess, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos blockPos)
+		{
+			return super.generate(structureWorldAccess, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
 		}
 	}
 

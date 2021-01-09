@@ -93,7 +93,7 @@ public class Grid<V>
 
 	public V get(BlockPos pos)
 	{
-		return get(pos);
+		return get(pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public Collection<V> getEntries()

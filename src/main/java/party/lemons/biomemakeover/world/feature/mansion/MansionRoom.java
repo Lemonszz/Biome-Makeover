@@ -77,8 +77,8 @@ public class MansionRoom
 			return type.getRandomTemplate(random);
 		else
 		{
-			List<Identifier> ids = null;
-			switch(layout.size())
+			List<Identifier> ids;
+			switch(layout.doorCount())
 			{
 				case 1:
 					ids = MansionFeature.CORRIDOR_STRAIGHT;
@@ -95,6 +95,9 @@ public class MansionRoom
 					break;
 				case 4:
 					ids = MansionFeature.CORRIDOR_CROSS;
+					break;
+				default:
+					ids = MansionFeature.STAIR_DOWN;
 					break;
 			}
 			return ids.get(random.nextInt(ids.size()));
