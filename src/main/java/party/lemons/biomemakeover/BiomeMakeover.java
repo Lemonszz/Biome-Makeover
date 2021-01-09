@@ -44,6 +44,8 @@ public class BiomeMakeover implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
+		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
+
 		BMEffects.init();
 		BoatTypes.init();
 		BMBlocks.init();

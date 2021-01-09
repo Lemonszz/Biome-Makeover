@@ -11,7 +11,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
@@ -57,7 +59,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 			int x = chunkX * 16;
 			int z = chunkZ * 16;
-			BlockPos pos = new BlockPos(x, 90, z);
+			BlockPos pos = new BlockPos(x, chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG), z);
 
 			Grid<MansionRoom> roomGrid = layout.getLayout();
 
@@ -82,9 +84,18 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 						offsetPos = offsetPos.add(0, 0, 10);
 						break;
 				}
-
 				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation));
-				//children.add(new Piece(manager, rm.getTemplate(random), offsetPos, BlockRotation.NONE));
+				BlockPos wallPos = new BlockPos(xx, yy, zz);
+
+				//Wall
+				if(rm.isConnected(Direction.SOUTH))
+				{
+				//	children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.SOUTH, 13),  BlockRotation.NONE));
+				}
+				if(rm.isConnected(Direction.NORTH))
+					children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.NORTH),  BlockRotation.NONE));
+				if(rm.isConnected(Direction.WEST))
+					children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.WEST), BlockRotation.CLOCKWISE_90));
 			});
 
 			this.setBoundingBoxFromChildren();
@@ -174,4 +185,13 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> STAIR_DOWN = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/stairs/down/stairs_down")
 	);
+
+	public static List<Identifier> INNER_WALL = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/wall/inner/wall_1")
+	);
+
+	public static Identifier getInnerWall(Random random)
+	{
+		return INNER_WALL.get(random.nextInt(INNER_WALL.size()));
+	}
 }

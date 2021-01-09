@@ -24,28 +24,36 @@ public class MansionLayout
 		int floors = 2 + random.nextInt(3);
 		int floorRoomTarget = floorCorridorTarget - random.nextInt(5);
 
-		BlockPos.Mutable corridorStart = new BlockPos.Mutable(0, 0, 0);
+		List<BlockPos.Mutable> corridorStarts = Lists.newArrayList(new BlockPos.Mutable(0, 0, 0));
 		for(int floor = 0; floor < floors; floor++)
 		{
-			int corridorCount = placeCorridors(floor, floorCorridorTarget, corridorStart, random);
+			int corridorCount = placeCorridors(floor, floorCorridorTarget, corridorStarts, random);
 			List<MansionRoom> rooms = null;
 			if(corridorCount > 0)
 				rooms = placeRooms(floor, floorRoomTarget, random);
 
+			corridorStarts.clear();
 			if(rooms != null && floor < floors && rooms.size() > 0)
 			{
-				MansionRoom stairCase = rooms.get(random.nextInt(rooms.size()));
-				stairCase.setRoomType(RoomType.STAIRS_UP);
-				BlockPos stairPos = stairCase.getPosition().up();
+				for(int i = 0; i < 1 + random.nextInt(3); i++)
+				{
+					MansionRoom stairCase = rooms.get(random.nextInt(rooms.size()));
+					stairCase.setRoomType(RoomType.STAIRS_UP);
+					BlockPos stairPos = stairCase.getPosition().up();
 
-				MansionRoom upStairs = new MansionRoom(stairPos, RoomType.STAIRS_DOWN);
-				layout.put(stairPos, upStairs);
-				corridorStart.set(stairPos.up());
+					MansionRoom upStairs = new MansionRoom(stairPos, RoomType.STAIRS_DOWN);
+					layout.put(stairPos, upStairs);
+					corridorStarts.add(new BlockPos.Mutable(stairPos.getX(), stairPos.getY(), stairPos.getZ()));
+				}
 			}
 			floorCorridorTarget /= 2F;
 			floorRoomTarget /= 2F;
 		}
 		layout.getEntries().forEach((rm)->rm.setLayout(this, random));
+		layout.getEntries().forEach((rm)->{
+			if(rm.getRoomType() == RoomType.CORRIDOR && random.nextFloat() < 0.3F)
+				rm.setRoomType(RoomType.ROOM);
+		});
 
 		/*for(int x = layout.getMinX(); x < layout.getMaxX(); x++)
 		{
@@ -58,10 +66,12 @@ public class MansionLayout
 		}*/
 	}
 
-	public int placeCorridors(int y, int maxCount, BlockPos.Mutable pos, Random random)
+	public int placeCorridors(int y, int maxCount, List<BlockPos.Mutable> positions, Random random)
 	{
 		int attempts = 500;
 		int placed = 0;
+		BlockPos lastSuccess = new BlockPos(positions.get(0));
+		BlockPos.Mutable pos = positions.get(random.nextInt(positions.size()));
 		while(placed < maxCount && attempts > 0)
 		{
 			if(!layout.contains(pos))
@@ -71,11 +81,27 @@ public class MansionLayout
 					attempts--;
 					continue;
 				}
-
 				layout.put(new BlockPos(pos), new MansionRoom(new BlockPos(pos), RoomType.CORRIDOR));
+				lastSuccess = new BlockPos(pos);
 				placed++;
 			}
+			if(random.nextInt(5) == 0)
+				positions.add(new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ()));
+
 			pos = pos.move(Direction.fromHorizontal(random.nextInt(4)));
+			pos = positions.get(random.nextInt(positions.size()));
+
+		/*	if(random.nextFloat() < 0.1)
+			{
+				if(random.nextBoolean())
+				{
+					pos.set(start.getX(), start.getY(), start.getZ());
+				}
+				else
+				{
+					pos.set(lastSuccess.getX(), lastSuccess.getY(), lastSuccess.getZ());
+				}
+			}*/
 		}
 
 		return placed;
@@ -87,15 +113,21 @@ public class MansionLayout
 		int roomTarget = maxCount;
 		int attempts = 500;
 		List<MansionRoom> rooms = Lists.newArrayList();
+		BlockPos lastSuccess = null;
 
-		while(roomsPlaced < roomTarget)
+		while(attempts > 0 && roomsPlaced < roomTarget)
 		{
 			BlockPos.Mutable randomPos = new BlockPos.Mutable(
 					RandomUtil.randomRange(layout.getMinX(), layout.getMaxX()),
 					y,
 					RandomUtil.randomRange(layout.getMinZ(), layout.getMaxZ()));
 
-			if(attempts > 0 && layout.contains(randomPos))
+			if(lastSuccess != null && random.nextFloat() < 0.10F)
+			{
+				randomPos = new BlockPos.Mutable(lastSuccess.getX(), lastSuccess.getY(), lastSuccess.getZ());
+			}
+
+			if(layout.contains(randomPos))
 			{
 				if(y != 0 && !layout.contains(randomPos.down()))
 					continue;
@@ -111,6 +143,7 @@ public class MansionLayout
 
 					rooms.add(newRoom);
 					roomsPlaced++;
+					lastSuccess = new BlockPos(randomPos.getX(), randomPos.getY(), randomPos.getZ());
 				}
 			}
 			else
@@ -118,6 +151,8 @@ public class MansionLayout
 				attempts--;
 			}
 		}
+
+
 		return rooms;
 	}
 

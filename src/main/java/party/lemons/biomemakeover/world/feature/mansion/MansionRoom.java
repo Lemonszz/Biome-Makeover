@@ -46,7 +46,7 @@ public class MansionRoom
 				switch(layoutType)
 				{
 					case NORMAL:
-						if(neighbour.getRoomType().doorRequired || random.nextFloat() < 0.25F)
+						if(neighbour.getRoomType().doorRequired || random.nextFloat() < 0.125F)
 						{
 							this.layout.put(dir, true);
 							neighbour.layout.put(dir.getOpposite(), true);
@@ -106,11 +106,17 @@ public class MansionRoom
 
 	public BlockRotation getRotation(Random random)
 	{
-		if(type != RoomType.CORRIDOR)
+		if(type == RoomType.STAIRS_DOWN || type == RoomType.STAIRS_UP)
+		{
+			int index = Math.abs((getPosition().getX() + getPosition().getZ()) % 4);
+			System.out.println(index);
+			return BlockRotation.values()[index];
+		}
+		else if(type != RoomType.CORRIDOR)
 			return BlockRotation.random(random);
 		else
 		{
-			switch(layout.size())
+			switch(layout.doorCount())
 			{
 				case 1:
 					if(layout.get(Direction.SOUTH))
@@ -125,26 +131,28 @@ public class MansionRoom
 					if(layout.get(Direction.SOUTH) && layout.get(Direction.NORTH))
 						return BlockRotation.NONE;
 					else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
-						return BlockRotation.CLOCKWISE_90;
+						return BlockRotation.CLOCKWISE_90; // !
 					else if(layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
-						return BlockRotation.COUNTERCLOCKWISE_90;
+						return BlockRotation.CLOCKWISE_180; // ~
 					else if(layout.get(Direction.EAST) && layout.get(Direction.WEST))
 						return BlockRotation.CLOCKWISE_90;
 					else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST))
-						return BlockRotation.CLOCKWISE_90;
+						return BlockRotation.NONE; //~!
 					else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST))
-						return BlockRotation.COUNTERCLOCKWISE_90;
+						return BlockRotation.COUNTERCLOCKWISE_90; //~ !!
 				case 3:
 					if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
-						return BlockRotation.NONE;
-					else if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
 						return BlockRotation.CLOCKWISE_180;
-					else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST) && layout.get(Direction.EAST))
-						return BlockRotation.CLOCKWISE_90;
-					else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST) && layout.get(Direction.EAST))
+					else if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
+						return BlockRotation.NONE;
+					else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST) && layout.get(Direction.WEST))
 						return BlockRotation.COUNTERCLOCKWISE_90;
+					else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST) && layout.get(Direction.WEST))
+						return BlockRotation.CLOCKWISE_90;
 				case 4:
 					return BlockRotation.values()[random.nextInt(BlockRotation.values().length)];
+				case 0:
+					return BlockRotation.NONE;
 			}
 
 			System.out.println("NO LAYOUT!!");
@@ -154,5 +162,10 @@ public class MansionRoom
 			System.out.println(layout.get(Direction.WEST));
 			return null;
 		}
+	}
+
+	public boolean isConnected(Direction direction)
+	{
+		return layout.get(direction);
 	}
 }
