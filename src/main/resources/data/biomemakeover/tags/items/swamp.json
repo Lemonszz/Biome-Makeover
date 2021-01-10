@@ -72,6 +72,14 @@
     "biomemakeover:marigold",
     "biomemakeover:wart",
     "biomemakeover:lightning_bottle",
-    "biomemakeover:soul_embers"
+    "biomemakeover:soul_embers",
+    "biomemakeover:mossy_dried_peat_bricks",
+    "biomemakeover:mossy_dried_peat_brick_stairs",
+    "biomemakeover:mossy_dried_peat_brick_slab",
+    "biomemakeover:mossy_dried_peat_brick_wall",
+    "biomemakeover:cracked_dried_peat_bricks",
+    "biomemakeover:cracked_dried_peat_brick_stairs",
+    "biomemakeover:cracked_dried_peat_brick_slab",
+    "biomemakeover:cracked_dried_peat_brick_wall"
   ]
 }

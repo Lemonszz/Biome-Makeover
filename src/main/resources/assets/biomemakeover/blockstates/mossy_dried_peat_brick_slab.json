@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/mossy_dried_peat_brick_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/mossy_dried_peat_bricks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/mossy_dried_peat_brick_slab_top"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:cracked_dried_peat_bricks"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:cracked_dried_peat_brick_slab",
+    "count": 6
+  }
+}

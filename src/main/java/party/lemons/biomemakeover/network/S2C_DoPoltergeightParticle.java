@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Random;
@@ -30,7 +31,7 @@ public class S2C_DoPoltergeightParticle implements PacketConsumer
 
 			for(int i = 0; i < 2; i++)
 			{
-				world.addParticle(ParticleTypes.SOUL, x + random.nextDouble(), y + random.nextDouble(), z + random.nextDouble(), (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F), 0.025F, (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F));
+				world.addParticle(BMEffects.POLTERGEIST, x + random.nextDouble(), y + random.nextDouble(), z + random.nextDouble(), (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F), 0.025F, (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F));
 			}
 		});
 	}

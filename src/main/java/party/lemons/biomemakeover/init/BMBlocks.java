@@ -98,6 +98,10 @@ public class BMBlocks
 	public static final PeatFarmlandBlock PEAT_FARMLAND = new PeatFarmlandBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.WET_GRASS).ticksRandomly().nonOpaque());
 	public static final BMBlock DRIED_PEAT_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool());
 	public static final DecorationBlockInfo DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("dried_peat_bricks", DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	public static final BMBlock MOSSY_DRIED_PEAT_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool());
+	public static final DecorationBlockInfo MOSSY_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("mossy_dried_peat_brick", MOSSY_DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	public static final BMBlock CRACKED_DRIED_PEAT_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool());
+	public static final DecorationBlockInfo CRACKED_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("cracked_dried_peat_brick", CRACKED_DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 
 	public static final ReedBlock CATTAIL = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
@@ -155,6 +159,8 @@ public class BMBlocks
         BLIGHTED_COBBLESTONE_DECORATION.register();
         BLIGHTED_STONE_BRICKS_DECORATION.register();
         DRIED_PEAT_BRICKS_DECORATION.register();
+        MOSSY_DRIED_PEAT_BRICKS_DECORATION.register();
+        CRACKED_DRIED_PEAT_BRICKS_DECORATION.register();
 
         /* Terracotta Bricks */
 		Map<DyeColor, Block> vanillaTerracotta = Maps.newHashMap();

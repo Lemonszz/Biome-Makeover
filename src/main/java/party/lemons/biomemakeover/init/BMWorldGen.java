@@ -79,6 +79,7 @@ public class BMWorldGen
 
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_CYPRESS_TREES));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(FALLEN_WILLOW));
+		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(FALLEN_CYPRESS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_BROWN_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SWAMP_BIG_RED_SHROOMS));
 		BiomeModifications.addFeature(SWAMP_BIOMES, VEGETAL_DECORATION, rk(SMALL_AND_FLOWERED_PADS));
@@ -185,8 +186,9 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> BARREL_CACTUS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BARREL_CACTUS_FLOWERED.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build());
 
 	//Swamp
-	public static final FallenLogFeature FALLEN_WILLOW_FEATURE = new FallenLogFeature(FallenLogFeatureConfig.CODEC);
-	public static final ConfiguredFeature<?, ?> FALLEN_WILLOW = FALLEN_WILLOW_FEATURE.configure(new FallenLogFeatureConfig(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), defaultMushrooms(), UniformIntDistribution.of(6, 3), 10)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.1F, 1)));
+	public static final FallenLogFeature FALLEN_LOG_FEATURE = new FallenLogFeature(FallenLogFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> FALLEN_WILLOW = FALLEN_LOG_FEATURE.configure(new FallenLogFeatureConfig(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), defaultMushrooms(), UniformIntDistribution.of(6, 3), 10)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP);
+	public static final ConfiguredFeature<?, ?> FALLEN_CYPRESS = FALLEN_LOG_FEATURE.configure(new FallenLogFeatureConfig(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), defaultMushrooms(), UniformIntDistribution.of(6, 3), 10)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP);
 	public static final ConfiguredFeature<?, ?> SWAMP_BIG_RED_SHROOMS = ConfiguredFeatures.HUGE_RED_MUSHROOM.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.08F, 2)));
 	public static final ConfiguredFeature<?, ?> SWAMP_BIG_BROWN_SHROOMS = ConfiguredFeatures.HUGE_BROWN_MUSHROOM.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(0, 0.08F, 2)));
 	public static final ConfiguredFeature<?, ?> SMALL_AND_FLOWERED_PADS = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(BMPads(), SimpleBlockPlacer.INSTANCE)).tries(5).needsWater().build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(4);

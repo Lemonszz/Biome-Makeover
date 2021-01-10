@@ -74,11 +74,12 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 				int branchSize = 4 + random.nextInt(10);
 				yy = 0;
 
+				int s = 0;
 				for(int r = yPosition; r < trunkHeight && branchSize > 0; --branchSize)
 				{
 					if(r >= 1)
 					{
-						int s = pos.getY() + r;
+						s = pos.getY() + r;
 						xx += branchDirection.getOffsetX();
 						zz += branchDirection.getOffsetZ();
 						if(getAndSetState(world, random, mpos.set(xx, s, zz), set, blockBox, treeFeatureConfig) && random.nextInt(3) == 0)
@@ -88,11 +89,7 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 					}
 					++r;
 				}
-
-				if(yy > 1)
-				{
-					list.add(new FoliagePlacer.TreeNode(new BlockPos(xx, yy, zz), 0, false));
-				}
+				list.add(new FoliagePlacer.TreeNode(new BlockPos(xx, s + 1, zz), 0, false));
 			}
 		}
 

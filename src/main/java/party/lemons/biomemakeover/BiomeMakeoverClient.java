@@ -23,6 +23,7 @@ import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
+import party.lemons.biomemakeover.util.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
@@ -55,6 +56,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		BMNetwork.initClient();
 
 		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.POLTERGEIST, PoltergeistParticle.Factory::new);
 
 		//TODO: move this
 		ColorProviderRegistry.BLOCK.register(

@@ -124,6 +124,7 @@ public class BiomeMakeover implements ModInitializer
 		});
 
 		final Identifier BAT_LT_ID = new Identifier("minecraft", "entities/bat");
+		final Identifier FISHING_JUNK_LT_ID = new Identifier("minecraft", "gameplay/fishing/junk");
 		LootTableLoadingCallback.EVENT.register((rm, lm, id, supplier, setter)->{
 			if(id.equals(BAT_LT_ID))
 			{

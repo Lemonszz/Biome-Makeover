@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidFillable;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.fluid.Fluid;
@@ -47,7 +48,7 @@ public class WaterTallFlowerBlock extends BMTallFlowerBlock implements FluidFill
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos)
 	{
-		return super.canPlantOnTop(floor, world, pos) || floor.isIn(BlockTags.SAND);
+		return super.canPlantOnTop(floor, world, pos) || floor.isIn(BlockTags.SAND) || floor.isOf(Blocks.CLAY);
 	}
 
 	public void placeAt(WorldAccess world, BlockPos pos, int flags)

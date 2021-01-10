@@ -1,12 +1,16 @@
 package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.util.RegistryHelper;
+import party.lemons.biomemakeover.util.particle.PoltergeistParticle;
 
 public class BMEffects
 {
@@ -48,7 +52,7 @@ public class BMEffects
 	public static final SoundEvent BOTTLE_THUNDER = new SoundEvent(BiomeMakeover.ID("entity.lightning_bottle.thunder"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
-
+	public static final ParticleEffect POLTERGEIST = FabricParticleTypes.simple();
 	public static void init()
 	{
 		RegistryHelper.register(Registry.SOUND_EVENT, SoundEvent.class, BMEffects.class);
