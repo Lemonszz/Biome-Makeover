@@ -154,12 +154,6 @@ public class MansionRoom
 				case 0:
 					return BlockRotation.NONE;
 			}
-
-			System.out.println("NO LAYOUT!!");
-			System.out.println(layout.get(Direction.NORTH));
-			System.out.println(layout.get(Direction.EAST));
-			System.out.println(layout.get(Direction.SOUTH));
-			System.out.println(layout.get(Direction.WEST));
 			return null;
 		}
 	}
@@ -167,5 +161,10 @@ public class MansionRoom
 	public boolean isConnected(Direction direction)
 	{
 		return layout.get(direction);
+	}
+
+	public boolean canSupportRoof()
+	{
+		return true;
 	}
 }

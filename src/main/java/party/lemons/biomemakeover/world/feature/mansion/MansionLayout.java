@@ -32,9 +32,9 @@ public class MansionLayout
 			if(corridorCount > 0)
 				rooms = placeRooms(floor, floorRoomTarget, random);
 
-			corridorStarts.clear();
-			if(rooms != null && floor < floors && rooms.size() > 0)
+			if(rooms != null && floor < floors - 1 && rooms.size() > 0)
 			{
+				corridorStarts.clear();
 				for(int i = 0; i < 1 + random.nextInt(3); i++)
 				{
 					MansionRoom stairCase = rooms.get(random.nextInt(rooms.size()));
@@ -42,6 +42,7 @@ public class MansionLayout
 					BlockPos stairPos = stairCase.getPosition().up();
 
 					MansionRoom upStairs = new MansionRoom(stairPos, RoomType.STAIRS_DOWN);
+					upStairs.setLayoutType(LayoutType.REQUIRED);
 					layout.put(stairPos, upStairs);
 					corridorStarts.add(new BlockPos.Mutable(stairPos.getX(), stairPos.getY(), stairPos.getZ()));
 				}
@@ -136,14 +137,17 @@ public class MansionLayout
 				randomPos = randomPos.move(Direction.fromHorizontal(random.nextInt(4)));
 				if(!layout.contains(randomPos))
 				{
-					MansionRoom newRoom = new MansionRoom(randomPos, RoomType.ROOM);
-					layout.put(randomPos, newRoom);
-					if(existingRoom.getRoomType() == RoomType.ROOM)
-						newRoom.setLayoutType(LayoutType.REQUIRED);
+					if(y == 0 || (layout.contains(randomPos.down()) && layout.get(randomPos.down()).canSupportRoof()))
+					{
+						MansionRoom newRoom = new MansionRoom(randomPos, RoomType.ROOM);
+						layout.put(randomPos, newRoom);
+						if(existingRoom.getRoomType() == RoomType.ROOM)
+							newRoom.setLayoutType(LayoutType.REQUIRED);
 
-					rooms.add(newRoom);
-					roomsPlaced++;
-					lastSuccess = new BlockPos(randomPos.getX(), randomPos.getY(), randomPos.getZ());
+						rooms.add(newRoom);
+						roomsPlaced++;
+						lastSuccess = new BlockPos(randomPos.getX(), randomPos.getY(), randomPos.getZ());
+					}
 				}
 			}
 			else
@@ -151,8 +155,6 @@ public class MansionLayout
 				attempts--;
 			}
 		}
-
-
 		return rooms;
 	}
 

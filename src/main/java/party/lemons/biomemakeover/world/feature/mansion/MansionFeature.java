@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.world.feature.mansion;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -84,18 +85,25 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 						offsetPos = offsetPos.add(0, 0, 10);
 						break;
 				}
-				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation));
+				boolean ground = rm.getPosition().getY() == 0;
+				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, false));
 				BlockPos wallPos = new BlockPos(xx, yy, zz);
 
 				//Wall
-				if(rm.isConnected(Direction.SOUTH))
-				{
-				//	children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.SOUTH, 13),  BlockRotation.NONE));
-				}
 				if(rm.isConnected(Direction.NORTH))
-					children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.NORTH),  BlockRotation.NONE));
+					children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.NORTH),  BlockRotation.NONE, ground, true));
+				else if(!roomGrid.contains(rm.getPosition().north()))
+					children.add(new Piece(manager, getOuterWall(random), wallPos.offset(Direction.NORTH).offset(Direction.EAST, 11), BlockRotation.CLOCKWISE_180, ground, true));
 				if(rm.isConnected(Direction.WEST))
-					children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.WEST), BlockRotation.CLOCKWISE_90));
+					children.add(new Piece(manager, getInnerWall(random), wallPos.offset(Direction.WEST), BlockRotation.CLOCKWISE_90, ground, true));
+				else if(!roomGrid.contains(rm.getPosition().west()))
+					children.add(new Piece(manager, getOuterWall(random), wallPos.offset(Direction.WEST).north(), BlockRotation.CLOCKWISE_90, ground, true));
+
+				if(!roomGrid.contains(rm.getPosition().east()))
+					children.add(new Piece(manager, getOuterWall(random), wallPos.offset(Direction.EAST, 11).south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
+				if(!roomGrid.contains(rm.getPosition().south()))
+					children.add(new Piece(manager, getOuterWall(random), wallPos.offset(Direction.SOUTH, 11).west(), BlockRotation.NONE, ground, true));
+
 			});
 
 			this.setBoundingBoxFromChildren();
@@ -112,13 +120,16 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	{
 		private final Identifier template;
 		private final BlockRotation rotation;
+		private boolean ground, isWall;
 
-		public Piece(StructureManager structureManager, Identifier template, BlockPos pos, BlockRotation rotation)
+		public Piece(StructureManager structureManager, Identifier template, BlockPos pos, BlockRotation rotation, boolean needsGroundAdjustment, boolean isWall)
 		{
 			super(BMStructures.MANSION_PIECE, 0);
 			this.template = template;
 			this.pos = pos;
 			this.rotation = rotation;
+			this.ground = needsGroundAdjustment;
+			this.isWall = isWall;
 			this.initialize(structureManager);
 		}
 
@@ -127,6 +138,8 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			super(BMStructures.MANSION_PIECE, tag);
 			this.template = new Identifier(tag.getString("Template"));
 			this.rotation = BlockRotation.valueOf(tag.getString("Rot"));
+			this.ground = tag.getBoolean("Ground");
+			this.isWall = tag.getBoolean("Wall");
 
 			this.initialize(manager);
 		}
@@ -134,7 +147,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		private void initialize(StructureManager structureManager)
 		{
 			Structure structure = structureManager.getStructureOrBlank(this.template);
-			StructurePlacementData structurePlacementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(this.rotation).addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
+			StructurePlacementData structurePlacementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(this.rotation).addProcessor(isWall ? BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS : BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 			this.setStructureData(structure, this.pos, structurePlacementData);
 		}
 
@@ -143,6 +156,8 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			super.toNbt(tag);
 			tag.putString("Template", this.template.toString());
 			tag.putString("Rot", this.rotation.name());
+			tag.putBoolean("Ground", ground);
+			tag.putBoolean("Wall", isWall);
 		}
 
 		@Override
@@ -155,6 +170,11 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		public boolean generate(StructureWorldAccess structureWorldAccess, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos blockPos)
 		{
 			return super.generate(structureWorldAccess, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+		}
+
+		public boolean isGround()
+		{
+			return ground;
 		}
 	}
 
@@ -190,8 +210,17 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/wall/inner/wall_1")
 	);
 
+	public static List<Identifier> OUTER_WALL = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1")
+	);
+
+
 	public static Identifier getInnerWall(Random random)
 	{
 		return INNER_WALL.get(random.nextInt(INNER_WALL.size()));
+	}
+	public static Identifier getOuterWall(Random random)
+	{
+		return OUTER_WALL.get(random.nextInt(OUTER_WALL.size()));
 	}
 }
