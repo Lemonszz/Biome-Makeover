@@ -4,10 +4,12 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
@@ -66,7 +68,7 @@ public class BiomeMakeover implements ModInitializer
 		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
 		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);
 
-		//TOOD: Move
+		//TODO: Move
 		CommandRegistrationCallback.EVENT.register((d, ded)->
 				d.register(CommandManager.literal("pillager").requires((serverCommandSource) ->serverCommandSource.hasPermissionLevel(2))
 				.then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).then(CommandManager.argument("leader", BoolArgumentType.bool()).executes(c->{

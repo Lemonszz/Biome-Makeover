@@ -32,7 +32,8 @@
     "VillagerHostilesSensorMixin",
     "StatusEffectMixin",
     "BrewingStandBlockEntityMixin",
-    "BrewingStandFuelSlotMixin"
+    "BrewingStandFuelSlotMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
