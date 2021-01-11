@@ -1,10 +1,11 @@
-package party.lemons.biomemakeover.world.feature.mansion;
+package party.lemons.biomemakeover.world.feature.mansion.room;
 
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import party.lemons.biomemakeover.util.Grid;
+import party.lemons.biomemakeover.world.feature.mansion.*;
 
 import java.util.List;
 import java.util.Random;
@@ -15,6 +16,7 @@ public class MansionRoom
 	private final BlockPos position;
 	private RoomType type;
 	private LayoutType layoutType;
+	public boolean active = true;
 
 	public MansionRoom(BlockPos position, RoomType type)
 	{
@@ -48,8 +50,8 @@ public class MansionRoom
 					case NORMAL:
 						if(neighbour.getRoomType().doorRequired || random.nextFloat() < 0.125F)
 						{
-							this.layout.put(dir, true);
-							neighbour.layout.put(dir.getOpposite(), true);
+							//this.layout.put(dir, true);
+							//neighbour.layout.put(dir.getOpposite(), true);
 						}
 						break;
 					case REQUIRED:
@@ -59,6 +61,11 @@ public class MansionRoom
 				}
 			}
 		}
+	}
+
+	public RoomLayout getLayout()
+	{
+		return layout;
 	}
 
 	public void setLayoutType(LayoutType layoutType)
@@ -106,13 +113,14 @@ public class MansionRoom
 
 	public BlockRotation getRotation(Random random)
 	{
-		if(type == RoomType.STAIRS_DOWN || type == RoomType.STAIRS_UP)
+		if(type.hasColumnRotation())
 		{
 			int index = Math.abs((getPosition().getX() + getPosition().getZ()) % 4);
-			System.out.println(index);
 			return BlockRotation.values()[index];
 		}
 		else if(type != RoomType.CORRIDOR)
+			return BlockRotation.random(random);
+		else if(type == RoomType.GARDEN)
 			return BlockRotation.random(random);
 		else
 		{

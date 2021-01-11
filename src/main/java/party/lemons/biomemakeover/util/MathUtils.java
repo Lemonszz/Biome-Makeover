@@ -2,11 +2,19 @@ package party.lemons.biomemakeover.util;
 
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
 
 public class MathUtils
 {
+	public static final Direction[] HORIZONTALS = new Direction[]{
+			Direction.NORTH,
+			Direction.EAST,
+			Direction.WEST,
+			Direction.SOUTH
+	};
+
 	public static float approachValue(float current, float target, float step)
 	{
 		if(current == target)

@@ -4,7 +4,10 @@ import com.google.common.collect.Lists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import party.lemons.biomemakeover.util.Grid;
+import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
+import party.lemons.biomemakeover.world.feature.mansion.room.NonRoofedMansionRoom;
 
 import java.util.List;
 import java.util.Random;
@@ -23,13 +26,14 @@ public class MansionLayout
 		int floorCorridorTarget = 10 + random.nextInt(10);
 		int floors = 2 + random.nextInt(3);
 		int floorRoomTarget = floorCorridorTarget - random.nextInt(5);
+		List<MansionRoom> allRooms = Lists.newArrayList();
 
 		List<BlockPos.Mutable> corridorStarts = Lists.newArrayList(new BlockPos.Mutable(0, 0, 0));
 		for(int floor = 0; floor < floors; floor++)
 		{
-			int corridorCount = placeCorridors(floor, floorCorridorTarget, corridorStarts, random);
+			List<MansionRoom> corridors = placeCorridors(floor, floorCorridorTarget, corridorStarts, random);
 			List<MansionRoom> rooms = null;
-			if(corridorCount > 0)
+			if(corridors.size() > 0)
 				rooms = placeRooms(floor, floorRoomTarget, random);
 
 			if(rooms != null && floor < floors - 1 && rooms.size() > 0)
@@ -49,30 +53,90 @@ public class MansionLayout
 			}
 			floorCorridorTarget /= 2F;
 			floorRoomTarget /= 2F;
+
+			int size = rooms.size();
+			for(int i = 0; i < size; i++)
+			{
+				MansionRoom room = rooms.get(i);
+				//TODO: move to check garden method??
+				if(floor == 0 && room.getRoomType().isReplaceable())
+				{
+					boolean isSurrounded = true;
+					for(Direction dir : MathUtils.HORIZONTALS)
+					{
+						if(!layout.contains(room.getPosition().offset(dir)))
+						{
+							isSurrounded = false;
+							break;
+						}
+					}
+
+					if(isSurrounded)
+					{
+						room.active = false;
+						NonRoofedMansionRoom gardenRoom = new NonRoofedMansionRoom(room.getPosition(), RoomType.GARDEN);
+						gardenRoom.setLayoutType(LayoutType.REQUIRED);
+						layout.put(gardenRoom.getPosition(), gardenRoom);
+						rooms.add(gardenRoom);
+					}
+				}
+			}
+
+			rooms.removeIf(rm->!rm.active);
+
+			allRooms.addAll(rooms);
+			allRooms.addAll(corridors);
 		}
 		layout.getEntries().forEach((rm)->rm.setLayout(this, random));
 		layout.getEntries().forEach((rm)->{
-			if(rm.getRoomType() == RoomType.CORRIDOR && random.nextFloat() < 0.3F)
+			if(rm.getRoomType() == RoomType.CORRIDOR && (random.nextFloat() < 0.3F || rm.getLayout().doorCount() < 2))
 				rm.setRoomType(RoomType.ROOM);
 		});
 
-		/*for(int x = layout.getMinX(); x < layout.getMaxX(); x++)
+		allRooms.removeIf(rm->!rm.active);
+
+		for(int i = 1; i < 5; i++)
 		{
-			String s = "";
-			for(int z = layout.getMinZ(); z < layout.getMaxZ(); z++)
+			MansionRoom room = allRooms.get(random.nextInt(allRooms.size()));
+			if(room.canSupportRoof())
 			{
-				s += layout.contains(x, 0, z) ? layout.get(x, 0, z).getRoomType() == RoomType.ROOM ? "@" : "#" : "-";
+				while(layout.contains(room.getPosition().up()))
+					room = layout.get(room.getPosition().up());
+
+				if(room.getRoomType().isReplaceable())
+				{
+					room.setRoomType(RoomType.TOWER_BASE);
+					BlockPos towerPos = room.getPosition().up();
+					int height = 1 + random.nextInt(5);
+					for(int t = 0; t < height; t++)
+					{
+						layout.put(towerPos, new MansionRoom(towerPos, RoomType.TOWER_MID));
+						towerPos = towerPos.up();
+					}
+					layout.put(towerPos, new MansionRoom(towerPos, RoomType.TOWER_TOP));
+				}
 			}
-			System.out.println(s);
-		}*/
+		}
 	}
 
-	public int placeCorridors(int y, int maxCount, List<BlockPos.Mutable> positions, Random random)
+	public List<MansionRoom> placeCorridors(int y, int maxCount, List<BlockPos.Mutable> positions, Random random)
 	{
 		int attempts = 500;
 		int placed = 0;
+		List<MansionRoom> corridors = Lists.newArrayList();
+		for(BlockPos p : positions)
+		{
+			MansionRoom room = layout.get(p.toImmutable());
+			if(room != null)
+				corridors.add(room);
+		}
+
 		BlockPos lastSuccess = new BlockPos(positions.get(0));
-		BlockPos.Mutable pos = positions.get(random.nextInt(positions.size()));
+		BlockPos.Mutable pos;
+		if(y == 0)
+			pos = positions.get(0);
+		else
+			pos = corridors.get(random.nextInt(corridors.size())).getPosition().mutableCopy();
 		while(placed < maxCount && attempts > 0)
 		{
 			if(!layout.contains(pos))
@@ -82,15 +146,19 @@ public class MansionLayout
 					attempts--;
 					continue;
 				}
-				layout.put(new BlockPos(pos), new MansionRoom(new BlockPos(pos), RoomType.CORRIDOR));
-				lastSuccess = new BlockPos(pos);
-				placed++;
+				if(!(y != 0 && !layout.get(pos.down()).canSupportRoof()))
+				{
+					MansionRoom room = new MansionRoom(pos.toImmutable(), RoomType.CORRIDOR);
+					room.setLayoutType(LayoutType.REQUIRED);
+					layout.put(pos.toImmutable(), room);
+					corridors.add(room);
+					lastSuccess = pos.toImmutable();
+					placed++;
+				}
 			}
-			if(random.nextInt(5) == 0)
-				positions.add(new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ()));
-
+			BlockPos nextPos = corridors.get(random.nextInt(corridors.size())).getPosition();
+			pos.set(nextPos.getX(), nextPos.getY(), nextPos.getZ());
 			pos = pos.move(Direction.fromHorizontal(random.nextInt(4)));
-			pos = positions.get(random.nextInt(positions.size()));
 
 		/*	if(random.nextFloat() < 0.1)
 			{
@@ -105,7 +173,7 @@ public class MansionLayout
 			}*/
 		}
 
-		return placed;
+		return corridors;
 	}
 
 	public List<MansionRoom> placeRooms(int y, int maxCount, Random random)
@@ -157,6 +225,7 @@ public class MansionLayout
 		}
 		return rooms;
 	}
+
 
 	public Grid<MansionRoom> getLayout()
 	{
