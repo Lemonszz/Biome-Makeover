@@ -4,12 +4,10 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
-import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
@@ -34,9 +32,6 @@ import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
 import party.lemons.biomemakeover.world.TumbleweedSpawner;
 import party.lemons.biomemakeover.world.WindSystem;
-import party.lemons.biomemakeover.world.feature.mansion.MansionLayout;
-
-import java.util.Random;
 
 public class BiomeMakeover implements ModInitializer
 {
