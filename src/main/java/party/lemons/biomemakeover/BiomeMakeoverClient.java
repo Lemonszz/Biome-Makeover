@@ -47,6 +47,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG_ALTERNATE, (r, c)->new LightningBugRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE, (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer()));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GIANT_SLIME, (r, c)->new GiantSlimeRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.OWL, (r, c)->new OwlEntityRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
 

@@ -15,7 +15,7 @@ public enum RoomType
 	ROOM(false, true, true, false, MansionFeature.ROOMS),
 	STAIRS_UP(false, false, true, true, MansionFeature.STAIR_UP),
 	STAIRS_DOWN(false, false, true, true, MansionFeature.STAIR_DOWN),
-	ROOF(false, false, true, false, null),
+	ROOF(false, false, false, false, null),
 	GARDEN(true, true, true, false, MansionFeature.GARDEN),
 	TOWER_BASE(false, false, true, true, MansionFeature.TOWER_BASE),
 	TOWER_MID(false, false, false, true, MansionFeature.TOWER_MID),

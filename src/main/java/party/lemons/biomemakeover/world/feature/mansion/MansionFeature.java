@@ -68,20 +68,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 				BlockPos offsetPos = new BlockPos(xx, yy, zz);
 				BlockRotation rotation =  rm.getRotation(random);
-				switch(rotation)
-				{
-					case NONE:
-						break;
-					case CLOCKWISE_90:
-						offsetPos = offsetPos.add(10, 0, 0);
-						break;
-					case CLOCKWISE_180:
-						offsetPos = offsetPos.add(10, 0, 10);
-						break;
-					case COUNTERCLOCKWISE_90:
-						offsetPos = offsetPos.add(0, 0, 10);
-						break;
-				}
+				offsetPos = rm.getOffsetForRotation(offsetPos, rotation);
 				boolean ground = rm.getPosition().getY() == 0;
 				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, false));
 				BlockPos wallPos = new BlockPos(xx, yy, zz);
@@ -230,6 +217,22 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> TOWER_TOP = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/tower/top/tower_top_1")
 	);
+	public static List<Identifier> ROOF_1 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/roof/roof_1_1")
+	);
+	public static List<Identifier> ROOF_2 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+		//	BiomeMakeover.ID("mansion/roof/roof_2_1")
+	);
+	public static List<Identifier> ROOF_3 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+	public static List<Identifier> ROOF_4 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+
+
+
 
 	public static Identifier getInnerWall(MansionRoom room, Random random)
 	{

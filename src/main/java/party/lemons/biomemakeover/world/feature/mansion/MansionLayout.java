@@ -8,7 +8,9 @@ import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.world.feature.mansion.room.NonRoofedMansionRoom;
+import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -81,7 +83,6 @@ public class MansionLayout
 					}
 				}
 			}
-
 			rooms.removeIf(rm->!rm.active);
 
 			allRooms.addAll(rooms);
@@ -94,7 +95,7 @@ public class MansionLayout
 		});
 
 		allRooms.removeIf(rm->!rm.active);
-
+		//Towers
 		for(int i = 1; i < 5; i++)
 		{
 			MansionRoom room = allRooms.get(random.nextInt(allRooms.size()));
@@ -117,6 +118,26 @@ public class MansionLayout
 				}
 			}
 		}
+
+		//Roof
+		Iterator<MansionRoom> it = allRooms.iterator();
+		BlockPos.Mutable upPos = new BlockPos.Mutable();
+		List<MansionRoom> roofs = Lists.newArrayList();
+		while(it.hasNext())
+		{
+			MansionRoom rm = it.next();
+			upPos.set(rm.getPosition().getX(), rm.getPosition().getY() + 1, rm.getPosition().getZ());
+			if(rm.canSupportRoof() && !layout.contains(upPos))
+			{
+				BlockPos immu = upPos.toImmutable();
+				MansionRoom roofRoom = new RoofMansionRoom(immu);
+				layout.put(immu, roofRoom);
+				roofs.add(roofRoom);
+			}
+		}
+		roofs.forEach(rm->{
+			rm.setLayout(this, random);
+		});
 	}
 
 	public List<MansionRoom> placeCorridors(int y, int maxCount, List<BlockPos.Mutable> positions, Random random)
@@ -207,7 +228,7 @@ public class MansionLayout
 				{
 					if(y == 0 || (layout.contains(randomPos.down()) && layout.get(randomPos.down()).canSupportRoof()))
 					{
-						MansionRoom newRoom = new MansionRoom(randomPos, RoomType.ROOM);
+						MansionRoom newRoom = new MansionRoom(randomPos.toImmutable(), RoomType.ROOM);
 						layout.put(randomPos, newRoom);
 						if(existingRoom.getRoomType() == RoomType.ROOM)
 							newRoom.setLayoutType(LayoutType.REQUIRED);

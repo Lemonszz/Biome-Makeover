@@ -12,10 +12,10 @@ import java.util.Random;
 
 public class MansionRoom
 {
-	private final RoomLayout layout = new RoomLayout();
-	private final BlockPos position;
-	private RoomType type;
-	private LayoutType layoutType;
+	protected final RoomLayout layout = new RoomLayout();
+	protected final BlockPos position;
+	protected RoomType type;
+	protected LayoutType layoutType;
 	public boolean active = true;
 
 	public MansionRoom(BlockPos position, RoomType type)
@@ -164,6 +164,22 @@ public class MansionRoom
 			}
 			return null;
 		}
+	}
+
+	public BlockPos getOffsetForRotation(BlockPos offsetPos, BlockRotation rotation)
+	{
+		switch(rotation)
+		{
+			case NONE:
+				return offsetPos;
+			case CLOCKWISE_90:
+				return offsetPos.add(10, 0, 0);
+			case CLOCKWISE_180:
+				return offsetPos.add(10, 0, 10);
+			case COUNTERCLOCKWISE_90:
+				return offsetPos.add(0, 0, 10);
+		}
+		return offsetPos;
 	}
 
 	public boolean isConnected(Direction direction)

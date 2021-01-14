@@ -61,6 +61,7 @@ public class BMItems
 	public static final Item LIGHTNING_BUG_SPAWN_EGG = new SpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, settings());
 	public static final Item DECAYED_SPAWN_EGG = new SpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, settings());
 	public static final Item GIANT_SLIME_SPAWN_EGG = new SpawnEggItem(BMEntities.GIANT_SLIME, 0x3ea05f, 0x7EBF6E, settings());
+	public static final Item OWL_SPAWN_EGG = new SpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 
