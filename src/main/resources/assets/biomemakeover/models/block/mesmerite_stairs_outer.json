@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/mesmerite",
+    "top": "biomemakeover:block/mesmerite",
+    "side": "biomemakeover:block/mesmerite"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "biomemakeover:block/polished_mesmerite",
+    "top": "biomemakeover:block/polished_mesmerite",
+    "side": "biomemakeover:block/polished_mesmerite"
+  }
+}

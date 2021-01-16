@@ -21,6 +21,7 @@ public class BiomeMakeoverItemGroup extends TabbedItemGroup
 		tabs.add(new ItemTab(new ItemStack(BMBlocks.TALL_RED_MUSHROOM), "mushroom_fields", BMItems.MUSHROOM_FIELDS));
 		tabs.add(new ItemTab(new ItemStack(BMBlocks.SAGUARO_CACTUS), "badlands", BMItems.BADLANDS));
 		tabs.add(new ItemTab(new ItemStack(BMBlocks.WATER_LILY), "swamp", BMItems.SWAMP));
+		tabs.add(new ItemTab(new ItemStack(BMBlocks.ILLUNITE_CLUSTER), "dark_forest", BMItems.DARK_FOREST));
 	}
 
 	@Override

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/polished_mesmerite_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/polished_mesmerite"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/polished_mesmerite_slab_top"
+    }
+  }
+}

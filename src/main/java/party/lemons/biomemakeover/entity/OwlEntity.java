@@ -40,6 +40,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMEntities;
 
 import java.util.Iterator;
@@ -69,7 +70,8 @@ public class OwlEntity extends TameableShoulderEntity
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new SitGoal(this));
 		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, true));
-		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, true));
+		this.goalSelector.add(4, new PredicateTemptGoal(this, 1.2D, false, this::isBreedingItem));
 		this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(5, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));

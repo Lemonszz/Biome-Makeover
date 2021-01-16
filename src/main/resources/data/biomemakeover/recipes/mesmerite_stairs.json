@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:mesmerite"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:mesmerite_stairs",
+    "count": 4
+  }
+}

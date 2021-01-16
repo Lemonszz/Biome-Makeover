@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "facing=down,type=day": {
+      "model": "biomemakeover:block/illunite_cluster_day",
+      "x": 180
+    },
+    "facing=east,type=day": {
+      "model": "biomemakeover:block/illunite_cluster_day",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,type=day": {
+      "model": "biomemakeover:block/illunite_cluster_day",
+      "x": 90
+    },
+    "facing=south,type=day": {
+      "model": "biomemakeover:block/illunite_cluster_day",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,type=day": {
+      "model": "biomemakeover:block/illunite_cluster_day"
+    },
+    "facing=west,type=day": {
+      "model": "biomemakeover:block/illunite_cluster_day",
+      "x": 90,
+      "y": 270
+    },
+    "facing=down,type=night": {
+      "model": "biomemakeover:block/illunite_cluster_night",
+      "x": 180
+    },
+    "facing=east,type=night": {
+      "model": "biomemakeover:block/illunite_cluster_night",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,type=night": {
+      "model": "biomemakeover:block/illunite_cluster_night",
+      "x": 90
+    },
+    "facing=south,type=night": {
+      "model": "biomemakeover:block/illunite_cluster_night",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,type=night": {
+      "model": "biomemakeover:block/illunite_cluster_night"
+    },
+    "facing=west,type=night": {
+      "model": "biomemakeover:block/illunite_cluster_night",
+      "x": 90,
+      "y": 270
+    },
+    "facing=down,type=unknown": {
+      "model": "biomemakeover:block/illunite_cluster_unknown",
+      "x": 180
+    },
+    "facing=east,type=unknown": {
+      "model": "biomemakeover:block/illunite_cluster_unknown",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,type=unknown": {
+      "model": "biomemakeover:block/illunite_cluster_unknown",
+      "x": 90
+    },
+    "facing=south,type=unknown": {
+      "model": "biomemakeover:block/illunite_cluster_unknown",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,type=unknown": {
+      "model": "biomemakeover:block/illunite_cluster_unknown"
+    },
+    "facing=west,type=unknown": {
+      "model": "biomemakeover:block/illunite_cluster_unknown",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

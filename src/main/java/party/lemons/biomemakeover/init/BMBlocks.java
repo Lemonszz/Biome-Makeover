@@ -107,6 +107,12 @@ public class BMBlocks
 	public static final BMLeavesBlock SWAMP_CYPRESS_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, 0.5F).luminance(15).nonOpaque());
 
+	public static final IlluniteClusterBlock ILLUNITE_CLUSTER = new IlluniteClusterBlock(settings(Material.STONE, 0.5F).nonOpaque().noCollision().postProcess(BMBlocks::always).emissiveLighting(BMBlocks::always));
+	public static final Block MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));
+	public static final DecorationBlockInfo MESMERITE_DECORATION = new DecorationBlockInfo("mesmerite", MESMERITE, settings(Material.STONE, 1.5F)).all();
+	public static final Block POLISHED_MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));
+	public static final DecorationBlockInfo POLISHED_MESMERITE_DECORATION = new DecorationBlockInfo("polished_mesmerite", POLISHED_MESMERITE, settings(Material.STONE, 1.5F)).all();
+
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_GREEN_GLOWSHROOM = new FlowerPotBlock(GREEN_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -155,6 +161,8 @@ public class BMBlocks
         BLIGHTED_COBBLESTONE_DECORATION.register();
         BLIGHTED_STONE_BRICKS_DECORATION.register();
         DRIED_PEAT_BRICKS_DECORATION.register();
+        MESMERITE_DECORATION.register();
+        POLISHED_MESMERITE_DECORATION.register();
 
         /* Terracotta Bricks */
 		Map<DyeColor, Block> vanillaTerracotta = Maps.newHashMap();
@@ -243,4 +251,7 @@ public class BMBlocks
 
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));
 
+	private static boolean always(BlockState state, BlockView world, BlockPos pos) {
+		return true;
+	}
 }

@@ -154,7 +154,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.LIGHTNING_BUG_BOTTLE,
 				BMBlocks.WATER_LILY,
 				BMBlocks.SWAMP_AZALEA,
-				BMBlocks.MARIGOLD
+				BMBlocks.MARIGOLD,
+				BMBlocks.ILLUNITE_CLUSTER
 		);
 	}
 }
