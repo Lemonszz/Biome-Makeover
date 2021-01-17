@@ -47,6 +47,8 @@ public class WoodTypeInfo
 		set(Type.STRIPPED_LOG, new BMPillarBlock(settings));
 		set(Type.PLANK, new BMBlock(settings));
 
+		BMUtil.addStrippedLog(getBlock(Type.LOG), getBlock(Type.STRIPPED_LOG));
+
 		defaultState = getBlock(Type.PLANK).getDefaultState();
 	}
 
@@ -73,6 +75,9 @@ public class WoodTypeInfo
 	{
 		set(Type.WOOD, new BMPillarBlock(settings));
 		set(Type.STRIPPED_WOOD, new BMPillarBlock(settings));
+
+		BMUtil.addStrippedLog(getBlock(Type.WOOD), getBlock(Type.STRIPPED_WOOD));
+
 		return this;
 	}
 

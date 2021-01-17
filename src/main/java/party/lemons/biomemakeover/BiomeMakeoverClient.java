@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegi
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.color.world.BiomeColors;
@@ -15,11 +17,14 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.particle.ParticleType;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
 import party.lemons.biomemakeover.crafting.witch.screen.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.init.*;
+import party.lemons.biomemakeover.util.DebugUtil;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
@@ -27,7 +32,6 @@ import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
-
 	@Override
 	public void onInitializeClient()
 	{
@@ -114,6 +118,14 @@ public class BiomeMakeoverClient implements ClientModInitializer
 			return 0xFFFFFF;
 		}, BMBlocks.WATER_LILY);
 
+		UseItemCallback.EVENT.register((e,w,h)->{
+			if(FabricLoader.getInstance().isDevelopmentEnvironment())
+			{
+				DebugUtil.printMissingLangKeys();
+			}
+			return TypedActionResult.pass(e.getStackInHand(h) );
+		});
+
 		//TODO: Move this
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
 				BMBlocks.MYCELIUM_ROOTS,
@@ -127,6 +139,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.POTTED_FLOWERED_BARREL_CACTUS,
 				BMBlocks.POTTED_SAGUARO_CACTUS,
 				BMBlocks.POTTED_SWAMP_CYPRESS_SAPLING,
+				BMBlocks.POTTED_ANCIENT_OAK_SAPLING,
 				BMBlocks.POTTED_WILLOW_SAPLING,
 				BMBlocks.POTTED_SAGUARO_CACTUS,
 				BMBlocks.TALL_BROWN_MUSHROOM,
@@ -147,6 +160,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.WILLOW_LEAVES,
 				BMBlocks.WILLOW_SAPLING,
 				BMBlocks.SWAMP_CYPRESS_SAPLING,
+				BMBlocks.ANCIENT_OAK_SAPLING,
+				BMBlocks.ANCIENT_OAK_LEAVES,
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),

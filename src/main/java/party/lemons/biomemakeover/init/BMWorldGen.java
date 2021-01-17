@@ -31,6 +31,7 @@ import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.tree.LeaveVineTreeDecorator;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.SmallLilyPadBlock;
@@ -40,10 +41,7 @@ import party.lemons.biomemakeover.world.carver.LargeMyceliumCaveCarver;
 import party.lemons.biomemakeover.world.feature.*;
 import party.lemons.biomemakeover.world.feature.config.FallenLogFeatureConfig;
 import party.lemons.biomemakeover.world.feature.config.GrassPatchFeatureConfig;
-import party.lemons.biomemakeover.world.feature.foliage.BalsaTrunkPlacer;
-import party.lemons.biomemakeover.world.feature.foliage.CypressTrunkPlacer;
-import party.lemons.biomemakeover.world.feature.foliage.WillowFoliagePlacer;
-import party.lemons.biomemakeover.world.feature.foliage.WillowTrunkPlacer;
+import party.lemons.biomemakeover.world.feature.foliage.*;
 
 import java.util.OptionalInt;
 import java.util.function.Predicate;
@@ -75,6 +73,8 @@ public class BMWorldGen
 						c.getGenerationSettings().addStructure(rk(BMStructures.MANSION_CONFIGURED));
 					}
 				});
+
+		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(ANCIENT_OAK_TREES));
 	}
 
 	private static void swampModifications()
@@ -180,6 +180,7 @@ public class BMWorldGen
 
 	public static final TrunkPlacerType<WillowTrunkPlacer> WILLOW_TRUNK = new TrunkPlacerType<>(WillowTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<CypressTrunkPlacer> CYPRESS_TRUNK = new TrunkPlacerType<>(CypressTrunkPlacer.CODEC);
+	public static final TrunkPlacerType<AncientOakTrunkPlacer> ANCIENT_OAK_TRUNK = new TrunkPlacerType<>(AncientOakTrunkPlacer.CODEC);
 	public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE = new FoliagePlacerType<>(WillowFoliagePlacer.CODEC);
 
 	public static final WaterTreeFeature WATER_TREE = new WaterTreeFeature(TreeFeatureConfig.CODEC);
@@ -187,6 +188,8 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of(LeaveVineTreeDecorator.INSTANCE)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREES = SWAMP_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.5F, 4)));
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()),  new DarkOakFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0)), new AncientOakTrunkPlacer(10, 2, 14), new ThreeLayersFeatureSize(2, 3, 0, 1, 2, OptionalInt.empty()))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build());
+	public static final ConfiguredFeature<?, ?> ANCIENT_OAK_TREES = ANCIENT_OAK.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(2);
 
 	//Badlands
 	public static final SurfaceFossilFeature SURFACE_FOSSIL_FEATURE = new SurfaceFossilFeature(DefaultFeatureConfig.CODEC);

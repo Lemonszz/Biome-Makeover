@@ -11,12 +11,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
+import party.lemons.biomemakeover.util.access.AxeItemAccess;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Mixin(AxeItem.class)
-public class AxeItemMixin
+public class AxeItemMixin implements AxeItemAccess
 {
 	@Shadow @Final @Mutable protected static Map<Block, Block> STRIPPED_BLOCKS;
 
@@ -24,11 +25,17 @@ public class AxeItemMixin
 	private static void onInit(CallbackInfo cbi)
 	{
 		STRIPPED_BLOCKS = new HashMap<>(STRIPPED_BLOCKS);
-		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG));
+	/*	STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG));
 		STRIPPED_BLOCKS.put(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG));
 		STRIPPED_BLOCKS.put(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG), BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_LOG));
 		STRIPPED_BLOCKS.put(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD));
 		STRIPPED_BLOCKS.put(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD));
-		STRIPPED_BLOCKS.put(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD));
+		STRIPPED_BLOCKS.put(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.WOOD), BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.STRIPPED_WOOD));*/
+	}
+
+	@Override
+	public void addStrippable(Block log, Block stripped)
+	{
+		STRIPPED_BLOCKS.put(log, stripped);
 	}
 }

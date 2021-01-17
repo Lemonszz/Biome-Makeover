@@ -2,12 +2,14 @@ package party.lemons.biomemakeover.entity.render;
 
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.OwlEntity;
+import party.lemons.biomemakeover.entity.render.feature.OwlEyesRenderLayer;
 
 public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel>
 {
@@ -16,6 +18,7 @@ public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel
 	public OwlEntityRender(EntityRenderDispatcher rd)
 	{
 		super(rd, new OwlEntityModel(), 0.5F);
+		addFeature(new OwlEyesRenderLayer(this));
 	}
 
 	@Override

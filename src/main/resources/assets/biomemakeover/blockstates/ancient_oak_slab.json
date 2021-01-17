@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/ancient_oak_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/ancient_oak_planks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/ancient_oak_slab_top"
+    }
+  }
+}

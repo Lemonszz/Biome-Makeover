@@ -25,6 +25,7 @@ import party.lemons.biomemakeover.util.*;
 import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 import party.lemons.biomemakeover.util.access.SignTypeHelper;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
+import party.lemons.biomemakeover.world.feature.foliage.AncientOakSaplingGenerator;
 import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 import party.lemons.biomemakeover.world.feature.foliage.SwampCypressSaplingGenerator;
 import party.lemons.biomemakeover.world.feature.foliage.WillowSaplingGenerator;
@@ -112,6 +113,9 @@ public class BMBlocks
 	public static final DecorationBlockInfo MESMERITE_DECORATION = new DecorationBlockInfo("mesmerite", MESMERITE, settings(Material.STONE, 1.5F)).all();
 	public static final Block POLISHED_MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));
 	public static final DecorationBlockInfo POLISHED_MESMERITE_DECORATION = new DecorationBlockInfo("polished_mesmerite", POLISHED_MESMERITE, settings(Material.STONE, 1.5F)).all();
+	public static WoodTypeInfo ANCIENT_OAK_WOOD_INFO = new WoodTypeInfo("ancient_oak", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
+	public static final BMSaplingBlock ANCIENT_OAK_SAPLING = new BMSaplingBlock(new AncientOakSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMLeavesBlock ANCIENT_OAK_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -123,10 +127,12 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_FLOWERED_BARREL_CACTUS = new FlowerPotBlock(BARREL_CACTUS_FLOWERED, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_WILLOW_SAPLING = new FlowerPotBlock(WILLOW_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_SWAMP_CYPRESS_SAPLING = new FlowerPotBlock(SWAMP_CYPRESS_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_ANCIENT_OAK_SAPLING = new FlowerPotBlock(ANCIENT_OAK_SAPLING, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 	public static final SignType BLIGHTED_BALSA_ST = SignTypeHelper.register(new SignType("blighted_balsa"));
 	public static final SignType WILLOW_ST = SignTypeHelper.register(new SignType("willow"));
 	public static final SignType SWAMP_CYPRESS_ST = SignTypeHelper.register(new SignType("swamp_cypress"));
+	public static final SignType ANCIENT_OAK_ST = SignTypeHelper.register(new SignType("ancient_oak"));
 
 	public static void init()
     {
@@ -140,7 +146,6 @@ public class BMBlocks
                 return;
 
             info.registerItem(id);
-        //    Registry.register(Registry.ITEM, id, info.makeItem());
         });
 
         /* Simple decoration registers */
@@ -148,9 +153,11 @@ public class BMBlocks
 	    BLIGHTED_BALSA_WOOD_INFO = BLIGHTED_BALSA_WOOD_INFO.boat(()->BoatTypes.BLIGHTED_BALSA).sign(BLIGHTED_BALSA_ST);
 	    WILLOW_WOOD_INFO = WILLOW_WOOD_INFO.boat(()->BoatTypes.WILLOW).sign(WILLOW_ST);
 	    SWAMP_CYPRESS_WOOD_INFO = SWAMP_CYPRESS_WOOD_INFO.boat(()->BoatTypes.SWAMP_CYPRESS).sign(SWAMP_CYPRESS_ST);
+	    ANCIENT_OAK_WOOD_INFO = ANCIENT_OAK_WOOD_INFO.boat(()->BoatTypes.ANCIENT_OAK).sign(ANCIENT_OAK_ST);
         BLIGHTED_BALSA_WOOD_INFO.register();
 	    WILLOW_WOOD_INFO.register();
 	    SWAMP_CYPRESS_WOOD_INFO.register();
+	    ANCIENT_OAK_WOOD_INFO.register();
         RED_MUSHROOM_BRICK_DECORATION.register();
         BROWN_MUSHROOM_BRICK_DECORATION.register();
         PURPLE_GLOWSROOM_BRICK_DECORATION.register();
@@ -205,7 +212,8 @@ public class BMBlocks
 	    registerFlammable(WILLOW_LEAVES, 5, 60);
 	    registerFlammable(SWAMP_CYPRESS_WOOD_INFO);
 	    registerFlammable(SWAMP_CYPRESS_LEAVES, 5, 60);
-
+	    registerFlammable(ANCIENT_OAK_WOOD_INFO);
+	    registerFlammable(ANCIENT_OAK_LEAVES, 5, 60);
 
 	    FuelRegistry.INSTANCE.add(DRIED_PEAT, 10000);
     }

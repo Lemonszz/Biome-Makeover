@@ -1,6 +1,25 @@
 {
   "replace": false,
   "values": [
-    "biomemakeover:illunite_cluster"
+    "biomemakeover:illunite_cluster",
+    "biomemakeover:ancient_oak_leaves",
+    "biomemakeover:ancient_oak_log",
+    "biomemakeover:ancient_oak_planks",
+    "biomemakeover:stripped_ancient_oak_log",
+    "biomemakeover:stripped_ancient_oak_wood",
+    "biomemakeover:ancient_oak_stairs",
+    "biomemakeover:ancient_oak_fence",
+    "biomemakeover:ancient_oak_fence_gate",
+    "biomemakeover:ancient_oak_button",
+    "biomemakeover:ancient_oak_trapdoor",
+    "biomemakeover:ancient_oak_sapling",
+    "biomemakeover:ancient_oak_leaves",
+    "biomemakeover:ancient_oak_door",
+    "biomemakeover:ancient_oak_pressure_plate",
+    "biomemakeover:ancient_oak_slab",
+    "biomemakeover:ancient_oak_boat",
+    "biomemakeover:ancient_oak_sign",
+    "biomemakeover:ancient_oak_wood",
+    "biomemakeover:stripped_ancient_oak_wood"
   ]
 }

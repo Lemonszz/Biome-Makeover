@@ -21,16 +21,36 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 
 	public BlockPos getOffsetForRotation(BlockPos offsetPos, BlockRotation rotation)
 	{
-		switch(rotation)
+		switch(layout.doorCount())
 		{
-			case NONE:
+			case 1:
+				if(layout.get(Direction.SOUTH)) return offsetPos.add(12, 0, 11);
+				else if(layout.get(Direction.NORTH)) return offsetPos.add(-2, 0, -1);
+				else if(layout.get(Direction.EAST)) return offsetPos.add(11, 0, -2);
+				else if(layout.get(Direction.WEST)) return offsetPos.add(-1, 0, 12);
+			case 2:
+				if(layout.get(Direction.SOUTH) && layout.get(Direction.NORTH)) return offsetPos;
+				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
+					return offsetPos;
+				else if(layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
+					return offsetPos;
+				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST)) return offsetPos;
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST)) return offsetPos;
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST))
+					return offsetPos;
+			case 3:
+				if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
+					return offsetPos;
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
+					return offsetPos;
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST) && layout.get(Direction.WEST))
+					return offsetPos;
+				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST) && layout.get(Direction.WEST))
+					return offsetPos;
+			case 4:
 				return offsetPos;
-			case CLOCKWISE_90:
-				return offsetPos.add(12, 0, 0);
-			case CLOCKWISE_180:
-				return offsetPos.add(10, 0, 10);
-			case COUNTERCLOCKWISE_90:
-				return offsetPos.add(0, 0, 12);
+			case 0:
+				return offsetPos;
 		}
 		return offsetPos;
 	}

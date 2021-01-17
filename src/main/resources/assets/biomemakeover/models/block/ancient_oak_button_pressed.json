@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "biomemakeover:block/ancient_oak_planks"
+  }
+}

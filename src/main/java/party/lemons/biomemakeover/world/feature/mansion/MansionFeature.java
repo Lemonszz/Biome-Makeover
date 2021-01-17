@@ -25,9 +25,12 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
+import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 {
@@ -60,8 +63,12 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BlockPos pos = new BlockPos(x, chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG), z);
 
 			Grid<MansionRoom> roomGrid = layout.getLayout();
+			Collection<MansionRoom> sortedRooms = roomGrid.getEntries();
+			sortedRooms = sortedRooms.stream().sorted((m1, m2)->{
+				return m1.getRoomType() == RoomType.ROOF ? -1 : 0;
+			}).collect(Collectors.toList());
 
-			roomGrid.getEntries().forEach(rm->{
+			sortedRooms.forEach(rm->{
 				int xx = pos.getX() + (rm.getPosition().getX() * 12);
 				int yy = pos.getY() + (rm.getPosition().getY() * 7);
 				int zz = pos.getZ() + (rm.getPosition().getZ() * 12);
@@ -70,7 +77,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				BlockRotation rotation =  rm.getRotation(random);
 				offsetPos = rm.getOffsetForRotation(offsetPos, rotation);
 				boolean ground = rm.getPosition().getY() == 0;
-				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, false));
+				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP || rm instanceof RoofMansionRoom));
 				BlockPos wallPos = new BlockPos(xx, yy, zz);
 
 				//Wall

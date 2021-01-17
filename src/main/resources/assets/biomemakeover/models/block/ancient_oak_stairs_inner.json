@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/ancient_oak_planks",
+    "top": "biomemakeover:block/ancient_oak_planks",
+    "side": "biomemakeover:block/ancient_oak_planks"
+  }
+}
