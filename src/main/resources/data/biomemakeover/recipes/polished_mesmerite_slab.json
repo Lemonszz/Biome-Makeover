@@ -5,11 +5,11 @@
   ],
   "key": {
     "#": {
-      "item": "biomemakeover:smooth_mesmerite"
+      "item": "biomemakeover:polished_mesmerite"
     }
   },
   "result": {
-    "item": "biomemakeover:smooth_mesmerite_slab",
+    "item": "biomemakeover:polished_mesmerite_slab",
     "count": 6
   }
 }

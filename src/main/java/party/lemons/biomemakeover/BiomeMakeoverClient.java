@@ -20,9 +20,11 @@ import net.minecraft.particle.ParticleType;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.biome.Biome;
+import party.lemons.biomemakeover.block.blockentity.render.AltarBlockEntityRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
 import party.lemons.biomemakeover.crafting.witch.screen.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
+import party.lemons.biomemakeover.gui.AltarScreen;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.DebugUtil;
 import party.lemons.biomemakeover.util.MathUtils;
@@ -32,6 +34,8 @@ import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
+	public static boolean ENABLE_CLIENT_DEBUG = false;
+
 	@Override
 	public void onInitializeClient()
 	{
@@ -54,8 +58,10 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.OWL, (r, c)->new OwlEntityRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.ALTAR, (r)->new AltarBlockEntityRenderer(r));
 
 		ScreenRegistry.register(BMScreens.WITCH, WitchScreen::new);
+		ScreenRegistry.register(BMScreens.ALTAR, AltarScreen::new);
 
 		BMNetwork.initClient();
 
@@ -63,7 +69,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		//TODO: move this
 		ColorProviderRegistry.BLOCK.register(
-				(state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor());
+				(state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(),
+				BMBlocks.ANCIENT_OAK_LEAVES);
 
 		ColorProviderRegistry.BLOCK.register(
 				(state, world, pos, tintIndex)->0x84ab6f, BMBlocks.SWAMP_CYPRESS_LEAVES);
@@ -107,7 +114,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
 			BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
 			return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
-		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.SWAMP_CYPRESS_LEAVES);
+		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.SWAMP_CYPRESS_LEAVES, BMBlocks.ANCIENT_OAK_LEAVES);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
 			if(tintIndex == 0)
@@ -118,13 +125,17 @@ public class BiomeMakeoverClient implements ClientModInitializer
 			return 0xFFFFFF;
 		}, BMBlocks.WATER_LILY);
 
-		UseItemCallback.EVENT.register((e,w,h)->{
-			if(FabricLoader.getInstance().isDevelopmentEnvironment())
+		if(ENABLE_CLIENT_DEBUG)
+		{
+			UseItemCallback.EVENT.register((e, w, h)->
 			{
-				DebugUtil.printMissingLangKeys();
-			}
-			return TypedActionResult.pass(e.getStackInHand(h) );
-		});
+				if(FabricLoader.getInstance().isDevelopmentEnvironment())
+				{
+					DebugUtil.printMissingLangKeys();
+				}
+				return TypedActionResult.pass(e.getStackInHand(h));
+			});
+		}
 
 		//TODO: Move this
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
@@ -170,7 +181,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.WATER_LILY,
 				BMBlocks.SWAMP_AZALEA,
 				BMBlocks.MARIGOLD,
-				BMBlocks.ILLUNITE_CLUSTER
+				BMBlocks.ILLUNITE_CLUSTER,
+				BMBlocks.ALTAR
 		);
 	}
 }

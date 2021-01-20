@@ -9,9 +9,9 @@ import net.minecraft.util.registry.Registry;
 
 public class ItemStackUtil
 {
-	public static void forEachEnchantment(Consumer consumer, ItemStack stack)
+	public static void forEachEnchantment(Consumer consumer, ItemStack stack, boolean allowEmpty)
 	{
-		if (!stack.isEmpty()) {
+		if (!stack.isEmpty() || allowEmpty) {
 			ListTag listTag = stack.getEnchantments();
 
 			for(int i = 0; i < listTag.size(); ++i) {
@@ -23,6 +23,11 @@ public class ItemStackUtil
 			}
 
 		}
+	}
+
+	public static void forEachEnchantment(Consumer consumer, ItemStack stack)
+	{
+		forEachEnchantment(consumer, stack, false);
 	}
 
 	@FunctionalInterface

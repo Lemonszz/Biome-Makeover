@@ -7,6 +7,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
 
+import java.util.Random;
+import java.util.UUID;
+
 public class MathUtils
 {
 	public static final Direction[] HORIZONTALS = new Direction[]{
@@ -66,5 +69,19 @@ public class MathUtils
 		}
 
 		return g;
+	}
+
+	public static UUID uuidFromString(String string)
+	{
+		Random random = new Random(string.hashCode());
+
+		byte[] randomBytes = new byte[16];
+		random.nextBytes(randomBytes);
+		randomBytes[6]  &= 0x0f;  /* clear version        */
+		randomBytes[6]  |= 0x40;  /* set to version 4     */
+		randomBytes[8]  &= 0x3f;  /* clear variant        */
+		randomBytes[8]  |= 0x80;  /* set to IETF variant  */
+
+		return UUID.nameUUIDFromBytes(randomBytes);
 	}
 }

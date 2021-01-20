@@ -11,6 +11,9 @@
   "witch.quests" : "Quests",
 
   "enchantment.biomemakeover.decay_curse" : "Curse of Decay",
+  "enchantment.biomemakeover.sickness_curse" : "Curse of Sickness",
+  "enchantment.biomemakeover.insomnia_curse" : "Curse of Insomnia",
+  "enchantment.biomemakeover.conductivity_curse" : "Curse of Conductivity",
   "effect.biomemakeover.shocked" : "Shocked",
   "effect.biomemakeover.antidote" : "Antidote",
 
@@ -244,7 +247,7 @@
   "block.biomemakeover.ancient_oak_pressure_plate": "Ancient Oak Pressure Plate",
   "block.biomemakeover.ancient_oak_fence": "Ancient Oak Fence",
   "block.biomemakeover.ancient_oak_sign": "Ancient Oak Sign",
-
+  "block.biomemakeover.altar": "Altar",
 
   "item.biomemakeover.button_mushrooms_music_disk" : "Music Disc",
   "item.biomemakeover.ghost_town_music_disk" : "Music Disc",
@@ -290,6 +293,7 @@
   "item.biomemakeover.owl_spawn_egg": "Owl Spawn Egg",
   "item.biomemakeover.icon_item": "Biome Makeover",
   "item.biomemakeover.ancient_oak_boat": "Ancient Oak Boat",
+  "item.biomemakeover.illunite_shard": "Illunite Shard",
 
   "item.minecraft.potion.effect.adrenaline": "Potion of Adrenaline",
   "item.minecraft.potion.effect.assassin": "Potion of the Assassin",

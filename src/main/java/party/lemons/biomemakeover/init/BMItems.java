@@ -42,6 +42,8 @@ public class BMItems
 	public static final Item WART = new Item(settings());
 	public static final Item SOUL_EMBERS = new Item(settings());
 
+	public static final Item ILLUNITE_SHARD = new Item(settings());
+
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem SWAMP_JIVES_MUSIC_DISK = new BMMusicDiskItem(1, BMEffects.SWAMP_JIVES, settings().maxCount(1).rarity(Rarity.RARE));
@@ -105,6 +107,8 @@ public class BMItems
 	{
 		return new Item.Settings().group(BiomeMakeover.GROUP);
 	}
+
+	public static final Tag<Item> CURSE_FUEL = TagRegistry.item(BiomeMakeover.ID("curse_fuel"));
 
 	public static final Tag<Item> MUSHROOM_FIELDS = TagRegistry.item(BiomeMakeover.ID("mushroom_fields"));
 	public static final Tag<Item> BADLANDS = TagRegistry.item(BiomeMakeover.ID("badlands"));

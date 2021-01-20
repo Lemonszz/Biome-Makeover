@@ -15,4 +15,6 @@ public class ItemStackMixin
 	{
 		return amount +  EnchantmentHelper.getLevel(BMEnchantments.DECAY_CURSE, (ItemStack)(Object)this);
 	}
+
+
 }
