@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ModifiableTestableWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
@@ -15,6 +16,7 @@ import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.HorizontalDirection;
+import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.List;
 import java.util.Random;
@@ -40,7 +42,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 		setToDirt(world, blockPos.south());
 		setToDirt(world, blockPos.south().east());
 
-		int knobSpot = trunkHeight - 3 - random.nextInt(4);
+		int knobSpot = Math.max(5, (trunkHeight / 2) - random.nextInt(4));
 	//	int knobCount = 2 - random.nextInt(3);
 		int knobCount = 1;
 		int x = pos.getX();
@@ -61,54 +63,9 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 				getAndSetState(world, random, placePos.south(), placedStates, box, config);
 				getAndSetState(world, random, placePos.east().south(), placedStates, box, config);
 			}
-
-			if(genY >= knobSpot && knobCount > 0)
-			{
-				--knobCount;
-				HorizontalDirection lastDirection = null;
-				for(int i = 0; i < 4 + random.nextInt(3); i++)
-				{
-					HorizontalDirection direction;
-					if(lastDirection == null)
-					{
-						direction = HorizontalDirection.random(random);
-						lastDirection = direction;
-					}
-					else
-					{
-						direction = lastDirection.opposite();
-						lastDirection = null;
-					}
-					int genX = foliageX + direction.x;
-					int genZ = foliageZ + direction.z;
-					int yy;
-					for(yy = genY; yy < trunkHeight - 2 +  random.nextInt(4); ++yy)
-					{
-						int placeGenY = y + yy;
-						BlockPos placePos2 = new BlockPos(genX, placeGenY, genZ);
-						if(TreeFeature.isAirOrLeaves(world, placePos2))
-						{
-							getAndSetState(world, random, placePos2, placedStates, box, config);
-							getAndSetState(world, random, placePos2.east(), placedStates, box, config);
-							getAndSetState(world, random, placePos2.south(), placedStates, box, config);
-							getAndSetState(world, random, placePos2.east().south(), placedStates, box, config);
-						}
-
-						if(random.nextBoolean())
-						{
-							genX += direction.x;
-							genZ += direction.z;
-							if(random.nextInt(4) == 0) yy--;
-						}
-					}
-
-					list.add(new FoliagePlacer.TreeNode(new BlockPos(genX, y + yy + 1, genZ), 0, false));
-				}
-			}
-
 		}
 
-		list.add(new FoliagePlacer.TreeNode(new BlockPos(foliageX, foliageY, foliageZ), 0, true));
+		list.add(new FoliagePlacer.TreeNode(new BlockPos(foliageX, foliageY + 3, foliageZ), 2, true));
 
 		for(int offsetX = -1; offsetX <= 2; ++offsetX)
 		{
@@ -128,6 +85,79 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 			}
 		}
 
+		List<HorizontalDirection> directions = Lists.newArrayList();
+		for(int i = 0; i < 1 + random.nextInt(4); i++)
+		{
+			makeBranch(world, random, list, directions, placedStates, foliageX, y, foliageZ, RandomUtil.randomRange(7, trunkHeight - 1), trunkHeight, box, config);
+		}
+
 		return list;
+	}
+
+	public void makeBranch(ModifiableTestableWorld world, Random random, List<FoliagePlacer.TreeNode> foliage, List<HorizontalDirection> directions, Set<BlockPos> placedStates, int foliageX, int genY, int foliageZ, int branchY, int trunkHeight, BlockBox box, TreeFeatureConfig config)
+	{
+		HorizontalDirection lastDirection = null;
+		for(int i = 0; i < 2; i++)
+		{
+			HorizontalDirection direction;
+			if(lastDirection == null)
+			{
+				direction = HorizontalDirection.random(random);
+				while(directions.contains(direction))
+					direction = HorizontalDirection.random(random);
+
+				directions.add(direction);
+				directions.add(direction.opposite());
+				lastDirection = direction;
+			}
+			else
+			{
+				direction = lastDirection.opposite();
+				lastDirection = null;
+			}
+			int genX = foliageX + direction.x;
+			int genZ = foliageZ + direction.z;
+			int yy;
+			int offsetCount = 0;
+			for(yy = branchY; yy < trunkHeight - 5 +  random.nextInt(4); ++yy)
+			{
+				int placeGenY = genY + yy;
+				BlockPos placePos2 = new BlockPos(genX, placeGenY, genZ);
+				if(TreeFeature.isAirOrLeaves(world, placePos2))
+				{
+					getAndSetState(world, random, placePos2, placedStates, box, config);
+					getAndSetState(world, random, placePos2.east(), placedStates, box, config);
+					getAndSetState(world, random, placePos2.south(), placedStates, box, config);
+					getAndSetState(world, random, placePos2.east().south(), placedStates, box, config);
+				}
+
+				if(random.nextBoolean() && offsetCount <= 5)
+				{
+					offsetCount++;
+					if(direction.isStraight)
+					{
+						genX += direction.x;
+						genZ += direction.z;
+					}
+					else
+					{
+						if(yy % 2 == 0)
+						{
+							genX += direction.x;
+						}
+						else
+						{
+							genZ += direction.z;
+						}
+					}
+
+					if(random.nextInt(4) == 0)
+					{
+						foliage.add(new FoliagePlacer.TreeNode(new BlockPos(genX, genY + yy + 2, genZ), 0, false));
+					}
+				}
+			}
+			foliage.add(new FoliagePlacer.TreeNode(new BlockPos(genX, genY + yy + 1, genZ), 1, false));
+		}
 	}
 }

@@ -56,6 +56,8 @@ public class BMWorldGen
 	private static final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.categories(Biome.Category.SWAMP);
 	private static final Predicate<BiomeSelectionContext> DARK_FOREST = BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST, BiomeKeys.DARK_FOREST_HILLS);
 
+	private static final Predicate<BiomeSelectionContext> ALL = BiomeSelectors.all();
+
 	private static void doModifications()
 	{
 		mushroomModifications();
@@ -75,6 +77,8 @@ public class BMWorldGen
 				});
 
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(ANCIENT_OAK_TREES));
+		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_ORES, rk(MESMERITE_UNDERGROUND));
+		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(MESMERITE_BOULDER));
 	}
 
 	private static void swampModifications()
@@ -149,6 +153,7 @@ public class BMWorldGen
 
 		BiomeModifications.addSpawn(BADLANDS_BIOMES, SpawnGroup.CREATURE, BMEntities.SCUTTLER, 4, 1, 2);
 	}
+
 	//TODO: organize this in a way that makes sense?
 
 	//Structure
@@ -173,6 +178,10 @@ public class BMWorldGen
 	public static final GrassPatchFeature UNDERGROUND_MYCELIUM = new GrassPatchFeature(GrassPatchFeatureConfig.CODEC);
 	public static final OrangeMushroomFeature ORANGE_MUSHROOM_FEATURE = new OrangeMushroomFeature(ProbabilityConfig.CODEC);
 
+	public static final ConfiguredFeature<?, ?> MESMERITE_UNDERGROUND = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, BMBlocks.MESMERITE.getDefaultState(), 33)).rangeOf(80).spreadHorizontally().repeat(10);
+	public static final Feature<SingleStateFeatureConfig> MESMERITE_BOULDER_FEATURE = new MesermiteBoulderFeature(SingleStateFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> MESMERITE_BOULDER = MESMERITE_BOULDER_FEATURE.configure(new SingleStateFeatureConfig(BMBlocks.MESMERITE.getDefaultState())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(4);
+
 	//Tree
 	public static final TrunkPlacerType<BalsaTrunkPlacer> BLIGHTED_BALSA_TRUNK = new TrunkPlacerType<>(BalsaTrunkPlacer.CODEC);
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> BLIGHTED_BALSA = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.BLIGHTED_BALSA_LEAVES.getDefaultState()), new PineFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), UniformIntDistribution.of(3, 1)), new BalsaTrunkPlacer(4, 6, 8), new ThreeLayersFeatureSize(1, 1, 0, 1, 2,OptionalInt.empty()))).ignoreVines().build());
@@ -188,7 +197,7 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of(LeaveVineTreeDecorator.INSTANCE)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREES = SWAMP_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.5F, 4)));
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()),  new DarkOakFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0)), new AncientOakTrunkPlacer(10, 2, 14), new ThreeLayersFeatureSize(2, 3, 0, 1, 2, OptionalInt.empty()))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()),  new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new AncientOakTrunkPlacer(10, 2, 14), new ThreeLayersFeatureSize(2, 3, 0, 1, 2, OptionalInt.empty()))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build());
 	public static final ConfiguredFeature<?, ?> ANCIENT_OAK_TREES = ANCIENT_OAK.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(2);
 
 	//Badlands

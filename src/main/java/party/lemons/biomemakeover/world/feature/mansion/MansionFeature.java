@@ -238,13 +238,22 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/tower/top/tower_top_1")
 	);
 	public static List<Identifier> ROOF_1 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_1_1")
+
+			//BiomeMakeover.ID("mansion/empty")
+
+					BiomeMakeover.ID("mansion/roof/roof_1_1")
 	);
 	public static List<Identifier> ROOF_2 = Lists.newArrayList(
-		BiomeMakeover.ID("mansion/roof/roof_2_1")
+
+			//BiomeMakeover.ID("mansion/empty")
+
+				BiomeMakeover.ID("mansion/roof/roof_2_1")
 	);
 	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_2_straight_1")
+
+		//	BiomeMakeover.ID("mansion/empty")
+
+				BiomeMakeover.ID("mansion/roof/roof_2_straight_1")
 			//	BiomeMakeover.ID("mansion/roof/roof_2_1")
 	);
 	public static List<Identifier> ROOF_3 = Lists.newArrayList(

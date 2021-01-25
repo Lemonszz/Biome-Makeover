@@ -26,21 +26,21 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 			case 1:
 				if(layout.get(Direction.SOUTH)) return offsetPos.add(12, 0, 11);
 				else if(layout.get(Direction.NORTH)) return offsetPos.add(-2, 0, -1);
-				else if(layout.get(Direction.EAST)) return offsetPos.add(11, 0, -2);
-				else if(layout.get(Direction.WEST)) return offsetPos.add(-1, 0, 12);
+				else if(layout.get(Direction.EAST)) return offsetPos.add(10, 0, -2);
+				else if(layout.get(Direction.WEST)) return offsetPos.add(0, 0, 12);
 			case 2:
 				if(layout.get(Direction.SOUTH) && layout.get(Direction.NORTH))
-					return offsetPos.add(-2, 0, -1);
+					return offsetPos.add(-2, 0, -1); /* GOOD */
 				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
-					return offsetPos.add(11, 0, 11);
+					return offsetPos.add(0, 0, 0);
 				else if(layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
-					return offsetPos.add(0, 0, 11);
+					return offsetPos.add(12, 0, -2); /*GOOOD */
 				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST))
-					return offsetPos.add(11, 0, -2);
+					return offsetPos.add(0, 0, 11); /* GOOD */
 				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST))
-					return offsetPos.add(11, 0, -1);
+					return offsetPos.add(-2, 0, -1);
 				else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST))
-					return offsetPos;
+					return offsetPos.add(12, 0, 12);
 			case 3:
 				if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
 					return offsetPos;
@@ -98,11 +98,11 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 			case 2:
 				if(layout.get(Direction.SOUTH) && layout.get(Direction.NORTH)) return BlockRotation.NONE;
 				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
-					return BlockRotation.CLOCKWISE_180; // !
+					return BlockRotation.NONE; // !
 				else if(layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
-					return BlockRotation.COUNTERCLOCKWISE_90; // ~
-				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST)) return BlockRotation.CLOCKWISE_90;
-				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST)) return BlockRotation.CLOCKWISE_90;
+					return BlockRotation.CLOCKWISE_90; // ~
+				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST)) return BlockRotation.COUNTERCLOCKWISE_90;
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST)) return BlockRotation.COUNTERCLOCKWISE_90;
 				else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST))
 					return BlockRotation.CLOCKWISE_180; //~ !!
 			case 3:

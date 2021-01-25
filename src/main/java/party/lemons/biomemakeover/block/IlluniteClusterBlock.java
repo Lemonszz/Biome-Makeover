@@ -17,6 +17,7 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
 import java.util.Locale;
@@ -60,18 +61,22 @@ public class IlluniteClusterBlock extends FacingBlock implements BlockWithItem, 
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random)
 	{
-		if(!world.getBlockTickScheduler().isScheduled(pos, this))
-			world.getBlockTickScheduler().schedule(new BlockPos(pos), this, 20 + random.nextInt(150));
-
+		scheduleUpdates(world, pos, random);
 		super.randomDisplayTick(state, world, pos, random);
 	}
 
+	@Override
+	public void prepare(BlockState state, WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth)
+	{
+		super.prepare(state, world, pos, flags, maxUpdateDepth);
+		scheduleUpdates(world, pos, world.getRandom());
+	}
 
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify)
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
 	{
-		world.getBlockTickScheduler().schedule(new BlockPos(pos), this, 20 + world.random.nextInt(150));
-		super.onBlockAdded(state, world, pos, oldState, notify);
+		scheduleUpdates(world, pos, world.getRandom());
+		return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
 	}
 
 	public BlockState rotate(BlockState state, BlockRotation rotation)
@@ -119,6 +124,12 @@ public class IlluniteClusterBlock extends FacingBlock implements BlockWithItem, 
 		builder.add(TYPE);
 		builder.add(FACING);
 		builder.add(Properties.WATERLOGGED);
+	}
+
+	public void scheduleUpdates(WorldAccess world, BlockPos pos, Random random)
+	{
+		if(!world.getBlockTickScheduler().isScheduled(pos, this))
+			world.getBlockTickScheduler().schedule(new BlockPos(pos), this, 20 + random.nextInt(150));
 	}
 
 	public enum Type implements StringIdentifiable

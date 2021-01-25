@@ -33,7 +33,7 @@
     "StatusEffectMixin",
     "BrewingStandBlockEntityMixin",
     "BrewingStandFuelSlotMixin",
-    "PlayerEntityMixin"
+    "LivingEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

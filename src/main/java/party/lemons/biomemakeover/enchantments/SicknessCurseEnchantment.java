@@ -11,7 +11,7 @@ public class SicknessCurseEnchantment extends BMEnchantment
 {
 	public SicknessCurseEnchantment()
 	{
-		super(Rarity.UNCOMMON, EnchantmentTarget.VANISHABLE, new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET});
+		super(Rarity.UNCOMMON, EnchantmentTarget.VANISHABLE, EquipmentSlot.values());
 	}
 
 	@Override
