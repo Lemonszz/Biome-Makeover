@@ -40,6 +40,7 @@ public class BMEntities
 	public static final EntityType<LightningBugEntity> LIGHTNING_BUG_ALTERNATE = FabricEntityTypeBuilder.<LightningBugEntity>create(SpawnGroup.MISC, (t, w)->new LightningBugEntity(w, true)).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).trackRangeBlocks(12).build();
 	public static final EntityType<BMBoatEntity> BM_BOAT = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new).trackable(128, 3).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).build();
 	public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new).trackable(4, 10).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build();
+	public static final EntityType<RootlingEntity> ROOTLING = FabricEntityTypeBuilder.<RootlingEntity>create(SpawnGroup.CREATURE, (t, w)->new RootlingEntity(w)).dimensions(EntityDimensions.fixed(0.6F, 1.1F)).trackRangeBlocks(12).build();
 
 	public static void init()
 	{

@@ -1,7 +1,9 @@
 package party.lemons.biomemakeover.world.feature.mansion;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -22,8 +24,10 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.Grid;
+import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
@@ -85,7 +89,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				boolean ground = rm.getPosition().getY() == 0;
 
 				//Add room
-				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP || rm instanceof RoofMansionRoom));
+				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP));
 
 				//Create walls
 				BlockPos wallPos = new BlockPos(xx, yy, zz);
@@ -154,7 +158,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		private void initialize(StructureManager structureManager)
 		{
 			Structure structure = structureManager.getStructureOrBlank(this.template);
-			StructurePlacementData structurePlacementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(this.rotation).addProcessor(isWall ? BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS : BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+			StructurePlacementData structurePlacementData = (new StructurePlacementData())
+					.setMirror(BlockMirror.NONE).setRotation(this.rotation)
+					.addProcessor(isWall ? BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS : BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+
 			this.setStructureData(structure, this.pos, structurePlacementData);
 		}
 
@@ -237,30 +244,25 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> TOWER_TOP = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/tower/top/tower_top_1")
 	);
+
+	public static List<Identifier> ROOF_0 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/roof/roof_0_1")
+	);
+
 	public static List<Identifier> ROOF_1 = Lists.newArrayList(
-
-			//BiomeMakeover.ID("mansion/empty")
-
-					BiomeMakeover.ID("mansion/roof/roof_1_1")
+			BiomeMakeover.ID("mansion/roof/roof_1_1")
 	);
 	public static List<Identifier> ROOF_2 = Lists.newArrayList(
-
-			//BiomeMakeover.ID("mansion/empty")
-
-				BiomeMakeover.ID("mansion/roof/roof_2_1")
+			BiomeMakeover.ID("mansion/roof/roof_2_1")
 	);
 	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
-
-		//	BiomeMakeover.ID("mansion/empty")
-
-				BiomeMakeover.ID("mansion/roof/roof_2_straight_1")
-			//	BiomeMakeover.ID("mansion/roof/roof_2_1")
+			BiomeMakeover.ID("mansion/roof/roof_2_straight_1")
 	);
 	public static List<Identifier> ROOF_3 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
+			BiomeMakeover.ID("mansion/roof/roof_3_1")
 	);
 	public static List<Identifier> ROOF_4 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
+			BiomeMakeover.ID("mansion/roof/roof_4_1")
 	);
 
 

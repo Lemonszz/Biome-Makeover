@@ -33,6 +33,12 @@ public class BMItems
 	public static final Item ECTOPLASM = new BMItem(settings());
 	public static final Item PINK_PETALS = new BMItem(settings());
 	public static final Item MAGENTA_PETALS = new BMItem(settings());
+	public static final Item BLUE_PETALS = new BMItem(settings());
+	public static final Item BROWN_PETALS = new BMItem(settings());
+	public static final Item CYAN_PETALS = new BMItem(settings());
+	public static final Item GRAY_PETALS = new BMItem(settings());
+	public static final Item LIGHT_BLUE_PETALS = new BMItem(settings());
+	public static final Item PURPLE_PETALS = new BMItem(settings());
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
 
 	public static final Item LIGHTNING_BOTTLE = new LightningBottleItem(settings());
@@ -43,6 +49,7 @@ public class BMItems
 	public static final Item SOUL_EMBERS = new Item(settings());
 
 	public static final Item ILLUNITE_SHARD = new Item(settings());
+	public static final Item ROOTLING_SEEDS = new AliasedBlockItem(BMBlocks.ROOTLING_CROP, settings());
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
@@ -64,6 +71,7 @@ public class BMItems
 	public static final Item DECAYED_SPAWN_EGG = new SpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, settings());
 	public static final Item GIANT_SLIME_SPAWN_EGG = new SpawnEggItem(BMEntities.GIANT_SLIME, 0x3ea05f, 0x7EBF6E, settings());
 	public static final Item OWL_SPAWN_EGG = new SpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, settings());
+	public static final Item ROOTLING_SPAWN_EGG = new SpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 

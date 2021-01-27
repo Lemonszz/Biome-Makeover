@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "biomemakeover:block/rootling_crop0"
+    },
+    "age=1": {
+      "model": "biomemakeover:block/rootling_crop1"
+    },
+    "age=2": {
+      "model": "biomemakeover:block/rootling_crop2"
+    },
+    "age=3": {
+      "model": "biomemakeover:block/rootling_crop3"
+    },
+    "age=4": {
+      "model": "biomemakeover:block/rootling_crop4"
+    }
+  }
+}

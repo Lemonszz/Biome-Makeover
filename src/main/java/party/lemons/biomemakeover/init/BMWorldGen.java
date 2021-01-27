@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.structure.processor.StructureProcessorType;
@@ -15,6 +16,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.carver.Carver;
@@ -79,6 +81,11 @@ public class BMWorldGen
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(ANCIENT_OAK_TREES));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_ORES, rk(MESMERITE_UNDERGROUND));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(MESMERITE_BOULDER));
+
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.OWL, 10, 1, 4);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.ROOTLING, 10, 2, 6);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, EntityType.FOX, 8, 2, 4);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, EntityType.RABBIT, 6, 2, 3);
 	}
 
 	private static void swampModifications()

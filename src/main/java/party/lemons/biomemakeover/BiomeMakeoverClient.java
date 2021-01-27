@@ -56,6 +56,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE, (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer()));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GIANT_SLIME, (r, c)->new GiantSlimeRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.OWL, (r, c)->new OwlEntityRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.ROOTLING, (r, c)->new RootlingEntityRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.ALTAR, (r)->new AltarBlockEntityRenderer(r));
@@ -182,7 +183,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.SWAMP_AZALEA,
 				BMBlocks.MARIGOLD,
 				BMBlocks.ILLUNITE_CLUSTER,
-				BMBlocks.ALTAR
+				BMBlocks.ALTAR,
+				BMBlocks.ROOTLING_CROP
 		);
 	}
 }
