@@ -30,16 +30,17 @@ public class BMItems
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
 	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
 
-	public static final Item ECTOPLASM = new BMItem(settings());
-	public static final Item PINK_PETALS = new BMItem(settings());
 	public static final Item MAGENTA_PETALS = new BMItem(settings());
+	public static final Item LIGHT_BLUE_PETALS = new BMItem(settings());
+	public static final Item PINK_PETALS = new BMItem(settings());
+	public static final Item GRAY_PETALS = new BMItem(settings());
+	public static final Item CYAN_PETALS = new BMItem(settings());
+	public static final Item PURPLE_PETALS = new BMItem(settings());
 	public static final Item BLUE_PETALS = new BMItem(settings());
 	public static final Item BROWN_PETALS = new BMItem(settings());
-	public static final Item CYAN_PETALS = new BMItem(settings());
-	public static final Item GRAY_PETALS = new BMItem(settings());
-	public static final Item LIGHT_BLUE_PETALS = new BMItem(settings());
-	public static final Item PURPLE_PETALS = new BMItem(settings());
+
 	public static final Item SCUTTLER_TAIL = new BMItem(settings());
+	public static final Item ECTOPLASM = new BMItem(settings());
 
 	public static final Item LIGHTNING_BOTTLE = new LightningBottleItem(settings());
 	public static final Item DRAGONFLY_WINGS = new Item(settings());

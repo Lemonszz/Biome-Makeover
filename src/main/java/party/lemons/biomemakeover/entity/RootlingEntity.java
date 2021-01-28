@@ -1,6 +1,8 @@
 package party.lemons.biomemakeover.entity;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -16,6 +18,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -30,7 +33,9 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
+import party.lemons.biomemakeover.init.BMNetwork;
 import party.lemons.biomemakeover.util.EntityUtil;
+import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.EnumSet;
@@ -67,11 +72,12 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(2, new GetInRainGoal());
-		this.goalSelector.add(4, new TemptGoal(this, 1D, Ingredient.ofItems(Items.BONE_MEAL), false));
-		this.goalSelector.add(5, new FleeEntityGoal<>(this, LivingEntity.class, 8F, 1.6D, 1.4D, (e)->
+		this.goalSelector.add(4, new FleeEntityGoal<>(this, LivingEntity.class, 8F, 1.6D, 1.4D, (e)->
 		{
 			return e.getEquippedStack(EquipmentSlot.MAINHAND).getItem() == Items.SHEARS || e.getEquippedStack(EquipmentSlot.OFFHAND).getItem() == Items.SHEARS;
 		}));
+		this.goalSelector.add(5, new TemptGoal(this, 1D, Ingredient.ofItems(Items.BONE_MEAL), false));
+
 		this.goalSelector.add(6, new DanceGoal());
 		this.goalSelector.add(7, new FollowEntityGoal());
 		this.goalSelector.add(8, new InspectFlowerGoal());
@@ -128,15 +134,22 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 			{
 				if(world.isClient())
 				{
-					BoneMealItem.createParticles(world, getBlockPos(), 0);
 					return ActionResult.CONSUME;
 				}
 				else
 				{
+					PacketByteBuf buf = PacketByteBufs.create();
+					buf.writeDouble(getX());
+					buf.writeDouble(getY());
+					buf.writeDouble(getZ());
+					NetworkUtil.serverSendTracking(world, getBlockPos(), BMNetwork.SPAWN_BONEMEAL_ENTITY_PARTICLES, buf);
+
 					if(random.nextInt(3) == 0)
 					{
 						setFlowered(true);
 					}
+					if(!player.isCreative())
+						itemStack.decrement(1);
 					return ActionResult.SUCCESS;
 				}
 			}

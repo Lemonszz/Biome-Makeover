@@ -2,6 +2,8 @@ package party.lemons.biomemakeover.util;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -56,5 +58,16 @@ public class NetworkUtil
 		buf.writeInt(count);
 
 		serverSendToNearby(world, BMNetwork.SPAWN_LIGHTNING_ENTITY_PARTICLES, buf, entity.getX(), entity.getY(), entity.getZ());
+	}
+
+	public static void serverSendTracking(World world, BlockPos blockPos, Identifier id, PacketByteBuf buf)
+	{
+		if(world.isClient())
+			return;
+
+		for(ServerPlayerEntity pl : PlayerLookup.tracking((ServerWorld) world, blockPos))
+		{
+			ServerPlayNetworking.send(pl, id, buf);
+		}
 	}
 }
