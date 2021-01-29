@@ -109,6 +109,7 @@ public class BMBlocks
 	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, 0.5F).luminance(15).nonOpaque());
 
 	public static final IlluniteClusterBlock ILLUNITE_CLUSTER = new IlluniteClusterBlock(settings(Material.STONE, 0.5F).nonOpaque().noCollision().postProcess(BMBlocks::always).emissiveLighting(BMBlocks::always));
+	public static final Block ILLUNITE_BLOCK = new BMBlock(settings(Material.STONE, 1.5F).requiresTool());
 	public static final Block MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));
 	public static final DecorationBlockInfo MESMERITE_DECORATION = new DecorationBlockInfo("mesmerite", MESMERITE, settings(Material.STONE, 1.5F)).all();
 	public static final Block POLISHED_MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "biomemakeover:bulbus_root"
+  },
+  "result": "biomemakeover:roasted_bulbus_root",
+  "experience": 0.35,
+  "cookingtime": 600
+}

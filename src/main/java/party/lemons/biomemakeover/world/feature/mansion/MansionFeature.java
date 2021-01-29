@@ -19,6 +19,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -117,6 +118,18 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 					children.add(new Piece(manager, getOuterWall(room, random), wallPos.offset(Direction.EAST, 11).south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
 				if(!roomGrid.contains(room.getPosition().south())  || !roomGrid.get(room.getPosition().south()).getRoomType().hasWalls())
 					children.add(new Piece(manager, getOuterWall(room, random), wallPos.offset(Direction.SOUTH, 11).west(), BlockRotation.NONE, ground, true));
+
+				BlockPos cornerPos1 = room.getPosition().offset(Direction.NORTH).offset(Direction.WEST);
+				if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
+					children.add(new Piece(manager, CORNER_FILLER, wallPos.offset(Direction.WEST).offset(Direction.NORTH).add(0, 0, 0), BlockRotation.NONE, ground, false));
+			}
+			else if(room.getRoomType() == RoomType.ROOF)
+			{
+				RoofMansionRoom roof = (RoofMansionRoom) room;
+				if(roof.isRoofConnected(Direction.NORTH, roomGrid))
+					children.add(new Piece(manager, getRoofSplit(room, random), wallPos.offset(Direction.NORTH).add(-2, 0, 0), BlockRotation.NONE, ground, true));
+				if(roof.isRoofConnected(Direction.WEST, roomGrid))
+					children.add(new Piece(manager, getRoofSplit(room, random), wallPos.offset(Direction.WEST).add(0, 0, -2), BlockRotation.CLOCKWISE_90, ground, true));
 			}
 		}
 
@@ -126,6 +139,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			super.generateStructure(world, structureAccessor, chunkGenerator, random, box, chunkPos);
 		}
 	}
+
 
 	public static class Piece extends SimpleStructurePiece
 	{
@@ -249,6 +263,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/roof/roof_0_1")
 	);
 
+
 	public static List<Identifier> ROOF_1 = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/roof/roof_1_1")
 	);
@@ -258,15 +273,40 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/roof/roof_2_straight_1")
 	);
+
 	public static List<Identifier> ROOF_3 = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/roof/roof_3_1")
 	);
+
 	public static List<Identifier> ROOF_4 = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/roof/roof_4_1")
 	);
 
 
+	public static List<Identifier> ROOF_SPLIT = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/roof/roof_split_1")
+	);
 
+	public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
+
+	/*
+	public static List<Identifier> ROOF_1 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+	public static List<Identifier> ROOF_2 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+	public static List<Identifier> ROOF_3 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+	public static List<Identifier> ROOF_4 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/empty")
+	);
+
+*/
 
 	public static Identifier getInnerWall(MansionRoom room, Random random)
 	{
@@ -282,5 +322,11 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		{
 			return OUTER_WALL_BASE.get(random.nextInt(OUTER_WALL_BASE.size()));
 		}
+	}
+
+
+	private Identifier getRoofSplit(MansionRoom room, ChunkRandom random)
+	{
+		return ROOF_SPLIT.get(random.nextInt(ROOF_SPLIT.size()));
 	}
 }

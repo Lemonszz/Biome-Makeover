@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.init;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
@@ -17,6 +19,7 @@ public class BMNetwork
 	public static final Identifier WITCH_QUESTS = new Identifier(BiomeMakeover.MODID, "witch_quests");
 	public static final Identifier CL_COMPLETE_QUEST = new Identifier(BiomeMakeover.MODID, "cl_complete_quest");
 
+	@Environment(EnvType.CLIENT)
 	public static void initClient()
 	{
 		//TODO: move to new networking

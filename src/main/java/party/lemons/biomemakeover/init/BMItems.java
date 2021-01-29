@@ -20,12 +20,16 @@ public class BMItems
 	public static final FoodComponent COOKED_GLOWFISH_FOOD = new FoodComponent.Builder().alwaysEdible().saturationModifier(0.6F).hunger(5).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 200, 0), 0.5F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 0.5F).build();
 	public static final FoodComponent COOKED_TOAD_FOOD = new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).meat().build();
 	public static final FoodComponent RAW_TOAD_FOOD = new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).meat().build();
+	public static final FoodComponent RAW_BULBUS_ROOT_FOOD = new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build();
+	public static final FoodComponent BULBUS_ROOT_FOOD = new FoodComponent.Builder().hunger(5).saturationModifier(0.8F).build();
 
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
 	public static final Item COOKED_GLOWFISH = new Item(settings().food(COOKED_GLOWFISH_FOOD));
 	public static final Item RAW_TOAD = new Item(settings().food(RAW_TOAD_FOOD));
 	public static final Item COOKED_TOAD = new Item(settings().food(COOKED_TOAD_FOOD));
+	public static final Item BULBUS_ROOT = new Item(settings().food(RAW_BULBUS_ROOT_FOOD));
+	public static final Item ROASTED_BULBUS_ROOT = new Item(settings().food(BULBUS_ROOT_FOOD));
 
 	public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), settings());
 	public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), settings());
