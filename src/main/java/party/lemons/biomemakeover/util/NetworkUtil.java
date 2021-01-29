@@ -45,7 +45,7 @@ public class NetworkUtil
 		buf.writeBoolean(doBottle);
 		buf.writeBlockPos(pos);
 
-		serverSendToNearby(world, BMNetwork.SPAWN_LIGHTNING_BOTTLE_PARTICLES, buf, pos.getX(), pos.getY(), pos.getZ());
+		serverSendTracking(world, pos, BMNetwork.SPAWN_LIGHTNING_BOTTLE_PARTICLES, buf);
 	}
 
 	public static void doLightningEntity(World world, LivingEntity entity, int count)
@@ -57,7 +57,7 @@ public class NetworkUtil
 		buf.writeInt(entity.getEntityId());
 		buf.writeInt(count);
 
-		serverSendToNearby(world, BMNetwork.SPAWN_LIGHTNING_ENTITY_PARTICLES, buf, entity.getX(), entity.getY(), entity.getZ());
+		serverSendTracking(world, entity.getBlockPos(), BMNetwork.SPAWN_LIGHTNING_ENTITY_PARTICLES, buf);
 	}
 
 	public static void serverSendTracking(World world, BlockPos blockPos, Identifier id, PacketByteBuf buf)

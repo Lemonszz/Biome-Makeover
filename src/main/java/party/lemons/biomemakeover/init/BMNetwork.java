@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.network.*;
@@ -22,19 +23,17 @@ public class BMNetwork
 	@Environment(EnvType.CLIENT)
 	public static void initClient()
 	{
-		//TODO: move to new networking
-
-		ClientSidePacketRegistry.INSTANCE.register(SPAWN_ENTITY, new S2C_SpawnEntityCustom());
-		ClientSidePacketRegistry.INSTANCE.register(SPAWN_POLTERGEIGHT_PARTICLE, new S2C_DoPoltergeightParticle());
-		ClientSidePacketRegistry.INSTANCE.register(SPAWN_LIGHTNING_BOTTLE_PARTICLES, new S2C_DoLightningBottleParticles());
-		ClientSidePacketRegistry.INSTANCE.register(SPAWN_LIGHTNING_ENTITY_PARTICLES, new S2C_DoLightningEntityParticles());
-		ClientSidePacketRegistry.INSTANCE.register(WITCH_QUESTS, new S2C_HandleWitchQuests());
+		ClientPlayNetworking.registerGlobalReceiver(SPAWN_ENTITY, new S2C_SpawnEntityCustom());
+		ClientPlayNetworking.registerGlobalReceiver(SPAWN_POLTERGEIGHT_PARTICLE, new S2C_DoPoltergeightParticle());
+		ClientPlayNetworking.registerGlobalReceiver(SPAWN_LIGHTNING_BOTTLE_PARTICLES, new S2C_DoLightningBottleParticles());
+		ClientPlayNetworking.registerGlobalReceiver(SPAWN_LIGHTNING_ENTITY_PARTICLES, new S2C_DoLightningEntityParticles());
+		ClientPlayNetworking.registerGlobalReceiver(WITCH_QUESTS, new S2C_HandleWitchQuests());
 
 		ClientPlayNetworking.registerGlobalReceiver(SPAWN_BONEMEAL_ENTITY_PARTICLES, new S2C_DoEntityBonemealParticles());
 	}
 
 	public static void initCommon()
 	{
-		ServerSidePacketRegistry.INSTANCE.register(CL_COMPLETE_QUEST, new C2S_HandleCompleteQuest());
+		ServerPlayNetworking.registerGlobalReceiver(CL_COMPLETE_QUEST, new C2S_HandleCompleteQuest());
 	}
 }

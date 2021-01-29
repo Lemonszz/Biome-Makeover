@@ -1,9 +1,12 @@
 package party.lemons.biomemakeover.network;
 
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,10 +15,10 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.UUID;
 
-public class S2C_SpawnEntityCustom implements PacketConsumer
+public class S2C_SpawnEntityCustom implements ClientPlayNetworking.PlayChannelHandler
 {
 	@Override
-	public void accept(PacketContext ctx, PacketByteBuf data)
+	public void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender responseSender)
 	{
 		EntityType<?> type = Registry.ENTITY_TYPE.get(data.readVarInt());
 		UUID entityUUID = data.readUuid();
@@ -26,7 +29,7 @@ public class S2C_SpawnEntityCustom implements PacketConsumer
 		float pitch = data.readFloat();
 		float yaw = data.readFloat();
 
-		ctx.getTaskQueue().execute(() -> {
+		client.execute(()->{
 			ClientWorld world = MinecraftClient.getInstance().world;
 			Entity entity = type.create(world);
 			if(entity != null) {

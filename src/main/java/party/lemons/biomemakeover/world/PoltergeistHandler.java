@@ -2,6 +2,8 @@ package party.lemons.biomemakeover.world;
 
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.fluid.Fluids;
@@ -136,7 +138,7 @@ public class PoltergeistHandler
 		data.writeInt(pos.getX());
 		data.writeInt(pos.getY());
 		data.writeInt(pos.getZ());
-		NetworkUtil.serverSendToNearby(world, BMNetwork.SPAWN_POLTERGEIGHT_PARTICLE, data, pos.getX(), pos.getY(), pos.getZ());
+		NetworkUtil.serverSendTracking(world, pos, BMNetwork.SPAWN_POLTERGEIGHT_PARTICLE, data);
 	}
 
 	public interface PoltergeistBehaviour

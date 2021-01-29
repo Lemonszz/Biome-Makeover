@@ -4,11 +4,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.WeightedList;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMItems;
@@ -183,10 +185,13 @@ public class WitchQuestHandler
 
 	public static void sendQuests(PlayerEntity player, int index, WitchQuestList quests)
 	{
+		if(player.world.isClient())
+			return;
+
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(index);
 		quests.toPacket(buf);
-		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, BMNetwork.WITCH_QUESTS, buf);
+		ServerPlayNetworking.send((ServerPlayerEntity) player, BMNetwork.WITCH_QUESTS, buf);
 	}
 
 	private static WeightedList<Integer> ITEM_COUNT_SELECTOR = new WeightedList<>();

@@ -2,7 +2,9 @@ package party.lemons.biomemakeover.crafting.witch.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -44,7 +46,7 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 		{
 			PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 			buf.writeVarInt(index);
-			ClientSidePacketRegistry.INSTANCE.sendToServer(BMNetwork.CL_COMPLETE_QUEST, buf);
+			ClientPlayNetworking.send(BMNetwork.CL_COMPLETE_QUEST, buf);
 		}
 	}
 

@@ -1,8 +1,11 @@
 package party.lemons.biomemakeover.network;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.options.ParticlesMode;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.item.ItemStack;
@@ -21,18 +24,19 @@ import party.lemons.biomemakeover.util.ClientUtil;
 
 import java.util.Random;
 
-public class S2C_DoLightningBottleParticles implements PacketConsumer
+public class S2C_DoLightningBottleParticles implements ClientPlayNetworking.PlayChannelHandler
 {
+
 	@Override
-	public void accept(PacketContext ctx, PacketByteBuf buf)
+	public void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender)
 	{
 		final boolean doBottleBreak = buf.readBoolean();
 		BlockPos pos = buf.readBlockPos();
 
-		ctx.getTaskQueue().execute(()->{
+		client.execute(()->{
 			Vec3d dir = Vec3d.ofBottomCenter(pos);
-			Random random = ctx.getPlayer().getRandom();
-			World world = ctx.getPlayer().world;
+			Random random = client.world.random;
+			World world = client.world;
 
 			if(doBottleBreak)
 			{

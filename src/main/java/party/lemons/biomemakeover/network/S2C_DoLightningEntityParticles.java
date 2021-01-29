@@ -1,7 +1,11 @@
 package party.lemons.biomemakeover.network;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -21,17 +25,18 @@ import party.lemons.biomemakeover.util.ClientUtil;
 
 import java.util.Random;
 
-public class S2C_DoLightningEntityParticles implements PacketConsumer
+public class S2C_DoLightningEntityParticles implements ClientPlayNetworking.PlayChannelHandler
 {
+
 	@Override
-	public void accept(PacketContext ctx, PacketByteBuf buf)
+	public void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender)
 	{
 		int entityID = buf.readInt();
 		int count = buf.readInt();
 
-		ctx.getTaskQueue().execute(()->
+		client.execute(()->
 		{
-			Entity e = ctx.getPlayer().world.getEntityById(entityID);
+			Entity e = client.world.getEntityById(entityID);
 			if(e == null || !(e instanceof LivingEntity))
 				return;
 			Random random = ((LivingEntity) e).getRandom();
