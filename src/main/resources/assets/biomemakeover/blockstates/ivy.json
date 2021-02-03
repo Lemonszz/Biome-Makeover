@@ -1,0 +1,102 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/ivy_1",
+          "x": 270,
+          "uvlock": true
+        },
+        {
+          "model": "biomemakeover:block/ivy_2",
+          "x": 270,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/ivy_1",
+          "y": 270,
+          "uvlock": true
+        },
+        {
+          "model": "biomemakeover:block/ivy_2",
+          "y": 270,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/ivy_1",
+          "x": 90,
+          "uvlock": true
+        },
+        {
+          "model": "biomemakeover:block/ivy_2",
+          "x": 90,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/ivy_1",
+          "y": 90,
+          "uvlock": true
+        },
+        {
+          "model": "biomemakeover:block/ivy_2",
+          "y": 90,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/ivy_1",
+          "y": 180,
+          "uvlock": true
+        },
+        {
+          "model": "biomemakeover:block/ivy_2",
+          "y": 180,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/ivy_1"
+        },
+        {
+          "model": "biomemakeover:block/ivy_2"
+        }
+      ]
+    }
+  ]
+}

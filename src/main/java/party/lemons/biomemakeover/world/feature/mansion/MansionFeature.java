@@ -207,7 +207,14 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	}
 
 	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1")
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"),
+			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8")
 	);
 
 	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(
@@ -219,7 +226,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	);
 
 	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1")
+			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"),
+			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"),
+			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"),
+			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4")
 	);
 
 	public static List<Identifier> ROOMS = Lists.newArrayList(
@@ -235,7 +245,15 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	);
 
 	public static List<Identifier> INNER_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/inner/wall_1")
+			BiomeMakeover.ID("mansion/wall/inner/wall_1"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_2"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_3"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_4"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_5"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_6"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_7"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_8"),
+			BiomeMakeover.ID("mansion/wall/inner/wall_9")
 	);
 
 	public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(

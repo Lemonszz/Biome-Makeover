@@ -30,6 +30,10 @@ import party.lemons.biomemakeover.util.DebugUtil;
 import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
+import party.lemons.biomemakeover.util.color.ColorProviderHelper;
+import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
+import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
+import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
 import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
@@ -68,63 +72,17 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
 
-		//TODO: move this
-		ColorProviderRegistry.BLOCK.register(
-				(state, world, pos, tintIndex)->world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(),
-				BMBlocks.ANCIENT_OAK_LEAVES);
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
+				BMBlocks.ANCIENT_OAK_LEAVES, BMBlocks.IVY);
+		ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
+				BMBlocks.SWAMP_CYPRESS_LEAVES);
 
-		ColorProviderRegistry.BLOCK.register(
-				(state, world, pos, tintIndex)->0x84ab6f, BMBlocks.SWAMP_CYPRESS_LEAVES);
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Lillies(),
+				BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD, BMBlocks.WATER_LILY);
 
-		ColorProviderRegistry.BLOCK.register(
-				(state, world, pos, tintIndex)->{
-					int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Willow(),
+				BMBlocks.WILLOW_LEAVES, BMBlocks.WILLOWING_BRANCHES);
 
-					int rShift = -10;
-					int gShift = 10;
-					int bShift = -10;
-					if(world instanceof ChunkRenderRegionAccess)
-					{
-						if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
-						{
-							rShift = -20;
-							gShift = 40;
-							bShift = -20;
-						}
-					}
-
-					return MathUtils.colourBoost(color, rShift, gShift, bShift);
-				}, BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD, BMBlocks.WATER_LILY
-		);
-
-		ColorProviderRegistry.BLOCK.register(
-				(state, world, pos, tintIndex)->{
-					int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-					if(world instanceof ChunkRenderRegionAccess)
-					{
-						if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
-						{
-							return MathUtils.colourBoost(color, -10, 15, -10);
-						}
-					}
-
-					return color;
-				}, BMBlocks.WILLOWING_BRANCHES, BMBlocks.WILLOW_LEAVES
-		);
-
-		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
-			BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
-			return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
-		}, BMBlocks.WILLOWING_BRANCHES.asItem(), BMBlocks.WILLOW_LEAVES.asItem(), Blocks.LILY_PAD, BMBlocks.SMALL_LILY_PAD, BMBlocks.SWAMP_CYPRESS_LEAVES, BMBlocks.ANCIENT_OAK_LEAVES);
-
-		ColorProviderRegistry.ITEM.register((stack, tintIndex)->{
-			if(tintIndex == 0)
-			{
-				BlockState blockState = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
-				return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
-			}
-			return 0xFFFFFF;
-		}, BMBlocks.WATER_LILY);
 
 		if(ENABLE_CLIENT_DEBUG)
 		{
@@ -165,15 +123,12 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.BARREL_CACTUS,
 				BMBlocks.BARREL_CACTUS_FLOWERED,
 				BMBlocks.POLTERGEIST,
-				BMBlocks.WILLOWING_BRANCHES,
 				BMBlocks.CATTAIL,
 				BMBlocks.REED,
 				BMBlocks.SMALL_LILY_PAD,
-				BMBlocks.WILLOW_LEAVES,
 				BMBlocks.WILLOW_SAPLING,
 				BMBlocks.SWAMP_CYPRESS_SAPLING,
 				BMBlocks.ANCIENT_OAK_SAPLING,
-				BMBlocks.ANCIENT_OAK_LEAVES,
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
 				BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
 				BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
@@ -184,7 +139,14 @@ public class BiomeMakeoverClient implements ClientModInitializer
 				BMBlocks.MARIGOLD,
 				BMBlocks.ILLUNITE_CLUSTER,
 				BMBlocks.ALTAR,
-				BMBlocks.ROOTLING_CROP
+				BMBlocks.ROOTLING_CROP,
+				BMBlocks.IVY
+		);
+
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(),
+				BMBlocks.ANCIENT_OAK_LEAVES,
+				BMBlocks.WILLOW_LEAVES,
+				BMBlocks.WILLOWING_BRANCHES
 		);
 	}
 }

@@ -120,6 +120,7 @@ public class BMBlocks
 	public static final AltarBlock ALTAR = new AltarBlock(settings(Material.STONE, 0.5F).luminance((st)->st.get(AltarBlock.ACTIVE) ? 5 : 1).requiresTool().nonOpaque());
 
 	public static final RootlingCropBlock ROOTLING_CROP = new RootlingCropBlock(settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP));
+	public static final IvyBlock IVY = new IvyBlock(settings(Material.REPLACEABLE_PLANT, 0.15F).noCollision().ticksRandomly());
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));

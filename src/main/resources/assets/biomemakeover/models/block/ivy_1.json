@@ -1,0 +1,16 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "biomemakeover:block/ivy",
+    "ivy": "biomemakeover:block/ivy_0"
+  },
+  "elements": [
+    {   "from": [ 0, 0, 0.01 ],
+      "to": [ 16, 16, 0.01 ],
+      "faces": {
+        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#ivy", "tintindex": 0},
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#ivy", "tintindex": 0}
+      }
+    }
+  ]
+}

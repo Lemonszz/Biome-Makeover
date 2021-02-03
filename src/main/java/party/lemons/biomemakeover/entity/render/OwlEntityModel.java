@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.OwlEntity;
+import party.lemons.biomemakeover.util.AnimationHelper;
 
 public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements ModelWithHead
 {
