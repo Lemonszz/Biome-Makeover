@@ -1,9 +1,7 @@
 package party.lemons.biomemakeover.world.feature.mansion;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -26,14 +24,15 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.Grid;
-import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
@@ -50,7 +49,8 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	}
 
 	@Override
-	protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos chunkPos, DefaultFeatureConfig defaultFeatureConfig) {
+	protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos chunkPos, DefaultFeatureConfig defaultFeatureConfig)
+	{
 		Set<Biome> set = biomeSource.getBiomesInArea(i * 16 + 9, chunkGenerator.getSeaLevel(), j * 16 + 9, 32);
 		return set.size() == 1;
 	}
@@ -76,11 +76,13 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 			//Sort rooms. Roofs are created first to make generation not bad
 			Collection<MansionRoom> sortedRooms = roomGrid.getEntries();
-			sortedRooms = sortedRooms.stream().sorted((m1, m2)->{
+			sortedRooms = sortedRooms.stream().sorted((m1, m2)->
+			{
 				return m1.getRoomType() == RoomType.ROOF ? -1 : 0;
 			}).collect(Collectors.toList());
 
-			sortedRooms.forEach(rm->{
+			sortedRooms.forEach(rm->
+			{
 				//Room Generate Position
 				int xx = pos.getX() + (rm.getPosition().getX() * 12);
 				int yy = pos.getY() + (rm.getPosition().getY() * 7);
@@ -88,7 +90,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 				//Rotate/Offset Room to the correct position
 				BlockPos offsetPos = new BlockPos(xx, yy, zz);
-				BlockRotation rotation =  rm.getRotation(random);
+				BlockRotation rotation = rm.getRotation(random);
 				offsetPos = rm.getOffsetForRotation(offsetPos, rotation);
 
 				//Pieces on the ground will modify terrain to fit.
@@ -116,19 +118,18 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 					children.add(new Piece(manager, getOuterWall(room, Direction.NORTH, roomGrid, random), wallPos.offset(Direction.EAST, 11), BlockRotation.CLOCKWISE_180, ground, true));
 				if(room.isConnected(Direction.WEST))
 					children.add(new Piece(manager, getInnerWall(room, random), wallPos.offset(Direction.WEST), BlockRotation.CLOCKWISE_90, ground, true));
-				else if(!roomGrid.contains(room.getPosition().west())  || !roomGrid.get(room.getPosition().west()).getRoomType().hasWalls())
+				else if(!roomGrid.contains(room.getPosition().west()) || !roomGrid.get(room.getPosition().west()).getRoomType().hasWalls())
 					children.add(new Piece(manager, getOuterWall(room, Direction.WEST, roomGrid, random), wallPos.north(), BlockRotation.CLOCKWISE_90, ground, true));
 
-				if(!roomGrid.contains(room.getPosition().east())  || !roomGrid.get(room.getPosition().east()).getRoomType().hasWalls())
+				if(!roomGrid.contains(room.getPosition().east()) || !roomGrid.get(room.getPosition().east()).getRoomType().hasWalls())
 					children.add(new Piece(manager, getOuterWall(room, Direction.EAST, roomGrid, random), wallPos.offset(Direction.EAST, 11).west().south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
-				if(!roomGrid.contains(room.getPosition().south())  || !roomGrid.get(room.getPosition().south()).getRoomType().hasWalls())
+				if(!roomGrid.contains(room.getPosition().south()) || !roomGrid.get(room.getPosition().south()).getRoomType().hasWalls())
 					children.add(new Piece(manager, getOuterWall(room, Direction.SOUTH, roomGrid, random), wallPos.offset(Direction.SOUTH, 10).west(), BlockRotation.NONE, ground, true));
 
 				BlockPos cornerPos1 = room.getPosition().offset(Direction.NORTH).offset(Direction.WEST);
 				if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
 					children.add(new Piece(manager, CORNER_FILLER, wallPos.offset(Direction.WEST).offset(Direction.NORTH).add(0, 0, 0), BlockRotation.NONE, ground, false));
-			}
-			else if(room.getRoomType() == RoomType.ROOF)
+			}else if(room.getRoomType() == RoomType.ROOF)
 			{
 				RoofMansionRoom roof = (RoofMansionRoom) room;
 				if(roof.isRoofConnected(Direction.NORTH, roomGrid))
@@ -149,7 +150,8 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	{
 		private final Identifier template;
 		private final BlockRotation rotation;
-		private boolean ground, isWall;
+		private final boolean ground;
+		private final boolean isWall;
 
 		public Piece(StructureManager structureManager, Identifier template, BlockPos pos, BlockRotation rotation, boolean needsGroundAdjustment, boolean isWall)
 		{
@@ -176,9 +178,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		private void initialize(StructureManager structureManager)
 		{
 			Structure structure = structureManager.getStructureOrBlank(this.template);
-			StructurePlacementData structurePlacementData = (new StructurePlacementData())
-					.setMirror(BlockMirror.NONE).setRotation(this.rotation)
-					.addProcessor(isWall ? BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS : BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+			StructurePlacementData structurePlacementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(this.rotation).addProcessor(isWall ? BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS : BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 
 			this.setStructureData(structure, this.pos, structurePlacementData);
 		}
@@ -210,108 +210,46 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		}
 	}
 
-	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8")
-	);
+	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"), BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8"));
 
-	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1")
-	);
+	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1"));
 
-	public static List<Identifier> CORRIDOR_T = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/t/corridor_t_1")
-	);
+	public static List<Identifier> CORRIDOR_T = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/t/corridor_t_1"));
 
-	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"),
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"),
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"),
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4")
-	);
+	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4"));
 
-	public static List<Identifier> ROOMS = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/room/room_1")
-	);
+	public static List<Identifier> ROOMS = Lists.newArrayList(BiomeMakeover.ID("mansion/room/room_1"));
 
-	public static List<Identifier> STAIR_UP = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/stairs/up/stairs_up")
-	);
+	public static List<Identifier> STAIR_UP = Lists.newArrayList(BiomeMakeover.ID("mansion/stairs/up/stairs_up"));
 
-	public static List<Identifier> STAIR_DOWN = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/stairs/down/stairs_down")
-	);
+	public static List<Identifier> STAIR_DOWN = Lists.newArrayList(BiomeMakeover.ID("mansion/stairs/down/stairs_down"));
 
-	public static List<Identifier> INNER_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/inner/wall_1"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_2"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_3"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_4"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_5"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_6"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_7"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_8"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_9")
-	);
+	public static List<Identifier> INNER_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/inner/wall_1"), BiomeMakeover.ID("mansion/wall/inner/wall_2"), BiomeMakeover.ID("mansion/wall/inner/wall_3"), BiomeMakeover.ID("mansion/wall/inner/wall_4"), BiomeMakeover.ID("mansion/wall/inner/wall_5"), BiomeMakeover.ID("mansion/wall/inner/wall_6"), BiomeMakeover.ID("mansion/wall/inner/wall_7"), BiomeMakeover.ID("mansion/wall/inner/wall_8"), BiomeMakeover.ID("mansion/wall/inner/wall_9"));
 
-	public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1")
-	);
-	public static List<Identifier> OUTER_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1")
-	);
+	public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1"));
+	public static List<Identifier> OUTER_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"));
 
-	public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1")
-	);
+	public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1"));
 
-	public static List<Identifier> GARDEN = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/garden/garden_1")
-	);
+	public static List<Identifier> GARDEN = Lists.newArrayList(BiomeMakeover.ID("mansion/garden/garden_1"));
 
-	public static List<Identifier> TOWER_BASE = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/tower/base/tower_base_1")
-	);
-	public static List<Identifier> TOWER_MID = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/tower/mid/tower_middle_1")
-	);
-	public static List<Identifier> TOWER_TOP = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/tower/top/tower_top_1")
-	);
+	public static List<Identifier> TOWER_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/base/tower_base_1"));
+	public static List<Identifier> TOWER_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/mid/tower_middle_1"));
+	public static List<Identifier> TOWER_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/top/tower_top_1"));
 
-	public static List<Identifier> ROOF_0 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_0_1")
-	);
+	public static List<Identifier> ROOF_0 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_0_1"));
 
 
-	public static List<Identifier> ROOF_1 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_1_1")
-	);
-	public static List<Identifier> ROOF_2 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_2_1")
-	);
-	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_2_straight_1")
-	);
+	public static List<Identifier> ROOF_1 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_1_1"));
+	public static List<Identifier> ROOF_2 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_1"));
+	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_straight_1"));
 
-	public static List<Identifier> ROOF_3 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_3_1")
-	);
+	public static List<Identifier> ROOF_3 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_3_1"));
 
-	public static List<Identifier> ROOF_4 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_4_1")
-	);
+	public static List<Identifier> ROOF_4 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_4_1"));
 
 
-	public static List<Identifier> ROOF_SPLIT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_split_1")
-	);
+	public static List<Identifier> ROOF_SPLIT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_split_1"));
 
 	public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
 
@@ -328,8 +266,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				return OUTER_WINDOW.get(random.nextInt(OUTER_WINDOW.size()));
 
 			return OUTER_WALL.get(random.nextInt(OUTER_WALL.size()));
-		}
-		else
+		}else
 		{
 			return OUTER_WALL_BASE.get(random.nextInt(OUTER_WALL_BASE.size()));
 		}

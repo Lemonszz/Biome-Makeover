@@ -21,16 +21,22 @@ import party.lemons.biomemakeover.init.BMItems;
 @Mixin(ComposterBlock.ComposterInventory.class)
 public abstract class ComposterInventoryMixin extends SimpleInventory
 {
-	@Shadow private boolean dirty;
-	@Shadow @Final private BlockState state;
-	@Shadow @Final private WorldAccess world;
-	@Shadow @Final private BlockPos pos;
+	@Shadow
+	private boolean dirty;
+	@Shadow
+	@Final
+	private BlockState state;
+	@Shadow
+	@Final
+	private WorldAccess world;
+	@Shadow
+	@Final
+	private BlockPos pos;
 
 	@Inject(at = @At("RETURN"), method = "canInsert", cancellable = true)
 	void canInsert(int slot, ItemStack stack, Direction dir, CallbackInfoReturnable<Boolean> cbi)
 	{
-		cbi.setReturnValue(!this.dirty && dir == Direction.UP &&
-				(ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(stack.getItem()) || (state.getBlock() == Blocks.COMPOSTER && state.get(ComposterBlock.LEVEL) > 0)));
+		cbi.setReturnValue(!this.dirty && dir == Direction.UP && (ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(stack.getItem()) || (state.getBlock() == Blocks.COMPOSTER && state.get(ComposterBlock.LEVEL) > 0)));
 	}
 
 	@Inject(at = @At("HEAD"), method = "markDirty")

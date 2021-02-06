@@ -24,7 +24,8 @@ import java.util.Random;
 @Mixin(PillagerSpawner.class)
 public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 {
-	@Shadow protected abstract boolean spawnPillager(ServerWorld world, BlockPos pos, Random random, boolean captain);
+	@Shadow
+	protected abstract boolean spawnPillager(ServerWorld world, BlockPos pos, Random random, boolean captain);
 
 	@Inject(at = @At("HEAD"), method = "spawnPillager", cancellable = true)
 	private void spawnMixin(ServerWorld world, BlockPos pos, Random random, boolean captain, CallbackInfoReturnable<Boolean> cbi)
@@ -34,29 +35,31 @@ public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 		if(category == Biome.Category.MESA)
 		{
 			BlockState blockState = world.getBlockState(pos);
-			if (!SpawnHelper.isClearForSpawn(world, pos, blockState, blockState.getFluidState(), BMEntities.COWBOY)) {
-				cbi.setReturnValue(false);
-				return;
-			} else if (!PatrolEntity.canSpawn(BMEntities.COWBOY, world, SpawnReason.PATROL, pos, random))
+			if(!SpawnHelper.isClearForSpawn(world, pos, blockState, blockState.getFluidState(), BMEntities.COWBOY))
 			{
 				cbi.setReturnValue(false);
 				return;
-			}
-			else {
+			}else if(!PatrolEntity.canSpawn(BMEntities.COWBOY, world, SpawnReason.PATROL, pos, random))
+			{
+				cbi.setReturnValue(false);
+				return;
+			}else
+			{
 				PatrolEntity patrolEntity = BMEntities.COWBOY.create(world);
-				if (patrolEntity != null)
+				if(patrolEntity != null)
 				{
 					HorseEntity horseEntity = EntityType.HORSE.create(world);
 					horseEntity.updatePosition(pos.getX(), pos.getY(), pos.getZ());
 					horseEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null, null);
 					patrolEntity.startRiding(horseEntity);
-					if (captain) {
+					if(captain)
+					{
 						patrolEntity.setPatrolLeader(true);
 						patrolEntity.setRandomPatrolTarget();
 
-						((HorseHat)horseEntity).setHat();
+						((HorseHat) horseEntity).setHat();
 					}
-					((HorseHat)horseEntity).setCowboySpawned();
+					((HorseHat) horseEntity).setCowboySpawned();
 
 					patrolEntity.updatePosition(pos.getX(), pos.getY(), pos.getZ());
 					patrolEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null, null);
@@ -64,8 +67,8 @@ public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 
 					cbi.setReturnValue(true);
 					return;
-				}
-				else {
+				}else
+				{
 					cbi.setReturnValue(false);
 					return;
 				}

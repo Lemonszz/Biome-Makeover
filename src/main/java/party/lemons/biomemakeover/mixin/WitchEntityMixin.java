@@ -11,7 +11,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
-import net.minecraft.screen.MerchantScreenHandler;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -32,14 +30,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import party.lemons.biomemakeover.crafting.witch.WitchQuest;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestEntity;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestList;
 import party.lemons.biomemakeover.entity.ai.WitchLookAtCustomerGoal;
 import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
-import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.init.BMPotions;
 import party.lemons.biomemakeover.util.access.StatusEffectAccess;
@@ -47,15 +43,21 @@ import party.lemons.biomemakeover.util.access.StatusEffectAccess;
 @Mixin(WitchEntity.class)
 public abstract class WitchEntityMixin extends RaiderEntity implements WitchQuestEntity
 {
-	@Shadow private DisableableFollowTargetGoal<PlayerEntity> attackPlayerGoal;
+	@Shadow
+	private DisableableFollowTargetGoal<PlayerEntity> attackPlayerGoal;
 
-	@Shadow public abstract boolean isDrinking();
+	@Shadow
+	public abstract boolean isDrinking();
 
-	@Shadow private int drinkTimeLeft;
+	@Shadow
+	private int drinkTimeLeft;
 
-	@Shadow public abstract void setDrinking(boolean drinking);
+	@Shadow
+	public abstract void setDrinking(boolean drinking);
 
-	@Shadow @Final private static EntityAttributeModifier DRINKING_SPEED_PENALTY_MODIFIER;
+	@Shadow
+	@Final
+	private static EntityAttributeModifier DRINKING_SPEED_PENALTY_MODIFIER;
 	private PlayerEntity customer;
 	private WitchQuestList quests;
 	private int replenishTime;
@@ -76,14 +78,11 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 		attackPlayerGoal = new DisableableFollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, (e)->e.getType() == EntityType.PLAYER && !canInteract((PlayerEntity) e));
 		this.targetSelector.add(3, attackPlayerGoal);
 
-		this.goalSelector.add(1, new WitchStopFollowingCustomerGoal(((WitchEntity)(Object)this)));
-		this.goalSelector.add(1, new WitchLookAtCustomerGoal(((WitchEntity)(Object)this)));
+		this.goalSelector.add(1, new WitchStopFollowingCustomerGoal(((WitchEntity) (Object) this)));
+		this.goalSelector.add(1, new WitchLookAtCustomerGoal(((WitchEntity) (Object) this)));
 	}
 
-	@ModifyVariable(at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/entity/mob/WitchEntity;equipStack(Lnet/minecraft/entity/EquipmentSlot;Lnet/minecraft/item/ItemStack;)V",
-			ordinal = 1),
-			method = "tickMovement")
+	@ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/WitchEntity;equipStack(Lnet/minecraft/entity/EquipmentSlot;Lnet/minecraft/item/ItemStack;)V", ordinal = 1), method = "tickMovement")
 	public Potion changePotion(Potion potion)
 	{
 		if(random.nextFloat() < 0.10)
@@ -106,7 +105,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 			{
 				boolean found = false;
 				for(StatusEffectInstance effect : getStatusEffects())
-					if(((StatusEffectAccess)effect.getEffectType()).getType() == StatusEffectType.HARMFUL)
+					if(((StatusEffectAccess) effect.getEffectType()).getType() == StatusEffectType.HARMFUL)
 					{
 						found = true;
 						break;
@@ -117,7 +116,8 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 					this.equipStack(EquipmentSlot.MAINHAND, PotionUtil.setPotion(new ItemStack(Items.POTION), BMPotions.ANTIDOTE_POT));
 					this.drinkTimeLeft = this.getMainHandStack().getMaxUseTime();
 					this.setDrinking(true);
-					if (!this.isSilent()) {
+					if(!this.isSilent())
+					{
 						this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WITCH_DRINK, this.getSoundCategory(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
 					}
 
@@ -133,7 +133,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	protected ActionResult interactMob(PlayerEntity player, Hand hand)
 	{
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.getItem() != Items.VILLAGER_SPAWN_EGG && this.isAlive() && !this.hasCustomer() && canInteract(player))
+		if(itemStack.getItem() != Items.VILLAGER_SPAWN_EGG && this.isAlive() && !this.hasCustomer() && canInteract(player))
 		{
 			if(!this.world.isClient)
 			{
@@ -142,8 +142,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 				this.sendQuests(player, this.getDisplayName());
 			}
 			return ActionResult.success(this.world.isClient);
-		}
-		else
+		}else
 		{
 			return super.interactMob(player, hand);
 		}
@@ -179,12 +178,14 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 		}
 	}
 
-	protected void resetCustomer() {
+	protected void resetCustomer()
+	{
 		this.setCurrentCustomer(null);
 	}
 
 	@Override
-	public void onDeath(DamageSource source) {
+	public void onDeath(DamageSource source)
+	{
 		super.onDeath(source);
 		this.resetCustomer();
 	}
@@ -192,8 +193,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	@Override
 	public boolean cannotDespawn()
 	{
-		if(despawnShield > 0)
-			return true;
+		if(despawnShield > 0) return true;
 
 		return super.cannotDespawn();
 	}
@@ -201,8 +201,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	@Override
 	public boolean canImmediatelyDespawn(double distanceSquared)
 	{
-		if(despawnShield > 0)
-			return false;
+		if(despawnShield > 0) return false;
 
 		return super.canImmediatelyDespawn(distanceSquared);
 	}
@@ -220,8 +219,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 	@Override
 	public boolean canTarget(LivingEntity target)
 	{
-		if(target.getType() == EntityType.PLAYER && canInteract((PlayerEntity) target))
-			return false;
+		if(target.getType() == EntityType.PLAYER && canInteract((PlayerEntity) target)) return false;
 
 		return super.canTarget(target);
 	}

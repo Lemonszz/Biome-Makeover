@@ -16,7 +16,9 @@ public class BoatTypes
 {
 	public static final RegistryKey<Registry<BoatType>> REG_KEY = RegistryKey.ofRegistry(BiomeMakeover.ID("boat_type"));
 	public static final MutableRegistry<BoatType> REGISTRY = new SimpleRegistry<>(REG_KEY, Lifecycle.stable());
-	static{
+
+	static
+	{
 		((MutableRegistry) Registry.REGISTRIES).add(REG_KEY, REGISTRY, Lifecycle.stable());
 	}
 
@@ -44,8 +46,7 @@ public class BoatTypes
 		{
 			if(t instanceof VanillaBoatType)
 			{
-				if(((VanillaBoatType) t).getVanillaType() == boatType)
-					return t;
+				if(((VanillaBoatType) t).getVanillaType() == boatType) return t;
 			}
 		}
 

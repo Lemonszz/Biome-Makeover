@@ -12,14 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MooshroomEntity.class)
 public abstract class MooshroomEntityMixin
 {
-    @Inject(at = @At("TAIL"), method = "<init>")
-    public void onConstruct(EntityType<? extends MooshroomEntity> entityType, World world, CallbackInfo cbi) {
-        if(getMooshroomType() != MooshroomEntity.Type.BROWN)
-            if(world.random.nextBoolean())
-                setType(MooshroomEntity.Type.BROWN);
+	@Inject(at = @At("TAIL"), method = "<init>")
+	public void onConstruct(EntityType<? extends MooshroomEntity> entityType, World world, CallbackInfo cbi)
+	{
+		if(getMooshroomType() != MooshroomEntity.Type.BROWN)
+			if(world.random.nextBoolean()) setType(MooshroomEntity.Type.BROWN);
 
-    }
+	}
 
-    @Shadow public abstract MooshroomEntity.Type getMooshroomType();
-    @Shadow public abstract void setType(MooshroomEntity.Type type);
+	@Shadow
+	public abstract MooshroomEntity.Type getMooshroomType();
+
+	@Shadow
+	public abstract void setType(MooshroomEntity.Type type);
 }

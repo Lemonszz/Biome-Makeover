@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.world.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
@@ -15,11 +14,13 @@ import java.util.Random;
 
 public class ReedFeature extends Feature<RandomPatchFeatureConfig>
 {
-	public ReedFeature(Codec<RandomPatchFeatureConfig> codec) {
+	public ReedFeature(Codec<RandomPatchFeatureConfig> codec)
+	{
 		super(codec);
 	}
 
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, RandomPatchFeatureConfig config) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, RandomPatchFeatureConfig config)
+	{
 		BlockPos centerPos = world.getTopPosition(Heightmap.Type.WORLD_SURFACE, blockPos).down();
 
 		int successes = 0;

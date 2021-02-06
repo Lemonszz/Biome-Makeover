@@ -2,8 +2,6 @@ package party.lemons.biomemakeover.world;
 
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.fluid.Fluids;
@@ -39,18 +37,18 @@ public class PoltergeistHandler
 			return true;
 		});
 
-		registerBehaviour(BlockTags.BUTTONS, (w, p, st)->{
-			if(st.get(AbstractButtonBlock.POWERED))
-				return false;
+		registerBehaviour(BlockTags.BUTTONS, (w, p, st)->
+		{
+			if(st.get(AbstractButtonBlock.POWERED)) return false;
 
-			((AbstractButtonBlock)st.getBlock()).powerOn(st, w, p);
+			((AbstractButtonBlock) st.getBlock()).powerOn(st, w, p);
 			w.playSound(null, p, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
 			return true;
 		});
 
-		registerBehaviour(BlockTags.TRAPDOORS, (w, p, st)->{
-			if(st.getMaterial() == Material.METAL)
-				return false;
+		registerBehaviour(BlockTags.TRAPDOORS, (w, p, st)->
+		{
+			if(st.getMaterial() == Material.METAL) return false;
 
 			BlockState newState = st.cycle(TrapdoorBlock.OPEN);
 			w.setBlockState(p, newState, 2);
@@ -74,14 +72,16 @@ public class PoltergeistHandler
 
 		registerBehaviour(Blocks.NOTE_BLOCK, ((w, p, st)->
 		{
-			if (w.getBlockState(p.up()).isAir()) {
+			if(w.getBlockState(p.up()).isAir())
+			{
 				w.addSyncedBlockEvent(p, st.getBlock(), 0, 0);
 				return true;
 			}
 			return false;
 		}));
 
-		registerBehaviour(BlockTags.FENCE_GATES, ((w, p, st)->{
+		registerBehaviour(BlockTags.FENCE_GATES, ((w, p, st)->
+		{
 
 			st = st.cycle(FenceGateBlock.OPEN);
 			w.setBlockState(p, st, 10);
@@ -101,7 +101,7 @@ public class PoltergeistHandler
 
 		registerBehaviour(Blocks.BELL, ((w, p, st)->
 		{
-			((BellBlock)st.getBlock()).ring(w, p, null);
+			((BellBlock) st.getBlock()).ring(w, p, null);
 
 			return true;
 		}));
@@ -153,8 +153,7 @@ public class PoltergeistHandler
 		BlockState state = world.getBlockState(pos);
 		Block bl = state.getBlock();
 
-		if(state.isAir() || state.isOf(Blocks.STONE))
-			return false;
+		if(state.isAir() || state.isOf(Blocks.STONE)) return false;
 
 		if(BEHAVIOUR_BLOCK.containsKey(bl))
 		{
@@ -163,8 +162,7 @@ public class PoltergeistHandler
 
 		for(Tag<Block> tag : BEHAVIOUR_TAG.keySet())
 		{
-			if(tag.contains(bl))
-				return BEHAVIOUR_TAG.get(tag).handle(world, pos, state);
+			if(tag.contains(bl)) return BEHAVIOUR_TAG.get(tag).handle(world, pos, state);
 		}
 
 		return false;

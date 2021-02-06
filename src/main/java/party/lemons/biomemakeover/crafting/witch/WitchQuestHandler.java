@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.crafting.witch;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -166,8 +165,7 @@ public class WitchQuestHandler
 			List<QuestItem> itemPool = QUEST_ITEMS.get(category);
 
 			QuestItem item = itemPool.get(random.nextInt(itemPool.size()));
-			if(!questItems.contains(item))
-				questItems.add(item);
+			if(!questItems.contains(item)) questItems.add(item);
 		}
 
 		WitchQuest quest = new WitchQuest(random, questItems);
@@ -177,16 +175,14 @@ public class WitchQuestHandler
 
 	public static void addQuestItem(QuestCategory category, QuestItem questItem)
 	{
-		if(!QUEST_ITEMS.containsKey(category))
-			QUEST_ITEMS.put(category, Lists.newArrayList());
+		if(!QUEST_ITEMS.containsKey(category)) QUEST_ITEMS.put(category, Lists.newArrayList());
 
 		QUEST_ITEMS.get(category).add(questItem);
 	}
 
 	public static void sendQuests(PlayerEntity player, int index, WitchQuestList quests)
 	{
-		if(player.world.isClient())
-			return;
+		if(player.world.isClient()) return;
 
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(index);
@@ -194,8 +190,10 @@ public class WitchQuestHandler
 		ServerPlayNetworking.send((ServerPlayerEntity) player, BMNetwork.WITCH_QUESTS, buf);
 	}
 
-	private static WeightedList<Integer> ITEM_COUNT_SELECTOR = new WeightedList<>();
-	static {
+	private static final WeightedList<Integer> ITEM_COUNT_SELECTOR = new WeightedList<>();
+
+	static
+	{
 		ITEM_COUNT_SELECTOR.add(1, 5);
 		ITEM_COUNT_SELECTOR.add(2, 8);
 		ITEM_COUNT_SELECTOR.add(3, 4);

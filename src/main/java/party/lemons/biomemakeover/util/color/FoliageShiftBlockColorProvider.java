@@ -1,9 +1,6 @@
 package party.lemons.biomemakeover.util.color;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.color.block.BlockColorProvider;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.biome.Biome;
@@ -47,7 +44,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
 		{
 			if(world instanceof ChunkRenderRegionAccess)
 			{
-				if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+				if(((ChunkRenderRegionAccess) world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
 				{
 					return new int[]{-20, 40, -20};
 				}
@@ -61,7 +58,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
 	{
 		public Willow()
 		{
-			super(0,0,0);
+			super(0, 0, 0);
 		}
 
 		@Override
@@ -69,7 +66,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
 		{
 			if(world instanceof ChunkRenderRegionAccess)
 			{
-				if(((ChunkRenderRegionAccess)world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+				if(((ChunkRenderRegionAccess) world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
 				{
 					return new int[]{-10, 15, -10};
 				}

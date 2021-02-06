@@ -42,11 +42,9 @@ public class HorseEntityMixin extends HorseBaseEntity implements HorseHat
 	@Inject(at = @At("RETURN"), method = "readCustomDataFromTag")
 	private void readData(CompoundTag tag, CallbackInfo cbi)
 	{
-		if(tag.contains("Hat"))
-			this.dataTracker.set(HAS_HAT, tag.getBoolean("Hat"));
+		if(tag.contains("Hat")) this.dataTracker.set(HAS_HAT, tag.getBoolean("Hat"));
 
-		if(tag.contains("CowboySpawned"))
-			cowboySpawned = tag.getBoolean("CowboySpawned");
+		if(tag.contains("CowboySpawned")) cowboySpawned = tag.getBoolean("CowboySpawned");
 	}
 
 	@Override
@@ -61,8 +59,7 @@ public class HorseEntityMixin extends HorseBaseEntity implements HorseHat
 			}
 
 			return cowboySpawned;
-		}
-		else
+		}else
 		{
 			if(getPrimaryPassenger() instanceof PatrolEntity)
 			{

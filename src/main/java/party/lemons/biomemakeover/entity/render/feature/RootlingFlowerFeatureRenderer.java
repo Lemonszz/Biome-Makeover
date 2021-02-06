@@ -11,21 +11,16 @@ import party.lemons.biomemakeover.entity.render.RootlingEntityModel;
 
 public class RootlingFlowerFeatureRenderer extends FeatureRenderer<RootlingEntity, RootlingEntityModel>
 {
-	private static final Identifier TEXTURES[] = {
-			BiomeMakeover.ID("textures/entity/rootling/rootling_flower_blue.png"),
-			BiomeMakeover.ID("textures/entity/rootling/rootling_flower_brown.png"),
-			BiomeMakeover.ID("textures/entity/rootling/rootling_flower_cyan.png"),
-			BiomeMakeover.ID("textures/entity/rootling/rootling_flower_grey.png"),
-			BiomeMakeover.ID("textures/entity/rootling/rootling_flower_light_blue.png"),
-			BiomeMakeover.ID("textures/entity/rootling/rootling_flower_purple.png"),
-	};
+	private static final Identifier[] TEXTURES = {BiomeMakeover.ID("textures/entity/rootling/rootling_flower_blue.png"), BiomeMakeover.ID("textures/entity/rootling/rootling_flower_brown.png"), BiomeMakeover.ID("textures/entity/rootling/rootling_flower_cyan.png"), BiomeMakeover.ID("textures/entity/rootling/rootling_flower_grey.png"), BiomeMakeover.ID("textures/entity/rootling/rootling_flower_light_blue.png"), BiomeMakeover.ID("textures/entity/rootling/rootling_flower_purple.png"),};
 	private final RootlingEntityModel model = new RootlingEntityModel();
 
-	public RootlingFlowerFeatureRenderer(FeatureRendererContext<RootlingEntity, RootlingEntityModel> featureRendererContext) {
+	public RootlingFlowerFeatureRenderer(FeatureRendererContext<RootlingEntity, RootlingEntityModel> featureRendererContext)
+	{
 		super(featureRendererContext);
 	}
 
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, RootlingEntity entity, float f, float g, float h, float j, float k, float l) {
+	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, RootlingEntity entity, float f, float g, float h, float j, float k, float l)
+	{
 
 		if(entity.hasFlower())
 		{

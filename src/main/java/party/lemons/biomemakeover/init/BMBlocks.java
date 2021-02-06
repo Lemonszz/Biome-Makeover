@@ -37,26 +37,26 @@ public class BMBlocks
 	public static final Material POLTERGEISTER_MATERIAL = new Material(MaterialColor.WHITE, false, true, true, false, true, false, PistonBehavior.BLOCK);
 	public static final BlockSoundGroup BM_LILY_PAD_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, SoundEvents.BLOCK_WET_GRASS_BREAK, SoundEvents.BLOCK_WET_GRASS_STEP, SoundEvents.BLOCK_LILY_PAD_PLACE, SoundEvents.BLOCK_WET_GRASS_HIT, SoundEvents.BLOCK_WET_GRASS_FALL);
 
-    public static final BMMushroomPlantBlock PURPLE_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
-    public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
-    public static final UnderwaterMushroomPlantBlock ORANGE_GLOWSHROOM = new UnderwaterMushroomPlantBlock(()->BMWorldGen.HUGE_ORANGE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomPlantBlock PURPLE_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
+	public static final UnderwaterMushroomPlantBlock ORANGE_GLOWSHROOM = new UnderwaterMushroomPlantBlock(()->BMWorldGen.HUGE_ORANGE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 
-    public static final BMMushroomBlock PURPLE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
-    public static final BMMushroomBlock GREEN_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
-    public static final BMMushroomBlock ORANGE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock PURPLE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock GREEN_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock ORANGE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
 
-    public static final MushroomSproutsBlock MYCELIUM_SPROUTS = new MushroomSproutsBlock(settings(Material.NETHER_SHOOTS, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.NETHER_SPROUTS));
+	public static final MushroomSproutsBlock MYCELIUM_SPROUTS = new MushroomSproutsBlock(settings(Material.NETHER_SHOOTS, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final MushroomRootsBlock MYCELIUM_ROOTS = new MushroomRootsBlock(settings(Material.NETHER_SHOOTS, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.ROOTS));
 
 	public static final BMTallMushroomBlock TALL_BROWN_MUSHROOM = new BMTallMushroomBlock(Blocks.BROWN_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
-    public static final BMTallMushroomBlock TALL_RED_MUSHROOM = new BMTallMushroomBlock(Blocks.RED_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
+	public static final BMTallMushroomBlock TALL_RED_MUSHROOM = new BMTallMushroomBlock(Blocks.RED_MUSHROOM, settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS));
 
-    public static WoodTypeInfo BLIGHTED_BALSA_WOOD_INFO = new WoodTypeInfo("blighted_balsa", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
-	public static final BMLeavesBlock BLIGHTED_BALSA_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+	public static WoodTypeInfo BLIGHTED_BALSA_WOOD_INFO = new WoodTypeInfo("blighted_balsa", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
+	public static final BMLeavesBlock BLIGHTED_BALSA_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final BMSaplingBlock BLIGHTED_BALSA_SAPLING = new BMSaplingBlock(new BalsaSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
-    public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
-    public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
 	public static final DecorationBlockInfo RED_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("red_mushroom_brick", RED_MUSHROOM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
 	public static final BMBlock BROWN_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
 	public static final DecorationBlockInfo BROWN_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("brown_mushroom_brick", BROWN_MUSHROOM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
@@ -104,7 +104,7 @@ public class BMBlocks
 	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final SmallLilyPadBlock SMALL_LILY_PAD = new SmallLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BM_LILY_PAD_SOUNDS));
 	public static final WaterLilyPadBlock WATER_LILY = new WaterLilyPadBlock(settings(Material.PLANT, 0).breakInstantly().sounds(BM_LILY_PAD_SOUNDS));
-	public static final BMLeavesBlock WILLOW_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+	public static final BMLeavesBlock WILLOW_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final BMLeavesBlock SWAMP_CYPRESS_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, 0.5F).luminance(15).nonOpaque());
 
@@ -116,7 +116,7 @@ public class BMBlocks
 	public static final DecorationBlockInfo POLISHED_MESMERITE_DECORATION = new DecorationBlockInfo("polished_mesmerite", POLISHED_MESMERITE, settings(Material.STONE, 1.5F)).all();
 	public static WoodTypeInfo ANCIENT_OAK_WOOD_INFO = new WoodTypeInfo("ancient_oak", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
 	public static final BMSaplingBlock ANCIENT_OAK_SAPLING = new BMSaplingBlock(new AncientOakSaplingGenerator(), settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final BMLeavesBlock ANCIENT_OAK_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a,b,c)->false).blockVision((a,b,c)->false));
+	public static final BMLeavesBlock ANCIENT_OAK_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final AltarBlock ALTAR = new AltarBlock(settings(Material.STONE, 0.5F).luminance((st)->st.get(AltarBlock.ACTIVE) ? 5 : 1).requiresTool().nonOpaque());
 
 	public static final RootlingCropBlock ROOTLING_CROP = new RootlingCropBlock(settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP));
@@ -140,43 +140,42 @@ public class BMBlocks
 	public static final SignType ANCIENT_OAK_ST = SignTypeHelper.register(new SignType("ancient_oak"));
 
 	public static void init()
-    {
-        RegistryHelper.register(Registry.BLOCK, Block.class, BMBlocks.class, (reg, bl, id)->{
+	{
+		RegistryHelper.register(Registry.BLOCK, Block.class, BMBlocks.class, (reg, bl, id)->
+		{
 
-            if(!(bl instanceof BlockWithItem))
-                return;
+			if(!(bl instanceof BlockWithItem)) return;
 
-            BlockWithItem info = (BlockWithItem)bl;
-            if(!info.hasItem())
-                return;
+			BlockWithItem info = (BlockWithItem) bl;
+			if(!info.hasItem()) return;
 
-            info.registerItem(id);
-        });
+			info.registerItem(id);
+		});
 
-        /* Simple decoration registers */
-	    //TODO:
-	    BLIGHTED_BALSA_WOOD_INFO = BLIGHTED_BALSA_WOOD_INFO.boat(()->BoatTypes.BLIGHTED_BALSA).sign(BLIGHTED_BALSA_ST);
-	    WILLOW_WOOD_INFO = WILLOW_WOOD_INFO.boat(()->BoatTypes.WILLOW).sign(WILLOW_ST);
-	    SWAMP_CYPRESS_WOOD_INFO = SWAMP_CYPRESS_WOOD_INFO.boat(()->BoatTypes.SWAMP_CYPRESS).sign(SWAMP_CYPRESS_ST);
-	    ANCIENT_OAK_WOOD_INFO = ANCIENT_OAK_WOOD_INFO.boat(()->BoatTypes.ANCIENT_OAK).sign(ANCIENT_OAK_ST);
-        BLIGHTED_BALSA_WOOD_INFO.register();
-	    WILLOW_WOOD_INFO.register();
-	    SWAMP_CYPRESS_WOOD_INFO.register();
-	    ANCIENT_OAK_WOOD_INFO.register();
-        RED_MUSHROOM_BRICK_DECORATION.register();
-        BROWN_MUSHROOM_BRICK_DECORATION.register();
-        PURPLE_GLOWSROOM_BRICK_DECORATION.register();
-        GREEN_GLOWSROOM_BRICK_DECORATION.register();
-        ORANGE_GLOWSROOM_BRICK_DECORATION.register();
-        GLOWSHROOM_STEM_BRICK_DECORATION.register();
-        MUSHROOM_STEM_BRICK_DECORATION.register();
-        BLIGHTED_COBBLESTONE_DECORATION.register();
-        BLIGHTED_STONE_BRICKS_DECORATION.register();
-        DRIED_PEAT_BRICKS_DECORATION.register();
-        MESMERITE_DECORATION.register();
-        POLISHED_MESMERITE_DECORATION.register();
+		/* Simple decoration registers */
+		//TODO:
+		BLIGHTED_BALSA_WOOD_INFO = BLIGHTED_BALSA_WOOD_INFO.boat(()->BoatTypes.BLIGHTED_BALSA).sign(BLIGHTED_BALSA_ST);
+		WILLOW_WOOD_INFO = WILLOW_WOOD_INFO.boat(()->BoatTypes.WILLOW).sign(WILLOW_ST);
+		SWAMP_CYPRESS_WOOD_INFO = SWAMP_CYPRESS_WOOD_INFO.boat(()->BoatTypes.SWAMP_CYPRESS).sign(SWAMP_CYPRESS_ST);
+		ANCIENT_OAK_WOOD_INFO = ANCIENT_OAK_WOOD_INFO.boat(()->BoatTypes.ANCIENT_OAK).sign(ANCIENT_OAK_ST);
+		BLIGHTED_BALSA_WOOD_INFO.register();
+		WILLOW_WOOD_INFO.register();
+		SWAMP_CYPRESS_WOOD_INFO.register();
+		ANCIENT_OAK_WOOD_INFO.register();
+		RED_MUSHROOM_BRICK_DECORATION.register();
+		BROWN_MUSHROOM_BRICK_DECORATION.register();
+		PURPLE_GLOWSROOM_BRICK_DECORATION.register();
+		GREEN_GLOWSROOM_BRICK_DECORATION.register();
+		ORANGE_GLOWSROOM_BRICK_DECORATION.register();
+		GLOWSHROOM_STEM_BRICK_DECORATION.register();
+		MUSHROOM_STEM_BRICK_DECORATION.register();
+		BLIGHTED_COBBLESTONE_DECORATION.register();
+		BLIGHTED_STONE_BRICKS_DECORATION.register();
+		DRIED_PEAT_BRICKS_DECORATION.register();
+		MESMERITE_DECORATION.register();
+		POLISHED_MESMERITE_DECORATION.register();
 
-        /* Terracotta Bricks */
+		/* Terracotta Bricks */
 		Map<DyeColor, Block> vanillaTerracotta = Maps.newHashMap();
 		vanillaTerracotta.put(DyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
 		vanillaTerracotta.put(DyeColor.RED, Blocks.RED_TERRACOTTA);
@@ -196,36 +195,36 @@ public class BMBlocks
 		vanillaTerracotta.put(DyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
 
 		BlockItemPair terracottaBricks = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID("terracotta_bricks"));
-	    DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracottaBricks.getBlock(), settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
-	    terracottaBrick.register();
+		DecorationBlockInfo terracottaBrick = new DecorationBlockInfo("terracotta_brick", terracottaBricks.getBlock(), settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+		terracottaBrick.register();
 
-        for(DyeColor dye : DyeColor.values())
-        {
-        	BlockItemPair brick = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"));
-	        DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick.getBlock(), settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
-            dec.register();
+		for(DyeColor dye : DyeColor.values())
+		{
+			BlockItemPair brick = registerBlockAndItem(new BMBlock(settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)), BiomeMakeover.ID(dye.getName() + "_terracotta_bricks"));
+			DecorationBlockInfo dec = new DecorationBlockInfo(dye.getName() + "_terracotta_brick", brick.getBlock(), settings(Material.STONE, 2F).materialColor(dye).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+			dec.register();
 
-            BRICK_TO_TERRACOTTA.put(brick.getBlock(), vanillaTerracotta.get(dye));
-        }
+			BRICK_TO_TERRACOTTA.put(brick.getBlock(), vanillaTerracotta.get(dye));
+		}
 
-        /* Flammables */
+		/* Flammables */
 
-	    //TODO: function
-	    registerFlammable(BLIGHTED_BALSA_WOOD_INFO);
-        registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
+		//TODO: function
+		registerFlammable(BLIGHTED_BALSA_WOOD_INFO);
+		registerFlammable(BLIGHTED_BALSA_LEAVES, 5, 60);
 		registerFlammable(WILLOW_WOOD_INFO);
-	    registerFlammable(WILLOW_LEAVES, 5, 60);
-	    registerFlammable(SWAMP_CYPRESS_WOOD_INFO);
-	    registerFlammable(SWAMP_CYPRESS_LEAVES, 5, 60);
-	    registerFlammable(ANCIENT_OAK_WOOD_INFO);
-	    registerFlammable(ANCIENT_OAK_LEAVES, 5, 60);
+		registerFlammable(WILLOW_LEAVES, 5, 60);
+		registerFlammable(SWAMP_CYPRESS_WOOD_INFO);
+		registerFlammable(SWAMP_CYPRESS_LEAVES, 5, 60);
+		registerFlammable(ANCIENT_OAK_WOOD_INFO);
+		registerFlammable(ANCIENT_OAK_LEAVES, 5, 60);
 
-	    FuelRegistry.INSTANCE.add(DRIED_PEAT, 10000);
-    }
+		FuelRegistry.INSTANCE.add(DRIED_PEAT, 10000);
+	}
 
-    public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();
+	public static final Map<Block, Block> BRICK_TO_TERRACOTTA = Maps.newHashMap();
 
-    public static BlockItemPair registerBlockAndItem(Block block, Identifier id)
+	public static BlockItemPair registerBlockAndItem(Block block, Identifier id)
 	{
 		BlockItem bi = new BlockItem(block, BMItems.settings());
 		Registry.register(Registry.BLOCK, id, block);
@@ -233,16 +232,18 @@ public class BMBlocks
 		return BlockItemPair.of(block, bi);
 	}
 
-    public static FabricBlockSettings settings(Material material, float hardness)
-    {
-        return FabricBlockSettings.of(material).hardness(hardness).resistance(hardness);
-    }
+	public static FabricBlockSettings settings(Material material, float hardness)
+	{
+		return FabricBlockSettings.of(material).hardness(hardness).resistance(hardness);
+	}
 
-	public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+	public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type)
+	{
 		return type == EntityType.OCELOT || type == EntityType.PARROT;
 	}
 
-	public static void registerFlammable(Block block, int burnChance, int spreadChance) {
+	public static void registerFlammable(Block block, int burnChance, int spreadChance)
+	{
 		((FireBlockAccessor) Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
 	}
 
@@ -264,7 +265,8 @@ public class BMBlocks
 
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));
 
-	private static boolean always(BlockState state, BlockView world, BlockPos pos) {
+	private static boolean always(BlockState state, BlockView world, BlockPos pos)
+	{
 		return true;
 	}
 }

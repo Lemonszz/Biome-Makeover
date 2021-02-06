@@ -18,7 +18,10 @@ import java.util.Map;
 @Mixin(VillagerHostilesSensor.class)
 public class VillagerHostilesSensorMixin
 {
-	@Shadow @Final @Mutable private static ImmutableMap<EntityType<?>, Float> SQUARED_DISTANCES_FOR_DANGER;
+	@Shadow
+	@Final
+	@Mutable
+	private static ImmutableMap<EntityType<?>, Float> SQUARED_DISTANCES_FOR_DANGER;
 
 	@Inject(at = @At("TAIL"), method = "<clinit>")
 	private static void onInit(CallbackInfo cbi)

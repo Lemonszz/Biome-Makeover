@@ -29,14 +29,16 @@ public class AltarBlockEntityRenderer extends BlockEntityRenderer<AltarBlockEnti
 	{
 		matrices.push();
 		matrices.translate(0.5D, 0.75D, 0.5D);
-		float ticks = (float)entity.ticks + tickDelta;
-		matrices.translate(0.0D, (double)(0.1F + MathHelper.sin(ticks * 0.1F) * 0.01F), 0.0D);
+		float ticks = (float) entity.ticks + tickDelta;
+		matrices.translate(0.0D, 0.1F + MathHelper.sin(ticks * 0.1F) * 0.01F, 0.0D);
 
 		float h;
-		for(h = entity.currentAngle - entity.lastAngle; h >= 3.1415927F; h -= 6.2831855F) {
+		for(h = entity.currentAngle - entity.lastAngle; h >= 3.1415927F; h -= 6.2831855F)
+		{
 		}
 
-		while(h < -3.1415927F) {
+		while(h < -3.1415927F)
+		{
 			h += 6.2831855F;
 		}
 

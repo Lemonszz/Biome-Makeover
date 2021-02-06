@@ -9,12 +9,14 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(MushroomBlock.class)
 public abstract class MushroomBlockMixin extends Block
 {
-    public MushroomBlockMixin(Settings settings) {
-        super(settings);
-    }
+	public MushroomBlockMixin(Settings settings)
+	{
+		super(settings);
+	}
 
-    @Override
-    public BlockSoundGroup getSoundGroup(BlockState state) {
-        return BlockSoundGroup.FUNGUS;
-    }
+	@Override
+	public BlockSoundGroup getSoundGroup(BlockState state)
+	{
+		return BlockSoundGroup.FUNGUS;
+	}
 }

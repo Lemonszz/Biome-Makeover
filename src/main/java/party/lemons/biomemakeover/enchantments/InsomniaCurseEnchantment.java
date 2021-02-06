@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.enchantments;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -22,30 +21,35 @@ public class InsomniaCurseEnchantment extends BMEnchantment
 		{
 			PlayerEntity player = (PlayerEntity) entity;
 
-			if (!player.isSleeping())
+			if(!player.isSleeping())
 			{
 				player.increaseStat(Stats.TIME_SINCE_REST, level);
 			}
 		}
 	}
 
-	public int getMinPower(int level) {
+	public int getMinPower(int level)
+	{
 		return 25;
 	}
 
-	public int getMaxPower(int level) {
+	public int getMaxPower(int level)
+	{
 		return 50;
 	}
 
-	public int getMaxLevel() {
+	public int getMaxLevel()
+	{
 		return 5;
 	}
 
-	public boolean isTreasure() {
+	public boolean isTreasure()
+	{
 		return true;
 	}
 
-	public boolean isCursed() {
+	public boolean isCursed()
+	{
 		return true;
 	}
 }

@@ -1,9 +1,7 @@
 package party.lemons.biomemakeover.block.blockentity.render;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -32,7 +30,7 @@ public class LightningBugBottleBlockRenderer extends BlockEntityRenderer<Lightni
 		}
 
 		Entity entity = be.getEntity();
-		if (entity != null)
+		if(entity != null)
 		{
 			if(RandomUtil.RANDOM.nextInt(100) == 0)
 				entity.setPos(RandomUtil.RANDOM.nextInt(500), RandomUtil.RANDOM.nextInt(200), RandomUtil.RANDOM.nextInt(500));

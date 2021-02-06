@@ -9,8 +9,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.access.AxeItemAccess;
 
 import java.util.HashMap;
@@ -19,7 +17,10 @@ import java.util.Map;
 @Mixin(AxeItem.class)
 public class AxeItemMixin implements AxeItemAccess
 {
-	@Shadow @Final @Mutable protected static Map<Block, Block> STRIPPED_BLOCKS;
+	@Shadow
+	@Final
+	@Mutable
+	protected static Map<Block, Block> STRIPPED_BLOCKS;
 
 	@Inject(at = @At("TAIL"), method = "<clinit>")
 	private static void onInit(CallbackInfo cbi)

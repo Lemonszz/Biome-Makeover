@@ -11,7 +11,8 @@ import java.util.Random;
 public class WitchQuestList extends ArrayList<WitchQuest>
 {
 	public WitchQuestList()
-	{}
+	{
+	}
 
 	public WitchQuestList(CompoundTag tags)
 	{
@@ -40,7 +41,7 @@ public class WitchQuestList extends ArrayList<WitchQuest>
 
 	public void toPacket(PacketByteBuf buffer)
 	{
-		buffer.writeByte((byte)(this.size() & 255));
+		buffer.writeByte((byte) (this.size() & 255));
 		for(int i = 0; i < this.size(); i++)
 		{
 			get(i).toPacket(buffer);

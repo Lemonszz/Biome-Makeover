@@ -11,7 +11,7 @@ public class BlockItemColorProvider implements ItemColorProvider
 	@Override
 	public int getColor(ItemStack stack, int tintIndex)
 	{
-		BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
+		BlockState blockState = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
 		return ColorProviderRegistry.BLOCK.get(blockState.getBlock()).getColor(blockState, null, null, tintIndex);
 	}
 }

@@ -7,18 +7,18 @@ import party.lemons.biomemakeover.init.BMEntities;
 
 public class BlightbatEntity extends BatEntity
 {
-    public AttributeContainer attributeContainer;
+	public AttributeContainer attributeContainer;
 
-    public BlightbatEntity(World world) {
-        super(BMEntities.BLIGHTBAT, world);
-    }
+	public BlightbatEntity(World world)
+	{
+		super(BMEntities.BLIGHTBAT, world);
+	}
 
-    @Override
-    public AttributeContainer getAttributes()
-    {
-        if(attributeContainer == null)
-            attributeContainer =  new AttributeContainer(
-                    BatEntity.createBatAttributes().build());
-        return attributeContainer;
-    }
+	@Override
+	public AttributeContainer getAttributes()
+	{
+		if(attributeContainer == null)
+			attributeContainer = new AttributeContainer(BatEntity.createBatAttributes().build());
+		return attributeContainer;
+	}
 }

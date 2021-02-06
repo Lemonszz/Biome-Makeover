@@ -55,7 +55,8 @@ public class GhostEntity extends HostileEntity implements Angerable
 	}
 
 	@Override
-	protected void initGoals() {
+	protected void initGoals()
+	{
 		super.initGoals();
 
 		this.goalSelector.add(0, new SwimGoal(this));
@@ -80,25 +81,27 @@ public class GhostEntity extends HostileEntity implements Angerable
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					HostileEntity.createHostileAttributes().build());
+			attributeContainer = new AttributeContainer(HostileEntity.createHostileAttributes().build());
 		return attributeContainer;
 	}
 
 	@Override
-	public void move(MovementType type, Vec3d movement) {
+	public void move(MovementType type, Vec3d movement)
+	{
 		super.move(type, movement);
 		this.checkBlockCollision();
 	}
 
 	@Override
-	public void tick() {
+	public void tick()
+	{
 		this.noClip = true;
 		super.tick();
 		this.noClip = false;
 		this.setNoGravity(true);
 
-		if (getHomePosition() == null) {
+		if(getHomePosition() == null)
+		{
 			homePosition = GhostEntity.this.getBlockPos();
 		}
 	}
@@ -106,22 +109,28 @@ public class GhostEntity extends HostileEntity implements Angerable
 	@Override
 	protected void mobTick()
 	{
-		if (this.hasAngerTime()) {
+		if(this.hasAngerTime())
+		{
 			this.tickAngerSounds();
 		}
 
-		this.tickAngerLogic((ServerWorld)this.world, true);
-		if (this.getTarget() != null) {
+		this.tickAngerLogic((ServerWorld) this.world, true);
+		if(this.getTarget() != null)
+		{
 			this.checkAlertTime();
 		}
 		super.mobTick();
 	}
 
-	private void checkAlertTime() {
-		if (this.reinforceTime > 0) {
+	private void checkAlertTime()
+	{
+		if(this.reinforceTime > 0)
+		{
 			--this.reinforceTime;
-		} else {
-			if (this.getVisibilityCache().canSee(this.getTarget())) {
+		}else
+		{
+			if(this.getVisibilityCache().canSee(this.getTarget()))
+			{
 				this.alertNearby();
 			}
 
@@ -129,44 +138,49 @@ public class GhostEntity extends HostileEntity implements Angerable
 		}
 	}
 
-	private void alertNearby() {
+	private void alertNearby()
+	{
 		double alertRange = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
 		Box alertBounds = Box.method_29968(this.getPos()).expand(alertRange, 10.0D, alertRange);
-		this.world.getEntitiesIncludingUngeneratedChunks(GhostEntity.class, alertBounds).stream()
-				.filter((e) ->e != this)
-				.filter((e) ->e.getTarget() == null)
-				.filter((e) ->getTarget() != null && !e.isTeammate(this.getTarget()))
-				.forEach((e) ->e.setTarget(this.getTarget()));
+		this.world.getEntitiesIncludingUngeneratedChunks(GhostEntity.class, alertBounds).stream().filter((e)->e != this).filter((e)->e.getTarget() == null).filter((e)->getTarget() != null && !e.isTeammate(this.getTarget())).forEach((e)->e.setTarget(this.getTarget()));
 	}
 
-	public void setTarget(LivingEntity target) {
-		if (this.getTarget() == null && target != null) {
+	public void setTarget(LivingEntity target)
+	{
+		if(this.getTarget() == null && target != null)
+		{
 			this.angrySoundDelay = ANGER_SOUND_TIME_RANGE.choose(this.random);
 			this.reinforceTime = REINFORCE_TIME_RANGE.choose(this.random);
 		}
 
-		if (target instanceof PlayerEntity) {
-			this.setAttacking((PlayerEntity)target);
+		if(target instanceof PlayerEntity)
+		{
+			this.setAttacking((PlayerEntity) target);
 		}
 
 		super.setTarget(target);
 	}
 
-	private void tickAngerSounds() {
-		if (this.angrySoundDelay > 0) {
+	private void tickAngerSounds()
+	{
+		if(this.angrySoundDelay > 0)
+		{
 			--this.angrySoundDelay;
-			if (this.angrySoundDelay == 0) {
+			if(this.angrySoundDelay == 0)
+			{
 				this.playAngerSound();
 			}
 		}
 
 	}
 
-	private void playAngerSound() {
+	private void playAngerSound()
+	{
 		this.playSound(BMEffects.GHOST_ANGRY, this.getSoundVolume() * 2.0F, this.getSoundPitch());
 	}
 
-	public void chooseRandomAngerTime() {
+	public void chooseRandomAngerTime()
+	{
 		this.setAngerTime(ANGER_TIME_RANGE.choose(this.random));
 	}
 
@@ -177,47 +191,45 @@ public class GhostEntity extends HostileEntity implements Angerable
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag tag) {
+	public void writeCustomDataToTag(CompoundTag tag)
+	{
 		super.writeCustomDataToTag(tag);
 		this.angerToTag(tag);
 
-		if (this.homePosition != null) {
+		if(this.homePosition != null)
+		{
 			tag.putInt("HomeX", this.homePosition.getX());
 			tag.putInt("HomeY", this.homePosition.getY());
 			tag.putInt("HomeZ", this.homePosition.getZ());
 		}
 	}
-	@Override
-	public void readCustomDataFromTag(CompoundTag tag) {
-		super.readCustomDataFromTag(tag);
-		this.angerFromTag((ServerWorld)this.world, tag);
 
-		if (tag.contains("HomeX")) {
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag)
+	{
+		super.readCustomDataFromTag(tag);
+		this.angerFromTag((ServerWorld) this.world, tag);
+
+		if(tag.contains("HomeX"))
+		{
 			this.homePosition = new BlockPos(tag.getInt("HomeX"), tag.getInt("HomeY"), tag.getInt("HomeZ"));
 		}
 	}
 
-	public void setAngerTime(int ticks) {
+	public void setAngerTime(int ticks)
+	{
 		this.angerTime = ticks;
 	}
 
-	public int getAngerTime() {
+	public int getAngerTime()
+	{
 		return this.angerTime;
 	}
 
 	@Override
-	public boolean isInvulnerableTo(DamageSource damageSource) {
-		if(     damageSource == DamageSource.LAVA ||
-				damageSource == DamageSource.IN_WALL ||
-				damageSource == DamageSource.CACTUS ||
-				damageSource == DamageSource.DROWN ||
-				damageSource == DamageSource.SWEET_BERRY_BUSH ||
-				damageSource == DamageSource.HOT_FLOOR ||
-				damageSource == DamageSource.FLY_INTO_WALL ||
-				damageSource == DamageSource.FALLING_BLOCK ||
-				damageSource == DamageSource.FALL ||
-				damageSource == DamageSource.ANVIL
-		)
+	public boolean isInvulnerableTo(DamageSource damageSource)
+	{
+		if(damageSource == DamageSource.LAVA || damageSource == DamageSource.IN_WALL || damageSource == DamageSource.CACTUS || damageSource == DamageSource.DROWN || damageSource == DamageSource.SWEET_BERRY_BUSH || damageSource == DamageSource.HOT_FLOOR || damageSource == DamageSource.FLY_INTO_WALL || damageSource == DamageSource.FALLING_BLOCK || damageSource == DamageSource.FALL || damageSource == DamageSource.ANVIL)
 			return true;
 
 		return super.isInvulnerableTo(damageSource);
@@ -230,76 +242,83 @@ public class GhostEntity extends HostileEntity implements Angerable
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound()
+	{
 		return this.hasAngerTime() ? BMEffects.GHOST_ANGRY : BMEffects.GHOST_IDLE;
 	}
 
-	public UUID getAngryAt() {
+	public UUID getAngryAt()
+	{
 		return this.targetUuid;
 	}
 
 	@Override
-	public boolean isAngryAt(PlayerEntity player) {
+	public boolean isAngryAt(PlayerEntity player)
+	{
 		return this.shouldAngerAt(player);
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
 		return BMEffects.GHOST_HURT;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound()
+	{
 		return BMEffects.GHOST_DEATH;
 	}
 
-	private void setCharging(boolean charging) {
+	private void setCharging(boolean charging)
+	{
 
 		this.dataTracker.set(IsCharging, charging);
 	}
 
-	public boolean isCharging() {
+	public boolean isCharging()
+	{
 		return dataTracker.get(IsCharging);
 	}
 
-	private BlockPos getHomePosition() {
+	private BlockPos getHomePosition()
+	{
 		return this.homePosition;
 	}
 
-	class GhostMoveControl extends MoveControl {
-		private GhostMoveControl(GhostEntity owner) {
+	class GhostMoveControl extends MoveControl
+	{
+		private GhostMoveControl(GhostEntity owner)
+		{
 			super(owner);
 		}
 
 		@Override
 		public void tick()
 		{
-			if (this.state == MoveControl.State.MOVE_TO)
+			if(this.state == MoveControl.State.MOVE_TO)
 			{
 				Vec3d targetPosition = new Vec3d(this.targetX - GhostEntity.this.getX(), this.targetY - GhostEntity.this.getY(), this.targetZ - GhostEntity.this.getZ());
 				double length = targetPosition.length();
-				if (length < GhostEntity.this.getBoundingBox().getAverageSideLength())
+				if(length < GhostEntity.this.getBoundingBox().getAverageSideLength())
 				{
 					this.state = MoveControl.State.WAIT;
 					GhostEntity.this.setVelocity(GhostEntity.this.getVelocity().multiply(0.5D));
-				}
-				else
-					{
+				}else
+				{
 					GhostEntity.this.setVelocity(GhostEntity.this.getVelocity().add(targetPosition.multiply(this.speed * 0.05D / length)));
-					if (GhostEntity.this.getTarget() == null)
+					if(GhostEntity.this.getTarget() == null)
 					{
-						if(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(getTarget()))
-							setTarget(null);
+						if(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(getTarget())) setTarget(null);
 
 						Vec3d vec3d2 = GhostEntity.this.getVelocity();
-						GhostEntity.this.yaw = -((float)MathHelper.atan2(vec3d2.x, vec3d2.z)) * 57.295776F;
+						GhostEntity.this.yaw = -((float) MathHelper.atan2(vec3d2.x, vec3d2.z)) * 57.295776F;
 						GhostEntity.this.bodyYaw = GhostEntity.this.yaw;
-					}
-					else
+					}else
 					{
 						double e = GhostEntity.this.getTarget().getX() - GhostEntity.this.getX();
 						double f = GhostEntity.this.getTarget().getZ() - GhostEntity.this.getZ();
-						GhostEntity.this.yaw = -((float)MathHelper.atan2(e, f)) * 57.295776F;
+						GhostEntity.this.yaw = -((float) MathHelper.atan2(e, f)) * 57.295776F;
 						GhostEntity.this.bodyYaw = GhostEntity.this.yaw;
 					}
 				}
@@ -308,50 +327,41 @@ public class GhostEntity extends HostileEntity implements Angerable
 		}
 	}
 
-	class FlyAroundGoal extends Goal {
+	class FlyAroundGoal extends Goal
+	{
 
-		private FlyAroundGoal() {
+		private FlyAroundGoal()
+		{
 			this.setControls(EnumSet.of(Goal.Control.MOVE));
 		}
 
-		public boolean canStart() {
+		public boolean canStart()
+		{
 			return !GhostEntity.this.getMoveControl().isMoving() && GhostEntity.this.random.nextInt(2) == 0;
 		}
 
 		@Override
-		public boolean shouldContinue() {
+		public boolean shouldContinue()
+		{
 			return false;
 		}
 
 		@Override
-		public void tick() {
-			if(getHomePosition() == null)
-				homePosition = getBlockPos();
+		public void tick()
+		{
+			if(getHomePosition() == null) homePosition = getBlockPos();
 
 			for(int i = 0; i < 3; ++i)
 			{
-				BlockPos randomTarget = homePosition.add(
-						WANDER_RANGE_HORIZONTAL.choose(random),
-						WANDER_RANGE_VERTICAL.choose(random),
-						WANDER_RANGE_HORIZONTAL.choose(random)
-				);
+				BlockPos randomTarget = homePosition.add(WANDER_RANGE_HORIZONTAL.choose(random), WANDER_RANGE_VERTICAL.choose(random), WANDER_RANGE_HORIZONTAL.choose(random));
 
-				if (GhostEntity.this.world.isAir(randomTarget))
+				if(GhostEntity.this.world.isAir(randomTarget))
 				{
-					GhostEntity.this.moveControl.moveTo(
-							(double)randomTarget.getX() + 0.5D,
-							(double)randomTarget.getY() + 0.5D,
-							(double)randomTarget.getZ() + 0.5D,
-							0.25D
-					);
+					GhostEntity.this.moveControl.moveTo((double) randomTarget.getX() + 0.5D, (double) randomTarget.getY() + 0.5D, (double) randomTarget.getZ() + 0.5D, 0.25D);
 
-					if (GhostEntity.this.getTarget() == null)
+					if(GhostEntity.this.getTarget() == null)
 					{
-						GhostEntity.this.getLookControl().lookAt(
-								(double)randomTarget.getX() + 0.5D,
-								(double)randomTarget.getY() + 0.5D,
-								(double)randomTarget.getZ() + 0.5D,
-								180.0F, 20.0F);
+						GhostEntity.this.getLookControl().lookAt((double) randomTarget.getX() + 0.5D, (double) randomTarget.getY() + 0.5D, (double) randomTarget.getZ() + 0.5D, 180.0F, 20.0F);
 					}
 					break;
 				}
@@ -360,14 +370,16 @@ public class GhostEntity extends HostileEntity implements Angerable
 		}
 	}
 
-	class ChargeTargetGoal extends Goal {
-		private ChargeTargetGoal() {
+	class ChargeTargetGoal extends Goal
+	{
+		private ChargeTargetGoal()
+		{
 			this.setControls(EnumSet.of(Goal.Control.MOVE));
 		}
 
 		public boolean canStart()
 		{
-			if (GhostEntity.this.getTarget() != null && !GhostEntity.this.getMoveControl().isMoving() && GhostEntity.this.random.nextInt(2) == 0)
+			if(GhostEntity.this.getTarget() != null && !GhostEntity.this.getMoveControl().isMoving() && GhostEntity.this.random.nextInt(2) == 0)
 			{
 				return GhostEntity.this.squaredDistanceTo(GhostEntity.this.getTarget()) > CHARGE_MIN_DISTANCE;
 			}
@@ -400,18 +412,16 @@ public class GhostEntity extends HostileEntity implements Angerable
 		public void tick()
 		{
 			LivingEntity target = GhostEntity.this.getTarget();
-			if(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(target))
-				setTarget(null);
+			if(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(target)) setTarget(null);
 
-			if (GhostEntity.this.getBoundingBox().expand(2F).intersects(target.getBoundingBox()))
+			if(GhostEntity.this.getBoundingBox().expand(2F).intersects(target.getBoundingBox()))
 			{
 				GhostEntity.this.tryAttack(target);
 				GhostEntity.this.setCharging(false);
-			}
-			else
+			}else
 			{
 				double distance = GhostEntity.this.squaredDistanceTo(target);
-				if (distance < CHARGE_MAX_DISTANCE)
+				if(distance < CHARGE_MAX_DISTANCE)
 				{
 					Vec3d vec3d = target.getCameraPosVec(1.0F);
 					GhostEntity.this.moveControl.moveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);

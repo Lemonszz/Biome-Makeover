@@ -34,7 +34,8 @@
     "BrewingStandBlockEntityMixin",
     "BrewingStandFuelSlotMixin",
     "LivingEntityMixin",
-    "LakeFeatureMixin"
+    "LakeFeatureMixin",
+    "DarkOakSaplingGeneratorMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

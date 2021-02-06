@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.entity.render;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.ZombieBaseEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
-import net.minecraft.client.render.entity.model.DrownedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -11,8 +10,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DecayedEntity;
-import party.lemons.biomemakeover.entity.render.feature.DecayedOverlayFeatureRenderer;
 import party.lemons.biomemakeover.entity.render.feature.DecayedItemFeatureRenderer;
+import party.lemons.biomemakeover.entity.render.feature.DecayedOverlayFeatureRenderer;
 
 public class DecayedRender extends ZombieBaseEntityRenderer<DecayedEntity, DecayedEntityModel>
 {

@@ -7,31 +7,38 @@ import net.minecraft.item.ItemStack;
 
 public class DecayCurseEnchantment extends Enchantment
 {
-	public DecayCurseEnchantment(Enchantment.Rarity rarity, EquipmentSlot... slots) {
+	public DecayCurseEnchantment(Enchantment.Rarity rarity, EquipmentSlot... slots)
+	{
 		super(rarity, EnchantmentTarget.BREAKABLE, slots);
 	}
 
-	public boolean isAcceptableItem(ItemStack stack) {
-		return stack.isDamageable() ? true : super.isAcceptableItem(stack);
+	public boolean isAcceptableItem(ItemStack stack)
+	{
+		return stack.isDamageable() || super.isAcceptableItem(stack);
 	}
 
-	public int getMinPower(int level) {
+	public int getMinPower(int level)
+	{
 		return 25;
 	}
 
-	public int getMaxPower(int level) {
+	public int getMaxPower(int level)
+	{
 		return 50;
 	}
 
-	public int getMaxLevel() {
+	public int getMaxLevel()
+	{
 		return 5;
 	}
 
-	public boolean isTreasure() {
+	public boolean isTreasure()
+	{
 		return true;
 	}
 
-	public boolean isCursed() {
+	public boolean isCursed()
+	{
 		return true;
 	}
 }

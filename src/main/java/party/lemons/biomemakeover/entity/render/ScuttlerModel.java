@@ -25,7 +25,8 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	private final ModelPart rattler;
 	private static boolean baby;
 
-	public ScuttlerModel() {
+	public ScuttlerModel()
+	{
 		this.textureHeight = 64;
 		this.textureWidth = 64;
 
@@ -117,7 +118,7 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 		setRotationAngle(tail3, 0.7854F, 0.0F, 0.0F);
 		setRotationAngle(rattler, 0.1309F, 0.0F, 0.0F);
 
-		float pi = (float)Math.PI;
+		float pi = (float) Math.PI;
 		this.head.pitch = -0.2618F + (headPitch * 0.0175F);
 		this.head.yaw = headYaw * 0.0175F;
 		this.right_back_leg.pitch = MathHelper.cos(limbAngle * 0.66F) * 1.4F * limbDistance;
@@ -140,11 +141,13 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	}
 
 
-	public Iterable<ModelPart> getParts() {
+	public Iterable<ModelPart> getParts()
+	{
 		return ImmutableList.of(this.body);
 	}
 
-	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z)
+	{
 		modelRenderer.pitch = x;
 		modelRenderer.yaw = y;
 		modelRenderer.roll = z;
@@ -178,8 +181,7 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 		public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha)
 		{
 			matrices.push();
-			if(baby)
-				matrices.scale(1.6F, 1.6F, 1.6F);
+			if(baby) matrices.scale(1.6F, 1.6F, 1.6F);
 			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 			matrices.pop();
 		}

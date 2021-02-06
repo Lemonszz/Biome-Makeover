@@ -2,8 +2,6 @@ package party.lemons.biomemakeover.network;
 
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.PacketConsumer;
-import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -29,10 +27,12 @@ public class S2C_SpawnEntityCustom implements ClientPlayNetworking.PlayChannelHa
 		float pitch = data.readFloat();
 		float yaw = data.readFloat();
 
-		client.execute(()->{
+		client.execute(()->
+		{
 			ClientWorld world = MinecraftClient.getInstance().world;
 			Entity entity = type.create(world);
-			if(entity != null) {
+			if(entity != null)
+			{
 				entity.updatePosition(x, y, z);
 				entity.updateTrackedPosition(x, y, z);
 				entity.pitch = pitch;

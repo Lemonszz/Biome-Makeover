@@ -10,7 +10,7 @@ public interface SignTypeHelper
 
 	static SignType register(SignType type)
 	{
-		((SignTypeHelper)type).getTypes().add(type);
+		((SignTypeHelper) type).getTypes().add(type);
 
 		return type;
 	}

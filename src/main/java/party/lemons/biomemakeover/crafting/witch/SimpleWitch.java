@@ -3,8 +3,6 @@ package party.lemons.biomemakeover.crafting.witch;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.village.MerchantInventory;
-import net.minecraft.village.TradeOfferList;
 import net.minecraft.world.World;
 
 public class SimpleWitch implements WitchQuestEntity

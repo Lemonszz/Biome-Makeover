@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.entity.render;
 
-import net.minecraft.client.render.entity.*;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.feature.VillagerHeldItemFeatureRenderer;
 import net.minecraft.client.render.entity.model.VillagerResemblingModel;
@@ -15,7 +16,8 @@ public class MushroomVillagerRender extends MobEntityRenderer<MushroomVillagerEn
 {
 	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/mushroom_trader.png");
 
-	public MushroomVillagerRender(EntityRenderDispatcher entityRenderDispatcher) {
+	public MushroomVillagerRender(EntityRenderDispatcher entityRenderDispatcher)
+	{
 		super(entityRenderDispatcher, new VillagerResemblingModel(0.0F), 0.5F);
 		this.addFeature(new HeadFeatureRenderer(this));
 		this.addFeature(new VillagerHeldItemFeatureRenderer(this));
@@ -28,11 +30,13 @@ public class MushroomVillagerRender extends MobEntityRenderer<MushroomVillagerEn
 		return 15;
 	}
 
-	public Identifier getTexture(MushroomVillagerEntity wanderingTraderEntity) {
+	public Identifier getTexture(MushroomVillagerEntity wanderingTraderEntity)
+	{
 		return TEXTURE;
 	}
 
-	protected void scale(MushroomVillagerEntity wanderingTraderEntity, MatrixStack matrixStack, float f) {
+	protected void scale(MushroomVillagerEntity wanderingTraderEntity, MatrixStack matrixStack, float f)
+	{
 		float g = 0.9375F;
 		matrixStack.scale(0.9375F, 0.9375F, 0.9375F);
 	}

@@ -17,8 +17,7 @@ public class PassiveEntityMixin implements Stuntable
 	@Inject(at = @At("HEAD"), method = "isBaby", cancellable = true)
 	private void isBaby(CallbackInfoReturnable<Boolean> cbi)
 	{
-		if(isStunted)
-			cbi.setReturnValue(true);
+		if(isStunted) cbi.setReturnValue(true);
 	}
 
 	@Inject(at = @At("RETURN"), method = "writeCustomDataToTag")
@@ -30,8 +29,7 @@ public class PassiveEntityMixin implements Stuntable
 	@Inject(at = @At("RETURN"), method = "readCustomDataFromTag")
 	private void readCustomDataFromTag(CompoundTag tag, CallbackInfo cbi)
 	{
-		if(tag.contains("IsStunted"))
-			isStunted = tag.getBoolean("IsStunted");
+		if(tag.contains("IsStunted")) isStunted = tag.getBoolean("IsStunted");
 	}
 
 	@Override

@@ -15,17 +15,22 @@ import java.util.Random;
 
 public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 {
-	public UndergroundHugeGreenGlowshroomFeature(Codec<HugeMushroomFeatureConfig> codec) {
+	public UndergroundHugeGreenGlowshroomFeature(Codec<HugeMushroomFeatureConfig> codec)
+	{
 		super(codec);
 	}
 
-	protected void generateCap(WorldAccess world, Random random, BlockPos start, int y, BlockPos.Mutable mutable, HugeMushroomFeatureConfig config) {
-		for(int yy = y - 3; yy <= y; ++yy) {
+	protected void generateCap(WorldAccess world, Random random, BlockPos start, int y, BlockPos.Mutable mutable, HugeMushroomFeatureConfig config)
+	{
+		for(int yy = y - 3; yy <= y; ++yy)
+		{
 			int size = yy < y ? config.foliageRadius : config.foliageRadius - 1;
 			int k = config.foliageRadius - 2;
 
-			for(int xx = -size; xx <= size; ++xx) {
-				for(int zz = -size; zz <= size; ++zz) {
+			for(int xx = -size; xx <= size; ++xx)
+			{
+				for(int zz = -size; zz <= size; ++zz)
+				{
 					boolean isMinX = xx == -size;
 					boolean isMaxX = xx == size;
 					boolean isMinZ = zz == -size;
@@ -34,17 +39,15 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 					boolean isZCorner = isMinZ || isMaxZ;
 					boolean isMiddle = xx > -size && xx < size && zz > -size && zz < size;
 
-					if (yy >= y || (isXCorner != isZCorner || (yy == y - 3) && !isMiddle)) {
+					if(yy >= y || (isXCorner != isZCorner || (yy == y - 3) && !isMiddle))
+					{
 						mutable.set(start, xx, yy, zz);
-						if (!world.getBlockState(mutable).isOpaqueFullCube(world, mutable)) {
-							BlockState ss = (config.capProvider.getBlockState(random, start)
-									.with(MushroomBlock.UP, true))
-									.with(MushroomBlock.WEST, xx < -k)
-									.with(MushroomBlock.EAST, xx > k)
-									.with(MushroomBlock.NORTH, zz < -k)
-									.with(MushroomBlock.SOUTH, zz > k);
+						if(!world.getBlockState(mutable).isOpaqueFullCube(world, mutable))
+						{
+							BlockState ss = (config.capProvider.getBlockState(random, start).with(MushroomBlock.UP, true)).with(MushroomBlock.WEST, xx < -k).with(MushroomBlock.EAST, xx > k).with(MushroomBlock.NORTH, zz < -k).with(MushroomBlock.SOUTH, zz > k);
 
-							if(yy == y) {
+							if(yy == y)
+							{
 								ss = ss.with(MushroomBlock.EAST, true).with(MushroomBlock.DOWN, false).with(MushroomBlock.WEST, true).with(MushroomBlock.NORTH, true).with(MushroomBlock.SOUTH, true);
 							}
 							this.setBlockState(world, mutable, ss);
@@ -76,28 +79,33 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 
 	private void set(WorldAccess world, BlockPos pos, BlockState state)
 	{
-		if(world.isAir(pos))
-			world.setBlockState(pos, state, 3);
+		if(world.isAir(pos)) world.setBlockState(pos, state, 3);
 	}
 
-	public boolean generate(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, HugeMushroomFeatureConfig hugeMushroomFeatureConfig) {
+	public boolean generate(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, HugeMushroomFeatureConfig hugeMushroomFeatureConfig)
+	{
 		int i = this.getHeight(random);
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		if (!this.canGenerate(structureWorldAccess, blockPos, i, mutable, hugeMushroomFeatureConfig)) {
+		if(!this.canGenerate(structureWorldAccess, blockPos, i, mutable, hugeMushroomFeatureConfig))
+		{
 			return false;
-		} else {
+		}else
+		{
 			BlockPos capPos = this.generateCrookedStem(structureWorldAccess, random, blockPos, hugeMushroomFeatureConfig, i, mutable);
 			this.generateCap(structureWorldAccess, random, capPos, 0, mutable, hugeMushroomFeatureConfig);
 			return true;
 		}
 	}
 
-	protected BlockPos generateCrookedStem(WorldAccess world, Random random, BlockPos pos, HugeMushroomFeatureConfig config, int height, BlockPos.Mutable mutable) {
+	protected BlockPos generateCrookedStem(WorldAccess world, Random random, BlockPos pos, HugeMushroomFeatureConfig config, int height, BlockPos.Mutable mutable)
+	{
 		Direction dir = Direction.random(random);
 		mutable.set(pos);
 
-		for(int i = 0; i < height; ++i) {
-			if (!world.getBlockState(mutable).isOpaqueFullCube(world, mutable)) {
+		for(int i = 0; i < height; ++i)
+		{
+			if(!world.getBlockState(mutable).isOpaqueFullCube(world, mutable))
+			{
 				this.setBlockState(world, mutable, config.stemProvider.getBlockState(random, pos));
 			}
 			if(random.nextInt(2) == 0)
@@ -110,20 +118,25 @@ public class UndergroundHugeGreenGlowshroomFeature extends HugeMushroomFeature
 		return new BlockPos(mutable);
 	}
 
-	protected int getHeight(Random random) {
+	protected int getHeight(Random random)
+	{
 		int i = random.nextInt(3) + 6;
-		if (random.nextInt(12) == 0) {
+		if(random.nextInt(12) == 0)
+		{
 			i *= 2;
 		}
 
 		return i;
 	}
 
-	protected int getCapSize(int i, int j, int capSize, int y) {
+	protected int getCapSize(int i, int j, int capSize, int y)
+	{
 		int k = 0;
-		if (y < j && y >= j - 3) {
+		if(y < j && y >= j - 3)
+		{
 			k = capSize;
-		} else if (y == j) {
+		}else if(y == j)
+		{
 			k = capSize;
 		}
 

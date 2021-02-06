@@ -12,5 +12,7 @@ public class ClientUtil
 		return ((WorldRendererAccess) MinecraftClient.getInstance().worldRenderer).createParticle(parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
 	}
 
-	private ClientUtil(){}
+	private ClientUtil()
+	{
+	}
 }

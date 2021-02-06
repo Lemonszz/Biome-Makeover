@@ -3,13 +3,13 @@ package party.lemons.biomemakeover.util;
 import com.google.common.collect.Maps;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.*;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class Grid<V>
 {
-	private HashMap<GridPosition, V> entries = Maps.newHashMap();
+	private final HashMap<GridPosition, V> entries = Maps.newHashMap();
 	private int minX, minY, minZ, maxX, maxY, maxZ;
 
 	public Grid()
@@ -27,18 +27,12 @@ public class Grid<V>
 		GridPosition pos = new GridPosition(x, y, z);
 		entries.put(pos, entry);
 
-		if(x < minX)
-			minX = x;
-		if(y < minY)
-			minY = y;
-		if(z < minZ)
-			minZ = z;
-		if(x > maxX)
-			maxX = x;
-		if(y > maxY)
-			maxY = y;
-		if(z > maxZ)
-			maxZ = z;
+		if(x < minX) minX = x;
+		if(y < minY) minY = y;
+		if(z < minZ) minZ = z;
+		if(x > maxX) maxX = x;
+		if(y > maxY) maxY = y;
+		if(z > maxZ) maxZ = z;
 	}
 
 	public void put(BlockPos pos, V entry)
@@ -103,11 +97,13 @@ public class Grid<V>
 
 	private class GridPosition
 	{
-		public final int x,y,z;
+		public final int x, y, z;
 
 		private GridPosition(int x, int y, int z)
 		{
-			this.x = x; this.y = y; this.z = z;
+			this.x = x;
+			this.y = y;
+			this.z = z;
 		}
 
 		@Override

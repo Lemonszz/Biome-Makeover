@@ -6,7 +6,6 @@ import net.minecraft.structure.JigsawJunction;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
@@ -29,28 +28,27 @@ import java.util.List;
 public class NoiseChunkGeneratorMixin
 {
 	@Inject(at = @At("HEAD"), method = "getEntitySpawnList", cancellable = true)
-	public void getEntitySpawnList(Biome biome, StructureAccessor accessor, SpawnGroup group, BlockPos pos, CallbackInfoReturnable<List<SpawnSettings.SpawnEntry>> cbi )
+	public void getEntitySpawnList(Biome biome, StructureAccessor accessor, SpawnGroup group, BlockPos pos, CallbackInfoReturnable<List<SpawnSettings.SpawnEntry>> cbi)
 	{
-		if (accessor.getStructureAt(pos, true, BMStructures.GHOST_TOWN).hasChildren()) {
-			if (group == SpawnGroup.MONSTER) {
+		if(accessor.getStructureAt(pos, true, BMStructures.GHOST_TOWN).hasChildren())
+		{
+			if(group == SpawnGroup.MONSTER)
+			{
 				cbi.setReturnValue(BMStructures.GHOST_TOWN.getMonsterSpawns());
 			}
 
-			if (group == SpawnGroup.CREATURE) {
+			if(group == SpawnGroup.CREATURE)
+			{
 				cbi.setReturnValue(BMStructures.GHOST_TOWN.getCreatureSpawns());
 			}
 		}
 	}
 
-	@Inject(at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/chunk/ProtoChunk;getHeightmap(Lnet/minecraft/world/Heightmap$Type;)Lnet/minecraft/world/Heightmap;",
-					ordinal = 0),
-			method = "populateNoise",
-			locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-	public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk, CallbackInfo cbi, ObjectList<StructurePiece> objectList, ObjectList<JigsawJunction> objectList2, ChunkPos chunkPos, int i, int j, int k, int l, double ds[][][], ProtoChunk protoChunk)
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/ProtoChunk;getHeightmap(Lnet/minecraft/world/Heightmap$Type;)Lnet/minecraft/world/Heightmap;", ordinal = 0), method = "populateNoise", locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+	public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk, CallbackInfo cbi, ObjectList<StructurePiece> objectList, ObjectList<JigsawJunction> objectList2, ChunkPos chunkPos, int i, int j, int k, int l, double[][][] ds, ProtoChunk protoChunk)
 	{
-		objectList.removeIf((o)->{
+		objectList.removeIf((o)->
+		{
 			if(o instanceof MansionFeature.Piece)
 			{
 				MansionFeature.Piece piece = (MansionFeature.Piece) o;

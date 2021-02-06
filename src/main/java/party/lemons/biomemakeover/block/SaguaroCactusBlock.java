@@ -59,7 +59,7 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 		if(!canPlaceAt(state, world, pos))
 		{
 			world.getBlockTickScheduler().schedule(pos, this, 1);
-			return super.getStateForNeighborUpdate(state, direction,newState, world, pos, posFrom);
+			return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
 		}
 
 		if(direction.getAxis().isVertical())
@@ -69,16 +69,16 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 		{
 			if(newState.get(HORIZONTAL) && newState.get(FACING_PROPERTIES.get(direction.getOpposite())))
 				return state.with(FACING_PROPERTIES.get(direction), true);
-		}
-		else
+		}else
 		{
 			return state.with(FACING_PROPERTIES.get(direction), false);
 		}
 		return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
 	}
 
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (!state.canPlaceAt(world, pos))
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
+	{
+		if(!state.canPlaceAt(world, pos))
 		{
 			world.breakBlock(pos, true);
 		}
@@ -90,10 +90,8 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 		if(state.get(HORIZONTAL))
 		{
 			Direction offset = state.get(HORIZONTAL_DIRECTION);
-			if(!world.getBlockState(pos.offset(offset)).isOf(this))
-				return false;
-		}
-		else
+			if(!world.getBlockState(pos.offset(offset)).isOf(this)) return false;
+		}else
 		{
 			BlockState checkState = world.getBlockState(pos.down());
 			return (checkState.isOf(this) || checkState.isOf(Blocks.SAND) || checkState.isOf(Blocks.RED_SAND)) && !world.getBlockState(pos.up()).getMaterial().isLiquid();
@@ -125,21 +123,18 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 		double size = 4;
 		VoxelShape base;
 
-		if(state.get(HORIZONTAL))
-			base = Block.createCuboidShape(size, size * 2, size, 16 - size, 15.98, 16 - size);
-		else
-			base = Block.createCuboidShape(size, 0, size, 16 - size, 15.98, 16 - size);
+		if(state.get(HORIZONTAL)) base = Block.createCuboidShape(size, size * 2, size, 16 - size, 15.98, 16 - size);
+		else base = Block.createCuboidShape(size, 0, size, 16 - size, 15.98, 16 - size);
 
 		List<VoxelShape> connections = Lists.newArrayList();
 		for(Direction dir : Direction.values())
 		{
-			if(dir.getHorizontal() < 0)
-				continue;
+			if(dir.getHorizontal() < 0) continue;
 
 			if(state.get(FACING_PROPERTIES.get(dir)))
 			{
-				double x= dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
-				double z= dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
+				double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
+				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
 
 				VoxelShape sh = Block.createCuboidShape(x, 8, z, 16 - size, 16, 16 - size);
 				connections.add(sh);
@@ -155,7 +150,8 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 		builder.add(EAST, WEST, NORTH, SOUTH, HORIZONTAL, HORIZONTAL_DIRECTION);
 	}
 
-	public static final Map<Direction, BooleanProperty> FACING_PROPERTIES = Util.make(Maps.newEnumMap(Direction.class), (enumMap) -> {
+	public static final Map<Direction, BooleanProperty> FACING_PROPERTIES = Util.make(Maps.newEnumMap(Direction.class), (enumMap)->
+	{
 		enumMap.put(Direction.NORTH, NORTH);
 		enumMap.put(Direction.EAST, EAST);
 		enumMap.put(Direction.SOUTH, SOUTH);
@@ -171,7 +167,7 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 	@Override
 	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state)
 	{
-		return (double)world.random.nextFloat() < 0.45D;
+		return (double) world.random.nextFloat() < 0.45D;
 	}
 
 	@Override
@@ -187,11 +183,13 @@ public class SaguaroCactusBlock extends BMBlock implements Fertilizable
 			grow(world, random, pos, state);
 	}
 
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity)
+	{
 		entity.damage(DamageSource.CACTUS, 1.0F);
 	}
 
-	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type)
+	{
 		return false;
 	}
 

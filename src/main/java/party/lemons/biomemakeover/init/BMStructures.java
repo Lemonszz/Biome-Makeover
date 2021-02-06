@@ -35,22 +35,11 @@ public class BMStructures
 		RegistryHelper.register(Registry.STRUCTURE_PIECE, StructurePieceType.class, BMStructures.class);
 		GhostTownFeature.init();
 
-		FabricStructureBuilder.create(BiomeMakeover.ID("ghost_town"), GHOST_TOWN)
-				.step(GenerationStep.Feature.UNDERGROUND_DECORATION)
-				.defaultConfig(32, 12, 6969)
-				.adjustsSurface()
-				.register();
+		FabricStructureBuilder.create(BiomeMakeover.ID("ghost_town"), GHOST_TOWN).step(GenerationStep.Feature.UNDERGROUND_DECORATION).defaultConfig(32, 12, 6969).adjustsSurface().register();
 
-		FabricStructureBuilder.create(BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN)
-				.step(GenerationStep.Feature.LOCAL_MODIFICATIONS)
-				.defaultConfig(24, 9, 420)
-				.register();
+		FabricStructureBuilder.create(BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN).step(GenerationStep.Feature.LOCAL_MODIFICATIONS).defaultConfig(24, 9, 420).register();
 
-		FabricStructureBuilder.create(BiomeMakeover.ID("mansion"), MANSION)
-				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
-				.defaultConfig(24, 9, 420)
-				.adjustsSurface()
-				.register();
+		FabricStructureBuilder.create(BiomeMakeover.ID("mansion"), MANSION).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(24, 9, 420).adjustsSurface().register();
 
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMStructures.class);
 	}

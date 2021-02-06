@@ -30,14 +30,17 @@ public class WaterTallFlowerBlock extends BMTallFlowerBlock implements FluidFill
 		return super.canPlaceAt(state, world, pos);
 	}
 
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
+	public BlockState getPlacementState(ItemPlacementContext ctx)
+	{
 		BlockPos pos = ctx.getBlockPos();
 		return pos.getY() < 255 && (ctx.getWorld().getBlockState(pos.up()).canReplace(ctx) && ctx.getWorld().getFluidState(pos.up()).isEmpty()) ? super.getPlacementState(ctx) : null;
 	}
 
-	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
+	{
 		BlockState blockState = super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
-		if (!blockState.isAir()) {
+		if(!blockState.isAir())
+		{
 			world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
@@ -52,7 +55,7 @@ public class WaterTallFlowerBlock extends BMTallFlowerBlock implements FluidFill
 
 	public void placeAt(WorldAccess world, BlockPos pos, int flags)
 	{
-		if (getDefaultState().canPlaceAt(world, pos) && world.isAir(pos.up()))
+		if(getDefaultState().canPlaceAt(world, pos) && world.isAir(pos.up()))
 		{
 			world.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER), flags);
 			world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
@@ -72,8 +75,7 @@ public class WaterTallFlowerBlock extends BMTallFlowerBlock implements FluidFill
 	@Override
 	public FluidState getFluidState(BlockState state)
 	{
-		if(state.get(HALF) == DoubleBlockHalf.LOWER)
-			return Fluids.WATER.getStill(false);
+		if(state.get(HALF) == DoubleBlockHalf.LOWER) return Fluids.WATER.getStill(false);
 
 		return super.getFluidState(state);
 	}

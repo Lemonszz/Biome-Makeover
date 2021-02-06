@@ -89,7 +89,8 @@ public class IlluniteClusterBlock extends FacingBlock implements BlockWithItem, 
 		return state.with(FACING, mirror.apply(state.get(FACING)));
 	}
 
-	public FluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(BlockState state)
+	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 
@@ -106,12 +107,10 @@ public class IlluniteClusterBlock extends FacingBlock implements BlockWithItem, 
 		if(world.getDimension().hasFixedTime())
 		{
 			return Type.UNKNOWN;
-		}
-		else if(world.isNight())
+		}else if(world.isNight())
 		{
 			return Type.NIGHT;
-		}
-		else
+		}else
 		{
 			return Type.DAY;
 		}
@@ -134,9 +133,7 @@ public class IlluniteClusterBlock extends FacingBlock implements BlockWithItem, 
 
 	public enum Type implements StringIdentifiable
 	{
-		DAY,
-		NIGHT,
-		UNKNOWN;
+		DAY, NIGHT, UNKNOWN;
 
 		@Override
 		public String asString()

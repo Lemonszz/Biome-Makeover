@@ -23,26 +23,7 @@ import java.util.Random;
 
 public class SurfaceFossilFeature extends FossilFeature
 {
-	private static final Identifier[] FOSSILS = new Identifier[]{
-			new Identifier("fossil/spine_1"),
-			new Identifier("fossil/spine_2"),
-			new Identifier("fossil/spine_3"),
-			new Identifier("fossil/spine_4"),
-			new Identifier("nether_fossils/fossil_1"),
-			new Identifier("nether_fossils/fossil_2"),
-			new Identifier("nether_fossils/fossil_3"),
-			new Identifier("nether_fossils/fossil_4"),
-			new Identifier("nether_fossils/fossil_5"),
-			new Identifier("nether_fossils/fossil_6"),
-			new Identifier("nether_fossils/fossil_7"),
-			new Identifier("nether_fossils/fossil_8"),
-			new Identifier("nether_fossils/fossil_9"),
-			new Identifier("nether_fossils/fossil_10"),
-			new Identifier("nether_fossils/fossil_11"),
-			new Identifier("nether_fossils/fossil_12"),
-			new Identifier("nether_fossils/fossil_13"),
-			new Identifier("nether_fossils/fossil_14")
-	};
+	private static final Identifier[] FOSSILS = new Identifier[]{new Identifier("fossil/spine_1"), new Identifier("fossil/spine_2"), new Identifier("fossil/spine_3"), new Identifier("fossil/spine_4"), new Identifier("nether_fossils/fossil_1"), new Identifier("nether_fossils/fossil_2"), new Identifier("nether_fossils/fossil_3"), new Identifier("nether_fossils/fossil_4"), new Identifier("nether_fossils/fossil_5"), new Identifier("nether_fossils/fossil_6"), new Identifier("nether_fossils/fossil_7"), new Identifier("nether_fossils/fossil_8"), new Identifier("nether_fossils/fossil_9"), new Identifier("nether_fossils/fossil_10"), new Identifier("nether_fossils/fossil_11"), new Identifier("nether_fossils/fossil_12"), new Identifier("nether_fossils/fossil_13"), new Identifier("nether_fossils/fossil_14")};
 
 	public SurfaceFossilFeature(Codec<DefaultFeatureConfig> codec)
 	{
@@ -66,13 +47,14 @@ public class SurfaceFossilFeature extends FossilFeature
 		int z = random.nextInt(16 - size.getZ());
 
 		int y = 256;
-		for(int xx = 0; xx < size.getX(); xx++) {
-			for(int zz = 0; zz < size.getZ(); ++zz) {
+		for(int xx = 0; xx < size.getX(); xx++)
+		{
+			for(int zz = 0; zz < size.getZ(); ++zz)
+			{
 				y = Math.min(y, structureWorldAccess.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, blockPos.getX() + xx + x, blockPos.getZ() + zz + z));
 			}
 		}
-		if(fossilIndex < 4)
-			y -= RandomUtil.randomRange(1, Math.max(2, size.getY() - 2));
+		if(fossilIndex < 4) y -= RandomUtil.randomRange(1, Math.max(2, size.getY() - 2));
 
 		BlockPos generatePos = structure.offsetByTransformedSize(blockPos.add(x, y, z), BlockMirror.NONE, rot);
 		BlockRotStructureProcessor process = new BlockRotStructureProcessor(1F);

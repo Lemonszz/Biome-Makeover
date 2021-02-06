@@ -38,8 +38,7 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 
 	public boolean generateCactus(StructureWorldAccess world, boolean northSouth, BlockPos pos, Random random, boolean isBig)
 	{
-		if(!CACTUS.getDefaultState().canPlaceAt(world, pos))
-			return false;
+		if(!CACTUS.getDefaultState().canPlaceAt(world, pos)) return false;
 
 		boolean hasArms = random.nextInt(10) > 1;
 		boolean has2Arms = random.nextInt(5) != 0;
@@ -51,16 +50,14 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 		{
 			if(yy > 0)
 			{
-				if(!world.getBlockState(p).isAir())
-					break;
+				if(!world.getBlockState(p).isAir()) break;
 			}
 
 			world.setBlockState(p, CACTUS.getDefaultState(), 2);
 			p.move(Direction.UP);
 		}
 
-		if(!hasArms)
-			return true;
+		if(!hasArms) return true;
 
 		int centerEndY = p.getY();
 		int armStart = RandomUtil.randomRange(1, centerHeight - 2);
@@ -73,17 +70,15 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 				generateArm(world, d, p.getX(), pos.getY() + armStart, p.getZ(), centerEndY);
 				armStart = RandomUtil.randomRange(1, centerHeight - 2);
 			}
-		}
-		else
+		}else
 		{
 			generateArm(world, directions[random.nextInt(directions.length)], p.getX(), pos.getY() + armStart, p.getZ(), centerEndY);
 		}
 
 		if((!isBig && random.nextInt(10) == 0) || (isBig && random.nextInt(50) == 0))
 		{
-			BlockPos nextPos =  new BlockPos(pos.getX(), centerEndY, pos.getZ());
-			if(world.getBlockState(nextPos).isAir())
-				generateCactus(world, random.nextBoolean(), nextPos, random, true);
+			BlockPos nextPos = new BlockPos(pos.getX(), centerEndY, pos.getZ());
+			if(world.getBlockState(nextPos).isAir()) generateCactus(world, random.nextBoolean(), nextPos, random, true);
 		}
 		return true;
 	}
@@ -92,26 +87,20 @@ public class SaguaroCactusFeature extends Feature<DefaultFeatureConfig>
 	{
 		BlockPos.Mutable p = new BlockPos.Mutable(centerX + direction.getOffsetX(), armY, centerZ + direction.getOffsetZ());
 
-		if(!world.getBlockState(p).isAir())
-			return;
+		if(!world.getBlockState(p).isAir()) return;
 
 		BlockPos centerPos = p.offset(direction.getOpposite());
 		BlockState centerState = world.getBlockState(centerPos);
-		if(!centerState.isOf(CACTUS))
-			return;
+		if(!centerState.isOf(CACTUS)) return;
 
 		world.setBlockState(centerPos, centerState.with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction), true), 2);
-		world.setBlockState(p, CACTUS.getDefaultState()
-								.with(SaguaroCactusBlock.HORIZONTAL, true)
-								.with(SaguaroCactusBlock.HORIZONTAL_DIRECTION, direction.getOpposite())
-								.with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction.getOpposite()), true), 2);
+		world.setBlockState(p, CACTUS.getDefaultState().with(SaguaroCactusBlock.HORIZONTAL, true).with(SaguaroCactusBlock.HORIZONTAL_DIRECTION, direction.getOpposite()).with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction.getOpposite()), true), 2);
 
 		p.move(Direction.UP);
 		int amt = Math.max(1, (centerHeight - p.getY()) + RandomUtil.randomRange(-3, -1));
 		for(int i = 0; i < amt; i++)
 		{
-			if(!world.getBlockState(p).isAir())
-				return;
+			if(!world.getBlockState(p).isAir()) return;
 			world.setBlockState(p, CACTUS.getDefaultState(), 2);
 			p.move(Direction.UP);
 		}

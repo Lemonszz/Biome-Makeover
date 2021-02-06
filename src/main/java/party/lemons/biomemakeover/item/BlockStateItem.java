@@ -34,8 +34,10 @@ public class BlockStateItem extends BlockItem
 	}
 
 	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-		if (this.isIn(group)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks)
+	{
+		if(this.isIn(group))
+		{
 			stacks.add(new ItemStack(this));
 		}
 	}

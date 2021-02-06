@@ -4,17 +4,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import party.lemons.biomemakeover.crafting.witch.*;
 import party.lemons.biomemakeover.init.BMCriterion;
 import party.lemons.biomemakeover.init.BMScreens;
@@ -34,7 +31,8 @@ public class WitchScreenHandler extends ScreenHandler
 		super(BMScreens.WITCH, syncId);
 		this.witch = witch;
 		this.inventory = new SimpleInventory(1);
-		this.addSlot(new Slot(this.inventory, 0, 131, 36){
+		this.addSlot(new Slot(this.inventory, 0, 131, 36)
+		{
 			@Override
 			public boolean canInsert(ItemStack stack)
 			{
@@ -98,8 +96,7 @@ public class WitchScreenHandler extends ScreenHandler
 			if(player.isAlive() && (!(player instanceof ServerPlayerEntity) || !((ServerPlayerEntity) player).isDisconnected()))
 			{
 				player.inventory.offerOrDrop(player.world, this.inventory.removeStack(0));
-			}
-			else
+			}else
 			{
 				ItemStack itemStack = this.inventory.removeStack(0);
 				if(!itemStack.isEmpty())
@@ -133,8 +130,7 @@ public class WitchScreenHandler extends ScreenHandler
 			{
 				playerEntity.dropItem(inventory.getStack(0), true);
 			}
-			if(!playerEntity.world.isClient())
-				BMCriterion.WITCH_TRADE.trigger((ServerPlayerEntity) playerEntity);
+			if(!playerEntity.world.isClient()) BMCriterion.WITCH_TRADE.trigger((ServerPlayerEntity) playerEntity);
 
 			ItemStack reward = WitchQuestHandler.getRewardFor(quest, playerEntity.getRandom());
 			witch.completeQuest(quest);

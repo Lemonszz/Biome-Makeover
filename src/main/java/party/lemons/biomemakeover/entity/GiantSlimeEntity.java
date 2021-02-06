@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeKeys;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.mixin.SlimeEntityMixin;
 import party.lemons.biomemakeover.util.access.SlimeEntityAccess;
 
 import java.util.Objects;
@@ -32,14 +31,16 @@ public class GiantSlimeEntity extends SlimeEntity
 		super(BMEntities.GIANT_SLIME, world);
 	}
 
-	public void remove() {
+	public void remove()
+	{
 		int size = this.getSize();
-		if (!this.world.isClient && size > 1 && this.isDead()) {
+		if(!this.world.isClient && size > 1 && this.isDead())
+		{
 			Text text = this.getCustomName();
 			boolean hasDisabledAI = this.isAiDisabled();
 
 			DecayedEntity decayed = BMEntities.DECAYED.create(this.world);
-			if (this.isPersistent())
+			if(this.isPersistent())
 			{
 				decayed.setPersistent();
 			}
@@ -53,27 +54,29 @@ public class GiantSlimeEntity extends SlimeEntity
 			this.world.spawnEntity(decayed);
 		}
 
-		if (!this.world.isClient && size > 1 && this.isDead())
+		if(!this.world.isClient && size > 1 && this.isDead())
 		{
 			Text text = this.getCustomName();
 			boolean bl = this.isAiDisabled();
-			float quarterSize = (float)size / 4.0F;
+			float quarterSize = (float) size / 4.0F;
 			int halfSize = size / 2;
 			int count = 2 + this.random.nextInt(3);
 
-			for(int in = 0; in < count; ++in) {
-				float offsetX = ((float)(in % 2) - 0.5F) * quarterSize;
-				float offsetY = ((float)(in / 2) - 0.5F) * quarterSize;
+			for(int in = 0; in < count; ++in)
+			{
+				float offsetX = ((float) (in % 2) - 0.5F) * quarterSize;
+				float offsetY = ((float) (in / 2) - 0.5F) * quarterSize;
 				SlimeEntity slimeEntity = EntityType.SLIME.create(this.world);
-				if (this.isPersistent()) {
+				if(this.isPersistent())
+				{
 					slimeEntity.setPersistent();
 				}
 
 				slimeEntity.setCustomName(text);
 				slimeEntity.setAiDisabled(bl);
 				slimeEntity.setInvulnerable(this.isInvulnerable());
-				((SlimeEntityAccess)slimeEntity).setSlimeSize(halfSize, true);
-				slimeEntity.refreshPositionAndAngles(this.getX() + (double)offsetX, this.getY() + 0.5D, this.getZ() + (double)offsetY, this.random.nextFloat() * 360.0F, 0.0F);
+				((SlimeEntityAccess) slimeEntity).setSlimeSize(halfSize, true);
+				slimeEntity.refreshPositionAndAngles(this.getX() + (double) offsetX, this.getY() + 0.5D, this.getZ() + (double) offsetY, this.random.nextFloat() * 360.0F, 0.0F);
 				this.world.spawnEntity(slimeEntity);
 			}
 		}
@@ -94,19 +97,21 @@ public class GiantSlimeEntity extends SlimeEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					HostileEntity.createHostileAttributes().build());
+			attributeContainer = new AttributeContainer(HostileEntity.createHostileAttributes().build());
 		return attributeContainer;
 	}
 
 	public static boolean canSpawnGiantSlime(EntityType<GiantSlimeEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
 	{
-		if (world.getDifficulty() != Difficulty.PEACEFUL && world.getMoonSize() == 1F) {
-			if (Objects.equals(world.method_31081(pos), Optional.of(BiomeKeys.SWAMP)) && pos.getY() > 50 && pos.getY() < 70 && random.nextFloat() < 0.8F && world.getLightLevel(pos) <= random.nextInt(8)) {
+		if(world.getDifficulty() != Difficulty.PEACEFUL && world.getMoonSize() == 1F)
+		{
+			if(Objects.equals(world.method_31081(pos), Optional.of(BiomeKeys.SWAMP)) && pos.getY() > 50 && pos.getY() < 70 && random.nextFloat() < 0.8F && world.getLightLevel(pos) <= random.nextInt(8))
+			{
 				return canMobSpawn(type, world, spawnReason, pos, random);
 			}
 
-			if (!(world instanceof StructureWorldAccess)) {
+			if(!(world instanceof StructureWorldAccess))
+			{
 				return false;
 			}
 		}

@@ -8,7 +8,6 @@ import net.minecraft.block.PillarBlock;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -75,16 +74,19 @@ public class CypressTrunkPlacer extends TrunkPlacer
 		return nodes;
 	}
 
-	protected static boolean setBranch(ModifiableTestableWorld modifiableTestableWorld, Random random, BlockPos blockPos, Set<BlockPos> set, BlockBox blockBox, BlockState st) {
-		if (TreeFeature.canReplace(modifiableTestableWorld, blockPos)) {
-			setBlockState(modifiableTestableWorld, blockPos,st, blockBox);
+	protected static boolean setBranch(ModifiableTestableWorld modifiableTestableWorld, Random random, BlockPos blockPos, Set<BlockPos> set, BlockBox blockBox, BlockState st)
+	{
+		if(TreeFeature.canReplace(modifiableTestableWorld, blockPos))
+		{
+			setBlockState(modifiableTestableWorld, blockPos, st, blockBox);
 			set.add(blockPos.toImmutable());
 			return true;
-		} else {
+		}else
+		{
 			return false;
 		}
 	}
 
-	public static final Codec<CypressTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->method_28904(instance).apply(instance, CypressTrunkPlacer::new));
+	public static final Codec<CypressTrunkPlacer> CODEC = RecordCodecBuilder.create((instance)->method_28904(instance).apply(instance, CypressTrunkPlacer::new));
 
 }

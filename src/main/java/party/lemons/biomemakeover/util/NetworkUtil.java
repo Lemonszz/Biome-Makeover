@@ -19,15 +19,13 @@ public class NetworkUtil
 {
 	public static void serverSendToNearby(World world, Identifier packet, PacketByteBuf buf, double x, double y, double z)
 	{
-		if(world.isClient)
-			return;
+		if(world.isClient) return;
 
 		ServerWorld sw = (ServerWorld) world;
 
 		for(ServerPlayerEntity pl : sw.getPlayers())
 		{
-			if(pl.getServerWorld() != sw)
-				return;
+			if(pl.getServerWorld() != sw) return;
 
 			BlockPos pos = pl.getBlockPos();
 			if(pos.isWithinDistance(new Vec3d(x, y, z), 32))
@@ -39,8 +37,7 @@ public class NetworkUtil
 
 	public static void doLightningSplash(World world, boolean doBottle, BlockPos pos)
 	{
-		if(world.isClient)
-			return;
+		if(world.isClient) return;
 
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeBoolean(doBottle);
@@ -51,8 +48,7 @@ public class NetworkUtil
 
 	public static void doLightningEntity(World world, LivingEntity entity, int count)
 	{
-		if(world.isClient)
-			return;
+		if(world.isClient) return;
 
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeInt(entity.getEntityId());
@@ -63,8 +59,7 @@ public class NetworkUtil
 
 	public static void serverSendTracking(World world, BlockPos blockPos, Identifier id, PacketByteBuf buf)
 	{
-		if(world.isClient())
-			return;
+		if(world.isClient()) return;
 
 		for(ServerPlayerEntity pl : PlayerLookup.tracking((ServerWorld) world, blockPos))
 		{
@@ -74,8 +69,7 @@ public class NetworkUtil
 
 	public static void sendSlideTime(PlayerEntity player, int time)
 	{
-		if(player.world.isClient())
-			return;
+		if(player.world.isClient()) return;
 
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(time);

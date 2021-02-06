@@ -79,7 +79,7 @@ public class BMBoatEntity extends BoatEntity
 	@Override
 	protected void readCustomDataFromTag(CompoundTag tag)
 	{
-		if (tag.contains(TAG_TYPE, 8))
+		if(tag.contains(TAG_TYPE, 8))
 		{
 			this.setBoatType(BoatTypes.REGISTRY.get(new Identifier(tag.getString(TAG_TYPE))));
 		}

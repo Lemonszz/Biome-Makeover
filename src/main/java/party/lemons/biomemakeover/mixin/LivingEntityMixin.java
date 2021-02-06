@@ -1,9 +1,6 @@
 package party.lemons.biomemakeover.mixin;
 
 import com.google.common.collect.Lists;
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -13,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Pair;
 import net.minecraft.world.World;
@@ -23,10 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import party.lemons.biomemakeover.enchantments.BMEnchantment;
 import party.lemons.biomemakeover.init.BMEnchantments;
-import party.lemons.biomemakeover.init.BMNetwork;
 import party.lemons.biomemakeover.util.ItemStackUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.SlideEntity;
@@ -37,7 +31,9 @@ import java.util.Iterator;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements SlideEntity
 {
-	@Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+	@Shadow
+	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
 	private int slideTime = 0;
 
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"), method = "travel")
@@ -46,8 +42,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 		float slipperiness = block.getSlipperiness();
 		int slipLevel = EnchantmentHelper.getLevel(BMEnchantments.SLIDING_CURSE, getEquippedStack(EquipmentSlot.FEET));
 
-		if(slipLevel <= 0 || !isSliding())
-			return block.getSlipperiness();
+		if(slipLevel <= 0 || !isSliding()) return block.getSlipperiness();
 
 		slipperiness = Math.max(0.98F, slipperiness);
 		slipperiness += (slipLevel * 0.005F);
@@ -71,7 +66,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 					{
 						if(en instanceof BMEnchantment)
 						{
-							((BMEnchantment) en).removeAttributes((LivingEntity)(Object)this, pair.getLeft());
+							((BMEnchantment) en).removeAttributes((LivingEntity) (Object) this, pair.getLeft());
 						}
 					}, st, true);
 					it.remove();
@@ -87,8 +82,8 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 					{
 						if(en instanceof BMEnchantment)
 						{
-							((BMEnchantment) en).onTick((LivingEntity)(Object)this, st, lvl);
-							if(!hasAttributeStack(st) && ((BMEnchantment)en).addAttributes((LivingEntity)(Object)this, st, slot, lvl))
+							((BMEnchantment) en).onTick((LivingEntity) (Object) this, st, lvl);
+							if(!hasAttributeStack(st) && ((BMEnchantment) en).addAttributes((LivingEntity) (Object) this, st, slot, lvl))
 							{
 								attributeStacks.add(new Pair<>(slot, st));
 							}
@@ -105,8 +100,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 				{
 					syncSlideTime();
 				}
-			}
-			else
+			}else
 			{
 				if(random.nextInt(500) == 0)
 				{
@@ -121,7 +115,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 	{
 		if((Object) this instanceof ServerPlayerEntity)
 		{
-			NetworkUtil.sendSlideTime((PlayerEntity)(Object)this, slideTime);
+			NetworkUtil.sendSlideTime((PlayerEntity) (Object) this, slideTime);
 		}
 	}
 
@@ -130,14 +124,13 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 		return getEquippedStack(slot).equals(stack);
 	}
 
-	private Collection<Pair<EquipmentSlot, ItemStack>> attributeStacks = Lists.newArrayList();
+	private final Collection<Pair<EquipmentSlot, ItemStack>> attributeStacks = Lists.newArrayList();
 
 	public boolean hasAttributeStack(ItemStack stack)
 	{
 		for(Pair<EquipmentSlot, ItemStack> pair : attributeStacks)
 		{
-			if(pair.getRight().equals(stack))
-				return true;
+			if(pair.getRight().equals(stack)) return true;
 		}
 		return false;
 	}

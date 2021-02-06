@@ -1,6 +1,8 @@
 package party.lemons.biomemakeover.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -33,18 +35,16 @@ public class WillowingBranchesBlock extends BMBlock implements Waterloggable
 
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
 	{
-		if(direction == Direction.UP)
-			if(newState.isOf(this) && newState.get(STAGE) != state.get(STAGE) - 1)
-			{
-				int newStage = newState.get(STAGE);
-				if(newStage != 2)
-					return state.with(STAGE, newStage + 1);
-			}
+		if(direction == Direction.UP) if(newState.isOf(this) && newState.get(STAGE) != state.get(STAGE) - 1)
+		{
+			int newStage = newState.get(STAGE);
+			if(newStage != 2) return state.with(STAGE, newStage + 1);
+		}
 
 		if(!canPlaceAt(state, world, pos))
 		{
 			world.getBlockTickScheduler().schedule(pos, this, 1);
-			return super.getStateForNeighborUpdate(state, direction,newState, world, pos, posFrom);
+			return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
 		}
 
 		return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
@@ -71,24 +71,27 @@ public class WillowingBranchesBlock extends BMBlock implements Waterloggable
 
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if (!state.canPlaceAt(world, pos))
+		if(!state.canPlaceAt(world, pos))
 		{
 			world.breakBlock(pos, true);
 		}
 	}
 
-	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos)
+	{
 		BlockPos blockPos = pos.up();
 		BlockState upState = world.getBlockState(blockPos);
 		return (upState.isOf(this) && upState.get(STAGE) < 2) || upState.isIn(BlockTags.LEAVES);
 	}
 
-	public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+	public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos)
+	{
 		return state.getFluidState().isEmpty();
 	}
 
-	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-		return type == NavigationType.AIR && !this.collidable ? true : super.canPathfindThrough(state, world, pos, type);
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type)
+	{
+		return type == NavigationType.AIR && !this.collidable || super.canPathfindThrough(state, world, pos, type);
 	}
 
 	@Override
@@ -109,7 +112,8 @@ public class WillowingBranchesBlock extends BMBlock implements Waterloggable
 		return super.getPlacementState(ctx).with(WATERLOGGED, waterlog);
 	}
 
-	public FluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(BlockState state)
+	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 

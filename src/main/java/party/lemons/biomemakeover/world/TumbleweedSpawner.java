@@ -19,8 +19,7 @@ public class TumbleweedSpawner
 		List<TumbleweedPlayerGroup> groups = Lists.newArrayList();
 		for(PlayerEntity pl : world.getPlayers())
 		{
-			if(pl.isSpectator())
-				continue;
+			if(pl.isSpectator()) continue;
 
 			boolean added = false;
 			for(TumbleweedPlayerGroup group : groups)
@@ -108,14 +107,10 @@ public class TumbleweedSpawner
 
 			for(PlayerEntity p : nearPlayers)
 			{
-				if((p.getX() + 20) + 45 > maxX)
-					maxX = (int)p.getX() + 20 + 45;
-				if((p.getZ() + 20) + 45 > maxZ)
-					maxZ = (int)p.getZ() + 20 + 45;
-				if((p.getX() - 20) - 45 < minX)
-					minX = (int)p.getX() - 20 - 45;
-				if((p.getZ() - 20) - 45 < minZ)
-					minZ = (int)p.getZ() - 20 - 45;
+				if((p.getX() + 20) + 45 > maxX) maxX = (int) p.getX() + 20 + 45;
+				if((p.getZ() + 20) + 45 > maxZ) maxZ = (int) p.getZ() + 20 + 45;
+				if((p.getX() - 20) - 45 < minX) minX = (int) p.getX() - 20 - 45;
+				if((p.getZ() - 20) - 45 < minZ) minZ = (int) p.getZ() - 20 - 45;
 			}
 
 			int spawnX = RandomUtil.randomRange(minX, maxX);
@@ -130,8 +125,7 @@ public class TumbleweedSpawner
 				spawnY = main.world.getTopY(Heightmap.Type.WORLD_SURFACE, spawnX, spawnZ);
 			}
 
-			if(attempts <= 0)
-				return null;
+			if(attempts <= 0) return null;
 
 			return new BlockPos(spawnX, spawnY, spawnZ);
 		}
@@ -140,8 +134,7 @@ public class TumbleweedSpawner
 		{
 			for(PlayerEntity pl : nearPlayers)
 			{
-				if(pl.squaredDistanceTo(x, y, z) < 20)
-					return false;
+				if(pl.squaredDistanceTo(x, y, z) < 20) return false;
 			}
 			return true;
 		}

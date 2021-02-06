@@ -83,8 +83,8 @@ public class RootlingEntityModel extends CompositeEntityModel<RootlingEntity> im
 		AnimationHelper.swingLimb(arm_left, arm_right, limbAngle, limbDistance, 1.4F);
 		AnimationHelper.swingLimb(leg_left, leg_right, limbAngle, limbDistance, 2F);
 
-		body.roll = (float)(Math.sin(limbAngle) / 4F) * limbDistance;
-		head.roll = (float)(Math.cos(limbAngle) / 8F) * limbDistance;
+		body.roll = (float) (Math.sin(limbAngle) / 4F) * limbDistance;
+		head.roll = (float) (Math.cos(limbAngle) / 8F) * limbDistance;
 	}
 
 	@Override
@@ -94,7 +94,8 @@ public class RootlingEntityModel extends CompositeEntityModel<RootlingEntity> im
 	}
 
 	@Override
-	public void setArmAngle(Arm arm, MatrixStack matrices) {
+	public void setArmAngle(Arm arm, MatrixStack matrices)
+	{
 		this.getArm(arm).rotate(matrices);
 	}
 

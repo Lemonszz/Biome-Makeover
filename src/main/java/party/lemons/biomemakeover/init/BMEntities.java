@@ -4,11 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.mob.DrownedEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.item.Item;
-import net.minecraft.tag.EntityTypeTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -38,8 +34,8 @@ public class BMEntities
 	public static final EntityType<DragonflyEntity> DRAGONFLY = FabricEntityTypeBuilder.<DragonflyEntity>create(SpawnGroup.AMBIENT, (t, w)->new DragonflyEntity(w)).dimensions(EntityDimensions.fixed(0.8F, 0.6F)).trackRangeBlocks(12).build();
 	public static final EntityType<LightningBugEntity> LIGHTNING_BUG = FabricEntityTypeBuilder.<LightningBugEntity>create(SpawnGroup.AMBIENT, (t, w)->new LightningBugEntity(w)).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).trackRangeBlocks(12).build();
 	public static final EntityType<LightningBugEntity> LIGHTNING_BUG_ALTERNATE = FabricEntityTypeBuilder.<LightningBugEntity>create(SpawnGroup.MISC, (t, w)->new LightningBugEntity(w, true)).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).trackRangeBlocks(12).build();
-	public static final EntityType<BMBoatEntity> BM_BOAT = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new).trackable(128, 3).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).build();
-	public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new).trackable(4, 10).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build();
+	public static final EntityType<BMBoatEntity> BM_BOAT = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<BMBoatEntity>) BMBoatEntity::new).trackable(128, 3).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).build();
+	public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<LightningBottleEntity>) LightningBottleEntity::new).trackable(4, 10).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build();
 	public static final EntityType<RootlingEntity> ROOTLING = FabricEntityTypeBuilder.<RootlingEntity>create(SpawnGroup.CREATURE, (t, w)->new RootlingEntity(w)).dimensions(EntityDimensions.fixed(0.6F, 1.1F)).trackRangeBlocks(12).build();
 
 	public static void init()
@@ -52,21 +48,24 @@ public class BMEntities
 		//TODO: use registrtRestriction to all
 		restrictions.put(BMEntities.GLOWFISH, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.IN_WATER, (e, world, spawnReason, pos, b)->world.getBlockState(pos).isOf(Blocks.WATER) && world.getBlockState(pos.up()).isOf(Blocks.WATER)));
 		restrictions.put(BMEntities.SCUTTLER, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, (e, world, spawnReason, pos, b)->world.getBlockState(pos.down()).isOpaque()));
-		restrictions.put(BMEntities.DECAYED, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,  SpawnRestriction.Location.IN_WATER, DecayedEntity::validSpawn));
+		restrictions.put(BMEntities.DECAYED, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.IN_WATER, DecayedEntity::validSpawn));
 		registerRestriction(restrictions, BMEntities.GIANT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GiantSlimeEntity::canSpawnGiantSlime);
 
 		restrictions.put(BMEntities.TOAD, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
 		restrictions.put(BMEntities.DRAGONFLY, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
 	}
 
-	private static <T extends MobEntity> void registerRestriction(Map<EntityType<?>, SpawnRestriction.Entry> restrictions, EntityType<T> type, SpawnRestriction.Location location, Heightmap.Type heightmapType, SpawnRestriction.SpawnPredicate<T> predicate) {
+	private static <T extends MobEntity> void registerRestriction(Map<EntityType<?>, SpawnRestriction.Entry> restrictions, EntityType<T> type, SpawnRestriction.Location location, Heightmap.Type heightmapType, SpawnRestriction.SpawnPredicate<T> predicate)
+	{
 		SpawnRestriction.Entry entry = restrictions.put(type, new SpawnRestriction.Entry(heightmapType, location, predicate));
-		if (entry != null) {
+		if(entry != null)
+		{
 			throw new IllegalStateException("Duplicate registration for type " + Registry.ENTITY_TYPE.getId(type));
 		}
 	}
 
-	public static boolean isValidAnimalSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+	public static boolean isValidAnimalSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
+	{
 		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 

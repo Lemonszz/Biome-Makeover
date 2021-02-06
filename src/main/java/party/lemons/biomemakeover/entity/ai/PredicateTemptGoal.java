@@ -3,13 +3,12 @@ package party.lemons.biomemakeover.entity.ai;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
 
 import java.util.function.Predicate;
 
 public class PredicateTemptGoal extends TemptGoal
 {
-	private Predicate<ItemStack> food;
+	private final Predicate<ItemStack> food;
 
 	public PredicateTemptGoal(PathAwareEntity mob, double speed, Predicate<ItemStack> food, boolean canBeScared)
 	{

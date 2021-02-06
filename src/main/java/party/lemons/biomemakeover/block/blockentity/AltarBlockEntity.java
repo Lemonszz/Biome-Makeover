@@ -58,14 +58,20 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 	{
 		super(BMBlockEntities.ALTAR);
 
-		this.propertyDelegate = new PropertyDelegate() {
-			public int get(int index) {
+		this.propertyDelegate = new PropertyDelegate()
+		{
+			public int get(int index)
+			{
 				return progress;
 			}
-			public void set(int index, int value) {
+
+			public void set(int index, int value)
+			{
 				progress = value;
 			}
-			public int size() {
+
+			public int size()
+			{
 				return 1;
 			}
 		};
@@ -105,8 +111,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 					getStack(1).decrement(1);
 				}
 			}
-		}
-		else if(!world.isClient())
+		}else if(!world.isClient())
 		{
 			progress = 0;
 			working = false;
@@ -121,8 +126,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 
 	private void updateBook()
 	{
-		if(!world.isClient)
-			return;
+		if(!world.isClient) return;
 
 		this.pageTurningSpeed = this.nextPageTurningSpeed;
 		this.lastAngle = this.currentAngle;
@@ -131,8 +135,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 		{
 			this.nextAngle += 0.5F;
 			this.nextPageTurningSpeed += 0.2F;
-		}
-		else
+		}else
 		{
 			PlayerEntity playerEntity = this.world.getClosestPlayer((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D, 3.0D, false);
 			if(playerEntity != null)
@@ -157,27 +160,33 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 			}
 		}
 
-		while(this.currentAngle >= PI) {
+		while(this.currentAngle >= PI)
+		{
 			this.currentAngle -= PI2;
 		}
 
-		while(this.currentAngle < -PI) {
+		while(this.currentAngle < -PI)
+		{
 			this.currentAngle += PI2;
 		}
 
-		while(this.nextAngle >= PI) {
+		while(this.nextAngle >= PI)
+		{
 			this.nextAngle -= PI2;
 		}
 
-		while(this.nextAngle < -PI) {
+		while(this.nextAngle < -PI)
+		{
 			this.nextAngle += PI2;
 		}
 
 		float rotation;
-		for(rotation = this.nextAngle - this.currentAngle; rotation >= PI; rotation -= PI2) {
+		for(rotation = this.nextAngle - this.currentAngle; rotation >= PI; rotation -= PI2)
+		{
 		}
 
-		while(rotation < -PI) {
+		while(rotation < -PI)
+		{
 			rotation += PI2;
 		}
 
@@ -226,15 +235,19 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 		return new AltarScreenHandler(syncId, playerInventory, this, propertyDelegate);
 	}
 
-	public boolean canPlayerUse(PlayerEntity player) {
-		if (this.world.getBlockEntity(this.pos) != this) {
+	public boolean canPlayerUse(PlayerEntity player)
+	{
+		if(this.world.getBlockEntity(this.pos) != this)
+		{
 			return false;
-		} else {
-			return player.squaredDistanceTo((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+		}else
+		{
+			return player.squaredDistanceTo((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
 		}
 	}
 
-	public void clear() {
+	public void clear()
+	{
 		this.inventory.clear();
 	}
 
@@ -285,7 +298,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 			//Brute force tactic
 			if(curse == null)
 			{
-				for(Enchantment enchantment : Registry.ENCHANTMENT.stream().sorted((e,e1)->RandomUtil.randomRange(-1, 1)).collect(Collectors.toList()))
+				for(Enchantment enchantment : Registry.ENCHANTMENT.stream().sorted((e, e1)->RandomUtil.randomRange(-1, 1)).collect(Collectors.toList()))
 				{
 					if(enchantment.isCursed() && enchantment.isAcceptableItem(stack) && !enchantments.containsKey(enchantment))
 						curse = enchantment;
@@ -317,21 +330,17 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 
 	public static boolean isValidForCurse(ItemStack stack)
 	{
-		if(stack.isEmpty())
-			return false;
+		if(stack.isEmpty()) return false;
 
-		if(stack.getItem() == Items.BOOK)
-			return true;
+		if(stack.getItem() == Items.BOOK) return true;
 
 		Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
-		if(enchantments.isEmpty() || (stack.hasTag() && stack.getTag().contains("BMCursed")))
-			return false;
+		if(enchantments.isEmpty() || (stack.hasTag() && stack.getTag().contains("BMCursed"))) return false;
 
 		boolean hasNewCompatibleCurse = false;
 		for(Enchantment enchantment : enchantments.keySet())
 		{
-			if(enchantment.getMaxLevel() > 1 && !enchantment.isCursed())
-				return true;
+			if(enchantment.getMaxLevel() > 1 && !enchantment.isCursed()) return true;
 
 			if(enchantment.isCursed() && enchantment.isAcceptableItem(stack) && !enchantments.containsKey(enchantment))
 				hasNewCompatibleCurse = true;
@@ -344,20 +353,15 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 	@Override
 	public int[] getAvailableSlots(Direction side)
 	{
-		if(side.getAxis() == Direction.Axis.Y)
-			return new int[] {0};
-		else return new int[] {1};
+		if(side.getAxis() == Direction.Axis.Y) return new int[]{0};
+		else return new int[]{1};
 	}
 
 	@Override
 	public boolean canInsert(int slot, ItemStack stack, Direction dir)
 	{
-		if(slot == 0 && isValidForCurse(stack))
-			return true;
-		else if(slot == 1 && stack.getItem().isIn(BMItems.CURSE_FUEL))
-			return true;
-
-		return false;
+		if(slot == 0 && isValidForCurse(stack)) return true;
+		else return slot == 1 && stack.getItem().isIn(BMItems.CURSE_FUEL);
 	}
 
 	@Override

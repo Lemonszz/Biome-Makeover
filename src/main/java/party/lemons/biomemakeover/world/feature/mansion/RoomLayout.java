@@ -24,8 +24,7 @@ public class RoomLayout extends HashMap<Direction, Boolean>
 		int count = 0;
 		for(int i = 0; i < 4; i++)
 		{
-			if(get(Direction.fromHorizontal(i)))
-				count++;
+			if(get(Direction.fromHorizontal(i))) count++;
 		}
 		return count;
 	}

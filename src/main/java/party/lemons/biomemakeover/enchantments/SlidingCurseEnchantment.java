@@ -1,11 +1,9 @@
 package party.lemons.biomemakeover.enchantments;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Vec3d;
 
 public class SlidingCurseEnchantment extends BMEnchantment
 {
@@ -20,24 +18,29 @@ public class SlidingCurseEnchantment extends BMEnchantment
 
 	}
 
-	public int getMinPower(int level) {
+	public int getMinPower(int level)
+	{
 		return 25;
 	}
 
 
-	public int getMaxPower(int level) {
+	public int getMaxPower(int level)
+	{
 		return 50;
 	}
 
-	public int getMaxLevel() {
+	public int getMaxLevel()
+	{
 		return 3;
 	}
 
-	public boolean isTreasure() {
+	public boolean isTreasure()
+	{
 		return true;
 	}
 
-	public boolean isCursed() {
+	public boolean isCursed()
+	{
 		return true;
 	}
 }

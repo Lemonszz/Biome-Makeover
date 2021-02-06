@@ -2,7 +2,6 @@ package party.lemons.biomemakeover.entity;
 
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -16,7 +15,9 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
@@ -46,14 +47,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 {
 	public static final TrackedData<Boolean> HAS_FLOWER = DataTracker.registerData(RootlingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Integer> FLOWER_TYPE = DataTracker.registerData(RootlingEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	public static final Item[] PETAL_ITEMS = new Item[]{
-			BMItems.BLUE_PETALS,
-			BMItems.BROWN_PETALS,
-			BMItems.CYAN_PETALS,
-			BMItems.GRAY_PETALS,
-			BMItems.LIGHT_BLUE_PETALS,
-			BMItems.PURPLE_PETALS,
-	};
+	public static final Item[] PETAL_ITEMS = new Item[]{BMItems.BLUE_PETALS, BMItems.BROWN_PETALS, BMItems.CYAN_PETALS, BMItems.GRAY_PETALS, BMItems.LIGHT_BLUE_PETALS, BMItems.PURPLE_PETALS,};
 
 	private AttributeContainer attributeContainer;
 	private boolean hasAction = false;
@@ -98,16 +92,14 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 	protected void mobTick()
 	{
 		super.mobTick();
-		if(!hasAction())
-			actionCooldown--;
+		if(!hasAction()) actionCooldown--;
 	}
 
 	@Override
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
+			attributeContainer = new AttributeContainer(MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
 		return attributeContainer;
 	}
 
@@ -115,28 +107,25 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 	public ActionResult interactMob(PlayerEntity player, Hand hand)
 	{
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.getItem() == Items.SHEARS)
+		if(itemStack.getItem() == Items.SHEARS)
 		{
-			if (!this.world.isClient && this.isShearable())
+			if(!this.world.isClient && this.isShearable())
 			{
 				this.sheared(SoundCategory.PLAYERS);
 				itemStack.damage(1, player, (p)->p.sendToolBreakStatus(hand));
 				return ActionResult.SUCCESS;
-			}
-			else
+			}else
 			{
 				return ActionResult.CONSUME;
 			}
-		}
-		else if(itemStack.getItem() == Items.BONE_MEAL)
+		}else if(itemStack.getItem() == Items.BONE_MEAL)
 		{
 			if(!hasFlower())
 			{
 				if(world.isClient())
 				{
 					return ActionResult.CONSUME;
-				}
-				else
+				}else
 				{
 					PacketByteBuf buf = PacketByteBufs.create();
 					buf.writeDouble(getX());
@@ -148,8 +137,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 					{
 						setFlowered(true);
 					}
-					if(!player.isCreative())
-						itemStack.decrement(1);
+					if(!player.isCreative()) itemStack.decrement(1);
 					return ActionResult.SUCCESS;
 				}
 			}
@@ -192,7 +180,8 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		dataTracker.set(FLOWER_TYPE, tag.getInt("FlowerType"));
 	}
 
-	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions)
+	{
 		return dimensions.height * 0.6F;
 	}
 
@@ -267,7 +256,6 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 	public static int MAX_ACTION_COOLDOWN = 500;
 
 
-
 	public class InspectFlowerGoal extends Goal
 	{
 		private BlockPos targetPos;
@@ -282,8 +270,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		@Override
 		public boolean canStart()
 		{
-			if(random.nextInt(10) == 0 || actionCooldown > 0 || hasAction())
-				return false;
+			if(random.nextInt(10) == 0 || actionCooldown > 0 || hasAction()) return false;
 
 			targetPos = findFlower();
 			return targetPos != null;
@@ -298,8 +285,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 				getMoveControl().moveTo(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F, 0.6F);
 			}
 			float targetY = targetPos.getY();
-			if(targetState.isIn(BlockTags.TALL_FLOWERS))
-				targetY += 1;
+			if(targetState.isIn(BlockTags.TALL_FLOWERS)) targetY += 1;
 
 			getLookControl().lookAt(targetPos.getX() + 0.5F, targetY, targetPos.getZ() + 0.5F);
 		}
@@ -308,12 +294,8 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		public boolean shouldContinue()
 		{
 			BlockState st = world.getBlockState(targetPos);
-			if(st != targetState)
-				return false;
-			if(timer > MAX_INSPECT_TIME)
-				return false;
-
-			return true;
+			if(st != targetState) return false;
+			return timer <= MAX_INSPECT_TIME;
 		}
 
 		@Override
@@ -348,12 +330,10 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 					}
 				}
 			}
-			if(spots.isEmpty())
-				return null;
+			if(spots.isEmpty()) return null;
 
 			BlockPos pos = spots.get(world.random.nextInt(spots.size()));
-			if(pos != null)
-				targetState = world.getBlockState(pos);
+			if(pos != null) targetState = world.getBlockState(pos);
 
 			return pos;
 		}
@@ -371,8 +351,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		@Override
 		public boolean canStart()
 		{
-			if(hasAction() || getActionCooldown() >= 0 || random.nextInt(10) != 0)
-				return false;
+			if(hasAction() || getActionCooldown() >= 0 || random.nextInt(10) != 0) return false;
 
 			followPartner = findFollowPartner();
 
@@ -404,10 +383,9 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		@Override
 		public void tick()
 		{
-			getLookControl().lookAt(this.followPartner, 10.0F, (float)getLookPitchSpeed());
+			getLookControl().lookAt(this.followPartner, 10.0F, (float) getLookPitchSpeed());
 			getNavigation().startMovingTo(this.followPartner, 1D);
-			if(squaredDistanceTo(followPartner) <= 4D)
-				getNavigation().stop();
+			if(squaredDistanceTo(followPartner) <= 4D) getNavigation().stop();
 
 			++this.timer;
 		}
@@ -422,8 +400,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 			{
 				if(squaredDistanceTo(e) < minDistance)
 				{
-					if(e instanceof RootlingEntity)
-						continue;
+					if(e instanceof RootlingEntity) continue;
 
 					closestPossible = e;
 					minDistance = squaredDistanceTo(e);
@@ -443,7 +420,8 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK, Control.JUMP));
 		}
 
-		public boolean canStart() {
+		public boolean canStart()
+		{
 
 			if(forcedDancePartner != null)
 			{
@@ -452,8 +430,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 				return true;
 			}
 
-			if(hasAction() || getActionCooldown() >= 0)
-				return false;
+			if(hasAction() || getActionCooldown() >= 0) return false;
 
 			this.partner = this.findPartner();
 			return this.partner != null;
@@ -472,8 +449,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 			this.timer = 0;
 
 			setHasAction(false);
-			if(partner != null)
-				partner.setHasAction(false);
+			if(partner != null) partner.setHasAction(false);
 		}
 
 		@Override
@@ -499,35 +475,36 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 				}
 			}
 
-			if(closestPossible != null)
-				closestPossible.forcedDancePartner = RootlingEntity.this;
+			if(closestPossible != null) closestPossible.forcedDancePartner = RootlingEntity.this;
 			return closestPossible;
 		}
 
 		public void tick()
 		{
-			getLookControl().lookAt(this.partner, 10.0F, (float)getLookPitchSpeed());
+			getLookControl().lookAt(this.partner, 10.0F, (float) getLookPitchSpeed());
 			getNavigation().startMovingTo(this.partner, 1D);
 			++this.timer;
-			if (this.timer < MAX_DANCE_TIME && squaredDistanceTo(this.partner) < 9.0D) {
+			if(this.timer < MAX_DANCE_TIME && squaredDistanceTo(this.partner) < 9.0D)
+			{
 				getJumpControl().setActive();
 			}
 		}
 	}
 
-	public class GetInRainGoal extends Goal {
+	public class GetInRainGoal extends Goal
+	{
 		private double targetX;
 		private double targetY;
 		private double targetZ;
 
-		public GetInRainGoal() {
+		public GetInRainGoal()
+		{
 			this.setControls(EnumSet.of(Goal.Control.MOVE));
 		}
 
 		public boolean canStart()
 		{
-			if(world.isRaining() && !world.isSkyVisible(getBlockPos()))
-				return true;
+			if(world.isRaining() && !world.isSkyVisible(getBlockPos())) return true;
 
 			return this.targetSkyPos();
 		}
@@ -535,9 +512,11 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		protected boolean targetSkyPos()
 		{
 			Vec3d vec3d = this.locateSkyPos();
-			if (vec3d == null) {
+			if(vec3d == null)
+			{
 				return false;
-			} else {
+			}else
+			{
 				this.targetX = vec3d.x;
 				this.targetY = vec3d.y;
 				this.targetZ = vec3d.z;
@@ -545,21 +524,26 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 			}
 		}
 
-		public boolean shouldContinue() {
+		public boolean shouldContinue()
+		{
 			return !getNavigation().isIdle();
 		}
 
-		public void start() {
+		public void start()
+		{
 			getNavigation().startMovingTo(this.targetX, this.targetY, this.targetZ, 1);
 		}
 
-		protected Vec3d locateSkyPos() {
+		protected Vec3d locateSkyPos()
+		{
 			Random random = getRandom();
 			BlockPos blockPos = getBlockPos();
 
-			for(int i = 0; i < 10; ++i) {
+			for(int i = 0; i < 10; ++i)
+			{
 				BlockPos blockPos2 = blockPos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-				if (world.isSkyVisible(blockPos2) && getPathfindingFavor(blockPos2) < 0.0F) {
+				if(world.isSkyVisible(blockPos2) && getPathfindingFavor(blockPos2) < 0.0F)
+				{
 					return Vec3d.ofBottomCenter(blockPos2);
 				}
 			}

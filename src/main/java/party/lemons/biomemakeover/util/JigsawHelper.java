@@ -8,7 +8,7 @@ public class JigsawHelper
 {
 	public static StructureProcessorList register(StructureProcessorList li, String name)
 	{
-		BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_PROCESSOR_LIST,  BiomeMakeover.ID(name), li);
+		BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_PROCESSOR_LIST, BiomeMakeover.ID(name), li);
 
 		return li;
 	}

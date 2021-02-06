@@ -30,22 +30,23 @@ public class PoltergeistBlock extends BMBlock implements BlockEntityProvider
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
+	public BlockState getPlacementState(ItemPlacementContext ctx)
+	{
 		return this.getDefaultState().with(ENABLED, !ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
 	}
 
 	@Override
 	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify)
 	{
-		if (!world.isClient)
+		if(!world.isClient)
 		{
 			boolean currentlyEnabled = state.get(ENABLED);
-			if (currentlyEnabled == world.isReceivingRedstonePower(pos)) {
-				if (currentlyEnabled)
+			if(currentlyEnabled == world.isReceivingRedstonePower(pos))
+			{
+				if(currentlyEnabled)
 				{
 					world.getBlockTickScheduler().schedule(pos, this, 4);
-				}
-				else
+				}else
 				{
 					world.setBlockState(pos, state.cycle(ENABLED), 2);
 					doToggleEffects(world, pos);
@@ -57,7 +58,7 @@ public class PoltergeistBlock extends BMBlock implements BlockEntityProvider
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if (state.get(ENABLED) && world.isReceivingRedstonePower(pos))
+		if(state.get(ENABLED) && world.isReceivingRedstonePower(pos))
 		{
 			world.setBlockState(pos, state.cycle(ENABLED), 2);
 			doToggleEffects(world, pos);

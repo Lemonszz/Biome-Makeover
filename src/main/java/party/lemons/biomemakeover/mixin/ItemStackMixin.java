@@ -13,7 +13,7 @@ public class ItemStackMixin
 	@ModifyVariable(at = @At("HEAD"), method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z")
 	private int modifyAmount(int amount)
 	{
-		return amount +  EnchantmentHelper.getLevel(BMEnchantments.DECAY_CURSE, (ItemStack)(Object)this);
+		return amount + EnchantmentHelper.getLevel(BMEnchantments.DECAY_CURSE, (ItemStack) (Object) this);
 	}
 
 

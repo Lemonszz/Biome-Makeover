@@ -1,28 +1,18 @@
 package party.lemons.biomemakeover.util;
 
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.biome.Biome;
-import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
 
 import java.util.Random;
 import java.util.UUID;
 
 public class MathUtils
 {
-	public static final Direction[] HORIZONTALS = new Direction[]{
-			Direction.NORTH,
-			Direction.EAST,
-			Direction.WEST,
-			Direction.SOUTH
-	};
+	public static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.WEST, Direction.SOUTH};
 
 	public static float approachValue(float current, float target, float step)
 	{
-		if(current == target)
-			return target;
+		if(current == target) return target;
 
 		if(current < target)
 		{
@@ -51,20 +41,25 @@ public class MathUtils
 		return color;
 	}
 
-	public static float changeAngle(float from, float to, float max) {
+	public static float changeAngle(float from, float to, float max)
+	{
 		float f = MathHelper.wrapDegrees(to - from);
-		if (f > max) {
+		if(f > max)
+		{
 			f = max;
 		}
 
-		if (f < -max) {
+		if(f < -max)
+		{
 			f = -max;
 		}
 
 		float g = from + f;
-		if (g < 0.0F) {
+		if(g < 0.0F)
+		{
 			g += 360.0F;
-		} else if (g > 360.0F) {
+		}else if(g > 360.0F)
+		{
 			g -= 360.0F;
 		}
 
@@ -77,10 +72,10 @@ public class MathUtils
 
 		byte[] randomBytes = new byte[16];
 		random.nextBytes(randomBytes);
-		randomBytes[6]  &= 0x0f;  /* clear version        */
-		randomBytes[6]  |= 0x40;  /* set to version 4     */
-		randomBytes[8]  &= 0x3f;  /* clear variant        */
-		randomBytes[8]  |= 0x80;  /* set to IETF variant  */
+		randomBytes[6] &= 0x0f;  /* clear version        */
+		randomBytes[6] |= 0x40;  /* set to version 4     */
+		randomBytes[8] &= 0x3f;  /* clear variant        */
+		randomBytes[8] |= 0x80;  /* set to IETF variant  */
 
 		return UUID.nameUUIDFromBytes(randomBytes);
 	}

@@ -23,7 +23,8 @@ public class BMSpreadableBlock extends BMBlock
 		this.dirtBlock = dirtBlock;
 	}
 
-	private static boolean canSurvive(BlockState state, WorldView worldView, BlockPos pos) {
+	private static boolean canSurvive(BlockState state, WorldView worldView, BlockPos pos)
+	{
 		BlockPos blockPos = pos.up();
 		BlockState blockState = worldView.getBlockState(blockPos);
 		int i = ChunkLightProvider.getRealisticOpacity(worldView, state, pos, blockState, blockPos, Direction.UP, blockState.getOpacity(worldView, blockPos));
@@ -48,18 +49,17 @@ public class BMSpreadableBlock extends BMBlock
 
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if (!canSurvive(state, world, pos))
+		if(!canSurvive(state, world, pos))
 		{
 			world.setBlockState(pos, dirtBlock.get().getDefaultState());
-		}
-		else
+		}else
 		{
-			if (world.getLightLevel(pos.up()) >= 9)
+			if(world.getLightLevel(pos.up()) >= 9)
 			{
 				for(int i = 0; i < 4; ++i)
 				{
 					BlockPos blockPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-					if (world.getBlockState(blockPos).isOf(dirtBlock.get()) && canSpread(getDefaultPlaceState(), world, blockPos))
+					if(world.getBlockState(blockPos).isOf(dirtBlock.get()) && canSpread(getDefaultPlaceState(), world, blockPos))
 					{
 						world.setBlockState(blockPos, getStateForPlacement(world, blockPos));
 					}

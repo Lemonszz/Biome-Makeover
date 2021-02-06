@@ -22,6 +22,6 @@ public class CowboyRender extends IllagerEntityRenderer<CowboyEntity>
 
 	public Identifier getTexture(CowboyEntity pillagerEntity)
 	{
-			return TEXTURE;
+		return TEXTURE;
 	}
 }

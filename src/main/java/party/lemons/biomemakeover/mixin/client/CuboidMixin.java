@@ -9,7 +9,9 @@ import party.lemons.biomemakeover.util.access.CuboidAccessor;
 @Mixin(ModelPart.Cuboid.class)
 public class CuboidMixin implements CuboidAccessor
 {
-	@Shadow @Final private ModelPart.Quad[] sides;
+	@Shadow
+	@Final
+	private ModelPart.Quad[] sides;
 
 	@Override
 	public ModelPart.Quad[] getSides()

@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.init;
 
-import net.minecraft.enchantment.BindingCurseEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.registry.Registry;

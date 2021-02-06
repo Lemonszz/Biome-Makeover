@@ -90,9 +90,7 @@ public class DecorationBlockInfo
 
 	public enum Type
 	{
-		SLAB("slab"),
-		STAIR("stairs"),
-		WALL("wall");
+		SLAB("slab"), STAIR("stairs"), WALL("wall");
 
 		private final String postfix;
 

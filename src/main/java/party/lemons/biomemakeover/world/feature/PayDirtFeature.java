@@ -12,7 +12,6 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import party.lemons.biomemakeover.init.BMBlocks;
 
-import java.util.Iterator;
 import java.util.Random;
 
 public class PayDirtFeature extends Feature<DefaultFeatureConfig>
@@ -32,7 +31,7 @@ public class PayDirtFeature extends Feature<DefaultFeatureConfig>
 			int xSize = random.nextInt(4);
 			int ySize = random.nextInt(4);
 			int zSize = random.nextInt(4);
-			float distance = (float)(xSize + ySize + zSize) * 0.333F + 0.5F;
+			float distance = (float) (xSize + ySize + zSize) * 0.333F + 0.5F;
 
 			for(BlockPos generatePos : BlockPos.iterate(blockPos.add(-xSize, -ySize, -zSize), blockPos.add(xSize, ySize, zSize)))
 			{

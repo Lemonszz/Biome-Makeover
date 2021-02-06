@@ -6,7 +6,6 @@ import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.OwlEntity;
-import party.lemons.biomemakeover.util.AnimationHelper;
 
 public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements ModelWithHead
 {
@@ -36,7 +35,8 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 	private final ModelPart tail;
 	private final ModelPart tail_r1;
 
-	public OwlEntityModel() {
+	public OwlEntityModel()
+	{
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -174,7 +174,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 	@Override
 	public void setAngles(OwlEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
-		float pi = (float)Math.PI;
+		float pi = (float) Math.PI;
 
 		if(entity.getStandingState() != OwlEntity.StandingState.FLYING)
 		{
@@ -190,7 +190,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 
 			this.leg_right.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
 			this.leg_left.pitch = MathHelper.cos(limbAngle * 0.6662F + pi) * 1.4F * limbDistance;
-			this.wing_right_connection.yaw = MathHelper.cos(limbAngle * 0.6662F) * 0.5F * limbDistance;;
+			this.wing_right_connection.yaw = MathHelper.cos(limbAngle * 0.6662F) * 0.5F * limbDistance;
 			this.wing_left_connection.yaw = MathHelper.cos(limbAngle * 0.6662F + pi) * 1F * limbDistance;
 
 			if(entity.isInSittingPose())
@@ -199,8 +199,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 				leg_left.pitch = -1.5708F;
 			}
 
-		}
-		else
+		}else
 		{
 			this.wing_left_connection.yaw = (float) Math.cos(limbAngle / 2F) / 2F;
 			this.wing_tip_left.roll = -((float) Math.sin(limbAngle / 2F) / 4F);
@@ -252,7 +251,8 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 		return ImmutableList.of(chest);
 	}
 
-	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z)
+	{
 		modelRenderer.pitch = x;
 		modelRenderer.yaw = y;
 		modelRenderer.roll = z;

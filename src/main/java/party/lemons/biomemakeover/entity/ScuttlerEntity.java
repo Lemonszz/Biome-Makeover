@@ -2,7 +2,10 @@ package party.lemons.biomemakeover.entity;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.AttributeContainer;
@@ -14,11 +17,9 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.recipe.Ingredient;
@@ -69,7 +70,7 @@ public class ScuttlerEntity extends AnimalEntity
 		this.goalSelector.add(2, new RattleGoal<>(this, 20.0F, PlayerEntity.class));
 		this.goalSelector.add(3, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
-		this.goalSelector.add(5, new FleeEntityGoal<>(this, PlayerEntity.class, 16.0F, 1.6D, 1.4D, (livingEntity) ->!isPassive()));
+		this.goalSelector.add(5, new FleeEntityGoal<>(this, PlayerEntity.class, 16.0F, 1.6D, 1.4D, (livingEntity)->!isPassive()));
 		this.goalSelector.add(6, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.add(7, new EatFlowerGoal());
 		this.goalSelector.add(8, new AvoidDaylightGoal(1.0D));
@@ -92,8 +93,7 @@ public class ScuttlerEntity extends AnimalEntity
 	{
 		super.tick();
 		eatCooldown--;
-		if(dataTracker.get(EATING))
-			eatTime--;
+		if(dataTracker.get(EATING)) eatTime--;
 		if(dataTracker.get(RATTLING))
 		{
 			double dir = Math.signum(Math.sin(rattleTime));
@@ -103,8 +103,7 @@ public class ScuttlerEntity extends AnimalEntity
 			{
 				playSound(BMEffects.SCUTTLER_RATTLE, 0.25F, 0.75F + random.nextFloat());
 			}
-		}
-		else
+		}else
 		{
 			rattleTime = 0;
 		}
@@ -115,34 +114,32 @@ public class ScuttlerEntity extends AnimalEntity
 	{
 		ItemStack itemStack = player.getStackInHand(hand);
 		Item item = itemStack.getItem();
-		if (this.world.isClient)
+		if(this.world.isClient)
 		{
-			if (this.isBreedingItem(itemStack))
+			if(this.isBreedingItem(itemStack))
 			{
 				return ActionResult.SUCCESS;
 			}
-		}
-		else
+		}else
 		{
-			if (dataTracker.get(PASSIVE))
+			if(dataTracker.get(PASSIVE))
 			{
-				if (item.isFood() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
+				if(item.isFood() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth())
+				{
 					this.eat(player, itemStack);
-					this.heal((float)item.getFoodComponent().getHunger());
+					this.heal((float) item.getFoodComponent().getHunger());
 					return ActionResult.CONSUME;
 				}
-			}
-			else if (this.isBreedingItem(itemStack))
+			}else if(this.isBreedingItem(itemStack))
 			{
 				this.eat(player, itemStack);
-				if (this.random.nextInt(3) == 0)
+				if(this.random.nextInt(3) == 0)
 				{
 					dataTracker.set(PASSIVE, true);
-					this.world.sendEntityStatus(this, (byte)7);
-				}
-				else
+					this.world.sendEntityStatus(this, (byte) 7);
+				}else
 				{
-					this.world.sendEntityStatus(this, (byte)6);
+					this.world.sendEntityStatus(this, (byte) 6);
 				}
 				this.setPersistent();
 				return ActionResult.CONSUME;
@@ -154,14 +151,14 @@ public class ScuttlerEntity extends AnimalEntity
 	@Override
 	public boolean isInvulnerableTo(DamageSource damageSource)
 	{
-		if(damageSource == DamageSource.CACTUS)
-			return true;
+		if(damageSource == DamageSource.CACTUS) return true;
 
 		return super.isInvulnerableTo(damageSource);
 	}
 
 	@Override
-	public boolean isBreedingItem(ItemStack stack) {
+	public boolean isBreedingItem(ItemStack stack)
+	{
 		return TEMPT_ITEM.test(stack);
 	}
 
@@ -184,8 +181,7 @@ public class ScuttlerEntity extends AnimalEntity
 	{
 		super.onTrackedDataSet(data);
 
-		if(data == RATTLING)
-			rattleTime = 0;
+		if(data == RATTLING) rattleTime = 0;
 	}
 
 	public boolean isPassive()
@@ -218,15 +214,15 @@ public class ScuttlerEntity extends AnimalEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
+			attributeContainer = new AttributeContainer(MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
 		return attributeContainer;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state)
 	{
-		if (!state.getMaterial().isLiquid()) {
+		if(!state.getMaterial().isLiquid())
+		{
 			playSound(BMEffects.SCUTTLER_STEP, 0.10F, 1.25F + random.nextFloat());
 			spawnSprintingParticles();
 		}
@@ -265,11 +261,12 @@ public class ScuttlerEntity extends AnimalEntity
 	@Override
 	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason)
 	{
-		return world.getRandom().nextBoolean() && world.getEntitiesByClass(ScuttlerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(50), (e)->true).isEmpty() &&  super.canSpawn(world, spawnReason);
+		return world.getRandom().nextBoolean() && world.getEntitiesByClass(ScuttlerEntity.class, new Box(new BlockPos(getX(), getY(), getZ())).expand(50), (e)->true).isEmpty() && super.canSpawn(world, spawnReason);
 	}
 
 	@Override
-	public int getLimitPerChunk() {
+	public int getLimitPerChunk()
+	{
 		return 1;
 	}
 
@@ -295,21 +292,15 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean canStart()
 		{
-			if(scuttler.isTouchingWater() || scuttler.isPassive())
-				return false;
+			if(scuttler.isTouchingWater() || scuttler.isPassive()) return false;
 
 			this.targetEntity = scuttler.world.
-					getClosestEntityIncludingUngeneratedChunks(
-							targetClass,
-							this.withinRangePredicate,
-							this.scuttler, this.scuttler.getX(), this.scuttler.getY(), this.scuttler.getZ(),
-							this.scuttler.getBoundingBox().expand(this.distance, 3.0D, this.distance));
-			if (this.targetEntity == null || !scuttler.canSee(targetEntity) || !targetEntity.canSee(scuttler))
+					getClosestEntityIncludingUngeneratedChunks(targetClass, this.withinRangePredicate, this.scuttler, this.scuttler.getX(), this.scuttler.getY(), this.scuttler.getZ(), this.scuttler.getBoundingBox().expand(this.distance, 3.0D, this.distance));
+			if(this.targetEntity == null || !scuttler.canSee(targetEntity) || !targetEntity.canSee(scuttler))
 			{
 
 				return false;
-			}
-			else
+			}else
 			{
 				return !targetEntity.isHolding(BMItems.PINK_PETALS) && scuttler.distanceTo(targetEntity) >= distance / 2;
 			}
@@ -318,8 +309,7 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean shouldContinue()
 		{
-			if(targetEntity.isHolding(BMItems.PINK_PETALS))
-				return false;
+			if(targetEntity.isHolding(BMItems.PINK_PETALS)) return false;
 
 			double d = scuttler.distanceTo(targetEntity);
 			return d > distance / 2 && d < distance && scuttler.canSee(targetEntity) && targetEntity.canSee(scuttler);
@@ -347,7 +337,8 @@ public class ScuttlerEntity extends AnimalEntity
 		}
 	}
 
-	class AvoidDaylightGoal extends EscapeSunlightGoal {
+	class AvoidDaylightGoal extends EscapeSunlightGoal
+	{
 		private int timer = 100;
 
 		AvoidDaylightGoal(double speed)
@@ -358,21 +349,19 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean canStart()
 		{
-			if (this.mob.getTarget() == null)
+			if(this.mob.getTarget() == null)
 			{
-				if (this.timer > 0)
+				if(this.timer > 0)
 				{
 					--this.timer;
 					return false;
-				}
-				else
+				}else
 				{
 					this.timer = 100;
 					BlockPos pos = this.mob.getBlockPos();
-					return ScuttlerEntity.this.world.isDay() && ScuttlerEntity.this.world.isSkyVisible(pos) && !((ServerWorld)ScuttlerEntity.this.world).isNearOccupiedPointOfInterest(pos) && this.targetShadedPos();
+					return ScuttlerEntity.this.world.isDay() && ScuttlerEntity.this.world.isSkyVisible(pos) && !((ServerWorld) ScuttlerEntity.this.world).isNearOccupiedPointOfInterest(pos) && this.targetShadedPos();
 				}
-			}
-			else
+			}else
 			{
 				return false;
 			}
@@ -391,8 +380,7 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean canStart()
 		{
-			if(eatCooldown > 0)
-				return false;
+			if(eatCooldown > 0) return false;
 
 			BlockPos eatPos = findCactus();
 			if(eatPos != null)
@@ -426,12 +414,10 @@ public class ScuttlerEntity extends AnimalEntity
 		@Override
 		public boolean shouldContinue()
 		{
-			if(eatTime <= 0 || eatCooldown > 0)
-				return false;
+			if(eatTime <= 0 || eatCooldown > 0) return false;
 
 			BlockState st = world.getBlockState(targetPos);
-			if(!st.isOf(BMBlocks.BARREL_CACTUS_FLOWERED))
-				return false;
+			if(!st.isOf(BMBlocks.BARREL_CACTUS_FLOWERED)) return false;
 
 			return squaredDistanceTo(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 2;
 		}
@@ -467,8 +453,7 @@ public class ScuttlerEntity extends AnimalEntity
 					}
 				}
 			}
-			if(spots.isEmpty())
-				return null;
+			if(spots.isEmpty()) return null;
 			return spots.get(world.random.nextInt(spots.size()));
 		}
 	}

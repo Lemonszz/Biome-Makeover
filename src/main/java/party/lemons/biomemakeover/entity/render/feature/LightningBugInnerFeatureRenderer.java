@@ -6,14 +6,12 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.feature.SheepWoolFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
 import party.lemons.biomemakeover.entity.render.LightningBugEntityModel;
-import party.lemons.biomemakeover.entity.render.LightningBugOuterEntityModel;
 import party.lemons.biomemakeover.util.MathUtils;
 
 public class LightningBugInnerFeatureRenderer extends FeatureRenderer<LightningBugEntity, LightningBugEntityModel>
@@ -56,8 +54,7 @@ public class LightningBugInnerFeatureRenderer extends FeatureRenderer<LightningB
 			drawRed = rTarget;
 			drawGreen = gTarget;
 			drawBlue = bTarget;
-		}
-		else
+		}else
 		{
 			drawRed = MathUtils.approachValue(entity.prevRed, rTarget, 0.025F * delta);
 			drawGreen = MathUtils.approachValue(entity.prevGreen, gTarget, 0.025F * delta);

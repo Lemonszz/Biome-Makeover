@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -11,7 +10,6 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
@@ -22,11 +20,9 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -74,18 +70,19 @@ public class BiomeMakeover implements ModInitializer
 		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);
 
 		//TODO: Move
-		CommandRegistrationCallback.EVENT.register((d, ded)->
-				d.register(CommandManager.literal("pillager").requires((serverCommandSource) ->serverCommandSource.hasPermissionLevel(2))
-				.then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).then(CommandManager.argument("leader", BoolArgumentType.bool()).executes(c->{
-					((PillagerSpawnerAccess)new PillagerSpawner()).spawn(c.getSource().getWorld(), BlockPosArgumentType.getBlockPos(c, "pos"), BoolArgumentType.getBool(c, "leader"));
-					return 1;
-				})))));
+		CommandRegistrationCallback.EVENT.register((d, ded)->d.register(CommandManager.literal("pillager").requires((serverCommandSource)->serverCommandSource.hasPermissionLevel(2)).then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).then(CommandManager.argument("leader", BoolArgumentType.bool()).executes(c->
+		{
+			((PillagerSpawnerAccess) new PillagerSpawner()).spawn(c.getSource().getWorld(), BlockPosArgumentType.getBlockPos(c, "pos"), BoolArgumentType.getBool(c, "leader"));
+			return 1;
+		})))));
 
-		ServerPlayConnectionEvents.JOIN.register((ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server)->{
-			NetworkUtil.sendSlideTime(handler.player, ((SlideEntity)handler.player).getSlideTime());
+		ServerPlayConnectionEvents.JOIN.register((ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server)->
+		{
+			NetworkUtil.sendSlideTime(handler.player, ((SlideEntity) handler.player).getSlideTime());
 		});
 
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->{
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->
+		{
 
 			if(!player.isSpectator())
 			{
@@ -104,8 +101,7 @@ public class BiomeMakeover implements ModInitializer
 								world.syncWorldEvent(1500, pos, 1);
 								world.setBlockState(pos, BMBlocks.ECTOPLASM_COMPOSTER.getDefaultState().with(ComposterBlock.LEVEL, level));
 
-								if(!player.isCreative())
-									stack.decrement(1);
+								if(!player.isCreative()) stack.decrement(1);
 							}
 							return ActionResult.SUCCESS;
 						}
@@ -116,7 +112,8 @@ public class BiomeMakeover implements ModInitializer
 			return ActionResult.PASS;
 		});
 
-		UseEntityCallback.EVENT.register((pl, world, hand, entity, hr)->{
+		UseEntityCallback.EVENT.register((pl, world, hand, entity, hr)->
+		{
 			ItemStack stack = pl.getStackInHand(hand);
 
 			if(!stack.isEmpty() && (stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() == Items.EXPERIENCE_BOTTLE))
@@ -137,12 +134,11 @@ public class BiomeMakeover implements ModInitializer
 		});
 
 		final Identifier BAT_LT_ID = new Identifier("minecraft", "entities/bat");
-		LootTableLoadingCallback.EVENT.register((rm, lm, id, supplier, setter)->{
+		LootTableLoadingCallback.EVENT.register((rm, lm, id, supplier, setter)->
+		{
 			if(id.equals(BAT_LT_ID))
 			{
-				FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder()
-						.rolls(BinomialLootTableRange.create(2, 0.5F))
-						.withEntry(ItemEntry.builder(BMItems.BAT_WING).build());
+				FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder().rolls(BinomialLootTableRange.create(2, 0.5F)).withEntry(ItemEntry.builder(BMItems.BAT_WING).build());
 				supplier.withPool(builder.build());
 			}
 		});

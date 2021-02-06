@@ -26,21 +26,26 @@ public class UnderwaterMushroomPlantBlock extends BMMushroomPlantBlock implement
 		this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false));
 	}
 
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
+	public BlockState getPlacementState(ItemPlacementContext ctx)
+	{
 		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
 		return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
 	}
 
-	public FluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(BlockState state)
+	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder)
+	{
 		builder.add(WATERLOGGED);
 	}
 
-	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
-		if (state.get(WATERLOGGED)) {
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
+	{
+		if(state.get(WATERLOGGED))
+		{
 			world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 

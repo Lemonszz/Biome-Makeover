@@ -11,7 +11,9 @@ import party.lemons.biomemakeover.util.access.StatusEffectAccess;
 public class StatusEffectMixin implements StatusEffectAccess
 {
 
-	@Shadow @Final private StatusEffectType type;
+	@Shadow
+	@Final
+	private StatusEffectType type;
 
 	@Override
 	public StatusEffectType getType()

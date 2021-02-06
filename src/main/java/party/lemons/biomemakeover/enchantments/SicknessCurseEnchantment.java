@@ -21,23 +21,28 @@ public class SicknessCurseEnchantment extends BMEnchantment
 	}
 
 
-	public int getMinPower(int level) {
+	public int getMinPower(int level)
+	{
 		return 25;
 	}
 
-	public int getMaxPower(int level) {
+	public int getMaxPower(int level)
+	{
 		return 50;
 	}
 
-	public int getMaxLevel() {
+	public int getMaxLevel()
+	{
 		return 5;
 	}
 
-	public boolean isTreasure() {
+	public boolean isTreasure()
+	{
 		return true;
 	}
 
-	public boolean isCursed() {
+	public boolean isCursed()
+	{
 		return true;
 	}
 }

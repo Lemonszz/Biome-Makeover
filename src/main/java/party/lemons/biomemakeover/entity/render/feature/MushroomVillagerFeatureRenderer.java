@@ -15,12 +15,15 @@ import party.lemons.biomemakeover.init.BMBlocks;
 
 public class MushroomVillagerFeatureRenderer<T extends MushroomVillagerEntity> extends FeatureRenderer<T, VillagerResemblingModel<T>>
 {
-	public MushroomVillagerFeatureRenderer(FeatureRendererContext<T, VillagerResemblingModel<T>> ctx) {
+	public MushroomVillagerFeatureRenderer(FeatureRendererContext<T, VillagerResemblingModel<T>> ctx)
+	{
 		super(ctx);
 	}
 
-	public void render(MatrixStack ms, VertexConsumerProvider vcp, int i, T e, float f, float g, float h, float j, float k, float l) {
-		if (!e.isBaby() && !e.isInvisible()) {
+	public void render(MatrixStack ms, VertexConsumerProvider vcp, int i, T e, float f, float g, float h, float j, float k, float l)
+	{
+		if(!e.isBaby() && !e.isInvisible())
+		{
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
 			BlockState shroom = BMBlocks.GREEN_GLOWSHROOM.getDefaultState();
 			int m = LivingEntityRenderer.getOverlay(e, 0.0F);

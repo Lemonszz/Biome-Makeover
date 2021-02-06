@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 
 public class BMBoatItem extends BMItem
 {
-	private Supplier<BoatType> type;
+	private final Supplier<BoatType> type;
 
 	public BMBoatItem(Supplier<BoatType> boatType, Item.Settings settings)
 	{
@@ -33,15 +33,14 @@ public class BMBoatItem extends BMItem
 	{
 		ItemStack itemStack = user.getStackInHand(hand);
 		HitResult hitResult = Item.raycast(world, user, RaycastContext.FluidHandling.ANY);
-		if (hitResult.getType() == HitResult.Type.MISS)
+		if(hitResult.getType() == HitResult.Type.MISS)
 		{
 			return TypedActionResult.pass(itemStack);
-		}
-		else
+		}else
 		{
 			Vec3d vec3d = user.getRotationVec(1.0F);
 			List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().stretch(vec3d.multiply(5.0D)).expand(1.0D), EntityPredicates.EXCEPT_SPECTATOR.and(Entity::collides));
-			if (!list.isEmpty())
+			if(!list.isEmpty())
 			{
 				Vec3d cameraPosVec = user.getCameraPosVec(1.0F);
 
@@ -55,18 +54,18 @@ public class BMBoatItem extends BMItem
 				}
 			}
 
-			if (hitResult.getType() == HitResult.Type.BLOCK) {
+			if(hitResult.getType() == HitResult.Type.BLOCK)
+			{
 				BMBoatEntity boatEntity = createBoat(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z, user.yaw);
-				if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox().expand(-0.1D)))
+				if(!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox().expand(-0.1D)))
 				{
 					return TypedActionResult.fail(itemStack);
-				}
-				else
-					{
-					if (!world.isClient)
+				}else
+				{
+					if(!world.isClient)
 					{
 						world.spawnEntity(boatEntity);
-						if (!user.abilities.creativeMode)
+						if(!user.abilities.creativeMode)
 						{
 							itemStack.decrement(1);
 						}
@@ -75,8 +74,7 @@ public class BMBoatItem extends BMItem
 					user.incrementStat(Stats.USED.getOrCreateStat(this));
 					return TypedActionResult.success(itemStack);
 				}
-			}
-			else
+			}else
 			{
 				return TypedActionResult.pass(itemStack);
 			}

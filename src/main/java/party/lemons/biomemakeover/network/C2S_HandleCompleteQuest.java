@@ -1,10 +1,7 @@
 package party.lemons.biomemakeover.network;
 
-import net.fabricmc.fabric.api.network.PacketConsumer;
-import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -20,7 +17,8 @@ public class C2S_HandleCompleteQuest implements ServerPlayNetworking.PlayChannel
 	public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender)
 	{
 		int index = buf.readVarInt();
-		server.execute(()->{
+		server.execute(()->
+		{
 
 			if(player.currentScreenHandler instanceof WitchScreenHandler)
 			{

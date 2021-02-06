@@ -9,7 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.*;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.biome.Biome;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
@@ -26,7 +28,8 @@ public class GlowfishEntity extends SalmonEntity
 		super(BMEntities.GLOWFISH, world);
 	}
 
-	protected ItemStack getFishBucketItem() {
+	protected ItemStack getFishBucketItem()
+	{
 		return new ItemStack(BMItems.GLOWFISH_BUCKET);
 	}
 
@@ -34,18 +37,19 @@ public class GlowfishEntity extends SalmonEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					SalmonEntity.createFishAttributes().build());
+			attributeContainer = new AttributeContainer(SalmonEntity.createFishAttributes().build());
 		return attributeContainer;
 	}
 
-	public static boolean canSpawn(EntityType<DrownedEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+	public static boolean canSpawn(EntityType<DrownedEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
+	{
 		Optional<RegistryKey<Biome>> optional = world.method_31081(pos);
 		return world.getFluidState(pos).isIn(FluidTags.WATER);
 	}
 
 
-	public boolean canSpawn(WorldView world) {
+	public boolean canSpawn(WorldView world)
+	{
 		return world.intersectsEntities(this);
 	}
 }

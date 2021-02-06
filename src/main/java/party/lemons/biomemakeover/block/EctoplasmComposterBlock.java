@@ -29,47 +29,56 @@ public class EctoplasmComposterBlock extends ComposterBlock
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit)
+	{
 		int currentLevel = state.get(LEVEL);
 		ItemStack itemStack = player.getStackInHand(hand);
 
-		if (currentLevel < 8 && ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(itemStack.getItem()))
+		if(currentLevel < 8 && ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(itemStack.getItem()))
 		{
-			if (currentLevel < 7 && !world.isClient) {
+			if(currentLevel < 7 && !world.isClient)
+			{
 				BlockState blockState = addToComposter(state, world, pos, itemStack);
 				world.syncWorldEvent(1500, pos, state != blockState ? 1 : 0);
-				if (!player.abilities.creativeMode) {
+				if(!player.abilities.creativeMode)
+				{
 					itemStack.decrement(1);
 				}
 			}
 			return ActionResult.success(world.isClient);
-		} else if (currentLevel == 8) {
+		}else if(currentLevel == 8)
+		{
 			emptyFullComposter(world, pos);
-			if(!world.isClient())
-				BMCriterion.ECTOPLASM_COMPOST.trigger((ServerPlayerEntity) player);
+			if(!world.isClient()) BMCriterion.ECTOPLASM_COMPOST.trigger((ServerPlayerEntity) player);
 			return ActionResult.success(world.isClient);
-		} else {
+		}else
+		{
 			return ActionResult.PASS;
 		}
 	}
 
 	@Override
-	public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
+	public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos)
+	{
 		int currentLevel = state.get(LEVEL);
-		if (currentLevel == 8) {
+		if(currentLevel == 8)
+		{
 			return new FullComposterInventory(world, pos, new ItemStack(Blocks.SOUL_SOIL));
-		} else {
+		}else
+		{
 			return super.getInventory(state, world, pos);
 		}
 	}
 
-	public static void emptyFullComposter(World world, BlockPos pos) {
-		if (!world.isClient) {
+	public static void emptyFullComposter(World world, BlockPos pos)
+	{
+		if(!world.isClient)
+		{
 			float offset = 0.7F;
-			double offsetX = (double)(world.random.nextFloat() * offset) + 0.15D;
-			double offsetY = (double)(world.random.nextFloat() * offset) + 0.06D + 0.6D;
-			double offsetZ = (double)(world.random.nextFloat() * offset) + 0.15D;
-			ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + offsetX, (double)pos.getY() + offsetY, (double)pos.getZ() + offsetZ, new ItemStack(Blocks.SOUL_SOIL));
+			double offsetX = (double) (world.random.nextFloat() * offset) + 0.15D;
+			double offsetY = (double) (world.random.nextFloat() * offset) + 0.06D + 0.6D;
+			double offsetZ = (double) (world.random.nextFloat() * offset) + 0.15D;
+			ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX() + offsetX, (double) pos.getY() + offsetY, (double) pos.getZ() + offsetZ, new ItemStack(Blocks.SOUL_SOIL));
 			itemEntity.setToDefaultPickupDelay();
 			world.spawnEntity(itemEntity);
 		}
@@ -83,50 +92,56 @@ public class EctoplasmComposterBlock extends ComposterBlock
 	{
 		int currentLevel = state.get(LEVEL);
 		float increaseChance = ITEM_TO_LEVEL_INCREASE_CHANCE.getFloat(item.getItem());
-		if ((currentLevel != 0 || increaseChance <= 0.0F) && world.getRandom().nextDouble() >= (double)increaseChance)
+		if((currentLevel != 0 || increaseChance <= 0.0F) && world.getRandom().nextDouble() >= (double) increaseChance)
 		{
 			return state;
-		}
-		else {
+		}else
+		{
 			int nextLevel = currentLevel + 1;
 			BlockState blockState = state.with(LEVEL, nextLevel);
 			world.setBlockState(pos, blockState, 3);
-			if (nextLevel == 7)
-				world.getBlockTickScheduler().schedule(pos, state.getBlock(), 20);
+			if(nextLevel == 7) world.getBlockTickScheduler().schedule(pos, state.getBlock(), 20);
 
 			return blockState;
 		}
 	}
 
-	static class FullComposterInventory extends SimpleInventory implements SidedInventory {
+	static class FullComposterInventory extends SimpleInventory implements SidedInventory
+	{
 		private final WorldAccess world;
 		private final BlockPos pos;
 		private boolean dirty;
 
-		public FullComposterInventory(WorldAccess world, BlockPos pos, ItemStack outputItem) {
+		public FullComposterInventory(WorldAccess world, BlockPos pos, ItemStack outputItem)
+		{
 			super(outputItem);
 			this.world = world;
 			this.pos = pos;
 		}
 
 		@Override
-		public int getMaxCountPerStack() {
+		public int getMaxCountPerStack()
+		{
 			return 1;
 		}
 
-		public int[] getAvailableSlots(Direction side) {
+		public int[] getAvailableSlots(Direction side)
+		{
 			return side == Direction.DOWN ? new int[]{0} : new int[0];
 		}
 
-		public boolean canInsert(int slot, ItemStack stack, Direction dir) {
+		public boolean canInsert(int slot, ItemStack stack, Direction dir)
+		{
 			return false;
 		}
 
-		public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+		public boolean canExtract(int slot, ItemStack stack, Direction dir)
+		{
 			return !this.dirty && dir == Direction.DOWN && stack.getItem() == Items.SOUL_SOIL;
 		}
 
-		public void markDirty() {
+		public void markDirty()
+		{
 			BlockState blockState = Blocks.COMPOSTER.getDefaultState();
 			world.setBlockState(pos, blockState, 3);
 			this.dirty = true;

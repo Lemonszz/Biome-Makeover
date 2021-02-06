@@ -49,21 +49,23 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 		for(int n = 0; n < trunkHeight; ++n)
 		{
 			yPosition = pos.getY() + n;
-			if (n >= treeHeight && j > 0) {
+			if(n >= treeHeight && j > 0)
+			{
 				xx += direction.getOffsetX();
 				zz += direction.getOffsetZ();
 				--j;
 			}
 
 			//Set Tree block?
-			if (getAndSetState(world, random, mpos.set(xx, yPosition, zz), set, blockBox, treeFeatureConfig)) {
+			if(getAndSetState(world, random, mpos.set(xx, yPosition, zz), set, blockBox, treeFeatureConfig))
+			{
 				yy = yPosition + 1;
 			}
 		}
 
 		list.add(new FoliagePlacer.TreeNode(new BlockPos(xx, yy, zz), 1, false));
 
-		for(int i =  0; i < 1 + random.nextInt(4); i++)
+		for(int i = 0; i < 1 + random.nextInt(4); i++)
 		{
 			xx = pos.getX();
 			zz = pos.getZ();
@@ -99,5 +101,5 @@ public class BalsaTrunkPlacer extends TrunkPlacer
 		return list;
 	}
 
-	public static final Codec<BalsaTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->method_28904(instance).apply(instance, BalsaTrunkPlacer::new));
+	public static final Codec<BalsaTrunkPlacer> CODEC = RecordCodecBuilder.create((instance)->method_28904(instance).apply(instance, BalsaTrunkPlacer::new));
 }

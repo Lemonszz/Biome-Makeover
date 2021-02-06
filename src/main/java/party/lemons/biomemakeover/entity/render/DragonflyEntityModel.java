@@ -22,7 +22,8 @@ public class DragonflyEntityModel extends CompositeEntityModel<DragonflyEntity> 
 	private final ModelPart bottomwing_r2;
 
 
-	public DragonflyEntityModel() {
+	public DragonflyEntityModel()
+	{
 		textureWidth = 32;
 		textureHeight = 32;
 
@@ -107,8 +108,7 @@ public class DragonflyEntityModel extends CompositeEntityModel<DragonflyEntity> 
 			left_top.roll = change;
 			right_bottom.roll = -change;
 			left_bottom.roll = -change;
-		}
-		else
+		}else
 		{
 			right_top.roll = -change;
 			left_top.roll = -change;
@@ -123,7 +123,8 @@ public class DragonflyEntityModel extends CompositeEntityModel<DragonflyEntity> 
 		return ImmutableList.of(body);
 	}
 
-	public void setRotationAngle(ModelPart modelPart, float x, float y, float z) {
+	public void setRotationAngle(ModelPart modelPart, float x, float y, float z)
+	{
 		modelPart.pitch = x;
 		modelPart.yaw = y;
 		modelPart.roll = z;

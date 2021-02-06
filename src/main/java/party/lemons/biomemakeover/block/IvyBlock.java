@@ -3,7 +3,10 @@ package party.lemons.biomemakeover.block;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ConnectingBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -38,7 +41,8 @@ public class IvyBlock extends BMBlock
 	private static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D);
 	private static final Map<Direction, BooleanProperty> FACING_PROPERTIES = ConnectingBlock.FACING_PROPERTIES;
 	private static final IntProperty DISTANCE = IntProperty.of("distance", 0, 6);
-	private static final Map<Direction, VoxelShape> DIRECTION_TO_SHAPE = Util.make(Maps.newEnumMap(Direction.class), (enumMap) -> {
+	private static final Map<Direction, VoxelShape> DIRECTION_TO_SHAPE = Util.make(Maps.newEnumMap(Direction.class), (enumMap)->
+	{
 		enumMap.put(Direction.NORTH, SOUTH_SHAPE);
 		enumMap.put(Direction.EAST, WEST_SHAPE);
 		enumMap.put(Direction.SOUTH, NORTH_SHAPE);
@@ -46,10 +50,11 @@ public class IvyBlock extends BMBlock
 		enumMap.put(Direction.UP, UP_SHAPE);
 		enumMap.put(Direction.DOWN, DOWN_SHAPE);
 	});
-	private static final Direction[] DIRECTIONS = Direction.values();;
+	private static final Direction[] DIRECTIONS = Direction.values();
 	private final ImmutableMap<BlockState, VoxelShape> shapes;
 
-	public IvyBlock(Settings settings) {
+	public IvyBlock(Settings settings)
+	{
 		super(settings);
 		this.setDefaultState(createDefaultState(this.stateManager));
 		this.shapes = collectVoxelShapes(this.stateManager);
@@ -58,16 +63,13 @@ public class IvyBlock extends BMBlock
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if(state.get(DISTANCE) >= 6)
-			return;
+		if(state.get(DISTANCE) >= 6) return;
 
 		Direction checkDirection = getRandomStateSide(state, random);
-		if(checkDirection == null)
-			return;
+		if(checkDirection == null) return;
 
 		Direction direction = Direction.random(random);
-		while(direction == checkDirection.getOpposite())
-			direction = Direction.random(random);
+		while(direction == checkDirection.getOpposite()) direction = Direction.random(random);
 
 		BlockPos offsetPos = pos.offset(direction);
 		BlockState offsetState = world.getBlockState(offsetPos);
@@ -78,8 +80,7 @@ public class IvyBlock extends BMBlock
 		{
 			if(hasAdjacentSide(direction, state))
 				world.setBlockState(pos, state.with(dirProperty, true).with(DISTANCE, nextDistance));
-		}
-		else if(hasAdjacentSide(direction, state) && canReplace(offsetState))
+		}else if(hasAdjacentSide(direction, state) && canReplace(offsetState))
 		{
 			BlockPos hitPos = offsetPos.offset(checkDirection);
 			BlockState hitState = world.getBlockState(hitPos);
@@ -111,8 +112,7 @@ public class IvyBlock extends BMBlock
 	private Direction getRandomStateSide(BlockState state, Random random)
 	{
 		List<Direction> dirs = Arrays.stream(Direction.values()).filter(d->state.get(getPropertyForDirection(d))).collect(Collectors.toList());
-		if(dirs.isEmpty())
-			return null;
+		if(dirs.isEmpty()) return null;
 
 		return dirs.get(random.nextInt(dirs.size()));
 	}
@@ -124,8 +124,7 @@ public class IvyBlock extends BMBlock
 		if(state.isOf(this))
 		{
 			world.setBlockState(pos, state.with(getPropertyForDirection(direction), true));
-		}
-		else if(canReplace(state))
+		}else if(canReplace(state))
 		{
 			world.setBlockState(pos, getDefaultState().with(getPropertyForDirection(direction), true).with(DISTANCE, distance));
 		}
@@ -136,22 +135,22 @@ public class IvyBlock extends BMBlock
 		List<Direction> validMovements = Lists.newArrayList();
 		for(Direction direction : BMUtil.HORIZONTALS)
 		{
-			if(state.get(getPropertyForDirection(direction)))
-				validMovements.add(direction);
+			if(state.get(getPropertyForDirection(direction))) validMovements.add(direction);
 		}
 
-		if(validMovements.isEmpty())
-			return null;
+		if(validMovements.isEmpty()) return null;
 
 		return validMovements.get(random.nextInt(validMovements.size()));
 	}
 
-	private static ImmutableMap<BlockState, VoxelShape> collectVoxelShapes(StateManager<Block, BlockState> stateManager) {
+	private static ImmutableMap<BlockState, VoxelShape> collectVoxelShapes(StateManager<Block, BlockState> stateManager)
+	{
 		Map<BlockState, VoxelShape> map = stateManager.getStates().stream().collect(Collectors.toMap(Function.identity(), IvyBlock::mergeVoxelShapes));
 		return ImmutableMap.copyOf(map);
 	}
 
-	private static VoxelShape mergeVoxelShapes(BlockState blockState) {
+	private static VoxelShape mergeVoxelShapes(BlockState blockState)
+	{
 		VoxelShape shape = VoxelShapes.empty();
 		for(Direction direction : DIRECTIONS)
 		{
@@ -183,8 +182,7 @@ public class IvyBlock extends BMBlock
 	{
 		for(Direction d : DIRECTIONS)
 		{
-			if(BMUtil.isAdjacentDirection(d, direction) && hasDirection(state, d))
-				return true;
+			if(BMUtil.isAdjacentDirection(d, direction) && hasDirection(state, d)) return true;
 		}
 
 		return false;
@@ -196,12 +194,14 @@ public class IvyBlock extends BMBlock
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context)
+	{
 		return this.shapes.get(state);
 	}
 
 	@Override
-	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos)
+	{
 		boolean canPlace = false;
 
 		for(Direction direction : DIRECTIONS)
@@ -225,16 +225,19 @@ public class IvyBlock extends BMBlock
 	}
 
 	@Override
-	public boolean canReplace(BlockState state, ItemPlacementContext context) {
+	public boolean canReplace(BlockState state, ItemPlacementContext context)
+	{
 		return true;
 	}
 
 	@Nullable
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
+	public BlockState getPlacementState(ItemPlacementContext ctx)
+	{
 		World world = ctx.getWorld();
 		BlockPos blockPos = ctx.getBlockPos();
 		BlockState blockState = world.getBlockState(blockPos);
-		return Arrays.stream(ctx.getPlacementDirections()).map((direction) -> {
+		return Arrays.stream(ctx.getPlacementDirections()).map((direction)->
+		{
 			return this.getPlacementState(blockState, world, blockPos, direction);
 		}).filter(Objects::nonNull).findFirst().orElse(null);
 	}
@@ -243,15 +246,14 @@ public class IvyBlock extends BMBlock
 	public BlockState getPlacementState(BlockState blockState, WorldAccess worldAccess, BlockPos blockPos, Direction direction)
 	{
 		BlockState placeState;
-		if (blockState.isOf(this))
+		if(blockState.isOf(this))
 		{
-			if (hasDirection(blockState, direction))
+			if(hasDirection(blockState, direction))
 			{
 				return null;
 			}
 			placeState = blockState;
-		}
-		else
+		}else
 		{
 			placeState = this.getDefaultState();
 		}
@@ -260,16 +262,19 @@ public class IvyBlock extends BMBlock
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, BlockRotation rotation) {
+	public BlockState rotate(BlockState state, BlockRotation rotation)
+	{
 		return this.getStateWithDirections(state, rotation::rotate);
 	}
 
 	@Override
-	public BlockState mirror(BlockState state, BlockMirror mirror) {
+	public BlockState mirror(BlockState state, BlockMirror mirror)
+	{
 		return this.getStateWithDirections(state, mirror::apply);
 	}
 
-	private BlockState getStateWithDirections(BlockState blockState, Function<Direction, Direction> function) {
+	private BlockState getStateWithDirections(BlockState blockState, Function<Direction, Direction> function)
+	{
 		BlockState state = blockState;
 		for(Direction direction : DIRECTIONS)
 		{
@@ -278,21 +283,25 @@ public class IvyBlock extends BMBlock
 		return state;
 	}
 
-	private static boolean hasDirection(BlockState blockState, Direction direction) {
+	private static boolean hasDirection(BlockState blockState, Direction direction)
+	{
 		BooleanProperty booleanProperty = getPropertyForDirection(direction);
 		return blockState.get(booleanProperty);
 	}
 
-	private static boolean isValidPlaceFace(BlockView blockView, Direction direction, BlockPos blockPos, BlockState blockState) {
+	private static boolean isValidPlaceFace(BlockView blockView, Direction direction, BlockPos blockPos, BlockState blockState)
+	{
 		return Block.isFaceFullSquare(blockState.getCollisionShape(blockView, blockPos), direction.getOpposite());
 	}
 
-	private static boolean isValidDirectionForState(BlockState blockState, Direction direction) {
+	private static boolean isValidDirectionForState(BlockState blockState, Direction direction)
+	{
 		BooleanProperty booleanProperty = getPropertyForDirection(direction);
 		return blockState.contains(booleanProperty) && blockState.get(booleanProperty);
 	}
 
-	public static BooleanProperty getPropertyForDirection(Direction direction) {
+	public static BooleanProperty getPropertyForDirection(Direction direction)
+	{
 		return FACING_PROPERTIES.get(direction);
 	}
 

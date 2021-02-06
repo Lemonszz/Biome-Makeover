@@ -13,7 +13,8 @@ public class WitchHatModel<T extends Entity> extends EntityModel<T> implements M
 	protected ModelPart hatBrim;
 	protected ModelPart head;
 
-	public WitchHatModel() {
+	public WitchHatModel()
+	{
 		textureWidth = 64;
 		textureHeight = 128;
 
@@ -46,7 +47,8 @@ public class WitchHatModel<T extends Entity> extends EntityModel<T> implements M
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+	public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+	{
 		head.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 

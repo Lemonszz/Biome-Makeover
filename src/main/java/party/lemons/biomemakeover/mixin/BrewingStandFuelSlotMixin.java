@@ -13,7 +13,6 @@ public class BrewingStandFuelSlotMixin
 	@Inject(at = @At("HEAD"), method = "matches(Lnet/minecraft/item/ItemStack;)Z", cancellable = true)
 	private static void matches(ItemStack stack, CallbackInfoReturnable<Boolean> cbi)
 	{
-		if(stack.getItem() == BMItems.SOUL_EMBERS)
-			cbi.setReturnValue(true);
+		if(stack.getItem() == BMItems.SOUL_EMBERS) cbi.setReturnValue(true);
 	}
 }

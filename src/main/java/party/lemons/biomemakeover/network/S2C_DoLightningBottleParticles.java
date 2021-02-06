@@ -1,8 +1,6 @@
 package party.lemons.biomemakeover.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.PacketConsumer;
-import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -33,7 +31,8 @@ public class S2C_DoLightningBottleParticles implements ClientPlayNetworking.Play
 		final boolean doBottleBreak = buf.readBoolean();
 		BlockPos pos = buf.readBlockPos();
 
-		client.execute(()->{
+		client.execute(()->
+		{
 			Vec3d dir = Vec3d.ofBottomCenter(pos);
 			Random random = client.world.random;
 			World world = client.world;
@@ -51,16 +50,18 @@ public class S2C_DoLightningBottleParticles implements ClientPlayNetworking.Play
 			ParticlesMode mode = MinecraftClient.getInstance().options.particles;
 			int particleCount = mode == ParticlesMode.ALL ? 100 : mode == ParticlesMode.DECREASED ? 50 : 10;
 
-			for(int i = 0; i < particleCount; ++i) {
+			for(int i = 0; i < particleCount; ++i)
+			{
 				double direction = random.nextDouble() * 4.0D;
 				double ac = random.nextDouble() * Math.PI * 2.0D;
 				double xVel = (Math.cos(ac) * direction) * 0.1D;
 				double yVel = 0.01D + random.nextDouble() * 0.5D;
 				double zVel = (Math.sin(ac) * direction) * 0.1D;
 
-				Particle particle = ClientUtil.spawnParticle(particleEffect, particleEffect.getType().shouldAlwaysSpawn(), true,dir.x + xVel * 0.01D, dir.y + 0.3D, dir.z + zVel * 0.01D, xVel, yVel, zVel);
-				if (particle != null) {
-					particle.move((float)direction);
+				Particle particle = ClientUtil.spawnParticle(particleEffect, particleEffect.getType().shouldAlwaysSpawn(), true, dir.x + xVel * 0.01D, dir.y + 0.3D, dir.z + zVel * 0.01D, xVel, yVel, zVel);
+				if(particle != null)
+				{
+					particle.move((float) direction);
 				}
 			}
 		});

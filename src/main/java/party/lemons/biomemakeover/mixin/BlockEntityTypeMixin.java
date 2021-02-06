@@ -14,7 +14,9 @@ import java.util.Set;
 @Mixin(BlockEntityType.class)
 public class BlockEntityTypeMixin implements BlockEntityTypeAccessor
 {
-	@Shadow @Final @Mutable
+	@Shadow
+	@Final
+	@Mutable
 	private Set<Block> blocks;
 
 	@Override

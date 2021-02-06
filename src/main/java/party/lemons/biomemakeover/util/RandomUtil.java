@@ -31,13 +31,13 @@ public final class RandomUtil
 		int num = randomRange(min, max);
 		int mid = (max / 2) - (min / 2);
 		int halfMid = mid / 2;
-		if(num > mid)
-			num -= RANDOM.nextInt((halfMid + 1));
-		else if(num < mid)
-			num += RANDOM.nextInt((halfMid + 1));
+		if(num > mid) num -= RANDOM.nextInt((halfMid + 1));
+		else if(num < mid) num += RANDOM.nextInt((halfMid + 1));
 
 		return num;
 	}
 
-	private RandomUtil(){}
+	private RandomUtil()
+	{
+	}
 }

@@ -8,6 +8,7 @@ import net.minecraft.world.BlockRenderView;
 public final class StaticBlockColorProvider implements BlockColorProvider
 {
 	private final int color;
+
 	public StaticBlockColorProvider(int color)
 	{
 		this.color = color;

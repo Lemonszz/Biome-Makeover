@@ -23,12 +23,7 @@ import java.util.Set;
 
 public class WillowTrunkPlacer extends TrunkPlacer
 {
-	private static final Direction[] dirs = new Direction[]{
-		Direction.NORTH,
-		Direction.SOUTH,
-		Direction.EAST,
-		Direction.WEST,
-	};
+	private static final Direction[] dirs = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST,};
 
 	public WillowTrunkPlacer(int base, int first, int second)
 	{
@@ -70,28 +65,30 @@ public class WillowTrunkPlacer extends TrunkPlacer
 				{
 					nodes.add(new TreeNode(lP, -1, false));
 					lP.move(dir);
-					if(random.nextBoolean()) lP.move(random.nextBoolean() ? dir.rotateYClockwise() : dir.rotateYCounterclockwise());
+					if(random.nextBoolean())
+						lP.move(random.nextBoolean() ? dir.rotateYClockwise() : dir.rotateYCounterclockwise());
 
 					if(random.nextInt(2) == 0) lP.move(Direction.UP);
-				}
-				else
-					nodes.add(new TreeNode(lP, 0, false));
+				}else nodes.add(new TreeNode(lP, 0, false));
 
 			}
 		}
 		return nodes;
 	}
 
-	protected static boolean setBranch(ModifiableTestableWorld modifiableTestableWorld, Random random, BlockPos blockPos, Set<BlockPos> set, BlockBox blockBox, BlockState st) {
-		if (TreeFeature.canReplace(modifiableTestableWorld, blockPos)) {
-			setBlockState(modifiableTestableWorld, blockPos,st, blockBox);
+	protected static boolean setBranch(ModifiableTestableWorld modifiableTestableWorld, Random random, BlockPos blockPos, Set<BlockPos> set, BlockBox blockBox, BlockState st)
+	{
+		if(TreeFeature.canReplace(modifiableTestableWorld, blockPos))
+		{
+			setBlockState(modifiableTestableWorld, blockPos, st, blockBox);
 			set.add(blockPos.toImmutable());
 			return true;
-		} else {
+		}else
+		{
 			return false;
 		}
 	}
 
-	public static final Codec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->method_28904(instance).apply(instance, WillowTrunkPlacer::new));
+	public static final Codec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.create((instance)->method_28904(instance).apply(instance, WillowTrunkPlacer::new));
 
 }

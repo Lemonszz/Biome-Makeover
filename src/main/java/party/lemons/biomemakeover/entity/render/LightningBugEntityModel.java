@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.entity.render;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.entity.LightningEntity;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
 
 public class LightningBugEntityModel extends CompositeEntityModel<LightningBugEntity>

@@ -34,7 +34,8 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 	private final ModelPart cube_r2;
 	private final ModelPart tongue;
 
-	public ToadEntityModel() {
+	public ToadEntityModel()
+	{
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -116,7 +117,7 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 	public void setAngles(ToadEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
 		ToadEntityModel.entity = entity;
-		float pi = (float)Math.PI;
+		float pi = (float) Math.PI;
 		float legAmount = 1.4F;
 
 		this.frontlege.pitch = MathHelper.cos(limbAngle * 1 + pi) * 1.4F * limbDistance;
@@ -137,10 +138,8 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 			Entity e = entity.world.getEntityById(entity.getTongueEntityID());
 			if(e != null && entity.isTongueReady())
 			{
-				tongueDistance = (entity.distanceTo(e) * 16) - ((float)(e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
-			}
-			else
-				tongueDistance = 0;
+				tongueDistance = (entity.distanceTo(e) * 16) - ((float) (e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
+			}else tongueDistance = 0;
 		}else
 		{
 			entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 0, 0.10F);
@@ -183,15 +182,18 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 		{
 			ModelPart.Cuboid cube = getRandomCuboid(RandomUtil.RANDOM);
 			matrices.push();
-			if (this.roll != 0.0F) {
+			if(this.roll != 0.0F)
+			{
 				matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(this.roll));
 			}
 
-			if (this.yaw != 0.0F) {
+			if(this.yaw != 0.0F)
+			{
 				matrices.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(this.yaw));
 			}
 
-			if (this.pitch != 0.0F) {
+			if(this.pitch != 0.0F)
+			{
 				matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(this.pitch));
 			}
 
@@ -202,22 +204,25 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 		}
 
-		public static void drawBox(MatrixStack matrices, VertexConsumer vertexConsumer, float x1, float y1, float z1, float x2, float y2, float z2, int light, int overlay) {
+		public static void drawBox(MatrixStack matrices, VertexConsumer vertexConsumer, float x1, float y1, float z1, float x2, float y2, float z2, int light, int overlay)
+		{
 			Cuboid cuboid = new Cuboid(0, 30, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, 0, 0, 0, false, 64, 54);
 
 			MatrixStack.Entry me = matrices.peek();
 			Matrix4f matrix4f = me.getModel();
 			Matrix3f matrix3f = me.getNormal();
 
-			ModelPart.Quad[] var13 = ((CuboidAccessor)cuboid).getSides();
+			ModelPart.Quad[] var13 = ((CuboidAccessor) cuboid).getSides();
 			int var14 = var13.length;
 
-			for(int var15 = 0; var15 < var14; ++var15) {
+			for(int var15 = 0; var15 < var14; ++var15)
+			{
 				ModelPart.Quad quad = var13[var15];
 				Vector3f vector3f = quad.direction.copy();
 				vector3f.transform(matrix3f);
 
-				for(int i = 0; i < 4; ++i) {
+				for(int i = 0; i < 4; ++i)
+				{
 					ModelPart.Vertex vertex = quad.vertices[i];
 					float j = vertex.pos.getX() / 16.0F;
 					float k = vertex.pos.getY() / 16.0F;

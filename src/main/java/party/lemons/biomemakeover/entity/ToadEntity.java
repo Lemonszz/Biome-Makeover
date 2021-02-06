@@ -27,7 +27,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +48,7 @@ import java.util.UUID;
 public class ToadEntity extends AnimalEntity
 {
 	private static final UUID JUMP_SPEED_BOOST = UUID.fromString("0fa7caca-4f09-11eb-ae93-0242ac130002");
-	private static final EntityAttributeModifier JUMP_SPEED_BOOST_MOD =  new EntityAttributeModifier(JUMP_SPEED_BOOST, "Jump Speed Boost", 0.6F, EntityAttributeModifier.Operation.ADDITION);;
+	private static final EntityAttributeModifier JUMP_SPEED_BOOST_MOD = new EntityAttributeModifier(JUMP_SPEED_BOOST, "Jump Speed Boost", 0.6F, EntityAttributeModifier.Operation.ADDITION);
 
 	private static final TrackedData<Integer> TONGUE_ENTITY = DataTracker.registerData(ToadEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
@@ -96,7 +95,7 @@ public class ToadEntity extends AnimalEntity
 		e.setEatenBy(this);
 		if(!world.isClient())
 		{
-			this.playSound(BMEffects.TOAD_MOUTH, 1F, 1F + ((float)random.nextGaussian() / 5F));
+			this.playSound(BMEffects.TOAD_MOUTH, 1F, 1F + ((float) random.nextGaussian() / 5F));
 		}
 	}
 
@@ -113,28 +112,26 @@ public class ToadEntity extends AnimalEntity
 	public void clearTongueEntity()
 	{
 		if(world.getEntityById(getTongueEntityID()) != null)
-			((ToadTargetEntity)world.getEntityById(getTongueEntityID())).setEatenBy(null);
+			((ToadTargetEntity) world.getEntityById(getTongueEntityID())).setEatenBy(null);
 
 		dataTracker.set(TONGUE_ENTITY, -1);
 	}
 
 	public float getPathfindingFavor(BlockPos pos, WorldView world)
 	{
-		 if(world.getBlockState(pos).isIn(BMBlocks.LILY_PADS))
-		 	return 100;
+		if(world.getBlockState(pos).isIn(BMBlocks.LILY_PADS)) return 100;
 
 		return super.getPathfindingFavor(pos, world);
 	}
 
-	private TargetPredicate predicate = new TargetPredicate().setPredicate((e)->e.distanceTo(e) < 10);
+	private final TargetPredicate predicate = new TargetPredicate().setPredicate((e)->e.distanceTo(e) < 10);
 
 	@Override
 	public void tick()
 	{
 		super.tick();
 
-		if(hasBaby && getBreedingAge() == 0)
-			hasBaby = false;
+		if(hasBaby && getBreedingAge() == 0) hasBaby = false;
 
 		if(hasTongueEntity())
 		{
@@ -147,19 +144,16 @@ public class ToadEntity extends AnimalEntity
 				pitch = getTargetPitch();
 
 				float speed = 10;
-				targetTongueDistance = (this.distanceTo(e) * 16) - ((float)(e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
-				if(tongueDistance > targetTongueDistance)
-					speed *= 2;
+				targetTongueDistance = (this.distanceTo(e) * 16) - ((float) (e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);
+				if(tongueDistance > targetTongueDistance) speed *= 2;
 
 				tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);
-			}
-			else//TODO: clean this
+			}else//TODO: clean this
 			{
 				targetTongueDistance = 0;
 				tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);
 			}
-		}
-		else
+		}else
 		{
 			targetTongueDistance = 0;
 			tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);
@@ -173,18 +167,20 @@ public class ToadEntity extends AnimalEntity
 		return dis && (yaw < 4F || yaw >= 360);
 	}
 
-	public float getTargetYaw() {
+	public float getTargetYaw()
+	{
 		double xx = lookControl.getLookX() - getX();
 		double zz = lookControl.getLookZ() - getZ();
-		return (float)(MathHelper.atan2(zz, xx) * 57.2957763671875D) - 90.0F;
+		return (float) (MathHelper.atan2(zz, xx) * 57.2957763671875D) - 90.0F;
 	}
 
-	public float getTargetPitch() {
+	public float getTargetPitch()
+	{
 		double xx = lookControl.getLookX() - getX();
 		double yy = lookControl.getLookY() - getEyeY();
 		double zz = lookControl.getLookZ() - getZ();
 		double sqrt = MathHelper.sqrt(xx * xx + zz * zz);
-		return (float)(-(MathHelper.atan2(yy, sqrt) * 57.2957763671875D));
+		return (float) (-(MathHelper.atan2(yy, sqrt) * 57.2957763671875D));
 	}
 
 	public boolean canUseTongue()
@@ -192,11 +188,13 @@ public class ToadEntity extends AnimalEntity
 		return !this.hasVehicle();
 	}
 
-	public boolean isBreedingItem(ItemStack stack) {
+	public boolean isBreedingItem(ItemStack stack)
+	{
 		return stack.getItem() == BMItems.DRAGONFLY_WINGS || stack.getItem() == Items.SPIDER_EYE;
 	}
 
-	public void mobTick() {
+	public void mobTick()
+	{
 
 		eatCooldown--;
 		if(eatCooldown <= 0 && !hasTongueEntity())
@@ -204,22 +202,20 @@ public class ToadEntity extends AnimalEntity
 			List<ToadTargetEntity> targets = world.getEntitiesByClass(ToadTargetEntity.class, getBoundingBox().expand(3, 3, 3), (e)->canSee(e) && !e.isBeingEaten());
 			ToadTargetEntity closest = world.getClosestEntity(targets, predicate, this, getX(), getY(), getZ());
 
-			if(!canUseTongue() || closest == null || closest.hasVehicle() || targets.isEmpty())
-				clearTongueEntity();
+			if(!canUseTongue() || closest == null || closest.hasVehicle() || targets.isEmpty()) clearTongueEntity();
 			else
 			{
 				eatCooldown = 350;
 				setTongueEntity(closest);
 			}
-		}
-		else
+		}else
 		{
 			Entity e = world.getEntityById(getTongueEntityID());
-			if(!canUseTongue() || e == null || !e.isAlive())
-				clearTongueEntity();
+			if(!canUseTongue() || e == null || !e.isAlive()) clearTongueEntity();
 		}
 
-		if (this.ticksUntilJump > 0) {
+		if(this.ticksUntilJump > 0)
+		{
 			--this.ticksUntilJump;
 		}
 
@@ -242,7 +238,8 @@ public class ToadEntity extends AnimalEntity
 		onGroundPrev = onGround;
 	}
 
-	protected SoundEvent getJumpSound() {
+	protected SoundEvent getJumpSound()
+	{
 		return BMEffects.TOAD_JUMP;
 	}
 
@@ -250,8 +247,7 @@ public class ToadEntity extends AnimalEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
+			attributeContainer = new AttributeContainer(MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
 		return attributeContainer;
 	}
 
@@ -274,15 +270,17 @@ public class ToadEntity extends AnimalEntity
 		this.hasBaby = hasBaby;
 	}
 
-	public void breed(ServerWorld serverWorld, AnimalEntity other) {
+	public void breed(ServerWorld serverWorld, AnimalEntity other)
+	{
 
 		ServerPlayerEntity player = this.getLovingPlayer();
-		if (player == null && other.getLovingPlayer() != null)
+		if(player == null && other.getLovingPlayer() != null)
 		{
 			player = other.getLovingPlayer();
 		}
 
-		if (player != null) {
+		if(player != null)
+		{
 			player.incrementStat(Stats.ANIMALS_BRED);
 			Criteria.BRED_ANIMALS.trigger(player, this, other, null);
 		}
@@ -292,8 +290,9 @@ public class ToadEntity extends AnimalEntity
 		other.setBreedingAge(6000);
 		this.resetLoveTicks();
 		other.resetLoveTicks();
-		serverWorld.sendEntityStatus(this, (byte)18);
-		if (serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+		serverWorld.sendEntityStatus(this, (byte) 18);
+		if(serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_LOOT))
+		{
 			serverWorld.spawnEntity(new ExperienceOrbEntity(serverWorld, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
 		}
 	}
@@ -326,12 +325,12 @@ public class ToadEntity extends AnimalEntity
 	@Override
 	protected float getSoundPitch()
 	{
-		return super.getSoundPitch() + ((float)random.nextGaussian() / 8F);
+		return super.getSoundPitch() + ((float) random.nextGaussian() / 8F);
 	}
 
 	private class LookAtTongueTarget extends Goal
 	{
-		private ToadEntity toad;
+		private final ToadEntity toad;
 
 		public LookAtTongueTarget(ToadEntity entity)
 		{
@@ -356,7 +355,7 @@ public class ToadEntity extends AnimalEntity
 
 	public class MakeTadpoleGoal extends MoveToTargetPosGoal
 	{
-		private ToadEntity toad;
+		private final ToadEntity toad;
 
 		public MakeTadpoleGoal(ToadEntity toad, double speed, int range)
 		{
@@ -364,11 +363,13 @@ public class ToadEntity extends AnimalEntity
 			this.toad = toad;
 		}
 
-		public boolean canStart() {
-			return this.toad.hasBaby ? super.canStart() : false;
+		public boolean canStart()
+		{
+			return this.toad.hasBaby && super.canStart();
 		}
 
-		public boolean shouldContinue() {
+		public boolean shouldContinue()
+		{
 			return super.shouldContinue() && this.toad.hasBaby;
 		}
 
@@ -383,12 +384,14 @@ public class ToadEntity extends AnimalEntity
 				getNavigation().startMovingTo(targetPos.getX() + 0.5F, targetPos.getY(), targetPos.getZ() + 0.5F, 1F);
 			}
 
-			if (toad.isTouchingWater()) {
+			if(toad.isTouchingWater())
+			{
 				ServerWorld world = (ServerWorld) this.toad.world;
 				this.toad.setHasBaby(false);
 
 				TadpoleEntity tadpole = BMEntities.TADPOLE.create(world);
-				if (tadpole != null) {
+				if(tadpole != null)
+				{
 					world.playSound(null, blockPos, BMEffects.TOAD_HAVE_BABY, SoundCategory.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
 					tadpole.setBaby(true);
 					tadpole.refreshPositionAndAngles(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
@@ -398,7 +401,8 @@ public class ToadEntity extends AnimalEntity
 
 		}
 
-		public double getDesiredSquaredDistanceToTarget() {
+		public double getDesiredSquaredDistanceToTarget()
+		{
 			return 0.0D;
 		}
 

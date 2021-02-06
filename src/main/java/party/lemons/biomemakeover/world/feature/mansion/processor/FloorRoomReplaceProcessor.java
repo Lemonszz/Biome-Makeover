@@ -8,5 +8,6 @@ import java.util.Random;
 public abstract class FloorRoomReplaceProcessor
 {
 	public abstract boolean isValid(Random random, int floor, Grid<MansionRoom> grid, MansionRoom currentRoom);
+
 	public abstract MansionRoom getReplaceRoom(MansionRoom currentRoom);
 }

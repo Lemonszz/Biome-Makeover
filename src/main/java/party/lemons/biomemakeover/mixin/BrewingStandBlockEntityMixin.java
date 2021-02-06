@@ -16,9 +16,11 @@ import party.lemons.biomemakeover.init.BMItems;
 @Mixin(BrewingStandBlockEntity.class)
 public abstract class BrewingStandBlockEntityMixin extends BlockEntity
 {
-	@Shadow private DefaultedList<ItemStack> inventory;
+	@Shadow
+	private DefaultedList<ItemStack> inventory;
 
-	@Shadow private int fuel;
+	@Shadow
+	private int fuel;
 
 	public BrewingStandBlockEntityMixin(BlockEntityType<?> type)
 	{
@@ -30,7 +32,8 @@ public abstract class BrewingStandBlockEntityMixin extends BlockEntity
 	public void tick(CallbackInfo cbi)
 	{
 		ItemStack itemStack = this.inventory.get(4);
-		if (this.fuel <= 0 && itemStack.getItem() == BMItems.SOUL_EMBERS) {
+		if(this.fuel <= 0 && itemStack.getItem() == BMItems.SOUL_EMBERS)
+		{
 			this.fuel = 20;
 			itemStack.decrement(1);
 			this.markDirty();

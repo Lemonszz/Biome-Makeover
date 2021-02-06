@@ -20,7 +20,9 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,7 +39,6 @@ import net.minecraft.world.World;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMEntities;
 
-import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
@@ -55,12 +56,13 @@ public class OwlEntity extends TameableShoulderEntity
 	public OwlEntity(World world)
 	{
 		super(BMEntities.OWL, world);
-		this.moveControl = new FlightMoveControl(this, 0,false);
+		this.moveControl = new FlightMoveControl(this, 0, false);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, -1.0F);
 	}
 
-	protected void initGoals() {
+	protected void initGoals()
+	{
 		super.initGoals();
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(2, new SitGoal(this));
@@ -78,7 +80,8 @@ public class OwlEntity extends TameableShoulderEntity
 		this.targetSelector.add(3, new FollowTargetIfTamedGoal(this, LivingEntity.class, false, IS_OWL_TARGET));
 	}
 
-	protected EntityNavigation createNavigation(World world) {
+	protected EntityNavigation createNavigation(World world)
+	{
 		BirdNavigation birdNavigation = new BirdNavigation(this, world);
 		birdNavigation.setCanPathThroughDoors(false);
 		birdNavigation.setCanSwim(true);
@@ -140,12 +143,15 @@ public class OwlEntity extends TameableShoulderEntity
 		}
 	}
 
-	public void setTamed(boolean tamed) {
+	public void setTamed(boolean tamed)
+	{
 		super.setTamed(tamed);
-		if (tamed) {
+		if(tamed)
+		{
 			this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20.0F);
-		} else {
+		}else
+		{
 			this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(8.0D);
 		}
 
@@ -156,26 +162,27 @@ public class OwlEntity extends TameableShoulderEntity
 	{
 		ItemStack stack = player.getStackInHand(hand);
 		Item item = stack.getItem();
-		if (this.world.isClient)
+		if(this.world.isClient)
 		{
 			boolean canTame = (this.isOwner(player) || this.isTamed() || isBreedingItem(stack)) && (!this.isTamed() && this.getTarget() != null);
 			return canTame ? ActionResult.CONSUME : ActionResult.PASS;
-		}
-		else
+		}else
 		{
-			if (this.isTamed())
+			if(this.isTamed())
 			{
-				if (this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) {
-					if (!player.abilities.creativeMode) {
+				if(this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth())
+				{
+					if(!player.abilities.creativeMode)
+					{
 						stack.decrement(1);
 					}
 
-					this.heal((float)item.getFoodComponent().getHunger());
+					this.heal((float) item.getFoodComponent().getHunger());
 					return ActionResult.SUCCESS;
 				}
 
 				ActionResult actionResult = super.interactMob(player, hand);
-				if ((!actionResult.isAccepted() || this.isBaby()) && this.isOwner(player))
+				if((!actionResult.isAccepted() || this.isBaby()) && this.isOwner(player))
 				{
 					this.setSitting(!this.isSitting());
 					this.jumping = false;
@@ -184,24 +191,23 @@ public class OwlEntity extends TameableShoulderEntity
 					return ActionResult.SUCCESS;
 				}
 				return actionResult;
-			}
-			else if (isBreedingItem(stack) && this.getTarget() == null)
+			}else if(isBreedingItem(stack) && this.getTarget() == null)
 			{
-				if (!player.abilities.creativeMode) {
+				if(!player.abilities.creativeMode)
+				{
 					stack.decrement(1);
 				}
 
-				if (this.random.nextInt(3) == 0)
+				if(this.random.nextInt(3) == 0)
 				{
 					this.setOwner(player);
 					this.navigation.stop();
 					this.setTarget(null);
 					this.setSitting(true);
-					this.world.sendEntityStatus(this, (byte)7);
-				}
-				else
+					this.world.sendEntityStatus(this, (byte) 7);
+				}else
 				{
-					this.world.sendEntityStatus(this, (byte)6);
+					this.world.sendEntityStatus(this, (byte) 6);
 				}
 				return ActionResult.SUCCESS;
 			}
@@ -241,28 +247,27 @@ public class OwlEntity extends TameableShoulderEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer = new AttributeContainer(AnimalEntity.createMobAttributes()
-					.add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
-					.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.8D)
-					.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
-					.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2D)
-					.build());
+			attributeContainer = new AttributeContainer(AnimalEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.8D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2D).build());
 
 		return attributeContainer;
 	}
 
-	public EntityDimensions getDimensions(EntityPose pose) {
+	public EntityDimensions getDimensions(EntityPose pose)
+	{
 		return getStandingState() == StandingState.STANDING ? super.getDimensions(pose) : FLYING_DIMENSION;
 	}
 
-	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier)
+	{
 		return false;
 	}
 
-	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition)
+	{
 	}
 
-	protected boolean hasWings() {
+	protected boolean hasWings()
+	{
 		return true;
 	}
 
@@ -289,24 +294,29 @@ public class OwlEntity extends TameableShoulderEntity
 
 	private static class ExtendedFlyOntoTree extends WanderAroundFarGoal
 	{
-		public ExtendedFlyOntoTree(PathAwareEntity pathAwareEntity, double speed, float probability) {
+		public ExtendedFlyOntoTree(PathAwareEntity pathAwareEntity, double speed, float probability)
+		{
 			super(pathAwareEntity, speed, probability);
 		}
 
-		protected Vec3d getWanderTarget() {
+		protected Vec3d getWanderTarget()
+		{
 			Vec3d vec3d = null;
-			if (this.mob.isTouchingWater()) {
+			if(this.mob.isTouchingWater())
+			{
 				vec3d = TargetFinder.findGroundTarget(this.mob, 15, 15);
 			}
 
-			if (this.mob.getRandom().nextFloat() >= this.probability) {
+			if(this.mob.getRandom().nextFloat() >= this.probability)
+			{
 				vec3d = this.getTreeTarget();
 			}
 
 			return vec3d == null ? super.getWanderTarget() : vec3d;
 		}
 
-		private Vec3d getTreeTarget() {
+		private Vec3d getTreeTarget()
+		{
 			BlockPos blockPos = this.mob.getBlockPos();
 			BlockPos.Mutable mutable = new BlockPos.Mutable();
 			BlockPos.Mutable mutable2 = new BlockPos.Mutable();
@@ -315,18 +325,21 @@ public class OwlEntity extends TameableShoulderEntity
 
 			BlockPos blockPos2;
 			boolean bl;
-			do {
-				do {
-					if (!var5.hasNext()) {
+			do
+			{
+				do
+				{
+					if(!var5.hasNext())
+					{
 						return null;
 					}
 
-					blockPos2 = (BlockPos)var5.next();
-				} while(blockPos.equals(blockPos2));
+					blockPos2 = (BlockPos) var5.next();
+				}while(blockPos.equals(blockPos2));
 
 				Block block = this.mob.world.getBlockState(mutable2.set(blockPos2, Direction.DOWN)).getBlock();
 				bl = block instanceof LeavesBlock || block.isIn(BlockTags.LOGS);
-			} while(!bl || !this.mob.world.isAir(blockPos2) || !this.mob.world.isAir(mutable.set(blockPos2, Direction.UP)));
+			}while(!bl || !this.mob.world.isAir(blockPos2) || !this.mob.world.isAir(mutable.set(blockPos2, Direction.UP)));
 
 			return Vec3d.ofBottomCenter(blockPos2);
 		}
@@ -334,14 +347,11 @@ public class OwlEntity extends TameableShoulderEntity
 
 	public enum StandingState
 	{
-		STANDING,
-		FLYING
+		STANDING, FLYING
 	}
 
 	public enum OwlState
 	{
-		IDLE,
-		ATTACKING,
-		SLEEPING
+		IDLE, ATTACKING, SLEEPING
 	}
 }

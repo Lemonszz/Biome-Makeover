@@ -25,6 +25,6 @@ public class LookAtTargetGoal extends Goal
 	public void tick()
 	{
 		if(entity.getTarget() != null)
-			entity.getLookControl().lookAt(entity.getTarget(), (float)entity.getBodyYawSpeed(), (float)entity.getLookPitchSpeed());
+			entity.getLookControl().lookAt(entity.getTarget(), (float) entity.getBodyYawSpeed(), (float) entity.getLookPitchSpeed());
 	}
 }

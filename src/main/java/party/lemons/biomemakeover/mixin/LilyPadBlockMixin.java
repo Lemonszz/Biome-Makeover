@@ -16,7 +16,8 @@ public abstract class LilyPadBlockMixin extends Block
 	}
 
 	@Override
-	public BlockSoundGroup getSoundGroup(BlockState state) {
+	public BlockSoundGroup getSoundGroup(BlockState state)
+	{
 		return BMBlocks.BM_LILY_PAD_SOUNDS;
 	}
 }

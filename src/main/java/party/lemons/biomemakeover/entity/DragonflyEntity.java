@@ -1,9 +1,6 @@
 package party.lemons.biomemakeover.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.SpawnReason;
@@ -30,7 +27,6 @@ import party.lemons.biomemakeover.entity.ai.FlyWanderAroundGoal;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.RandomUtil;
-import party.lemons.biomemakeover.util.sound.DragonflySoundInstance;
 
 public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 {
@@ -49,16 +45,19 @@ public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 		this.setPathfindingPenalty(PathNodeType.FENCE, -1.0F);
 	}
 
-	protected void initDataTracker() {
+	protected void initDataTracker()
+	{
 		super.initDataTracker();
 		this.dataTracker.startTracking(VARIANT, 2);
 	}
 
-	public float getPathfindingFavor(BlockPos pos, WorldView world) {
+	public float getPathfindingFavor(BlockPos pos, WorldView world)
+	{
 		return world.getBlockState(pos).isAir() ? 10.0F : 0.0F;
 	}
 
-	protected void initGoals() {
+	protected void initGoals()
+	{
 		this.goalSelector.add(8, new FlyWanderAroundGoal(this));
 		this.goalSelector.add(9, new SwimGoal(this));
 	}
@@ -86,19 +85,21 @@ public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6F).add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
+			attributeContainer = new AttributeContainer(MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6F).add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
 		return attributeContainer;
 	}
 
-	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier)
+	{
 		return false;
 	}
 
-	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+	protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition)
+	{
 	}
 
-	protected boolean hasWings() {
+	protected boolean hasWings()
+	{
 		return true;
 	}
 
@@ -117,28 +118,36 @@ public class DragonflyEntity extends ToadTargetEntity implements Flutterer
 		super.setEntityId(id);
 	}
 
-	protected void playStepSound(BlockPos pos, BlockState state) {
+	protected void playStepSound(BlockPos pos, BlockState state)
+	{
 	}
 
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound()
+	{
 		return null;
 	}
 
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
 		return BMEffects.DRAGONFLY_HURT;
 	}
 
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound()
+	{
 		return BMEffects.DRAGONFLY_DEATH;
 	}
 
-	protected float getSoundVolume() {
+	protected float getSoundVolume()
+	{
 		return 0.4F;
 	}
 
-	protected EntityNavigation createNavigation(World world) {
-		BirdNavigation birdNavigation = new BirdNavigation(this, world) {
-			public boolean isValidPosition(BlockPos pos) {
+	protected EntityNavigation createNavigation(World world)
+	{
+		BirdNavigation birdNavigation = new BirdNavigation(this, world)
+		{
+			public boolean isValidPosition(BlockPos pos)
+			{
 				return !this.world.getBlockState(pos.down()).isAir();
 			}
 		};

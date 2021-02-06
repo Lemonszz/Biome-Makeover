@@ -12,5 +12,7 @@ public final class ColorProviderHelper
 		ColorProviderRegistry.ITEM.register(new BlockItemColorProvider(), blocks);
 	}
 
-	private ColorProviderHelper(){}
+	private ColorProviderHelper()
+	{
+	}
 }

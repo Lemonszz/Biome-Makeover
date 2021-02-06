@@ -27,7 +27,8 @@ public class ItemGroupTabWidget extends ButtonWidget
 		return isHovered || isSelected ? 1 : 0;
 	}
 
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float delta)
+	{
 		MinecraftClient minecraftClient = MinecraftClient.getInstance();
 		minecraftClient.getTextureManager().bindTexture(TEXTURE);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);

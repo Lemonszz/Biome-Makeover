@@ -16,10 +16,8 @@ public class AnimationHelper
 
 	public static void swingLimb(ModelPart left, ModelPart right, float limbAngle, float limbDistance, float scale)
 	{
-		if(right != null)
-			right.pitch = MathHelper.cos(limbAngle * 1 + PI) * scale * limbDistance;
-		if(left != null)
-			left.pitch = MathHelper.cos(limbAngle * 1) * scale * limbDistance;
+		if(right != null) right.pitch = MathHelper.cos(limbAngle * 1 + PI) * scale * limbDistance;
+		if(left != null) left.pitch = MathHelper.cos(limbAngle * 1) * scale * limbDistance;
 	}
 
 	public static void rotateHead(ModelPart head, float headPitch, float headYaw)

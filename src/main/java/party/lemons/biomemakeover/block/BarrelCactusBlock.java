@@ -1,7 +1,10 @@
 package party.lemons.biomemakeover.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -46,14 +49,17 @@ public class BarrelCactusBlock extends BMBlock
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
 	{
-		if (!state.canPlaceAt(world, pos)) {
+		if(!state.canPlaceAt(world, pos))
+		{
 			world.getBlockTickScheduler().schedule(pos, this, 1);
 		}
 		return state;
 	}
 
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (!state.canPlaceAt(world, pos)) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
+	{
+		if(!state.canPlaceAt(world, pos))
+		{
 			world.breakBlock(pos, true);
 		}
 	}
@@ -67,10 +73,9 @@ public class BarrelCactusBlock extends BMBlock
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity)
 	{
-		if (!entity.isSneaking())
+		if(!entity.isSneaking())
 		{
-			if(entity instanceof ItemEntity && entity.age < 30)
-				return;
+			if(entity instanceof ItemEntity && entity.age < 30) return;
 
 			entity.damage(DamageSource.CACTUS, 1.0F);
 		}
@@ -78,7 +83,8 @@ public class BarrelCactusBlock extends BMBlock
 		super.onEntityCollision(state, world, pos, entity);
 	}
 
-	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type)
+	{
 		return false;
 	}
 }

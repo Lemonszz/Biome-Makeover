@@ -3,10 +3,7 @@ package party.lemons.biomemakeover.crafting.witch.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -32,7 +29,8 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 	private static final Text DEPRECATED_TEXT = new TranslatableText("merchant.deprecated");
 	private final QuestButton[] questButtons = new QuestButton[3];
 
-	public WitchScreen(WitchScreenHandler handler, PlayerInventory inventory, Text title) {
+	public WitchScreen(WitchScreenHandler handler, PlayerInventory inventory, Text title)
+	{
 		super(handler, inventory, title);
 		this.backgroundWidth = 174;
 		this.backgroundHeight = 181;
@@ -58,7 +56,7 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 
 	protected void updateQuests()
 	{
-		for(int i  = 0; i < questButtons.length; i++)
+		for(int i = 0; i < questButtons.length; i++)
 		{
 			buttons.remove(questButtons[i]);
 			children.remove(questButtons[i]);
@@ -78,23 +76,24 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 	}
 
 
+	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY)
+	{
+		this.textRenderer.draw(matrices, this.title, (float) (49 + this.backgroundWidth / 2 - this.textRenderer.getWidth(this.title) / 2), 6.0F, 4210752);
 
-	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-		this.textRenderer.draw(matrices, this.title, (float)(49 + this.backgroundWidth / 2 - this.textRenderer.getWidth(this.title) / 2), 6.0F, 4210752);
-
-		this.textRenderer.draw(matrices, this.playerInventory.getDisplayName(), (float)this.playerInventoryTitleX, (float)this.playerInventoryTitleY, 4210752);
+		this.textRenderer.draw(matrices, this.playerInventory.getDisplayName(), (float) this.playerInventoryTitleX, (float) this.playerInventoryTitleY, 4210752);
 		int l = this.textRenderer.getWidth(QUESTS_TEXT);
-		this.textRenderer.draw(matrices, QUESTS_TEXT, (float)(5 - l / 2 + 48), 6.0F, 4210752);
+		this.textRenderer.draw(matrices, QUESTS_TEXT, (float) (5 - l / 2 + 48), 6.0F, 4210752);
 	}
 
-	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY)
+	{
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.client.getTextureManager().bindTexture(TEXTURE);
 		int i = (this.width - this.backgroundWidth) / 2;
 		int j = (this.height - this.backgroundHeight) / 2;
 		drawTexture(matrices, i, j, this.getZOffset(), 0.0F, 0.0F, this.backgroundWidth, this.backgroundHeight, 256, 512);
 		WitchQuestList tradeOfferList = this.handler.getQuests();
-		if (!tradeOfferList.isEmpty())
+		if(!tradeOfferList.isEmpty())
 		{
 
 		}
@@ -102,14 +101,16 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 	}
 
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
+	{
 		this.renderBackground(matrices);
 		super.render(matrices, mouseX, mouseY, delta);
 		this.drawMouseoverTooltip(matrices, mouseX, mouseY);
 
 		for(QuestButton questButton : questButtons)
 		{
-			if (questButton != null && questButton.isHovered()) {
+			if(questButton != null && questButton.isHovered())
+			{
 				questButton.renderToolTip(matrices, mouseX, mouseY);
 			}
 		}
@@ -139,16 +140,15 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 			if(quest.hasItems(MinecraftClient.getInstance().player.inventory))
 			{
 				drawTextureIndex++;
-				if(isHovered())
-					drawTextureIndex++;
+				if(isHovered()) drawTextureIndex++;
 			}
 			RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
 			RenderSystem.enableDepthTest();
-			this.drawTexture(matrices, this.x, this.y, 174, drawTextureIndex * 26, this.width, this.height, 512, 256);
+			drawTexture(matrices, this.x, this.y, 174, drawTextureIndex * 26, this.width, this.height, 512, 256);
 
 			int rarityY = 7 + (questRarity.ordinal() * 5);
-			this.drawTexture(matrices, x + 4, y + 11, 278, rarityY, 5, 5, 512, 256);
+			drawTexture(matrices, x + 4, y + 11, 278, rarityY, 5, 5, 512, 256);
 
 			int itemXX = x + 11;
 			ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
@@ -170,14 +170,14 @@ public class WitchScreen extends HandledScreen<WitchScreenHandler>
 			itemRenderer.zOffset = 0.0F;
 		}
 
-		public void renderToolTip(MatrixStack matrices, int mouseX, int mouseY) {
+		public void renderToolTip(MatrixStack matrices, int mouseX, int mouseY)
+		{
 			int xx = mouseX - x;
 			int yy = mouseY - y;
 
 			if(hovered && xx > 5 && yy < 19)
 			{
-				if(xx > 2 && xx < 9)
-					renderTooltip(matrices, questRarity.getTooltipText(), mouseX, mouseY);
+				if(xx > 2 && xx < 9) renderTooltip(matrices, questRarity.getTooltipText(), mouseX, mouseY);
 
 				if(xx > 11)
 				{

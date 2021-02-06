@@ -1,6 +1,8 @@
 package party.lemons.biomemakeover.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -39,8 +41,7 @@ public class BMTallMushroomBlock extends BMTallFlowerBlock
 				world.syncWorldEvent(player, 2001, pos.up(), Block.getRawIdFromState(state));
 
 				dropPos = pos.up();
-			}
-			else if(state.get(HALF) == DoubleBlockHalf.UPPER && world.getBlockState(pos.down()).getBlock() == this)
+			}else if(state.get(HALF) == DoubleBlockHalf.UPPER && world.getBlockState(pos.down()).getBlock() == this)
 			{
 				world.setBlockState(pos.down(), Blocks.AIR.getDefaultState(), 35);
 				world.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -55,7 +56,8 @@ public class BMTallMushroomBlock extends BMTallFlowerBlock
 		return super.onUse(state, world, pos, player, hand, hit);
 	}
 
-	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
+	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos)
+	{
 		return floor.isOpaqueFullCube(world, pos);
 	}
 }

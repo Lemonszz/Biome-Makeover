@@ -39,8 +39,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig>
 			BlockPos genPos = start.offset(direction, i);
 			BlockState downState = world.getBlockState(genPos.down());
 			FluidState downFluid = world.getFluidState(genPos.down());
-			if(!downFluid.isEmpty())
-				break;
+			if(!downFluid.isEmpty()) break;
 
 			if(canReplace(downState))
 			{
@@ -61,8 +60,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig>
 					}
 				}
 
-			}
-			else
+			}else
 			{
 				break;
 			}

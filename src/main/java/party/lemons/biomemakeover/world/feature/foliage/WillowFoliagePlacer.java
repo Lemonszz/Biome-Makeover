@@ -28,21 +28,22 @@ public class WillowFoliagePlacer extends FoliagePlacer
 	protected final int height;
 	protected final boolean doWillows;
 
-	public WillowFoliagePlacer(UniformIntDistribution radius, UniformIntDistribution offset, int height, boolean doWillows) {
+	public WillowFoliagePlacer(UniformIntDistribution radius, UniformIntDistribution offset, int height, boolean doWillows)
+	{
 		super(radius, offset);
 		this.height = height;
 		this.doWillows = doWillows;
 	}
 
-	protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, FoliagePlacer.TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int offset, BlockBox box) {
+	protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, FoliagePlacer.TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int offset, BlockBox box)
+	{
 
 		for(int placeOffset = offset; placeOffset >= offset - foliageHeight; --placeOffset)
 		{
 			int baseHeight;
 			if(treeNode.getFoliageRadius() > 0)
-				baseHeight =  Math.max(radius + treeNode.getFoliageRadius() - 1 - placeOffset / 2, 0);
-			else
-				baseHeight = Math.max(radius + treeNode.getFoliageRadius() - placeOffset / 2, 0);
+				baseHeight = Math.max(radius + treeNode.getFoliageRadius() - 1 - placeOffset / 2, 0);
+			else baseHeight = Math.max(radius + treeNode.getFoliageRadius() - placeOffset / 2, 0);
 
 			this.generateSquare(world, random, config, treeNode.getCenter(), baseHeight, leaves, placeOffset, treeNode.isGiantTrunk(), box);
 		}
@@ -77,11 +78,8 @@ public class WillowFoliagePlacer extends FoliagePlacer
 						{
 							world.setBlockState(pos, BMBlocks.WILLOWING_BRANCHES.getDefaultState().with(WillowingBranchesBlock.STAGE, j).with(Properties.WATERLOGGED, water), 19);
 							pos.move(Direction.DOWN);
-						}
-						else
-							break;
-					}
-					else
+						}else break;
+					}else
 					{
 						break;
 					}
@@ -89,26 +87,31 @@ public class WillowFoliagePlacer extends FoliagePlacer
 			}
 	}
 
-	public int getRandomHeight(Random random, int trunkHeight, TreeFeatureConfig config) {
+	public int getRandomHeight(Random random, int trunkHeight, TreeFeatureConfig config)
+	{
 		return this.height;
 	}
 
 	protected boolean isInvalidForLeaves(Random random, int baseHeight, int dx, int dy, int dz, boolean giantTrunk)
 	{
-		if (baseHeight + dy >= 4) {
+		if(baseHeight + dy >= 4)
+		{
 			return true;
-		} else {
+		}else
+		{
 			return baseHeight * baseHeight + dy * dy > dz * dz;
 		}
 	}
 
-	protected FoliagePlacerType<?> getType() {
+	protected FoliagePlacerType<?> getType()
+	{
 		return BMWorldGen.WILLOW_FOLIAGE;
 	}
 
 	protected static <P extends WillowFoliagePlacer> Products.P4<RecordCodecBuilder.Mu<P>, UniformIntDistribution, UniformIntDistribution, Integer, Boolean> buildCodec(RecordCodecBuilder.Instance<P> instance)
 	{
-		return fillFoliagePlacerFields(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter((cdc) ->cdc.height)).and(Codec.BOOL.fieldOf("doWillows").forGetter((cdc)->cdc.doWillows));
+		return fillFoliagePlacerFields(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter((cdc)->cdc.height)).and(Codec.BOOL.fieldOf("doWillows").forGetter((cdc)->cdc.doWillows));
 	}
-	public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->buildCodec(instance).apply(instance, WillowFoliagePlacer::new));
+
+	public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create((instance)->buildCodec(instance).apply(instance, WillowFoliagePlacer::new));
 }

@@ -17,7 +17,8 @@ public class CowboyHatModel<T extends Entity> extends EntityModel<T> implements 
 	private final ModelPart bone;
 
 
-	public CowboyHatModel() {
+	public CowboyHatModel()
+	{
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -49,11 +50,13 @@ public class CowboyHatModel<T extends Entity> extends EntityModel<T> implements 
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+	public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+	{
 		head.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
-	public void setRotationAngle(ModelPart ModelPart, float x, float y, float z) {
+	public void setRotationAngle(ModelPart ModelPart, float x, float y, float z)
+	{
 		ModelPart.pitch = x;
 		ModelPart.yaw = y;
 		ModelPart.roll = z;

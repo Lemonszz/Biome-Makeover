@@ -19,8 +19,8 @@ import party.lemons.biomemakeover.world.WindSystem;
 
 public class TumbleweedEntity extends Entity
 {
-	public Quaternion quaternion = new Quaternion(0,0,0,1);
-	public Quaternion prevQuaternion = new Quaternion(0,0,0,1);
+	public Quaternion quaternion = new Quaternion(0, 0, 0, 1);
+	public Quaternion prevQuaternion = new Quaternion(0, 0, 0, 1);
 	private Vec3d prevVelocity;
 	private float xRot = 0;
 	private float zRot = 0;
@@ -41,11 +41,9 @@ public class TumbleweedEntity extends Entity
 	public void tick()
 	{
 		age++;
-		if(age > 1500)
-			kill();
+		if(age > 1500) kill();
 
-		if(!isTouchingWater())
-			this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
+		if(!isTouchingWater()) this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
 
 		super.tick();
 
@@ -82,22 +80,20 @@ public class TumbleweedEntity extends Entity
 				vZ *= 0.75F;
 				vY = 0.1F;
 			}
-		}
-		else
+		}else
 		{
 			if(onGround)
 			{
 				makeParticles(15);
 				xRot = (float) -(disX / 0.25D);
 				zRot = (float) (disZ / 0.25D);
-			}
-			else
+			}else
 			{
 				xRot = (float) -(disX / 0.6D);
 				zRot = (float) (disZ / 0.6D);
 			}
 
-			Quaternion rot = new Quaternion(zRot,0F, xRot, false);
+			Quaternion rot = new Quaternion(zRot, 0F, xRot, false);
 			rot.hamiltonProduct(quaternion);
 			quaternion = rot;
 		}
@@ -109,20 +105,19 @@ public class TumbleweedEntity extends Entity
 			velocityModified = true;
 		}
 
-		if((int)getX() == stuckX && (int)getZ() == stuckZ)
+		if((int) getX() == stuckX && (int) getZ() == stuckZ)
 		{
 			staticTime++;
 			if(staticTime >= 100)
 			{
 				kill();
 			}
-		}
-		else
+		}else
 		{
 			staticTime = 0;
 		}
-		stuckX = (int)getX();
-		stuckZ = (int)getZ();
+		stuckX = (int) getX();
+		stuckZ = (int) getZ();
 	}
 
 	@Override
@@ -139,7 +134,8 @@ public class TumbleweedEntity extends Entity
 	}
 
 	@Override
-	public boolean damage(DamageSource source, float amount) {
+	public boolean damage(DamageSource source, float amount)
+	{
 		if(source != DamageSource.CACTUS)
 		{
 			this.playSound(BMEffects.TUMBLEWEED_BREAK, 0.25F, 1.0F);
@@ -176,7 +172,8 @@ public class TumbleweedEntity extends Entity
 	}
 
 	@Override
-	public boolean collides() {
+	public boolean collides()
+	{
 		return !this.removed;
 	}
 
@@ -188,10 +185,8 @@ public class TumbleweedEntity extends Entity
 
 	private double step(double val, double target, double step)
 	{
-		if(val < target)
-			return Math.min(val + step, target);
-		else
-			return Math.max(val - step, target);
+		if(val < target) return Math.min(val + step, target);
+		else return Math.max(val - step, target);
 	}
 
 	@Override

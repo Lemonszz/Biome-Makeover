@@ -2,8 +2,6 @@ package party.lemons.biomemakeover.network;
 
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.PacketConsumer;
-import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -23,10 +21,10 @@ public class S2C_DoPoltergeightParticle implements ClientPlayNetworking.PlayChan
 		int y = data.readInt();
 		int z = data.readInt();
 
-		client.execute(()->{
+		client.execute(()->
+		{
 			ClientWorld world = MinecraftClient.getInstance().world;
-			if(world == null)
-				return;
+			if(world == null) return;
 
 			Random random = world.random;
 

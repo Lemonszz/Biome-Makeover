@@ -14,26 +14,30 @@ public class WitchTradeCriterion extends AbstractCriterion<WitchTradeCriterion.C
 {
 	private static final Identifier ID = BiomeMakeover.ID("witch_trade");
 
-	public Identifier getId() {
-			return ID;
+	public Identifier getId()
+	{
+		return ID;
 	}
 
 	public WitchTradeCriterion.Conditions conditionsFromJson(JsonObject jsonObject, EntityPredicate.Extended extended, AdvancementEntityPredicateDeserializer advancementEntityPredicateDeserializer)
-			{
-			return new WitchTradeCriterion.Conditions(extended);
-			}
+	{
+		return new WitchTradeCriterion.Conditions(extended);
+	}
 
 	public void trigger(ServerPlayerEntity player)
 	{
 		this.test(player, (conditions)->true);
 	}
+
 	public static class Conditions extends AbstractCriterionConditions
 	{
-		public Conditions(EntityPredicate.Extended player) {
+		public Conditions(EntityPredicate.Extended player)
+		{
 			super(WitchTradeCriterion.ID, player);
 		}
 
-		public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
+		public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer)
+		{
 			JsonObject jsonObject = super.toJson(predicateSerializer);
 			return jsonObject;
 		}

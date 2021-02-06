@@ -6,24 +6,19 @@ import java.util.Random;
 
 public enum QuestCategory
 {
-	COMMON(10),
-	RARE(1),
-	MUSHROOM(2),
-	FLOWER(5),
-	MESA(4),
-	SWAMP(7),
-	OCEAN(9),
-	JUNGLE(4),
-	NETHER(5);
+	COMMON(10), RARE(1), MUSHROOM(2), FLOWER(5), MESA(4), SWAMP(7), OCEAN(9), JUNGLE(4), NETHER(5);
 
 	public final int weight;
+
 	QuestCategory(int weight)
 	{
 		this.weight = weight;
 	}
 
-	private static WeightedList<QuestCategory> CATEGORIES = new WeightedList<>();
-	static {
+	private static final WeightedList<QuestCategory> CATEGORIES = new WeightedList<>();
+
+	static
+	{
 		for(QuestCategory category : QuestCategory.values())
 		{
 			CATEGORIES.add(category, category.weight);

@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.block.blockentity;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
 import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMEntities;

@@ -12,7 +12,9 @@ import java.util.Set;
 public class SignTypeMixin implements SignTypeHelper
 {
 
-	@Shadow @Final private static Set<SignType> VALUES;
+	@Shadow
+	@Final
+	private static Set<SignType> VALUES;
 
 	@Override
 	public Set<SignType> getTypes()

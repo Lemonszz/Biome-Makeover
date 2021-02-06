@@ -23,7 +23,9 @@ import java.util.Map;
 public class HatFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M>
 {
 	public static Map<Item, EntityModel> MODELS = Maps.newHashMap();
-	static{
+
+	static
+	{
 		MODELS.put(BMItems.COWBOY_HAT, new CowboyHatModel<>());
 		MODELS.put(BMItems.WITCH_HAT, new WitchHatModel<>());
 	}
@@ -40,9 +42,9 @@ public class HatFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>
 		if(!headSlot.isEmpty() && headSlot.getItem() instanceof HatItem)
 		{
 			matrices.push();
-			matrices.scale(1.05F,1.05F,1.05F);
+			matrices.scale(1.05F, 1.05F, 1.05F);
 			EntityModel hatModel = MODELS.get(headSlot.getItem());
-			((ModelWithHead)this.getContextModel()).getHead().rotate(matrices);
+			((ModelWithHead) this.getContextModel()).getHead().rotate(matrices);
 
 			VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, hatModel.getLayer(this.getTexture(entity)), true, false);
 			hatModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
@@ -55,7 +57,7 @@ public class HatFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>
 	{
 		if(!entity.getEquippedStack(EquipmentSlot.HEAD).isEmpty() && entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof HatItem)
 		{
-			return ((HatItem)entity.getEquippedStack(EquipmentSlot.HEAD).getItem()).getHatTexture();
+			return ((HatItem) entity.getEquippedStack(EquipmentSlot.HEAD).getItem()).getHatTexture();
 		}
 		return super.getTexture(entity);
 	}

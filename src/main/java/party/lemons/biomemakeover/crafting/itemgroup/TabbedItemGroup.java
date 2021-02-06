@@ -5,7 +5,6 @@ import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
@@ -37,8 +36,7 @@ public abstract class TabbedItemGroup extends ItemGroup
 	{
 		for(Item item : Registry.ITEM)
 		{
-			if(getSelectedTab().matches(item))
-				item.appendStacks(this, stacks);
+			if(getSelectedTab().matches(item)) item.appendStacks(this, stacks);
 		}
 	}
 
@@ -61,6 +59,7 @@ public abstract class TabbedItemGroup extends ItemGroup
 	{
 		this.selectedTab = selectedTab;
 	}
+
 	public int getSelectedTabIndex()
 	{
 		return selectedTab;

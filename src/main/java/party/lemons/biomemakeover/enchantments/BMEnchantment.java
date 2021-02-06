@@ -11,7 +11,6 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import party.lemons.biomemakeover.util.MathUtils;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,7 +32,7 @@ public class BMEnchantment extends Enchantment
 
 	public void onTick(LivingEntity entity, ItemStack stack, int level)
 	{
-		
+
 	}
 
 	protected void addAttributeModifier(EntityAttribute attribute, String uuid, double amount, EntityAttributeModifier.Operation operation)
@@ -44,8 +43,7 @@ public class BMEnchantment extends Enchantment
 
 	public boolean addAttributes(LivingEntity entity, ItemStack stack, EquipmentSlot slot, int level)
 	{
-		if(attributeModifiers.size() <= 0 || stack.isEmpty())
-			return false;
+		if(attributeModifiers.size() <= 0 || stack.isEmpty()) return false;
 
 		for(Map.Entry<EntityAttribute, EntityAttributeModifier> attributeEntry : this.attributeModifiers.entrySet())
 		{
@@ -61,8 +59,9 @@ public class BMEnchantment extends Enchantment
 		return true;
 	}
 
-	public double adjustModifierAmount(int amplifier, EntityAttributeModifier modifier) {
-		return modifier.getValue() * (double)(amplifier);
+	public double adjustModifierAmount(int amplifier, EntityAttributeModifier modifier)
+	{
+		return modifier.getValue() * (double) (amplifier);
 	}
 
 	public void removeAttributes(LivingEntity entity, EquipmentSlot slot)

@@ -1,20 +1,14 @@
 package party.lemons.biomemakeover.world.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FarmlandBlock;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.DiskFeature;
-import net.minecraft.world.gen.feature.DiskFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.RandomUtil;
@@ -29,14 +23,14 @@ public class PeatFeature extends Feature<DefaultFeatureConfig>
 		super(codec);
 	}
 
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig cfg) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig cfg)
+	{
 
 		boolean success = false;
 		int radius = RandomUtil.randomRange(4, 8);
 
 		BlockPos centerPos = new BlockPos(blockPos.getX(), 61, blockPos.getZ());
-		if(!isWaterNearby(world, centerPos))
-			return false;
+		if(!isWaterNearby(world, centerPos)) return false;
 
 		int placeCount = 0;
 		for(int xx = centerPos.getX() - radius; xx <= centerPos.getX() + radius; xx++)
@@ -45,7 +39,7 @@ public class PeatFeature extends Feature<DefaultFeatureConfig>
 			{
 				int offsetX = xx - centerPos.getX();
 				int offsetZ = zz - centerPos.getZ();
-				if (offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
+				if(offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
 				{
 					BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
 					BlockState upState = world.getBlockState(placePos.up());
@@ -96,17 +90,20 @@ public class PeatFeature extends Feature<DefaultFeatureConfig>
 		}
 	}
 
-	private static boolean isWaterNearby(WorldView world, BlockPos pos) {
+	private static boolean isWaterNearby(WorldView world, BlockPos pos)
+	{
 		Iterator<BlockPos> iterators = BlockPos.iterate(pos.add(-3, 0, -3), pos.add(3, 1, 3)).iterator();
 
 		BlockPos blockPos;
-		do {
-			if (!iterators.hasNext()) {
+		do
+		{
+			if(!iterators.hasNext())
+			{
 				return false;
 			}
 
 			blockPos = iterators.next();
-		} while(!world.getFluidState(blockPos).isIn(FluidTags.WATER));
+		}while(!world.getFluidState(blockPos).isIn(FluidTags.WATER));
 
 		return true;
 	}

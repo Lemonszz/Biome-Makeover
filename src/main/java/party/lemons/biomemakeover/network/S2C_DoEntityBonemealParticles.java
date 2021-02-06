@@ -19,12 +19,14 @@ public class S2C_DoEntityBonemealParticles implements ClientPlayNetworking.PlayC
 		double y = buf.readDouble();
 		double z = buf.readDouble();
 
-		client.execute(()->{
+		client.execute(()->
+		{
 
 			client.world.addParticle(ParticleTypes.HAPPY_VILLAGER, x, y, z, 0.0D, 0.0D, 0.0D);
 			Random random = client.world.random;
 
-			for(int i = 0; i < 15; ++i) {
+			for(int i = 0; i < 15; ++i)
+			{
 				double vX = random.nextGaussian() * 0.02D;
 				double vY = random.nextGaussian() * 0.02D;
 				double vZ = random.nextGaussian() * 0.02D;

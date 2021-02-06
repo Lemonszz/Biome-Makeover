@@ -40,24 +40,27 @@ public class TadpoleEntity extends FishEntity
 				ToadEntity toad = BMEntities.TOAD.create(world);
 				toad.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), bodyYaw, pitch);
 				toad.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 200, 0));
-				((ServerWorld)world).spawnEntityAndPassengers(toad);
+				((ServerWorld) world).spawnEntityAndPassengers(toad);
 
 				remove();
 			}
 		}
 	}
 
-	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+	public ActionResult interactMob(PlayerEntity player, Hand hand)
+	{
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WINGS)
+		if(!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WINGS)
 		{
-			if (this.isBaby()) {
+			if(this.isBaby())
+			{
 				itemStack.decrement(1);
 				this.growUp(Math.abs(babyTime / 20));
 				return ActionResult.success(this.world.isClient);
 			}
 
-			if (this.world.isClient) {
+			if(this.world.isClient)
+			{
 				return ActionResult.CONSUME;
 			}
 		}
@@ -65,7 +68,8 @@ public class TadpoleEntity extends FishEntity
 		return super.interactMob(player, hand);
 	}
 
-	public void growUp(int age) {
+	public void growUp(int age)
+	{
 		babyTime += age;
 	}
 
@@ -76,7 +80,8 @@ public class TadpoleEntity extends FishEntity
 	}
 
 	@Override
-	public boolean isBaby() {
+	public boolean isBaby()
+	{
 		return babyTime < 0;
 	}
 
@@ -91,8 +96,7 @@ public class TadpoleEntity extends FishEntity
 	public void readCustomDataFromTag(CompoundTag tag)
 	{
 		super.readCustomDataFromTag(tag);
-		if(tag.contains("BabyTime"))
-			babyTime = tag.getInt("BabyTime");
+		if(tag.contains("BabyTime")) babyTime = tag.getInt("BabyTime");
 	}
 
 	@Override
@@ -111,8 +115,7 @@ public class TadpoleEntity extends FishEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
+			attributeContainer = new AttributeContainer(MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).build());
 		return attributeContainer;
 	}
 }

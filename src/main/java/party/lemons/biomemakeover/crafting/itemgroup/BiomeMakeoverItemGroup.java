@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.crafting.itemgroup;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.init.BMBlocks;

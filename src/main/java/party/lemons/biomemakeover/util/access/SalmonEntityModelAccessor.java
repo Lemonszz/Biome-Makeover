@@ -4,5 +4,5 @@ import net.minecraft.client.model.ModelPart;
 
 public interface SalmonEntityModelAccessor
 {
-    ModelPart getTail();
+	ModelPart getTail();
 }

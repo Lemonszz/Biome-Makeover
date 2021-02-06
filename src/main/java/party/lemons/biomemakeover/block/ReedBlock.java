@@ -13,7 +13,8 @@ public class ReedBlock extends WaterTallFlowerBlock
 		super(settings);
 	}
 
-	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state)
+	{
 		return false;
 	}
 }

@@ -10,7 +10,8 @@ import party.lemons.biomemakeover.util.access.WorldRendererAccess;
 @Mixin(WorldRenderer.class)
 public abstract class WorldRendererMixin implements WorldRendererAccess
 {
-	@Shadow private int cameraChunkX;
+	@Shadow
+	private int cameraChunkX;
 
 	@Shadow
 	protected abstract Particle spawnParticle(ParticleEffect parameters, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double velocityX, double velocityY, double velocityZ);

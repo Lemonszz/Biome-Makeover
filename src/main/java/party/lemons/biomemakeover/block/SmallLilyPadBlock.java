@@ -3,9 +3,10 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LilyPadBlock;
-import net.minecraft.block.SeaPickleBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.LilyPadItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
@@ -16,7 +17,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
 public class SmallLilyPadBlock extends LilyPadBlock implements BlockWithItem
@@ -37,8 +37,7 @@ public class SmallLilyPadBlock extends LilyPadBlock implements BlockWithItem
 		if(world.canPlayerModifyAt(player, pos) && state.get(PADS) < 3 && !stack.isEmpty() && stack.getItem() == BMBlocks.SMALL_LILY_PAD.asItem())
 		{
 			world.setBlockState(pos, state.with(PADS, state.get(PADS) + 1));
-			if(!player.isCreative())
-				stack.decrement(1);
+			if(!player.isCreative()) stack.decrement(1);
 
 			BlockSoundGroup blockSoundGroup = state.getSoundGroup();
 			world.playSound(player, pos, state.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, (blockSoundGroup.getVolume() + 1.0F) / 2.0F, blockSoundGroup.getPitch() * 0.8F);

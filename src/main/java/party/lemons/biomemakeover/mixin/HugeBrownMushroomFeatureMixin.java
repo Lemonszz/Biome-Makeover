@@ -33,32 +33,27 @@ public class HugeBrownMushroomFeatureMixin
 				boolean isMaxZ = zz == size;
 				boolean isXCorner = isMinX || isMaxX;
 				boolean isZCorner = isMinZ || isMaxZ;
-				if (!isXCorner || !isZCorner) {
+				if(!isXCorner || !isZCorner)
+				{
 					mutable.set(start, xx, y, zz);
-					if (!world.getBlockState(mutable).isOpaqueFullCube(world, mutable)) {
+					if(!world.getBlockState(mutable).isOpaqueFullCube(world, mutable))
+					{
 						boolean isWest = isMinX || isZCorner && xx == 1 - size;
 						boolean isEast = isMaxX || isZCorner && xx == size - 1;
 						boolean isNorth = isMinZ || isXCorner && zz == 1 - size;
 						boolean isSouth = isMaxZ || isXCorner && zz == size - 1;
 						boolean isMiddle = xx > -size && xx < size && zz > -size && zz < size;
 
-						BlockState st = config.capProvider.getBlockState(random, start)
-								.with(MushroomBlock.WEST, isWest)
-								.with(MushroomBlock.EAST, isEast)
-								.with(MushroomBlock.NORTH, isNorth)
-								.with(MushroomBlock.SOUTH, isSouth)
-								.with(MushroomBlock.UP, !isMiddle || isFlat);
+						BlockState st = config.capProvider.getBlockState(random, start).with(MushroomBlock.WEST, isWest).with(MushroomBlock.EAST, isEast).with(MushroomBlock.NORTH, isNorth).with(MushroomBlock.SOUTH, isSouth).with(MushroomBlock.UP, !isMiddle || isFlat);
 
 						world.setBlockState(mutable, st, 3);
 
 						if(!isFlat)
 						{
-							if(isMiddle) world.setBlockState(mutable.up(), config.capProvider.getBlockState(random, start), 3);
-							else world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start)
-									.with(MushroomBlock.WEST, isWest)
-									.with(MushroomBlock.EAST, isEast)
-									.with(MushroomBlock.NORTH, isNorth)
-									.with(MushroomBlock.SOUTH, isSouth), 3);
+							if(isMiddle)
+								world.setBlockState(mutable.up(), config.capProvider.getBlockState(random, start), 3);
+							else
+								world.setBlockState(mutable.down(), config.capProvider.getBlockState(random, start).with(MushroomBlock.WEST, isWest).with(MushroomBlock.EAST, isEast).with(MushroomBlock.NORTH, isNorth).with(MushroomBlock.SOUTH, isSouth), 3);
 						}
 					}
 				}

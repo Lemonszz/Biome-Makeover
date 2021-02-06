@@ -25,32 +25,33 @@ public class MesermiteBoulderFeature extends Feature<SingleStateFeatureConfig>
 	{
 		for(; blockPos.getY() > 3; blockPos = blockPos.down())
 		{
-			if (!world.isAir(blockPos.down())) {
+			if(!world.isAir(blockPos.down()))
+			{
 				Block block = world.getBlockState(blockPos.down()).getBlock();
-				if (isSoil(block) || isStone(block)) {
+				if(isSoil(block) || isStone(block))
+				{
 					break;
 				}
 			}
 		}
 
-		if (blockPos.getY() <= 3)
+		if(blockPos.getY() <= 3)
 		{
 			return false;
-		}
-		else
+		}else
 		{
 			for(int i = 0; i < 10; ++i)
 			{
 				int xSize = random.nextInt(3);
 				int ySize = random.nextInt(4);
 				int zSize = random.nextInt(3);
-				float distance = (float)(xSize + ySize + zSize) * 0.333F + 0.5F;
+				float distance = (float) (xSize + ySize + zSize) * 0.333F + 0.5F;
 				Iterator it = BlockPos.iterate(blockPos.add(-xSize, -ySize, -zSize), blockPos.add(xSize, ySize, zSize)).iterator();
 
 				while(it.hasNext())
 				{
-					BlockPos placePos = (BlockPos)it.next();
-					if (placePos.getSquaredDistance(blockPos) <= (double)(distance * distance))
+					BlockPos placePos = (BlockPos) it.next();
+					if(placePos.getSquaredDistance(blockPos) <= (double) (distance * distance))
 					{
 						world.setBlockState(placePos, cfg.state, 4);
 

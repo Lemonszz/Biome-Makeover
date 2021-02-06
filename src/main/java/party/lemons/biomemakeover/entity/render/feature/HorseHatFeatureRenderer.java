@@ -30,7 +30,7 @@ public class HorseHatFeatureRenderer<M extends EntityModel<HorseEntity>> extends
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, HorseEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch)
 	{
-		if(((HorseHat)entity).hasHat())
+		if(((HorseHat) entity).hasHat())
 		{
 			matrices.scale(1.05F, 1.05F, 1.05F);
 			CowboyHatModel<HorseEntity> hatModel = new CowboyHatModel<>();

@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 
 public class VanillaBoatType extends BoatType
 {
-	private BoatEntity.Type vanillaType;
+	private final BoatEntity.Type vanillaType;
 
 	public VanillaBoatType(Identifier id, BoatEntity.Type type, Item boatitem)
 	{

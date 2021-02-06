@@ -39,7 +39,8 @@ public class CowboyEntity extends PillagerEntity
 	}
 
 	@Override
-	protected void initGoals() {
+	protected void initGoals()
+	{
 		this.goalSelector.add(4, new PatrolEntity.PatrolGoal<>(this, 1D, 0.8D));
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(2, new RaiderEntity.PatrolApproachGoal(this, 10.0F));
@@ -60,12 +61,12 @@ public class CowboyEntity extends PillagerEntity
 	{
 		super.tick();
 
-		if(getVehicle() != null)
-			getVehicle().yaw = yaw;
+		if(getVehicle() != null) getVehicle().yaw = yaw;
 	}
 
 	@Override
-	protected void initEquipment(LocalDifficulty difficulty) {
+	protected void initEquipment(LocalDifficulty difficulty)
+	{
 		super.initEquipment(difficulty);
 
 		this.equipStack(EquipmentSlot.HEAD, new ItemStack(BMItems.COWBOY_HAT));
@@ -75,25 +76,19 @@ public class CowboyEntity extends PillagerEntity
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData, CompoundTag entityTag)
 	{
 		EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
-		if (this.isPatrolLeader()) {
+		if(this.isPatrolLeader())
+		{
 			this.equipStack(EquipmentSlot.HEAD, getOminousBanner());
 			this.setEquipmentDropChance(EquipmentSlot.HEAD, 2.0F);
 		}
 		return data;
 	}
 
-	public static ItemStack getOminousBanner() {
+	public static ItemStack getOminousBanner()
+	{
 		ItemStack itemStack = new ItemStack(Items.WHITE_BANNER);
 		CompoundTag compoundTag = itemStack.getOrCreateSubTag("BlockEntityTag");
-		ListTag listTag = (new BannerPattern.Patterns())
-				.add(BannerPattern.RHOMBUS_MIDDLE, DyeColor.CYAN)
-				.add(BannerPattern.STRIPE_BOTTOM, DyeColor.RED)
-				.add(BannerPattern.HALF_HORIZONTAL, DyeColor.BROWN)
-				.add(BannerPattern.TRIANGLES_TOP, DyeColor.BLACK)
-				.add(BannerPattern.BORDER, DyeColor.BLACK)
-				.add(BannerPattern.CIRCLE_MIDDLE, DyeColor.LIGHT_GRAY)
-				.add(BannerPattern.STRIPE_MIDDLE, DyeColor.BROWN)
-				.toTag();
+		ListTag listTag = (new BannerPattern.Patterns()).add(BannerPattern.RHOMBUS_MIDDLE, DyeColor.CYAN).add(BannerPattern.STRIPE_BOTTOM, DyeColor.RED).add(BannerPattern.HALF_HORIZONTAL, DyeColor.BROWN).add(BannerPattern.TRIANGLES_TOP, DyeColor.BLACK).add(BannerPattern.BORDER, DyeColor.BLACK).add(BannerPattern.CIRCLE_MIDDLE, DyeColor.LIGHT_GRAY).add(BannerPattern.STRIPE_MIDDLE, DyeColor.BROWN).toTag();
 		compoundTag.put("Patterns", listTag);
 		itemStack.addHideFlag(ItemStack.TooltipSection.ADDITIONAL);
 		itemStack.setCustomName((new TranslatableText("block.minecraft.ominous_banner")).formatted(Formatting.GOLD));
@@ -104,8 +99,7 @@ public class CowboyEntity extends PillagerEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer =  new AttributeContainer(
-					PillagerEntity.createPillagerAttributes().build());
+			attributeContainer = new AttributeContainer(PillagerEntity.createPillagerAttributes().build());
 		return attributeContainer;
 	}
 }

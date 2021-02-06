@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.entity.render.feature;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.OwlEntity;
 import party.lemons.biomemakeover.entity.render.OwlEntityModel;

@@ -3,8 +3,8 @@ package party.lemons.biomemakeover.init;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.screen.ScreenHandlerType;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.gui.AltarScreenHandler;
 import party.lemons.biomemakeover.crafting.witch.screen.WitchScreenHandler;
+import party.lemons.biomemakeover.gui.AltarScreenHandler;
 
 public class BMScreens
 {

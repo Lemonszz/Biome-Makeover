@@ -10,11 +10,13 @@ import party.lemons.biomemakeover.util.access.SalmonEntityModelAccessor;
 @Mixin(SalmonEntityModel.class)
 public class SalmonEntityModelMixin implements SalmonEntityModelAccessor
 {
-    @Shadow @Final public ModelPart tail;
+	@Shadow
+	@Final
+	public ModelPart tail;
 
-    @Override
-    public ModelPart getTail()
-    {
-        return tail;
-    }
+	@Override
+	public ModelPart getTail()
+	{
+		return tail;
+	}
 }

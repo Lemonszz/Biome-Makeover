@@ -32,16 +32,16 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 		if(group instanceof TabbedItemGroup)
 		{
 			TabbedItemGroup tGroup = (TabbedItemGroup) group;
-			if(!tGroup.hasInitialized())
-				tGroup.initialize();
+			if(!tGroup.hasInitialized()) tGroup.initialize();
 
 			for(int i = 0; i < tGroup.getTabs().size(); i++)
 			{
 				int selectTab = i;
-				ItemGroupTabWidget b = new ItemGroupTabWidget(x - 24, (y + 12) + (i * 24), tGroup.getTabs().get(i), (btn)->{
+				ItemGroupTabWidget b = new ItemGroupTabWidget(x - 24, (y + 12) + (i * 24), tGroup.getTabs().get(i), (btn)->
+				{
 					tGroup.setSelectedTab(selectTab);
 					MinecraftClient.getInstance().openScreen(this);
-					((ItemGroupTabWidget)btn).isSelected = true;
+					((ItemGroupTabWidget) btn).isSelected = true;
 					selectedSubtab = (ItemGroupTabWidget) btn;
 				});
 
@@ -60,7 +60,8 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 	@Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V")
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta, CallbackInfo cbi)
 	{
-		tabButtons.forEach(b->{
+		tabButtons.forEach(b->
+		{
 			if(b.isHovered())
 			{
 				renderTooltip(matrixStack, b.getMessage(), mouseX, mouseY);

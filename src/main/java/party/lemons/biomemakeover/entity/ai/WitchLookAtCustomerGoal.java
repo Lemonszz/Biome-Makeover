@@ -9,16 +9,20 @@ public class WitchLookAtCustomerGoal extends LookAtEntityGoal
 {
 	private final WitchQuestEntity witch;
 
-	public WitchLookAtCustomerGoal(WitchEntity witch) {
+	public WitchLookAtCustomerGoal(WitchEntity witch)
+	{
 		super(witch, PlayerEntity.class, 8.0F);
 		this.witch = (WitchQuestEntity) witch;
 	}
 
-	public boolean canStart() {
-		if (this.witch.hasCustomer()) {
+	public boolean canStart()
+	{
+		if(this.witch.hasCustomer())
+		{
 			this.target = this.witch.getCurrentCustomer();
 			return true;
-		} else {
+		}else
+		{
 			return false;
 		}
 	}

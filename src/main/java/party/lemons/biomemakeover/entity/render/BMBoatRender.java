@@ -1,8 +1,6 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.google.common.collect.Maps;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -22,30 +20,35 @@ import java.util.Map;
 
 public class BMBoatRender extends EntityRenderer<BMBoatEntity>
 {
-	private Map<BoatType, Identifier> textures = Maps.newHashMap();
+	private final Map<BoatType, Identifier> textures = Maps.newHashMap();
 	protected final BoatEntityModel model = new BoatEntityModel();
 
-	public BMBoatRender(EntityRenderDispatcher dispatcher) {
+	public BMBoatRender(EntityRenderDispatcher dispatcher)
+	{
 		super(dispatcher);
 		this.shadowRadius = 0.8F;
 	}
 
-	public void render(BMBoatEntity boatEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+	public void render(BMBoatEntity boatEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i)
+	{
 		matrixStack.push();
 		matrixStack.translate(0.0D, 0.375D, 0.0D);
 		matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F - f));
-		float h = (float)boatEntity.getDamageWobbleTicks() - g;
+		float h = (float) boatEntity.getDamageWobbleTicks() - g;
 		float j = boatEntity.getDamageWobbleStrength() - g;
-		if (j < 0.0F) {
+		if(j < 0.0F)
+		{
 			j = 0.0F;
 		}
 
-		if (h > 0.0F) {
-			matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(MathHelper.sin(h) * h * j / 10.0F * (float)boatEntity.getDamageWobbleSide()));
+		if(h > 0.0F)
+		{
+			matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(MathHelper.sin(h) * h * j / 10.0F * (float) boatEntity.getDamageWobbleSide()));
 		}
 
 		float k = boatEntity.interpolateBubbleWobble(g);
-		if (!MathHelper.approximatelyEquals(k, 0.0F)) {
+		if(!MathHelper.approximatelyEquals(k, 0.0F))
+		{
 			matrixStack.multiply(new Quaternion(new Vector3f(1.0F, 0.0F, 1.0F), boatEntity.interpolateBubbleWobble(g), true));
 		}
 
@@ -65,8 +68,7 @@ public class BMBoatRender extends EntityRenderer<BMBoatEntity>
 	{
 		BoatType type = boatEntity.getNewBoatType();
 
-		if(textures.containsKey(type))
-			return textures.get(type);
+		if(textures.containsKey(type)) return textures.get(type);
 		else
 		{
 			Identifier texture = type.getTexture();

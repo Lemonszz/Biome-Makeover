@@ -52,7 +52,8 @@ public class TadpoleEntityModel extends CompositeEntityModel<TadpoleEntity>
 	public void setAngles(TadpoleEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
 		float f = 1.0F;
-		if (!entity.isTouchingWater()) {
+		if(!entity.isTouchingWater())
+		{
 			f = 1.5F;
 		}
 
@@ -67,7 +68,8 @@ public class TadpoleEntityModel extends CompositeEntityModel<TadpoleEntity>
 		return ImmutableList.of(body);
 	}
 
-	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z)
+	{
 		modelRenderer.pitch = x;
 		modelRenderer.yaw = y;
 		modelRenderer.roll = z;

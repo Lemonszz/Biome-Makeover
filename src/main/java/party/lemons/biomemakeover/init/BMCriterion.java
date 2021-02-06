@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.advancement.CriterionRegistry;
-import net.minecraft.advancement.criterion.CriterionConditions;
 import party.lemons.biomemakeover.util.criterion.*;
 
 public class BMCriterion

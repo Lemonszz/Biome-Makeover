@@ -16,18 +16,21 @@ import party.lemons.biomemakeover.util.access.BatEntityModelAccessor;
 
 public class BlightbatFeatureRenderer extends FeatureRenderer<BatEntity, EntityModel<BatEntity>>
 {
-	public BlightbatFeatureRenderer(FeatureRendererContext<BatEntity, EntityModel<BatEntity>> context) {
+	public BlightbatFeatureRenderer(FeatureRendererContext<BatEntity, EntityModel<BatEntity>> context)
+	{
 		super(context);
 	}
 
-	public void render(MatrixStack ms, VertexConsumerProvider vcp, int i, BatEntity e, float f, float g, float h, float j, float k, float l) {
-		if (!e.isBaby() && !e.isInvisible()) {
+	public void render(MatrixStack ms, VertexConsumerProvider vcp, int i, BatEntity e, float f, float g, float h, float j, float k, float l)
+	{
+		if(!e.isBaby() && !e.isInvisible())
+		{
 			BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
 			BlockState shroom = BMBlocks.PURPLE_GLOWSHROOM.getDefaultState();
 			int m = LivingEntityRenderer.getOverlay(e, 0.0F);
 
 			ms.push();
-			((BatEntityModelAccessor)this.getContextModel()).getHead().rotate(ms);
+			((BatEntityModelAccessor) this.getContextModel()).getHead().rotate(ms);
 			ms.translate(0.0D, -0.7, 0);
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
 			ms.scale(-1.0F, -1.0F, 1.0F);

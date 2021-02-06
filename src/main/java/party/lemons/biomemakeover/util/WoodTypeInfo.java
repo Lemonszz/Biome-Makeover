@@ -6,9 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.item.SignItem;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.registry.Registry;
@@ -177,22 +175,7 @@ public class WoodTypeInfo
 
 	public enum Type
 	{
-		LOG("","log", true),
-		WOOD("", "wood", true),
-		PLANK("", "planks", true),
-		STRIPPED_LOG("stripped", "log", true),
-		STRIPPED_WOOD("stripped", "wood", true),
-		SLAB("", "slab", true),
-		STAIR("", "stairs", true),
-		FENCE("", "fence", true),
-		FENCE_GATE("", "fence_gate", true),
-		PRESSURE_PLATE("", "pressure_plate", true),
-		BUTTON("", "button", true),
-		TRAP_DOOR("", "trapdoor", true),
-		DOOR("", "door", true),
-		SIGN("", "sign", false),
-		SIGN_WALL("", "wall_sign", false),
-		BOAT("", "boat", true);
+		LOG("", "log", true), WOOD("", "wood", true), PLANK("", "planks", true), STRIPPED_LOG("stripped", "log", true), STRIPPED_WOOD("stripped", "wood", true), SLAB("", "slab", true), STAIR("", "stairs", true), FENCE("", "fence", true), FENCE_GATE("", "fence_gate", true), PRESSURE_PLATE("", "pressure_plate", true), BUTTON("", "button", true), TRAP_DOOR("", "trapdoor", true), DOOR("", "door", true), SIGN("", "sign", false), SIGN_WALL("", "wall_sign", false), BOAT("", "boat", true);
 
 		private final String postfix;
 		private final String prefix;
@@ -215,13 +198,11 @@ public class WoodTypeInfo
 		public Identifier make(String name)
 		{
 			String s = "";
-			if(!prefix.isEmpty())
-				s += prefix + "_";
+			if(!prefix.isEmpty()) s += prefix + "_";
 
 			s += name;
 
-			if(!postfix.isEmpty())
-				s += "_" + postfix;
+			if(!postfix.isEmpty()) s += "_" + postfix;
 
 			return BiomeMakeover.ID(s);
 		}

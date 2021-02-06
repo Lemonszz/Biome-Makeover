@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -41,13 +40,15 @@ public class AltarScreenHandler extends ScreenHandler
 
 		//Player Inventory
 		int x, y;
-		for (y = 0; y < 3; ++y)
+		for(y = 0; y < 3; ++y)
 		{
-			for (x = 0; x < 9; ++x) {
+			for(x = 0; x < 9; ++x)
+			{
 				this.addSlot(new Slot(playerInventory, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
 			}
 		}
-		for (y = 0; y < 9; ++y) {
+		for(y = 0; y < 9; ++y)
+		{
 			this.addSlot(new Slot(playerInventory, y, 8 + y * 18, 142));
 		}
 	}
@@ -59,32 +60,26 @@ public class AltarScreenHandler extends ScreenHandler
 	}
 
 	@Override
-	public ItemStack transferSlot(PlayerEntity player, int index) {
+	public ItemStack transferSlot(PlayerEntity player, int index)
+	{
 		ItemStack stackCopy = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
-		if (slot != null && slot.hasStack())
+		if(slot != null && slot.hasStack())
 		{
 			ItemStack moveStack = slot.getStack();
 			stackCopy = moveStack.copy();
-			if (index == 0)
+			if(index == 0)
 			{
-				if (!this.insertItem(moveStack, 2, 38, true))
-					return ItemStack.EMPTY;
-			}
-			else if (index == 1)
+				if(!this.insertItem(moveStack, 2, 38, true)) return ItemStack.EMPTY;
+			}else if(index == 1)
 			{
-				if (!this.insertItem(moveStack, 2, 38, true))
-					return ItemStack.EMPTY;
-			}
-			else if (moveStack.getItem().isIn(BMItems.CURSE_FUEL))
+				if(!this.insertItem(moveStack, 2, 38, true)) return ItemStack.EMPTY;
+			}else if(moveStack.getItem().isIn(BMItems.CURSE_FUEL))
 			{
-				if (!this.insertItem(moveStack, 1, 2, true))
-					return ItemStack.EMPTY;
-			}
-			else
+				if(!this.insertItem(moveStack, 1, 2, true)) return ItemStack.EMPTY;
+			}else
 			{
-				if (this.slots.get(0).hasStack() || !this.slots.get(0).canInsert(moveStack))
-					return ItemStack.EMPTY;
+				if(this.slots.get(0).hasStack() || !this.slots.get(0).canInsert(moveStack)) return ItemStack.EMPTY;
 
 				ItemStack finalStack = moveStack.copy();
 				finalStack.setCount(1);
@@ -92,12 +87,11 @@ public class AltarScreenHandler extends ScreenHandler
 				this.slots.get(0).setStack(finalStack);
 			}
 
-			if (moveStack.isEmpty())
-				slot.setStack(ItemStack.EMPTY);
-			else
-				slot.markDirty();
+			if(moveStack.isEmpty()) slot.setStack(ItemStack.EMPTY);
+			else slot.markDirty();
 
-			if (moveStack.getCount() == stackCopy.getCount()) {
+			if(moveStack.getCount() == stackCopy.getCount())
+			{
 				return ItemStack.EMPTY;
 			}
 			slot.onTakeItem(player, moveStack);
@@ -105,6 +99,7 @@ public class AltarScreenHandler extends ScreenHandler
 
 		return stackCopy;
 	}
+
 	public int getProgress()
 	{
 		return properties.get(0);
@@ -124,7 +119,8 @@ public class AltarScreenHandler extends ScreenHandler
 		}
 
 		@Override
-		public int getMaxItemCount() {
+		public int getMaxItemCount()
+		{
 			return 1;
 		}
 	}

@@ -31,19 +31,16 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 			case 2:
 				if(layout.get(Direction.SOUTH) && layout.get(Direction.NORTH))
 					return offsetPos.add(-2, 0, 0); /* GOOD */
-				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
-					return offsetPos.add(-2, 0, -2);
+				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST)) return offsetPos.add(-2, 0, -2);
 				else if(layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
 					return offsetPos.add(12, 0, -2); /*GOOOD */
 				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST))
 					return offsetPos.add(0, 0, 12); /* GOOD */
-				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST))
-					return offsetPos.add(-2, 0, 12);
-				else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST))
-					return offsetPos.add(12, 0, 12);
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST)) return offsetPos.add(-2, 0, 12);
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST)) return offsetPos.add(12, 0, 12);
 			case 3:
 				if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
-					return offsetPos.add(12,0, 10);
+					return offsetPos.add(12, 0, 10);
 				else if(layout.get(Direction.NORTH) && layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
 					return offsetPos.add(-2, 0, 0);
 				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST) && layout.get(Direction.WEST))
@@ -70,11 +67,9 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 				ids = MansionFeature.ROOF_1;
 				break;
 			case 2:
-				if( (layout.get(Direction.NORTH) && layout.get(Direction.SOUTH)) ||
-						(layout.get(Direction.EAST) && layout.get(Direction.WEST)))
+				if((layout.get(Direction.NORTH) && layout.get(Direction.SOUTH)) || (layout.get(Direction.EAST) && layout.get(Direction.WEST)))
 					ids = MansionFeature.ROOF_2_STRAIGHT;
-				else
-					ids = MansionFeature.ROOF_2;
+				else ids = MansionFeature.ROOF_2;
 				break;
 			case 3:
 				ids = MansionFeature.ROOF_3;
@@ -100,12 +95,13 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 				else if(layout.get(Direction.WEST)) return BlockRotation.COUNTERCLOCKWISE_90;
 			case 2:
 				if(layout.get(Direction.SOUTH) && layout.get(Direction.NORTH)) return BlockRotation.NONE;
-				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST))
-					return BlockRotation.NONE; // !
+				else if(layout.get(Direction.SOUTH) && layout.get(Direction.EAST)) return BlockRotation.NONE; // !
 				else if(layout.get(Direction.SOUTH) && layout.get(Direction.WEST))
 					return BlockRotation.CLOCKWISE_90; // ~
-				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST)) return BlockRotation.COUNTERCLOCKWISE_90;
-				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST)) return BlockRotation.COUNTERCLOCKWISE_90;
+				else if(layout.get(Direction.EAST) && layout.get(Direction.WEST))
+					return BlockRotation.COUNTERCLOCKWISE_90;
+				else if(layout.get(Direction.NORTH) && layout.get(Direction.EAST))
+					return BlockRotation.COUNTERCLOCKWISE_90;
 				else if(layout.get(Direction.NORTH) && layout.get(Direction.WEST))
 					return BlockRotation.CLOCKWISE_180; //~ !!
 			case 3:

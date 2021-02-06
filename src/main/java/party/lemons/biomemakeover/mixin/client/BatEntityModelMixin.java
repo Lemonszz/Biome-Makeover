@@ -10,10 +10,13 @@ import party.lemons.biomemakeover.util.access.BatEntityModelAccessor;
 @Mixin(BatEntityModel.class)
 public class BatEntityModelMixin implements BatEntityModelAccessor
 {
-    @Shadow @Final public ModelPart head;
+	@Shadow
+	@Final
+	public ModelPart head;
 
-    @Override
-    public ModelPart getHead() {
-        return head;
-    }
+	@Override
+	public ModelPart getHead()
+	{
+		return head;
+	}
 }

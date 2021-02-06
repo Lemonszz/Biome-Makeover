@@ -2,7 +2,6 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.BiomeMakeover;

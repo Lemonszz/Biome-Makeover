@@ -3,12 +3,9 @@ package party.lemons.biomemakeover.world.feature.foliage;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.ModifiableTestableWorld;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
@@ -24,17 +21,20 @@ import java.util.Set;
 
 public class AncientOakTrunkPlacer extends TrunkPlacer
 {
-	public static final Codec<AncientOakTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->method_28904(instance).apply(instance, AncientOakTrunkPlacer::new));
+	public static final Codec<AncientOakTrunkPlacer> CODEC = RecordCodecBuilder.create((instance)->method_28904(instance).apply(instance, AncientOakTrunkPlacer::new));
 
-	public AncientOakTrunkPlacer(int i, int j, int k) {
+	public AncientOakTrunkPlacer(int i, int j, int k)
+	{
 		super(i, j, k);
 	}
 
-	protected TrunkPlacerType<?> getType() {
+	protected TrunkPlacerType<?> getType()
+	{
 		return BMWorldGen.ANCIENT_OAK_TRUNK;
 	}
 
-	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> placedStates, BlockBox box, TreeFeatureConfig config) {
+	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> placedStates, BlockBox box, TreeFeatureConfig config)
+	{
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
 		BlockPos blockPos = pos.down();
 		setToDirt(world, blockPos);
@@ -43,7 +43,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 		setToDirt(world, blockPos.south().east());
 
 		int knobSpot = Math.max(5, (trunkHeight / 2) - random.nextInt(4));
-	//	int knobCount = 2 - random.nextInt(3);
+		//	int knobCount = 2 - random.nextInt(3);
 		int knobCount = 1;
 		int x = pos.getX();
 		int y = pos.getY();
@@ -103,14 +103,12 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 			if(lastDirection == null)
 			{
 				direction = HorizontalDirection.random(random);
-				while(directions.contains(direction))
-					direction = HorizontalDirection.random(random);
+				while(directions.contains(direction)) direction = HorizontalDirection.random(random);
 
 				directions.add(direction);
 				directions.add(direction.opposite());
 				lastDirection = direction;
-			}
-			else
+			}else
 			{
 				direction = lastDirection.opposite();
 				lastDirection = null;
@@ -119,7 +117,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 			int genZ = foliageZ + direction.z;
 			int yy;
 			int offsetCount = 0;
-			for(yy = branchY; yy < trunkHeight - 5 +  random.nextInt(4); ++yy)
+			for(yy = branchY; yy < trunkHeight - 5 + random.nextInt(4); ++yy)
 			{
 				int placeGenY = genY + yy;
 				BlockPos placePos2 = new BlockPos(genX, placeGenY, genZ);
@@ -138,14 +136,12 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 					{
 						genX += direction.x;
 						genZ += direction.z;
-					}
-					else
+					}else
 					{
 						if(yy % 2 == 0)
 						{
 							genX += direction.x;
-						}
-						else
+						}else
 						{
 							genZ += direction.z;
 						}

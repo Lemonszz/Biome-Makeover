@@ -15,12 +15,15 @@ public class GlowshroomPlantBlock extends BMMushroomPlantBlock
 		super(giantShroomFeature, settings);
 	}
 
-	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos)
+	{
 		BlockPos blockPos = pos.down();
 		BlockState blockState = world.getBlockState(blockPos);
-		if (blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK)) {
+		if(blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK))
+		{
 			return true;
-		} else {
+		}else
+		{
 			return this.canPlantOnTop(blockState, world, blockPos);
 		}
 	}

@@ -1,8 +1,6 @@
 package party.lemons.biomemakeover.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.PacketConsumer;
-import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -19,13 +17,14 @@ public class S2C_HandleWitchQuests implements ClientPlayNetworking.PlayChannelHa
 		int syncId = buf.readVarInt();
 		WitchQuestList witchQuests = new WitchQuestList(buf);
 
-		client.execute(()->{
+		client.execute(()->
+		{
 			ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
 
-			if (syncId == screenHandler.syncId && screenHandler instanceof WitchScreenHandler)
+			if(syncId == screenHandler.syncId && screenHandler instanceof WitchScreenHandler)
 			{
-				((WitchScreenHandler)screenHandler).setQuests(witchQuests);
+				((WitchScreenHandler) screenHandler).setQuests(witchQuests);
 			}
 		});
 	}

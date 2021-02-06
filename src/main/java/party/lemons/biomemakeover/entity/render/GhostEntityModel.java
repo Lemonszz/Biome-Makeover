@@ -16,14 +16,14 @@ import party.lemons.biomemakeover.entity.GhostEntity;
 
 public class GhostEntityModel extends CompositeEntityModel<GhostEntity> implements ModelWithHead, ModelWithArms
 {
-private final ModelPart body;
-private final ModelPart head;
-private final ModelPart nose;
-private final ModelPart rightarm;
-private final ModelPart leftarm;
-private final ModelPart bodylower;
-private final ModelPart bodylower2;
-private final ModelPart bodylower3;
+	private final ModelPart body;
+	private final ModelPart head;
+	private final ModelPart nose;
+	private final ModelPart rightarm;
+	private final ModelPart leftarm;
+	private final ModelPart bodylower;
+	private final ModelPart bodylower2;
+	private final ModelPart bodylower3;
 
 	public GhostEntityModel()
 	{
@@ -86,7 +86,7 @@ private final ModelPart bodylower3;
 		setRotationAngle(bodylower2, 0.3927F, 0.0F, 0.0F);
 		setRotationAngle(bodylower3, 0.3927F, 0.0F, 0.0F);
 
-		float pi = (float)Math.PI;
+		float pi = (float) Math.PI;
 		this.head.pitch = -0.2618F + (headPitch * 0.0175F);
 		this.head.yaw = headYaw * 0.0175F;
 
@@ -110,7 +110,8 @@ private final ModelPart bodylower3;
 		return ImmutableList.of(body);
 	}
 
-	public void setRotationAngle(ModelPart part, float x, float y, float z) {
+	public void setRotationAngle(ModelPart part, float x, float y, float z)
+	{
 		part.pitch = x;
 		part.yaw = y;
 		part.roll = z;
@@ -119,10 +120,8 @@ private final ModelPart bodylower3;
 	@Override
 	public void setArmAngle(Arm arm, MatrixStack matrices)
 	{
-		if(arm == Arm.RIGHT)
-			rightarm.rotate(matrices);
-		else
-			leftarm.rotate(matrices);
+		if(arm == Arm.RIGHT) rightarm.rotate(matrices);
+		else leftarm.rotate(matrices);
 	}
 
 	@Override

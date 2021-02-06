@@ -11,7 +11,9 @@ import party.lemons.biomemakeover.util.access.ChunkRenderRegionAccess;
 public class ChunkRenderRegionMixin implements ChunkRenderRegionAccess
 {
 
-	@Shadow @Final protected World world;
+	@Shadow
+	@Final
+	protected World world;
 
 	@Override
 	public World getWorld()

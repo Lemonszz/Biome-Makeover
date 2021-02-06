@@ -13,11 +13,13 @@ public class BaslaFoliagePlacer extends PineFoliagePlacer
 		super(radius, offset, height);
 	}
 
-	public int getRandomRadius(Random random, int baseHeight) {
+	public int getRandomRadius(Random random, int baseHeight)
+	{
 		return super.getRandomRadius(random, baseHeight) + random.nextInt(8);
 	}
 
-	public int getRandomHeight(Random random, int trunkHeight, TreeFeatureConfig config) {
+	public int getRandomHeight(Random random, int trunkHeight, TreeFeatureConfig config)
+	{
 		return 1 + random.nextInt(2);
 	}
 }

@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.network;
 
-import javafx.scene.control.Slider;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
@@ -15,8 +14,9 @@ public class S2C_SetSlideTime implements ClientPlayNetworking.PlayChannelHandler
 	{
 		int time = buf.readVarInt();
 
-		client.execute(()->{
-			((SlideEntity)client.player).setSlideTime(time);
+		client.execute(()->
+		{
+			((SlideEntity) client.player).setSlideTime(time);
 		});
 	}
 }

@@ -38,5 +38,6 @@ public final class EntityUtil
 	}
 
 	private EntityUtil()
-	{ }
+	{
+	}
 }

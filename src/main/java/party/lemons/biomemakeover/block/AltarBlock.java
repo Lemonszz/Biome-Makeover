@@ -52,23 +52,26 @@ public class AltarBlock extends BlockWithEntity implements BlockWithItem, Waterl
 		return new AltarBlockEntity();
 	}
 
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
+	public BlockState getPlacementState(ItemPlacementContext ctx)
+	{
 		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
 
 		return getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
 	}
 
-	public FluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(BlockState state)
+	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (!world.isClient)
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit)
+	{
+		if(!world.isClient)
 		{
 			NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-			if (screenHandlerFactory != null)
+			if(screenHandlerFactory != null)
 			{
 				player.openHandledScreen(screenHandlerFactory);
 			}
@@ -79,13 +82,13 @@ public class AltarBlock extends BlockWithEntity implements BlockWithItem, Waterl
 	@Override
 	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved)
 	{
-		if (state.getBlock() != newState.getBlock())
+		if(state.getBlock() != newState.getBlock())
 		{
 			BlockEntity blockEntity = world.getBlockEntity(pos);
-			if (blockEntity instanceof AltarBlockEntity)
+			if(blockEntity instanceof AltarBlockEntity)
 			{
-				ItemScatterer.spawn(world, pos, (AltarBlockEntity)blockEntity);
-				world.updateComparators(pos,this);
+				ItemScatterer.spawn(world, pos, (AltarBlockEntity) blockEntity);
+				world.updateComparators(pos, this);
 			}
 			super.onStateReplaced(state, world, pos, newState, moved);
 		}
@@ -97,29 +100,34 @@ public class AltarBlock extends BlockWithEntity implements BlockWithItem, Waterl
 		return SHAPE;
 	}
 
-	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos)
+	{
 		return SHAPE;
 	}
 
-	public boolean hasSidedTransparency(BlockState state) {
+	public boolean hasSidedTransparency(BlockState state)
+	{
 		return true;
 	}
 
-	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type)
+	{
 		return false;
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		if (random.nextInt(5) == 0) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random)
+	{
+		if(random.nextInt(5) == 0)
+		{
 			Direction direction = Direction.random(random);
-			if (!direction.getAxis().isVertical())
+			if(!direction.getAxis().isVertical())
 			{
-				double x = direction.getAxis() == Direction.Axis.X ? (0.5F + (0.3F * (float)RandomUtil.randomDirection(1))) : (float)RandomUtil.randomRange(2, 8) / 10F;
-				double z = direction.getAxis() == Direction.Axis.Z ? (0.5F + (0.3F * (float)RandomUtil.randomDirection(1))) : (float)RandomUtil.randomRange(2, 8) / 10F;
+				double x = direction.getAxis() == Direction.Axis.X ? (0.5F + (0.3F * (float) RandomUtil.randomDirection(1))) : (float) RandomUtil.randomRange(2, 8) / 10F;
+				double z = direction.getAxis() == Direction.Axis.Z ? (0.5F + (0.3F * (float) RandomUtil.randomDirection(1))) : (float) RandomUtil.randomRange(2, 8) / 10F;
 				double y = 0.2F + (random.nextFloat() / 3F);
 
-				world.addParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, 0.0D, 0.0D, 0.0D);
+				world.addParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR, (double) pos.getX() + x, (double) pos.getY() + y, (double) pos.getZ() + z, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

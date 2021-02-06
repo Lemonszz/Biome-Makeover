@@ -15,7 +15,9 @@ import java.util.Map;
 @Mixin(SpawnRestriction.class)
 public class SpawnRestrictionMixin
 {
-	@Shadow @Final private static Map<EntityType<?>, SpawnRestriction.Entry> RESTRICTIONS;
+	@Shadow
+	@Final
+	private static Map<EntityType<?>, SpawnRestriction.Entry> RESTRICTIONS;
 
 	@Inject(at = @At("TAIL"), method = "<clinit>")
 	private static void onInit(CallbackInfo cbi)

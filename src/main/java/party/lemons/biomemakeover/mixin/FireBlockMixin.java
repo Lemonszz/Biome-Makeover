@@ -11,11 +11,16 @@ import party.lemons.biomemakeover.util.access.FireBlockAccessor;
 @Mixin(FireBlock.class)
 public abstract class FireBlockMixin implements FireBlockAccessor
 {
-	@Shadow @Final private Object2IntMap<Block> burnChances;
+	@Shadow
+	@Final
+	private Object2IntMap<Block> burnChances;
 
-	@Shadow @Final private Object2IntMap<Block> spreadChances;
+	@Shadow
+	@Final
+	private Object2IntMap<Block> spreadChances;
 
-	@Shadow protected abstract void registerFlammableBlock(Block block, int burnChance, int spreadChance);
+	@Shadow
+	protected abstract void registerFlammableBlock(Block block, int burnChance, int spreadChance);
 
 	@Override
 	public void registerFlammable(Block block, int burnChance, int spreadChance)

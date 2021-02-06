@@ -32,11 +32,9 @@ public class ToadTargetEntity extends PathAwareEntity
 		if(!isBeingEaten())
 		{
 			super.tick();
-		}
-		else
+		}else
 		{
-			if(eatenBy.isDead() || eatenBy.removed || eatenBy == null)
-				setEatenBy(null);
+			if(eatenBy.isDead() || eatenBy.removed || eatenBy == null) setEatenBy(null);
 
 			if(eatenBy.isTongueReady())
 			{
@@ -49,14 +47,15 @@ public class ToadTargetEntity extends PathAwareEntity
 
 				if(distanceTo(eatenBy) <= 0.2F)
 				{
-					eatenBy.playSound(BMEffects.TOAD_SWALLOW, 1F, 1F + ((float)random.nextGaussian() / 5F));
+					eatenBy.playSound(BMEffects.TOAD_SWALLOW, 1F, 1F + ((float) random.nextGaussian() / 5F));
 					remove();
 				}
 			}
 		}
 	}
 
-	public boolean canBeLeashedBy(PlayerEntity player) {
+	public boolean canBeLeashedBy(PlayerEntity player)
+	{
 		return false;
 	}
 }

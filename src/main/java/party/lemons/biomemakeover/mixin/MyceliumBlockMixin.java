@@ -50,13 +50,15 @@ public abstract class MyceliumBlockMixin extends Block implements Fertilizable
 
 		next:
 		//From vanilla, 128 / 16 = 8 block range
-		for(int range = 0; range < 128; ++range) {
+		for(int range = 0; range < 128; ++range)
+		{
 			BlockPos checkPos = startPos;
 
 			for(int attempts = 0; attempts < range / 16; ++attempts)
 			{
 				checkPos = checkPos.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-				if (!world.getBlockState(checkPos.down()).isOf(this) || world.getBlockState(checkPos).isFullCube(world, checkPos)) {
+				if(!world.getBlockState(checkPos.down()).isOf(this) || world.getBlockState(checkPos).isFullCube(world, checkPos))
+				{
 					continue next;
 				}
 			}
@@ -67,42 +69,37 @@ public abstract class MyceliumBlockMixin extends Block implements Fertilizable
 			FluidState fs = world.getFluidState(checkPos);
 			boolean isWater = fs.isIn(FluidTags.WATER) && fs.getLevel() == 8;
 
-			if (currentState.isAir() || isWater)
+			if(currentState.isAir() || isWater)
 			{
 				BlockState placeState;
-				if (random.nextInt(8) == 0)
+				if(random.nextInt(8) == 0)
 				{
 					if(random.nextInt(20) == 0)
 					{
-						if(!isWater)
-							placeState = random.nextBoolean() ? purple_shroom : green_shroom;
+						if(!isWater) placeState = random.nextBoolean() ? purple_shroom : green_shroom;
 						else
 						{
 							placeState = orange_shroom;
 							placeInWater = true;
 						}
-					}
-					else
+					}else
 					{
 						placeState = random.nextBoolean() ? red_shroom : brown_shroom;
 					}
-				}
-				else
+				}else
 				{
 					if(random.nextInt(5) == 0)
 					{
 						placeState = roots;
-					}
-					else
+					}else
 					{
 						placeState = sprouts;
 					}
 				}
 
-				if (placeState.canPlaceAt(world, checkPos))
+				if(placeState.canPlaceAt(world, checkPos))
 				{
-					if(isWater && !placeInWater)
-						continue;
+					if(isWater && !placeInWater) continue;
 
 					world.setBlockState(checkPos, placeState, 3);
 				}
