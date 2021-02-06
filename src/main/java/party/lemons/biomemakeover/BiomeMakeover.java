@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -8,6 +9,9 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
@@ -18,7 +22,11 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -27,6 +35,8 @@ import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
 import party.lemons.biomemakeover.init.*;
+import party.lemons.biomemakeover.util.NetworkUtil;
+import party.lemons.biomemakeover.util.SlideEntity;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
@@ -70,6 +80,10 @@ public class BiomeMakeover implements ModInitializer
 					((PillagerSpawnerAccess)new PillagerSpawner()).spawn(c.getSource().getWorld(), BlockPosArgumentType.getBlockPos(c, "pos"), BoolArgumentType.getBool(c, "leader"));
 					return 1;
 				})))));
+
+		ServerPlayConnectionEvents.JOIN.register((ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server)->{
+			NetworkUtil.sendSlideTime(handler.player, ((SlideEntity)handler.player).getSlideTime());
+		});
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult)->{
 

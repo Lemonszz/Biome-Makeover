@@ -19,6 +19,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -32,9 +33,7 @@ import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
@@ -48,6 +47,12 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public StructureStartFactory<DefaultFeatureConfig> getStructureStartFactory()
 	{
 		return Start::new;
+	}
+
+	@Override
+	protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos chunkPos, DefaultFeatureConfig defaultFeatureConfig) {
+		Set<Biome> set = biomeSource.getBiomesInArea(i * 16 + 9, chunkGenerator.getSeaLevel(), j * 16 + 9, 32);
+		return set.size() == 1;
 	}
 
 	private class Start extends StructureStart<DefaultFeatureConfig>
@@ -108,16 +113,16 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				if(room.isConnected(Direction.NORTH))
 					children.add(new Piece(manager, getInnerWall(room, random), wallPos.offset(Direction.NORTH), BlockRotation.NONE, ground, true));
 				else if(!roomGrid.contains(room.getPosition().north()) || !roomGrid.get(room.getPosition().north()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, random), wallPos.offset(Direction.NORTH).offset(Direction.EAST, 11), BlockRotation.CLOCKWISE_180, ground, true));
+					children.add(new Piece(manager, getOuterWall(room, Direction.NORTH, roomGrid, random), wallPos.offset(Direction.EAST, 11), BlockRotation.CLOCKWISE_180, ground, true));
 				if(room.isConnected(Direction.WEST))
 					children.add(new Piece(manager, getInnerWall(room, random), wallPos.offset(Direction.WEST), BlockRotation.CLOCKWISE_90, ground, true));
 				else if(!roomGrid.contains(room.getPosition().west())  || !roomGrid.get(room.getPosition().west()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, random), wallPos.offset(Direction.WEST).north(), BlockRotation.CLOCKWISE_90, ground, true));
+					children.add(new Piece(manager, getOuterWall(room, Direction.WEST, roomGrid, random), wallPos.north(), BlockRotation.CLOCKWISE_90, ground, true));
 
 				if(!roomGrid.contains(room.getPosition().east())  || !roomGrid.get(room.getPosition().east()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, random), wallPos.offset(Direction.EAST, 11).south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
+					children.add(new Piece(manager, getOuterWall(room, Direction.EAST, roomGrid, random), wallPos.offset(Direction.EAST, 11).west().south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
 				if(!roomGrid.contains(room.getPosition().south())  || !roomGrid.get(room.getPosition().south()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, random), wallPos.offset(Direction.SOUTH, 11).west(), BlockRotation.NONE, ground, true));
+					children.add(new Piece(manager, getOuterWall(room, Direction.SOUTH, roomGrid, random), wallPos.offset(Direction.SOUTH, 10).west(), BlockRotation.NONE, ground, true));
 
 				BlockPos cornerPos1 = room.getPosition().offset(Direction.NORTH).offset(Direction.WEST);
 				if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
@@ -139,7 +144,6 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			super.generateStructure(world, structureAccessor, chunkGenerator, random, box, chunkPos);
 		}
 	}
-
 
 	public static class Piece extends SimpleStructurePiece
 	{
@@ -263,6 +267,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1")
 	);
 
+	public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1")
+	);
+
 	public static List<Identifier> GARDEN = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/garden/garden_1")
 	);
@@ -307,33 +315,18 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 	public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
 
-	/*
-	public static List<Identifier> ROOF_1 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
-	);
-	public static List<Identifier> ROOF_2 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
-	);
-	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
-	);
-	public static List<Identifier> ROOF_3 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
-	);
-	public static List<Identifier> ROOF_4 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/empty")
-	);
-
-*/
-
 	public static Identifier getInnerWall(MansionRoom room, Random random)
 	{
 		return INNER_WALL.get(random.nextInt(INNER_WALL.size()));
 	}
-	public static Identifier getOuterWall(MansionRoom room, Random random)
+
+	public static Identifier getOuterWall(MansionRoom room, Direction dir, Grid<MansionRoom> roomGrid, Random random)
 	{
 		if(room.getPosition().getY() > 0)
 		{
+			if(room.getRoomType().hasWindows() && random.nextFloat() < 0.8F && !roomGrid.contains(room.getPosition().offset(dir)))
+				return OUTER_WINDOW.get(random.nextInt(OUTER_WINDOW.size()));
+
 			return OUTER_WALL.get(random.nextInt(OUTER_WALL.size()));
 		}
 		else

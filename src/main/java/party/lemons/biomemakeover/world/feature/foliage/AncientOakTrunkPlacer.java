@@ -88,7 +88,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 		List<HorizontalDirection> directions = Lists.newArrayList();
 		for(int i = 0; i < 1 + random.nextInt(4); i++)
 		{
-			makeBranch(world, random, list, directions, placedStates, foliageX, y, foliageZ, RandomUtil.randomRange(7, trunkHeight - 1), trunkHeight, box, config);
+			makeBranch(world, random, list, directions, placedStates, foliageX, y, foliageZ, RandomUtil.randomRange(trunkHeight - 13, trunkHeight - 7), trunkHeight, box, config);
 		}
 
 		return list;

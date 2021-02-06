@@ -48,6 +48,11 @@ public enum RoomType
 		return hasWalls;
 	}
 
+	public boolean hasWindows()
+	{
+		return this == RoomType.ROOM;
+	}
+
 	public boolean hasColumnRotation()
 	{
 		return columnRotation;

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -69,5 +70,15 @@ public class NetworkUtil
 		{
 			ServerPlayNetworking.send(pl, id, buf);
 		}
+	}
+
+	public static void sendSlideTime(PlayerEntity player, int time)
+	{
+		if(player.world.isClient())
+			return;
+
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		buf.writeVarInt(time);
+		ServerPlayNetworking.send((ServerPlayerEntity) player, BMNetwork.SET_SLIDE_TIME, buf);
 	}
 }
