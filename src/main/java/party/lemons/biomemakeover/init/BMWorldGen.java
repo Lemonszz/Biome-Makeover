@@ -22,6 +22,7 @@ import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
@@ -33,7 +34,9 @@ import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.tree.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.tree.LeaveVineTreeDecorator;
+import net.minecraft.world.gen.tree.TreeDecoratorType;
 import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -80,6 +83,7 @@ public class BMWorldGen
 		});
 
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(ANCIENT_OAK_TREES));
+		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(SMALL_DARK_OAK_TREES));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_ORES, rk(MESMERITE_UNDERGROUND));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(MESMERITE_BOULDER));
 
@@ -199,17 +203,19 @@ public class BMWorldGen
 	public static final TrunkPlacerType<CypressTrunkPlacer> CYPRESS_TRUNK = new TrunkPlacerType<>(CypressTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<AncientOakTrunkPlacer> ANCIENT_OAK_TRUNK = new TrunkPlacerType<>(AncientOakTrunkPlacer.CODEC);
 	public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE = new FoliagePlacerType<>(WillowFoliagePlacer.CODEC);
+	public static final TreeDecoratorType<IvyTreeDecorator> IVY_DECORATOR = new TreeDecoratorType<>(IvyTreeDecorator.CODEC);
 
 	public static final WaterTreeFeature WATER_TREE = new WaterTreeFeature(TreeFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> WILLOW_TREE = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.WILLOW_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), 3, true), new WillowTrunkPlacer(6, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().maxWaterDepth(1).build()));
 	public static final ConfiguredFeature<?, ?> WILLOW_TREES = WILLOW_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(2, 0.1F, 1)));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of(LeaveVineTreeDecorator.INSTANCE)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREES = SWAMP_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.5F, 4)));
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new AncientOakTrunkPlacer(10, 2, 14), new ThreeLayersFeatureSize(2, 3, 0, 1, 2, OptionalInt.empty()))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build());
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(6, 11, 0), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3)))).ignoreVines().build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new AncientOakTrunkPlacer(10, 2, 14), new ThreeLayersFeatureSize(2, 3, 0, 1, 2, OptionalInt.empty())).decorators(ImmutableList.of(IvyTreeDecorator.INSTANCE))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(6, 11, 0), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3))).decorators(ImmutableList.of(IvyTreeDecorator.INSTANCE))).ignoreVines().build());
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> DARK_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(5, 8, 0), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3)))).ignoreVines().build());
 
 	public static final ConfiguredFeature<?, ?> ANCIENT_OAK_TREES = ANCIENT_OAK.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(2);
+	public static final ConfiguredFeature<?, ?> SMALL_DARK_OAK_TREES = Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(ANCIENT_OAK_SMALL.withChance(0.1F), DARK_OAK_SMALL.withChance(0.2F)), ConfiguredFeatures.DARK_OAK)).decorate(Decorator.DARK_OAK_TREE.configure(DecoratorConfig.DEFAULT));
 
 	//Badlands
 	public static final SurfaceFossilFeature SURFACE_FOSSIL_FEATURE = new SurfaceFossilFeature(DefaultFeatureConfig.CODEC);
@@ -283,6 +289,7 @@ public class BMWorldGen
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_CARVER, ConfiguredCarver.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.TRUNK_PLACER_TYPE, TrunkPlacerType.class, BMWorldGen.class);
 		RegistryHelper.register(Registry.FOLIAGE_PLACER_TYPE, FoliagePlacerType.class, BMWorldGen.class);
+		RegistryHelper.register(Registry.TREE_DECORATOR_TYPE, TreeDecoratorType.class, BMWorldGen.class);
 
 		doModifications();
 	}

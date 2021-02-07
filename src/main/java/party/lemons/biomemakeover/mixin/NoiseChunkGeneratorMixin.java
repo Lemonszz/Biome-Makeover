@@ -44,7 +44,10 @@ public class NoiseChunkGeneratorMixin
 		}
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/ProtoChunk;getHeightmap(Lnet/minecraft/world/Heightmap$Type;)Lnet/minecraft/world/Heightmap;", ordinal = 0), method = "populateNoise", locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+	@Inject(at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/chunk/ProtoChunk;getHeightmap(Lnet/minecraft/world/Heightmap$Type;)Lnet/minecraft/world/Heightmap;", ordinal = 0),
+			method = "populateNoise",
+			locals = LocalCapture.CAPTURE_FAILEXCEPTION)
 	public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk, CallbackInfo cbi, ObjectList<StructurePiece> objectList, ObjectList<JigsawJunction> objectList2, ChunkPos chunkPos, int i, int j, int k, int l, double[][][] ds, ProtoChunk protoChunk)
 	{
 		objectList.removeIf((o)->

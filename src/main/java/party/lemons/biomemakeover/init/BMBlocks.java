@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.init;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -9,6 +10,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.Tag;
@@ -30,6 +33,7 @@ import party.lemons.biomemakeover.world.feature.foliage.BalsaSaplingGenerator;
 import party.lemons.biomemakeover.world.feature.foliage.SwampCypressSaplingGenerator;
 import party.lemons.biomemakeover.world.feature.foliage.WillowSaplingGenerator;
 
+import java.util.List;
 import java.util.Map;
 
 public class BMBlocks
@@ -139,6 +143,17 @@ public class BMBlocks
 	public static final SignType SWAMP_CYPRESS_ST = SignTypeHelper.register(new SignType("swamp_cypress"));
 	public static final SignType ANCIENT_OAK_ST = SignTypeHelper.register(new SignType("ancient_oak"));
 
+	public static final Map<DyeColor, Block> DYE_TO_TAPESTRY = Maps.newHashMap();
+	public static final List<Block> TAPESTRY_BLOCKS = Lists.newArrayList();
+	static
+	{
+		for(DyeColor dyeColor : DyeColor.values())
+		{
+			TapestryBlock tap = new TapestryBlock(dyeColor, settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD));
+			DYE_TO_TAPESTRY.put(dyeColor, tap);
+			TAPESTRY_BLOCKS.add(tap);
+		}
+	}
 	public static void init()
 	{
 		RegistryHelper.register(Registry.BLOCK, Block.class, BMBlocks.class, (reg, bl, id)->
@@ -205,6 +220,21 @@ public class BMBlocks
 			dec.register();
 
 			BRICK_TO_TERRACOTTA.put(brick.getBlock(), vanillaTerracotta.get(dye));
+		}
+
+		/* Tapestry */
+		for(DyeColor dye : DyeColor.values())
+		{
+			Block tap = DYE_TO_TAPESTRY.get(dye);
+			TapestryWallBlock wallBlock = new TapestryWallBlock(dye, settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD));
+
+			Registry.register(Registry.BLOCK, BiomeMakeover.ID(dye.getName() + "_tapestry"), tap);
+			Registry.register(Registry.BLOCK, BiomeMakeover.ID(dye.getName() + "_wall_tapestry"), wallBlock);
+
+			WallStandingBlockItem blItem = new WallStandingBlockItem(tap, wallBlock, new Item.Settings().group(BiomeMakeover.GROUP));
+			Registry.register(Registry.ITEM, BiomeMakeover.ID(dye.getName() + "_tapestry"), blItem);
+
+			TAPESTRY_BLOCKS.add(wallBlock);
 		}
 
 		/* Flammables */

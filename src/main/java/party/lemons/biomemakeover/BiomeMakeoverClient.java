@@ -13,8 +13,10 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.TypedActionResult;
+import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
 import party.lemons.biomemakeover.block.blockentity.render.AltarBlockEntityRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
+import party.lemons.biomemakeover.block.blockentity.render.TapestryBlockEntityRenderer;
 import party.lemons.biomemakeover.crafting.witch.screen.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.gui.AltarScreen;
@@ -55,6 +57,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.ALTAR, (r)->new AltarBlockEntityRenderer(r));
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.TAPESTRY, (r)->new TapestryBlockEntityRenderer(r));
 
 		ScreenRegistry.register(BMScreens.WITCH, WitchScreen::new);
 		ScreenRegistry.register(BMScreens.ALTAR, AltarScreen::new);

@@ -25,6 +25,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.util.BMUtil;
+import party.lemons.biomemakeover.util.HorizontalDirection;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.*;
@@ -40,7 +41,6 @@ public class IvyBlock extends BMBlock
 	private static final VoxelShape SOUTH_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D);
 	private static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D);
 	private static final Map<Direction, BooleanProperty> FACING_PROPERTIES = ConnectingBlock.FACING_PROPERTIES;
-	private static final IntProperty DISTANCE = IntProperty.of("distance", 0, 6);
 	private static final Map<Direction, VoxelShape> DIRECTION_TO_SHAPE = Util.make(Maps.newEnumMap(Direction.class), (enumMap)->
 	{
 		enumMap.put(Direction.NORTH, SOUTH_SHAPE);
@@ -63,7 +63,7 @@ public class IvyBlock extends BMBlock
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if(state.get(DISTANCE) >= 6) return;
+		if(getNearbyIvyCount(world, pos) >= 6) return;
 
 		Direction checkDirection = getRandomStateSide(state, random);
 		if(checkDirection == null) return;
@@ -74,19 +74,18 @@ public class IvyBlock extends BMBlock
 		BlockPos offsetPos = pos.offset(direction);
 		BlockState offsetState = world.getBlockState(offsetPos);
 		BooleanProperty dirProperty = getPropertyForDirection(direction);
-		int nextDistance = Math.min(6, state.get(DISTANCE) + RandomUtil.randomRange(1, 4));
 
 		if(!state.get(dirProperty) && isValidPlaceFace(world, direction, offsetPos, offsetState))
 		{
 			if(hasAdjacentSide(direction, state))
-				world.setBlockState(pos, state.with(dirProperty, true).with(DISTANCE, nextDistance));
+				world.setBlockState(pos, state.with(dirProperty, true));
 		}else if(hasAdjacentSide(direction, state) && canReplace(offsetState))
 		{
 			BlockPos hitPos = offsetPos.offset(checkDirection);
 			BlockState hitState = world.getBlockState(hitPos);
 			if(isValidPlaceFace(world, direction, hitPos, hitState))
 			{
-				placeOrAddTo(world, offsetPos, checkDirection, nextDistance);
+				placeOrAddTo(world, offsetPos, checkDirection);
 				return;
 			}
 
@@ -98,10 +97,27 @@ public class IvyBlock extends BMBlock
 				hitState = world.getBlockState(hitPos);
 				if(isValidPlaceFace(world, direction, hitPos, hitState))
 				{
-					placeOrAddTo(world, creepPos, direction.getOpposite(), nextDistance);
+					placeOrAddTo(world, creepPos, direction.getOpposite());
 				}
 			}
 		}
+	}
+
+	private int getNearbyIvyCount(World world, BlockPos pos)
+	{
+		int distance = 3;
+		int count = -1; //-1 because it counts itself and this was easier lol
+		for(int x = -distance; x < distance; x++)
+		{
+			for(int z = -distance; z < distance; z++)
+			{
+				for(int y = -distance; y < distance; y++)
+				{
+					if(world.getBlockState(pos.add(x, y, z)).isOf(this)) count++;
+				}
+			}
+		}
+		return count;
 	}
 
 	private boolean canReplace(BlockState state)
@@ -117,7 +133,7 @@ public class IvyBlock extends BMBlock
 		return dirs.get(random.nextInt(dirs.size()));
 	}
 
-	private void placeOrAddTo(World world, BlockPos pos, Direction direction, int distance)
+	private void placeOrAddTo(World world, BlockPos pos, Direction direction)
 	{
 		BlockState state = world.getBlockState(pos);
 
@@ -126,7 +142,7 @@ public class IvyBlock extends BMBlock
 			world.setBlockState(pos, state.with(getPropertyForDirection(direction), true));
 		}else if(canReplace(state))
 		{
-			world.setBlockState(pos, getDefaultState().with(getPropertyForDirection(direction), true).with(DISTANCE, distance));
+			world.setBlockState(pos, getDefaultState().with(getPropertyForDirection(direction), true));
 		}
 	}
 
@@ -169,7 +185,6 @@ public class IvyBlock extends BMBlock
 		{
 			builder.add(getPropertyForDirection(direction));
 		}
-		builder.add(DISTANCE);
 	}
 
 	@Override
@@ -307,7 +322,7 @@ public class IvyBlock extends BMBlock
 
 	private static BlockState createDefaultState(StateManager<Block, BlockState> stateManager)
 	{
-		BlockState blockState = stateManager.getDefaultState().with(DISTANCE, 0);
+		BlockState blockState = stateManager.getDefaultState();
 
 		for(BooleanProperty property : FACING_PROPERTIES.values())
 		{
