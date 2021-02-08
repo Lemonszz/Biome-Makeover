@@ -17,6 +17,7 @@ public class MansionRoom
 	protected RoomType type;
 	protected LayoutType layoutType;
 	public boolean active = true;
+	private int sortValue = 0;
 
 	public MansionRoom(BlockPos position, RoomType type)
 	{
@@ -47,13 +48,6 @@ public class MansionRoom
 			{
 				switch(layoutType)
 				{
-					case NORMAL:
-						if(neighbour.getRoomType().doorRequired || random.nextFloat() < 0.125F)
-						{
-							//this.layout.put(dir, true);
-							//neighbour.layout.put(dir.getOpposite(), true);
-						}
-						break;
 					case REQUIRED:
 						this.layout.put(dir, true);
 						neighbour.layout.put(dir.getOpposite(), true);
@@ -177,5 +171,15 @@ public class MansionRoom
 	public boolean canSupportRoof()
 	{
 		return true;
+	}
+
+	public void setSortValue(int sortValue)
+	{
+		this.sortValue = sortValue;
+	}
+
+	public int getSortValue()
+	{
+		return sortValue;
 	}
 }

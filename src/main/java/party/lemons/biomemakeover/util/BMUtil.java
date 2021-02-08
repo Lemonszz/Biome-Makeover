@@ -9,6 +9,11 @@ public class BMUtil
 {
 	public static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
+	public static Direction randomHorizontal()
+	{
+		return HORIZONTALS[RandomUtil.RANDOM.nextInt(HORIZONTALS.length)];
+	}
+
 	public static void addStrippedLog(Block log, Block stripped)
 	{
 		((AxeItemAccess) Items.WOODEN_AXE).addStrippable(log, stripped);

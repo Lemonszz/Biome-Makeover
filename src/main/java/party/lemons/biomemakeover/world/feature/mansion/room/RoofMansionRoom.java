@@ -17,6 +17,7 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 	public RoofMansionRoom(BlockPos position)
 	{
 		super(position, RoomType.ROOF);
+		setSortValue(1);
 	}
 
 	public BlockPos getOffsetForRotation(BlockPos offsetPos, BlockRotation rotation)

@@ -1,13 +1,17 @@
 package party.lemons.biomemakeover.world.feature.mansion;
 
 import com.google.common.collect.Lists;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.world.feature.mansion.processor.CorridorReplaceProcessor;
 import party.lemons.biomemakeover.world.feature.mansion.processor.FloorRoomReplaceProcessor;
 import party.lemons.biomemakeover.world.feature.mansion.processor.GardenRoomReplaceProcessor;
+import party.lemons.biomemakeover.world.feature.mansion.room.BossRoom;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
@@ -17,16 +21,18 @@ import java.util.Random;
 
 public class MansionLayout
 {
-	private final Grid<MansionRoom> layout = new Grid<>();
-	private static final List<FloorRoomReplaceProcessor> floorProcessors = Lists.newArrayList(new CorridorReplaceProcessor(), new GardenRoomReplaceProcessor());
+	//TODO: make more generic to support future structures without much work
 
+	protected final Grid<MansionRoom> layout = new Grid<>();
+	protected final List<FloorRoomReplaceProcessor> floorProcessors = Lists.newArrayList();
 
 	public MansionLayout()
 	{
-
+		floorProcessors.add(new CorridorReplaceProcessor());
+		floorProcessors.add(new GardenRoomReplaceProcessor());
 	}
 
-	public void generateLayout(Random random)
+	public void generateLayout(Random random, int startY)
 	{
 		int floorCorridorTarget = 10 + random.nextInt(5);
 		int floors = 2 + random.nextInt(4);
@@ -91,30 +97,11 @@ public class MansionLayout
 			if(rm.getRoomType() == RoomType.CORRIDOR && (random.nextFloat() < 0.3F || rm.getLayout().doorCount() < 2))
 				rm.setRoomType(RoomType.ROOM);
 		});
-
 		allRooms.removeIf(rm->!rm.active);
-		//Towers
-		for(int i = 1; i < 5; i++)
-		{
-			MansionRoom room = allRooms.get(random.nextInt(allRooms.size()));
-			if(room.canSupportRoof())
-			{
-				while(layout.contains(room.getPosition().up())) room = layout.get(room.getPosition().up());
 
-				if(room.getRoomType().isReplaceable())
-				{
-					room.setRoomType(RoomType.TOWER_BASE);
-					BlockPos towerPos = room.getPosition().up();
-					int height = 1 + random.nextInt(5);
-					for(int t = 0; t < height; t++)
-					{
-						layout.put(towerPos, new MansionRoom(towerPos, RoomType.TOWER_MID));
-						towerPos = towerPos.up();
-					}
-					layout.put(towerPos, new MansionRoom(towerPos, RoomType.TOWER_TOP));
-				}
-			}
-		}
+		//Extras
+		createDungeon(random, allRooms, startY);
+		createTowers(random, allRooms);
 
 		//Roof
 		Iterator<MansionRoom> it = allRooms.iterator();
@@ -136,6 +123,117 @@ public class MansionLayout
 		{
 			rm.setLayout(this, random);
 		});
+	}
+
+	protected void createTowers(Random random, List<MansionRoom> allRooms)
+	{
+		//Towers
+		final int maxTowers = 5;
+		final int maxTowerHeight = 5;
+
+		for(int i = 1; i < maxTowers; i++)
+		{
+			MansionRoom room = allRooms.get(random.nextInt(allRooms.size()));
+			if(room.canSupportRoof())
+			{
+				while(layout.contains(room.getPosition().up())) room = layout.get(room.getPosition().up());
+
+				if(room.getRoomType().isReplaceable())
+				{
+					room.setRoomType(RoomType.TOWER_BASE);
+					BlockPos towerPos = room.getPosition().up();
+					int height = 1 + random.nextInt(maxTowerHeight);
+					for(int t = 0; t < height; t++)
+					{
+						layout.put(towerPos, new MansionRoom(towerPos, RoomType.TOWER_MID));
+						towerPos = towerPos.up();
+					}
+					layout.put(towerPos, new MansionRoom(towerPos, RoomType.TOWER_TOP));
+				}
+			}
+		}
+	}
+
+	protected void createDungeon(Random random, List<MansionRoom> allRooms, int startY)
+	{
+		//Dungeon
+		final int maxY = 45;        //Max level dungeon will generate at
+		final int downStep = 11;    //Amount to step down check per floor.
+
+		//Pick a random replaceable room to use are our stairs down.
+		MansionRoom dungeonStairs;
+		do{
+			dungeonStairs = allRooms.get(random.nextInt(allRooms.size()));
+		}while(dungeonStairs.getPosition().getY() != 0 || !dungeonStairs.getRoomType().isReplaceable());
+		dungeonStairs.setRoomType(RoomType.DUNGEON_STAIRS_TOP);
+
+		//See how many stairs down we need until we get to a reasonable level.
+		int amt = 1;
+		int yy = startY;    //Too lazy to do this right lol
+		while(yy > maxY)
+		{
+			amt++;
+			yy -= downStep;
+		}
+
+		//Create stairs down
+		BlockPos dungeonPos = dungeonStairs.getPosition().down();
+		for(int i = 0; i < amt - 1; i++)    //Middle stairs
+		{
+			MansionRoom dungeonStairsMid = new MansionRoom(dungeonPos, RoomType.DUNGEON_STAIRS_MID);
+			layout.put(dungeonPos, dungeonStairsMid);
+			dungeonPos = dungeonPos.down();
+		}
+		MansionRoom dungeonStairsBottom = new MansionRoom(dungeonPos, RoomType.DUNGEON_STAIRS_BOTTOM);  //Stairs bottom
+		layout.put(dungeonPos, dungeonStairsBottom);
+
+		BlockPos dungeonStart = new BlockPos(dungeonPos);   //Dungeon start position (bottom of stairs)
+
+		//Boss room will be at the end of a corridor, this is always straight from the stairs to ensure no collisions with any other room.
+		Direction bossDir = BMUtil.randomHorizontal();  //Direction to boss room
+		List<MansionRoom> dungeonRooms = Lists.newArrayList();
+		dungeonRooms.add(dungeonStairsBottom);
+		int dungeonCorridorLength = RandomUtil.randomRange(4, 6); //Length of the corridor
+		for(int i = 1; i < dungeonCorridorLength; i++)  //Create corridor rooms
+		{
+			BlockPos roomPos = dungeonStart.offset(bossDir, i);
+			MansionRoom room = new MansionRoom(roomPos, RoomType.DUNGEON_ROOM);
+			room.setLayoutType(LayoutType.REQUIRED);
+			room.getLayout().put(bossDir, true);
+			layout.put(roomPos, room);
+			dungeonRooms.add(room);
+		}
+
+		//Boss Room
+		BlockPos bossPos = dungeonStart.offset(bossDir, dungeonCorridorLength + 1);
+		BossRoom bossRoom = new BossRoom(bossPos);
+		bossRoom.getLayout().put(bossDir.getOpposite(), true);
+		layout.put(bossPos, bossRoom);
+
+		//Extra dungeon rooms
+		for(int i = 0; i < 10; i++)
+		{
+			MansionRoom rm;
+			do{
+				rm =  dungeonRooms.get(random.nextInt(dungeonRooms.size()));
+			}while(rm.getPosition().equals(dungeonPos.offset(bossDir, dungeonCorridorLength - 1))); //Ensures there's no rooms on the furthest position to avoid collisions.
+
+			Direction dir;
+			do{
+				dir = BMUtil.randomHorizontal();
+			}while(dir == bossDir || dir == bossDir.getOpposite()); //Only create rooms sideways.
+
+			//Place room
+			BlockPos offPos = rm.getPosition().offset(dir);
+			if(!layout.contains(offPos))
+			{
+				MansionRoom offsetRoom = new MansionRoom(offPos, RoomType.DUNGEON_ROOM);
+				offsetRoom.setLayoutType(LayoutType.REQUIRED);
+				layout.put(offPos, offsetRoom);
+				dungeonRooms.add(offsetRoom);
+			}
+		}
+		dungeonRooms.forEach(rm->rm.setLayout(this, random));
 	}
 
 	public List<MansionRoom> placeCorridors(int y, int maxCount, List<BlockPos.Mutable> positions, Random random)
