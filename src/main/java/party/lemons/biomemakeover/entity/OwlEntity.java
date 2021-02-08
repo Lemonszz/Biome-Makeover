@@ -36,10 +36,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.entity.ai.FlyingFollowOwnerGoal;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMEntities;
 
 import java.util.Iterator;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 public class OwlEntity extends TameableShoulderEntity
@@ -67,7 +69,7 @@ public class OwlEntity extends TameableShoulderEntity
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(2, new SitGoal(this));
 		this.goalSelector.add(3, new MeleeAttackGoal(this, 1.0D, true));
-		this.goalSelector.add(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, true));
+		this.goalSelector.add(4, new FlyingFollowOwnerGoal(this, 1.2D, 10.0F, 2.0F, true));
 		this.goalSelector.add(5, new PredicateTemptGoal(this, 1.2D, false, this::isBreedingItem));
 		this.goalSelector.add(6, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(7, new EscapeDangerGoal(this, 1.25D));
@@ -77,7 +79,7 @@ public class OwlEntity extends TameableShoulderEntity
 		this.goalSelector.add(11, new LookAroundGoal(this));
 		this.targetSelector.add(1, new TrackOwnerAttackerGoal(this));
 		this.targetSelector.add(2, new AttackWithOwnerGoal(this));
-		this.targetSelector.add(3, new FollowTargetIfTamedGoal(this, LivingEntity.class, false, IS_OWL_TARGET));
+		this.targetSelector.add(3, new FollowTargetIfTamedGoal<>(this, LivingEntity.class, false, IS_OWL_TARGET));
 	}
 
 	protected EntityNavigation createNavigation(World world)
@@ -111,26 +113,6 @@ public class OwlEntity extends TameableShoulderEntity
 		super.tick();
 		setStandingState(onGround || touchingWater || isInSittingPose() ? StandingState.STANDING : StandingState.FLYING);
 
-		/*PlayerEntity playerEntity = world.getClosestPlayer(this, 100F);
-		if(playerEntity != null && !world.isClient())
-		{
-			if(playerEntity.isSneaking())
-			{
-				setStandingState(StandingState.FLYING);
-			}
-			else
-			{
-				setStandingState(StandingState.STANDING);
-			}
-
-			if(playerEntity.inventory.selectedSlot == 0)
-				setOwlState(OwlState.IDLE);
-			else if(playerEntity.inventory.selectedSlot == 1)
-				setOwlState(OwlState.ATTACKING);
-			else
-				setOwlState(OwlState.SLEEPING);
-		}*/
-
 		lastLeaningPitch = leaningPitch;
 		switch(getStandingState())
 		{
@@ -143,6 +125,16 @@ public class OwlEntity extends TameableShoulderEntity
 		}
 	}
 
+	@Override
+	public void tickMovement()
+	{
+		super.tickMovement();
+		Vec3d velocity = this.getVelocity();
+		if (!this.onGround && velocity.y < 0.0D) {
+			this.setVelocity(velocity.multiply(1.0D, 0.75D, 1.0D));
+		}
+	}
+
 	public void setTamed(boolean tamed)
 	{
 		super.setTamed(tamed);
@@ -150,7 +142,8 @@ public class OwlEntity extends TameableShoulderEntity
 		{
 			this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20.0F);
-		}else
+		}
+		else
 		{
 			this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(8.0D);
 		}
@@ -162,15 +155,11 @@ public class OwlEntity extends TameableShoulderEntity
 	{
 		ItemStack stack = player.getStackInHand(hand);
 		Item item = stack.getItem();
-		if(this.world.isClient)
+		if(this.isTamed())
 		{
-			boolean canTame = (this.isOwner(player) || this.isTamed() || isBreedingItem(stack)) && (!this.isTamed() && this.getTarget() != null);
-			return canTame ? ActionResult.CONSUME : ActionResult.PASS;
-		}else
-		{
-			if(this.isTamed())
+			if(this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth())
 			{
-				if(this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth())
+				if(!world.isClient())
 				{
 					if(!player.abilities.creativeMode)
 					{
@@ -178,41 +167,52 @@ public class OwlEntity extends TameableShoulderEntity
 					}
 
 					this.heal((float) item.getFoodComponent().getHunger());
-					return ActionResult.SUCCESS;
 				}
+				return ActionResult.SUCCESS;
+			}
 
-				ActionResult actionResult = super.interactMob(player, hand);
-				if((!actionResult.isAccepted() || this.isBaby()) && this.isOwner(player))
+			ActionResult actionResult = super.interactMob(player, hand);
+			if((!actionResult.isAccepted() || this.isBaby()) && this.isOwner(player))
+			{
+				if(!world.isClient())
 				{
 					this.setSitting(!this.isSitting());
 					this.jumping = false;
 					this.navigation.stop();
 					this.setTarget(null);
-					return ActionResult.SUCCESS;
-				}
-				return actionResult;
-			}else if(isBreedingItem(stack) && this.getTarget() == null)
-			{
-				if(!player.abilities.creativeMode)
-				{
-					stack.decrement(1);
-				}
-
-				if(this.random.nextInt(3) == 0)
-				{
-					this.setOwner(player);
-					this.navigation.stop();
-					this.setTarget(null);
-					this.setSitting(true);
-					this.world.sendEntityStatus(this, (byte) 7);
-				}else
-				{
-					this.world.sendEntityStatus(this, (byte) 6);
 				}
 				return ActionResult.SUCCESS;
 			}
-			return super.interactMob(player, hand);
+			return actionResult;
 		}
+		else
+		{
+			if(isBreedingItem(stack) && this.getTarget() == null)
+			{
+				if(!world.isClient())
+				{
+					if(!player.abilities.creativeMode)
+					{
+						stack.decrement(1);
+					}
+
+					if(this.random.nextInt(3) == 0)
+					{
+						this.setOwner(player);
+						this.navigation.stop();
+						this.setTarget(null);
+						this.setSitting(true);
+						this.world.sendEntityStatus(this, (byte) 7);
+					}
+					else
+					{
+						this.world.sendEntityStatus(this, (byte) 6);
+					}
+				}
+				return ActionResult.SUCCESS;
+			}
+		}
+		return super.interactMob(player, hand);
 	}
 
 	public boolean isBreedingItem(ItemStack stack)
@@ -240,7 +240,13 @@ public class OwlEntity extends TameableShoulderEntity
 	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity)
 	{
-		return null;
+		OwlEntity owl = BMEntities.OWL.create(world);
+		UUID uUID = this.getOwnerUuid();
+		if (uUID != null) {
+			owl.setOwnerUuid(uUID);
+			owl.setTamed(true);
+		}
+		return owl;
 	}
 
 	@Override
@@ -335,11 +341,13 @@ public class OwlEntity extends TameableShoulderEntity
 					}
 
 					blockPos2 = (BlockPos) var5.next();
-				}while(blockPos.equals(blockPos2));
+				}
+				while(blockPos.equals(blockPos2));
 
 				Block block = this.mob.world.getBlockState(mutable2.set(blockPos2, Direction.DOWN)).getBlock();
 				bl = block instanceof LeavesBlock || block.isIn(BlockTags.LOGS);
-			}while(!bl || !this.mob.world.isAir(blockPos2) || !this.mob.world.isAir(mutable.set(blockPos2, Direction.UP)));
+			}
+			while(!bl || !this.mob.world.isAir(blockPos2) || !this.mob.world.isAir(mutable.set(blockPos2, Direction.UP)));
 
 			return Vec3d.ofBottomCenter(blockPos2);
 		}
@@ -352,6 +360,6 @@ public class OwlEntity extends TameableShoulderEntity
 
 	public enum OwlState
 	{
-		IDLE, ATTACKING, SLEEPING
+		IDLE, ATTACKING
 	}
 }

@@ -53,6 +53,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 	private boolean hasAction = false;
 	public RootlingEntity forcedDancePartner = null;
 	private int actionCooldown;
+	private int growTime = 0;
 
 	public RootlingEntity(World world)
 	{
@@ -92,7 +93,18 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 	protected void mobTick()
 	{
 		super.mobTick();
-		if(!hasAction()) actionCooldown--;
+		if(!world.isClient())
+		{
+			if(!hasAction()) actionCooldown--;
+			if(growTime > 0)
+			{
+				growTime--;
+				if(isTouchingWaterOrRain() && random.nextInt(5) == 0)
+					growTime--;
+				if(growTime <= 0 && !hasFlower())
+					setFlowered(true);
+			}
+		}
 	}
 
 	@Override
@@ -167,6 +179,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		super.writeCustomDataToTag(tag);
 
 		tag.putInt("ActionCooldown", actionCooldown);
+		tag.putInt("GrowTime", growTime);
 		tag.putBoolean("HasFlower", dataTracker.get(HAS_FLOWER));
 		tag.putInt("FlowerType", getFlowerIndex());
 	}
@@ -176,6 +189,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 	{
 		super.readCustomDataFromTag(tag);
 		actionCooldown = tag.getInt("ActionCooldown");
+		growTime = tag.getInt("GrowTime");
 		dataTracker.set(HAS_FLOWER, tag.getBoolean("HasFlower"));
 		dataTracker.set(FLOWER_TYPE, tag.getInt("FlowerType"));
 	}
@@ -222,6 +236,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		//TODO: custom sound
 		this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, sound, 1.0F, 1.0F);
 		this.setFlowered(false);
+		growTime = RandomUtil.randomRange(600, 1200);
 	}
 
 	@Override

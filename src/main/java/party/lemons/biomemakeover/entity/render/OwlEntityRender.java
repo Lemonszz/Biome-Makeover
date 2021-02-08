@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.entity.render;
 
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,6 +25,20 @@ public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel
 	public Identifier getTexture(OwlEntity entity)
 	{
 		return TEXTURE;
+	}
+
+	@Override
+	public void render(OwlEntity owl, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i)
+	{
+		shadowRadius = 0.25F;
+		matrixStack.push();
+		if(owl.isBaby())
+		{
+			matrixStack.scale(0.5F, 0.5F, 0.5F);
+			shadowRadius = 0.1F;
+		}
+		super.render(owl, f, g, matrixStack, vertexConsumerProvider, i);
+		matrixStack.pop();
 	}
 
 	@Override

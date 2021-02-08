@@ -14,6 +14,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -63,7 +64,8 @@ public class IvyBlock extends BMBlock
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
-		if(getNearbyIvyCount(world, pos) >= 6) return;
+		Pair<Integer, Integer> nearbyCount = getNearbyIvyCount(world, pos);
+		if(nearbyCount.getLeft() >= 6 && nearbyCount.getRight() >= 1) return;
 
 		Direction checkDirection = getRandomStateSide(state, random);
 		if(checkDirection == null) return;
@@ -103,7 +105,7 @@ public class IvyBlock extends BMBlock
 		}
 	}
 
-	private int getNearbyIvyCount(World world, BlockPos pos)
+	private Pair<Integer, Integer> getNearbyIvyCount(World world, BlockPos pos)
 	{
 		int distance = 3;
 		int count = -1; //-1 because it counts itself and this was easier lol
@@ -117,7 +119,12 @@ public class IvyBlock extends BMBlock
 				}
 			}
 		}
-		return count;
+		int adjacent = 0;
+		for(Direction dir : Direction.values())
+			if(world.getBlockState(pos.offset(dir)).isOf(this)) adjacent++;
+
+
+		return new Pair<>(count, adjacent);
 	}
 
 	private boolean canReplace(BlockState state)

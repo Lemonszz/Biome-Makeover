@@ -11,6 +11,11 @@ public final class RandomUtil
 		return RANDOM.nextInt(max - min) + min;
 	}
 
+	public static double randomRange(double min, double max)
+	{
+		return min + (max - min) * RANDOM.nextDouble();
+	}
+
 	public static float randomDirection(float value)
 	{
 		return RANDOM.nextBoolean() ? value : -value;

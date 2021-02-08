@@ -5,8 +5,10 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.Stuntable;
 
 public class StuntPowderItem extends Item
@@ -19,16 +21,16 @@ public class StuntPowderItem extends Item
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand)
 	{
-		if(entity instanceof PassiveEntity)
+		if(entity instanceof Stuntable)
 		{
-			if(entity.isBaby())
+			if(entity.isBaby() && !((Stuntable)entity).isStunted())
 			{
 				if(!entity.world.isClient())
 				{
 					((Stuntable) entity).setStunted(true);
-					return ActionResult.SUCCESS;
+					NetworkUtil.doEntityParticle(user.world, ParticleTypes.DOLPHIN, entity, 15, 0.2F);
 				}
-				return ActionResult.CONSUME;
+				return ActionResult.SUCCESS;
 			}
 		}
 		return super.useOnEntity(stack, user, entity, hand);

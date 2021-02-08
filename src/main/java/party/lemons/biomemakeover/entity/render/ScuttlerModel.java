@@ -162,7 +162,7 @@ public class ScuttlerModel extends CompositeEntityModel<ScuttlerEntity> implemen
 	private static class BigHeadPart extends ModelPart
 	{
 
-		BigHeadPart(Model model)
+		public BigHeadPart(Model model)
 		{
 			super(model);
 		}

@@ -226,12 +226,12 @@ public class BMBlocks
 		for(DyeColor dye : DyeColor.values())
 		{
 			Block tap = DYE_TO_TAPESTRY.get(dye);
-			TapestryWallBlock wallBlock = new TapestryWallBlock(dye, settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD));
-
 			Registry.register(Registry.BLOCK, BiomeMakeover.ID(dye.getName() + "_tapestry"), tap);
+
+			TapestryWallBlock wallBlock = new TapestryWallBlock(dye, settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD).dropsLike(tap));
 			Registry.register(Registry.BLOCK, BiomeMakeover.ID(dye.getName() + "_wall_tapestry"), wallBlock);
 
-			WallStandingBlockItem blItem = new WallStandingBlockItem(tap, wallBlock, new Item.Settings().group(BiomeMakeover.GROUP));
+			WallStandingBlockItem blItem = new WallStandingBlockItem(tap, wallBlock, new Item.Settings().maxCount(16).group(BiomeMakeover.GROUP));
 			Registry.register(Registry.ITEM, BiomeMakeover.ID(dye.getName() + "_tapestry"), blItem);
 
 			TAPESTRY_BLOCKS.add(wallBlock);

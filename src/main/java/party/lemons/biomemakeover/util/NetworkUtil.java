@@ -4,14 +4,18 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.init.BMNetwork;
 
@@ -55,6 +59,22 @@ public class NetworkUtil
 		buf.writeInt(count);
 
 		serverSendTracking(world, entity.getBlockPos(), BMNetwork.SPAWN_LIGHTNING_ENTITY_PARTICLES, buf);
+	}
+
+	public static void doEntityParticle(World world, ParticleEffect effect, Entity e, int count, float offset)
+	{
+		if(world.isClient) return;
+
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		buf.writeInt(e.getEntityId());
+		buf.writeInt(Registry.PARTICLE_TYPE.getRawId((ParticleType<?>)effect));
+		buf.writeInt(count);
+		buf.writeFloat(offset);
+
+		buf.writeDouble(world.random.nextGaussian() * 0.02D);
+		buf.writeDouble(world.random.nextGaussian() * 0.02D);
+		buf.writeDouble(world.random.nextGaussian() * 0.02D);
+		serverSendTracking(world, e.getBlockPos(), BMNetwork.ENTITY_PARTICLE, buf);
 	}
 
 	public static void serverSendTracking(World world, BlockPos blockPos, Identifier id, PacketByteBuf buf)

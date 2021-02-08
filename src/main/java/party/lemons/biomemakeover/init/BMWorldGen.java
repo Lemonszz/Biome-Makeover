@@ -34,7 +34,6 @@ import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
-import net.minecraft.world.gen.tree.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.tree.LeaveVineTreeDecorator;
 import net.minecraft.world.gen.tree.TreeDecoratorType;
 import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
@@ -82,10 +81,10 @@ public class BMWorldGen
 			}
 		});
 
+		BiomeModifications.addFeature(DARK_FOREST, LOCAL_MODIFICATIONS, rk(MESMERITE_BOULDER));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(ANCIENT_OAK_TREES));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(SMALL_DARK_OAK_TREES));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_ORES, rk(MESMERITE_UNDERGROUND));
-		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(MESMERITE_BOULDER));
 
 		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.OWL, 10, 1, 4);
 		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.ROOTLING, 10, 2, 6);
@@ -190,7 +189,8 @@ public class BMWorldGen
 	public static final GrassPatchFeature UNDERGROUND_MYCELIUM = new GrassPatchFeature(GrassPatchFeatureConfig.CODEC);
 	public static final OrangeMushroomFeature ORANGE_MUSHROOM_FEATURE = new OrangeMushroomFeature(ProbabilityConfig.CODEC);
 
-	public static final ConfiguredFeature<?, ?> MESMERITE_UNDERGROUND = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, BMBlocks.MESMERITE.getDefaultState(), 33)).rangeOf(80).spreadHorizontally().repeat(10);
+	public static final Feature<OreFeatureConfig> ILLUNITE_UNDERGROUND_FEATURE = new IlluniteUndergroundFeature(OreFeatureConfig.CODEC);
+	public static final ConfiguredFeature<?, ?> MESMERITE_UNDERGROUND = ILLUNITE_UNDERGROUND_FEATURE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, BMBlocks.MESMERITE.getDefaultState(), 33)).rangeOf(60).spreadHorizontally().repeat(6);
 	public static final Feature<SingleStateFeatureConfig> MESMERITE_BOULDER_FEATURE = new MesermiteBoulderFeature(SingleStateFeatureConfig.CODEC);
 	public static final ConfiguredFeature<?, ?> MESMERITE_BOULDER = MESMERITE_BOULDER_FEATURE.configure(new SingleStateFeatureConfig(BMBlocks.MESMERITE.getDefaultState())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(4);
 

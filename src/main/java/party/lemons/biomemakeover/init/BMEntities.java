@@ -2,9 +2,11 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -53,6 +55,8 @@ public class BMEntities
 
 		restrictions.put(BMEntities.TOAD, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
 		restrictions.put(BMEntities.DRAGONFLY, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
+		registerRestriction(restrictions, BMEntities.ROOTLING, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BMEntities::isValidDarkForestAnimalSpawn);
+		registerRestriction(restrictions, BMEntities.OWL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BMEntities::isValidOwlSpawn);
 	}
 
 	private static <T extends MobEntity> void registerRestriction(Map<EntityType<?>, SpawnRestriction.Entry> restrictions, EntityType<T> type, SpawnRestriction.Location location, Heightmap.Type heightmapType, SpawnRestriction.SpawnPredicate<T> predicate)
@@ -63,11 +67,24 @@ public class BMEntities
 			throw new IllegalStateException("Duplicate registration for type " + Registry.ENTITY_TYPE.getId(type));
 		}
 	}
-
 	public static boolean isValidAnimalSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
 	{
 		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
 	}
+
+
+	public static boolean isValidDarkForestAnimalSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
+	{
+		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 2;
+	}
+
+	public static boolean isValidOwlSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
+	{
+		BlockState state = world.getBlockState(pos.down());
+
+		return (state.isOf(Blocks.GRASS_BLOCK) || state.isIn(BlockTags.LEAVES)) && world.getBaseLightLevel(pos, 0) > 2;
+	}
+
 
 	public static final Tag<EntityType<?>> LIGHTNING_BUG_TAG = TagRegistry.entityType(BiomeMakeover.ID("lightning_bug"));
 	public static final Tag<EntityType<?>> OWL_TARGETS = TagRegistry.entityType(BiomeMakeover.ID("owl_targets"));

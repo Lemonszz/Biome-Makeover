@@ -21,10 +21,14 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
 	@Override
 	public int getColor(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex)
 	{
-		int color = super.getColor(state, world, pos, tintIndex);
-		int[] boosts = getColorBoosts(world, state, pos, tintIndex);
+		if(tintIndex == 0)
+		{
+			int color = super.getColor(state, world, pos, tintIndex);
+			int[] boosts = getColorBoosts(world, state, pos, tintIndex);
 
-		return MathUtils.colourBoost(color, boosts[0], boosts[1], boosts[2]);
+			return MathUtils.colourBoost(color, boosts[0], boosts[1], boosts[2]);
+		}
+		return 0xFFFFFF;
 	}
 
 	protected int[] getColorBoosts(BlockRenderView world, BlockState state, BlockPos pos, int tintIndex)

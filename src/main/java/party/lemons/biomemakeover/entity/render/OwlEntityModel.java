@@ -1,9 +1,12 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.OwlEntity;
 
@@ -34,6 +37,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 	private final ModelPart foot_left;
 	private final ModelPart tail;
 	private final ModelPart tail_r1;
+	private static boolean baby;
 
 	public OwlEntityModel()
 	{
@@ -54,7 +58,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 		head_connection.setPivot(0.0F, -8.575F, 0.6875F);
 		chest.addChild(head_connection);
 
-		head = new ModelPart(this);
+		head = new BigHeadPart(this);
 		head.setPivot(0.0F, 3.0F, 0.0F);
 		head_connection.addChild(head);
 		head.setTextureOffset(0, 16).addCuboid(-4.0F, -6.0F, -3.0F, 8.0F, 6.0F, 6.0F, 0.0F, false);
@@ -175,6 +179,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 	public void setAngles(OwlEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
 		float pi = (float) Math.PI;
+		baby = entity.isBaby();
 
 		if(entity.getStandingState() != OwlEntity.StandingState.FLYING)
 		{
@@ -262,5 +267,32 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 	public ModelPart getHead()
 	{
 		return head;
+	}
+
+	public static class BigHeadPart extends ModelPart
+	{
+		public BigHeadPart(Model model)
+		{
+			super(model);
+		}
+
+		public BigHeadPart(Model model, int textureOffsetU, int textureOffsetV)
+		{
+			super(model, textureOffsetU, textureOffsetV);
+		}
+
+		public BigHeadPart(int textureWidth, int textureHeight, int textureOffsetU, int textureOffsetV)
+		{
+			super(textureWidth, textureHeight, textureOffsetU, textureOffsetV);
+		}
+
+		@Override
+		public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha)
+		{
+			matrices.push();
+			if(baby) matrices.scale(1.6F, 1.6F, 1.6F);
+			super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+			matrices.pop();
+		}
 	}
 }
