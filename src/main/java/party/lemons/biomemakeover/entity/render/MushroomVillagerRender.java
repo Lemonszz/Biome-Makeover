@@ -11,14 +11,16 @@ import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.MushroomVillagerEntity;
 import party.lemons.biomemakeover.entity.render.feature.MushroomVillagerFeatureRenderer;
+import party.lemons.biomemakeover.entity.render.feature.MushroomVillagerOverlayFeatureRenderer;
 
 public class MushroomVillagerRender extends MobEntityRenderer<MushroomVillagerEntity, VillagerResemblingModel<MushroomVillagerEntity>>
 {
-	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/mushroom_trader.png");
+	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/mushrooming_trader_inner.png");
 
 	public MushroomVillagerRender(EntityRenderDispatcher entityRenderDispatcher)
 	{
 		super(entityRenderDispatcher, new VillagerResemblingModel(0.0F), 0.5F);
+		this.addFeature(new MushroomVillagerOverlayFeatureRenderer(this));
 		this.addFeature(new HeadFeatureRenderer(this));
 		this.addFeature(new VillagerHeldItemFeatureRenderer(this));
 		this.addFeature(new MushroomVillagerFeatureRenderer(this));
@@ -38,6 +40,6 @@ public class MushroomVillagerRender extends MobEntityRenderer<MushroomVillagerEn
 	protected void scale(MushroomVillagerEntity wanderingTraderEntity, MatrixStack matrixStack, float f)
 	{
 		float g = 0.9375F;
-		matrixStack.scale(0.9375F, 0.9375F, 0.9375F);
+		matrixStack.scale(g, g, g);
 	}
 }

@@ -57,7 +57,7 @@ public class LightningBottleItem extends Item
 			bottleEntity.setProperties(user, user.pitch, user.yaw, -20.0F, 0.7F, 1.0F);
 			world.spawnEntity(bottleEntity);
 		}
-
+		user.getItemCooldownManager().set(this, 45);
 		user.incrementStat(Stats.USED.getOrCreateStat(this));
 		if(!user.abilities.creativeMode)
 		{

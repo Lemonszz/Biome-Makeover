@@ -13,7 +13,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.TypedActionResult;
-import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.render.AltarBlockEntityRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.TapestryBlockEntityRenderer;
@@ -27,6 +26,7 @@ import party.lemons.biomemakeover.util.color.ColorProviderHelper;
 import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
 import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
 import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
+import party.lemons.biomemakeover.world.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
@@ -70,8 +70,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		BMNetwork.initClient();
 
-		ParticleFactoryRegistry.getInstance()
-				.register((ParticleType) BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.POLTERGEIST, PoltergeistParticle.Factory::new);
 
 		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
 		                                                BMBlocks.ANCIENT_OAK_LEAVES,

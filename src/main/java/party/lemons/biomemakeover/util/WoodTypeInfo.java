@@ -81,7 +81,7 @@ public class WoodTypeInfo
 
 	public WoodTypeInfo pressure_plate()
 	{
-		set(Type.PRESSURE_PLATE, new BMPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, settings));
+		set(Type.PRESSURE_PLATE, new BMPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(settings).noCollision()));
 		return this;
 	}
 

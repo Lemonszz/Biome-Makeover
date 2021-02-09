@@ -34,7 +34,11 @@ public class ToadTargetEntity extends PathAwareEntity
 			super.tick();
 		}else
 		{
-			if(eatenBy.isDead() || eatenBy.removed || eatenBy == null) setEatenBy(null);
+			if(eatenBy == null || eatenBy.isDead() || eatenBy.removed)
+			{
+				setEatenBy(null);
+				return;
+			}
 
 			if(eatenBy.isTongueReady())
 			{

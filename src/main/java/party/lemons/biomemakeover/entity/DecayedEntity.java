@@ -171,7 +171,7 @@ public class DecayedEntity extends ZombieEntity
 						if(item != null)
 						{
 							ItemStack stack = new ItemStack(item);
-							stack.addEnchantment(BMEnchantments.DECAY_CURSE, random.nextInt(4));
+							stack.addEnchantment(BMEnchantments.DECAY_CURSE, 1 + random.nextInt(4));
 							this.equipStack(equipmentSlot, stack);
 						}
 					}
@@ -180,7 +180,7 @@ public class DecayedEntity extends ZombieEntity
 		}
 
 		ItemStack shield = new ItemStack(Items.SHIELD);
-		shield.addEnchantment(BMEnchantments.DECAY_CURSE, random.nextInt(4));
+		shield.addEnchantment(BMEnchantments.DECAY_CURSE, 1 + random.nextInt(4));
 		this.equipStack(EquipmentSlot.OFFHAND, shield);
 		return entityData;
 	}
@@ -189,8 +189,12 @@ public class DecayedEntity extends ZombieEntity
 	public AttributeContainer getAttributes()
 	{
 		if(attributeContainer == null)
-			attributeContainer = new AttributeContainer(HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 35.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23000000417232513D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS).build());
-
+			attributeContainer = new AttributeContainer(HostileEntity.createHostileAttributes()
+					.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16D)
+					.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23000000417232513D)
+					.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
+					.add(EntityAttributes.GENERIC_ARMOR, 2.0D)
+					.add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS).build());
 		return attributeContainer;
 	}
 

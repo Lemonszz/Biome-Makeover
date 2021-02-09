@@ -47,7 +47,7 @@ public class BMEffects
 	public static final SoundEvent BOTTLE_THUNDER = new SoundEvent(BiomeMakeover.ID("entity.lightning_bottle.thunder"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
-
+	public static final ParticleEffect POLTERGEIST = FabricParticleTypes.simple();
 	public static void init()
 	{
 		RegistryHelper.register(Registry.SOUND_EVENT, SoundEvent.class, BMEffects.class);

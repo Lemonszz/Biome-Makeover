@@ -134,8 +134,7 @@ public class BiomeMakeover implements ModInitializer
 		});
 
 		final Identifier BAT_LT_ID = new Identifier("minecraft", "entities/bat");
-		LootTableLoadingCallback.EVENT.register((rm, lm, id, supplier, setter)->
-		{
+		LootTableLoadingCallback.EVENT.register((rm, lm, id, supplier, setter)->{
 			if(id.equals(BAT_LT_ID))
 			{
 				FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder().rolls(BinomialLootTableRange.create(2, 0.5F)).withEntry(ItemEntry.builder(BMItems.BAT_WING).build());

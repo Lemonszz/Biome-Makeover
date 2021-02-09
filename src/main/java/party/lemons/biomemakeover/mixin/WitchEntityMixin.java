@@ -88,7 +88,7 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 		if(random.nextFloat() < 0.10)
 		{
 			for(StatusEffectInstance effect : getStatusEffects())
-				if(!effect.getEffectType().isBeneficial())
+				if(((StatusEffectAccess)effect.getEffectType()).getType() == StatusEffectType.HARMFUL)
 				{
 					return BMPotions.ANTIDOTE_POT;
 				}
