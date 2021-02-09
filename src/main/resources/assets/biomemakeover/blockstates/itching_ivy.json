@@ -6,7 +6,7 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/ivy_1",
+          "model": "biomemakeover:block/itching_ivy",
           "x": 270,
           "uvlock": true
         }
@@ -18,7 +18,7 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/ivy_1",
+          "model": "biomemakeover:block/itching_ivy",
           "y": 270,
           "uvlock": true
         }
@@ -30,7 +30,7 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/ivy_1",
+          "model": "biomemakeover:block/itching_ivy",
           "x": 90,
           "uvlock": true
         }
@@ -42,7 +42,7 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/ivy_1",
+          "model": "biomemakeover:block/itching_ivy",
           "y": 90,
           "uvlock": true
         }
@@ -54,7 +54,7 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/ivy_1",
+          "model": "biomemakeover:block/itching_ivy",
           "y": 180,
           "uvlock": true
         }
@@ -66,7 +66,7 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/ivy_1"
+          "model": "biomemakeover:block/itching_ivy"
         }
       ]
     }

@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.world.feature.mansion.room;
 
+import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +19,21 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 	public RoofMansionRoom(BlockPos position)
 	{
 		super(position, RoomType.ROOF);
-		setSortValue(1);
+		setSortValue(-1);
+	}
+
+	@Override
+	public void addWalls(Random random, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, List<StructurePiece> children)
+	{
+		if(isRoofConnected(Direction.NORTH, roomGrid))
+			children.add(new MansionFeature.Piece(manager, getRoofSplit(random), wallPos.offset(Direction.NORTH).add(-2, 0, 0), BlockRotation.NONE, getPosition().getY() == 0, true));
+		if(isRoofConnected(Direction.WEST, roomGrid))
+			children.add(new MansionFeature.Piece(manager, getRoofSplit(random), wallPos.offset(Direction.WEST).add(0, 0, -2), BlockRotation.CLOCKWISE_90, getPosition().getY() == 0, true));
+	}
+
+	private Identifier getRoofSplit(Random random)
+	{
+		return MansionFeature.ROOF_SPLIT.get(random.nextInt(MansionFeature.ROOF_SPLIT.size()));
 	}
 
 	public BlockPos getOffsetForRotation(BlockPos offsetPos, BlockRotation rotation)

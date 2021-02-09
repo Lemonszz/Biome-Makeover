@@ -1,9 +1,7 @@
 package party.lemons.biomemakeover.world.feature.mansion;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -13,7 +11,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
@@ -26,11 +23,9 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
-import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -98,47 +93,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 				//Create walls
 				BlockPos wallPos = new BlockPos(xx, yy, zz);
-				addRoomWalls(rm, wallPos, manager, roomGrid, children);
+				rm.addWalls(random, wallPos, manager, roomGrid, children);
 			});
 			this.setBoundingBoxFromChildren();
-		}
-
-		private void addRoomWalls(MansionRoom room, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, List<StructurePiece> walls)
-		{
-			boolean ground = room.getPosition().getY() == 0;
-
-			if(room.getRoomType().hasWalls())
-			{
-				if(room.isConnected(Direction.NORTH))
-					children.add(new Piece(manager, getInnerWall(room, random), wallPos.offset(Direction.NORTH, 2), BlockRotation.NONE, ground, false));
-				else if(!roomGrid.contains(room.getPosition().north()) || !roomGrid.get(room.getPosition().north()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, Direction.NORTH, roomGrid, random), wallPos.offset(Direction.EAST, 11), BlockRotation.CLOCKWISE_180, ground, true));
-				else if(roomGrid.contains(room.getPosition().north()))
-					children.add(new Piece(manager, getFlatWall(room, random), wallPos.offset(Direction.NORTH, 2), BlockRotation.NONE, ground, false));
-
-				if(room.isConnected(Direction.WEST))
-					children.add(new Piece(manager, getInnerWall(room, random), wallPos, BlockRotation.CLOCKWISE_90, ground, false));
-				else if(!roomGrid.contains(room.getPosition().west()) || !roomGrid.get(room.getPosition().west()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, Direction.WEST, roomGrid, random), wallPos.north(), BlockRotation.CLOCKWISE_90, ground, true));
-				else if(roomGrid.contains(room.getPosition().west()))
-					children.add(new Piece(manager, getFlatWall(room, random), wallPos, BlockRotation.CLOCKWISE_90, ground, false));
-
-				if(!roomGrid.contains(room.getPosition().east()) || !roomGrid.get(room.getPosition().east()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, Direction.EAST, roomGrid, random), wallPos.offset(Direction.EAST, 11).west().south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
-				if(!roomGrid.contains(room.getPosition().south()) || !roomGrid.get(room.getPosition().south()).getRoomType().hasWalls())
-					children.add(new Piece(manager, getOuterWall(room, Direction.SOUTH, roomGrid, random), wallPos.offset(Direction.SOUTH, 10).west(), BlockRotation.NONE, ground, true));
-
-				BlockPos cornerPos1 = room.getPosition().offset(Direction.NORTH).offset(Direction.WEST);
-				if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
-					children.add(new Piece(manager, CORNER_FILLER, wallPos.offset(Direction.WEST).offset(Direction.NORTH).add(0, 0, 0), BlockRotation.NONE, ground, false));
-			}else if(room.getRoomType() == RoomType.ROOF)
-			{
-				RoofMansionRoom roof = (RoofMansionRoom) room;
-				if(roof.isRoofConnected(Direction.NORTH, roomGrid))
-					children.add(new Piece(manager, getRoofSplit(room, random), wallPos.offset(Direction.NORTH).add(-2, 0, 0), BlockRotation.NONE, ground, true));
-				if(roof.isRoofConnected(Direction.WEST, roomGrid))
-					children.add(new Piece(manager, getRoofSplit(room, random), wallPos.offset(Direction.WEST).add(0, 0, -2), BlockRotation.CLOCKWISE_90, ground, true));
-			}
 		}
 
 		@Override
@@ -286,7 +243,6 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 	public static List<Identifier> ROOF_SPLIT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_split_1"));
 
-
 	public static List<Identifier> DUNGEON_DOOR = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/door_1"));
 	public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/wall_1"));
 	public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/room_1"));
@@ -295,49 +251,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> DUNGEON_STAIR_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_top"));
 	public static List<Identifier> BOSS_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/boss_room"));
 
+	public static List<Identifier> ENTRANCE = Lists.newArrayList(BiomeMakeover.ID("mansion/entrance/entrance_1"));
+
 	public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
-
-	public static Identifier getInnerWall(MansionRoom room, Random random)
-	{
-		if(room.getPosition().getY() < 0)
-		{
-			return DUNGEON_DOOR.get(random.nextInt(DUNGEON_DOOR.size()));
-		}
-
-		return INNER_WALL.get(random.nextInt(INNER_WALL.size()));
-	}
-
-	public static Identifier getFlatWall(MansionRoom room, Random random)
-	{
-		if(room.getPosition().getY() < 0)
-		{
-			return DUNGEON_WALL.get(random.nextInt(DUNGEON_WALL.size()));
-		}
-
-		return FLAT_WALL.get(random.nextInt(FLAT_WALL.size()));
-	}
-
-	public static Identifier getOuterWall(MansionRoom room, Direction dir, Grid<MansionRoom> roomGrid, Random random)
-	{
-		if(room.getPosition().getY() > 0)
-		{
-			if(room.getRoomType().hasWindows() && random.nextFloat() < 0.8F && !roomGrid.contains(room.getPosition().offset(dir)))
-				return OUTER_WINDOW.get(random.nextInt(OUTER_WINDOW.size()));
-
-			return OUTER_WALL.get(random.nextInt(OUTER_WALL.size()));
-		}else if(room.getPosition().getY() < 0)
-		{
-			return DUNGEON_WALL.get(random.nextInt(DUNGEON_WALL.size()));
-		}
-		else
-		{
-			return OUTER_WALL_BASE.get(random.nextInt(OUTER_WALL_BASE.size()));
-		}
-	}
-
-
-	private Identifier getRoofSplit(MansionRoom room, ChunkRandom random)
-	{
-		return ROOF_SPLIT.get(random.nextInt(ROOF_SPLIT.size()));
-	}
 }

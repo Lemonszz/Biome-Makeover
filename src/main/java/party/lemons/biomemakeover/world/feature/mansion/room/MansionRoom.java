@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.world.feature.mansion.room;
 
+import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -181,5 +183,61 @@ public class MansionRoom
 	public int getSortValue()
 	{
 		return sortValue;
+	}
+
+	public void addWalls(Random random, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, List<StructurePiece> children)
+	{
+		boolean ground = getPosition().getY() == 0;
+
+		if(getRoomType().hasWalls())
+		{
+			if(isConnected(Direction.NORTH))
+				children.add(new MansionFeature.Piece(manager, getInnerWall(random), wallPos.offset(Direction.NORTH, 2), BlockRotation.NONE, ground, false));
+			else if(!roomGrid.contains(getPosition().north()) || !roomGrid.get(getPosition().north()).getRoomType().hasWalls())
+				children.add(new MansionFeature.Piece(manager, getOuterWall(Direction.NORTH, roomGrid, random), wallPos.offset(Direction.EAST, 11), BlockRotation.CLOCKWISE_180, ground, true));
+			else if(roomGrid.contains(getPosition().north()))
+				children.add(new MansionFeature.Piece(manager, getFlatWall(random), wallPos.offset(Direction.NORTH, 2), BlockRotation.NONE, ground, false));
+
+			if(isConnected(Direction.WEST))
+				children.add(new MansionFeature.Piece(manager, getInnerWall(random), wallPos, BlockRotation.CLOCKWISE_90, ground, false));
+			else if(!roomGrid.contains(getPosition().west()) || !roomGrid.get(getPosition().west()).getRoomType().hasWalls())
+				children.add(new MansionFeature.Piece(manager, getOuterWall(Direction.WEST, roomGrid, random), wallPos.north(), BlockRotation.CLOCKWISE_90, ground, true));
+			else if(roomGrid.contains(getPosition().west()))
+				children.add(new MansionFeature.Piece(manager, getFlatWall(random), wallPos, BlockRotation.CLOCKWISE_90, ground, false));
+
+			if(!roomGrid.contains(getPosition().east()) || !roomGrid.get(getPosition().east()).getRoomType().hasWalls())
+				children.add(new MansionFeature.Piece(manager, getOuterWall(Direction.EAST, roomGrid, random), wallPos.offset(Direction.EAST, 11).west().south(11), BlockRotation.COUNTERCLOCKWISE_90, ground, true));
+			if(!roomGrid.contains(getPosition().south()) || !roomGrid.get(getPosition().south()).getRoomType().hasWalls())
+				children.add(new MansionFeature.Piece(manager, getOuterWall(Direction.SOUTH, roomGrid, random), wallPos.offset(Direction.SOUTH, 10).west(), BlockRotation.NONE, ground, true));
+
+			BlockPos cornerPos1 = getPosition().offset(Direction.NORTH).offset(Direction.WEST);
+			if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
+				children.add(new MansionFeature.Piece(manager, MansionFeature.CORNER_FILLER, wallPos.offset(Direction.WEST).offset(Direction.NORTH).add(0, 0, 0), BlockRotation.NONE, ground, false));
+		}
+	}
+
+	public Identifier getInnerWall(Random random)
+	{
+		return MansionFeature.INNER_WALL.get(random.nextInt(MansionFeature.INNER_WALL.size()));
+	}
+
+	public Identifier getFlatWall(Random random)
+	{
+		return MansionFeature.FLAT_WALL.get(random.nextInt(MansionFeature.FLAT_WALL.size()));
+	}
+
+	public Identifier getOuterWall(Direction dir, Grid<MansionRoom> roomGrid, Random random)
+	{
+		if(getPosition().getY() > 0)
+		{
+			if(getRoomType().hasWindows() && random.nextFloat() < 0.8F && !roomGrid.contains(getPosition().offset(dir)))
+				return MansionFeature.OUTER_WINDOW.get(random.nextInt(MansionFeature.OUTER_WINDOW.size()));
+
+			return MansionFeature.OUTER_WALL.get(random.nextInt(MansionFeature.OUTER_WALL.size()));
+		}
+		else
+		{
+			return MansionFeature.OUTER_WALL_BASE.get(random.nextInt(MansionFeature.OUTER_WALL_BASE.size()));
+		}
 	}
 }

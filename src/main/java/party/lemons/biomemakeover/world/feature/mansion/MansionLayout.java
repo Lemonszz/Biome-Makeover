@@ -11,13 +11,10 @@ import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.world.feature.mansion.processor.CorridorReplaceProcessor;
 import party.lemons.biomemakeover.world.feature.mansion.processor.FloorRoomReplaceProcessor;
 import party.lemons.biomemakeover.world.feature.mansion.processor.GardenRoomReplaceProcessor;
-import party.lemons.biomemakeover.world.feature.mansion.room.BossRoom;
-import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
-import party.lemons.biomemakeover.world.feature.mansion.room.RoofMansionRoom;
+import party.lemons.biomemakeover.world.feature.mansion.room.*;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MansionLayout
 {
@@ -100,6 +97,7 @@ public class MansionLayout
 		allRooms.removeIf(rm->!rm.active);
 
 		//Extras
+		createEntrance(random, allRooms);
 		createDungeon(random, allRooms, startY);
 		createTowers(random, allRooms);
 
@@ -123,6 +121,49 @@ public class MansionLayout
 		{
 			rm.setLayout(this, random);
 		});
+	}
+
+	protected void createEntrance(Random random, List<MansionRoom> allRooms)
+	{
+		MansionRoom entranceConnected = null;
+		Direction offsetDirection = null;
+		List<MansionRoom> possibleRooms = allRooms.stream().filter(room -> room.getPosition().getY() == 0 && room.getRoomType().hasWalls()).collect(Collectors.toList());
+		Collections.shuffle(possibleRooms);
+
+		for(MansionRoom room : possibleRooms)
+		{
+			if(room.getPosition().getY() != 0 || !room.getRoomType().hasWalls())
+				continue;
+
+			Direction outSide = getOutsideDirection(room.getPosition());
+			if(outSide != null)
+			{
+				entranceConnected = room;
+				offsetDirection = outSide;
+				break;
+			}
+		}
+
+		BlockPos entrancePos = entranceConnected.getPosition().offset(offsetDirection);
+		MansionRoom entranceRoom = new EntranceRoom(entrancePos, RoomType.ENTRANCE);
+		entranceRoom.getLayout().put(offsetDirection.getOpposite(), true);
+		entranceConnected.getLayout().put(offsetDirection, true);
+		layout.put(entrancePos, entranceRoom);
+		allRooms.add(entranceRoom);
+	}
+
+	private Direction getOutsideDirection(BlockPos pos)
+	{
+		if(layout.getMinX() == pos.getX())
+			return Direction.WEST;
+		else if(layout.getMaxX() == pos.getX())
+			return Direction.EAST;
+		else if(layout.getMinZ() == pos.getZ())
+			return Direction.NORTH;
+		else if(layout.getMaxZ() == pos.getZ())
+			return Direction.SOUTH;
+
+		return null;
 	}
 
 	protected void createTowers(Random random, List<MansionRoom> allRooms)
@@ -184,7 +225,7 @@ public class MansionLayout
 			layout.put(dungeonPos, dungeonStairsMid);
 			dungeonPos = dungeonPos.down();
 		}
-		MansionRoom dungeonStairsBottom = new MansionRoom(dungeonPos, RoomType.DUNGEON_STAIRS_BOTTOM);  //Stairs bottom
+		DungeonRoom dungeonStairsBottom = new DungeonRoom(dungeonPos, RoomType.DUNGEON_STAIRS_BOTTOM);  //Stairs bottom
 		layout.put(dungeonPos, dungeonStairsBottom);
 
 		BlockPos dungeonStart = new BlockPos(dungeonPos);   //Dungeon start position (bottom of stairs)
@@ -197,7 +238,7 @@ public class MansionLayout
 		for(int i = 1; i < dungeonCorridorLength; i++)  //Create corridor rooms
 		{
 			BlockPos roomPos = dungeonStart.offset(bossDir, i);
-			MansionRoom room = new MansionRoom(roomPos, RoomType.DUNGEON_ROOM);
+			MansionRoom room = new DungeonRoom(roomPos, RoomType.DUNGEON_ROOM);
 			room.setLayoutType(LayoutType.REQUIRED);
 			room.getLayout().put(bossDir, true);
 			layout.put(roomPos, room);
@@ -227,7 +268,7 @@ public class MansionLayout
 			BlockPos offPos = rm.getPosition().offset(dir);
 			if(!layout.contains(offPos))
 			{
-				MansionRoom offsetRoom = new MansionRoom(offPos, RoomType.DUNGEON_ROOM);
+				MansionRoom offsetRoom = new DungeonRoom(offPos, RoomType.DUNGEON_ROOM);
 				offsetRoom.setLayoutType(LayoutType.REQUIRED);
 				layout.put(offPos, offsetRoom);
 				dungeonRooms.add(offsetRoom);

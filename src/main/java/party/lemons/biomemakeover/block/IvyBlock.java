@@ -147,23 +147,23 @@ public class IvyBlock extends BMBlock
 		if(state.isOf(this))
 		{
 			world.setBlockState(pos, state.with(getPropertyForDirection(direction), true));
-		}else if(canReplace(state))
+		}
+		else if(canReplace(state))
 		{
 			world.setBlockState(pos, getDefaultState().with(getPropertyForDirection(direction), true));
+			if(doesScheduleAfterSet())
+				world.getBlockTickScheduler().schedule(pos, this, getScheduleDelay());
 		}
 	}
 
-	private Direction getRandomHorizontal(BlockState state, Random random)
+	protected boolean doesScheduleAfterSet()
 	{
-		List<Direction> validMovements = Lists.newArrayList();
-		for(Direction direction : BMUtil.HORIZONTALS)
-		{
-			if(state.get(getPropertyForDirection(direction))) validMovements.add(direction);
-		}
+		return false;
+	}
 
-		if(validMovements.isEmpty()) return null;
-
-		return validMovements.get(random.nextInt(validMovements.size()));
+	protected int getScheduleDelay()
+	{
+		return 4;
 	}
 
 	private static ImmutableMap<BlockState, VoxelShape> collectVoxelShapes(StateManager<Block, BlockState> stateManager)
@@ -311,7 +311,7 @@ public class IvyBlock extends BMBlock
 		return blockState.get(booleanProperty);
 	}
 
-	private static boolean isValidPlaceFace(BlockView blockView, Direction direction, BlockPos blockPos, BlockState blockState)
+	public static boolean isValidPlaceFace(BlockView blockView, Direction direction, BlockPos blockPos, BlockState blockState)
 	{
 		return Block.isFaceFullSquare(blockState.getCollisionShape(blockView, blockPos), direction.getOpposite());
 	}

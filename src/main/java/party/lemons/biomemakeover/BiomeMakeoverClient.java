@@ -13,7 +13,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.TypedActionResult;
-import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
+import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.render.AltarBlockEntityRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleBlockRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.TapestryBlockEntityRenderer;
@@ -50,45 +50,115 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.DECAYED, (r, c)->new DecayedRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG, (r, c)->new LightningBugRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG_ALTERNATE, (r, c)->new LightningBugRender(r));
-		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE, (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE,
+		                                         (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer())
+		);
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GIANT_SLIME, (r, c)->new GiantSlimeRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.OWL, (r, c)->new OwlEntityRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.ROOTLING, (r, c)->new RootlingEntityRender(r));
 
-		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, (r)->new LightningBugBottleBlockRenderer(r));
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE,
+		                                              (r)->new LightningBugBottleBlockRenderer(r)
+		);
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.ALTAR, (r)->new AltarBlockEntityRenderer(r));
-		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.TAPESTRY, (r)->new TapestryBlockEntityRenderer(r));
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.TAPESTRY,
+		                                              (r)->new TapestryBlockEntityRenderer(r)
+		);
 
 		ScreenRegistry.register(BMScreens.WITCH, WitchScreen::new);
 		ScreenRegistry.register(BMScreens.ALTAR, AltarScreen::new);
 
 		BMNetwork.initClient();
 
-		ParticleFactoryRegistry.getInstance().register((ParticleType) BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance()
+				.register((ParticleType) BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
 
-		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(), BMBlocks.ANCIENT_OAK_LEAVES, BMBlocks.IVY);
-		ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f), BMBlocks.SWAMP_CYPRESS_LEAVES);
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
+		                                                BMBlocks.ANCIENT_OAK_LEAVES,
+		                                                BMBlocks.IVY, BMBlocks.ITCHING_IVY,
+		                                                BMBlocks.MOTH_BLOSSOM
+		);
+		ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
+		                                                BMBlocks.SWAMP_CYPRESS_LEAVES
+		);
 
-		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Lillies(), BMBlocks.SMALL_LILY_PAD, Blocks.LILY_PAD, BMBlocks.WATER_LILY);
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Lillies(),
+		                                                BMBlocks.SMALL_LILY_PAD,
+		                                                Blocks.LILY_PAD,
+		                                                BMBlocks.WATER_LILY
+		);
 
-		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Willow(), BMBlocks.WILLOW_LEAVES, BMBlocks.WILLOWING_BRANCHES);
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Willow(),
+		                                                BMBlocks.WILLOW_LEAVES,
+		                                                BMBlocks.WILLOWING_BRANCHES
+		);
 
 
 		if(ENABLE_CLIENT_DEBUG)
 		{
 			UseItemCallback.EVENT.register((e, w, h)->
-			{
-				if(FabricLoader.getInstance().isDevelopmentEnvironment())
-				{
-					DebugUtil.printMissingLangKeys();
-				}
-				return TypedActionResult.pass(e.getStackInHand(h));
-			});
+			                               {
+				                               if(FabricLoader.getInstance().isDevelopmentEnvironment())
+				                               {
+					                               DebugUtil.printMissingLangKeys();
+				                               }
+				                               return TypedActionResult.pass(e.getStackInHand(h));
+			                               });
 		}
 
 		//TODO: Move this
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BMBlocks.MYCELIUM_ROOTS, BMBlocks.MYCELIUM_SPROUTS, BMBlocks.POTTED_MYCELIUM_ROOTS, BMBlocks.POTTED_GREEN_GLOWSHROOM, BMBlocks.POTTED_PURPLE_GLOWSHROOM, BMBlocks.POTTED_ORANGE_GLOWSHROOM, BMBlocks.POTTED_BLIGHTED_BALSA_SAPLING, BMBlocks.POTTED_BARREL_CACTUS, BMBlocks.POTTED_FLOWERED_BARREL_CACTUS, BMBlocks.POTTED_SAGUARO_CACTUS, BMBlocks.POTTED_SWAMP_CYPRESS_SAPLING, BMBlocks.POTTED_ANCIENT_OAK_SAPLING, BMBlocks.POTTED_WILLOW_SAPLING, BMBlocks.POTTED_SAGUARO_CACTUS, BMBlocks.TALL_BROWN_MUSHROOM, BMBlocks.TALL_RED_MUSHROOM, BMBlocks.PURPLE_GLOWSHROOM, BMBlocks.GREEN_GLOWSHROOM, BMBlocks.ORANGE_GLOWSHROOM, BMBlocks.BLIGHTED_BALSA_SAPLING, BMBlocks.TUMBLEWEED, BMBlocks.SAGUARO_CACTUS, BMBlocks.BARREL_CACTUS, BMBlocks.BARREL_CACTUS_FLOWERED, BMBlocks.POLTERGEIST, BMBlocks.CATTAIL, BMBlocks.REED, BMBlocks.SMALL_LILY_PAD, BMBlocks.WILLOW_SAPLING, BMBlocks.SWAMP_CYPRESS_SAPLING, BMBlocks.ANCIENT_OAK_SAPLING, BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR), BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR), BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR), BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR), BMBlocks.LIGHTNING_BUG_BOTTLE, BMBlocks.WATER_LILY, BMBlocks.SWAMP_AZALEA, BMBlocks.MARIGOLD, BMBlocks.ILLUNITE_CLUSTER, BMBlocks.ALTAR, BMBlocks.ROOTLING_CROP, BMBlocks.IVY);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+		                                       BMBlocks.MYCELIUM_ROOTS,
+		                                       BMBlocks.MYCELIUM_SPROUTS,
+		                                       BMBlocks.POTTED_MYCELIUM_ROOTS,
+		                                       BMBlocks.POTTED_GREEN_GLOWSHROOM,
+		                                       BMBlocks.POTTED_PURPLE_GLOWSHROOM,
+		                                       BMBlocks.POTTED_ORANGE_GLOWSHROOM,
+		                                       BMBlocks.POTTED_BLIGHTED_BALSA_SAPLING,
+		                                       BMBlocks.POTTED_BARREL_CACTUS,
+		                                       BMBlocks.POTTED_FLOWERED_BARREL_CACTUS,
+		                                       BMBlocks.POTTED_SAGUARO_CACTUS,
+		                                       BMBlocks.POTTED_SWAMP_CYPRESS_SAPLING,
+		                                       BMBlocks.POTTED_ANCIENT_OAK_SAPLING,
+		                                       BMBlocks.POTTED_WILLOW_SAPLING,
+		                                       BMBlocks.POTTED_SAGUARO_CACTUS,
+		                                       BMBlocks.TALL_BROWN_MUSHROOM,
+		                                       BMBlocks.TALL_RED_MUSHROOM,
+		                                       BMBlocks.PURPLE_GLOWSHROOM,
+		                                       BMBlocks.GREEN_GLOWSHROOM,
+		                                       BMBlocks.ORANGE_GLOWSHROOM,
+		                                       BMBlocks.BLIGHTED_BALSA_SAPLING,
+		                                       BMBlocks.TUMBLEWEED,
+		                                       BMBlocks.SAGUARO_CACTUS,
+		                                       BMBlocks.BARREL_CACTUS,
+		                                       BMBlocks.BARREL_CACTUS_FLOWERED,
+		                                       BMBlocks.POLTERGEIST,
+		                                       BMBlocks.CATTAIL,
+		                                       BMBlocks.REED,
+		                                       BMBlocks.SMALL_LILY_PAD,
+		                                       BMBlocks.WILLOW_SAPLING,
+		                                       BMBlocks.SWAMP_CYPRESS_SAPLING,
+		                                       BMBlocks.ANCIENT_OAK_SAPLING,
+		                                       BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
+		                                       BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
+		                                       BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.DOOR),
+		                                       BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.TRAP_DOOR),
+		                                       BMBlocks.LIGHTNING_BUG_BOTTLE,
+		                                       BMBlocks.WATER_LILY,
+		                                       BMBlocks.SWAMP_AZALEA,
+		                                       BMBlocks.MARIGOLD,
+		                                       BMBlocks.ILLUNITE_CLUSTER,
+		                                       BMBlocks.ALTAR,
+		                                       BMBlocks.ROOTLING_CROP,
+		                                       BMBlocks.IVY,
+		                                       BMBlocks.ITCHING_IVY,
+		                                       BMBlocks.MOTH_BLOSSOM
+		);
 
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), BMBlocks.ANCIENT_OAK_LEAVES, BMBlocks.WILLOW_LEAVES, BMBlocks.WILLOWING_BRANCHES);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(),
+		                                       BMBlocks.ANCIENT_OAK_LEAVES,
+		                                       BMBlocks.WILLOW_LEAVES,
+		                                       BMBlocks.WILLOWING_BRANCHES
+		);
 	}
 }

@@ -20,7 +20,8 @@ public enum RoomType
 	DUNGEON_STAIRS_MID(false, false, false, true, MansionFeature.DUNGEON_STAIR_MID),
 	DUNGEON_STAIRS_BOTTOM(false, false, true, true, MansionFeature.DUNGEON_STAIR_BOTTOM),
 	DUNGEON_ROOM(false, true, true, true, MansionFeature.DUNGEON_ROOM),
-	BOSS(true, false, false, false, MansionFeature.BOSS_ROOM);
+	BOSS(true, false, false, false, MansionFeature.BOSS_ROOM),
+	ENTRANCE(true, false, true, false, MansionFeature.ENTRANCE);
 
 	public final boolean doorRequired;
 	private final boolean isReplaceable, hasWalls, columnRotation;

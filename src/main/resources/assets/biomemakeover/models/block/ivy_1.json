@@ -1,7 +1,7 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "biomemakeover:block/ivy",
+    "particle": "biomemakeover:block/ivy_0",
     "ivy": "biomemakeover:block/ivy_0"
   },
   "elements": [

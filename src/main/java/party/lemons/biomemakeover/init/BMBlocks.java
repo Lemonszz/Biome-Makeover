@@ -125,6 +125,8 @@ public class BMBlocks
 
 	public static final RootlingCropBlock ROOTLING_CROP = new RootlingCropBlock(settings(Material.PLANT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP));
 	public static final IvyBlock IVY = new IvyBlock(settings(Material.REPLACEABLE_PLANT, 0.15F).noCollision().ticksRandomly());
+	public static final IvyBlock ITCHING_IVY = new ItchingIvyBlock(settings(Material.REPLACEABLE_PLANT, 0.15F).noCollision().ticksRandomly());
+	public static final MothBlossomBlock MOTH_BLOSSOM = new MothBlossomBlock(settings(Material.PLANT, 0.25F).noCollision().ticksRandomly());
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
