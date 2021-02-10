@@ -28,13 +28,9 @@
     "biomemakeover:orange_terracotta_brick_wall",
     "biomemakeover:white_terracotta_brick_wall",
     "biomemakeover:dried_peat_bricks_wall",
-<<<<<<< HEAD
     "biomemakeover:polished_mesmerite_wall",
-    "biomemakeover:mesmerite_wall"
-  ]
-=======
+    "biomemakeover:mesmerite_wall",
     "biomemakeover:cracked_dried_peat_brick_wall",
     "biomemakeover:mossy_dried_peat_brick_wall"
-    ]
->>>>>>> 7d8081b02383943cdd08775fb669720e33805c7b
+  ]
 }

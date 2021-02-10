@@ -247,7 +247,6 @@ public abstract class WitchEntityMixin extends RaiderEntity implements WitchQues
 
 	public void completeQuest(WitchQuest quest)
 	{
-		//TODO:
 
 	}
 

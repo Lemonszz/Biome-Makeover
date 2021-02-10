@@ -49,7 +49,8 @@
     "client.CuboidMixin",
     "client.ChunkRenderRegionMixin",
     "client.WorldRendererMixin",
-    "client.BuiltInModelItemRendererMixin"
+    "client.BuiltInModelItemRendererMixin",
+    "client.AbstractBlockClientMixin"
   ]
 ,
   "injectors": {
