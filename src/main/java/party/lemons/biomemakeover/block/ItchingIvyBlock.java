@@ -15,7 +15,6 @@ public class ItchingIvyBlock extends IvyBlock
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		entity.slowMovement(state, new Vec3d(0.85F, 0.85F, 0.85D));
 	}
 
 	@Override
