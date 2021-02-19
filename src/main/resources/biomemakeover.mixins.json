@@ -37,7 +37,8 @@
     "LakeFeatureMixin",
     "DarkOakSaplingGeneratorMixin",
     "ServerWorldMixin",
-    "PassiveEntityMixin"
+    "PassiveEntityMixin",
+    "GoalSelectorMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

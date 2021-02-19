@@ -87,10 +87,11 @@ public class BMWorldGen
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_ORES, rk(MESMERITE_UNDERGROUND));
 		BiomeModifications.addFeature(DARK_FOREST, TOP_LAYER_MODIFICATION, rk(ITCHING_IVY));
 
-		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.OWL, 10, 1, 4);
-		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.ROOTLING, 10, 2, 6);
-		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, EntityType.FOX, 8, 2, 4);
-		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, EntityType.RABBIT, 6, 2, 3);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.OWL, 20, 1, 4);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.ROOTLING, 20, 2, 6);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, EntityType.FOX, 4, 2, 4);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, EntityType.RABBIT, 4, 2, 3);
+		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.MONSTER, BMEntities.MOTH, 90, 2, 3);
 	}
 
 	private static void swampModifications()

@@ -2,6 +2,9 @@ package party.lemons.biomemakeover.world.feature.mansion;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.StructureBlockMode;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -23,6 +26,8 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
+import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
@@ -74,27 +79,27 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			sortedRooms = sortedRooms.stream().sorted(Comparator.comparingInt(MansionRoom::getSortValue)).collect(Collectors.toList());
 
 			sortedRooms.forEach(rm->
-			{
-				//Room Generate Position
-				int xx = pos.getX() + (rm.getPosition().getX() * 12);
-				int yy = pos.getY() + (rm.getPosition().getY() * 7);
-				int zz = pos.getZ() + (rm.getPosition().getZ() * 12);
+			                    {
+				                    //Room Generate Position
+				                    int xx = pos.getX() + (rm.getPosition().getX() * 12);
+				                    int yy = pos.getY() + (rm.getPosition().getY() * 7);
+				                    int zz = pos.getZ() + (rm.getPosition().getZ() * 12);
 
-				//Rotate/Offset Room to the correct position
-				BlockPos offsetPos = new BlockPos(xx, yy, zz);
-				BlockRotation rotation = rm.getRotation(random);
-				offsetPos = rm.getOffsetForRotation(offsetPos, rotation);
+				                    //Rotate/Offset Room to the correct position
+				                    BlockPos offsetPos = new BlockPos(xx, yy, zz);
+				                    BlockRotation rotation = rm.getRotation(random);
+				                    offsetPos = rm.getOffsetForRotation(offsetPos, rotation);
 
-				//Pieces on the ground will modify terrain to fit.
-				boolean ground = rm.getPosition().getY() == 0;
+				                    //Pieces on the ground will modify terrain to fit.
+				                    boolean ground = rm.getPosition().getY() == 0;
 
-				//Add room
-				children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP));
+				                    //Add room
+				                    children.add(new Piece(manager, rm.getTemplate(random), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP));
 
-				//Create walls
-				BlockPos wallPos = new BlockPos(xx, yy, zz);
-				rm.addWalls(random, wallPos, manager, roomGrid, children);
-			});
+				                    //Create walls
+				                    BlockPos wallPos = new BlockPos(xx, yy, zz);
+				                    rm.addWalls(random, wallPos, manager, roomGrid, children);
+			                    });
 			this.setBoundingBoxFromChildren();
 		}
 
@@ -155,15 +160,21 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		}
 
 		@Override
-		protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess serverWorldAccess, Random random, BlockBox boundingBox)
+		protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess world, Random random, BlockBox boundingBox)
 		{
-
-		}
-
-		@Override
-		public boolean generate(StructureWorldAccess structureWorldAccess, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos blockPos)
-		{
-			return super.generate(structureWorldAccess, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+			if(metadata.equals("boss"))
+			{
+				AdjudicatorEntity boss = BMEntities.ADJUDICATOR.create(world.toServerWorld());
+				boss.setPersistent();
+				boss.refreshPositionAndAngles(pos, 0.0F, 0.0F);
+				boss.initialize(world, world.getLocalDifficulty(boss.getBlockPos()), SpawnReason.STRUCTURE, null, null);
+				world.spawnEntityAndPassengers(boss);
+				world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+			}
+			else if(metadata.equals("arena_pos"))
+			{
+				world.setBlockState(pos, Blocks.SMOOTH_QUARTZ.getDefaultState(), 2);
+			}
 		}
 
 		public boolean isGround()
@@ -172,31 +183,21 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		}
 	}
 
-	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"),
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8")
+	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"),
+	                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8")
 	);
 
-	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1")
-	);
+	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1"));
 
-	public static List<Identifier> CORRIDOR_T = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/t/corridor_t_1")
-	);
+	public static List<Identifier> CORRIDOR_T = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/t/corridor_t_1"));
 
-	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"),
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"),
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"),
-			BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4")
-	);
+	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4"));
 
 	public static List<Identifier> ROOMS = Lists.newArrayList(BiomeMakeover.ID("mansion/room/room_1"));
 
@@ -204,21 +205,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 	public static List<Identifier> STAIR_DOWN = Lists.newArrayList(BiomeMakeover.ID("mansion/stairs/down/stairs_down"));
 
-	public static List<Identifier> INNER_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/inner/wall_1"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_2"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_3"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_4"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_5"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_6"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_7"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_8"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_9")
-	);
+	public static List<Identifier> INNER_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/inner/wall_1"), BiomeMakeover.ID("mansion/wall/inner/wall_2"), BiomeMakeover.ID("mansion/wall/inner/wall_3"), BiomeMakeover.ID("mansion/wall/inner/wall_4"), BiomeMakeover.ID("mansion/wall/inner/wall_5"), BiomeMakeover.ID("mansion/wall/inner/wall_6"), BiomeMakeover.ID("mansion/wall/inner/wall_7"), BiomeMakeover.ID("mansion/wall/inner/wall_8"), BiomeMakeover.ID("mansion/wall/inner/wall_9"));
 
-	public static List<Identifier> FLAT_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/flat/wall_flat_1")
-	);
+	public static List<Identifier> FLAT_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/flat/wall_flat_1"));
 
 	public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1"));
 	public static List<Identifier> OUTER_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"));

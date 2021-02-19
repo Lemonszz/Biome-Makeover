@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.mixin;
 
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import party.lemons.biomemakeover.util.Stuntable;
+import party.lemons.biomemakeover.util.extensions.Stuntable;
 
 @Mixin(PassiveEntity.class)
 public class PassiveEntityMixin implements Stuntable

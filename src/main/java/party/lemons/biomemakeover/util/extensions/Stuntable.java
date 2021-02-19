@@ -1,4 +1,4 @@
-package party.lemons.biomemakeover.util;
+package party.lemons.biomemakeover.util.extensions;
 
 public interface Stuntable
 {

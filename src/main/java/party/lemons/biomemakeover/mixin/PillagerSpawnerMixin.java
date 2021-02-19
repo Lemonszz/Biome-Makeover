@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.util.HorseHat;
+import party.lemons.biomemakeover.util.extensions.HorseHat;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 
 import java.util.Random;

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import party.lemons.biomemakeover.util.HorseHat;
+import party.lemons.biomemakeover.util.extensions.HorseHat;
 
 @Mixin(HorseEntity.class)
 public class HorseEntityMixin extends HorseBaseEntity implements HorseHat

@@ -32,7 +32,7 @@ import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.NetworkUtil;
-import party.lemons.biomemakeover.util.SlideEntity;
+import party.lemons.biomemakeover.util.extensions.SlideEntity;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
 import party.lemons.biomemakeover.world.PoltergeistHandler;

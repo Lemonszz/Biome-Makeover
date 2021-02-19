@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.item;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,7 +8,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import party.lemons.biomemakeover.util.NetworkUtil;
-import party.lemons.biomemakeover.util.Stuntable;
+import party.lemons.biomemakeover.util.extensions.Stuntable;
 
 public class StuntPowderItem extends Item
 {

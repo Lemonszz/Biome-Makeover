@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
@@ -9,7 +8,6 @@ import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.TypedActionResult;
@@ -21,7 +19,6 @@ import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.gui.AltarScreen;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.DebugUtil;
-import party.lemons.biomemakeover.util.WoodTypeInfo;
 import party.lemons.biomemakeover.util.color.ColorProviderHelper;
 import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
 import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
@@ -56,6 +53,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GIANT_SLIME, (r, c)->new GiantSlimeRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.OWL, (r, c)->new OwlEntityRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.ROOTLING, (r, c)->new RootlingEntityRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.MOTH, (r, c)->new MothEntityRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.ADJUDICATOR, (r, c)->new AdjudicatorEntityRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE,
 		                                              (r)->new LightningBugBottleBlockRenderer(r)

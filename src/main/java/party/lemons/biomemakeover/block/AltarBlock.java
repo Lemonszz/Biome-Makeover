@@ -59,6 +59,7 @@ public class AltarBlock extends BlockWithEntity implements BlockWithItem, Waterl
 		return getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
 	}
 
+	@Override
 	public FluidState getFluidState(BlockState state)
 	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
@@ -100,24 +101,40 @@ public class AltarBlock extends BlockWithEntity implements BlockWithItem, Waterl
 		return SHAPE;
 	}
 
+	@Override
 	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos)
 	{
 		return SHAPE;
 	}
 
+	@Override
 	public boolean hasSidedTransparency(BlockState state)
 	{
 		return true;
 	}
 
+	@Override
 	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type)
 	{
 		return false;
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random)
 	{
+		if(state.get(ACTIVE))
+		{
+			for(int i = 0; i < 5; i++)
+			{
+				double xSpeed = RandomUtil.randomRange(-1, 1) / 0.75F;
+				double zSpeed = RandomUtil.randomRange(-1, 1) / 0.75F;
+				double ySpeed = random.nextDouble() / 0.1F;
+
+				world.addParticle(ParticleTypes.ENCHANT, (double) pos.getX() + 0.5F, (double) pos.getY() + 0.75F, (double) pos.getZ() + 0.5F, xSpeed, ySpeed, zSpeed);
+			}
+		}
+
 		if(random.nextInt(5) == 0)
 		{
 			Direction direction = Direction.random(random);

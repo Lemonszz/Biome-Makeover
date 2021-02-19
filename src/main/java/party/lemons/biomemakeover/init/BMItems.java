@@ -78,6 +78,7 @@ public class BMItems
 	public static final Item GIANT_SLIME_SPAWN_EGG = new SpawnEggItem(BMEntities.GIANT_SLIME, 0x3ea05f, 0x7EBF6E, settings());
 	public static final Item OWL_SPAWN_EGG = new SpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, settings());
 	public static final Item ROOTLING_SPAWN_EGG = new SpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, settings());
+	public static final Item MOTH_SPAWN_EGG = new SpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 

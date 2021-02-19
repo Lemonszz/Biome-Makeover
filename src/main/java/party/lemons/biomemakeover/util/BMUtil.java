@@ -2,12 +2,17 @@ package party.lemons.biomemakeover.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Direction;
 import party.lemons.biomemakeover.util.access.AxeItemAccess;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class BMUtil
 {
@@ -17,6 +22,11 @@ public class BMUtil
 	public static Direction randomHorizontal()
 	{
 		return HORIZONTALS[RandomUtil.RANDOM.nextInt(HORIZONTALS.length)];
+	}
+
+	public static Hand getHandPossiblyHolding(LivingEntity entity, Predicate<ItemStack> predicate)
+	{
+		return predicate.test(entity.getMainHandStack()) ? Hand.MAIN_HAND : Hand.OFF_HAND;
 	}
 
 	public static List<Direction> randomOrderedHorizontals()

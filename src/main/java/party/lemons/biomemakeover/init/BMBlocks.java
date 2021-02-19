@@ -45,9 +45,9 @@ public class BMBlocks
 	public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, RLayer.CUTOUT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 	public static final UnderwaterMushroomPlantBlock ORANGE_GLOWSHROOM = new UnderwaterMushroomPlantBlock(()->BMWorldGen.HUGE_ORANGE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, RLayer.CUTOUT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 
-	public static final BMMushroomBlock PURPLE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
-	public static final BMMushroomBlock GREEN_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
-	public static final BMMushroomBlock ORANGE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock PURPLE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.SOLID_ORGANIC, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock GREEN_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.SOLID_ORGANIC, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomBlock ORANGE_GLOWSHROOM_BLOCK = new BMMushroomBlock(settings(Material.SOLID_ORGANIC, 0.2F).lightLevel(15).sounds(BlockSoundGroup.FUNGUS));
 
 	public static final MushroomSproutsBlock MYCELIUM_SPROUTS = new MushroomSproutsBlock(settings(Material.NETHER_SHOOTS, RLayer.CUTOUT, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final MushroomRootsBlock MYCELIUM_ROOTS = new MushroomRootsBlock(settings(Material.NETHER_SHOOTS, RLayer.CUTOUT, 0).noCollision().nonOpaque().breakInstantly().sounds(BlockSoundGroup.ROOTS));
@@ -59,21 +59,21 @@ public class BMBlocks
 	public static final BMLeavesBlock BLIGHTED_BALSA_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final BMSaplingBlock BLIGHTED_BALSA_SAPLING = new BMSaplingBlock(new BalsaSaplingGenerator(), settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
-	public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.PLANT, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
-	public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo RED_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("red_mushroom_brick", RED_MUSHROOM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
-	public static final BMBlock BROWN_MUSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo BROWN_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("brown_mushroom_brick", BROWN_MUSHROOM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
-	public static final BMBlock PURPLE_GLOWSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo PURPLE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("purple_glowshroom_brick", PURPLE_GLOWSHROOM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
-	public static final BMBlock GREEN_GLOWSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo GREEN_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("green_glowshroom_brick", GREEN_GLOWSHROOM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
-	public static final BMBlock ORANGE_GLOWSHROOM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo ORANGE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("orange_glowshroom_brick", ORANGE_GLOWSHROOM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
-	public static final BMBlock GLOWSHROOM_STEM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS)).all();
-	public static final BMBlock MUSHROOM_STEM_BRICK = new BMBlock(settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS));
-	public static final DecorationBlockInfo MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("mushroom_stem_brick", MUSHROOM_STEM_BRICK, settings(Material.PLANT, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMMushroomBlock GLOWSHROOM_STEM = new BMMushroomBlock(settings(Material.SOLID_ORGANIC, 0.2F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
+	public static final BMBlock RED_MUSHROOM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo RED_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("red_mushroom_brick", RED_MUSHROOM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock BROWN_MUSHROOM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo BROWN_MUSHROOM_BRICK_DECORATION = new DecorationBlockInfo("brown_mushroom_brick", BROWN_MUSHROOM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock PURPLE_GLOWSHROOM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo PURPLE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("purple_glowshroom_brick", PURPLE_GLOWSHROOM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock GREEN_GLOWSHROOM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo GREEN_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("green_glowshroom_brick", GREEN_GLOWSHROOM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock ORANGE_GLOWSHROOM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo ORANGE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockInfo("orange_glowshroom_brick", ORANGE_GLOWSHROOM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(13).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock GLOWSHROOM_STEM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).lightLevel(7).sounds(BlockSoundGroup.FUNGUS)).all();
+	public static final BMBlock MUSHROOM_STEM_BRICK = new BMBlock(settings(Material.SOLID_ORGANIC, 0.8F).sounds(BlockSoundGroup.FUNGUS));
+	public static final DecorationBlockInfo MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockInfo("mushroom_stem_brick", MUSHROOM_STEM_BRICK, settings(Material.SOLID_ORGANIC, 0.8F).sounds(BlockSoundGroup.FUNGUS)).all();
 	public static final BMBlock BLIGHTED_COBBLESTONE = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).requiresTool());
 	public static final DecorationBlockInfo BLIGHTED_COBBLESTONE_DECORATION = new DecorationBlockInfo("blighted_cobblestone", BLIGHTED_COBBLESTONE, settings(Material.STONE, 2F).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 	public static final BMBlock BLIGHTED_STONE_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).requiresTool());
@@ -305,6 +305,7 @@ public class BMBlocks
 	}
 
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));
+	public static final Tag<Block> MOTH_ATTRACTIVE = TagRegistry.block(BiomeMakeover.ID("moth_attractive"));
 
 	private static boolean always(BlockState state, BlockView world, BlockPos pos)
 	{

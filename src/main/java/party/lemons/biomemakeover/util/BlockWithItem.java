@@ -12,7 +12,6 @@ public interface BlockWithItem
 	default boolean hasItem()
 	{
 		return true;
-
 	}
 
 	default Item.Settings makeItemSettings()

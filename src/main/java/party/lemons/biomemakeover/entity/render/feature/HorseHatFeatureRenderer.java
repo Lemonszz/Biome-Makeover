@@ -14,7 +14,7 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.util.HorseHat;
+import party.lemons.biomemakeover.util.extensions.HorseHat;
 
 public class HorseHatFeatureRenderer<M extends EntityModel<HorseEntity>> extends FeatureRenderer<HorseEntity, M>
 {

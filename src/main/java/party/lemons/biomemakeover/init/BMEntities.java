@@ -5,15 +5,19 @@ import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.WorldAccess;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.*;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
 import java.util.Map;
@@ -39,6 +43,8 @@ public class BMEntities
 	public static final EntityType<BMBoatEntity> BM_BOAT = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<BMBoatEntity>) BMBoatEntity::new).trackable(128, 3).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).build();
 	public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<LightningBottleEntity>) LightningBottleEntity::new).trackable(4, 10).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build();
 	public static final EntityType<RootlingEntity> ROOTLING = FabricEntityTypeBuilder.<RootlingEntity>create(SpawnGroup.CREATURE, (t, w)->new RootlingEntity(w)).dimensions(EntityDimensions.fixed(0.6F, 1.1F)).trackRangeBlocks(12).build();
+	public static final EntityType<MothEntity> MOTH = FabricEntityTypeBuilder.<MothEntity>create(SpawnGroup.MONSTER, (t, w)->new MothEntity(w)).dimensions(EntityDimensions.fixed(0.8F, 1.2F)).trackRangeBlocks(12).build();
+	public static final EntityType<AdjudicatorEntity> ADJUDICATOR = FabricEntityTypeBuilder.<AdjudicatorEntity>create(SpawnGroup.MONSTER, (t, w)->new AdjudicatorEntity(w)).fireImmune().dimensions(EntityDimensions.fixed(0.6F, 1.95F)).trackRangeBlocks(12).build();
 
 	public static void init()
 	{
@@ -57,6 +63,12 @@ public class BMEntities
 		restrictions.put(BMEntities.DRAGONFLY, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
 		registerRestriction(restrictions, BMEntities.ROOTLING, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BMEntities::isValidDarkForestAnimalSpawn);
 		registerRestriction(restrictions, BMEntities.OWL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BMEntities::isValidOwlSpawn);
+		registerRestriction(restrictions, BMEntities.MOTH, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, BMEntities::isValidMothSpawn);
+	}
+
+	private static <T extends MobEntity> boolean isValidMothSpawn(EntityType<T> tEntityType, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
+	{
+		return world.getDifficulty() != Difficulty.PEACEFUL && HostileEntity.isSpawnDark(world, pos, random) && (spawnReason == SpawnReason.SPAWNER || world.getBlockState(pos.down()).isIn(BlockTags.LEAVES));
 	}
 
 	private static <T extends MobEntity> void registerRestriction(Map<EntityType<?>, SpawnRestriction.Entry> restrictions, EntityType<T> type, SpawnRestriction.Location location, Heightmap.Type heightmapType, SpawnRestriction.SpawnPredicate<T> predicate)

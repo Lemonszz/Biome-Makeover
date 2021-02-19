@@ -19,7 +19,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
 import party.lemons.biomemakeover.util.BlockWithItem;
 
@@ -77,7 +76,7 @@ public class TapestryBlock extends BlockWithEntity implements BlockWithItem
 		return new TapestryBlockEntity();
 	}
 
-	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
 		if (itemStack.hasCustomName()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
 			if (blockEntity instanceof TapestryBlockEntity) {

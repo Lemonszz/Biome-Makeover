@@ -23,7 +23,7 @@ import party.lemons.biomemakeover.enchantments.BMEnchantment;
 import party.lemons.biomemakeover.init.BMEnchantments;
 import party.lemons.biomemakeover.util.ItemStackUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
-import party.lemons.biomemakeover.util.SlideEntity;
+import party.lemons.biomemakeover.util.extensions.SlideEntity;
 
 import java.util.Collection;
 import java.util.Iterator;
