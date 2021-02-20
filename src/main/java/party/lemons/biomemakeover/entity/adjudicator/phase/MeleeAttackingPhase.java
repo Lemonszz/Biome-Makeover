@@ -26,7 +26,6 @@ public class MeleeAttackingPhase extends AttackingPhase
 	public void onEnterPhase()
 	{
 		super.onEnterPhase();
-		adjudicator.teleportToRandomArenaPos();
 		adjudicator.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.IRON_AXE));
 	}
 

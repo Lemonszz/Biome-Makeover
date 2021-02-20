@@ -7,7 +7,9 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.CrossbowUser;
 import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
@@ -22,12 +24,15 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -48,9 +53,10 @@ import party.lemons.biomemakeover.util.extensions.GoalSelectorExtension;
 import java.util.List;
 import java.util.Map;
 
-public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
+public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob, CrossbowUser, AdjudicatorStateProvider
 {
 	public static final TrackedData<Integer> STATE = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public final Map<Identifier, AdjudicatorPhase> PHASES = Maps.newHashMap();
 
@@ -59,6 +65,11 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 	public final BowAttackingPhase BOW_ATTACK = new BowAttackingPhase(BiomeMakeover.ID("bow_attack"), this);
 	public final MeleeAttackingPhase MELEE_ATTACK = new MeleeAttackingPhase(BiomeMakeover.ID("melee_attack"), this);
 	public final RavagerChargePhase RAVAGER = new RavagerChargePhase(BiomeMakeover.ID("ravager"), this);
+	public final SummonPhase SPAWN_EVOKERS = new SummonPhase(BiomeMakeover.ID("spawn_evoker"), this, 4, EntityType.EVOKER);
+	public final SummonPhase SPAWN_VINDICATORS = new SummonPhase(BiomeMakeover.ID("spawn_vindicator"), this, 6, EntityType.VINDICATOR);
+	public final SummonPhase SPAWN_VEX = new SummonPhase(BiomeMakeover.ID("spawn_vex"), this, 6, EntityType.VEX);
+	public final SummonPhase SPAWN_MIX = new SummonPhase(BiomeMakeover.ID("spawn_mix"), this, 5, EntityType.VEX, EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER, BMEntities.COWBOY);
+	public final MimicPhase MIMIC = new MimicPhase(BiomeMakeover.ID("mimic"), this);
 
 	private final ServerBossBar bossBar;
 	private AdjudicatorPhase phase;
@@ -89,6 +100,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 	{
 		super.initDataTracker();
 		dataTracker.startTracking(STATE, 0);
+		dataTracker.startTracking(CHARGING, false);
 	}
 
 	@Override
@@ -121,15 +133,48 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 			if(phase.isPhaseOver())
 				setPhase(phase.getNextPhase());
 		}
-
 		this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+
+		if (this.world.isClient && isCasting())
+		{
+			double r, g, b;
+			if(getState() == AdjudicatorState.TELEPORT)
+			{
+				r = 158F / 255F;
+				g = 60F / 255F;
+				b = 194F / 255F;
+			}
+			else
+			{
+				r = 145F / 255F;
+				g = 145F / 255F;
+				b = 145F / 255F;
+			}
+
+			float angle = this.bodyYaw * 0.017453292F + MathHelper.cos((float)this.age * 0.6662F) * 0.25F;
+			float xOffset = MathHelper.cos(angle);
+			float zOffset = MathHelper.sin(angle);
+			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() + (double)zOffset * 0.6D, r, g, b);
+			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() - (double)zOffset * 0.6D, r, g, b);
+		}
+
+	}
+
+	public boolean isCasting()
+	{
+		AdjudicatorState state = getState();
+		return state == AdjudicatorState.SUMMONING || state == AdjudicatorState.TELEPORT;
 	}
 
 	@Override
 	public boolean damage(DamageSource source, float amount)
 	{
 		if(!active && source.getSource() instanceof PlayerEntity)
+		{
 			active = true;
+		}
+		if(phase != null)
+			phase.onHurt(source, amount);
 
 		return super.damage(source, amount);
 	}
@@ -167,6 +212,10 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 		{
 			stateTime = 0;
 			teleRotPrevious = 0;
+
+			prevX = getX();
+			prevY = getY();
+			prevZ = getZ();
 		}
 
 
@@ -313,18 +362,25 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 	@Override
 	public void attack(LivingEntity target, float pullProgress)
 	{
-		ItemStack arrowTypeStack = this.getArrowType(this.getStackInHand(BMUtil.getHandPossiblyHolding(this, (i)->i.getItem() instanceof BowItem)));
-		PersistentProjectileEntity arrow = ProjectileUtil.createArrowProjectile(this, arrowTypeStack, pullProgress);
+		if(getMainHandStack().getItem() instanceof CrossbowItem)
+		{
+			shoot(this, 2F);
+		}
+		else
+		{
+			ItemStack arrowTypeStack = this.getArrowType(this.getStackInHand(BMUtil.getHandPossiblyHolding(this, (i)->i.getItem() instanceof BowItem)));
+			PersistentProjectileEntity arrow = ProjectileUtil.createArrowProjectile(this, arrowTypeStack, pullProgress);
 
-		double distanceX = target.getX() - this.getX();
-		double distanceY = target.getBodyY(0.333F) - arrow.getY();
-		double distanceZ = target.getZ() - this.getZ();
+			double distanceX = target.getX() - this.getX();
+			double distanceY = target.getBodyY(0.333F) - arrow.getY();
+			double distanceZ = target.getZ() - this.getZ();
 
-		double arc = MathHelper.sqrt(distanceX * distanceX + distanceZ * distanceZ);
-		arrow.setVelocity(distanceX, distanceY + arc * 0.2F, distanceZ, 1.6F, (float)(14 - this.world.getDifficulty().getId() * 4));
+			double arc = MathHelper.sqrt(distanceX * distanceX + distanceZ * distanceZ);
+			arrow.setVelocity(distanceX, distanceY + arc * 0.2F, distanceZ, 1.6F, (float) (14 - this.world.getDifficulty().getId() * 4));
 
-		this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-		this.world.spawnEntity(arrow);
+			this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+			this.world.spawnEntity(arrow);
+		}
 	}
 
 	public BlockPos findSuitableArenaPos()
@@ -335,11 +391,16 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 		}
 		else
 		{
-			return arenaPositions.get(random.nextInt(arenaPositions.size()));
+			BlockPos arenaPos;
+			do{
+				arenaPos = arenaPositions.get(random.nextInt(arenaPositions.size()));
+			}while(arenaPos.isWithinDistance(getBlockPos(), 1));
+			return arenaPos;
 		}
 		return null;
 	}
 
+	@Override
 	public AdjudicatorState getState()
 	{
 		return AdjudicatorState.values()[dataTracker.get(STATE) % AdjudicatorState.values().length];
@@ -363,6 +424,31 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob
 
 	public void teleportTo(BlockPos pos)
 	{
-		this.updatePositionAndAngles(pos.getX() + 0.5F, pos.getY() + 1F, pos.getZ() + 0.5F, yaw, pitch);
+		this.refreshPositionAfterTeleport(pos.getX() + 0.5F, pos.getY() + 1F, pos.getZ() + 0.5F);
+	}
+
+	public Box getArenaBounds()
+	{
+		return roomBounds;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public boolean isCharging() {
+		return this.dataTracker.get(CHARGING);
+	}
+
+	public void setCharging(boolean charging) {
+		this.dataTracker.set(CHARGING, charging);
+	}
+
+	@Override
+	public void shoot(LivingEntity target, ItemStack crossbow, ProjectileEntity projectile, float multiShotSpray) {
+		this.shoot(this, target, projectile, multiShotSpray, 1.6F);
+	}
+
+	@Override
+	public void postShoot()
+	{
+
 	}
 }

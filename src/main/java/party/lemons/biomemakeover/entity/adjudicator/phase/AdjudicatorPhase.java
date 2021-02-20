@@ -1,12 +1,14 @@
 package party.lemons.biomemakeover.entity.adjudicator.phase;
 
 import net.minecraft.entity.ai.goal.GoalSelector;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public abstract class AdjudicatorPhase
@@ -16,12 +18,14 @@ public abstract class AdjudicatorPhase
 	protected final GoalSelector targetSelector;
 	protected final World world;
 	protected final AdjudicatorEntity adjudicator;
+	protected final Random random;
 
 	public AdjudicatorPhase(Identifier phaseID, AdjudicatorEntity adjudicator)
 	{
 		this.phaseID = phaseID;
 		this.adjudicator = adjudicator;
 		this.world = adjudicator.world;
+		this.random = world.random;
 
 		goalSelector = new GoalSelector(world.getProfilerSupplier());
 		targetSelector = new GoalSelector(world.getProfilerSupplier());
@@ -44,6 +48,11 @@ public abstract class AdjudicatorPhase
 	}
 
 	public void onExitPhase()
+	{
+
+	}
+
+	public void onHurt(DamageSource source, float amount)
 	{
 
 	}

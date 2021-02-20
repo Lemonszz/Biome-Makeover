@@ -18,7 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 
-public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity, AdjudicatorEntityModel>
+public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity, AdjudicatorEntityModel<AdjudicatorEntity>>
 {
 	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/adjudicator.png");
 
@@ -49,8 +49,6 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 				break;
 			case HIDDEN:
 				break;
-			case RIDING:
-				break;
 		}
 	}
 
@@ -65,10 +63,10 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 		return TEXTURE;
 	}
 
-	private static class AdjudicatorHeldItemRenderer extends HeldItemFeatureRenderer<AdjudicatorEntity, AdjudicatorEntityModel>
+	private static class AdjudicatorHeldItemRenderer extends HeldItemFeatureRenderer<AdjudicatorEntity, AdjudicatorEntityModel<AdjudicatorEntity>>
 	{
 
-		public AdjudicatorHeldItemRenderer(FeatureRendererContext<AdjudicatorEntity, AdjudicatorEntityModel> featureRendererContext)
+		public AdjudicatorHeldItemRenderer(FeatureRendererContext<AdjudicatorEntity, AdjudicatorEntityModel<AdjudicatorEntity>> featureRendererContext)
 		{
 			super(featureRendererContext);
 		}

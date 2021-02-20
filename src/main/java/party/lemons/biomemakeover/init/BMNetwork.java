@@ -19,6 +19,9 @@ public class BMNetwork
 	public static final Identifier CL_COMPLETE_QUEST = new Identifier(BiomeMakeover.MODID, "cl_complete_quest");
 	public static final Identifier SET_SLIDE_TIME = new Identifier(BiomeMakeover.MODID, "slide_time");
 	public static final Identifier ENTITY_PARTICLE = new Identifier(BiomeMakeover.MODID, "entity_particle");
+	public static final Identifier ENTITY_PARTICLE_CENTERED = new Identifier(BiomeMakeover.MODID, "entity_particle_centered");
+	public static final Identifier SPAWN_ENDER_PARTICLES = new Identifier(BiomeMakeover.MODID, "spawn_ep");
+	public static final Identifier SPAWN_BLOCK_ENDER_PARTICLES = new Identifier(BiomeMakeover.MODID, "spawn_ebp");
 
 	@Environment(EnvType.CLIENT)
 	public static void initClient()
@@ -31,6 +34,9 @@ public class BMNetwork
 		ClientPlayNetworking.registerGlobalReceiver(SET_SLIDE_TIME, new S2C_SetSlideTime());
 		ClientPlayNetworking.registerGlobalReceiver(SPAWN_BONEMEAL_ENTITY_PARTICLES, new S2C_DoEntityBonemealParticles());
 		ClientPlayNetworking.registerGlobalReceiver(ENTITY_PARTICLE, new S2C_DoEntityParticle());
+		ClientPlayNetworking.registerGlobalReceiver(ENTITY_PARTICLE_CENTERED, new S2C_DoEntityParticleCentered());
+		ClientPlayNetworking.registerGlobalReceiver(SPAWN_ENDER_PARTICLES, new S2C_DoEnderParticles());
+		ClientPlayNetworking.registerGlobalReceiver(SPAWN_BLOCK_ENDER_PARTICLES, new S2C_DoBlockEnderParticles());
 	}
 
 	public static void initCommon()

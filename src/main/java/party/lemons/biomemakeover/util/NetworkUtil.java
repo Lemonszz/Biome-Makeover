@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.init.BMNetwork;
 
 public class NetworkUtil
@@ -77,6 +79,29 @@ public class NetworkUtil
 		serverSendTracking(world, e.getBlockPos(), BMNetwork.ENTITY_PARTICLE, buf);
 	}
 
+	public static void doEnderParticles(World world, Entity entity, int count)
+	{
+		if(world.isClient) return;
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		buf.writeInt(entity.getEntityId());
+		buf.writeInt(count);
+		serverSendTracking(world, entity.getBlockPos(), BMNetwork.SPAWN_ENDER_PARTICLES, buf);
+	}
+
+	public static void doCenteredEntityParticle(World world, ParticleEffect effect, Entity e, int count, boolean varyY)
+	{
+		if(world.isClient) return;
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		buf.writeInt(e.getEntityId());
+		buf.writeInt(Registry.PARTICLE_TYPE.getRawId((ParticleType<?>)effect));
+		buf.writeInt(count);
+		buf.writeBoolean(varyY);
+		buf.writeDouble(world.random.nextGaussian() * 0.02D);
+		buf.writeDouble(world.random.nextGaussian() * 0.02D);
+		buf.writeDouble(world.random.nextGaussian() * 0.02D);
+		serverSendTracking(world, e.getBlockPos(), BMNetwork.ENTITY_PARTICLE_CENTERED, buf);
+	}
+
 	public static void serverSendTracking(World world, BlockPos blockPos, Identifier id, PacketByteBuf buf)
 	{
 		if(world.isClient()) return;
@@ -94,5 +119,16 @@ public class NetworkUtil
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(time);
 		ServerPlayNetworking.send((ServerPlayerEntity) player, BMNetwork.SET_SLIDE_TIME, buf);
+	}
+
+
+	public static void doBlockEnderParticles(World world, BlockPos pos, int count)
+	{
+			if(world.isClient) return;
+
+			PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+			buf.writeBlockPos(pos);
+			buf.writeInt(count);
+			serverSendTracking(world, pos, BMNetwork.SPAWN_BLOCK_ENDER_PARTICLES, buf);
 	}
 }

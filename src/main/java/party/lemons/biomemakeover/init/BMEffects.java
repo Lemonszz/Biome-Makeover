@@ -48,6 +48,7 @@ public class BMEffects
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 	public static final ParticleEffect POLTERGEIST = FabricParticleTypes.simple();
+	public static final ParticleEffect TELEPORT = FabricParticleTypes.simple();
 	public static void init()
 	{
 		RegistryHelper.register(Registry.SOUND_EVENT, SoundEvent.class, BMEffects.class);

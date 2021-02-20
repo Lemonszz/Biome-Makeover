@@ -6,8 +6,8 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 
 public abstract class TimedPhase extends AdjudicatorPhase
 {
-	private int time = 0;
-	private final int maxTime;
+	protected int time = 0;
+	protected final int maxTime;
 
 	public TimedPhase(Identifier id, int maxTime, AdjudicatorEntity adjudicator)
 	{

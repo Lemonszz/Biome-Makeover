@@ -6,6 +6,6 @@ public enum AdjudicatorState
 	TELEPORT,
 	WAKING,
 	FIGHTING,
-	HIDDEN,
-	RIDING
+	SUMMONING,
+	HIDDEN
 }

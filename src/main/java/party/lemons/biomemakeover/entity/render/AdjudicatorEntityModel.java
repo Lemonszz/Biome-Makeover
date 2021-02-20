@@ -7,13 +7,21 @@ import net.minecraft.client.render.entity.model.CrossbowPosing;
 import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.IllagerEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.BowItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.SwordItem;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorStateProvider;
 import party.lemons.biomemakeover.util.AnimationHelper;
 
-public class AdjudicatorEntityModel extends CompositeEntityModel<AdjudicatorEntity> implements ModelWithHead, ModelWithArms
+public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvider> extends CompositeEntityModel<E> implements ModelWithHead, ModelWithArms
 {
 	private final ModelPart body;
 	private final ModelPart robe;
@@ -70,15 +78,23 @@ public class AdjudicatorEntityModel extends CompositeEntityModel<AdjudicatorEnti
 	}
 
 	@Override
-	public void setAngles(AdjudicatorEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
+	public void setAngles(E entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
 		AnimationHelper.rotateHead(head, headPitch, headYaw);
 
 		this.body.yaw = 0.0F;
 
-
-		AnimationHelper.swingLimb(arm_left, arm_right, limbAngle, limbDistance, 2F);
 		AnimationHelper.swingLimb(leg_left, leg_right, limbAngle, limbDistance, 1.25F);
+
+		this.arm_right.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.5F;
+		this.arm_right.yaw = 0.0F;
+		this.arm_right.roll = 0.0F;
+		this.arm_left.pitch = MathHelper.cos(limbAngle * 0.6662F) * 2.0F * limbDistance * 0.5F;
+		this.arm_left.yaw = 0.0F;
+		this.arm_left.roll = 0.0F;
+
+		if(!(entity instanceof AdjudicatorEntity))
+			return;
 
 		if (this.riding)
 		{
@@ -95,31 +111,50 @@ public class AdjudicatorEntityModel extends CompositeEntityModel<AdjudicatorEnti
 		switch(entity.getState())
 		{
 			case WAITING:
-				this.arm_right.roll = MathHelper.lerpAngleDegrees(animationProgress, arm_right.roll, 0);
-				this.arm_left.roll = MathHelper.lerpAngleDegrees(animationProgress, arm_left.roll, 0);
-				this.arm_right.pitch = 0;
-				this.arm_left.pitch = 0;
+				this.arm_right.pitch = animationProgress * 10;
+				this.arm_left.pitch = animationProgress * 10;
+				this.arm_right.roll = 0;
+				this.arm_left.roll = 0;
 				break;
+			case SUMMONING:
 			case TELEPORT:
 				this.arm_right.pitch = MathHelper.cos(animationProgress * 0.6662F) * 0.25F;
 				this.arm_left.pitch = MathHelper.cos(animationProgress * 0.6662F) * 0.25F;
 				this.arm_right.roll = 2.3561945F;
 				this.arm_left.roll = -2.3561945F;
+				this.arm_right.yaw = 0.0F;
+				this.arm_left.yaw = 0.0F;
 				break;
 			case WAKING:
 				break;
 			case FIGHTING:
-				this.arm_right.roll = MathHelper.lerp(animationProgress, arm_right.roll, 0);
-				this.arm_left.roll = MathHelper.lerp(animationProgress, arm_left.roll, 0);
-				//this.arm_right.pitch = 0;
-			//	this.arm_left.pitch = 0;
+				if(!entity.getMainHandStack().isEmpty())
+				{
+					Item item = entity.getMainHandStack().getItem();
+					if(item instanceof BowItem)
+					{
+						this.arm_right.yaw = -0.1F + this.head.yaw;
+						this.arm_right.pitch = -1.5707964F + this.head.pitch;
+						this.arm_left.pitch = -0.9424779F + this.head.pitch;
+						this.arm_left.yaw = this.head.yaw - 0.4F;
+						this.arm_left.roll = 1.5707964F;
+					}
+					else if(item instanceof AxeItem || item instanceof SwordItem)
+					{
+						CrossbowPosing.method_29351(this.arm_right, this.arm_left, entity, this.handSwingProgress, animationProgress);
+					}
+				}
+				else
+				{
+					CrossbowPosing.method_29352(this.arm_left, this.arm_right, true, this.handSwingProgress, animationProgress);
+				}
+
 				break;
 			case HIDDEN:
 				break;
-			case RIDING:
-				break;
 		}
 	}
+
 
 	@Override
 	public Iterable<ModelPart> getParts()
