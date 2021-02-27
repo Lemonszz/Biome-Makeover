@@ -33,6 +33,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -64,12 +65,14 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public final TeleportingPhase TELEPORT = new TeleportingPhase(BiomeMakeover.ID("teleport"), this);
 	public final BowAttackingPhase BOW_ATTACK = new BowAttackingPhase(BiomeMakeover.ID("bow_attack"), this);
 	public final MeleeAttackingPhase MELEE_ATTACK = new MeleeAttackingPhase(BiomeMakeover.ID("melee_attack"), this);
+	public final FangAttackingPhase FANG_ATTACK = new FangAttackingPhase(BiomeMakeover.ID("fang_attack"), this);
 	public final RavagerChargePhase RAVAGER = new RavagerChargePhase(BiomeMakeover.ID("ravager"), this);
 	public final SummonPhase SPAWN_EVOKERS = new SummonPhase(BiomeMakeover.ID("spawn_evoker"), this, 4, EntityType.EVOKER);
 	public final SummonPhase SPAWN_VINDICATORS = new SummonPhase(BiomeMakeover.ID("spawn_vindicator"), this, 6, EntityType.VINDICATOR);
 	public final SummonPhase SPAWN_VEX = new SummonPhase(BiomeMakeover.ID("spawn_vex"), this, 6, EntityType.VEX);
 	public final SummonPhase SPAWN_MIX = new SummonPhase(BiomeMakeover.ID("spawn_mix"), this, 5, EntityType.VEX, EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER, BMEntities.COWBOY);
 	public final MimicPhase MIMIC = new MimicPhase(BiomeMakeover.ID("mimic"), this);
+	public final FangBarragePhase FANG_BARAGE = new FangBarragePhase(BiomeMakeover.ID("fang_barrage"), this);
 
 	private final ServerBossBar bossBar;
 	private AdjudicatorPhase phase;
@@ -80,6 +83,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	private AttributeContainer attributes;
 	private List<BlockPos> arenaPositions;
 	public int stateTime = 0;
+	private int finishFightTime = 0;
 
 	public float teleRotPrevious = 0;
 
@@ -158,6 +162,45 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() - (double)zOffset * 0.6D, r, g, b);
 		}
 
+		if(active)
+			updatePlayers();
+	}
+
+	private void updatePlayers()
+	{
+		if(world.isClient())
+			return;
+
+		List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, getArenaBounds(), EntityPredicates.EXCEPT_SPECTATOR);
+		if(players.isEmpty())
+		{
+			finishFightTime++;
+			if(finishFightTime > 350)
+			{
+				teleportHome();
+				finishFightTime = 0;
+				setState(AdjudicatorState.WAITING);
+				setPhase(IDLE);
+				active = false;
+			}
+		}
+		else
+		{
+			finishFightTime = 0;
+		}
+
+		List<PlayerEntity> playersWithSpectator = world.getEntitiesByClass(PlayerEntity.class, getArenaBounds(), (p)->true);
+		for(PlayerEntity playerEntity : bossBar.getPlayers())
+		{
+			if(!playersWithSpectator.contains(playerEntity))
+				bossBar.removePlayer((ServerPlayerEntity) playerEntity);
+		}
+
+		for(PlayerEntity playerEntity : playersWithSpectator)
+		{
+			if(!bossBar.getPlayers().contains(playerEntity))
+				bossBar.addPlayer((ServerPlayerEntity) playerEntity);
+		}
 	}
 
 	public boolean isCasting()
@@ -450,5 +493,10 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public void postShoot()
 	{
 
+	}
+
+	public BlockPos getHomePosition()
+	{
+		return homePos;
 	}
 }

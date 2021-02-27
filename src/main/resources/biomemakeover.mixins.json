@@ -38,7 +38,10 @@
     "DarkOakSaplingGeneratorMixin",
     "ServerWorldMixin",
     "PassiveEntityMixin",
-    "GoalSelectorMixin"
+    "GoalSelectorMixin",
+    "SwimGoalMixin",
+    "EntityMixin",
+    "BowItemMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

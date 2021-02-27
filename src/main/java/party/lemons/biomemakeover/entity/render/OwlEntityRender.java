@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -14,6 +15,7 @@ import party.lemons.biomemakeover.entity.render.feature.OwlEyesRenderLayer;
 public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel>
 {
 	private static final Identifier TEXTURE = BiomeMakeover.ID("textures/entity/owl.png");
+	private static final Identifier TEXTURE_EASTEREGG = BiomeMakeover.ID("textures/entity/owl_2.png");
 
 	public OwlEntityRender(EntityRenderDispatcher rd)
 	{
@@ -24,6 +26,10 @@ public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel
 	@Override
 	public Identifier getTexture(OwlEntity entity)
 	{
+		String nameString = Formatting.strip(entity.getName().getString());
+		if(nameString != null && nameString.equalsIgnoreCase("Hedwig"))
+			return TEXTURE_EASTEREGG;
+
 		return TEXTURE;
 	}
 

@@ -21,8 +21,11 @@ public class IdleAdjudicatorPhase extends AdjudicatorPhase
 	}
 
 	@Override
-	public void onEnterPhase()
+	public void tick()
 	{
+		super.tick();
+		if(adjudicator.age % 4 == 0)
+			adjudicator.heal(1F);
 	}
 
 	@Override

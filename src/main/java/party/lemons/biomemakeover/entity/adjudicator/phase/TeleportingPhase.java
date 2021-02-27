@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class TeleportingPhase extends TimedPhase
 {
 	private BlockPos teleportPos;
+	private AdjudicatorPhase nextPhase;
 
 	public TeleportingPhase(Identifier phaseID, AdjudicatorEntity adjudicator)
 	{
@@ -41,7 +42,8 @@ public class TeleportingPhase extends TimedPhase
 	public void onEnterPhase()
 	{
 		super.onEnterPhase();
-		teleportPos = adjudicator.findSuitableArenaPos();
+		nextPhase = selectNextPhase();
+		teleportPos = nextPhase.getStartPosition();
 		adjudicator.setState(AdjudicatorState.TELEPORT);
 	}
 
@@ -55,6 +57,11 @@ public class TeleportingPhase extends TimedPhase
 
 	@Override
 	public AdjudicatorPhase getNextPhase()
+	{
+		return nextPhase;
+	}
+
+	public AdjudicatorPhase selectNextPhase()
 	{
 		List<AdjudicatorPhase> phases =  adjudicator.PHASES.values().stream().filter(AdjudicatorPhase::isSelectable).collect(Collectors.toList());
 		AdjudicatorPhase nextPhase;

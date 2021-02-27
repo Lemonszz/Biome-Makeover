@@ -14,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.entity.ai.MountedCrossbowAttackGoal;
@@ -61,6 +62,13 @@ public class RavagerChargePhase extends AdjudicatorPhase
 	public void onExitPhase()
 	{
 		adjudicator.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+
+		if(adjudicator.getVehicle() instanceof RavagerEntity)
+		{
+			RavagerEntity ravagerEntity = (RavagerEntity) adjudicator.getVehicle();
+			adjudicator.stopRiding();
+			ravagerEntity.remove();
+		}
 	}
 
 	@Override
@@ -79,6 +87,12 @@ public class RavagerChargePhase extends AdjudicatorPhase
 	public void fromTag(CompoundTag tag)
 	{
 
+	}
+
+	@Override
+	public BlockPos getStartPosition()
+	{
+		return adjudicator.getHomePosition();
 	}
 
 	@Override

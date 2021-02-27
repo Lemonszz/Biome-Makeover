@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
@@ -330,7 +331,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 
 	public static boolean isValidForCurse(ItemStack stack)
 	{
-		if(stack.isEmpty()) return false;
+		if(stack.isEmpty() || stack.getItem() instanceof EnchantedBookItem) return false;
 
 		if(stack.getItem() == Items.BOOK) return true;
 

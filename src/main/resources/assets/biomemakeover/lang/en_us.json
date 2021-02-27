@@ -14,6 +14,12 @@
   "enchantment.biomemakeover.sickness_curse" : "Curse of Sickness",
   "enchantment.biomemakeover.insomnia_curse" : "Curse of Insomnia",
   "enchantment.biomemakeover.conductivity_curse" : "Curse of Conductivity",
+  "enchantment.biomemakeover.sliding_curse" : "Curse of Sliding",
+  "enchantment.biomemakeover.depth_curse" : "Curse of the Depths",
+  "enchantment.biomemakeover.flammability_curse" : "Curse of Flammability",
+  "enchantment.biomemakeover.suffocation_curse" : "Curse of Suffocation",
+  "enchantment.biomemakeover.heavy_curse" : "Curse of Heaviness",
+  "enchantment.biomemakeover.inaccuracy_curse" : "Curse of Inaccuracy",
   "effect.biomemakeover.shocked" : "Shocked",
   "effect.biomemakeover.antidote" : "Antidote",
 

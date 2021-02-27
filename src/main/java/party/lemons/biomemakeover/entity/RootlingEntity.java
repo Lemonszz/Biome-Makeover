@@ -3,15 +3,19 @@ package party.lemons.biomemakeover.entity;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +26,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
@@ -32,6 +38,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.init.BMNetwork;
@@ -42,6 +50,7 @@ import party.lemons.biomemakeover.util.RandomUtil;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public class RootlingEntity extends AnimalEntity implements Shearable
 {
@@ -67,7 +76,7 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(2, new GetInRainGoal());
-		this.goalSelector.add(4, new FleeEntityGoal<>(this, LivingEntity.class, 8F, 1.6D, 1.4D, (e)->
+		this.goalSelector.add(4, new RootlingFleeGoal(this, LivingEntity.class, 8F, 1.6D, 1.4D, (e)->
 		{
 			return e.getEquippedStack(EquipmentSlot.MAINHAND).getItem() == Items.SHEARS || e.getEquippedStack(EquipmentSlot.OFFHAND).getItem() == Items.SHEARS;
 		}));
@@ -263,6 +272,33 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		dataTracker.set(FLOWER_TYPE, random.nextInt(PETAL_ITEMS.length));
 	}
 
+	@Override
+	protected @Nullable SoundEvent getHurtSound(DamageSource source)
+	{
+		return BMEffects.ROOTLING_HURT;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getDeathSound()
+	{
+		return BMEffects.ROOTLING_DEATH;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound()
+	{
+		return BMEffects.ROOTLING_IDLE;
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state)
+	{
+		if (!state.getMaterial().isLiquid()) {
+			SoundEvent soundEvent = isShearable() ? BMEffects.ROOTLING_STEP_FULL : BMEffects.ROOTLING_STEP_SHORN;
+
+			this.playSound(soundEvent,  0.25F, 0.6F);
+		}
+	}
 
 	private static final TargetPredicate VALID_ROOTLING_PARTNER = (new TargetPredicate()).setBaseMaxDistance(8.0D).includeInvulnerable().includeTeammates().includeHidden();
 	public static int MAX_DANCE_TIME = 60;
@@ -564,6 +600,57 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 			}
 
 			return null;
+		}
+	}
+
+	private class RootlingFleeGoal extends FleeEntityGoal<LivingEntity>
+	{
+		private int soundTime = 0;
+		private final TargetPredicate withinRangePredicate;
+
+		public RootlingFleeGoal(PathAwareEntity fleeingEntity, Class<LivingEntity> classToFleeFrom, float fleeDistance, double fleeSlowSpeed, double fleeFastSpeed, Predicate<LivingEntity> inclusionSelector)
+		{
+			super(fleeingEntity, classToFleeFrom, fleeDistance, fleeSlowSpeed, fleeFastSpeed, inclusionSelector);
+			this.withinRangePredicate = (new TargetPredicate()).includeInvulnerable().ignoreEntityTargetRules().setBaseMaxDistance(fleeDistance).setPredicate(inclusionSelector.and(extraInclusionSelector));
+		}
+
+		@Override
+		public boolean canStart() {
+			this.targetEntity = this.mob.world.getClosestEntityIncludingUngeneratedChunks(this.classToFleeFrom, this.withinRangePredicate, this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), this.mob.getBoundingBox().expand((double)this.fleeDistance, 3.0D, (double)this.fleeDistance));
+			if (this.targetEntity == null) {
+				return false;
+			} else {
+				Vec3d vec3d = TargetFinder.findTargetAwayFrom(this.mob, 16, 7, this.targetEntity.getPos());
+				if (vec3d == null) {
+					return false;
+				} else if (this.targetEntity.squaredDistanceTo(vec3d.x, vec3d.y, vec3d.z) < this.targetEntity.squaredDistanceTo(this.mob)) {
+					return false;
+				} else {
+					this.fleePath = this.fleeingEntityNavigation.findPathTo(vec3d.x, vec3d.y, vec3d.z, 0);
+					return this.fleePath != null;
+				}
+			}
+		}
+
+		@Override
+		public void start()
+		{
+			super.start();
+			if(soundTime == 0)
+				this.mob.playSound(BMEffects.ROOTLING_AFRAID, 1F, 1F + (random.nextFloat() / 10F));
+		}
+
+		@Override
+		public void tick()
+		{
+			super.tick();
+
+			soundTime++;
+			if(soundTime > 100)
+			{
+				this.mob.playSound(BMEffects.ROOTLING_AFRAID, 1F, 1F + (random.nextFloat() / 10F));
+				soundTime = 0;
+			}
 		}
 	}
 

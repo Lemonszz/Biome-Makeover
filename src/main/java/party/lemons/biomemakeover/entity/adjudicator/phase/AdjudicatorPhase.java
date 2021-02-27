@@ -4,6 +4,7 @@ import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 
@@ -55,6 +56,11 @@ public abstract class AdjudicatorPhase
 	public void onHurt(DamageSource source, float amount)
 	{
 
+	}
+
+	public BlockPos getStartPosition()
+	{
+		return adjudicator.findSuitableArenaPos();
 	}
 
 	public boolean showBossBar()

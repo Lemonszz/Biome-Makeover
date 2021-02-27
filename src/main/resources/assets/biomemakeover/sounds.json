@@ -517,5 +517,82 @@
       }
     ],
     "subtitle": "subtitles.entity.toad.jump"
+  },
+  "moth_bite": {
+    "subtitle": "subtitles.biomemakeover.moth.bite",
+    "sounds": [
+      "biomemakeover:moth_bite_1",
+      "biomemakeover:moth_bite_2",
+      "biomemakeover:moth_bite_3"
+    ]
+  },
+  "moth_death": {
+    "subtitle": "subtitles.biomemakeover.moth.death",
+    "sounds": [
+      "biomemakeover:moth_death_1",
+      "biomemakeover:moth_death_2"
+    ]
+  },
+  "moth_flap": {
+    "subtitle": "subtitles.biomemakeover.moth.flap",
+    "sounds": [
+      "biomemakeover:moth_flap_1",
+      "biomemakeover:moth_flap_2",
+      "biomemakeover:moth_flap_3",
+      "biomemakeover:moth_flap_4"
+    ]
+  },
+  "moth_idle": {
+    "subtitle": "subtitles.biomemakeover.moth.idle",
+    "sounds": [
+      "biomemakeover:moth_squeek_1",
+      "biomemakeover:moth_squeek_2",
+      "biomemakeover:moth_squeek_3",
+      "biomemakeover:moth_squeek_4"
+    ]
+  },
+  "rootling_idle": {
+    "subtitle": "subtitles.biomemakeover.rootling.idle",
+    "sounds": [
+      "biomemakeover:rootling_jabber_1",
+      "biomemakeover:rootling_jabber_2",
+      "biomemakeover:rootling_jabber_3",
+      "biomemakeover:rootling_jabber_4"
+    ]
+  },
+  "rootling_afraid": {
+    "subtitle": "subtitles.biomemakeover.rootling.afraid",
+    "sounds": [
+      "biomemakeover:rootling_afraid_1",
+      "biomemakeover:rootling_afraid_2"
+    ]
+  },
+  "rootling_death": {
+    "subtitle": "subtitles.biomemakeover.rootling.death",
+    "sounds": [
+      "biomemakeover:rootling_death_1",
+      "biomemakeover:rootling_death_2"
+    ]
+  },
+  "rootling_step_grown": {
+    "subtitle": "subtitles.biomemakeover.rootling.step",
+    "sounds": [
+      "biomemakeover:rootling_full_step_1",
+      "biomemakeover:rootling_full_step_2"
+    ]
+  },
+  "rootling_step_shorn": {
+    "subtitle": "subtitles.biomemakeover.rootling.step",
+    "sounds": [
+      "biomemakeover:rootling_shorn_step_1",
+      "biomemakeover:rootling_shorn_step_2"
+    ]
+  },
+  "rootling_hurt": {
+    "subtitle": "subtitles.biomemakeover.rootling.hurt",
+    "sounds": [
+      "biomemakeover:rootling_hurt_1",
+      "biomemakeover:rootling_hurt_2"
+    ]
   }
 }
