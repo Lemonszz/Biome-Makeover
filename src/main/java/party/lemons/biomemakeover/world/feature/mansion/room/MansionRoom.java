@@ -76,7 +76,7 @@ public class MansionRoom
 
 	public Identifier getTemplate(Random random)
 	{
-		if(type != RoomType.CORRIDOR) return type.getRandomTemplate(random);
+		if(type != RoomType.CORRIDOR) return type.getRandomTemplate(position, random);
 		else
 		{
 			List<Identifier> ids;

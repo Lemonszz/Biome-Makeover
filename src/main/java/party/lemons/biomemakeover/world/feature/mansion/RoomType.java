@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.world.feature.mansion;
 
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 import java.util.Random;
@@ -36,8 +37,14 @@ public enum RoomType
 		this.templates = templates;
 	}
 
-	public Identifier getRandomTemplate(Random random)
+	public Identifier getRandomTemplate(BlockPos pos, Random random)
 	{
+		if(columnRotation)
+		{
+			int index = Math.abs((pos.getX() + pos.getZ()) % templates.size());
+			return templates.get(index);
+		}
+
 		return templates.get(random.nextInt(templates.size()));
 	}
 

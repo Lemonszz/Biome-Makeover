@@ -10,6 +10,8 @@ import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorMimicEntity;
+import party.lemons.biomemakeover.entity.render.feature.AdjudicatorEyesRenderLayer;
+import party.lemons.biomemakeover.entity.render.feature.AdjudicatorMimicEyesRenderLayer;
 
 public class AdjudicatorMimicRender extends MobEntityRenderer<AdjudicatorMimicEntity, AdjudicatorEntityModel<AdjudicatorMimicEntity>>
 {
@@ -18,6 +20,7 @@ public class AdjudicatorMimicRender extends MobEntityRenderer<AdjudicatorMimicEn
 	public AdjudicatorMimicRender(EntityRenderDispatcher rd)
 	{
 		super(rd, new AdjudicatorEntityModel(), 0);
+		addFeature(new AdjudicatorMimicEyesRenderLayer(this));
 	}
 
 	@Override

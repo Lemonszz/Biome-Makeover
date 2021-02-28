@@ -46,8 +46,6 @@ public class BMEffects
 	public static final SoundEvent DECAYED_AMBIENT = new SoundEvent(BiomeMakeover.ID("entity.decayed.ambient"));
 	public static final SoundEvent BOTTLE_THUNDER = new SoundEvent(BiomeMakeover.ID("entity.lightning_bottle.thunder"));
 	public static final SoundEvent ROOTLING_HURT = new SoundEvent(BiomeMakeover.ID("rootling_hurt"));
-	public static final SoundEvent ROOTLING_STEP_SHORN = new SoundEvent(BiomeMakeover.ID("rootling_step_shorn"));
-	public static final SoundEvent ROOTLING_STEP_FULL = new SoundEvent(BiomeMakeover.ID("rootling_step_grown"));
 	public static final SoundEvent ROOTLING_DEATH = new SoundEvent(BiomeMakeover.ID("rootling_death"));
 	public static final SoundEvent ROOTLING_AFRAID = new SoundEvent(BiomeMakeover.ID("rootling_afraid"));
 	public static final SoundEvent ROOTLING_IDLE = new SoundEvent(BiomeMakeover.ID("rootling_idle"));
@@ -55,6 +53,7 @@ public class BMEffects
 	public static final SoundEvent MOTH_FLAP = new SoundEvent(BiomeMakeover.ID("moth_flap"));
 	public static final SoundEvent MOTH_DEATH = new SoundEvent(BiomeMakeover.ID("moth_death"));
 	public static final SoundEvent MOTH_BITE = new SoundEvent(BiomeMakeover.ID("moth_bite"));
+	public static final SoundEvent MOTH_HURT = new SoundEvent(BiomeMakeover.ID("moth_hurt"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 	public static final ParticleEffect POLTERGEIST = FabricParticleTypes.simple();

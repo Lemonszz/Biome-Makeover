@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Direction;
 import party.lemons.biomemakeover.util.access.AxeItemAccess;
@@ -18,6 +19,16 @@ public class BMUtil
 {
 	public static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 	private static final List<Direction> randomHorizontals = Lists.newArrayList(HORIZONTALS);
+
+	public static <T> boolean isInAny(T tagged, Tag<T>... tags)
+	{
+		for(Tag<T> t : tags)
+		{
+			if(t.contains(tagged))
+				return true;
+		}
+		return false;
+	}
 
 	public static Direction randomHorizontal()
 	{

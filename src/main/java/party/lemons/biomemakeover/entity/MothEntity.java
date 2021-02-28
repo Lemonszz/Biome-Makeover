@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -26,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import party.lemons.biomemakeover.entity.ai.FlyWanderAroundGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 
 import java.util.EnumSet;
@@ -35,6 +37,7 @@ public class MothEntity extends HostileEntity
 {
 	private static final TrackedData<Boolean> TARGETING = DataTracker.registerData(MothEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+	public boolean hasPlayedLoop = false;
 	private float currentPitch;
 	private float lastPitch;
 	private AttractLightGoal attractLightGoal;
@@ -215,6 +218,18 @@ public class MothEntity extends HostileEntity
 		}
 	}
 
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return BMEffects.MOTH_DEATH;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
+		return BMEffects.MOTH_HURT;
+	}
+
 	public class MoveToLightGoal extends NotAttackingGoal {
 		private int ticks;
 
@@ -258,8 +273,6 @@ public class MothEntity extends HostileEntity
 			}
 		}
 	}
-
-
 
 	private abstract class NotAttackingGoal extends Goal
 	{

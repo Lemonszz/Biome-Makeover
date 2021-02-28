@@ -290,22 +290,11 @@ public class RootlingEntity extends AnimalEntity implements Shearable
 		return BMEffects.ROOTLING_IDLE;
 	}
 
-	@Override
-	protected void playStepSound(BlockPos pos, BlockState state)
-	{
-		if (!state.getMaterial().isLiquid()) {
-			SoundEvent soundEvent = isShearable() ? BMEffects.ROOTLING_STEP_FULL : BMEffects.ROOTLING_STEP_SHORN;
-
-			this.playSound(soundEvent,  0.25F, 0.6F);
-		}
-	}
-
 	private static final TargetPredicate VALID_ROOTLING_PARTNER = (new TargetPredicate()).setBaseMaxDistance(8.0D).includeInvulnerable().includeTeammates().includeHidden();
 	public static int MAX_DANCE_TIME = 60;
 	public static int MAX_FOLLOW_TIME = 120;
 	public static int MAX_INSPECT_TIME = 200;
 	public static int MAX_ACTION_COOLDOWN = 500;
-
 
 	public class InspectFlowerGoal extends Goal
 	{

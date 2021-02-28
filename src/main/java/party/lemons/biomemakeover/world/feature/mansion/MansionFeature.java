@@ -233,14 +233,14 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> FLAT_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/flat/wall_flat_1"));
 
 	public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1"),
+	//		BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1"),
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_2"),
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_3"),
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_4"),
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_5")
 	);
 	public static List<Identifier> OUTER_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"),
+//			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"),
 			BiomeMakeover.ID("mansion/wall/outer/wall_outer_2"),
 			BiomeMakeover.ID("mansion/wall/outer/wall_outer_4"),
 			BiomeMakeover.ID("mansion/wall/outer/wall_outer_5")

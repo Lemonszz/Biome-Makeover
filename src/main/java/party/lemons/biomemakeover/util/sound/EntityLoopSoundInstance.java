@@ -4,24 +4,26 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.sound.MovingSoundInstance;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.entity.DragonflyEntity;
 import party.lemons.biomemakeover.init.BMEffects;
 
 @Environment(EnvType.CLIENT)
-public class DragonflySoundInstance extends MovingSoundInstance
+public class EntityLoopSoundInstance extends MovingSoundInstance
 {
-	protected final DragonflyEntity dragonfly;
+	protected final LivingEntity entity;
 	private boolean replaced;
 
-	public DragonflySoundInstance(DragonflyEntity dragonfly)
+	public EntityLoopSoundInstance(LivingEntity entity, SoundEvent soundEvent)
 	{
-		super(BMEffects.DRAGONFLY_LOOP, SoundCategory.NEUTRAL);
-		this.dragonfly = dragonfly;
-		this.x = (float) dragonfly.getX();
-		this.y = (float) dragonfly.getY();
-		this.z = (float) dragonfly.getZ();
+		super(soundEvent, entity.getSoundCategory());
+		this.entity = entity;
+		this.x = (float) entity.getX();
+		this.y = (float) entity.getY();
+		this.z = (float) entity.getZ();
 		this.repeat = true;
 		this.repeatDelay = 0;
 		this.volume = 0.0F;
@@ -29,12 +31,12 @@ public class DragonflySoundInstance extends MovingSoundInstance
 
 	public void tick()
 	{
-		if(!this.dragonfly.removed && !this.replaced)
+		if(!this.entity.removed && !this.replaced)
 		{
-			this.x = (float) this.dragonfly.getX();
-			this.y = (float) this.dragonfly.getY();
-			this.z = (float) this.dragonfly.getZ();
-			float f = MathHelper.sqrt(Entity.squaredHorizontalLength(this.dragonfly.getVelocity()));
+			this.x = (float) this.entity.getX();
+			this.y = (float) this.entity.getY();
+			this.z = (float) this.entity.getZ();
+			float f = MathHelper.sqrt(Entity.squaredHorizontalLength(this.entity.getVelocity()));
 			if((double) f >= 0.01D)
 			{
 				this.pitch = MathHelper.lerp(MathHelper.clamp(f, this.getMinPitch(), this.getMaxPitch()), this.getMinPitch(), this.getMaxPitch());
@@ -53,12 +55,12 @@ public class DragonflySoundInstance extends MovingSoundInstance
 
 	private float getMinPitch()
 	{
-		return this.dragonfly.isBaby() ? 1.1F : 0.7F;
+		return this.entity.isBaby() ? 1.1F : 0.7F;
 	}
 
 	private float getMaxPitch()
 	{
-		return this.dragonfly.isBaby() ? 1.5F : 1.1F;
+		return this.entity.isBaby() ? 1.5F : 1.1F;
 	}
 
 	public boolean shouldAlwaysPlay()
@@ -68,6 +70,6 @@ public class DragonflySoundInstance extends MovingSoundInstance
 
 	public boolean canPlay()
 	{
-		return !this.dragonfly.isSilent();
+		return !this.entity.isSilent();
 	}
 }

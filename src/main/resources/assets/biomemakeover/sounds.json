@@ -551,6 +551,13 @@
       "biomemakeover:moth_squeek_4"
     ]
   },
+  "moth_hurt": {
+    "subtitle": "subtitles.biomemakeover.moth.hurt",
+    "sounds": [
+      "biomemakeover:moth_hurt_1",
+      "biomemakeover:moth_hurt_2"
+    ]
+  },
   "rootling_idle": {
     "subtitle": "subtitles.biomemakeover.rootling.idle",
     "sounds": [
@@ -572,20 +579,6 @@
     "sounds": [
       "biomemakeover:rootling_death_1",
       "biomemakeover:rootling_death_2"
-    ]
-  },
-  "rootling_step_grown": {
-    "subtitle": "subtitles.biomemakeover.rootling.step",
-    "sounds": [
-      "biomemakeover:rootling_full_step_1",
-      "biomemakeover:rootling_full_step_2"
-    ]
-  },
-  "rootling_step_shorn": {
-    "subtitle": "subtitles.biomemakeover.rootling.step",
-    "sounds": [
-      "biomemakeover:rootling_shorn_step_1",
-      "biomemakeover:rootling_shorn_step_2"
     ]
   },
   "rootling_hurt": {

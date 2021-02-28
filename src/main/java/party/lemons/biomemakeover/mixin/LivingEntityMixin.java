@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import party.lemons.biomemakeover.enchantments.BMEnchantment;
 import party.lemons.biomemakeover.init.BMEnchantments;
-import party.lemons.biomemakeover.util.ItemStackUtil;
+import party.lemons.biomemakeover.util.ItemUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.extensions.SlideEntity;
 
@@ -62,7 +62,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 				ItemStack st = pair.getRight();
 				if(!hasStackEquipInSlot(st, pair.getLeft()))
 				{
-					ItemStackUtil.forEachEnchantment((en, stack, lvl)->
+					ItemUtil.forEachEnchantment((en, stack, lvl)->
 					{
 						if(en instanceof BMEnchantment)
 						{
@@ -78,7 +78,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 				ItemStack stack = getEquippedStack(slot);
 				if(!stack.isEmpty())
 				{
-					ItemStackUtil.forEachEnchantment((en, st, lvl)->
+					ItemUtil.forEachEnchantment((en, st, lvl)->
 					{
 						if(en instanceof BMEnchantment)
 						{

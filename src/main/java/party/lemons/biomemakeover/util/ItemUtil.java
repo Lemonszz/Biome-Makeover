@@ -6,7 +6,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class ItemStackUtil
+public class ItemUtil
 {
 	public static void forEachEnchantment(Consumer consumer, ItemStack stack, boolean allowEmpty)
 	{

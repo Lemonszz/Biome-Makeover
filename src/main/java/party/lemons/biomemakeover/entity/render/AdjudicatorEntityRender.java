@@ -17,6 +17,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
+import party.lemons.biomemakeover.entity.render.feature.AdjudicatorEyesRenderLayer;
 
 public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity, AdjudicatorEntityModel<AdjudicatorEntity>>
 {
@@ -26,6 +27,7 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 	{
 		super(rd, new AdjudicatorEntityModel(), 0.25F);
 		addFeature(new AdjudicatorHeldItemRenderer(this));
+		addFeature(new AdjudicatorEyesRenderLayer(this));
 	}
 
 	@Override
@@ -36,12 +38,15 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 		switch(entity.getState())
 		{
 			case WAITING:
+				float waitAng = MathHelper.lerpAngleDegrees(tickDelta, entity.renderRotPrevious, entity.stateTime * waitingRotSpeed(tickDelta));
+				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(waitAng));
+				matrices.translate(0, Math.sin(animationProgress / 25F) / 4F, 0);
+				entity.renderRotPrevious = waitAng;
 				break;
 			case TELEPORT:
-				float speed = teleRotSpeed(entity.stateTime);
-				float ang = MathHelper.lerpAngleDegrees(tickDelta, entity.teleRotPrevious, entity.stateTime * speed);
-				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ang));
-				entity.teleRotPrevious = ang;
+				float teleAngle = MathHelper.lerpAngleDegrees(tickDelta, entity.renderRotPrevious, entity.stateTime * teleRotSpeed(entity.stateTime));
+				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(teleAngle));
+				entity.renderRotPrevious = teleAngle;
 				break;
 			case WAKING:
 				break;
@@ -56,6 +61,12 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 	{
 		return time;
 	}
+
+	private float waitingRotSpeed(float delta)
+	{
+		return 1F;
+	}
+
 
 	@Override
 	public Identifier getTexture(AdjudicatorEntity entity)

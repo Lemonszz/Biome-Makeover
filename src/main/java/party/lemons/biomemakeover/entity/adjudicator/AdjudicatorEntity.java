@@ -85,7 +85,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public int stateTime = 0;
 	private int finishFightTime = 0;
 
-	public float teleRotPrevious = 0;
+	public float renderRotPrevious = 0;
 
 	public AdjudicatorEntity(World world)
 	{
@@ -254,7 +254,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		if(data == STATE)
 		{
 			stateTime = 0;
-			teleRotPrevious = 0;
+			renderRotPrevious = 0;
 
 			prevX = getX();
 			prevY = getY();

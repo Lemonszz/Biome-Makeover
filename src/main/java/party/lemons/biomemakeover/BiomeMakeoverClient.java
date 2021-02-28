@@ -26,6 +26,7 @@ import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
 import party.lemons.biomemakeover.world.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 import party.lemons.biomemakeover.world.particle.TeleportParticle;
+import sun.security.ssl.Debug;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
@@ -99,13 +100,14 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		if(ENABLE_CLIENT_DEBUG)
 		{
 			UseItemCallback.EVENT.register((e, w, h)->
-			                               {
-				                               if(FabricLoader.getInstance().isDevelopmentEnvironment())
-				                               {
-					                               DebugUtil.printMissingLangKeys();
-				                               }
-				                               return TypedActionResult.pass(e.getStackInHand(h));
-			                               });
+           {
+               if(FabricLoader.getInstance().isDevelopmentEnvironment())
+               {
+	               DebugUtil.printUntaggedItems();
+                //   DebugUtil.printMissingLangKeys();
+               }
+               return TypedActionResult.pass(e.getStackInHand(h));
+           });
 		}
 	}
 }

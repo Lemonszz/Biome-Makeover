@@ -111,10 +111,11 @@ public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvid
 		switch(entity.getState())
 		{
 			case WAITING:
-				this.arm_right.pitch = animationProgress * 10;
-				this.arm_left.pitch = animationProgress * 10;
-				this.arm_right.roll = 0;
-				this.arm_left.roll = 0;
+				AnimationHelper.setRotation(head, -0.567232F, 0, 0);
+				AnimationHelper.setRotation(arm_left, -0.349066F, 0, -2.53073F);
+				AnimationHelper.setRotation(arm_right, -0.349066F, 0, 2.53073F);
+				AnimationHelper.setRotation(leg_left, -1.701696F, 0.4799655F, 0);
+				AnimationHelper.setRotation(leg_right, -1.309F, -0.0872665F, 0);
 				break;
 			case SUMMONING:
 			case TELEPORT:

@@ -6,7 +6,8 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DragonflyEntity;
-import party.lemons.biomemakeover.util.sound.DragonflySoundInstance;
+import party.lemons.biomemakeover.init.BMEffects;
+import party.lemons.biomemakeover.util.sound.EntityLoopSoundInstance;
 
 public class DragonflyRender extends MobEntityRenderer<DragonflyEntity, DragonflyEntityModel>
 {
@@ -23,7 +24,7 @@ public class DragonflyRender extends MobEntityRenderer<DragonflyEntity, Dragonfl
 		if(!entity.hasPlayedLoop)
 		{
 			entity.hasPlayedLoop = true;
-			MinecraftClient.getInstance().getSoundManager().playNextTick(new DragonflySoundInstance(entity));
+			MinecraftClient.getInstance().getSoundManager().playNextTick(new EntityLoopSoundInstance(entity, BMEffects.DRAGONFLY_LOOP));
 		}
 
 		return TEXTURE[entity.getVariant() % TEXTURE.length];
