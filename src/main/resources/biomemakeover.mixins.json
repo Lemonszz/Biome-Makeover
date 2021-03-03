@@ -4,6 +4,7 @@
   "package": "party.lemons.biomemakeover.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "NoiseChunkGeneratorMixin",
     "HugeBrownMushroomFeatureMixin",
     "MyceliumBlockMixin",
     "MushroomBlockMixin",
@@ -16,7 +17,6 @@
     "FireBlockMixin",
     "PillagerSpawnerMixin",
     "HorseEntityMixin",
-    "NoiseChunkGeneratorMixin",
     "ComposterInventoryMixin",
     "DefaultBiomeCreatorMixin",
     "LandPathNodeMakerMixin",

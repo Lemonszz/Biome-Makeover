@@ -306,6 +306,7 @@ public class BMBlocks
 
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));
 	public static final Tag<Block> MOTH_ATTRACTIVE = TagRegistry.block(BiomeMakeover.ID("moth_attractive"));
+	public static final Tag<Block> IVY_TAG = TagRegistry.block(BiomeMakeover.ID("ivy"));
 
 	private static boolean always(BlockState state, BlockView world, BlockPos pos)
 	{

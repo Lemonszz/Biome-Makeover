@@ -12,12 +12,14 @@ import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.mixin.BrewingRecipeRegistryAccessor;
 import party.lemons.biomemakeover.statuseffect.AntidoteStatusEffect;
 import party.lemons.biomemakeover.statuseffect.BMStatusEffect;
+import party.lemons.biomemakeover.statuseffect.NocturnalStatusEffect;
 import party.lemons.biomemakeover.util.RegistryHelper;
 
 public class BMPotions
 {
 	public static final StatusEffect SHOCKED = new BMStatusEffect(StatusEffectType.HARMFUL, 0x6effff).addAttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D, EntityAttributeModifier.Operation.ADDITION);
 	public static final StatusEffect ANTIDOTE = new AntidoteStatusEffect();
+	public static final StatusEffect NOCTURNAL = new NocturnalStatusEffect(StatusEffectType.BENEFICIAL, 0xba93c7);
 
 	public static final Potion ADRENALINE = new Potion("adrenaline", new StatusEffectInstance(StatusEffects.STRENGTH, 2400, 1), new StatusEffectInstance(StatusEffects.SPEED, 2400, 1), new StatusEffectInstance(StatusEffects.RESISTANCE, 2400));
 	public static final Potion ASSASSIN = new Potion("assassin", new StatusEffectInstance(StatusEffects.INVISIBILITY, 2400), new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2400, 1), new StatusEffectInstance(StatusEffects.JUMP_BOOST, 2400, 2));
@@ -29,6 +31,8 @@ public class BMPotions
 	public static final Potion MINER = new Potion("miner", new StatusEffectInstance(StatusEffects.HASTE, 3600, 1), new StatusEffectInstance(StatusEffects.NIGHT_VISION, 4250, 0), new StatusEffectInstance(StatusEffects.SPEED, 1200));
 
 	public static final Potion ANTIDOTE_POT = new Potion("antidote", new StatusEffectInstance(ANTIDOTE, 1));
+	public static final Potion NOCTURNAL_POT = new Potion("nocturnal", new StatusEffectInstance(NOCTURNAL, 72000));
+	public static final Potion LONG_NOCTURNAL_POT = new Potion("nocturnal", new StatusEffectInstance(NOCTURNAL, 144000));
 
 	public static void init()
 	{

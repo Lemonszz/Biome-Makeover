@@ -18,6 +18,7 @@ public class BMEnchantments
 	public static final Enchantment SUFFOCATION_CURSE = new SuffocationCurseEnchantment();
 	public static final Enchantment HEAVY_CURSE = new HeavyCurseEnchantment();
 	public static final Enchantment INACCURACY_CURSE = new InaccuracyCurseEnchantment();
+	public static final Enchantment BUCKLING_CURSE = new BucklingCurseEnchantment();
 
 	public static void init()
 	{

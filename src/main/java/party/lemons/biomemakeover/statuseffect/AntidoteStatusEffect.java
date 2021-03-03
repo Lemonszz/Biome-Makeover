@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import party.lemons.biomemakeover.init.BMCriterion;
 import party.lemons.biomemakeover.util.access.StatusEffectAccess;
+import party.lemons.biomemakeover.util.extensions.Stuntable;
 
 import java.util.stream.Collectors;
 
@@ -36,9 +37,13 @@ public class AntidoteStatusEffect extends InstantStatusEffect
 	{
 		target.getStatusEffects().stream().filter((e)->((StatusEffectAccess) e.getEffectType()).getType() == StatusEffectType.HARMFUL).collect(Collectors.toList()).forEach(e->target.removeStatusEffect(e.getEffectType()));
 
-		if(target instanceof PlayerEntity && !target.world.isClient())
+		if(!target.world.isClient())
 		{
-			BMCriterion.ANTIDOTE.trigger((ServerPlayerEntity) target);
+			if(target instanceof PlayerEntity)
+				BMCriterion.ANTIDOTE.trigger((ServerPlayerEntity) target);
+
+			if(target instanceof Stuntable)
+				((Stuntable) target).setStunted(false);
 		}
 	}
 

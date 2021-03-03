@@ -3,20 +3,27 @@
   "textures": {
     "particle": "biomemakeover:block/itching_ivy",
     "ivy": "biomemakeover:block/itching_ivy",
-    "fan": "biomemakeover:block/water_lily"
+    "ivy_top": "biomemakeover:block/itching_ivy_top",
+    "fan": "biomemakeover:block/moth_blossom"
   },
   "elements": [
     {
       "from": [0, 0.25, 0],
       "to": [16, 0.25, 16],
       "faces": {
-        "up": {"uv": [16, 0, 0, 16], "texture": "#ivy", "tintindex": 0},
-        "down": {"uv": [16, 16, 0, 0], "texture": "#ivy", "tintindex": 0}
+        "up": {"uv": [16, 0, 0, 16], "texture": "#ivy", "tintindex": 0}
       }
     },
     {
-      "from": [7.5, 0.3, 1.5],
-      "to": [23.5, 0.3, 17.5],
+      "from": [0, 0.25, 0],
+      "to": [16, 0.25, 16],
+      "faces": {
+        "up": {"uv": [16, 0, 0, 16], "texture": "#ivy_top", "tintindex": 1}
+      }
+    },
+    {
+      "from": [ 8, 0.4, 0 ],
+      "to": [ 24, 0.4, 16 ],
       "shade": false,
       "rotation": {"angle": 22.5, "axis": "z", "origin": [7.5, 0, 0.7]},
       "faces": {
@@ -25,8 +32,8 @@
       }
     },
     {
-      "from": [-8.5, 0.3, 1.5],
-      "to": [7.5, 0.3, 17.5],
+      "from": [ -8, 0.4, 0 ],
+      "to": [ 8, 0.4, 16 ],
       "shade": false,
       "rotation": {"angle": -22.5, "axis": "z", "origin": [7.5, 0, 0.7]},
       "faces": {
@@ -35,8 +42,8 @@
       }
     },
     {
-      "from": [-0.5, 0.3, 9.5],
-      "to": [15.5, 0.3, 25.5],
+      "from": [ 0, 0.4, 8 ],
+      "to": [ 16, 0.4, 24 ],
       "shade": false,
       "rotation": {"angle": -22.5, "axis": "x", "origin": [-0.5, 0, 8.7]},
       "faces": {
@@ -45,8 +52,8 @@
       }
     },
     {
-      "from": [-0.5, 0.9, -6.5],
-      "to": [15.5, 0.9, 9.5],
+      "from": [ 0, 0.4, -8 ],
+      "to": [ 16, 0.4, 8 ],
       "shade": false,
       "rotation": {"angle": 22.5, "axis": "x", "origin": [-0.5, 0.6, 8.7]},
       "faces": {

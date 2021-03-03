@@ -8,6 +8,7 @@ import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import party.lemons.biomemakeover.init.BMBlocks;
 
 import java.util.Random;
 
@@ -86,7 +87,7 @@ public class IvyBlock extends IvyShapedBlock
 
 	private boolean canReplace(BlockState state)
 	{
-		return state.isAir() || state.isOf(this) || (state.getMaterial().isReplaceable() && !state.getMaterial().isLiquid());
+		return !state.isIn(BMBlocks.IVY_TAG) && (state.isAir() || state.isOf(this) || (state.getMaterial().isReplaceable() && !state.getMaterial().isLiquid()));
 	}
 
 

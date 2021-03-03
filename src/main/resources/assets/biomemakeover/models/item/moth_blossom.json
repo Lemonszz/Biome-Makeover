@@ -2,6 +2,7 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "biomemakeover:block/itching_ivy",
-    "layer1": "biomemakeover:item/water_lily"
+    "layer1": "biomemakeover:block/itching_ivy_top",
+    "layer2": "biomemakeover:item/moth_blossom"
   }
 }

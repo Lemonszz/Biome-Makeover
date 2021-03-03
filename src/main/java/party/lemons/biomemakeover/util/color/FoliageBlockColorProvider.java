@@ -12,6 +12,9 @@ public class FoliageBlockColorProvider implements BlockColorProvider
 	@Override
 	public int getColor(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex)
 	{
-		return world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+		if(tintIndex == 0)
+			return world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+
+		return 0xFFFFFF;
 	}
 }

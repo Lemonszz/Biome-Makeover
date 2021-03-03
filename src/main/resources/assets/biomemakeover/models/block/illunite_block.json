@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "biomemakeover:block/illunite_shard_block"
+    "all": "biomemakeover:block/illunite_block"
   }
 }

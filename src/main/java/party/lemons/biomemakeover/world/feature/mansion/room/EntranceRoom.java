@@ -56,11 +56,11 @@ public class EntranceRoom extends MansionRoom
 		switch(rotation)
 		{
 			case CLOCKWISE_180:
-				return offsetPos;
+				return offsetPos.add(10, 0, 10);
 			case CLOCKWISE_90:
 				return offsetPos.add(10, 0, 0);
 			case NONE:
-				return offsetPos.add(10, 0, 10);
+				return offsetPos.add(0, 0, 0);
 			case COUNTERCLOCKWISE_90:
 				return offsetPos.add(0, 0, 10);
 		}

@@ -50,7 +50,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG, (r, c)->new LightningBugRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BUG_ALTERNATE, (r, c)->new LightningBugRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.LIGHTNING_BOTTLE,
-		                                         (r, c)->new FlyingItemEntityRenderer(r, c.getItemRenderer())
+		                                         (r, c)->new FlyingItemEntityRenderer<>(r, c.getItemRenderer())
 		);
 		EntityRendererRegistry.INSTANCE.register(BMEntities.GIANT_SLIME, (r, c)->new GiantSlimeRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.OWL, (r, c)->new OwlEntityRender(r));
@@ -59,12 +59,10 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.ADJUDICATOR, (r, c)->new AdjudicatorEntityRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.ADJUDICATOR_MIMIC, (r, c)->new AdjudicatorMimicRender(r));
 
-		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE,
-		                                              (r)->new LightningBugBottleBlockRenderer(r)
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, LightningBugBottleBlockRenderer::new
 		);
-		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.ALTAR, (r)->new AltarBlockEntityRenderer(r));
-		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.TAPESTRY,
-		                                              (r)->new TapestryBlockEntityRenderer(r)
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.ALTAR, AltarBlockEntityRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.TAPESTRY, TapestryBlockEntityRenderer::new
 		);
 
 		ScreenRegistry.register(BMScreens.WITCH, WitchScreen::new);
@@ -78,8 +76,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
 		                                                BMBlocks.ANCIENT_OAK_LEAVES,
-		                                                BMBlocks.IVY, BMBlocks.ITCHING_IVY,
-		                                                BMBlocks.MOTH_BLOSSOM
+		                                                BMBlocks.IVY
 		);
 		ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
 		                                                BMBlocks.SWAMP_CYPRESS_LEAVES
@@ -94,6 +91,10 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Willow(),
 		                                                BMBlocks.WILLOW_LEAVES,
 		                                                BMBlocks.WILLOWING_BRANCHES
+		);
+
+		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),
+		                                                BMBlocks.MOTH_BLOSSOM, BMBlocks.ITCHING_IVY
 		);
 
 
