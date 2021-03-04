@@ -10,6 +10,8 @@ public enum RoomType
 {
 	CORRIDOR(true, true, true, false, null),
 	ROOM(false, true, true, false, MansionFeature.ROOMS),
+	ROOM_BIG(false, false, true, false, MansionFeature.ROOMS),
+	ROOM_BIG_DUMMY(false, false, true, false, MansionFeature.ROOMS),
 	STAIRS_UP(false, false, true, true, MansionFeature.STAIR_UP),
 	STAIRS_DOWN(false, false, true, true, MansionFeature.STAIR_DOWN),
 	ROOF(false, false, false, false, null),
@@ -60,7 +62,7 @@ public enum RoomType
 
 	public boolean hasWindows()
 	{
-		return this == RoomType.ROOM;
+		return this == RoomType.ROOM || this == RoomType.ROOM_BIG || this == RoomType.ROOM_BIG_DUMMY;
 	}
 
 	public boolean hasColumnRotation()

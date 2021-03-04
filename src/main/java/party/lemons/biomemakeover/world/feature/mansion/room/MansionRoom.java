@@ -6,6 +6,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.world.feature.mansion.*;
 
@@ -110,8 +111,9 @@ public class MansionRoom
 		{
 			int index = Math.abs((getPosition().getX() + getPosition().getZ()) % 4);
 			return BlockRotation.values()[index];
-		}else if(type != RoomType.CORRIDOR) return BlockRotation.random(random);
+		}
 		else if(type == RoomType.GARDEN) return BlockRotation.random(random);
+		else if(type != RoomType.CORRIDOR) return BlockRotation.random(random);
 		else
 		{
 			switch(layout.doorCount())
@@ -238,6 +240,14 @@ public class MansionRoom
 		else
 		{
 			return MansionFeature.OUTER_WALL_BASE.get(random.nextInt(MansionFeature.OUTER_WALL_BASE.size()));
+		}
+	}
+
+	public void setLayout(MansionRoom currentRoom)
+	{
+		for(Direction direction : BMUtil.HORIZONTALS)
+		{
+			getLayout().put(direction, currentRoom.getLayout().get(direction));
 		}
 	}
 }

@@ -230,6 +230,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/room/room_23")
 	);
 
+	public static List<Identifier> ROOM_BIG = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/room/big/room_big_1")
+	);
+
 	public static List<Identifier> STAIR_UP = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/stairs/up/stairs_up_1"),
 			BiomeMakeover.ID("mansion/stairs/up/stairs_up_2")
@@ -320,4 +324,5 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	public static List<Identifier> ENTRANCE = Lists.newArrayList(BiomeMakeover.ID("mansion/entrance/entrance_1"));
 
 	public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
+	public static final Identifier EMPTY = BiomeMakeover.ID("mansion/empty");
 }

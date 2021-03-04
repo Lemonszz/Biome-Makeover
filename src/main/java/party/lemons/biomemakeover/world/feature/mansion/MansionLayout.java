@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.Grid;
+import party.lemons.biomemakeover.util.HorizontalDirection;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.world.feature.mansion.processor.CorridorReplaceProcessor;
 import party.lemons.biomemakeover.world.feature.mansion.processor.FloorRoomReplaceProcessor;
@@ -100,6 +101,7 @@ public class MansionLayout
 		createEntrance(random, allRooms);
 		createDungeon(random, allRooms, startY);
 		createTowers(random, allRooms);
+		createBigRooms(random, allRooms);
 
 		//Roof
 		Iterator<MansionRoom> it = allRooms.iterator();
@@ -121,6 +123,43 @@ public class MansionLayout
 		{
 			rm.setLayout(this, random);
 		});
+	}
+
+	private void createBigRooms(Random random, List<MansionRoom> allRooms)
+	{
+		for(int i = 0; i < allRooms.size(); i++)
+		{
+			MansionRoom currentRoom = allRooms.get(i);
+			if(currentRoom.active && currentRoom.getRoomType() == RoomType.ROOM)
+			{
+				for(Direction dir : BMUtil.randomOrderedHorizontals())
+				{
+					BlockPos offset = currentRoom.getPosition().offset(dir);
+					if(getLayout().contains(offset))
+					{
+						MansionRoom offsetRoom = getLayout().get(offset);
+						if(offsetRoom.active && offsetRoom.getRoomType() == RoomType.ROOM)
+						{
+							if(random.nextFloat() < 0.25F)
+							{
+								BigMansionRoom bigRoom = new BigMansionRoom(currentRoom.getPosition(), dir, false);
+								BigMansionRoom bigRoomDummy = new BigMansionRoom(offset, dir.getOpposite(), true);
+
+								bigRoom.setLayout(currentRoom);
+								bigRoomDummy.setLayout(offsetRoom);
+
+								currentRoom.active = false;
+								offsetRoom.active = false;
+
+								getLayout().put(currentRoom.getPosition(), bigRoom);
+								getLayout().put(offset, bigRoomDummy);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	protected void createEntrance(Random random, List<MansionRoom> allRooms)
