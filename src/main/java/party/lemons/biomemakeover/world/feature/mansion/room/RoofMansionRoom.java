@@ -19,7 +19,12 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 	public RoofMansionRoom(BlockPos position)
 	{
 		super(position, RoomType.ROOF);
-		setSortValue(-1);
+	}
+
+	@Override
+	public int getSortValue()
+	{
+		return -4 + getLayout().doorCount();
 	}
 
 	@Override
@@ -75,7 +80,7 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 			case 4:
 				return offsetPos.add(0, 0, 0);
 			case 0:
-				return offsetPos.add(-1, 0, -1);
+				return offsetPos.add(-2, 0, -2);
 		}
 		return offsetPos;
 	}

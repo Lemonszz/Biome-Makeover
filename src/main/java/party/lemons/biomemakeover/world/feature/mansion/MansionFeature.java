@@ -263,13 +263,16 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_2"),
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_3"),
 			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_4"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_5")
+			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_5"),
+			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_6"),
+			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_7")
 	);
 	public static List<Identifier> OUTER_WALL = Lists.newArrayList(
 //			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"),
 			BiomeMakeover.ID("mansion/wall/outer/wall_outer_2"),
 			BiomeMakeover.ID("mansion/wall/outer/wall_outer_4"),
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_5")
+			BiomeMakeover.ID("mansion/wall/outer/wall_outer_5"),
+			BiomeMakeover.ID("mansion/wall/outer/wall_outer_6")
 	);
 
 	public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(
@@ -298,12 +301,14 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	);
 
 	public static List<Identifier> ROOF_0 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_0_1"),
-			BiomeMakeover.ID("mansion/roof/roof_0_2"),
-			BiomeMakeover.ID("mansion/roof/roof_0_3")
+			BiomeMakeover.ID("mansion/roof/roof_0_1")
 	);
 
-	public static List<Identifier> ROOF_1 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_1_1"));
+	public static List<Identifier> ROOF_1 = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/roof/roof_1_1"),
+			BiomeMakeover.ID("mansion/roof/roof_1_2"),
+			BiomeMakeover.ID("mansion/roof/roof_1_3")
+	);
 	public static List<Identifier> ROOF_2 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_1"));
 	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_straight_1"));
 

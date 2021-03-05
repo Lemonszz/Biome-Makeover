@@ -237,8 +237,8 @@ public class MansionLayout
 	protected void createDungeon(Random random, List<MansionRoom> allRooms, int startY)
 	{
 		//Dungeon
-		final int maxY = 45;        //Max level dungeon will generate at
-		final int downStep = 11;    //Amount to step down check per floor.
+		final int maxY = 40;        //Max level dungeon will generate at
+		final int downStep = 7;    //Amount to step down check per floor.
 
 		//Pick a random replaceable room to use are our stairs down.
 		MansionRoom dungeonStairs;
@@ -248,13 +248,8 @@ public class MansionLayout
 		dungeonStairs.setRoomType(RoomType.DUNGEON_STAIRS_TOP);
 
 		//See how many stairs down we need until we get to a reasonable level.
-		int amt = 1;
-		int yy = startY;    //Too lazy to do this right lol
-		while(yy > maxY)
-		{
-			amt++;
-			yy -= downStep;
-		}
+		float downDiff = startY - maxY;
+		int amt = (int) Math.floor((downDiff) / downStep);
 
 		//Create stairs down
 		BlockPos dungeonPos = dungeonStairs.getPosition().down();
