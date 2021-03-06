@@ -28,10 +28,6 @@ public class MothBlossomBlock extends IvyShapedBlock
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-	}
-
-	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
 	{
 		boolean isValidFace = isValidPlaceFace(world, direction, posFrom, newState);

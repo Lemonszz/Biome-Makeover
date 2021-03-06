@@ -62,7 +62,8 @@ public enum RoomType
 
 	public boolean hasWindows()
 	{
-		return this == RoomType.ROOM || this == RoomType.ROOM_BIG || this == RoomType.ROOM_BIG_DUMMY;
+		//TODO: better
+		return this == RoomType.ROOM || this == RoomType.ROOM_BIG || this == RoomType.ROOM_BIG_DUMMY || this == STAIRS_DOWN || this == STAIRS_UP;
 	}
 
 	public boolean hasColumnRotation()
@@ -72,6 +73,7 @@ public enum RoomType
 
 	public boolean isDungeon()
 	{
+		//TODO: better
 		return this == DUNGEON_ROOM || this == DUNGEON_STAIRS_MID || this == DUNGEON_STAIRS_BOTTOM;
 	}
 }

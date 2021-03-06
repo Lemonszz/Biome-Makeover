@@ -74,7 +74,7 @@ public class LightningBugEntity extends ToadTargetEntity
 	{
 		if(firstUpdate && !isAlternate)
 		{
-			for(int i = 0; i < random.nextInt(3); i++)
+			for(int i = 0; i < random.nextInt(5); i++)
 			{
 				LightningBugEntity alternate = BMEntities.LIGHTNING_BUG_ALTERNATE.create(world);
 				alternate.isAlternate = true;

@@ -22,6 +22,9 @@
     ],
     "client": [
       "party.lemons.biomemakeover.BiomeMakeoverClient"
+    ],
+    "rei_plugins": [
+      "party.lemons.biomemakeover.compat.rei.BMRei"
     ]
   },
   "mixins": [

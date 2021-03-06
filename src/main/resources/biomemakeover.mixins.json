@@ -41,7 +41,8 @@
     "GoalSelectorMixin",
     "SwimGoalMixin",
     "EntityMixin",
-    "BowItemMixin"
+    "BowItemMixin",
+    "SimpleStructurePieceMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

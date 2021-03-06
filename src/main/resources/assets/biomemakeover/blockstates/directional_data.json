@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "biomemakeover:block/directional_data",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "biomemakeover:block/directional_data",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "biomemakeover:block/directional_data"
+    },
+    "facing=south": {
+      "model": "biomemakeover:block/directional_data",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "biomemakeover:block/directional_data",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "biomemakeover:block/directional_data",
+      "y": 270
+    }
+  }
+}

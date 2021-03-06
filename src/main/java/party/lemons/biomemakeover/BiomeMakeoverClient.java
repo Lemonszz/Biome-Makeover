@@ -17,6 +17,7 @@ import party.lemons.biomemakeover.block.blockentity.render.TapestryBlockEntityRe
 import party.lemons.biomemakeover.crafting.witch.screen.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.gui.AltarScreen;
+import party.lemons.biomemakeover.gui.DirectionalDataScreen;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.DebugUtil;
 import party.lemons.biomemakeover.util.color.ColorProviderHelper;
@@ -67,6 +68,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 
 		ScreenRegistry.register(BMScreens.WITCH, WitchScreen::new);
 		ScreenRegistry.register(BMScreens.ALTAR, AltarScreen::new);
+		ScreenRegistry.register(BMScreens.DIRECTIONAL_DATA, DirectionalDataScreen::new);
 
 		BMNetwork.initClient();
 

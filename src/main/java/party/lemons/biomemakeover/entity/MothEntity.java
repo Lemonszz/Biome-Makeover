@@ -2,7 +2,9 @@ package party.lemons.biomemakeover.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -61,12 +63,13 @@ public class MothEntity extends HostileEntity
 
 		this.attractLightGoal = new AttractLightGoal();
 		this.moveToLightGoal = new MoveToLightGoal();
+
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, this.attractLightGoal);
-		this.goalSelector.add(2, this.moveToLightGoal);
-		this.goalSelector.add(3, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.add(4, new FlyWanderAroundGoal(this));
-		this.goalSelector.add(5, new FleeEntityGoal<>(this, OwlEntity.class, 6.0F, 1.0D, 1.2D));
+		this.goalSelector.add(1, new MeleeAttackGoal(this, 1.0D, false));
+		this.goalSelector.add(2, new FleeEntityGoal<>(this, OwlEntity.class, 6.0F, 1.0D, 1.2D));
+		this.goalSelector.add(3, this.attractLightGoal);
+		this.goalSelector.add(4, this.moveToLightGoal);
+		this.goalSelector.add(5, new FlyWanderAroundGoal(this));
 
 		this.targetSelector.add(1, new FollowTargetGoal<>(this, PlayerEntity.class, true));
 		this.targetSelector.add(2, new RevengeGoal(this));
@@ -137,6 +140,39 @@ public class MothEntity extends HostileEntity
 
 	private boolean isAttractive(BlockPos pos) {
 		return this.world.canSetBlock(pos) && ((world.getBlockState(pos).getLuminance()) > 10) || this.world.getBlockState(pos).getBlock().isIn(BMBlocks.MOTH_ATTRACTIVE);
+	}
+
+	@Override
+	protected float getVelocityMultiplier() {
+		Block block = this.world.getBlockState(this.getBlockPos()).getBlock();
+		float mult;
+		if(block.isIn(BMBlocks.ITCHING_IVY_TAG))
+			mult = 1F;
+		else
+			mult = block.getVelocityMultiplier();
+
+		if (block != Blocks.WATER && block != Blocks.BUBBLE_COLUMN)
+		{
+			if(mult == 1F)
+			{
+				Block velBlock = this.world.getBlockState(this.getVelocityAffectingPos()).getBlock();
+				if(!velBlock.isIn(BMBlocks.ITCHING_IVY_TAG))
+				{
+					return  velBlock.getVelocityMultiplier();
+				}
+				else
+				{
+					return mult;
+				}
+			}
+			else
+			{
+				return mult;
+			}
+		}
+		else {
+			return mult;
+		}
 	}
 
 	@Override

@@ -21,10 +21,6 @@ public class ItchingIvyBlock extends IvyBlock implements Fertilizable
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-	}
-
-	@Override
 	protected boolean doesScheduleAfterSet()
 	{
 		return true;

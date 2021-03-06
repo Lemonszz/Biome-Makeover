@@ -232,7 +232,7 @@ public class MansionRoom
 	{
 		if(getPosition().getY() > 0)
 		{
-			if(getRoomType().hasWindows() && random.nextFloat() < 0.8F && !roomGrid.contains(getPosition().offset(dir)))
+			if(getRoomType().hasWindows() && random.nextFloat() < 0.95F && !roomGrid.contains(getPosition().offset(dir)))
 				return MansionFeature.OUTER_WINDOW.get(random.nextInt(MansionFeature.OUTER_WINDOW.size()));
 
 			return MansionFeature.OUTER_WALL.get(random.nextInt(MansionFeature.OUTER_WALL.size()));

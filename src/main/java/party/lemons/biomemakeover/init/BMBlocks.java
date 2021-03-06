@@ -144,6 +144,8 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_SWAMP_CYPRESS_SAPLING = new FlowerPotBlock(SWAMP_CYPRESS_SAPLING, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_ANCIENT_OAK_SAPLING = new FlowerPotBlock(ANCIENT_OAK_SAPLING, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
+	public static final DirectionalDataBlock DIRECTIONAL_DATA = new DirectionalDataBlock(settings(Material.STONE, -1).dropsNothing());
+
 	public static final SignType BLIGHTED_BALSA_ST = SignTypeHelper.register(new SignType("blighted_balsa"));
 	public static final SignType WILLOW_ST = SignTypeHelper.register(new SignType("willow"));
 	public static final SignType SWAMP_CYPRESS_ST = SignTypeHelper.register(new SignType("swamp_cypress"));
@@ -307,6 +309,7 @@ public class BMBlocks
 	public static final Tag<Block> LILY_PADS = TagRegistry.block(BiomeMakeover.ID("lily_pads"));
 	public static final Tag<Block> MOTH_ATTRACTIVE = TagRegistry.block(BiomeMakeover.ID("moth_attractive"));
 	public static final Tag<Block> IVY_TAG = TagRegistry.block(BiomeMakeover.ID("ivy"));
+	public static final Tag<Block> ITCHING_IVY_TAG = TagRegistry.block(BiomeMakeover.ID("itching_ivy"));
 
 	private static boolean always(BlockState state, BlockView world, BlockPos pos)
 	{

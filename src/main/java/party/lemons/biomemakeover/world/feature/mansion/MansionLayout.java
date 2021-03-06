@@ -208,8 +208,8 @@ public class MansionLayout
 	protected void createTowers(Random random, List<MansionRoom> allRooms)
 	{
 		//Towers
-		final int maxTowers = 5;
-		final int maxTowerHeight = 5;
+		final int maxTowers = 3;
+		final int maxTowerHeight = 3;
 
 		for(int i = 1; i < maxTowers; i++)
 		{
