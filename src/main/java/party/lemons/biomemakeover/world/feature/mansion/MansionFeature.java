@@ -270,7 +270,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 	public static List<Identifier> ROOM_BIG = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/room/big/room_big_1"),
-			BiomeMakeover.ID("mansion/room/big/room_big_2")
+			BiomeMakeover.ID("mansion/room/big/room_big_2"),
+			BiomeMakeover.ID("mansion/room/big/room_big_3"),
+			BiomeMakeover.ID("mansion/room/big/room_big_4")
 	);
 
 	public static List<Identifier> STAIR_UP = Lists.newArrayList(
@@ -379,11 +381,26 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/roof/roof_split_5")
 	);
 
-	public static List<Identifier> DUNGEON_DOOR = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/door_1"));
+	public static List<Identifier> DUNGEON_DOOR = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/dungeon/door_1"),
+			BiomeMakeover.ID("mansion/dungeon/door_2"),
+			BiomeMakeover.ID("mansion/dungeon/door_3"),
+			BiomeMakeover.ID("mansion/dungeon/door_4"),
+			BiomeMakeover.ID("mansion/dungeon/door_5"),
+			BiomeMakeover.ID("mansion/dungeon/door_6"),
+			BiomeMakeover.ID("mansion/dungeon/door_7")
+	);
 	public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/wall_1"));
-	public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/room_1"));
+	public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/dungeon/room_1"),
+			BiomeMakeover.ID("mansion/dungeon/room_2"),
+			BiomeMakeover.ID("mansion/dungeon/room_3")
+	);
 	public static List<Identifier> DUNGEON_STAIR_BOTTOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_bottom"));
-	public static List<Identifier> DUNGEON_STAIR_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_mid"));
+	public static List<Identifier> DUNGEON_STAIR_MID = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/dungeon/stair_mid_1"),
+			BiomeMakeover.ID("mansion/dungeon/stair_mid_2")
+	);
 	public static List<Identifier> DUNGEON_STAIR_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_top"));
 	public static List<Identifier> BOSS_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/boss_room"));
 

@@ -85,13 +85,11 @@ public class DirectionalDataScreen extends HandledScreen<DirectionalDataScreenHa
 	}
 
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (super.keyPressed(keyCode, scanCode, modifiers)) {
+		if (keyCode == 256 && this.shouldCloseOnEsc()) {
+			this.onClose();
 			return true;
-		} else if (keyCode != 257 && keyCode != 335) {
-			return false;
-		} else {
-			this.done();
-			return true;
+		}else {
+			return this.getFocused() != null && this.getFocused().keyPressed(keyCode, scanCode, modifiers);
 		}
 	}
 
