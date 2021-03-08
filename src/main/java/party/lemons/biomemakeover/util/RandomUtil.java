@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.util;
 
+import java.util.List;
 import java.util.Random;
 
 public final class RandomUtil
@@ -29,6 +30,11 @@ public final class RandomUtil
 	public static <T> T choose(T... values)
 	{
 		return values[RANDOM.nextInt(values.length)];
+	}
+
+	public static <T> T choose(List<T> values)
+	{
+		return values.get(RANDOM.nextInt(values.size()));
 	}
 
 	public static int randomBias(int min, int max)

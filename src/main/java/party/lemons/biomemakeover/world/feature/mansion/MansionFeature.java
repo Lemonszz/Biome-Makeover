@@ -3,13 +3,21 @@ package party.lemons.biomemakeover.world.feature.mansion;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.block.enums.StructureBlockMode;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.item.BoneMealItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -18,26 +26,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.FlowerFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.IvyBlock;
+import party.lemons.biomemakeover.block.TapestryBlock;
+import party.lemons.biomemakeover.block.TapestryWallBlock;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMStructures;
-import party.lemons.biomemakeover.util.BMUtil;
-import party.lemons.biomemakeover.util.DirectionalDataHandler;
-import party.lemons.biomemakeover.util.Grid;
+import party.lemons.biomemakeover.util.*;
 import party.lemons.biomemakeover.world.feature.mansion.room.MansionRoom;
 
 import java.util.*;
@@ -190,36 +202,171 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		@Override
 		public void handleDirectionalMetadata(String meta, Direction dir, BlockPos pos, StructureWorldAccess world, Random random, BlockBox box)
 		{
-			if(meta.equals("ivy") && random.nextFloat() > 0.25F)
+			world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+			BlockPos offsetPos = pos.offset(dir);
+			BlockState offsetState = world.getBlockState(offsetPos);
+
+			switch(meta)
 			{
-				int size = 3;
-				Direction rot1=  dir.rotateYClockwise();
-				Direction rot2=  dir.rotateYCounterclockwise();
+				case "ivy":
+					generateIvy(dir, pos, world, random);
+					break;
+				case "tapestry":
+					generateTapestry(dir, pos, world, random);
+					break;
+				case "bonemeal":
+					if(offsetState.isOf(Blocks.GRASS_BLOCK))
+						doBonemealEffect(world, offsetPos, random);
+					break;
+				case "spawner_spiders":
+					if(offsetState.getBlock() == Blocks.SPAWNER)
+					{
+						BlockEntity be = world.getBlockEntity(offsetPos);
+						if(be instanceof MobSpawnerBlockEntity)
+						{
+							((MobSpawnerBlockEntity)be).getLogic().setEntityId(RandomUtil.choose(EntityType.CAVE_SPIDER, EntityType.SPIDER));
+							be.markDirty();
+						}
+					}
+					break;
+			}
 
-				BlockPos.iterate(pos.offset(rot1, size).offset(Direction.UP, size), pos.offset(rot2, size).offset(Direction.DOWN, size)).forEach(
-						p->{
-							BlockState currentState = world.getBlockState(p);
-							if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.isOf(BMBlocks.IVY)))
-							{
-								BlockPos onPos = p.offset(dir);
-								BlockState onState = world.getBlockState(onPos);
+			if(meta.startsWith("loot"))
+			{
+				String[] splits = meta.split("_");
+				String table = splits[1];
+				int chance = Integer.parseInt(splits[2]);
 
-								if(onState.isSideSolidFullSquare(world, onPos, dir.getOpposite()))
-								{
-									if(currentState.isOf(BMBlocks.IVY))
-									{
-										world.setBlockState(p, currentState.with(IvyBlock.getPropertyForDirection(dir), true), 3);
-									}
-									else
-									{
-										world.setBlockState(p, BMBlocks.IVY.getDefaultState().with(IvyBlock.getPropertyForDirection(dir), true), 3);
-									}
-								}
-							}
-			            });
+				if(random.nextInt(100) <= chance)
+				{
+					Identifier tableID = null;
+					switch(table)
+					{
+						case "arrow":
+							tableID = LOOT_ARROW;
+							break;
+						case "dungeonjunk":
+							tableID = LOOT_DUNGEON_JUNK;
+							break;
+						case "junk":
+							tableID = LOOT_JUNK;
+							break;
+					}
+
+					if(table != null)
+					{
+						BlockEntity be = world.getBlockEntity(offsetPos);
+						if(be instanceof LootableContainerBlockEntity)
+						{
+							((LootableContainerBlockEntity) be).setLootTable(tableID, random.nextLong());
+						}
+					}
+				}
+				else
+				{
+					world.setBlockState(offsetPos, Blocks.AIR.getDefaultState(), 3);
+				}
 			}
 		}
+
+		private void doBonemealEffect(StructureWorldAccess world, BlockPos pos, Random random)
+		{
+			BlockPos blockPos = pos.up();
+			BlockState blockState = Blocks.GRASS.getDefaultState();
+
+			for(int i = 0; i < 128; ++i) {
+				BlockPos placePos = blockPos;
+
+				for(int j = 0; j < i / 16; ++j) {
+					placePos = placePos.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
+					if (!world.getBlockState(placePos.down()).isOf(Blocks.GRASS_BLOCK) || world.getBlockState(placePos).isFullCube(world, placePos)) {
+						continue;
+					}
+				}
+
+				BlockState placeState = world.getBlockState(placePos);
+
+				if (placeState.isAir()) {
+					BlockState flowerState;
+					if (random.nextInt(8) == 0) {
+						List<ConfiguredFeature<?, ?>> list = world.getBiome(placePos).getGenerationSettings().getFlowerFeatures();
+						if (list.isEmpty()) {
+							continue;
+						}
+
+						ConfiguredFeature<?, ?> configuredFeature = list.get(0);
+						FlowerFeature flowerFeature = (FlowerFeature)configuredFeature.feature;
+						flowerState = flowerFeature.getFlowerState(random, placePos, configuredFeature.getConfig());
+					}
+					else
+						{
+						flowerState = blockState;
+					}
+
+					if (flowerState.canPlaceAt(world, placePos)) {
+						world.setBlockState(placePos, flowerState, 3);
+					}
+				}
+			}
+		}
+
+		private void generateTapestry(Direction dir, BlockPos pos, StructureWorldAccess world, Random random)
+		{
+			Block tapestryBlock;
+			if(dir == Direction.DOWN || dir == Direction.UP)
+			{
+				tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_FLOOR_BLOCKS);
+				world.setBlockState(pos, tapestryBlock.getDefaultState().with(TapestryBlock.ROTATION, BlockRotation.random(random).ordinal()), 3);
+			}
+			else
+			{
+				tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_WALL_BLOCKS);
+				world.setBlockState(pos, tapestryBlock.getDefaultState().with(TapestryWallBlock.FACING, dir.getOpposite()), 3);
+			}
+		}
+
+		private void generateIvy(Direction dir, BlockPos pos, StructureWorldAccess world, Random random)
+		{
+			if(random.nextFloat() < 0.25F)
+				return;
+
+			//Attempt to not generate if there's a roof lol
+			BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, pos.offset(dir.getOpposite(), 2)).down();
+			BlockState topState = world.getBlockState(topPos);
+			if(topState.isOf(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB)) || topState.isOf(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR)))
+				return;
+
+			int size = 3;
+			Direction rot1=  dir.rotateYClockwise();
+			Direction rot2=  dir.rotateYCounterclockwise();
+
+			BlockPos.iterate(pos.offset(rot1, size).offset(Direction.UP, size), pos.offset(rot2, size).offset(Direction.DOWN, size)).forEach(
+					p->{
+						BlockState currentState = world.getBlockState(p);
+						if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.isOf(BMBlocks.IVY)))
+						{
+							BlockPos onPos = p.offset(dir);
+							BlockState onState = world.getBlockState(onPos);
+
+							if(onState.isSideSolidFullSquare(world, onPos, dir.getOpposite()))
+							{
+								if(currentState.isOf(BMBlocks.IVY))
+								{
+									world.setBlockState(p, currentState.with(IvyBlock.getPropertyForDirection(dir), true), 3);
+								}
+								else
+								{
+									world.setBlockState(p, BMBlocks.IVY.getDefaultState().with(IvyBlock.getPropertyForDirection(dir), true), 3);
+								}
+							}
+						}
+					});
+		}
 	}
+
+	private static final Identifier LOOT_ARROW = BiomeMakeover.ID("mansion/arrows");
+	private static final Identifier LOOT_DUNGEON_JUNK = BiomeMakeover.ID("mansion/dungeon_junk");
+	private static final Identifier LOOT_JUNK = BiomeMakeover.ID("mansion/junk");
 
 	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
@@ -272,7 +419,8 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/room/big/room_big_1"),
 			BiomeMakeover.ID("mansion/room/big/room_big_2"),
 			BiomeMakeover.ID("mansion/room/big/room_big_3"),
-			BiomeMakeover.ID("mansion/room/big/room_big_4")
+			BiomeMakeover.ID("mansion/room/big/room_big_4"),
+			BiomeMakeover.ID("mansion/room/big/room_big_5")
 	);
 
 	public static List<Identifier> STAIR_UP = Lists.newArrayList(
@@ -390,11 +538,21 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/dungeon/door_6"),
 			BiomeMakeover.ID("mansion/dungeon/door_7")
 	);
-	public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/wall_1"));
+	public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/dungeon/wall_1")
+	);
 	public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/dungeon/room_1"),
 			BiomeMakeover.ID("mansion/dungeon/room_2"),
-			BiomeMakeover.ID("mansion/dungeon/room_3")
+			BiomeMakeover.ID("mansion/dungeon/room_3"),
+			BiomeMakeover.ID("mansion/dungeon/room_4"),
+			BiomeMakeover.ID("mansion/dungeon/room_5"),
+			BiomeMakeover.ID("mansion/dungeon/room_6"),
+			BiomeMakeover.ID("mansion/dungeon/room_7"),
+			BiomeMakeover.ID("mansion/dungeon/room_8"),
+			BiomeMakeover.ID("mansion/dungeon/room_9"),
+			BiomeMakeover.ID("mansion/dungeon/room_10"),
+			BiomeMakeover.ID("mansion/dungeon/room_11")
 	);
 	public static List<Identifier> DUNGEON_STAIR_BOTTOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_bottom"));
 	public static List<Identifier> DUNGEON_STAIR_MID = Lists.newArrayList(

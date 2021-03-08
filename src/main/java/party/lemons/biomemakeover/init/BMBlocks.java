@@ -153,6 +153,8 @@ public class BMBlocks
 
 	public static final Map<DyeColor, Block> DYE_TO_TAPESTRY = Maps.newHashMap();
 	public static final List<Block> TAPESTRY_BLOCKS = Lists.newArrayList();
+	public static final List<Block> TAPESTRY_WALL_BLOCKS = Lists.newArrayList();
+	public static final List<Block> TAPESTRY_FLOOR_BLOCKS = Lists.newArrayList();
 	static
 	{
 		for(DyeColor dyeColor : DyeColor.values())
@@ -160,6 +162,7 @@ public class BMBlocks
 			TapestryBlock tap = new TapestryBlock(dyeColor, settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD));
 			DYE_TO_TAPESTRY.put(dyeColor, tap);
 			TAPESTRY_BLOCKS.add(tap);
+			TAPESTRY_FLOOR_BLOCKS.add(tap);
 		}
 	}
 	public static void init()
@@ -245,6 +248,7 @@ public class BMBlocks
 			Registry.register(Registry.ITEM, BiomeMakeover.ID(dye.getName() + "_tapestry"), blItem);
 
 			TAPESTRY_BLOCKS.add(wallBlock);
+			TAPESTRY_WALL_BLOCKS.add(wallBlock);
 		}
 
 		/* Flammables */
