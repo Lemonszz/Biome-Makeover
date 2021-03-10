@@ -235,7 +235,16 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			{
 				String[] splits = meta.split("_");
 				String table = splits[1];
-				int chance = Integer.parseInt(splits[2]);
+				int chance;
+				if(splits.length < 3)
+				{
+					System.out.println(meta + " " + template);
+					chance = 100;
+				}
+				else
+				{
+					chance = Integer.parseInt(splits[2]);
+				}
 
 				if(random.nextInt(100) <= chance)
 				{
@@ -337,10 +346,23 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				return;
 
 			int size = 3;
-			Direction rot1=  dir.rotateYClockwise();
-			Direction rot2=  dir.rotateYCounterclockwise();
+			BlockPos startPos, endPos;
 
-			BlockPos.iterate(pos.offset(rot1, size).offset(Direction.UP, size), pos.offset(rot2, size).offset(Direction.DOWN, size)).forEach(
+			if(dir.getOffsetY() == 0)
+			{
+				Direction rot1 = dir.rotateYClockwise();
+				Direction rot2 = dir.rotateYCounterclockwise();
+
+				startPos = pos.offset(rot1, size).offset(Direction.UP, size);
+				endPos =  pos.offset(rot2, size).offset(Direction.DOWN, size);
+			}
+			else
+			{
+				startPos = pos.add(-size, 0, -size);
+				endPos = pos.add(size, 0, size);
+			}
+
+			BlockPos.iterate(startPos, endPos).forEach(
 					p->{
 						BlockState currentState = world.getBlockState(p);
 						if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.isOf(BMBlocks.IVY)))
@@ -380,11 +402,14 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 	);
 
 	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1")
+			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1"),
+			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_2")
 	);
 
 	public static List<Identifier> CORRIDOR_T = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/t/corridor_t_1")
+			BiomeMakeover.ID("mansion/corridor/t/corridor_t_1"),
+			BiomeMakeover.ID("mansion/corridor/t/corridor_t_2"),
+			BiomeMakeover.ID("mansion/corridor/t/corridor_t_3")
 	);
 
 	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4"));
@@ -420,7 +445,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/room/big/room_big_2"),
 			BiomeMakeover.ID("mansion/room/big/room_big_3"),
 			BiomeMakeover.ID("mansion/room/big/room_big_4"),
-			BiomeMakeover.ID("mansion/room/big/room_big_5")
+			BiomeMakeover.ID("mansion/room/big/room_big_5"),
+			BiomeMakeover.ID("mansion/room/big/room_big_6"),
+			BiomeMakeover.ID("mansion/room/big/room_big_7"),
+			BiomeMakeover.ID("mansion/room/big/room_big_8")
 	);
 
 	public static List<Identifier> STAIR_UP = Lists.newArrayList(
@@ -475,7 +503,14 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_7")
 	);
 
-	public static List<Identifier> GARDEN = Lists.newArrayList(BiomeMakeover.ID("mansion/garden/garden_1"));
+	public static List<Identifier> GARDEN = Lists.newArrayList(
+			BiomeMakeover.ID("mansion/garden/garden_1"),
+			BiomeMakeover.ID("mansion/garden/garden_2"),
+			BiomeMakeover.ID("mansion/garden/garden_3"),
+			BiomeMakeover.ID("mansion/garden/garden_4"),
+			BiomeMakeover.ID("mansion/garden/garden_5"),
+			BiomeMakeover.ID("mansion/garden/garden_6")
+	);
 
 	public static List<Identifier> TOWER_BASE = Lists.newArrayList(
 			BiomeMakeover.ID("mansion/tower/base/tower_base_1"),

@@ -32,40 +32,54 @@ public class MansionLayout
 
 	public void generateLayout(Random random, int startY)
 	{
-		int floorCorridorTarget = 10 + random.nextInt(5);
-		int floors = 2 + random.nextInt(4);
-		int floorRoomTarget = floorCorridorTarget - random.nextInt(5);
+		int floorCorridorTarget = 10 + random.nextInt(5);   //How many corridors to target per floor
+		int floors = 4 + random.nextInt(4); //How many floors to create
+		int floorRoomTarget = floorCorridorTarget - random.nextInt(5);  //How many rooms per floor target.
 		List<MansionRoom> allRooms = Lists.newArrayList();
 
+		/*
+			Corridor starts are possible places for the corridors to start from.
+			First floor just has 0,0. Other floors use stair positions
+		 */
 		List<BlockPos.Mutable> corridorStarts = Lists.newArrayList(new BlockPos.Mutable(0, 0, 0));
-		for(int floor = 0; floor < floors; floor++)
+		for(int floor = 0; floor < floors; floor++) //Createeach floor
 		{
-			List<MansionRoom> corridors = placeCorridors(floor, floorCorridorTarget, corridorStarts, random);
-			List<MansionRoom> rooms = Lists.newArrayList();
-			if(corridors.size() > 0) rooms = placeRooms(floor, floorRoomTarget, random);
+			List<MansionRoom> corridors = placeCorridors(floor, floorCorridorTarget, corridorStarts, random);   //Place corridors
 
-			if(rooms != null && floor < floors - 1 && rooms.size() > 0)
+			//Since we set corridors as staircases later, we have to remove any rooms that are not staircases from the corridor list. We add them to the all rooms list.
+			allRooms.addAll(corridors.stream().filter(c->c.getRoomType() != RoomType.CORRIDOR).collect(Collectors.toList()));
+			corridors.removeIf(c->c.getRoomType() != RoomType.CORRIDOR);
+
+			List<MansionRoom> rooms = Lists.newArrayList();
+			if(corridors.size() > 0) rooms = placeRooms(floor, floorRoomTarget, random);    //If we managed to place corridors, place rooms
+
+			if(floor < floors - 1 && corridors.size() > 0)  //If we're not on the top floor and we placed rooms, place stairs
 			{
-				corridorStarts.clear();
-				for(int i = 0; i < 1 + random.nextInt(3); i++)
+				corridorStarts.clear(); //Clear previous corridor start locations
+				for(int i = 0; i < Math.max(1, (1 + random.nextInt(3)) - floor); i++)  //Create multiple stair cases
 				{
-					MansionRoom stairCase = rooms.get(random.nextInt(rooms.size()));
+					//Choose a corridor to become a staircase, set it to be stairs
+					MansionRoom stairCase = corridors.get(random.nextInt(corridors.size()));
 					stairCase.setRoomType(RoomType.STAIRS_UP);
 					BlockPos stairPos = stairCase.getPosition().up();
 
+					//Create above stairs room.
 					MansionRoom upStairs = new MansionRoom(stairPos, RoomType.STAIRS_DOWN);
 					upStairs.setLayoutType(LayoutType.REQUIRED);
 					layout.put(stairPos, upStairs);
 					corridorStarts.add(new BlockPos.Mutable(stairPos.getX(), stairPos.getY(), stairPos.getZ()));
 				}
 			}
-			floorCorridorTarget /= 2F;
-			floorRoomTarget /= 2F;
+			//Reduce floor targets as we go up
+			floorCorridorTarget /= 1.5F;
+			floorRoomTarget /= 1.5F;
 
+			//Add rooms and corridors to allRooms list
 			allRooms.addAll(rooms);
 			allRooms.addAll(corridors);
 			int size = allRooms.size();
 
+			//Loop through each room, running room processors
 			for(int i = 0; i < size; i++)
 			{
 				MansionRoom room = allRooms.get(i);
@@ -313,7 +327,7 @@ public class MansionLayout
 
 	public List<MansionRoom> placeCorridors(int y, int maxCount, List<BlockPos.Mutable> positions, Random random)
 	{
-		int attempts = 500;
+		int attempts = 20;
 		int placed = 0;
 		List<MansionRoom> corridors = Lists.newArrayList();
 		for(BlockPos p : positions)
@@ -329,9 +343,10 @@ public class MansionLayout
 		{
 			if(!layout.contains(pos))
 			{
+				attempts = 20;
 				if(y != 0 && !layout.contains(pos.down()))
 				{
-					attempts--;
+					setNextPos(corridors, random, y, pos);
 					continue;
 				}
 				if(!(y != 0 && !layout.get(pos.down()).canSupportRoof()))
@@ -343,17 +358,22 @@ public class MansionLayout
 					placed++;
 				}
 			}
-			BlockPos nextPos = corridors.get(random.nextInt(corridors.size())).getPosition();
-			BlockPos checkPos = nextPos;
-			for(int i = 0; i < 4; i++)
-			{
-				checkPos = nextPos.offset(Direction.fromHorizontal(random.nextInt(4)));
-				if(y == 0 || (layout.contains(checkPos.down()) && layout.get(checkPos.down()).canSupportRoof())) break;
-			}
-			pos.set(checkPos.getX(), checkPos.getY(), checkPos.getZ());
+			setNextPos(corridors, random, y, pos);
+			attempts--;
 		}
-
 		return corridors;
+	}
+
+	private void setNextPos(List<MansionRoom> corridors, Random random, int y, BlockPos.Mutable pos)
+	{
+		BlockPos nextPos = corridors.get(random.nextInt(corridors.size())).getPosition();
+		BlockPos checkPos = nextPos;
+		for(Direction dir : BMUtil.randomOrderedHorizontals())
+		{
+			checkPos = nextPos.offset(dir);
+			if(y == 0 || (layout.contains(checkPos.down()) && layout.get(checkPos.down()).canSupportRoof())) break;
+		}
+		pos.set(checkPos.getX(), checkPos.getY(), checkPos.getZ());
 	}
 
 	public List<MansionRoom> placeRooms(int y, int maxCount, Random random)
