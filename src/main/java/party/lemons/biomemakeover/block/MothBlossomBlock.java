@@ -1,19 +1,28 @@
 package party.lemons.biomemakeover.block;
 
+import com.google.common.collect.Lists;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FacingBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.BMUtil;
+import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,9 +31,12 @@ import java.util.Random;
 
 public class MothBlossomBlock extends IvyShapedBlock
 {
+	public static final DirectionProperty BLOSSOM_DIRECTION = DirectionProperty.of("blossom", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.UP, Direction.DOWN);
+
 	public MothBlossomBlock(Settings settings)
 	{
 		super(settings);
+		setDefaultState(getDefaultState().with(BLOSSOM_DIRECTION, Direction.DOWN));
 	}
 
 	@Override
@@ -33,10 +45,14 @@ public class MothBlossomBlock extends IvyShapedBlock
 		boolean isValidFace = isValidPlaceFace(world, direction, posFrom, newState);
 		if(!isValidFace)
 		{
+			if(direction == state.get(BLOSSOM_DIRECTION))
+			{
+				world.breakBlock(pos, false);
+				return state;
+			}
+
 			if(IvyShapedBlock.hasDirection(state, direction))
 			{
-				if(direction == Direction.DOWN)
-					world.breakBlock(pos, false);
 				return getStateWithoutDirection(state, getPropertyForDirection(direction));
 			}
 		}
@@ -84,12 +100,40 @@ public class MothBlossomBlock extends IvyShapedBlock
 	@Nullable
 	public BlockState getPlacementState(ItemPlacementContext ctx)
 	{
-		return getPlaceState(ctx.getWorld(), ctx.getBlockPos());
+		BlockPos placeOffset = ctx.getBlockPos().offset(ctx.getSide().getOpposite());
+		BlockState offsetState = ctx.getWorld().getBlockState(placeOffset);
+		if(isValidPlaceFace(ctx.getWorld(), ctx.getSide(), placeOffset, offsetState))
+		{
+			BlockState state = getDefaultState().with(BLOSSOM_DIRECTION, ctx.getSide().getOpposite());
+			for(Direction dir : Direction.values())
+			{
+				if(dir == ctx.getSide().getOpposite())
+					continue;
+
+				placeOffset = ctx.getBlockPos().offset(dir);
+				offsetState = ctx.getWorld().getBlockState(placeOffset);
+				boolean validFace = isValidPlaceFace(ctx.getWorld(), dir, placeOffset, offsetState);
+				state = state.with(getPropertyForDirection(dir), validFace);
+			}
+			return state;
+		}
+		return null;
 	}
 
-	public BlockState getPlaceState(WorldAccess world, BlockPos pos)
+	@Override
+	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos)
+	{
+		Direction dir = state.get(BLOSSOM_DIRECTION);
+		BlockPos offsetPos = pos.offset(dir);
+		BlockState offsetState = world.getBlockState(offsetPos);
+		return isValidPlaceFace(world, dir.getOpposite(), offsetPos, offsetState) || super.canPlaceAt(state, world, pos);
+	}
+
+	public BlockState getGrowState(WorldAccess world, BlockPos pos)
 	{
 		BlockState placeState = getDefaultState();
+		List<Direction> validDirections = Lists.newArrayList();
+
 		for(Direction dir : Direction.values())
 		{
 			BlockPos offsetPos = pos.offset(dir);
@@ -97,9 +141,27 @@ public class MothBlossomBlock extends IvyShapedBlock
 			boolean validFace = isValidPlaceFace(world, dir, offsetPos, offsetState);
 			placeState = placeState.with(getPropertyForDirection(dir), validFace);
 
-			if(dir == Direction.DOWN && !validFace)
-				return null;
+			if(validFace)
+				validDirections.add(dir);
 		}
+
+		Direction blossomDir = RandomUtil.choose(validDirections);
+		placeState = placeState.with(BLOSSOM_DIRECTION, blossomDir);
+
 		return placeState;
+	}
+
+	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context)
+	{
+		BlockState st = state.with(getPropertyForDirection(state.get(BLOSSOM_DIRECTION)), true);
+		return this.shapes.get(st);
+	}
+
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder)
+	{
+		super.appendProperties(builder);
+		builder.add(BLOSSOM_DIRECTION);
 	}
 }

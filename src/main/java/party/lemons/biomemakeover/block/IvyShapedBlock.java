@@ -2,10 +2,7 @@ package party.lemons.biomemakeover.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ConnectingBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -76,7 +73,37 @@ public class IvyShapedBlock extends BMBlock
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
 	{
-		return hasDirection(state, direction) && !isValidPlaceFace(world, direction, posFrom, newState) ? getStateWithoutDirection(state, getPropertyForDirection(direction)) : state;
+		BlockState returnState;
+		if(hasDirection(state, direction) && !isValidPlaceFace(world, direction, posFrom, newState))
+		{
+			returnState = getStateWithoutDirection(state, getPropertyForDirection(direction));
+			if(!world.isClient())
+			{
+				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(getDefaultState().with(getPropertyForDirection(direction), true)));
+			}
+		}
+		else
+		{
+			returnState = state;
+		}
+
+		if(!hasAnySide(returnState))
+		{
+			world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+			return state;
+		}
+
+		return returnState;
+	}
+
+	private boolean hasAnySide(BlockState state)
+	{
+		for(Direction d : Direction.values())
+		{
+			if(hasDirection(state, d))
+				return true;
+		}
+		return false;
 	}
 
 	public boolean hasAdjacentSide(Direction direction, BlockState state)

@@ -40,6 +40,7 @@ public class BMBlocks
 {
 	public static final Material POLTERGEISTER_MATERIAL = new Material(MaterialColor.WHITE, false, true, true, false, true, false, PistonBehavior.BLOCK);
 	public static final BlockSoundGroup BM_LILY_PAD_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, SoundEvents.BLOCK_WET_GRASS_BREAK, SoundEvents.BLOCK_WET_GRASS_STEP, SoundEvents.BLOCK_LILY_PAD_PLACE, SoundEvents.BLOCK_WET_GRASS_HIT, SoundEvents.BLOCK_WET_GRASS_FALL);
+	public static final BlockSoundGroup ILLUNITE_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, BMEffects.ILLUNITE_BREAK, BMEffects.ILLUNITE_STEP, BMEffects.ILLUNITE_STEP, BMEffects.ILLUNITE_HIT, SoundEvents.BLOCK_STONE_FALL);
 
 	public static final BMMushroomPlantBlock PURPLE_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, RLayer.CUTOUT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 	public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, RLayer.CUTOUT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
@@ -116,8 +117,8 @@ public class BMBlocks
 	public static final BMLeavesBlock SWAMP_CYPRESS_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
 	public static final LightningBugBottleBlock LIGHTNING_BUG_BOTTLE = new LightningBugBottleBlock(settings(Material.STONE, RLayer.CUTOUT, 0.5F).luminance(15).nonOpaque());
 
-	public static final IlluniteClusterBlock ILLUNITE_CLUSTER = new IlluniteClusterBlock(settings(Material.STONE, RLayer.CUTOUT, 0.5F).nonOpaque().noCollision().postProcess(BMBlocks::always).emissiveLighting(BMBlocks::always));
-	public static final Block ILLUNITE_BLOCK = new BMBlock(settings(Material.STONE, 1.5F).requiresTool());
+	public static final IlluniteClusterBlock ILLUNITE_CLUSTER = new IlluniteClusterBlock(settings(Material.STONE, RLayer.CUTOUT, 0.5F).sounds(ILLUNITE_SOUNDS).nonOpaque().noCollision().postProcess(BMBlocks::always).emissiveLighting(BMBlocks::always));
+	public static final Block ILLUNITE_BLOCK = new BMBlock(settings(Material.STONE, 1.5F).requiresTool().sounds(ILLUNITE_SOUNDS));
 	public static final Block MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));
 	public static final DecorationBlockInfo MESMERITE_DECORATION = new DecorationBlockInfo("mesmerite", MESMERITE, settings(Material.STONE, 1.5F)).all();
 	public static final Block POLISHED_MESMERITE = new BMBlock(settings(Material.STONE, 1.5F));

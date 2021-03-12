@@ -587,5 +587,37 @@
       "biomemakeover:rootling_hurt_1",
       "biomemakeover:rootling_hurt_2"
     ]
+  },
+  "illunite_break": {
+    "sounds": [
+      "biomemakeover:illunite_break_1",
+      "biomemakeover:illunite_break_2",
+      "biomemakeover:illunite_break_3",
+      "biomemakeover:illunite_break_4"
+    ]
+  },
+  "illunite_hit": {
+    "sounds": [
+      "biomemakeover:illunite_breaking_1",
+      "biomemakeover:illunite_breaking_2",
+      "biomemakeover:illunite_breaking_3",
+      "biomemakeover:illunite_breaking_4"
+    ]
+  },
+  "illunite_place": {
+    "sounds": [
+      "biomemakeover:illunite_place_1",
+      "biomemakeover:illunite_place_2",
+      "biomemakeover:illunite_place_3",
+      "biomemakeover:illunite_place_4"
+    ]
+  },
+  "illunite_step": {
+    "sounds": [
+      "biomemakeover:illunite_step_1",
+      "biomemakeover:illunite_step_2",
+      "biomemakeover:illunite_step_3",
+      "biomemakeover:illunite_step_4"
+    ]
   }
 }

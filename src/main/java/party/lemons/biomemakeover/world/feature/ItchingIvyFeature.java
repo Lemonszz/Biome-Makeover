@@ -29,7 +29,7 @@ public class ItchingIvyFeature extends Feature<DefaultFeatureConfig>
 		if(!world.getBlockState(genPos.down()).isIn(BlockTags.LEAVES))
 			return false;
 
-		world.setBlockState(genPos, BMBlocks.MOTH_BLOSSOM.getPlaceState(world, genPos), 3);
+		world.setBlockState(genPos, BMBlocks.MOTH_BLOSSOM.getGrowState(world, genPos), 3);
 		world.getBlockTickScheduler().schedule(genPos, BMBlocks.MOTH_BLOSSOM, 0);
 
 		for(int i = 0; i < 10; i++)

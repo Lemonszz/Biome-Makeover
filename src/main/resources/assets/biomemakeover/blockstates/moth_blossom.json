@@ -2,6 +2,77 @@
   "multipart": [
     {
       "when": {
+        "blossom": "up"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/moth_blossom",
+          "x": 180,
+          "uvlock": false
+        }
+      ]
+    },
+    {
+      "when": {
+        "blossom": "west"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/moth_blossom_wall",
+          "y": 180,
+          "uvlock": false
+        }
+      ]
+    },
+    {
+      "when": {
+        "blossom": "down"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/moth_blossom"
+        }
+      ]
+    },
+    {
+      "when": {
+        "blossom": "east"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/moth_blossom_wall",
+          "uvlock": false
+        }
+      ]
+    },
+    {
+      "when": {
+        "blossom": "south"
+      },
+      "apply": [
+        {
+          "model": "biomemakeover:block/moth_blossom",
+          "x": 90,
+          "uvlock": false
+        }
+      ]
+    },
+
+
+
+    {
+      "when": {
+        "blossom": "north"
+      },
+      "apply": [
+        {
+          "x": 270,
+          "model": "biomemakeover:block/moth_blossom"
+        }
+      ]
+    },
+    {
+      "when": {
         "up": "true"
       },
       "apply": [
@@ -30,7 +101,9 @@
       },
       "apply": [
         {
-          "model": "biomemakeover:block/moth_blossom"
+          "model": "biomemakeover:block/itching_ivy",
+          "x": 90,
+          "uvlock": true
         }
       ]
     },
