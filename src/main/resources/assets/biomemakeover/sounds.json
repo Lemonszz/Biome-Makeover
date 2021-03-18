@@ -619,5 +619,28 @@
       "biomemakeover:illunite_step_3",
       "biomemakeover:illunite_step_4"
     ]
+  },
+  "stone_golem_turn": {
+    "sounds": [
+      "biomemakeover:stone_golem_turn"
+    ]
+  },
+  "stone_golem_stop": {
+    "sounds": [
+      "biomemakeover:stone_golem_clank"
+    ]
+  },
+  "stone_golem_hurt": {
+    "sounds": [
+      "biomemakeover:stone_golem_hit1",
+      "biomemakeover:stone_golem_hit2",
+      "biomemakeover:stone_golem_hit3",
+      "biomemakeover:stone_golem_hit4"
+    ]
+  },
+  "stone_golem_death": {
+    "sounds": [
+      "biomemakeover:stone_golem_death"
+    ]
   }
 }

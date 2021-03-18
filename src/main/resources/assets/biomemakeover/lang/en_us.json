@@ -21,8 +21,10 @@
   "enchantment.biomemakeover.suffocation_curse" : "Curse of Suffocation",
   "enchantment.biomemakeover.heavy_curse" : "Curse of Heaviness",
   "enchantment.biomemakeover.inaccuracy_curse" : "Curse of Inaccuracy",
+  "enchantment.biomemakeover.buckling_curse": "Curse of Buckling",
   "effect.biomemakeover.shocked" : "Shocked",
   "effect.biomemakeover.antidote" : "Antidote",
+  "effect.biomemakeover.nocturnal" : "Nocturnal",
 
   "block.biomemakeover.purple_glowshroom" : "Purple Glowshroom",
   "block.biomemakeover.green_glowshroom" : "Green Glowshroom",
@@ -283,6 +285,8 @@
   "block.biomemakeover.green_tapestry": "Green Tapestry",
   "block.biomemakeover.red_tapestry": "Red Tapestry",
   "block.biomemakeover.black_tapestry": "Black Tapestry",
+  "block.biomemakeover.cladded_stone": "Cladded Stone",
+  "block.biomemakeover.directional_data": "Directional Data Block",
 
   "item.biomemakeover.button_mushrooms_music_disk" : "Music Disc",
   "item.biomemakeover.ghost_town_music_disk" : "Music Disc",
@@ -341,6 +345,9 @@
   "item.biomemakeover.cyan_petals": "Cyan Petals",
   "item.biomemakeover.stunt_powder": "Stunt Powder",
   "item.biomemakeover.moth_spawn_egg": "Moth Spawn Egg",
+  "item.biomemakeover.moth_scales": "Moth Scales",
+  "item.biomemakeover.crude_cladding": "Crude Cladding",
+  "item.biomemakeover.sentry_golem_spawn_egg": "Remind me to remove this item lol",
 
   "item.minecraft.potion.effect.adrenaline": "Potion of Adrenaline",
   "item.minecraft.potion.effect.assassin": "Potion of the Assassin",
@@ -400,6 +407,7 @@
   "entity.biomemakeover.moth": "Moth",
   "entity.biomemakeover.adjudicator": "Adjudicator",
   "entity.biomemakeover.adjudicator_mimic": "Adjudicator",
+  "entity.biomemakeover.stone_golem": "Stone Golem",
 
   "subtitles.biomemakeover.ghost.charge": "Ghost Shrieks",
   "subtitles.biomemakeover.ghost.death": "Ghost Dies",

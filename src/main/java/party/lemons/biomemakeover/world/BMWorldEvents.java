@@ -1,9 +1,12 @@
 package party.lemons.biomemakeover.world;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Fertilizable;
+import net.minecraft.block.*;
+import net.minecraft.block.pattern.BlockPattern;
+import net.minecraft.block.pattern.BlockPatternBuilder;
+import net.minecraft.block.pattern.CachedBlockPosition;
+import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.function.MaterialPredicate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.placer.BlockPlacer;
@@ -11,11 +14,32 @@ import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import party.lemons.biomemakeover.block.SmallLilyPadBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.util.access.CarvedPumpkinBlockAccess;
 
 import java.util.Random;
 
 public final class BMWorldEvents
 {
+	private static BlockPattern stoneGolemDispenserPattern;
+	private static BlockPattern stoneGolemPattern;
+
+	public static BlockPattern getStoneGolemDispenserPattern() {
+		if (stoneGolemDispenserPattern == null) {
+			stoneGolemDispenserPattern = BlockPatternBuilder.start().aisle("~ ~", "###", "~#~").where('#', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE))).where('~', CachedBlockPosition.matchesBlockState(MaterialPredicate.create(Material.AIR))).build();
+		}
+
+		return stoneGolemDispenserPattern;
+	}
+
+	public static BlockPattern getStoneGolemPattern() {
+		if (stoneGolemPattern == null) {
+			stoneGolemPattern = BlockPatternBuilder.start().aisle("~^~", "###", "~#~").where('^', CachedBlockPosition.matchesBlockState(((CarvedPumpkinBlockAccess)Blocks.CARVED_PUMPKIN).isGolemHeadBlock())).where('#', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE))).where('~', CachedBlockPosition.matchesBlockState(MaterialPredicate.create(Material.AIR))).build();
+		}
+
+		return stoneGolemPattern;
+	}
+
+
 	public static void handleSwampBoneMeal(World world, BlockPos pos, Random random)
 	{
 		start:

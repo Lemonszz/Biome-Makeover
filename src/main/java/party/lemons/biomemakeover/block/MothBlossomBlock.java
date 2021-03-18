@@ -51,7 +51,7 @@ public class MothBlossomBlock extends IvyShapedBlock
 				return state;
 			}
 
-			if(IvyShapedBlock.hasDirection(state, direction))
+			if(hasDirection(state, direction))
 			{
 				return getStateWithoutDirection(state, getPropertyForDirection(direction));
 			}
@@ -61,6 +61,15 @@ public class MothBlossomBlock extends IvyShapedBlock
 			return state.with(getPropertyForDirection(direction), true);
 		}
 		return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
+	}
+
+	@Override
+	public boolean hasDirection(BlockState blockState, Direction direction)
+	{
+		if(blockState.get(BLOSSOM_DIRECTION) == direction)
+			return true;
+
+		return super.hasDirection(blockState, direction);
 	}
 
 	@Override

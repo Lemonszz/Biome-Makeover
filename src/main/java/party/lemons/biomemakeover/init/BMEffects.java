@@ -58,6 +58,10 @@ public class BMEffects
 	public static final SoundEvent ILLUNITE_HIT = new SoundEvent(BiomeMakeover.ID("illunite_hit"));
 	public static final SoundEvent ILLUNITE_PLACE = new SoundEvent(BiomeMakeover.ID("illunite_place"));
 	public static final SoundEvent ILLUNITE_STEP = new SoundEvent(BiomeMakeover.ID("illunite_step"));
+	public static final SoundEvent STONE_GOLEM_TURN = new SoundEvent(BiomeMakeover.ID("stone_golem_turn"));
+	public static final SoundEvent STONE_GOLEM_STOP = new SoundEvent(BiomeMakeover.ID("stone_golem_stop"));
+	public static final SoundEvent STONE_GOLEM_HURT = new SoundEvent(BiomeMakeover.ID("stone_golem_hurt"));
+	public static final SoundEvent STONE_GOLEM_DEATH = new SoundEvent(BiomeMakeover.ID("stone_golem_death"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 	public static final ParticleEffect POLTERGEIST = FabricParticleTypes.simple();

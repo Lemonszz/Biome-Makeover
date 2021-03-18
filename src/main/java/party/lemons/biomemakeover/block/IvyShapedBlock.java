@@ -230,7 +230,7 @@ public class IvyShapedBlock extends BMBlock
 		return state;
 	}
 
-	public static boolean hasDirection(BlockState blockState, Direction direction)
+	public boolean hasDirection(BlockState blockState, Direction direction)
 	{
 		BooleanProperty booleanProperty = getPropertyForDirection(direction);
 		return blockState.get(booleanProperty);

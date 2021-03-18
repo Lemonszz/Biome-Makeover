@@ -57,6 +57,7 @@ public class BMItems
 	public static final Item ROOTLING_SEEDS = new AliasedBlockItem(BMBlocks.ROOTLING_CROP, settings());
 	public static final Item MOTH_SCALES = new Item(settings());
 	public static final Item STUNT_POWDER = new StuntPowderItem(settings());
+	public static final Item CRUDE_CLADDING = new Item(settings());
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
@@ -80,6 +81,7 @@ public class BMItems
 	public static final Item OWL_SPAWN_EGG = new SpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, settings());
 	public static final Item ROOTLING_SPAWN_EGG = new SpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, settings());
 	public static final Item MOTH_SPAWN_EGG = new SpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, settings());
+	public static final Item SENTRY_GOLEM_SPAWN_EGG = new SpawnEggItem(BMEntities.STONE_GOLEM, 0xF5f357, 0x968e9c, settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 

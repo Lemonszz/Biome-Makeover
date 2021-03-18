@@ -6,7 +6,7 @@ import java.util.Random;
 
 public enum QuestCategory
 {
-	COMMON(10), RARE(1), MUSHROOM(2), FLOWER(5), MESA(4), SWAMP(7), OCEAN(9), JUNGLE(4), NETHER(5);
+	COMMON(10), RARE(1), MUSHROOM(2), FLOWER(5), MESA(4), SWAMP(7), OCEAN(9), JUNGLE(4), NETHER(5), DARK_FOREST(7);
 
 	public final int weight;
 

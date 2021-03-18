@@ -63,6 +63,10 @@
     "biomemakeover:illunite_block",
     "biomemakeover:owl_spawn_egg",
     "biomemakeover:rootling_spawn_egg",
-    "biomemakeover:moth_spawn_egg"
+    "biomemakeover:moth_spawn_egg",
+    "biomemakeover:cladded_stone",
+    "biomemakeover:moth_scales",
+    "biomemakeover:crude_cladding",
+    "biomemakeover:sentry_golem_spawn_egg"
   ]
 }

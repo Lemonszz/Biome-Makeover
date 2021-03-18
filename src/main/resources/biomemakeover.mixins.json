@@ -42,7 +42,10 @@
     "SwimGoalMixin",
     "EntityMixin",
     "BowItemMixin",
-    "SimpleStructurePieceMixin"
+    "SimpleStructurePieceMixin",
+    "WorldChunkMixin",
+    "ThreadedAnvilChunkStorageMixin",
+    "CarvedPumpkinBlockMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
@@ -55,7 +58,9 @@
     "client.ChunkRenderRegionMixin",
     "client.WorldRendererMixin",
     "client.BuiltInModelItemRendererMixin",
-    "client.AbstractBlockClientMixin"
+    "client.AbstractBlockClientMixin",
+    "client.ClientPlayNetworkHandlerMixin",
+    "client.EntityRenderDispatcherMixin"
   ]
 ,
   "injectors": {

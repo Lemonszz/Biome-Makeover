@@ -45,6 +45,12 @@ public class WitchQuestHandler
 		addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.PINK_PETALS, 12, 1));
 		addQuestItem(QuestCategory.MESA, QuestItem.of(BMBlocks.SAGUARO_CACTUS, 1, 10));
 
+		addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.MOTH_SCALES, 5, 6));
+		addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.BULBUS_ROOT, 5, 5));
+		addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.ILLUNITE_SHARD, 10, 2));
+		addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMBlocks.IVY, 3, 10));
+		addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMBlocks.MOTH_BLOSSOM, 10, 2));
+
 		addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.DANDELION, 1, 4));
 		addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.POPPY, 1, 4));
 		addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.BLUE_ORCHID, 1, 4));

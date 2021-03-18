@@ -27,7 +27,6 @@ import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
 import party.lemons.biomemakeover.world.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 import party.lemons.biomemakeover.world.particle.TeleportParticle;
-import sun.security.ssl.Debug;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
@@ -59,6 +58,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		EntityRendererRegistry.INSTANCE.register(BMEntities.MOTH, (r, c)->new MothEntityRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.ADJUDICATOR, (r, c)->new AdjudicatorEntityRender(r));
 		EntityRendererRegistry.INSTANCE.register(BMEntities.ADJUDICATOR_MIMIC, (r, c)->new AdjudicatorMimicRender(r));
+		EntityRendererRegistry.INSTANCE.register(BMEntities.STONE_GOLEM, (r, c)->new StoneGolemEntityRender(r));
 
 		BlockEntityRendererRegistry.INSTANCE.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, LightningBugBottleBlockRenderer::new
 		);
@@ -106,8 +106,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
            {
                if(FabricLoader.getInstance().isDevelopmentEnvironment())
                {
-	               DebugUtil.printUntaggedItems();
-                //   DebugUtil.printMissingLangKeys();
+	               //DebugUtil.printUntaggedItems();
+                   DebugUtil.printMissingLangKeys();
                }
                return TypedActionResult.pass(e.getStackInHand(h));
            });
