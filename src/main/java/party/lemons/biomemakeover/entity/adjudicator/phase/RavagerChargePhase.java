@@ -12,12 +12,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.entity.ai.MountedCrossbowAttackGoal;
+import party.lemons.biomemakeover.init.BMEffects;
 
 public class RavagerChargePhase extends AdjudicatorPhase
 {
@@ -50,12 +52,16 @@ public class RavagerChargePhase extends AdjudicatorPhase
 		ItemStack stack = new ItemStack(Items.CROSSBOW);
 		stack.addEnchantment(Enchantments.MULTISHOT, 3);
 		adjudicator.setStackInHand(Hand.MAIN_HAND, stack);
+
+		adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_GRUNT, 1F, 1F);
+
 	}
 
 	@Override
 	public void tick()
 	{
 		super.tick();
+		adjudicator.selectTarget(PlayerEntity.class);
 	}
 
 	@Override

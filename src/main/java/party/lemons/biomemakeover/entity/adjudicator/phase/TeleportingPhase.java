@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.entity.adjudicator.phase;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
@@ -45,6 +46,7 @@ public class TeleportingPhase extends TimedPhase
 		nextPhase = selectNextPhase();
 		teleportPos = nextPhase.getStartPosition();
 		adjudicator.setState(AdjudicatorState.TELEPORT);
+		adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_3, 1F, 1F);
 	}
 
 	@Override

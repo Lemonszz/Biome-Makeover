@@ -23,11 +23,18 @@ public abstract class AttackingPhase extends TimedPhase
 		this.goalSelector.add(3, new LookAtEntityGoal(adjudicator, PlayerEntity.class, 20.0F));
 		this.goalSelector.add(4, new LookAroundGoal(adjudicator));
 		this.targetSelector.add(1, new RevengeGoal(adjudicator));
-		this.targetSelector.add(2, new FollowTargetGoal<>(adjudicator, PlayerEntity.class, true));
-		this.targetSelector.add(3, new FollowTargetGoal<>(adjudicator, GolemEntity.class, true));
+		this.targetSelector.add(2, new FollowTargetGoal<>(adjudicator, PlayerEntity.class, false));
+		this.targetSelector.add(3, new FollowTargetGoal<>(adjudicator, GolemEntity.class, false));
 	}
 
 	protected abstract Goal getAttackGoal();
+
+	@Override
+	public void onEnterPhase()
+	{
+		super.onEnterPhase();
+		adjudicator.selectTarget(PlayerEntity.class);
+	}
 
 	@Override
 	public CompoundTag toTag()

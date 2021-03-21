@@ -43,10 +43,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.BetterCrossbowAttackGoal;
 import party.lemons.biomemakeover.entity.ai.EmptyMobNavigation;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.util.sound.EntityLoopSoundInstance;
 import party.lemons.biomemakeover.util.sound.StoneGolemTurnSoundInstance;
 
 import java.util.List;
@@ -69,7 +68,6 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 	public StoneGolemEntity(World world)
 	{
 		super(BMEntities.STONE_GOLEM, world);
-
 	}
 
 	@Override
@@ -126,7 +124,29 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 	{
 		if(isPlayerCreated())
 		{
-			if(isHolding() && holdCooldown <= 0)
+			ItemStack playerStack = player.getStackInHand(hand);
+
+			if(!playerStack.isEmpty() && playerStack.getItem() == BMBlocks.CLADDED_STONE.asItem())
+			{
+				float currentHealth = this.getHealth();
+				this.heal(15.0F);
+				if(this.getHealth() == currentHealth)
+				{
+					return ActionResult.PASS;
+				}
+				else
+				{
+					float g = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
+					this.playSound(SoundEvents.ENTITY_IRON_GOLEM_REPAIR, 1.0F, g);
+					if(!player.abilities.creativeMode)
+					{
+						playerStack.decrement(1);
+					}
+
+					return ActionResult.success(this.world.isClient);
+				}
+			}
+			else if(isHolding() && holdCooldown <= 0)
 			{
 				if(!world.isClient())
 					player.inventory.offerOrDrop(world, getEquippedStack(EquipmentSlot.MAINHAND));
@@ -134,10 +154,9 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 			}
 			else
 			{
-				ItemStack playerStack = player.getStackInHand(hand);
 				if(!playerStack.isEmpty())
 				{
-					if( playerStack.getItem() == Items.CROSSBOW)
+					if(playerStack.getItem() == Items.CROSSBOW)
 					{
 						if(!world.isClient())
 						{
@@ -148,26 +167,6 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 							holdCooldown++;
 						}
 						return ActionResult.SUCCESS;
-					}
-					else if(playerStack.getItem() == BMItems.CRUDE_CLADDING)
-					{
-						float currentHealth = this.getHealth();
-						this.heal(15.0F);
-						if(this.getHealth() == currentHealth)
-						{
-							return ActionResult.PASS;
-						}
-						else
-						{
-							float g = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
-							this.playSound(SoundEvents.ENTITY_IRON_GOLEM_REPAIR, 1.0F, g);
-							if(!player.abilities.creativeMode)
-							{
-								playerStack.decrement(1);
-							}
-
-							return ActionResult.success(this.world.isClient);
-						}
 					}
 				}
 			}
@@ -185,7 +184,6 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 		{
 			playRotateSound();
 		}
-
 	}
 
 	private boolean isHolding()
@@ -453,6 +451,9 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 			this.rotateBody();
 			this.rotateLook();
 
+		}
+
+		public void pushAwayFrom(Entity entity) {
 		}
 
 		private void rotateLook() {

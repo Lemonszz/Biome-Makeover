@@ -10,7 +10,7 @@ import party.lemons.biomemakeover.entity.render.AdjudicatorEntityModel;
 
 public class AdjudicatorMimicEyesRenderLayer extends EyesFeatureRenderer<AdjudicatorMimicEntity, AdjudicatorEntityModel<AdjudicatorMimicEntity>>
 {
-	private static final RenderLayer TEXTURE = RenderLayer.getEyes(BiomeMakeover.ID("textures/entity/adudicator_eyes.png"));
+	private static final RenderLayer TEXTURE = RenderLayer.getEyes(BiomeMakeover.ID("textures/entity/adjudicator_eyes.png"));
 
 	public AdjudicatorMimicEyesRenderLayer(FeatureRendererContext<AdjudicatorMimicEntity, AdjudicatorEntityModel<AdjudicatorMimicEntity>> ctx)
 	{

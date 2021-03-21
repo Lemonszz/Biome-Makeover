@@ -5,11 +5,13 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.OwlEntity;
+import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.entity.render.feature.OwlEyesRenderLayer;
 
 public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel>
@@ -31,6 +33,16 @@ public class OwlEntityRender extends MobEntityRenderer<OwlEntity, OwlEntityModel
 			return TEXTURE_EASTEREGG;
 
 		return TEXTURE;
+	}
+
+	@Override
+	protected void renderLabelIfPresent(OwlEntity entity, Text text, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light)
+	{
+		matrices.push();
+		if(entity.isBaby())
+			matrices.translate(0, 0.5F, 0);
+		super.renderLabelIfPresent(entity, text, matrices, vertexConsumers, light);
+		matrices.pop();
 	}
 
 	@Override

@@ -251,7 +251,7 @@ public class MansionLayout
 	protected void createDungeon(Random random, List<MansionRoom> allRooms, int startY)
 	{
 		//Dungeon
-		final int maxY = 40;        //Max level dungeon will generate at
+		final int maxY = 30;        //Max level dungeon will generate at
 		final int downStep = 7;    //Amount to step down check per floor.
 
 		//Pick a random replaceable room to use are our stairs down.

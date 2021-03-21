@@ -7,6 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
+import party.lemons.biomemakeover.init.BMEffects;
 
 public class BowAttackingPhase extends AttackingPhase
 {
@@ -18,7 +19,7 @@ public class BowAttackingPhase extends AttackingPhase
 	@Override
 	protected Goal getAttackGoal()
 	{
-		return new BowAttackGoal<>(adjudicator, 0.75F, 20, 30);
+		return new BowAttackGoal<>(adjudicator, 0.75F, 12, 30);
 	}
 
 	@Override
@@ -26,6 +27,7 @@ public class BowAttackingPhase extends AttackingPhase
 	{
 		super.onEnterPhase();
 		adjudicator.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.BOW));
+		adjudicator.playSound(BMEffects.ADJUDICATOR_GRUNT, 1F, 1F);
 	}
 
 	@Override

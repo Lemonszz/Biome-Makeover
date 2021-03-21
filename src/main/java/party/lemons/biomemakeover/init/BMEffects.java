@@ -62,6 +62,18 @@ public class BMEffects
 	public static final SoundEvent STONE_GOLEM_STOP = new SoundEvent(BiomeMakeover.ID("stone_golem_stop"));
 	public static final SoundEvent STONE_GOLEM_HURT = new SoundEvent(BiomeMakeover.ID("stone_golem_hurt"));
 	public static final SoundEvent STONE_GOLEM_DEATH = new SoundEvent(BiomeMakeover.ID("stone_golem_death"));
+	public static final SoundEvent STUNT_POWDER_USE = new SoundEvent(BiomeMakeover.ID("stunt_powder_use"));
+	public static final SoundEvent ADJUDICATOR_SPELL_1 = new SoundEvent(BiomeMakeover.ID("adjudicator_spell_1"));
+	public static final SoundEvent ADJUDICATOR_SPELL_2 = new SoundEvent(BiomeMakeover.ID("adjudicator_spell_2"));
+	public static final SoundEvent ADJUDICATOR_SPELL_3 = new SoundEvent(BiomeMakeover.ID("adjudicator_spell_3"));
+	public static final SoundEvent ADJUDICATOR_MIMIC = new SoundEvent(BiomeMakeover.ID("adjudicator_mimic"));
+	public static final SoundEvent ADJUDICATOR_SPELL_GRUNT = new SoundEvent(BiomeMakeover.ID("adjudicator_spell_grunt"));
+	public static final SoundEvent ADJUDICATOR_DEATH = new SoundEvent(BiomeMakeover.ID("adjudicator_death"));
+	public static final SoundEvent ADJUDICATOR_GRUNT = new SoundEvent(BiomeMakeover.ID("adjudicator_grunt"));
+	public static final SoundEvent ADJUDICATOR_HURT = new SoundEvent(BiomeMakeover.ID("adjudicator_hurt"));
+	public static final SoundEvent ADJUDICATOR_IDLE = new SoundEvent(BiomeMakeover.ID("adjudicator_idle"));
+	public static final SoundEvent ADJUDICATOR_LAUGH = new SoundEvent(BiomeMakeover.ID("adjudicator_laugh"));
+	public static final SoundEvent ADJUDICATOR_NO = new SoundEvent(BiomeMakeover.ID("adjudicator_no"));
 
 	public static final ParticleEffect LIGHTNING_SPARK = FabricParticleTypes.simple(true);
 	public static final ParticleEffect POLTERGEIST = FabricParticleTypes.simple();

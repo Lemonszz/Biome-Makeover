@@ -9,6 +9,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.util.HorizontalDirection;
 
 public class FangBarragePhase extends TimedPhase
@@ -43,6 +44,7 @@ public class FangBarragePhase extends TimedPhase
 		super.tick();
 		if(time % 50 == 0)
 		{
+			adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_2, 1F, 1F);
 			for(HorizontalDirection direction : HorizontalDirection.values())
 			{
 				for(int i = 0; i < 10; i++)

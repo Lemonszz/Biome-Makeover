@@ -1,21 +1,34 @@
 package party.lemons.biomemakeover.world;
 
 import net.minecraft.block.*;
+import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.CachedBlockPosition;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Saddleable;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.function.MaterialPredicate;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.placer.BlockPlacer;
 import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import party.lemons.biomemakeover.block.SmallLilyPadBlock;
+import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.access.CarvedPumpkinBlockAccess;
 
+import java.util.List;
 import java.util.Random;
 
 public final class BMWorldEvents
@@ -39,6 +52,28 @@ public final class BMWorldEvents
 		return stoneGolemPattern;
 	}
 
+	public static void init()
+	{
+		DispenserBlock.registerBehavior(Items.CROSSBOW,			new FallibleItemDispenserBehavior()
+		{
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack)
+			{
+				BlockPos blockPos = pointer.getBlockPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+				List<StoneGolemEntity> list = pointer.getWorld().getEntitiesByClass(StoneGolemEntity.class, new Box(blockPos), (golem)->!golem.isHolding(Items.CROSSBOW) && golem.isPlayerCreated() && golem.isAlive());
+				if(!list.isEmpty())
+				{
+					list.get(0).equipStack(EquipmentSlot.MAINHAND, stack.copy());
+					stack.decrement(1);
+					this.setSuccess(true);
+					return stack;
+				}
+				else
+				{
+					return super.dispenseSilently(pointer, stack);
+				}
+			}
+		});
+	}
 
 	public static void handleSwampBoneMeal(World world, BlockPos pos, Random random)
 	{

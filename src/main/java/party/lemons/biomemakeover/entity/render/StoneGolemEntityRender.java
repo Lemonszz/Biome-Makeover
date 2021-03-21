@@ -15,12 +15,15 @@ import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.entity.EntityPart;
 import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 
@@ -36,6 +39,21 @@ public class StoneGolemEntityRender extends MobEntityRenderer<StoneGolemEntity, 
 		addFeature(new StoneGolemItemFeature(this));
 		this.addFeature(new StoneGolemCrackFeatureRenderer(this));
 
+	}
+
+	@Override
+	protected boolean hasLabel(StoneGolemEntity mobEntity) {
+		Entity e = MinecraftClient.getInstance().targetedEntity;
+		return  mobEntity.shouldRenderName() || (mobEntity.hasCustomName() && (mobEntity == this.dispatcher.targetedEntity || e instanceof EntityPart && ((EntityPart<?>) e).owner == mobEntity));
+	}
+
+	@Override
+	protected void renderLabelIfPresent(StoneGolemEntity entity, Text text, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light)
+	{
+		matrices.push();
+		matrices.translate(0, 2, 0);
+		super.renderLabelIfPresent(entity, text, matrices, vertexConsumers, light);
+		matrices.pop();
 	}
 
 	@Override

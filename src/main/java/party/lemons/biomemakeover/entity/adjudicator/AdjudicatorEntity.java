@@ -7,11 +7,9 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.CrossbowUser;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -35,6 +33,7 @@ import net.minecraft.nbt.NbtHelper;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -46,6 +45,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.phase.*;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.NBTUtil;
@@ -67,10 +67,10 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public final MeleeAttackingPhase MELEE_ATTACK = new MeleeAttackingPhase(BiomeMakeover.ID("melee_attack"), this);
 	public final FangAttackingPhase FANG_ATTACK = new FangAttackingPhase(BiomeMakeover.ID("fang_attack"), this);
 	public final RavagerChargePhase RAVAGER = new RavagerChargePhase(BiomeMakeover.ID("ravager"), this);
-	public final SummonPhase SPAWN_EVOKERS = new SummonPhase(BiomeMakeover.ID("spawn_evoker"), this, 4, EntityType.EVOKER);
+	public final SummonPhase SPAWN_EVOKERS = new SummonPhase(BiomeMakeover.ID("spawn_evoker"), this, 2, EntityType.EVOKER);
 	public final SummonPhase SPAWN_VINDICATORS = new SummonPhase(BiomeMakeover.ID("spawn_vindicator"), this, 6, EntityType.VINDICATOR);
-	public final SummonPhase SPAWN_VEX = new SummonPhase(BiomeMakeover.ID("spawn_vex"), this, 6, EntityType.VEX);
-	public final SummonPhase SPAWN_MIX = new SummonPhase(BiomeMakeover.ID("spawn_mix"), this, 5, EntityType.VEX, EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER, BMEntities.COWBOY);
+	public final SummonPhase SPAWN_VEX = new SummonPhase(BiomeMakeover.ID("spawn_vex"), this, 2, EntityType.VEX);
+	public final SummonPhase SPAWN_MIX = new SummonPhase(BiomeMakeover.ID("spawn_mix"), this, 3, EntityType.VEX, EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER, BMEntities.COWBOY);
 	public final MimicPhase MIMIC = new MimicPhase(BiomeMakeover.ID("mimic"), this);
 	public final FangBarragePhase FANG_BARAGE = new FangBarragePhase(BiomeMakeover.ID("fang_barrage"), this);
 
@@ -110,6 +110,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	@Override
 	public void tick()
 	{
+
 		stateTime++;
 		if(!world.isClient() && firstTick)
 		{
@@ -160,6 +161,15 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			float zOffset = MathHelper.sin(angle);
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() + (double)zOffset * 0.6D, r, g, b);
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() - (double)zOffset * 0.6D, r, g, b);
+		}
+
+		if(!world.isClient())
+		{
+			if(!getArenaBounds().contains(getPos()))
+			{
+				stopRiding();
+				teleportHome();
+			}
 		}
 
 		if(active)
@@ -332,10 +342,44 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	{
 		if(attributes == null)
 			attributes = new AttributeContainer(HostileEntity.createHostileAttributes()
+								.add(EntityAttributes.GENERIC_MAX_HEALTH, 500F)
                                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
                                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
                                 .build());
 		return attributes;
+	}
+
+
+	private final TargetPredicate targetPredicate = (new TargetPredicate()).setBaseMaxDistance(32);
+	public void selectTarget(Class targetClass) {
+		LivingEntity targetEntity = null;
+
+		if (targetClass != PlayerEntity.class && targetClass != ServerPlayerEntity.class) {
+			targetEntity = world.getClosestEntityIncludingUngeneratedChunks(targetClass, this.targetPredicate, this, getX(), getEyeY(), getZ(), getArenaBounds());
+		} else {
+			targetEntity = world.getClosestPlayer(this.targetPredicate, this, getX(), getEyeY(), getZ());
+		}
+
+		if(targetEntity != null)
+			setTarget(targetEntity);
+	}
+
+	@Override
+	protected SoundEvent getAmbientSound()
+	{
+		return isActive() ? BMEffects.ADJUDICATOR_LAUGH : BMEffects.ADJUDICATOR_IDLE;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
+		return BMEffects.ADJUDICATOR_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return BMEffects.ADJUDICATOR_DEATH;
 	}
 
 	@Override

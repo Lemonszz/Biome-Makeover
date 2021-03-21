@@ -8,6 +8,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
+import party.lemons.biomemakeover.init.BMEffects;
 
 public class MeleeAttackingPhase extends AttackingPhase
 {
@@ -27,6 +28,7 @@ public class MeleeAttackingPhase extends AttackingPhase
 	{
 		super.onEnterPhase();
 		adjudicator.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.IRON_AXE));
+		adjudicator.playSound(BMEffects.ADJUDICATOR_GRUNT, 1F, 1F);
 	}
 
 	@Override

@@ -35,6 +35,7 @@ import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.extensions.SlideEntity;
 import party.lemons.biomemakeover.util.access.PillagerSpawnerAccess;
 import party.lemons.biomemakeover.util.boat.BoatTypes;
+import party.lemons.biomemakeover.world.BMWorldEvents;
 import party.lemons.biomemakeover.world.PoltergeistHandler;
 import party.lemons.biomemakeover.world.TumbleweedSpawner;
 import party.lemons.biomemakeover.world.WindSystem;
@@ -61,6 +62,7 @@ public class BiomeMakeover implements ModInitializer
 		BMWorldGen.init();
 		BMCriterion.init();
 		BMScreens.init();
+		BMWorldEvents.init();
 
 		BMNetwork.initCommon();
 		PoltergeistHandler.init();

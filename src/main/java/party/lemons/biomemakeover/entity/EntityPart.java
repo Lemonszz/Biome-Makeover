@@ -1,13 +1,22 @@
 package party.lemons.biomemakeover.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Hand;
+import org.jetbrains.annotations.Nullable;
 
-public class EntityPart<T extends Entity & MultiPartEntity> extends Entity
+public class EntityPart<T extends LivingEntity & MultiPartEntity> extends Entity
 {
 	public final T owner;
 	private final EntityDimensions partDimensions;
@@ -28,21 +37,43 @@ public class EntityPart<T extends Entity & MultiPartEntity> extends Entity
 	}
 
 	@Override
-	protected void readCustomDataFromTag(CompoundTag tag) {
-	}
-
-	@Override
-	protected void writeCustomDataToTag(CompoundTag tag) {
-	}
-
-	@Override
 	public boolean collides() {
 		return true;
 	}
 
 	@Override
+	protected void readCustomDataFromTag(CompoundTag tag)
+	{
+
+	}
+
+	@Override
+	protected void writeCustomDataToTag(CompoundTag tag)
+	{
+
+	}
+
+	@Override
+	public void setCustomName(@Nullable Text name)
+	{
+		owner.setCustomName(name);
+	}
+
+	@Override
 	public boolean damage(DamageSource source, float amount) {
 		return !this.isInvulnerableTo(source) && this.owner.damagePart(this, source, amount);
+	}
+
+	@Override
+	public void equipStack(EquipmentSlot slot, ItemStack stack)
+	{
+		owner.equipStack(slot, stack);
+	}
+
+	@Override
+	public ActionResult interact(PlayerEntity player, Hand hand)
+	{
+		return owner.interact(player, hand);
 	}
 
 	@Override

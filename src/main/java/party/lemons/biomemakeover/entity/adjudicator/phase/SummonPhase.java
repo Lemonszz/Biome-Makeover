@@ -7,10 +7,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ServerWorldAccess;
@@ -48,10 +51,10 @@ public class SummonPhase extends TimedPhase
 		toSpawn = mobCount;
 		spawnIndex = 0;
 		wasHit = false;
-		adjudicator.setState(AdjudicatorState.SUMMONING);
+		adjudicator.setState(AdjudicatorState.FIGHTING);
 
 		populateSpawnPositions();
-		adjudicator.playSound(SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, 10F, 1F);
+		adjudicator.playSound(SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, 1F, 1F);
 	}
 
 	@Override
@@ -137,6 +140,6 @@ public class SummonPhase extends TimedPhase
 	@Override
 	public boolean isSelectable()
 	{
-		return world.getEntitiesByClass(HostileEntity.class, adjudicator.getArenaBounds(), EntityPredicates.VALID_LIVING_ENTITY).size() < 15;
+		return world.getEntitiesByClass(HostileEntity.class, adjudicator.getArenaBounds(), EntityPredicates.VALID_LIVING_ENTITY).size() < 4;
 	}
 }

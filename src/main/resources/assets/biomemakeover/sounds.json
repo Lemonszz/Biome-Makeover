@@ -642,5 +642,89 @@
     "sounds": [
       "biomemakeover:stone_golem_death"
     ]
+  },
+  "stunt_powder_use": {
+    "subtitle": "subtitles.biomemakeover.stunt_powder_use",
+  "sounds": [
+    "biomemakeover:stunt_powder_use"
+  ]
+  },
+  "adjudicator_spell_3": {
+    "sounds": [
+      "mob/evocation_illager/cast1",
+      "mob/evocation_illager/cast2"
+    ]
+  },
+  "adjudicator_mimic": {
+    "sounds": [
+      "mob/illusion_illager/mirror_move1",
+      "mob/illusion_illager/mirror_move2"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_mimic"
+  },
+  "adjudicator_spell_1": {
+    "sounds": [
+      "mob/illusion_illager/prepare_blind"
+    ]
+  },
+  "adjudicator_spell_2": {
+    "sounds": [
+      "mob/illusion_illager/prepare_mirror"
+    ]
+  },
+  "adjudicator_spell_grunt": {
+    "sounds": [
+      "biomemakeover:adjudicator/cast1",
+      "biomemakeover:adjudicator/cast2",
+      "biomemakeover:adjudicator/cast3"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_cast_grunt"
+  },
+  "adjudicator_death": {
+    "sounds": [
+      "biomemakeover:adjudicator/death1"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_death"
+  },
+  "adjudicator_grunt": {
+    "sounds": [
+      "biomemakeover:adjudicator/grunt1",
+      "biomemakeover:adjudicator/grunt2"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_grunt"
+  },
+  "adjudicator_hurt": {
+    "sounds": [
+      "biomemakeover:adjudicator/hurt1",
+      "biomemakeover:adjudicator/hurt2",
+      "biomemakeover:adjudicator/hurt3",
+      "biomemakeover:adjudicator/hurt4"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_hurt"
+  },
+  "adjudicator_idle": {
+    "sounds": [
+      "biomemakeover:adjudicator/idle1",
+      "biomemakeover:adjudicator/idle2",
+      "biomemakeover:adjudicator/idle3",
+      "biomemakeover:adjudicator/idle4"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_idle"
+  },
+  "adjudicator_laugh": {
+    "sounds": [
+      "biomemakeover:adjudicator/laugh1",
+      "biomemakeover:adjudicator/laugh2",
+      "biomemakeover:adjudicator/laugh3",
+      "biomemakeover:adjudicator/laugh4"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_laugh"
+  },
+  "adjudicator_no": {
+    "sounds": [
+      "biomemakeover:adjudicator/no1",
+      "biomemakeover:adjudicator/no2"
+    ],
+    "subtitle": "subtitles.biomemakeover.adjudicator_no"
   }
 }

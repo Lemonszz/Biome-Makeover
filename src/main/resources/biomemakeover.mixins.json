@@ -45,7 +45,8 @@
     "SimpleStructurePieceMixin",
     "WorldChunkMixin",
     "ThreadedAnvilChunkStorageMixin",
-    "CarvedPumpkinBlockMixin"
+    "CarvedPumpkinBlockMixin",
+    "PotionEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
@@ -60,7 +61,8 @@
     "client.BuiltInModelItemRendererMixin",
     "client.AbstractBlockClientMixin",
     "client.ClientPlayNetworkHandlerMixin",
-    "client.EntityRenderDispatcherMixin"
+    "client.EntityRenderDispatcherMixin",
+    "client.GameRendererMixin"
   ]
 ,
   "injectors": {
