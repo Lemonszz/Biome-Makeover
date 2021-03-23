@@ -46,7 +46,10 @@
     "WorldChunkMixin",
     "ThreadedAnvilChunkStorageMixin",
     "CarvedPumpkinBlockMixin",
-    "PotionEntityMixin"
+    "PotionEntityMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "EnchantRandomlyLootFunctionMixin",
+    "MobEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

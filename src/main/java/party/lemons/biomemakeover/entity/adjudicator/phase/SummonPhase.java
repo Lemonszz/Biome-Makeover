@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.EvokerEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +21,8 @@ import net.minecraft.world.ServerWorldAccess;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.util.NetworkUtil;
+import party.lemons.biomemakeover.util.extensions.GoalSelectorExtension;
+import party.lemons.biomemakeover.util.extensions.LootBlocker;
 
 public class SummonPhase extends TimedPhase
 {
@@ -110,8 +113,15 @@ public class SummonPhase extends TimedPhase
 		if(entity instanceof MobEntity)
 			((MobEntity) entity).initialize((ServerWorldAccess) world, world.getLocalDifficulty(spawnPos), SpawnReason.EVENT, null, null);
 
+		((LootBlocker)entity).setLootBlocked(true);
 		entity.refreshPositionAndAngles((double)spawnPos.getX() + 0.5D, (double)spawnPos.getY(), (double)spawnPos.getZ() + 0.5D, 0.0F, 0.0F);
 		world.spawnEntity(entity);
+
+		if(entity instanceof EvokerEntity)
+		{
+			GoalSelectorExtension.removeGoal((MobEntity)entity, EvokerEntity.SummonVexGoal.class);
+		}
+
 		world.playSound(null, spawnPos, SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.HOSTILE, 10F, 1F);
 	}
 

@@ -20,6 +20,12 @@ public abstract class GoalSelectorMixin implements GoalSelectorExtension
 	@Shadow public abstract void add(int priority, Goal goal);
 
 	@Override
+	public void remove(Class<? extends Goal> goalClass)
+	{
+		goals.removeIf(g->g.getGoal().getClass().equals(goalClass));
+	}
+
+	@Override
 	public void copy(GoalSelector from)
 	{
 		goals.removeIf((g)->true);

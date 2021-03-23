@@ -15,26 +15,62 @@ import net.minecraft.util.Pair;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import party.lemons.biomemakeover.enchantments.BMEnchantment;
 import party.lemons.biomemakeover.init.BMEnchantments;
 import party.lemons.biomemakeover.util.ItemUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
+import party.lemons.biomemakeover.util.extensions.LootBlocker;
 import party.lemons.biomemakeover.util.extensions.SlideEntity;
 
 import java.util.Collection;
 import java.util.Iterator;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements SlideEntity
+public abstract class LivingEntityMixin extends Entity implements SlideEntity, LootBlocker
 {
+	/////////////////
+	///Start Loot Block
+	///Data gets saved to NBT below
+	/////////////////
+	@Unique
+	private boolean isLootBlocked = false;
+
+	@Override
+	@Unique
+	public boolean isLootBlocked()
+	{
+		return isLootBlocked;
+	}
+
+	@Override
+	@Unique
+	public void setLootBlocked(boolean block)
+	{
+		this.isLootBlocked = block;
+	}
+
+	@Inject(at = @At("HEAD"), method = "shouldDropLoot", cancellable = true)
+	private void shouldDropLoot(CallbackInfoReturnable<Boolean> cbi)
+	{
+		if(isLootBlocked())
+			cbi.setReturnValue(false);
+	}
+
+	/////////////////
+	///End Loot Block
+	/////////////////
+
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
+	@Unique
 	private int slideTime = 0;
 
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"), method = "travel")
@@ -119,6 +155,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 		return distance + fallLevel;
 	}
 
+	@Unique
 	private void syncSlideTime()
 	{
 		if((Object) this instanceof ServerPlayerEntity)
@@ -127,13 +164,16 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 		}
 	}
 
+	@Unique
 	private boolean hasStackEquipInSlot(ItemStack stack, EquipmentSlot slot)
 	{
 		return getEquippedStack(slot).equals(stack);
 	}
 
+	@Unique
 	private final Collection<Pair<EquipmentSlot, ItemStack>> attributeStacks = Lists.newArrayList();
 
+	@Unique
 	public boolean hasAttributeStack(ItemStack stack)
 	{
 		for(Pair<EquipmentSlot, ItemStack> pair : attributeStacks)
@@ -144,18 +184,21 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 	}
 
 	@Override
+	@Unique
 	public boolean isSliding()
 	{
 		return slideTime > 0;
 	}
 
 	@Override
+	@Unique
 	public void setSlideTime(int slideTime)
 	{
 		this.slideTime = slideTime;
 	}
 
 	@Override
+	@Unique
 	public int getSlideTime()
 	{
 		return slideTime;
@@ -164,13 +207,15 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity
 	@Inject(at = @At("TAIL"), method = "writeCustomDataToTag")
 	private void writeData(CompoundTag tag, CallbackInfo cbi)
 	{
-		tag.putInt("SlideTime", slideTime);
+		tag.putInt("BMSlideTime", slideTime);
+		tag.putBoolean("BMLootBlock", isLootBlocked);
 	}
 
 	@Inject(at = @At("TAIL"), method = "readCustomDataFromTag")
 	private void readData(CompoundTag tag, CallbackInfo cbi)
 	{
-		slideTime = tag.getInt("SlideTime");
+		slideTime = tag.getInt("BMSlideTime");
+		isLootBlocked = tag.getBoolean("BMLootBlock");
 	}
 
 	protected LivingEntityMixin(EntityType<? extends LivingEntity> entityType, World world)

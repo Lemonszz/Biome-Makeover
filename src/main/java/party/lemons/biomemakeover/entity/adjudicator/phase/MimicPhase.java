@@ -19,6 +19,7 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorMimicEntity;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.biomemakeover.util.extensions.LootBlocker;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class MimicPhase extends BowAttackingPhase
 			setPositions.add(spawnPos);
 
 			AdjudicatorMimicEntity mimic = BMEntities.ADJUDICATOR_MIMIC.create(world);
+			((LootBlocker)mimic).setLootBlocked(true);
 			mimic.initialize((ServerWorldAccess) world, world.getLocalDifficulty(spawnPos), SpawnReason.NATURAL, null, null);
 			mimic.refreshPositionAndAngles(spawnPos.getX() + 0.5F, spawnPos.getY(), spawnPos.getZ() + 0.5F, 0, 0);
 			world.spawnEntity(mimic);

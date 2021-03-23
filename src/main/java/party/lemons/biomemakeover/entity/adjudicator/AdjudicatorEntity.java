@@ -4,9 +4,11 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -70,9 +72,10 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public final SummonPhase SPAWN_EVOKERS = new SummonPhase(BiomeMakeover.ID("spawn_evoker"), this, 2, EntityType.EVOKER);
 	public final SummonPhase SPAWN_VINDICATORS = new SummonPhase(BiomeMakeover.ID("spawn_vindicator"), this, 6, EntityType.VINDICATOR);
 	public final SummonPhase SPAWN_VEX = new SummonPhase(BiomeMakeover.ID("spawn_vex"), this, 2, EntityType.VEX);
-	public final SummonPhase SPAWN_MIX = new SummonPhase(BiomeMakeover.ID("spawn_mix"), this, 3, EntityType.VEX, EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER, BMEntities.COWBOY);
+	public final SummonPhase SPAWN_MIX = new SummonPhase(BiomeMakeover.ID("spawn_mix"), this, 3, EntityType.VEX, EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER);
 	public final MimicPhase MIMIC = new MimicPhase(BiomeMakeover.ID("mimic"), this);
 	public final FangBarragePhase FANG_BARAGE = new FangBarragePhase(BiomeMakeover.ID("fang_barrage"), this);
+	public final StoneGolemPhase STONE_GOLEM = new StoneGolemPhase(BiomeMakeover.ID("stone_golem"), this);
 
 	private final ServerBossBar bossBar;
 	private AdjudicatorPhase phase;
@@ -100,6 +103,13 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	}
 
 	@Override
+	protected void initGoals()
+	{
+		super.initGoals();
+		AdjudicatorRoomListener.enableAdjudicator(this);
+	}
+
+	@Override
 	protected void initDataTracker()
 	{
 		super.initDataTracker();
@@ -110,7 +120,6 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	@Override
 	public void tick()
 	{
-
 		stateTime++;
 		if(!world.isClient() && firstTick)
 		{
@@ -342,7 +351,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	{
 		if(attributes == null)
 			attributes = new AttributeContainer(HostileEntity.createHostileAttributes()
-								.add(EntityAttributes.GENERIC_MAX_HEALTH, 500F)
+								.add(EntityAttributes.GENERIC_MAX_HEALTH, 225F)
                                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
                                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
                                 .build());
@@ -542,5 +551,17 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public BlockPos getHomePosition()
 	{
 		return homePos;
+	}
+
+	public void setActive()
+	{
+		this.active = true;
+	}
+
+	@Override
+	public void remove()
+	{
+		super.remove();
+		AdjudicatorRoomListener.disableAdjudicator(this);
 	}
 }

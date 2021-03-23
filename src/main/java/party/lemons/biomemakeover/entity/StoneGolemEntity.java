@@ -434,6 +434,20 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 		return bl;
 	}
 
+	@Override
+	public double getMountedHeightOffset()
+	{
+		return 2F;
+	}
+
+	@Override
+	public boolean canBeControlledByRider()
+	{
+		return false;
+	}
+
+
+
 	private static final class StoneGolemBodyControl extends BodyControl
 	{
 		private final MobEntity entity;

@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
@@ -23,6 +24,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +32,7 @@ import net.minecraft.world.gen.PillagerSpawner;
 import party.lemons.biomemakeover.crafting.itemgroup.BiomeMakeoverItemGroup;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.extensions.SlideEntity;
@@ -49,7 +52,7 @@ public class BiomeMakeover implements ModInitializer
 	public void onInitialize()
 	{
 		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
-
+		SharedConstants.isDevelopment = true;
 		BMEffects.init();
 		BoatTypes.init();
 		BMBlocks.init();
@@ -63,6 +66,7 @@ public class BiomeMakeover implements ModInitializer
 		BMCriterion.init();
 		BMScreens.init();
 		BMWorldEvents.init();
+		AdjudicatorRoomListener.init();
 
 		BMNetwork.initCommon();
 		PoltergeistHandler.init();
@@ -127,6 +131,7 @@ public class BiomeMakeover implements ModInitializer
 						ItemStack result = ItemUsage.method_30012(stack, pl, new ItemStack(stack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
 						pl.setStackInHand(hand, result);
 						entity.remove();
+						pl.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1F, 1F);
 					}
 					return ActionResult.SUCCESS;
 				}

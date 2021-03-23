@@ -4,6 +4,7 @@ accessible class net/minecraft/client/model/ModelPart$Quad
 accessible class net/minecraft/client/model/ModelPart$Vertex
 accessible class net/minecraft/entity/SpawnRestriction$Entry
 accessible class net/minecraft/block/ComposterBlock$ComposterInventory
+accessible class net/minecraft/entity/mob/EvokerEntity$SummonVexGoal
 accessible method net/minecraft/world/gen/trunk/TrunkPlacerType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/gen/foliage/FoliagePlacerType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/gen/tree/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V

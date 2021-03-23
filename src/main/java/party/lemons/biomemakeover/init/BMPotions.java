@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.registry.Registry;
@@ -40,5 +41,7 @@ public class BMPotions
 		RegistryHelper.register(Registry.STATUS_EFFECT, StatusEffect.class, BMPotions.class);
 
 		BrewingRecipeRegistryAccessor.registerPotionRecipe(Potions.AWKWARD, BMItems.WART, ANTIDOTE_POT);
+		BrewingRecipeRegistryAccessor.registerPotionRecipe(Potions.AWKWARD, BMItems.MOTH_SCALES, NOCTURNAL_POT);
+		BrewingRecipeRegistryAccessor.registerPotionRecipe(NOCTURNAL_POT, Items.REDSTONE, LONG_NOCTURNAL_POT);
 	}
 }
