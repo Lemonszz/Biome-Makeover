@@ -1,0 +1,83 @@
+{
+  "parent": "biomemakeover:biomemakeover/mansion",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:adjudicator_tapestry"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.all_tapestries.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.all_tapestries.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_shrooms": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:white_tapestry"
+          },
+          {
+            "item": "biomemakeover:orange_tapestry"
+          },
+          {
+            "item": "biomemakeover:magenta_tapestry"
+          },
+          {
+            "item": "biomemakeover:light_blue_tapestry"
+          },
+          {
+            "item": "biomemakeover:yellow_tapestry"
+          },
+          {
+            "item": "biomemakeover:lime_tapestry"
+          },
+          {
+            "item": "biomemakeover:pink_tapestry"
+          },
+          {
+            "item": "biomemakeover:gray_tapestry"
+          },
+          {
+            "item": "biomemakeover:light_gray_tapestry"
+          },
+          {
+            "item": "biomemakeover:cyan_tapestry"
+          },
+          {
+            "item": "biomemakeover:purple_tapestry"
+          },
+          {
+            "item": "biomemakeover:blue_tapestry"
+          },
+          {
+            "item": "biomemakeover:brown_tapestry"
+          },
+          {
+            "item": "biomemakeover:green_tapestry"
+          },
+          {
+            "item": "biomemakeover:red_tapestry"
+          },
+          {
+            "item": "biomemakeover:black_tapestry"
+          },
+          {
+            "item": "biomemakeover:adjudicator_tapestry"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_shrooms"
+    ]
+  ]
+}

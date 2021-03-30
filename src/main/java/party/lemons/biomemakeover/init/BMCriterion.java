@@ -10,6 +10,7 @@ public class BMCriterion
 	public static final EctoplasmCompostCriterion ECTOPLASM_COMPOST = new EctoplasmCompostCriterion();
 	public static final WitchTradeCriterion WITCH_TRADE = new WitchTradeCriterion();
 	public static final AntidoteCriterion ANTIDOTE = new AntidoteCriterion();
+	public static final GolemArmCriterion ARM_GOLEM = new GolemArmCriterion();
 
 	public static void init()
 	{
@@ -18,5 +19,6 @@ public class BMCriterion
 		CriterionRegistry.register(ECTOPLASM_COMPOST);
 		CriterionRegistry.register(WITCH_TRADE);
 		CriterionRegistry.register(ANTIDOTE);
+		CriterionRegistry.register(ARM_GOLEM);
 	}
 }

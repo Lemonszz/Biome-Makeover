@@ -1,0 +1,28 @@
+{
+  "parent": "biomemakeover:biomemakeover/mansion",
+  "display": {
+    "icon": {
+      "item": "minecraft:crossbow"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.arm_golem.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.arm_golem.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "do_trade": {
+      "trigger": "biomemakeover:arm_golem"
+    }
+  },
+  "requirements": [
+    [
+      "do_trade"
+    ]
+  ]
+}

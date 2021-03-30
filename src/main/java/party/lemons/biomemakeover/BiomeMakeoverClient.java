@@ -31,7 +31,7 @@ import party.lemons.biomemakeover.world.particle.TeleportParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
-	public static boolean ENABLE_CLIENT_DEBUG = true;
+	public static boolean ENABLE_CLIENT_DEBUG = false;
 
 	@Override
 	public void onInitializeClient()

@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/swamp_disc",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:red_rose_music_disk"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.dark_forest_disc.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.dark_forest_disc.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_disc": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "biomemakeover:red_rose_music_disk"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_disc"
+    ]
+  ]
+}

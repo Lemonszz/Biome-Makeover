@@ -29,6 +29,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -44,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.BetterCrossbowAttackGoal;
 import party.lemons.biomemakeover.entity.ai.EmptyMobNavigation;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMCriterion;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.util.sound.StoneGolemTurnSoundInstance;
@@ -165,6 +167,8 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 							equipStack(EquipmentSlot.MAINHAND, newStack);
 							playerStack.decrement(1);
 							holdCooldown++;
+
+							BMCriterion.ARM_GOLEM.trigger((ServerPlayerEntity) player);
 						}
 						return ActionResult.SUCCESS;
 					}

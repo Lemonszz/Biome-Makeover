@@ -39,13 +39,22 @@
           "biome": "minecraft:swamp"
         }
       }
+    },
+    "enter_dark_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "minecraft:dark_forest"
+        }
+      }
     }
   },
   "requirements": [
     [
       "enter_badlands",
       "enter_mushroom_fields",
-      "enter_swamp"
+      "enter_swamp",
+      "enter_dark_forest"
     ]
   ]
 }
