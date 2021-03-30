@@ -48,12 +48,6 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(teleAngle));
 				entity.renderRotPrevious = teleAngle;
 				break;
-			case WAKING:
-				break;
-			case FIGHTING:
-				break;
-			case HIDDEN:
-				break;
 		}
 	}
 

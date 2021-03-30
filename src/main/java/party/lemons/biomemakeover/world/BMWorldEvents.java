@@ -1,14 +1,18 @@
 package party.lemons.biomemakeover.world;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.CachedBlockPosition;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Saddleable;
+import net.minecraft.entity.mob.EvokerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.block.BlockStatePredicate;
@@ -26,7 +30,9 @@ import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import party.lemons.biomemakeover.block.SmallLilyPadBlock;
 import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.access.CarvedPumpkinBlockAccess;
+import party.lemons.biomemakeover.util.extensions.LootBlocker;
 
 import java.util.List;
 import java.util.Random;
@@ -54,7 +60,7 @@ public final class BMWorldEvents
 
 	public static void init()
 	{
-		DispenserBlock.registerBehavior(Items.CROSSBOW,			new FallibleItemDispenserBehavior()
+		DispenserBlock.registerBehavior(Items.CROSSBOW,	new FallibleItemDispenserBehavior()
 		{
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack)
 			{
@@ -73,6 +79,23 @@ public final class BMWorldEvents
 				}
 			}
 		});
+
+		//Adjudicator Drop Illunite Shard
+		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(
+				(world, entity, killedEntity)->
+                {
+					if(!world.isClient() && entity instanceof PlayerEntity && killedEntity instanceof EvokerEntity)
+					{
+						if(!LootBlocker.isBlocked(killedEntity))
+						{
+							if(world.random.nextFloat() < 0.15F)
+							{
+								killedEntity.dropStack(new ItemStack(BMItems.ILLUNITE_SHARD, 1 + world.random.nextInt(2)));
+							}
+						}
+					}
+                }
+        );
 	}
 
 	public static void handleSwampBoneMeal(World world, BlockPos pos, Random random)

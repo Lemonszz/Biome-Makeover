@@ -42,8 +42,7 @@ public class MothBlossomBlock extends IvyShapedBlock
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom)
 	{
-		boolean isValidFace = isValidPlaceFace(world, direction, posFrom, newState);
-		if(!isValidFace)
+		if(!isValidPlaceFace(world, direction.getOpposite(), posFrom, newState))
 		{
 			if(direction == state.get(BLOSSOM_DIRECTION))
 			{
@@ -111,7 +110,7 @@ public class MothBlossomBlock extends IvyShapedBlock
 	{
 		BlockPos placeOffset = ctx.getBlockPos().offset(ctx.getSide().getOpposite());
 		BlockState offsetState = ctx.getWorld().getBlockState(placeOffset);
-		if(isValidPlaceFace(ctx.getWorld(), ctx.getSide(), placeOffset, offsetState))
+		if(isValidPlaceFace(ctx.getWorld(), ctx.getSide().getOpposite(), placeOffset, offsetState))
 		{
 			BlockState state = getDefaultState().with(BLOSSOM_DIRECTION, ctx.getSide().getOpposite());
 			for(Direction dir : Direction.values())

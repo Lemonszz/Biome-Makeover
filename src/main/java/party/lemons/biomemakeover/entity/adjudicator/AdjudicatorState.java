@@ -4,8 +4,6 @@ public enum AdjudicatorState
 {
 	WAITING,
 	TELEPORT,
-	WAKING,
 	FIGHTING,
-	SUMMONING,
-	HIDDEN
+	SUMMONING
 }

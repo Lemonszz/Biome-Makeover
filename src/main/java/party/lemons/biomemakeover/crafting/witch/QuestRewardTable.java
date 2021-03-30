@@ -18,7 +18,10 @@ import java.util.Random;
 
 public enum QuestRewardTable
 {
-	ITEMS(new Lazy<>(QuestRewardTable::createItemTable)), POTION_INGREDIENTS(new Lazy<>(QuestRewardTable::createPotionIngredientTable)), POTION(new Lazy<>(QuestRewardTable::createPotionTable)), COMBO_POTION(new Lazy<>(QuestRewardTable::createMultiPotionTable));
+	ITEMS(new Lazy<>(QuestRewardTable::createItemTable)),
+	POTION_INGREDIENTS(new Lazy<>(QuestRewardTable::createPotionIngredientTable)),
+	POTION(new Lazy<>(QuestRewardTable::createPotionTable)),
+	COMBO_POTION(new Lazy<>(QuestRewardTable::createMultiPotionTable));
 
 	private final Lazy<List<RewardItem>> itemTable;
 
@@ -35,8 +38,23 @@ public enum QuestRewardTable
 
 	private static List<RewardItem> createItemTable()
 	{
-		return Lists.newArrayList(new ItemStackRewardItem(new ItemStack(Items.GLASS_BOTTLE), 1, 10), new ItemStackRewardItem(new ItemStack(Items.GLOWSTONE_DUST), 4, 8), new ItemStackRewardItem(new ItemStack(Items.GUNPOWDER), 2, 10), new ItemStackRewardItem(new ItemStack(Items.REDSTONE), 7, 15), new ItemStackRewardItem(new ItemStack(Items.SPIDER_EYE), 5, 10), new ItemStackRewardItem(new ItemStack(Items.SUGAR), 8, 10), new ItemStackRewardItem(new ItemStack(Items.STICK), 10, 20), new ItemStackRewardItem(new ItemStack(Items.EMERALD), 1, 4), new ItemStackRewardItem(new ItemStack(Items.LAPIS_LAZULI), 1, 10), new ItemStackRewardItem(new ItemStack(Blocks.BROWN_MUSHROOM), 3, 5), new ItemStackRewardItem(new ItemStack(Blocks.RED_MUSHROOM), 3, 5), new ItemStackRewardItem(new ItemStack(Blocks.CAULDRON), 1, 5));
+		return Lists.newArrayList(
+				new ItemStackRewardItem(new ItemStack(Items.GLASS_BOTTLE), 1, 10),
+				new ItemStackRewardItem(new ItemStack(Items.GLOWSTONE_DUST), 4, 8),
+				new ItemStackRewardItem(new ItemStack(Items.GUNPOWDER), 2, 10),
+				new ItemStackRewardItem(new ItemStack(Items.REDSTONE), 7, 15),
+				new ItemStackRewardItem(new ItemStack(Items.SPIDER_EYE), 5, 10),
+				new ItemStackRewardItem(new ItemStack(Items.SUGAR), 8, 10),
+				new ItemStackRewardItem(new ItemStack(Items.STICK), 10, 20),
+				new ItemStackRewardItem(new ItemStack(Items.EMERALD), 1, 4),
+				new ItemStackRewardItem(new ItemStack(Items.LAPIS_LAZULI), 1, 10),
+				new ItemStackRewardItem(new ItemStack(Blocks.BROWN_MUSHROOM), 3, 5),
+				new ItemStackRewardItem(new ItemStack(Blocks.RED_MUSHROOM), 3, 5),
+				new ItemStackRewardItem(new ItemStack(Blocks.CAULDRON), 1, 5),
+				new ItemStackRewardItem(new ItemStack(BMItems.ILLUNITE_SHARD), 1, 10)
+		);
 	}
+
 
 	private static List<RewardItem> createPotionIngredientTable()
 	{

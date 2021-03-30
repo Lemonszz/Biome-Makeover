@@ -23,6 +23,14 @@
       }
     ]
   },
+  "red_rose": {
+    "sounds": [
+      {
+        "name": "biomemakeover:red_rose",
+        "stream": true
+      }
+    ]
+  },
   "ghost_charge": {
     "subtitle": "subtitles.biomemakeover.ghost.charge",
     "sounds": [
@@ -590,10 +598,10 @@
   },
   "illunite_break": {
     "sounds": [
-      "biomemakeover:illunite_break_1",
-      "biomemakeover:illunite_break_2",
-      "biomemakeover:illunite_break_3",
-      "biomemakeover:illunite_break_4"
+      "biomemakeover:illunite_broken_1",
+      "biomemakeover:illunite_broken_2",
+      "biomemakeover:illunite_broken_3",
+      "biomemakeover:illunite_broken_4"
     ]
   },
   "illunite_hit": {
@@ -606,10 +614,10 @@
   },
   "illunite_place": {
     "sounds": [
-      "biomemakeover:illunite_place_1",
-      "biomemakeover:illunite_place_2",
-      "biomemakeover:illunite_place_3",
-      "biomemakeover:illunite_place_4"
+      "biomemakeover:illunite_placed_1",
+      "biomemakeover:illunite_placed_2",
+      "biomemakeover:illunite_placed_3",
+      "biomemakeover:illunite_placed_4"
     ]
   },
   "illunite_step": {
@@ -631,6 +639,7 @@
     ]
   },
   "stone_golem_hurt": {
+    "subtitle": "subtitles.biomemakeover.stone_holem.hurt",
     "sounds": [
       "biomemakeover:stone_golem_hit1",
       "biomemakeover:stone_golem_hit2",
@@ -639,15 +648,10 @@
     ]
   },
   "stone_golem_death": {
+    "subtitle": "subtitles.biomemakeover.stone_holem.death",
     "sounds": [
       "biomemakeover:stone_golem_death"
     ]
-  },
-  "stunt_powder_use": {
-    "subtitle": "subtitles.biomemakeover.stunt_powder_use",
-  "sounds": [
-    "biomemakeover:stunt_powder_use"
-  ]
   },
   "adjudicator_spell_3": {
     "sounds": [
@@ -726,5 +730,34 @@
       "biomemakeover:adjudicator/no2"
     ],
     "subtitle": "subtitles.biomemakeover.adjudicator_no"
+  },
+  "altar_cursing": {
+    "sounds": [
+      "biomemakeover:altar_cursing"
+    ]
+  },
+  "owl_death": {
+    "sounds": [
+      "biomemakeover:owl/owl_death_1",
+      "biomemakeover:owl/owl_death_2"
+    ],
+    "subtitle": "subtitles.biomemakeover.owl_death"
+  },
+  "owl_hurt": {
+    "sounds": [
+      "biomemakeover:owl/owl_hurt_1",
+      "biomemakeover:owl/owl_hurt_2",
+      "biomemakeover:owl/owl_hurt_3"
+    ],
+    "subtitle": "subtitles.biomemakeover.owl_hurt"
+  },
+  "owl_idle": {
+    "sounds": [
+      "biomemakeover:owl/owl_idle_1",
+      "biomemakeover:owl/owl_idle_2",
+      "biomemakeover:owl/owl_idle_3",
+      "biomemakeover:owl/owl_idle_4"
+    ],
+    "subtitle": "subtitles.biomemakeover.owl_idle"
   }
 }

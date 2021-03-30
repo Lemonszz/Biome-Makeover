@@ -95,7 +95,7 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 		this.targetSelector.add(1, new RevengeGoal(this));
 		this.targetSelector.add(2, new FollowTargetGoal<>(this, MerchantEntity.class, false));
 		this.targetSelector.add(3, new FollowTargetGoal<>(this, StoneGolemEntity.class, false));
-		this.targetSelector.add(4, new FollowTargetGoal<>(this, IronGolemEntity.class, 10, true, false, this::shouldAngerAt));
+		this.targetSelector.add(4, new FollowTargetGoal<>(this, IronGolemEntity.class, false));
 		this.targetSelector.add(5, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
 		this.targetSelector.add(6, new FollowTargetGoal<>(this, MobEntity.class, 5, false, false, (livingEntity) -> {
 			return livingEntity instanceof Monster && !(livingEntity instanceof CreeperEntity);
@@ -300,15 +300,15 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 		{
 			if(target instanceof PlayerEntity || target instanceof MerchantEntity)
 				return false;
-			if(target instanceof IronGolemEntity && !((IronGolemEntity) target).isPlayerCreated())
-				return false;
+			if(target instanceof IronGolemEntity)
+				return !((IronGolemEntity) target).isPlayerCreated();
 		}
 		else
 		{
 			if(target instanceof HostileEntity)
 				return false;
-			if(target instanceof IronGolemEntity && ((IronGolemEntity) target).isPlayerCreated())
-				return false;
+			if(target instanceof IronGolemEntity)
+				return ((IronGolemEntity) target).isPlayerCreated();
 		}
 
 		if(target instanceof StoneGolemEntity)

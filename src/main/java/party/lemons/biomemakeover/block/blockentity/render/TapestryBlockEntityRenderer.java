@@ -19,6 +19,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.block.AdjudicatorTapestryWallBlock;
 import party.lemons.biomemakeover.block.TapestryBlock;
 import party.lemons.biomemakeover.block.TapestryWallBlock;
 import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
@@ -67,7 +68,7 @@ public class TapestryBlockEntityRenderer extends BlockEntityRenderer<TapestryBlo
 			time = tapestry.getWorld().getTime();
 			BlockState blockState = tapestry.getCachedState();
 			float rotation;
-			if (blockState.getBlock() instanceof TapestryWallBlock)
+			if (blockState.getBlock() instanceof TapestryWallBlock || blockState.getBlock() instanceof AdjudicatorTapestryWallBlock)
 			{
 				matrixStack.translate(0.5D, -0.1666666716337204D, 0.5D);
 				rotation = -blockState.get(TapestryWallBlock.FACING).asRotation();
@@ -99,7 +100,12 @@ public class TapestryBlockEntityRenderer extends BlockEntityRenderer<TapestryBlo
 	}
 
 	public static void renderTapestry(MatrixStack matrixStack, VertexConsumerProvider vertexConsumer, int light, int overlay, ModelPart bannerPart, DyeColor color) {
-		Identifier id = BiomeMakeover.ID("textures/tapestry/" + color.getName() + "_tapestry.png");
+		Identifier id;
+
+		if(color == null)
+			id = BiomeMakeover.ID("textures/tapestry/adjudicator_tapestry.png");
+		else
+			id = BiomeMakeover.ID("textures/tapestry/" + color.getName() + "_tapestry.png");
 		VertexConsumer vc = vertexConsumer.getBuffer(RenderLayer.getEntitySolid(id));
 		bannerPart.render(matrixStack, vc, light, overlay);
 	}

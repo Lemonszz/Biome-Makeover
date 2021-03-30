@@ -49,7 +49,9 @@
     "PotionEntityMixin",
     "ServerPlayerInteractionManagerMixin",
     "EnchantRandomlyLootFunctionMixin",
-    "MobEntityMixin"
+    "MobEntityMixin",
+    "HostileEntityMixin",
+    "RavagerEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

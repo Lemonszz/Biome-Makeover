@@ -30,7 +30,7 @@ import party.lemons.biomemakeover.world.particle.TeleportParticle;
 
 public class BiomeMakeoverClient implements ClientModInitializer
 {
-	public static boolean ENABLE_CLIENT_DEBUG = false;
+	public static boolean ENABLE_CLIENT_DEBUG = true;
 
 	@Override
 	public void onInitializeClient()
@@ -106,8 +106,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
            {
                if(FabricLoader.getInstance().isDevelopmentEnvironment())
                {
-	               //DebugUtil.printUntaggedItems();
-                   DebugUtil.printMissingLangKeys();
+	               DebugUtil.printUntaggedItems();
+                   //DebugUtil.printMissingLangKeys();
                }
                return TypedActionResult.pass(e.getStackInHand(h));
            });

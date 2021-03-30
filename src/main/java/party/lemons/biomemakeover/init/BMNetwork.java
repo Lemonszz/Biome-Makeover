@@ -22,6 +22,7 @@ public class BMNetwork
 	public static final Identifier ENTITY_PARTICLE_CENTERED = new Identifier(BiomeMakeover.MODID, "entity_particle_centered");
 	public static final Identifier SPAWN_ENDER_PARTICLES = new Identifier(BiomeMakeover.MODID, "spawn_ep");
 	public static final Identifier SPAWN_BLOCK_ENDER_PARTICLES = new Identifier(BiomeMakeover.MODID, "spawn_ebp");
+	public static final Identifier BM_EVENT = new Identifier(BiomeMakeover.MODID, "bm_event");
 	public static final Identifier CL_UPDATE_DIR_DATA = new Identifier(BiomeMakeover.MODID, "update_dir_data");
 
 	@Environment(EnvType.CLIENT)
@@ -38,6 +39,7 @@ public class BMNetwork
 		ClientPlayNetworking.registerGlobalReceiver(ENTITY_PARTICLE_CENTERED, new S2C_DoEntityParticleCentered());
 		ClientPlayNetworking.registerGlobalReceiver(SPAWN_ENDER_PARTICLES, new S2C_DoEnderParticles());
 		ClientPlayNetworking.registerGlobalReceiver(SPAWN_BLOCK_ENDER_PARTICLES, new S2C_DoBlockEnderParticles());
+		ClientPlayNetworking.registerGlobalReceiver(BM_EVENT, new S2C_BMEvent());
 	}
 
 	public static void initCommon()

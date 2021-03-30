@@ -49,6 +49,7 @@ public class RavagerChargePhase extends AdjudicatorPhase
 		((LootBlocker)ravager).setLootBlocked(true);
 		ravager.updatePositionAndAngles(adjudicator.getX(), adjudicator.getY(), adjudicator.getZ(), adjudicator.yaw, adjudicator.pitch);
 		world.spawnEntity(ravager);
+		adjudicator.clearArea(ravager);
 		adjudicator.startRiding(ravager, true);
 
 		ItemStack stack = new ItemStack(Items.CROSSBOW);

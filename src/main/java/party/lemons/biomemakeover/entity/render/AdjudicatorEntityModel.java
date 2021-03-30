@@ -59,12 +59,14 @@ public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvid
 		arm_left = new ModelPart(this);
 		arm_left.setPivot(5.5F, -9.25F, 0.5F);
 		body.addChild(arm_left);
-		arm_left.setTextureOffset(14, 38).addCuboid(-1.5F, -2.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, false);
+		arm_left.setTextureOffset(14, 38).addCuboid(-1.2F, -2.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, false);
+		arm_left.setTextureOffset(32, 16).addCuboid(-1.5F, -3.0F, -2.5F, 4.0F, 4.0F, 5.0F, 0.0F, false);
 
 		arm_right = new ModelPart(this);
 		arm_right.setPivot(-5.5F, -9.25F, 0.5F);
 		body.addChild(arm_right);
-		arm_right.setTextureOffset(26, 43).addCuboid(-1.5F, -2.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, false);
+		arm_right.setTextureOffset(26, 43).addCuboid(-1.8F, -2.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, false);
+		arm_right.setTextureOffset(32, 16).addCuboid(-2.5F, -3.0F, -2.5F, 4.0F, 4.0F, 5.0F, 0.0F, false);
 
 		leg_left = new ModelPart(this);
 		leg_left.setPivot(2.0F, 1.75F, 0.0F);
@@ -80,6 +82,9 @@ public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvid
 	@Override
 	public void setAngles(E entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch)
 	{
+		AnimationHelper.setRotation(leg_left, 0, 0, 0);
+		AnimationHelper.setRotation(leg_right, 0, 0, 0);
+
 		AnimationHelper.rotateHead(head, headPitch, headYaw);
 
 		this.body.yaw = 0.0F;
@@ -93,8 +98,6 @@ public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvid
 		this.arm_left.yaw = 0.0F;
 		this.arm_left.roll = 0.0F;
 
-		if(!(entity instanceof AdjudicatorEntity))
-			return;
 
 		if (this.riding)
 		{
@@ -126,8 +129,6 @@ public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvid
 				this.arm_right.yaw = 0.0F;
 				this.arm_left.yaw = 0.0F;
 				break;
-			case WAKING:
-				break;
 			case FIGHTING:
 				if(!entity.getMainHandStack().isEmpty())
 				{
@@ -150,8 +151,6 @@ public class AdjudicatorEntityModel<E extends MobEntity & AdjudicatorStateProvid
 					CrossbowPosing.method_29352(this.arm_left, this.arm_right, true, this.handSwingProgress, animationProgress);
 				}
 
-				break;
-			case HIDDEN:
 				break;
 		}
 	}

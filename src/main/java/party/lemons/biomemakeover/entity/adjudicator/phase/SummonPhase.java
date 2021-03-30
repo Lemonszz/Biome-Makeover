@@ -54,7 +54,7 @@ public class SummonPhase extends TimedPhase
 		toSpawn = mobCount;
 		spawnIndex = 0;
 		wasHit = false;
-		adjudicator.setState(AdjudicatorState.FIGHTING);
+		adjudicator.setState(AdjudicatorState.SUMMONING);
 
 		populateSpawnPositions();
 		adjudicator.playSound(SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, 1F, 1F);
@@ -116,6 +116,7 @@ public class SummonPhase extends TimedPhase
 		((LootBlocker)entity).setLootBlocked(true);
 		entity.refreshPositionAndAngles((double)spawnPos.getX() + 0.5D, (double)spawnPos.getY(), (double)spawnPos.getZ() + 0.5D, 0.0F, 0.0F);
 		world.spawnEntity(entity);
+		adjudicator.clearArea(entity);
 
 		if(entity instanceof EvokerEntity)
 		{

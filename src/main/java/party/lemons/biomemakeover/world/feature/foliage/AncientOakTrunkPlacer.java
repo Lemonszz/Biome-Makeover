@@ -146,11 +146,6 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 							genZ += direction.z;
 						}
 					}
-
-					if(random.nextInt(4) == 0)
-					{
-						foliage.add(new FoliagePlacer.TreeNode(new BlockPos(genX, genY + yy + 2, genZ), 0, false));
-					}
 				}
 			}
 			foliage.add(new FoliagePlacer.TreeNode(new BlockPos(genX, genY + yy + 1, genZ), 1, false));

@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -28,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -36,8 +38,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.FlyingFollowOwnerGoal;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 
 import java.util.Iterator;
@@ -296,6 +300,24 @@ public class OwlEntity extends TameableShoulderEntity
 	public OwlState getOwlState()
 	{
 		return OwlState.values()[dataTracker.get(OWL_STATE)];
+	}
+
+	@Override
+	protected @Nullable SoundEvent getDeathSound()
+	{
+		return BMEffects.OWL_DEATH;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound()
+	{
+		return BMEffects.OWL_IDLE;
+	}
+
+	@Override
+	protected @Nullable SoundEvent getHurtSound(DamageSource source)
+	{
+		return BMEffects.OWL_HURT;
 	}
 
 	private static class ExtendedFlyOntoTree extends WanderAroundFarGoal

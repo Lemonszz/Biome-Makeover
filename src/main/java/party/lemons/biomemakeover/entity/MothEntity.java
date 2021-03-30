@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -21,6 +22,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -181,7 +183,7 @@ public class MothEntity extends HostileEntity
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return null;
+		return BMEffects.MOTH_IDLE;
 	}
 
 	@Override
@@ -264,6 +266,17 @@ public class MothEntity extends HostileEntity
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		return BMEffects.MOTH_HURT;
+	}
+
+	@Override
+	public boolean tryAttack(Entity target)
+	{
+		boolean attacked = super.tryAttack(target);
+		if(attacked)
+		{
+			this.playSound(BMEffects.MOTH_BITE, 1.0F, 1.0F);
+		}
+		return attacked;
 	}
 
 	public class MoveToLightGoal extends NotAttackingGoal {

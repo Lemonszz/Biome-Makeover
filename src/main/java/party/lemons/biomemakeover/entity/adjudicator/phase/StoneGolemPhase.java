@@ -56,6 +56,7 @@ public class StoneGolemPhase extends AttackingPhase
 		golem.updatePositionAndAngles(adjudicator.getX(), adjudicator.getY(), adjudicator.getZ(), adjudicator.yaw, adjudicator.pitch);
 		world.spawnEntity(golem);
 		adjudicator.startRiding(golem, true);
+		adjudicator.clearArea(golem);
 
 		ItemStack stack = new ItemStack(Items.BOW);
 		stack.addEnchantment(Enchantments.PUNCH, 1);

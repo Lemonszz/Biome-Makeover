@@ -30,7 +30,6 @@ public class StuntPowderItem extends Item
 				{
 					((Stuntable) entity).setStunted(true);
 					NetworkUtil.doEntityParticle(user.world, ParticleTypes.WARPED_SPORE, entity, 15, 0.2F);
-					entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), BMEffects.STUNT_POWDER_USE, SoundCategory.PLAYERS, 0.25F, 1F);
 				}
 				return ActionResult.SUCCESS;
 			}

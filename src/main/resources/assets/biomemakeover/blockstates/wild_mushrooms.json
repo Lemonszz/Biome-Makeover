@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "biomemakeover:block/wild_mushrooms_1"
+      },
+      {
+        "model": "biomemakeover:block/wild_mushrooms_2"
+      },
+      {
+        "model": "biomemakeover:block/wild_mushrooms_3"
+      }
+    ]
+  }
+}

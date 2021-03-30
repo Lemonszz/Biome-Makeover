@@ -54,6 +54,7 @@ public class MimicPhase extends BowAttackingPhase
 			mimic.initialize((ServerWorldAccess) world, world.getLocalDifficulty(spawnPos), SpawnReason.NATURAL, null, null);
 			mimic.refreshPositionAndAngles(spawnPos.getX() + 0.5F, spawnPos.getY(), spawnPos.getZ() + 0.5F, 0, 0);
 			world.spawnEntity(mimic);
+			adjudicator.clearArea(mimic);
 
 			NetworkUtil.doEnderParticles(world, mimic, 10);
 		}

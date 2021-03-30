@@ -45,6 +45,9 @@ public class BMMushroomPlantBlock extends MushroomPlantBlock implements BlockWit
 
 	public boolean trySpawningBigMushroom(ServerWorld serverWorld, BlockPos pos, BlockState state, Random random)
 	{
+		if(giantShroomFeature == null)
+			return false;
+
 		serverWorld.removeBlock(pos, false);
 		if(giantShroomFeature.get().generate(serverWorld, serverWorld.getChunkManager().getChunkGenerator(), random, pos))
 		{

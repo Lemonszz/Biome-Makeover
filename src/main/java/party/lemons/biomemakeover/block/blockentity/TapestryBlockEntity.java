@@ -7,8 +7,10 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Nameable;
+import party.lemons.biomemakeover.block.AdjudicatorTapestryBlock;
 import party.lemons.biomemakeover.block.TapestryBlock;
 import party.lemons.biomemakeover.init.BMBlockEntities;
+import party.lemons.biomemakeover.init.BMBlocks;
 
 public class TapestryBlockEntity extends BlockEntity implements Nameable
 {
@@ -54,6 +56,9 @@ public class TapestryBlockEntity extends BlockEntity implements Nameable
 	{
 		if(world == null)
 			return nonWorldColor;
+		if(getCachedState().getBlock() instanceof AdjudicatorTapestryBlock)
+			return null;
+
 		return ((TapestryBlock)getCachedState().getBlock()).color;
 	}
 

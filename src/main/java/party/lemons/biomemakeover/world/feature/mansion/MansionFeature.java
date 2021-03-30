@@ -8,8 +8,10 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.block.enums.StructureBlockMode;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -26,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
@@ -59,6 +62,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 {
 	public static final BlockIgnoreStructureProcessor IGNORE_AIR_AND_STRUCTURE_BLOCKS = new BlockIgnoreStructureProcessor(ImmutableList.of(Blocks.AIR, Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA));
 	public static final BlockIgnoreStructureProcessor IGNORE_STRUCTURE_BLOCKS = new BlockIgnoreStructureProcessor(ImmutableList.of(Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA));
+
 	public MansionFeature(Codec<DefaultFeatureConfig> configCodec)
 	{
 		super(configCodec);
@@ -215,8 +219,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 					generateTapestry(dir, pos, world, random);
 					break;
 				case "bonemeal":
-					if(offsetState.isOf(Blocks.GRASS_BLOCK))
-						doBonemealEffect(world, offsetPos, random);
+					if(offsetState.isOf(Blocks.GRASS_BLOCK)) doBonemealEffect(world, offsetPos, random);
 					break;
 				case "spawner_spiders":
 					if(offsetState.getBlock() == Blocks.SPAWNER)
@@ -224,7 +227,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 						BlockEntity be = world.getBlockEntity(offsetPos);
 						if(be instanceof MobSpawnerBlockEntity)
 						{
-							((MobSpawnerBlockEntity)be).getLogic().setEntityId(RandomUtil.choose(EntityType.CAVE_SPIDER, EntityType.SPIDER));
+							((MobSpawnerBlockEntity) be).getLogic().setEntityId(RandomUtil.choose(EntityType.CAVE_SPIDER, EntityType.SPIDER));
 							be.markDirty();
 						}
 					}
@@ -246,6 +249,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 					chance = Integer.parseInt(splits[2]);
 				}
 
+				BlockState setState = null;
+				if(splits.length == 4)
+					setState = Registry.BLOCK.get(new Identifier(splits[3])).getDefaultState();
+
 				if(random.nextInt(100) <= chance)
 				{
 					Identifier tableID = null;
@@ -259,6 +266,13 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 							break;
 						case "junk":
 							tableID = LOOT_JUNK;
+							break;
+						case "standard":
+						case "common":
+							tableID = LOOT_STANDARD;
+							break;
+						case "good":
+							tableID = LOOT_GOOD;
 							break;
 					}
 
@@ -275,6 +289,49 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				{
 					world.setBlockState(offsetPos, Blocks.AIR.getDefaultState(), 3);
 				}
+
+				if(setState != null)
+					world.setBlockState(pos, setState, 3);
+			}
+			else if(meta.startsWith("enemy"))
+			{
+				handleSpawning(meta, world, pos, enemies);
+			}
+			else if(meta.startsWith("ranger"))
+			{
+				handleSpawning(meta, world, pos, ranged_enemies);
+			}
+			else if(meta.startsWith("golem"))
+			{
+				handleSpawning(meta, world, pos, golem_enemies);
+			}
+		}
+
+		private void handleSpawning(String meta, StructureWorldAccess world, BlockPos pos, EntityType[] pool)
+		{
+			String[] splits = meta.split("_");
+			int chance;
+			if(splits.length < 2)
+			{
+				System.out.println(meta + " " + template);
+				chance = 100;
+			}
+			else
+			{
+				chance = Integer.parseInt(splits[1]);
+			}
+
+			if(world.getRandom().nextInt(100) <= chance)
+			{
+				EntityType type = RandomUtil.choose(pool);
+				Entity e = type.create(world.toServerWorld());
+				e.refreshPositionAndAngles(pos, 0, 0);
+				if(e instanceof MobEntity)
+				{
+					((MobEntity) e).initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null, null);
+					((MobEntity) e).setPersistent();
+				}
+				world.spawnEntityAndPassengers(e);
 			}
 		}
 
@@ -283,36 +340,43 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			BlockPos blockPos = pos.up();
 			BlockState blockState = Blocks.GRASS.getDefaultState();
 
-			for(int i = 0; i < 128; ++i) {
+			for(int i = 0; i < 128; ++i)
+			{
 				BlockPos placePos = blockPos;
 
-				for(int j = 0; j < i / 16; ++j) {
+				for(int j = 0; j < i / 16; ++j)
+				{
 					placePos = placePos.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-					if (!world.getBlockState(placePos.down()).isOf(Blocks.GRASS_BLOCK) || world.getBlockState(placePos).isFullCube(world, placePos)) {
+					if(!world.getBlockState(placePos.down()).isOf(Blocks.GRASS_BLOCK) || world.getBlockState(placePos).isFullCube(world, placePos))
+					{
 						continue;
 					}
 				}
 
 				BlockState placeState = world.getBlockState(placePos);
 
-				if (placeState.isAir()) {
+				if(placeState.isAir())
+				{
 					BlockState flowerState;
-					if (random.nextInt(8) == 0) {
+					if(random.nextInt(3) == 0)
+					{
 						List<ConfiguredFeature<?, ?>> list = world.getBiome(placePos).getGenerationSettings().getFlowerFeatures();
-						if (list.isEmpty()) {
+						if(list.isEmpty())
+						{
 							continue;
 						}
 
 						ConfiguredFeature<?, ?> configuredFeature = list.get(0);
-						FlowerFeature flowerFeature = (FlowerFeature)configuredFeature.feature;
+						FlowerFeature flowerFeature = (FlowerFeature) configuredFeature.feature;
 						flowerState = flowerFeature.getFlowerState(random, placePos, configuredFeature.getConfig());
 					}
 					else
-						{
+					{
 						flowerState = blockState;
 					}
 
-					if (flowerState.canPlaceAt(world, placePos)) {
+					if(flowerState.canPlaceAt(world, placePos))
+					{
 						world.setBlockState(placePos, flowerState, 3);
 					}
 				}
@@ -336,14 +400,12 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 		private void generateIvy(Direction dir, BlockPos pos, StructureWorldAccess world, Random random)
 		{
-			if(random.nextFloat() < 0.25F)
-				return;
+			if(random.nextFloat() < 0.25F) return;
 
 			//Attempt to not generate if there's a roof lol
 			BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, pos.offset(dir.getOpposite(), 2)).down();
 			BlockState topState = world.getBlockState(topPos);
-			if(topState.isOf(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB)) || topState.isOf(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR)))
-				return;
+			if(topState.isOf(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB)) || topState.isOf(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR))) return;
 
 			int size = 3;
 			BlockPos startPos, endPos;
@@ -354,7 +416,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				Direction rot2 = dir.rotateYCounterclockwise();
 
 				startPos = pos.offset(rot1, size).offset(Direction.UP, size);
-				endPos =  pos.offset(rot2, size).offset(Direction.DOWN, size);
+				endPos = pos.offset(rot2, size).offset(Direction.DOWN, size);
 			}
 			else
 			{
@@ -362,243 +424,131 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				endPos = pos.add(size, 0, size);
 			}
 
-			BlockPos.iterate(startPos, endPos).forEach(
-					p->{
-						BlockState currentState = world.getBlockState(p);
-						if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.isOf(BMBlocks.IVY)))
-						{
-							BlockPos onPos = p.offset(dir);
-							BlockState onState = world.getBlockState(onPos);
+			BlockPos.iterate(startPos, endPos).forEach(p->
+			                                           {
+				                                           BlockState currentState = world.getBlockState(p);
+				                                           if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.isOf(BMBlocks.IVY)))
+				                                           {
+					                                           BlockPos onPos = p.offset(dir);
+					                                           BlockState onState = world.getBlockState(onPos);
 
-							if(onState.isSideSolidFullSquare(world, onPos, dir.getOpposite()))
-							{
-								if(currentState.isOf(BMBlocks.IVY))
-								{
-									world.setBlockState(p, currentState.with(IvyBlock.getPropertyForDirection(dir), true), 3);
-								}
-								else
-								{
-									world.setBlockState(p, BMBlocks.IVY.getDefaultState().with(IvyBlock.getPropertyForDirection(dir), true), 3);
-								}
-							}
-						}
-					});
+					                                           if(onState.isSideSolidFullSquare(world, onPos, dir.getOpposite()))
+					                                           {
+						                                           if(currentState.isOf(BMBlocks.IVY))
+						                                           {
+							                                           world.setBlockState(p, currentState.with(IvyBlock.getPropertyForDirection(dir), true), 3);
+						                                           }
+						                                           else
+						                                           {
+							                                           world.setBlockState(p, BMBlocks.IVY.getDefaultState().with(IvyBlock.getPropertyForDirection(dir), true), 3);
+						                                           }
+					                                           }
+				                                           }
+			                                           });
 		}
 	}
 
-	private static final Identifier LOOT_ARROW = BiomeMakeover.ID("mansion/arrows");
-	private static final Identifier LOOT_DUNGEON_JUNK = BiomeMakeover.ID("mansion/dungeon_junk");
-	private static final Identifier LOOT_JUNK = BiomeMakeover.ID("mansion/junk");
+		private static final Identifier LOOT_ARROW = BiomeMakeover.ID("mansion/arrows");
+		private static final Identifier LOOT_DUNGEON_JUNK = BiomeMakeover.ID("mansion/dungeon_junk");
+		private static final Identifier LOOT_JUNK = BiomeMakeover.ID("mansion/junk");
+		private static final Identifier LOOT_STANDARD = BiomeMakeover.ID("mansion/standard");
+		private static final Identifier LOOT_GOOD = BiomeMakeover.ID("mansion/good");
 
-	public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"),
-            BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8")
-	);
+		public static List<Identifier> CORRIDOR_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_3"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_4"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_5"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_6"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_7"),
+		                                                                      BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_8")
+		);
 
-	public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1"),
-			BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_2")
-	);
+		public static List<Identifier> CORRIDOR_CORNER = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_1"), BiomeMakeover.ID("mansion/corridor/corner/corridor_corner_2"));
 
-	public static List<Identifier> CORRIDOR_T = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/corridor/t/corridor_t_1"),
-			BiomeMakeover.ID("mansion/corridor/t/corridor_t_2"),
-			BiomeMakeover.ID("mansion/corridor/t/corridor_t_3")
-	);
+		public static List<Identifier> CORRIDOR_T = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/t/corridor_t_1"), BiomeMakeover.ID("mansion/corridor/t/corridor_t_2"), BiomeMakeover.ID("mansion/corridor/t/corridor_t_3"));
 
-	public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4"));
+		public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4"));
 
-	public static List<Identifier> ROOMS = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/room/room_1"),
-			BiomeMakeover.ID("mansion/room/room_2"),
-			BiomeMakeover.ID("mansion/room/room_3"),
-			BiomeMakeover.ID("mansion/room/room_4"),
-			BiomeMakeover.ID("mansion/room/room_5"),
-			BiomeMakeover.ID("mansion/room/room_6"),
-			BiomeMakeover.ID("mansion/room/room_7"),
-			BiomeMakeover.ID("mansion/room/room_8"),
-			BiomeMakeover.ID("mansion/room/room_9"),
-			BiomeMakeover.ID("mansion/room/room_10"),
-			BiomeMakeover.ID("mansion/room/room_11"),
-			BiomeMakeover.ID("mansion/room/room_12"),
-			BiomeMakeover.ID("mansion/room/room_13"),
-			BiomeMakeover.ID("mansion/room/room_14"),
-			BiomeMakeover.ID("mansion/room/room_15"),
-			BiomeMakeover.ID("mansion/room/room_16"),
-			BiomeMakeover.ID("mansion/room/room_17"),
-			BiomeMakeover.ID("mansion/room/room_18"),
-			BiomeMakeover.ID("mansion/room/room_19"),
-			BiomeMakeover.ID("mansion/room/room_20"),
-			BiomeMakeover.ID("mansion/room/room_21"),
-			BiomeMakeover.ID("mansion/room/room_22"),
-			BiomeMakeover.ID("mansion/room/room_23")
-	);
+		public static List<Identifier> ROOMS = Lists.newArrayList(BiomeMakeover.ID("mansion/room/room_1"),
+		                                                          BiomeMakeover.ID("mansion/room/room_2"),
+		                                                          BiomeMakeover.ID("mansion/room/room_3"),
+		                                                          BiomeMakeover.ID("mansion/room/room_4"),
+		                                                          BiomeMakeover.ID("mansion/room/room_5"),
+		                                                          BiomeMakeover.ID("mansion/room/room_6"),
+		                                                          BiomeMakeover.ID("mansion/room/room_7"),
+		                                                          BiomeMakeover.ID("mansion/room/room_8"),
+		                                                          BiomeMakeover.ID("mansion/room/room_9"),
+		                                                          BiomeMakeover.ID("mansion/room/room_10"),
+		                                                          BiomeMakeover.ID("mansion/room/room_11"),
+		                                                          BiomeMakeover.ID("mansion/room/room_12"),
+		                                                          BiomeMakeover.ID("mansion/room/room_13"),
+		                                                          BiomeMakeover.ID("mansion/room/room_14"),
+		                                                          BiomeMakeover.ID("mansion/room/room_15"),
+		                                                          BiomeMakeover.ID("mansion/room/room_16"),
+		                                                          BiomeMakeover.ID("mansion/room/room_17"),
+		                                                          BiomeMakeover.ID("mansion/room/room_18"),
+		                                                          BiomeMakeover.ID("mansion/room/room_19"),
+		                                                          BiomeMakeover.ID("mansion/room/room_20"),
+		                                                          BiomeMakeover.ID("mansion/room/room_21"),
+		                                                          BiomeMakeover.ID("mansion/room/room_22"),
+		                                                          BiomeMakeover.ID("mansion/room/room_23"),
+		                                                          BiomeMakeover.ID("mansion/room/room_24")
+		);
 
-	public static List<Identifier> ROOM_BIG = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/room/big/room_big_1"),
-			BiomeMakeover.ID("mansion/room/big/room_big_2"),
-			BiomeMakeover.ID("mansion/room/big/room_big_3"),
-			BiomeMakeover.ID("mansion/room/big/room_big_4"),
-			BiomeMakeover.ID("mansion/room/big/room_big_5"),
-			BiomeMakeover.ID("mansion/room/big/room_big_6"),
-			BiomeMakeover.ID("mansion/room/big/room_big_7"),
-			BiomeMakeover.ID("mansion/room/big/room_big_8")
-	);
+		public static List<Identifier> ROOM_BIG = Lists.newArrayList(BiomeMakeover.ID("mansion/room/big/room_big_1"), BiomeMakeover.ID("mansion/room/big/room_big_2"), BiomeMakeover.ID("mansion/room/big/room_big_3"), BiomeMakeover.ID("mansion/room/big/room_big_4"), BiomeMakeover.ID("mansion/room/big/room_big_5"), BiomeMakeover.ID("mansion/room/big/room_big_6"), BiomeMakeover.ID("mansion/room/big/room_big_7"), BiomeMakeover.ID("mansion/room/big/room_big_8"));
 
-	public static List<Identifier> STAIR_UP = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/stairs/up/stairs_up_1"),
-			BiomeMakeover.ID("mansion/stairs/up/stairs_up_2")
-	);
+		public static List<Identifier> STAIR_UP = Lists.newArrayList(BiomeMakeover.ID("mansion/stairs/up/stairs_up_1"), BiomeMakeover.ID("mansion/stairs/up/stairs_up_2"));
 
-	public static List<Identifier> STAIR_DOWN = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/stairs/down/stairs_down_1"),
-			BiomeMakeover.ID("mansion/stairs/down/stairs_down_2")
-	);
+		public static List<Identifier> STAIR_DOWN = Lists.newArrayList(BiomeMakeover.ID("mansion/stairs/down/stairs_down_1"), BiomeMakeover.ID("mansion/stairs/down/stairs_down_2"));
 
-	public static List<Identifier> INNER_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/inner/wall_1"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_2"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_3"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_4"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_5"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_6"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_7"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_8"),
-			BiomeMakeover.ID("mansion/wall/inner/wall_9")
-	);
+		public static List<Identifier> INNER_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/inner/wall_1"), BiomeMakeover.ID("mansion/wall/inner/wall_2"), BiomeMakeover.ID("mansion/wall/inner/wall_3"), BiomeMakeover.ID("mansion/wall/inner/wall_4"), BiomeMakeover.ID("mansion/wall/inner/wall_5"), BiomeMakeover.ID("mansion/wall/inner/wall_6"), BiomeMakeover.ID("mansion/wall/inner/wall_7"), BiomeMakeover.ID("mansion/wall/inner/wall_8"), BiomeMakeover.ID("mansion/wall/inner/wall_9"));
 
-	public static List<Identifier> FLAT_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/flat/wall_flat_1"));
+		public static List<Identifier> FLAT_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/flat/wall_flat_1"));
 
-	public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(
-	//		BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_2"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_3"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_4"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_5"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_6"),
-			BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_7")
-	);
-	public static List<Identifier> OUTER_WALL = Lists.newArrayList(
+		public static List<Identifier> OUTER_WALL_BASE = Lists.newArrayList(
+				//		BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_1"),
+				BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_2"), BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_3"), BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_4"), BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_5"), BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_6"), BiomeMakeover.ID("mansion/wall/outer/base/wall_outer_base_7"));
+		public static List<Identifier> OUTER_WALL = Lists.newArrayList(
 //			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"),
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_2"),
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_3"),
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_4"),
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_5"),
-			BiomeMakeover.ID("mansion/wall/outer/wall_outer_6")
-	);
+				BiomeMakeover.ID("mansion/wall/outer/wall_outer_2"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_3"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_4"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_5"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_6"));
 
-	public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1"),
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_2"),
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_3"),
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_4"),
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_5"),
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_6"),
-			BiomeMakeover.ID("mansion/wall/outer/window/wall_window_7")
-	);
+		public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_2"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_3"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_4"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_5"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_6"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_7"));
 
-	public static List<Identifier> GARDEN = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/garden/garden_1"),
-			BiomeMakeover.ID("mansion/garden/garden_2"),
-			BiomeMakeover.ID("mansion/garden/garden_3"),
-			BiomeMakeover.ID("mansion/garden/garden_4"),
-			BiomeMakeover.ID("mansion/garden/garden_5"),
-			BiomeMakeover.ID("mansion/garden/garden_6")
-	);
+		public static List<Identifier> GARDEN = Lists.newArrayList(BiomeMakeover.ID("mansion/garden/garden_1"), BiomeMakeover.ID("mansion/garden/garden_2"), BiomeMakeover.ID("mansion/garden/garden_3"), BiomeMakeover.ID("mansion/garden/garden_4"), BiomeMakeover.ID("mansion/garden/garden_5"), BiomeMakeover.ID("mansion/garden/garden_6"));
 
-	public static List<Identifier> TOWER_BASE = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/tower/base/tower_base_1"),
-			BiomeMakeover.ID("mansion/tower/base/tower_base_2")
-	);
-	public static List<Identifier> TOWER_MID = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/tower/mid/tower_middle_1"),
-			BiomeMakeover.ID("mansion/tower/mid/tower_middle_2")
-	);
-	public static List<Identifier> TOWER_TOP = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/tower/top/tower_top_1"),
-			BiomeMakeover.ID("mansion/tower/top/tower_top_2")
-	);
+		public static List<Identifier> TOWER_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/base/tower_base_1"), BiomeMakeover.ID("mansion/tower/base/tower_base_2"));
+		public static List<Identifier> TOWER_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/mid/tower_middle_1"), BiomeMakeover.ID("mansion/tower/mid/tower_middle_2"));
+		public static List<Identifier> TOWER_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/top/tower_top_1"), BiomeMakeover.ID("mansion/tower/top/tower_top_2"));
 
-	public static List<Identifier> ROOF_0 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_0_1"),
-			BiomeMakeover.ID("mansion/roof/roof_0_2"),
-			BiomeMakeover.ID("mansion/roof/roof_0_3"),
-			BiomeMakeover.ID("mansion/roof/roof_0_4")
-	);
+		public static List<Identifier> ROOF_0 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_0_1"), BiomeMakeover.ID("mansion/roof/roof_0_2"), BiomeMakeover.ID("mansion/roof/roof_0_3"), BiomeMakeover.ID("mansion/roof/roof_0_4"));
 
-	public static List<Identifier> ROOF_1 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_1_1"),
-			BiomeMakeover.ID("mansion/roof/roof_1_2"),
-			BiomeMakeover.ID("mansion/roof/roof_1_3")
-	);
-	public static List<Identifier> ROOF_2 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_2_1"),
-			BiomeMakeover.ID("mansion/roof/roof_2_2")
-	);
-	public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_2_straight_1"),
-			BiomeMakeover.ID("mansion/roof/roof_2_straight_2")
-	);
+		public static List<Identifier> ROOF_1 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_1_1"), BiomeMakeover.ID("mansion/roof/roof_1_2"), BiomeMakeover.ID("mansion/roof/roof_1_3"));
+		public static List<Identifier> ROOF_2 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_1"), BiomeMakeover.ID("mansion/roof/roof_2_2"));
+		public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_straight_1"), BiomeMakeover.ID("mansion/roof/roof_2_straight_2"));
 
-	public static List<Identifier> ROOF_3 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_3_1"),
-			BiomeMakeover.ID("mansion/roof/roof_3_2")
-	);
+		public static List<Identifier> ROOF_3 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_3_1"), BiomeMakeover.ID("mansion/roof/roof_3_2"));
 
-	public static List<Identifier> ROOF_4 = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_4_1"),
-			BiomeMakeover.ID("mansion/roof/roof_4_2")
-	);
+		public static List<Identifier> ROOF_4 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_4_1"), BiomeMakeover.ID("mansion/roof/roof_4_2"));
 
-	public static List<Identifier> ROOF_SPLIT = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/roof/roof_split_1"),
-			BiomeMakeover.ID("mansion/roof/roof_split_2"),
-			BiomeMakeover.ID("mansion/roof/roof_split_3"),
-			BiomeMakeover.ID("mansion/roof/roof_split_4"),
-			BiomeMakeover.ID("mansion/roof/roof_split_5")
-	);
+		public static List<Identifier> ROOF_SPLIT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_split_1"), BiomeMakeover.ID("mansion/roof/roof_split_2"), BiomeMakeover.ID("mansion/roof/roof_split_3"), BiomeMakeover.ID("mansion/roof/roof_split_4"), BiomeMakeover.ID("mansion/roof/roof_split_5"));
 
-	public static List<Identifier> DUNGEON_DOOR = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/dungeon/door_1"),
-			BiomeMakeover.ID("mansion/dungeon/door_2"),
-			BiomeMakeover.ID("mansion/dungeon/door_3"),
-			BiomeMakeover.ID("mansion/dungeon/door_4"),
-			BiomeMakeover.ID("mansion/dungeon/door_5"),
-			BiomeMakeover.ID("mansion/dungeon/door_6"),
-			BiomeMakeover.ID("mansion/dungeon/door_7")
-	);
-	public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/dungeon/wall_1")
-	);
-	public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/dungeon/room_1"),
-			BiomeMakeover.ID("mansion/dungeon/room_2"),
-			BiomeMakeover.ID("mansion/dungeon/room_3"),
-			BiomeMakeover.ID("mansion/dungeon/room_4"),
-			BiomeMakeover.ID("mansion/dungeon/room_5"),
-			BiomeMakeover.ID("mansion/dungeon/room_6"),
-			BiomeMakeover.ID("mansion/dungeon/room_7"),
-			BiomeMakeover.ID("mansion/dungeon/room_8"),
-			BiomeMakeover.ID("mansion/dungeon/room_9"),
-			BiomeMakeover.ID("mansion/dungeon/room_10"),
-			BiomeMakeover.ID("mansion/dungeon/room_11")
-	);
-	public static List<Identifier> DUNGEON_STAIR_BOTTOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_bottom"));
-	public static List<Identifier> DUNGEON_STAIR_MID = Lists.newArrayList(
-			BiomeMakeover.ID("mansion/dungeon/stair_mid_1"),
-			BiomeMakeover.ID("mansion/dungeon/stair_mid_2")
-	);
-	public static List<Identifier> DUNGEON_STAIR_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_top"));
-	public static List<Identifier> BOSS_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/boss_room"));
+		public static List<Identifier> DUNGEON_DOOR = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/door_1"), BiomeMakeover.ID("mansion/dungeon/door_2"), BiomeMakeover.ID("mansion/dungeon/door_3"), BiomeMakeover.ID("mansion/dungeon/door_4"), BiomeMakeover.ID("mansion/dungeon/door_5"), BiomeMakeover.ID("mansion/dungeon/door_6"), BiomeMakeover.ID("mansion/dungeon/door_7"));
+		public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/wall_1"));
+		public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/room_1"), BiomeMakeover.ID("mansion/dungeon/room_2"), BiomeMakeover.ID("mansion/dungeon/room_3"), BiomeMakeover.ID("mansion/dungeon/room_4"), BiomeMakeover.ID("mansion/dungeon/room_5"), BiomeMakeover.ID("mansion/dungeon/room_6"), BiomeMakeover.ID("mansion/dungeon/room_7"), BiomeMakeover.ID("mansion/dungeon/room_8"), BiomeMakeover.ID("mansion/dungeon/room_9"), BiomeMakeover.ID("mansion/dungeon/room_10"), BiomeMakeover.ID("mansion/dungeon/room_11"));
+		public static List<Identifier> DUNGEON_STAIR_BOTTOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_bottom"));
+		public static List<Identifier> DUNGEON_STAIR_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_mid_1"), BiomeMakeover.ID("mansion/dungeon/stair_mid_2"));
+		public static List<Identifier> DUNGEON_STAIR_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_top"));
+		public static List<Identifier> BOSS_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/boss_room"));
 
-	public static List<Identifier> ENTRANCE = Lists.newArrayList(BiomeMakeover.ID("mansion/entrance/entrance_1"));
+		public static List<Identifier> ENTRANCE = Lists.newArrayList(BiomeMakeover.ID("mansion/entrance/entrance_1"));
 
-	public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
-	public static final Identifier EMPTY = BiomeMakeover.ID("mansion/empty");
-}
+		public static final Identifier CORNER_FILLER = BiomeMakeover.ID("mansion/corner_filler");
+		public static final Identifier EMPTY = BiomeMakeover.ID("mansion/empty");
+
+		private static final EntityType[] enemies = {EntityType.VINDICATOR, EntityType.EVOKER, EntityType.PILLAGER};
+
+		private static final EntityType[] ranged_enemies = {EntityType.PILLAGER};
+
+		private static final EntityType[] golem_enemies = {BMEntities.STONE_GOLEM};
+	}

@@ -79,10 +79,14 @@ public class MansionLayout
 			allRooms.addAll(corridors);
 			int size = allRooms.size();
 
+			List<MansionRoom> floorRooms = Lists.newArrayList();
+			floorRooms.addAll(rooms);
+			floorRooms.addAll(corridors);
+
 			//Loop through each room, running room processors
-			for(int i = 0; i < size; i++)
+			for(int i = 0; i < floorRooms.size(); i++)
 			{
-				MansionRoom room = allRooms.get(i);
+				MansionRoom room = floorRooms.get(i);
 				if(room.getRoomType().isReplaceable())
 				{
 					for(FloorRoomReplaceProcessor processor : floorProcessors)

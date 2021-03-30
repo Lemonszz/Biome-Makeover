@@ -86,6 +86,10 @@ public class BMWorldGen
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_DECORATION, rk(SMALL_DARK_OAK_TREES));
 		BiomeModifications.addFeature(DARK_FOREST, UNDERGROUND_ORES, rk(MESMERITE_UNDERGROUND));
 		BiomeModifications.addFeature(DARK_FOREST, TOP_LAYER_MODIFICATION, rk(ITCHING_IVY));
+		BiomeModifications.addFeature(DARK_FOREST, TOP_LAYER_MODIFICATION, rk(WILD_MUSHROOMS));
+		BiomeModifications.addFeature(DARK_FOREST, TOP_LAYER_MODIFICATION, rk(ConfiguredFeatures.PATCH_GRASS_BADLANDS));
+		BiomeModifications.addFeature(DARK_FOREST, TOP_LAYER_MODIFICATION, rk(DF_FLOWERS));
+		BiomeModifications.addFeature(DARK_FOREST, TOP_LAYER_MODIFICATION, rk(DF_PATCH_TALL_GRASS));
 
 		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.OWL, 20, 1, 4);
 		BiomeModifications.addSpawn(DARK_FOREST, SpawnGroup.CREATURE, BMEntities.ROOTLING, 20, 2, 6);
@@ -150,6 +154,7 @@ public class BMWorldGen
 		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(ORANGE_GLOWSHROOM_PATCH));
 		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_TALL_SHROOMS));
 		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(MUSHROOM_FIELD_TALL_SHROOMS_UNDERGROUND));
+		BiomeModifications.addFeature(MUSHROOM_BIOMES, VEGETAL_DECORATION, rk(WILD_MUSHROOMS));
 
 		BiomeModifications.addSpawn(MUSHROOM_BIOMES, SpawnGroup.AMBIENT, BMEntities.MUSHROOM_TRADER, 1, 1, 1);
 		BiomeModifications.addSpawn(MUSHROOM_BIOMES, SpawnGroup.AMBIENT, BMEntities.BLIGHTBAT, 5, 1, 1);
@@ -216,8 +221,8 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREE = WATER_TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.SWAMP_CYPRESS_LEAVES.getDefaultState()), new WillowFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(2), 3, false), new CypressTrunkPlacer(16, 3, 2), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of(LeaveVineTreeDecorator.INSTANCE)).heightmap(Heightmap.Type.OCEAN_FLOOR).ignoreVines().maxWaterDepth(4).build()));
 	public static final ConfiguredFeature<?, ?> SWAMP_CYPRESS_TREES = SWAMP_CYPRESS_TREE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(3).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.5F, 4)));
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new AncientOakTrunkPlacer(10, 2, 14), new ThreeLayersFeatureSize(2, 3, 0, 1, 2, OptionalInt.empty())).decorators(ImmutableList.of(IvyTreeDecorator.INSTANCE))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build());
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(6, 11, 0), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3))).decorators(ImmutableList.of(IvyTreeDecorator.INSTANCE))).ignoreVines().build());
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> DARK_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(5, 8, 0), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3)))).ignoreVines().build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> ANCIENT_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).getDefaultState()), new SimpleBlockStateProvider(BMBlocks.ANCIENT_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(8, 11, 2), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3))).decorators(ImmutableList.of(IvyTreeDecorator.INSTANCE, ConfiguredFeatures.Decorators.REGULAR_BEEHIVES_TREES))).ignoreVines().build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> DARK_OAK_SMALL = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(2), 2), new LargeOakTrunkPlacer(7, 8, 2), new TwoLayersFeatureSize(2, 0, 0, OptionalInt.of(3)))).decorators(ImmutableList.of(ConfiguredFeatures.Decorators.REGULAR_BEEHIVES_TREES)).ignoreVines().build());
 
 	public static final ConfiguredFeature<?, ?> ANCIENT_OAK_TREES = ANCIENT_OAK.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).applyChance(2);
 	public static final ConfiguredFeature<?, ?> SMALL_DARK_OAK_TREES = Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(ANCIENT_OAK_SMALL.withChance(0.1F), DARK_OAK_SMALL.withChance(0.2F)), ConfiguredFeatures.DARK_OAK)).decorate(Decorator.DARK_OAK_TREE.configure(DecoratorConfig.DEFAULT));
@@ -248,6 +253,15 @@ public class BMWorldGen
 	public static final ConfiguredFeature<?, ?> MARIGOLD = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.MARIGOLD.getDefaultState()), new DoublePlantPlacer())).tries(32).cannotProject().build());
 	public static final ConfiguredFeature<?, ?> SWAMP_AZALEA = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.SWAMP_AZALEA.getDefaultState()), new DoublePlantPlacer())).tries(32).cannotProject().build());
 	public static final ConfiguredFeature<?, ?> SWAMP_FLOWERS = Feature.SIMPLE_RANDOM_SELECTOR.configure(new SimpleRandomFeatureConfig(ImmutableList.of(()->SWAMP_AZALEA, ()->MARIGOLD))).repeat(UniformIntDistribution.of(-1, 4)).decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(2);
+
+	public static final ConfiguredFeature<?, ?> DF_PEONY = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.PEONY.getDefaultState()), new DoublePlantPlacer())).tries(15).build());
+	public static final ConfiguredFeature<?, ?> DF_LILAC = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.LILAC.getDefaultState()), new DoublePlantPlacer())).tries(15).build());
+	public static final ConfiguredFeature<?, ?> DF_ROSE = Feature.RANDOM_PATCH.configure((new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.ROSE_BUSH.getDefaultState()), new DoublePlantPlacer())).tries(15).build());
+	public static final ConfiguredFeature<?, ?> DF_FLOWERS = Feature.SIMPLE_RANDOM_SELECTOR.configure(new SimpleRandomFeatureConfig(ImmutableList.of(()->DF_PEONY, ()->DF_LILAC, ()->DF_ROSE))).repeat(UniformIntDistribution.of(-1, 4)).decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP);
+	public static final ConfiguredFeature<?, ?> DF_PATCH_TALL_GRASS = Feature.RANDOM_PATCH.configure(ConfiguredFeatures.Configs.TALL_GRASS_CONFIG).decorate(ConfiguredFeatures.Decorators.SPREAD_32_ABOVE).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(14);
+
+	public static final RandomPatchFeatureConfig WILD_MUSHROOM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(BMBlocks.WILD_MUSHROOMS.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(20).build();
+	public static final ConfiguredFeature<?, ?> WILD_MUSHROOMS = Feature.RANDOM_PATCH.configure(WILD_MUSHROOM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(2);
 
 	//Conf Features
 	//2 tall Shrooms patch

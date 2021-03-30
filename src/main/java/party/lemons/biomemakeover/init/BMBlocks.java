@@ -40,7 +40,7 @@ public class BMBlocks
 {
 	public static final Material POLTERGEISTER_MATERIAL = new Material(MaterialColor.WHITE, false, true, true, false, true, false, PistonBehavior.BLOCK);
 	public static final BlockSoundGroup BM_LILY_PAD_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, SoundEvents.BLOCK_WET_GRASS_BREAK, SoundEvents.BLOCK_WET_GRASS_STEP, SoundEvents.BLOCK_LILY_PAD_PLACE, SoundEvents.BLOCK_WET_GRASS_HIT, SoundEvents.BLOCK_WET_GRASS_FALL);
-	public static final BlockSoundGroup ILLUNITE_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, BMEffects.ILLUNITE_BREAK, BMEffects.ILLUNITE_STEP, BMEffects.ILLUNITE_STEP, BMEffects.ILLUNITE_HIT, SoundEvents.BLOCK_STONE_FALL);
+	public static final BlockSoundGroup ILLUNITE_SOUNDS = new BlockSoundGroup(1.0F, 1.0F, BMEffects.ILLUNITE_BREAK, BMEffects.ILLUNITE_STEP, BMEffects.ILLUNITE_PLACE, BMEffects.ILLUNITE_HIT, SoundEvents.BLOCK_STONE_FALL);
 
 	public static final BMMushroomPlantBlock PURPLE_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_PURPLE_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, RLayer.CUTOUT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 	public static final BMMushroomPlantBlock GREEN_GLOWSHROOM = new GlowshroomPlantBlock(()->BMWorldGen.UNDERGROUND_HUGE_GREEN_GLOWSHROOM_FEATURE_CONFIGURED, settings(Material.PLANT, RLayer.CUTOUT, 0F).lightLevel(13).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
@@ -133,6 +133,7 @@ public class BMBlocks
 	public static final IvyBlock IVY = new IvyBlock(settings(Material.REPLACEABLE_PLANT, RLayer.CUTOUT, 0.15F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
 	public static final IvyBlock ITCHING_IVY = new ItchingIvyBlock(settings(Material.REPLACEABLE_PLANT, RLayer.CUTOUT, 0.15F).velocityMultiplier(0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
 	public static final MothBlossomBlock MOTH_BLOSSOM = new MothBlossomBlock(settings(Material.PLANT, RLayer.CUTOUT, 0.25F).velocityMultiplier(0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
+	public static final BMMushroomPlantBlock WILD_MUSHROOMS = new OffsetMushroomPlantBlock(null, settings(Material.PLANT, RLayer.CUTOUT, 0F).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -157,6 +158,7 @@ public class BMBlocks
 	public static final List<Block> TAPESTRY_BLOCKS = Lists.newArrayList();
 	public static final List<Block> TAPESTRY_WALL_BLOCKS = Lists.newArrayList();
 	public static final List<Block> TAPESTRY_FLOOR_BLOCKS = Lists.newArrayList();
+	public static Block ADJUDICATOR_TAPESTRY;
 	static
 	{
 		for(DyeColor dyeColor : DyeColor.values())
@@ -252,6 +254,14 @@ public class BMBlocks
 			TAPESTRY_BLOCKS.add(wallBlock);
 			TAPESTRY_WALL_BLOCKS.add(wallBlock);
 		}
+		ADJUDICATOR_TAPESTRY = new AdjudicatorTapestryBlock(settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD));
+		Registry.register(Registry.BLOCK, BiomeMakeover.ID("adjudicator_tapestry"), ADJUDICATOR_TAPESTRY);
+		AdjudicatorTapestryWallBlock adjWall = new AdjudicatorTapestryWallBlock(settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD).dropsLike(ADJUDICATOR_TAPESTRY));
+		Registry.register(Registry.BLOCK, BiomeMakeover.ID("adjudicator_wall_tapestry"), adjWall);
+		WallStandingBlockItem adjBLItem = new WallStandingBlockItem(ADJUDICATOR_TAPESTRY, adjWall, new Item.Settings().maxCount(16).group(BiomeMakeover.GROUP));
+		Registry.register(Registry.ITEM, BiomeMakeover.ID("adjudicator_tapestry"), adjBLItem);
+		TAPESTRY_BLOCKS.add(ADJUDICATOR_TAPESTRY);
+		TAPESTRY_BLOCKS.add(adjWall);
 
 		/* Flammables */
 		registerFlammable(BLIGHTED_BALSA_WOOD_INFO);

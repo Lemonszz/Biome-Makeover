@@ -2,10 +2,13 @@ package party.lemons.biomemakeover.init;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -22,6 +25,8 @@ public class BMItems
 	public static final FoodComponent RAW_TOAD_FOOD = new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).meat().build();
 	public static final FoodComponent RAW_BULBUS_ROOT_FOOD = new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build();
 	public static final FoodComponent BULBUS_ROOT_FOOD = new FoodComponent.Builder().hunger(5).saturationModifier(0.8F).build();
+
+	public static final ArmorMaterial CLADDED_MATERIAL = new CladdedArmorMaterial();
 
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
@@ -58,10 +63,16 @@ public class BMItems
 	public static final Item MOTH_SCALES = new Item(settings());
 	public static final Item STUNT_POWDER = new StuntPowderItem(settings());
 	public static final Item CRUDE_CLADDING = new Item(settings());
+	public static final Item CLADDED_HELMET = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.HEAD, settings());
+	public static final Item CLADDED_CHESTPLATE = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.CHEST, settings());
+	public static final Item CLADDED_LEGGINGS = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.LEGS, settings());
+	public static final Item CLADDED_BOOTS = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.FEET, settings());
+	public static final Item ENCHANTED_TOTEM = new EnchantedTotemItem(settings().maxCount(1));
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem SWAMP_JIVES_MUSIC_DISK = new BMMusicDiskItem(1, BMEffects.SWAMP_JIVES, settings().maxCount(1).rarity(Rarity.RARE));
+	public static final BMMusicDiskItem RED_ROSE_MUSIC_DISK = new BMMusicDiskItem(2, BMEffects.RED_ROSE, settings().maxCount(1).rarity(Rarity.RARE));
 
 	public static final Item GLOWFISH_BUCKET = new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, settings().maxCount(1));
 	public static final Item TADPOLE_BUCKET = new FishBucketItem(BMEntities.TADPOLE, Fluids.WATER, settings().maxCount(1));
@@ -81,7 +92,6 @@ public class BMItems
 	public static final Item OWL_SPAWN_EGG = new SpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, settings());
 	public static final Item ROOTLING_SPAWN_EGG = new SpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, settings());
 	public static final Item MOTH_SPAWN_EGG = new SpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, settings());
-	public static final Item SENTRY_GOLEM_SPAWN_EGG = new SpawnEggItem(BMEntities.STONE_GOLEM, 0xF5f357, 0x968e9c, settings());
 
 	public static final Item ICON_ITEM = new FakeItem();
 
@@ -132,4 +142,55 @@ public class BMItems
 	public static final Tag<Item> BADLANDS = TagRegistry.item(BiomeMakeover.ID("badlands"));
 	public static final Tag<Item> SWAMP = TagRegistry.item(BiomeMakeover.ID("swamp"));
 	public static final Tag<Item> DARK_FOREST = TagRegistry.item(BiomeMakeover.ID("dark_forest"));
+
+	private static class CladdedArmorMaterial implements ArmorMaterial
+	{
+		@Override
+		public int getDurability(EquipmentSlot slot)
+		{
+			return ArmorMaterials.IRON.getDurability(slot);
+		}
+
+		@Override
+		public int getProtectionAmount(EquipmentSlot slot)
+		{
+			return ArmorMaterials.CHAIN.getProtectionAmount(slot);
+		}
+
+		@Override
+		public int getEnchantability()
+		{
+			return ArmorMaterials.CHAIN.getEnchantability();
+		}
+
+		@Override
+		public SoundEvent getEquipSound()
+		{
+			return ArmorMaterials.LEATHER.getEquipSound();
+		}
+
+		@Override
+		public Ingredient getRepairIngredient()
+		{
+			return ArmorMaterials.LEATHER.getRepairIngredient();
+		}
+
+		@Override
+		public String getName()
+		{
+			return "cladded";
+		}
+
+		@Override
+		public float getToughness()
+		{
+			return 0;
+		}
+
+		@Override
+		public float getKnockbackResistance()
+		{
+			return 0.07F;
+		}
+	}
 }

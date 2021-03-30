@@ -49,7 +49,7 @@ public class SimpleStructurePieceMixin
 				{
 					String meta = info.tag.getString("metadata");
 					Direction dir = info.state.get(FacingBlock.FACING);
-					world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+					world.setBlockState(info.pos, Blocks.AIR.getDefaultState(), 3);
 
 					((DirectionalDataHandler)this).handleDirectionalMetadata(meta, dir, info.pos, world, random, box);
 				}

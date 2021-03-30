@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "biomemakeover:item/enchanted_totem_of_undying"
+  }
+}

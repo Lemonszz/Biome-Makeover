@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.entity.adjudicator.ai.AdjudicatorFangGoal;
+import party.lemons.biomemakeover.init.BMEffects;
 
 public class FangAttackingPhase extends AttackingPhase
 {
@@ -22,6 +23,7 @@ public class FangAttackingPhase extends AttackingPhase
 	{
 		super.onEnterPhase();
 		adjudicator.setState(AdjudicatorState.SUMMONING);
+		adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_1, 1F, 1F);
 	}
 
 	@Override

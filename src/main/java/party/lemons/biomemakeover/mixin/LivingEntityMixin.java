@@ -7,10 +7,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,6 +29,7 @@ import party.lemons.biomemakeover.enchantments.BMEnchantment;
 import party.lemons.biomemakeover.init.BMEnchantments;
 import party.lemons.biomemakeover.util.ItemUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
+import party.lemons.biomemakeover.util.TotemItem;
 import party.lemons.biomemakeover.util.extensions.LootBlocker;
 import party.lemons.biomemakeover.util.extensions.SlideEntity;
 
@@ -67,8 +71,39 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity, L
 	///End Loot Block
 	/////////////////
 
+	/////////////////
+	///Start Totem Block
+	/////////////////
+
+	@Inject(at = @At("HEAD"), method = "tryUseTotem", cancellable = true)
+	private void tryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> cbi)
+	{
+		if (!source.isOutOfWorld())
+		{
+			for(Hand hand : Hand.values())
+			{
+				ItemStack stack = this.getStackInHand(hand);
+				if (stack.getItem() instanceof TotemItem && ((TotemItem) stack.getItem()).canActivate((LivingEntity)(Object)this)) {
+					ItemStack activateStack = stack.copy();
+					stack.decrement(1);
+
+					((TotemItem)activateStack.getItem()).activateTotem((LivingEntity)(Object)this, activateStack);
+
+					cbi.setReturnValue(true);
+				}
+			}
+
+		}
+	}
+
+	/////////////////
+	///End Totem Block
+	/////////////////
+
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
 	@Unique
 	private int slideTime = 0;

@@ -27,6 +27,7 @@ import party.lemons.biomemakeover.gui.AltarScreenHandler;
 import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.biomemakeover.util.effect.EffectHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 				if(!workingPrevious)
 				{
 					world.setBlockState(pos, world.getBlockState(pos).with(AltarBlock.ACTIVE, true));
+					EffectHelper.doEffect(world, EffectHelper.EFF_CURSE_SOUND, pos);
 				}
 
 				progress++;

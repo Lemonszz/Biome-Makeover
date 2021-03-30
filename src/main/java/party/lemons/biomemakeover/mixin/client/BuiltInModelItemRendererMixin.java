@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import party.lemons.biomemakeover.block.AdjudicatorTapestryBlock;
 import party.lemons.biomemakeover.block.TapestryBlock;
 import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
 
@@ -29,6 +30,12 @@ public class BuiltInModelItemRendererMixin
 			if(standingBlockItem.getBlock() instanceof TapestryBlock)
 			{
 				TAPESTRY.setNonWorldColor(((TapestryBlock)standingBlockItem.getBlock()).color);
+				BlockEntityRenderDispatcher.INSTANCE.renderEntity(TAPESTRY, matrices, vertexConsumers, light, overlay);
+				cbi.cancel();
+			}
+			else if(standingBlockItem.getBlock() instanceof AdjudicatorTapestryBlock)
+			{
+				TAPESTRY.setNonWorldColor(null);
 				BlockEntityRenderDispatcher.INSTANCE.renderEntity(TAPESTRY, matrices, vertexConsumers, light, overlay);
 				cbi.cancel();
 			}

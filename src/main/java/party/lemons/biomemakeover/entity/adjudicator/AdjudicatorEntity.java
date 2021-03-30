@@ -17,6 +17,7 @@ import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -29,6 +30,7 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
@@ -39,16 +41,17 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.entity.adjudicator.phase.*;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.NBTUtil;
 import party.lemons.biomemakeover.util.extensions.GoalSelectorExtension;
@@ -149,6 +152,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		}
 		this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
 
+		//Casting Particles
 		if (this.world.isClient && isCasting())
 		{
 			double r, g, b;
@@ -244,6 +248,12 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	@Override
 	public boolean isInvulnerableTo(DamageSource damageSource)
 	{
+		if(active && phase == null)
+		{
+			setPhase(TELEPORT);
+			return true;
+		}
+
 		if(phase == IDLE && !(damageSource.getSource() instanceof PlayerEntity))
 			return true;
 
@@ -251,6 +261,17 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			return true;
 
 		return super.isInvulnerableTo(damageSource);
+	}
+
+	@Override
+	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+		ItemEntity enchantedTotem = this.dropItem(BMItems.ENCHANTED_TOTEM);
+		if (enchantedTotem != null)
+			enchantedTotem.setCovetedItem();
+
+		ItemEntity tapestry = this.dropItem(BMBlocks.ADJUDICATOR_TAPESTRY);
+		if(tapestry != null)
+			tapestry.setCovetedItem();
 	}
 
 	private void setPhase(AdjudicatorPhase phase)
@@ -315,6 +336,9 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			}
 			tag.put("ArenaPositions", arenaPosTags);
 		}
+
+		if(phase == null)
+			phase = IDLE;
 
 		tag.putString("Phase", phase.getPhaseID().toString());
 		tag.put("PhaseData", phase.toTag());
@@ -521,6 +545,37 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public void teleportTo(BlockPos pos)
 	{
 		this.refreshPositionAfterTeleport(pos.getX() + 0.5F, pos.getY() + 1F, pos.getZ() + 0.5F);
+		clearArea(this);
+	}
+
+	public void clearArea(Entity e)
+	{
+		if(this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))
+		{
+			Box hitBox = e.getBoundingBox();
+			destroyArea(hitBox);
+
+			if(e.isInsideWall())
+			{
+				hitBox = hitBox.expand(1F);
+				destroyArea(hitBox);
+			}
+		}
+	}
+
+	private void destroyArea(Box hitBox)
+	{
+		BlockPos.
+				iterate(new BlockPos((int) hitBox.minX, (int) hitBox.minY, (int) hitBox.minZ),
+				        new BlockPos((int) hitBox.maxX, (int) hitBox.maxY, (int) hitBox.maxZ))
+				.forEach(b->
+				         {
+					         if(WitherEntity.canDestroy(world.getBlockState(b)))
+					         {
+						         this.world.breakBlock(b, true, this);
+						         this.world.syncWorldEvent(null, 1022, b, 0);
+					         }
+				         });
 	}
 
 	public Box getArenaBounds()
@@ -563,5 +618,17 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	{
 		super.remove();
 		AdjudicatorRoomListener.disableAdjudicator(this);
+	}
+
+	@Override
+	public boolean canTarget(LivingEntity target)
+	{
+		if(getVehicle() == target)
+			return false;
+
+		if(target instanceof StoneGolemEntity && !((StoneGolemEntity) target).isPlayerCreated())
+				return false;
+
+		return super.canTarget(target);
 	}
 }
