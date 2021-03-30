@@ -5,10 +5,10 @@
       "item": "biomemakeover:illunite_shard"
     },
     "title": {
-      "translate": "advancements.biomemakeover.ilunite_shard.title"
+      "translate": "advancements.biomemakeover.illunite_shard.title"
     },
     "description": {
-      "translate": "advancements.biomemakeover.ilunite_shard.description"
+      "translate": "advancements.biomemakeover.illunite_shard.description"
     },
     "frame": "task",
     "show_toast": true,

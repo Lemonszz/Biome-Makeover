@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/mansion",
+  "parent": "biomemakeover:biomemakeover/arm_golem",
   "display": {
     "icon": {
       "item": "biomemakeover:cladded_chestplate",
