@@ -7,6 +7,7 @@ import net.minecraft.block.FacingBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
@@ -21,6 +22,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -103,6 +105,76 @@ public class MothBlossomBlock extends IvyShapedBlock
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
 	{
 		scheduledTick(state, world, pos, random);
+	}
+
+	@Override
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random)
+	{
+		if(random.nextInt(3) == 0)
+		{
+			double xx = 0, yy = 0, zz = 0, vx = 0, vy = 0, vz = 0;
+
+			//TODO: could probably use a cleanup but honestly who cares.
+			switch(state.get(BLOSSOM_DIRECTION))
+			{
+				case DOWN:
+					xx = (pos.getX() + 0.5F) + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					yy = pos.getY() + 0.1F;
+
+					vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vy = random.nextFloat() / 10F;
+					break;
+				case UP:
+					xx = (pos.getX() + 0.5F) + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					yy = pos.getY() + 0.9F;
+
+					vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vy = (random.nextFloat() / 10F) * -1;
+					break;
+				case NORTH:
+					xx = pos.getX() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					zz = pos.getZ() + 0.1F;
+					yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+
+					vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vz = random.nextFloat() / 10F;
+					vy = random.nextFloat() / 20F;
+					break;
+				case SOUTH:
+					xx = pos.getX() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					zz = pos.getZ() + 0.9F;
+					yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+
+					vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vz = (random.nextFloat() / 10F) * -1F;
+					vy = random.nextFloat() / 20F;
+					break;
+				case WEST:
+					xx = (pos.getX() + 0.1);
+					zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+
+					vx = random.nextFloat() / 10F;
+					vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vy = random.nextFloat() / 20F;
+					break;
+				case EAST:
+					xx = (pos.getX() + 0.9);
+					zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+					yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
+
+					vx = (random.nextFloat() / 10F) * -1;
+					vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
+					vy = random.nextFloat() / 20F;
+					break;
+			}
+
+			world.addParticle(BMEffects.BLOSSOM, xx, yy, zz, vx, vy, vz);
+		}
 	}
 
 	@Nullable

@@ -24,6 +24,7 @@ import party.lemons.biomemakeover.util.color.ColorProviderHelper;
 import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
 import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
 import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
+import party.lemons.biomemakeover.world.particle.BlossomParticle;
 import party.lemons.biomemakeover.world.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.world.particle.LightningSparkParticle;
 import party.lemons.biomemakeover.world.particle.TeleportParticle;
@@ -75,6 +76,7 @@ public class BiomeMakeoverClient implements ClientModInitializer
 		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.LIGHTNING_SPARK, LightningSparkParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.POLTERGEIST, PoltergeistParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.TELEPORT, TeleportParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register((ParticleType)BMEffects.BLOSSOM, BlossomParticle.Factory::new);
 
 		ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
 		                                                BMBlocks.ANCIENT_OAK_LEAVES,

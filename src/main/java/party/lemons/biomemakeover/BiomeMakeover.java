@@ -52,7 +52,6 @@ public class BiomeMakeover implements ModInitializer
 	public void onInitialize()
 	{
 		GROUP = new BiomeMakeoverItemGroup(new Identifier(MODID, MODID));
-		SharedConstants.isDevelopment = true;
 		BMEffects.init();
 		BoatTypes.init();
 		BMBlocks.init();
@@ -66,11 +65,11 @@ public class BiomeMakeover implements ModInitializer
 		BMCriterion.init();
 		BMScreens.init();
 		BMWorldEvents.init();
-		AdjudicatorRoomListener.init();
 
 		BMNetwork.initCommon();
 		PoltergeistHandler.init();
 		WitchQuestHandler.init();
+		AdjudicatorRoomListener.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((e)->WindSystem.update());
 		ServerTickEvents.END_WORLD_TICK.register(TumbleweedSpawner::update);
