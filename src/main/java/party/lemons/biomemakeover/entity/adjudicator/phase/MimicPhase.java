@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.entity.adjudicator.phase;
 
 import com.google.common.collect.Lists;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
@@ -48,6 +49,9 @@ public class MimicPhase extends BowAttackingPhase
 				spawnPos = adjudicator.findSuitableArenaPos();
 			}while(setPositions.contains(spawnPos));
 			setPositions.add(spawnPos);
+
+			if(world.getBlockState(spawnPos.down()).isAir())
+				world.setBlockState(spawnPos.down(), Blocks.COBBLESTONE.getDefaultState());
 
 			AdjudicatorMimicEntity mimic = BMEntities.ADJUDICATOR_MIMIC.create(world);
 			((LootBlocker)mimic).setLootBlocked(true);

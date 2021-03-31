@@ -22,9 +22,12 @@
   "enchantment.biomemakeover.heavy_curse" : "Curse of Heaviness",
   "enchantment.biomemakeover.inaccuracy_curse" : "Curse of Inaccuracy",
   "enchantment.biomemakeover.buckling_curse": "Curse of Buckling",
+
   "effect.biomemakeover.shocked" : "Shocked",
   "effect.biomemakeover.antidote" : "Antidote",
   "effect.biomemakeover.nocturnal" : "Nocturnal",
+
+  "attribute.name.biomemakeover.projectile_resistance": "Projectile Resistance",
 
   "block.biomemakeover.purple_glowshroom" : "Purple Glowshroom",
   "block.biomemakeover.green_glowshroom" : "Green Glowshroom",
@@ -509,7 +512,7 @@
   "advancements.biomemakeover.witch_hat.description": "Wear a witch hat.",
   "advancements.biomemakeover.lightning_bug_bottle.title": "Shockingly Bright",
   "advancements.biomemakeover.lightning_bug_bottle.description": "Obtain a Lighting bug in a bottle.",
-  "advancements.biomemakeover.lightning_bottle.title": "Shockingly Bright",
+  "advancements.biomemakeover.lightning_bottle.title": "Never Strikes Twice",
   "advancements.biomemakeover.lightning_bottle.description": "Obtain a Bottle o' Lightning.",
   "advancements.biomemakeover.witch_quest.title": "Haggling",
   "advancements.biomemakeover.witch_quest.description": "Complete a Witch's quest.",

@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.ClampedEntityAttribute;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.BlockTags;
@@ -49,9 +51,12 @@ public class BMEntities
 	public static final EntityType<AdjudicatorMimicEntity> ADJUDICATOR_MIMIC = FabricEntityTypeBuilder.<AdjudicatorMimicEntity>create(SpawnGroup.MONSTER, (t, w)->new AdjudicatorMimicEntity(w)).fireImmune().dimensions(EntityDimensions.fixed(0.6F, 1.95F)).trackRangeBlocks(12).build();
 	public static final EntityType<StoneGolemEntity> STONE_GOLEM = FabricEntityTypeBuilder.<StoneGolemEntity>create(SpawnGroup.MISC, (t, w)->new StoneGolemEntity(w)).dimensions(EntityDimensions.fixed(0.875F, 0.5F)).trackRangeBlocks(12).build();
 
+	public static final EntityAttribute ATT_PROJECTILE_RESISTANCE = new ClampedEntityAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D);
+
 	public static void init()
 	{
 		RegistryHelper.register(Registry.ENTITY_TYPE, EntityType.class, BMEntities.class);
+		RegistryHelper.register(Registry.ATTRIBUTE, EntityAttribute.class, BMEntities.class);
 	}
 
 	public static void registerSpawnRestrictions(Map<EntityType<?>, SpawnRestriction.Entry> restrictions)

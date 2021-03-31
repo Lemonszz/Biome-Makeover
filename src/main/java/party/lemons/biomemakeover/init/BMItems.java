@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.init;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;
@@ -27,6 +28,7 @@ public class BMItems
 	public static final FoodComponent BULBUS_ROOT_FOOD = new FoodComponent.Builder().hunger(5).saturationModifier(0.8F).build();
 
 	public static final ArmorMaterial CLADDED_MATERIAL = new CladdedArmorMaterial();
+	public static final BMArmorItem.Builder CLADDED_ARMOR = BMArmorItem.Builder.create(CLADDED_MATERIAL).attribute("Armor Proj Res", BMEntities.ATT_PROJECTILE_RESISTANCE, 1, EntityAttributeModifier.Operation.ADDITION);
 
 	public static final MushroomStewItem GLOWSHROOM_STEW = new MushroomStewItem(settings().maxCount(1).recipeRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
 	public static final Item GLOWFISH = new Item(settings().food(GLOWFISH_FOOD));
@@ -63,10 +65,10 @@ public class BMItems
 	public static final Item MOTH_SCALES = new Item(settings());
 	public static final Item STUNT_POWDER = new StuntPowderItem(settings());
 	public static final Item CRUDE_CLADDING = new Item(settings());
-	public static final Item CLADDED_HELMET = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.HEAD, settings());
-	public static final Item CLADDED_CHESTPLATE = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.CHEST, settings());
-	public static final Item CLADDED_LEGGINGS = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.LEGS, settings());
-	public static final Item CLADDED_BOOTS = new ArmorItem(CLADDED_MATERIAL, EquipmentSlot.FEET, settings());
+	public static final Item CLADDED_HELMET = CLADDED_ARMOR.build(EquipmentSlot.HEAD, settings());
+	public static final Item CLADDED_CHESTPLATE = CLADDED_ARMOR.build(EquipmentSlot.CHEST, settings());
+	public static final Item CLADDED_LEGGINGS = CLADDED_ARMOR.build(EquipmentSlot.LEGS, settings());
+	public static final Item CLADDED_BOOTS = CLADDED_ARMOR.build(EquipmentSlot.FEET, settings());
 	public static final Item ENCHANTED_TOTEM = new EnchantedTotemItem(settings().maxCount(1));
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));

@@ -305,6 +305,14 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		super.onTrackedDataSet(data);
 	}
 
+	@Override
+	public void onDeath(DamageSource source)
+	{
+		if(phase != null)
+			phase.onExitPhase();
+		super.onDeath(source);
+	}
+
 	private void setUpPhase()
 	{
 		getNavigation().stop();
@@ -544,6 +552,9 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 
 	public void teleportTo(BlockPos pos)
 	{
+		if(world.getBlockState(pos.down()).isAir())
+			world.setBlockState(pos.down(), Blocks.COBBLESTONE.getDefaultState());
+
 		this.refreshPositionAfterTeleport(pos.getX() + 0.5F, pos.getY() + 1F, pos.getZ() + 0.5F);
 		clearArea(this);
 	}

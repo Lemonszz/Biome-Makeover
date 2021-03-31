@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.entity.adjudicator.phase;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -109,6 +110,10 @@ public class SummonPhase extends TimedPhase
 	protected void spawnEntity()
 	{
 		BlockPos spawnPos = spawnPositions[spawnIndex];
+
+		if(world.getBlockState(spawnPos.down()).isAir())
+			world.setBlockState(spawnPos.down(), Blocks.COBBLESTONE.getDefaultState());
+
 		LivingEntity entity = entities[random.nextInt(entities.length)].create(world);
 		if(entity instanceof MobEntity)
 			((MobEntity) entity).initialize((ServerWorldAccess) world, world.getLocalDifficulty(spawnPos), SpawnReason.EVENT, null, null);

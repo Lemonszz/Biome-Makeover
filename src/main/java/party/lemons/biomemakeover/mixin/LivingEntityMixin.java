@@ -19,10 +19,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import party.lemons.biomemakeover.enchantments.BMEnchantment;
@@ -99,6 +96,7 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity, L
 	/////////////////
 	///End Totem Block
 	/////////////////
+
 
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);

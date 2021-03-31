@@ -51,7 +51,9 @@
     "EnchantRandomlyLootFunctionMixin",
     "MobEntityMixin",
     "HostileEntityMixin",
-    "RavagerEntityMixin"
+    "RavagerEntityMixin",
+    "EntityAttributeModifierMixin",
+    "EnchantmentHelperMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",
