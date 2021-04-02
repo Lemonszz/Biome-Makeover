@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.entity.render;
 
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.RootlingEntity;
@@ -14,6 +15,7 @@ public class RootlingEntityRender extends MobEntityRenderer<RootlingEntity, Root
 	public RootlingEntityRender(EntityRenderDispatcher rd)
 	{
 		super(rd, new RootlingEntityModel(), 0.25F);
+
 		addFeature(new RootlingFlowerFeatureRenderer(this));
 	}
 

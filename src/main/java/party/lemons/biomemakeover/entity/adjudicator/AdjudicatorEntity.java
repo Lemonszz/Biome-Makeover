@@ -4,11 +4,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -30,7 +28,6 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
@@ -41,7 +38,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -61,11 +61,13 @@ import java.util.Map;
 
 public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob, CrossbowUser, AdjudicatorStateProvider
 {
-	public static final TrackedData<Integer> STATE = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<Integer> STATE = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.INTEGER);     //Adjudicator Phase
+	private static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.BOOLEAN); //Crossbow Charging
 
+	/*
+		Adjudicator Phases
+	 */
 	public final Map<Identifier, AdjudicatorPhase> PHASES = Maps.newHashMap();
-
 	public final AdjudicatorPhase IDLE = new IdleAdjudicatorPhase(BiomeMakeover.ID("idle"), this);
 	public final TeleportingPhase TELEPORT = new TeleportingPhase(BiomeMakeover.ID("teleport"), this);
 	public final BowAttackingPhase BOW_ATTACK = new BowAttackingPhase(BiomeMakeover.ID("bow_attack"), this);
@@ -109,7 +111,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	protected void initGoals()
 	{
 		super.initGoals();
-		AdjudicatorRoomListener.enableAdjudicator(this);
+		AdjudicatorRoomListener.enableAdjudicator(this);    //Listen for break/place events for this adjudicator
 	}
 
 	@Override
@@ -124,12 +126,17 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public void tick()
 	{
 		stateTime++;
-		if(!world.isClient() && firstTick)
+		if(!world.isClient() && firstTick)  //Set up arena
 		{
-			homePos = getBlockPos();
-			roomBounds = new Box(homePos).expand(13,0, 13).stretch(0, 13, 0);
+			homePos = getBlockPos();    //Home pos is generally the center of the arena. The position the adjudicator will return to if out of combat.
+
+			roomBounds = new Box(homePos.down()).expand(13,0, 13).stretch(0, 13, 0);    //Get the room bounds.
 			firstTick = false;
 
+			/*
+				Find valid arena locations, these are placed in the structure then processed here.
+				These are the locations we can spawn things at or teleport to.
+			 */
 			arenaPositions = Lists.newArrayList();
 			arenaPositions.add(homePos);
 			BlockPos.iterate((int)roomBounds.minX, (int)roomBounds.minY, (int)roomBounds.minZ, (int)roomBounds.maxX, (int)roomBounds.maxY, (int)roomBounds.maxZ)
@@ -143,6 +150,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		}
 		super.tick();
 
+		//Update the phase
 		if(!world.isClient() && phase != null)
 		{
 			phase.tick();
@@ -150,9 +158,32 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			if(phase.isPhaseOver())
 				setPhase(phase.getNextPhase());
 		}
+
+		//Update Boss bar
 		this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
 
 		//Casting Particles
+		tickCastParticles();
+
+		//Anti-cheese if we're out of the arena, teleport back in.
+		if(!world.isClient())
+		{
+			if(!getArenaBounds().contains(getPos()))
+			{
+				stopRiding();
+				teleportHome();
+			}
+		}
+
+		//Update tracked players
+		updatePlayers();
+	}
+
+	/*
+		Do casting particles
+	 */
+	private void tickCastParticles()
+	{
 		if (this.world.isClient && isCasting())
 		{
 			double r, g, b;
@@ -175,25 +206,17 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() + (double)zOffset * 0.6D, r, g, b);
 			this.world.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() - (double)zOffset * 0.6D, r, g, b);
 		}
-
-		if(!world.isClient())
-		{
-			if(!getArenaBounds().contains(getPos()))
-			{
-				stopRiding();
-				teleportHome();
-			}
-		}
-
-		if(active)
-			updatePlayers();
 	}
 
+	/*
+		Update tracked players
+	 */
 	private void updatePlayers()
 	{
-		if(world.isClient())
+		if(!active || world.isClient())
 			return;
 
+		//If there are no valid players within the arena, teleport home and reset the fight.
 		List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, getArenaBounds(), EntityPredicates.EXCEPT_SPECTATOR);
 		if(players.isEmpty())
 		{
@@ -209,18 +232,26 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		}
 		else
 		{
-			finishFightTime = 0;
+			finishFightTime = 0;    //There are valid players, reset reset timer
 		}
 
+		/*
+			Update boss bar tracked players
+			Players within the boss room get the boss health bar, those outside do not.
+		 */
+		//Get all valid players + spectator
 		List<PlayerEntity> playersWithSpectator = world.getEntitiesByClass(PlayerEntity.class, getArenaBounds(), (p)->true);
-		for(PlayerEntity playerEntity : bossBar.getPlayers())
+		for(ServerPlayerEntity playerEntity : bossBar.getPlayers()) //Loop through current players tracked by the boss bar
 		{
+			//Remove them from tracking if they're no longer valid
 			if(!playersWithSpectator.contains(playerEntity))
-				bossBar.removePlayer((ServerPlayerEntity) playerEntity);
+				bossBar.removePlayer(playerEntity);
 		}
 
+		//Loop though valid players
 		for(PlayerEntity playerEntity : playersWithSpectator)
 		{
+			//Add them to boss bar tracked players
 			if(!bossBar.getPlayers().contains(playerEntity))
 				bossBar.addPlayer((ServerPlayerEntity) playerEntity);
 		}
@@ -235,7 +266,8 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	@Override
 	public boolean damage(DamageSource source, float amount)
 	{
-		if(!active && source.getSource() instanceof PlayerEntity)
+		//Activate the fight if the tracker if the player
+		if(!active && source.getAttacker() instanceof PlayerEntity)
 		{
 			active = true;
 		}
@@ -248,15 +280,18 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	@Override
 	public boolean isInvulnerableTo(DamageSource damageSource)
 	{
+		//Bug fix: ensure the adjudicator is in some sort of phase
 		if(active && phase == null)
 		{
 			setPhase(TELEPORT);
 			return true;
 		}
 
-		if(phase == IDLE && !(damageSource.getSource() instanceof PlayerEntity))
+		//Don't hurt in idle phase if attacker isn't a player
+		if(phase == IDLE && !(damageSource.getAttacker() instanceof PlayerEntity))
 			return true;
 
+		//Don't hurt if phase is invulnerable phase
 		if(phase.isInvulnerable() && !damageSource.isOutOfWorld())
 			return true;
 
@@ -265,6 +300,8 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 
 	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+		//Drop totem and tapestry
+		//This isn't done via loot table because we want the item to be coveted
 		ItemEntity enchantedTotem = this.dropItem(BMItems.ENCHANTED_TOTEM);
 		if (enchantedTotem != null)
 			enchantedTotem.setCovetedItem();
@@ -299,6 +336,9 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			prevX = getX();
 			prevY = getY();
 			prevZ = getZ();
+			lastRenderX = getX();
+			lastRenderY = getY();
+			lastRenderZ = getZ();
 		}
 
 
@@ -315,13 +355,21 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 
 	private void setUpPhase()
 	{
+		//Stop pathing
 		getNavigation().stop();
+
 		//Copy AI from phase
 		goalSelector.getRunningGoals().forEach(PrioritizedGoal::stop);
 		GoalSelectorExtension.copy(goalSelector, phase.getGoalSelector());
 		GoalSelectorExtension.copy(targetSelector, phase.getTargetSelector());
 
 		bossBar.setVisible(phase.showBossBar());
+	}
+
+	@Override
+	public boolean isPushable()
+	{
+		return false;
 	}
 
 	@Override
@@ -391,6 +439,9 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	}
 
 
+	/*
+			Select a random player in the room rather than focusing on a single person.
+	 */
 	private final TargetPredicate targetPredicate = (new TargetPredicate()).setBaseMaxDistance(32);
 	public void selectTarget(Class targetClass) {
 		LivingEntity targetEntity = null;
@@ -427,18 +478,6 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	public void setCustomName(@Nullable Text name) {
 		super.setCustomName(name);
 		this.bossBar.setName(this.getDisplayName());
-	}
-
-	@Override
-	public void onStartedTrackingBy(ServerPlayerEntity player) {
-		super.onStartedTrackingBy(player);
-		this.bossBar.addPlayer(player);
-	}
-
-	@Override
-	public void onStoppedTrackingBy(ServerPlayerEntity player) {
-		super.onStoppedTrackingBy(player);
-		this.bossBar.removePlayer(player);
 	}
 
 	/*
@@ -490,11 +529,11 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	@Override
 	public void attack(LivingEntity target, float pullProgress)
 	{
-		if(getMainHandStack().getItem() instanceof CrossbowItem)
+		if(getMainHandStack().getItem() instanceof CrossbowItem)    //Handle crossbow shoot
 		{
 			shoot(this, 2F);
 		}
-		else
+		else    //Handle bow shoot
 		{
 			ItemStack arrowTypeStack = this.getArrowType(this.getStackInHand(BMUtil.getHandPossiblyHolding(this, (i)->i.getItem() instanceof BowItem)));
 			PersistentProjectileEntity arrow = ProjectileUtil.createArrowProjectile(this, arrowTypeStack, pullProgress);
@@ -511,6 +550,9 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		}
 	}
 
+	/*
+		Finds one of the preset arena positions
+	 */
 	public BlockPos findSuitableArenaPos()
 	{
 		if(arenaPositions == null)
@@ -559,6 +601,9 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		clearArea(this);
 	}
 
+	/*
+		Anti-Cheese: Break blocks around an entity to prevent trapping
+	 */
 	public void clearArea(Entity e)
 	{
 		if(this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))

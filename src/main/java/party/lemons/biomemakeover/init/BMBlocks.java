@@ -96,8 +96,6 @@ public class BMBlocks
 	public static final BMBlock WILLOWING_BRANCHES = new WillowingBranchesBlock(settings(Material.PLANT, RLayer.CUTOUT_MIPPED, 0.1F).ticksRandomly().sounds(BlockSoundGroup.VINE).noCollision().nonOpaque());
 	public static final BMSaplingBlock WILLOW_SAPLING = new WaterSaplingBlock(new WillowSaplingGenerator(), 1, settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMSaplingBlock SWAMP_CYPRESS_SAPLING = new WaterSaplingBlock(new SwampCypressSaplingGenerator(), 3, settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final BMTallFlowerBlock SWAMP_AZALEA = new BMTallFlowerBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final BMTallFlowerBlock MARIGOLD = new BMTallFlowerBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMBlock PEAT = new BMBlock(settings(Material.SOIL, 0.5F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).sounds(BlockSoundGroup.WET_GRASS));
 	public static final BMBlock DRIED_PEAT = new BMBlock(settings(Material.SOIL, 1F).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.NETHERRACK));
 	public static final BMSpreadableBlock MOSSY_PEAT = new BMSpreadableBlock(settings(Material.SOIL, 0.5F).breakByTool(FabricToolTags.SHOVELS).ticksRandomly().sounds(BlockSoundGroup.WET_GRASS), new Lazy<>(()->PEAT));
@@ -108,6 +106,10 @@ public class BMBlocks
 	public static final DecorationBlockInfo MOSSY_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("mossy_dried_peat_brick", MOSSY_DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
 	public static final BMBlock CRACKED_DRIED_PEAT_BRICKS = new BMBlock(settings(Material.STONE, 2).sounds(BlockSoundGroup.STONE).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool());
 	public static final DecorationBlockInfo CRACKED_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockInfo("cracked_dried_peat_brick", CRACKED_DRIED_PEAT_BRICKS, settings(Material.STONE, 2F).sounds(BlockSoundGroup.NETHERRACK).breakByHand(true).breakByTool(FabricToolTags.SHOVELS).breakByTool(FabricToolTags.PICKAXES).requiresTool().sounds(BlockSoundGroup.STONE)).all();
+	public static final BMTallFlowerBlock SWAMP_AZALEA = new BMTallFlowerBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMTallFlowerBlock MARIGOLD = new BMTallFlowerBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMTallFlowerBlock BLACK_THISTLE = new BlackThistleBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final BMTallFlowerBlock FOXGLOVE = new BMTallFlowerBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
 	public static final ReedBlock CATTAIL = new ReedBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
 	public static final ReedBlock REED = new ReedBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).breakInstantly().noCollision().sounds(BlockSoundGroup.GRASS));
@@ -133,7 +135,7 @@ public class BMBlocks
 	public static final IvyBlock IVY = new IvyBlock(settings(Material.REPLACEABLE_PLANT, RLayer.CUTOUT, 0.15F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
 	public static final IvyBlock ITCHING_IVY = new ItchingIvyBlock(settings(Material.REPLACEABLE_PLANT, RLayer.CUTOUT, 0.15F).velocityMultiplier(0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
 	public static final MothBlossomBlock MOTH_BLOSSOM = new MothBlossomBlock(settings(Material.PLANT, RLayer.CUTOUT, 0.25F).velocityMultiplier(0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
-	public static final BMMushroomPlantBlock WILD_MUSHROOMS = new OffsetMushroomPlantBlock(null, settings(Material.PLANT, RLayer.CUTOUT, 0F).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomPlantBlock WILD_MUSHROOMS = new WildMushroomBlock(settings(Material.PLANT, RLayer.CUTOUT, 0F).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -146,6 +148,7 @@ public class BMBlocks
 	public static final FlowerPotBlock POTTED_WILLOW_SAPLING = new FlowerPotBlock(WILLOW_SAPLING, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_SWAMP_CYPRESS_SAPLING = new FlowerPotBlock(SWAMP_CYPRESS_SAPLING, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 	public static final FlowerPotBlock POTTED_ANCIENT_OAK_SAPLING = new FlowerPotBlock(ANCIENT_OAK_SAPLING, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
+	public static final FlowerPotBlock POTTED_WILD_MUSHROOMS = new FlowerPotBlock(WILD_MUSHROOMS, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.WOOL));
 
 	public static final DirectionalDataBlock DIRECTIONAL_DATA = new DirectionalDataBlock(settings(Material.STONE, -1).dropsNothing());
 
