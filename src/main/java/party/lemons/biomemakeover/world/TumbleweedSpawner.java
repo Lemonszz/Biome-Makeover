@@ -43,7 +43,7 @@ public class TumbleweedSpawner
 			{
 				BlockPos pos = group.getSpawnPos();
 
-				if(pos != null && world.isAir(pos) && world.getBiome(pos).getCategory() == Biome.Category.MESA)
+				if(pos != null && world.isChunkLoaded(pos) && world.isAir(pos) && world.getBiome(pos).getCategory() == Biome.Category.MESA)
 				{
 					TumbleweedEntity tumble = BMEntities.TUMBLEWEED.create(world);
 					tumble.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);
