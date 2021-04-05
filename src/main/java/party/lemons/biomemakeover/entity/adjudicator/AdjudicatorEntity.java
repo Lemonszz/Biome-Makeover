@@ -398,6 +398,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 
 		tag.putString("Phase", phase.getPhaseID().toString());
 		tag.put("PhaseData", phase.toTag());
+		tag.putInt("State", getState().ordinal());
 	}
 
 	@Override
@@ -424,6 +425,8 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		adjPhase.fromTag(tag.getCompound("PhaseData"));
 		this.phase = adjPhase;
 		setUpPhase();
+
+		setState(AdjudicatorState.values()[tag.getInt("State")]);
 	}
 
 	@Override

@@ -263,6 +263,11 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 							break;
 						case "dungeonjunk":
 							tableID = LOOT_DUNGEON_JUNK;
+						case "dungeon":
+							tableID = LOOT_DUNGEON_STANDARD;
+							break;
+						case "dungeongood":
+							tableID = LOOT_DUNGEON_GOOD;
 							break;
 						case "junk":
 							tableID = LOOT_JUNK;
@@ -273,6 +278,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 							break;
 						case "good":
 							tableID = LOOT_GOOD;
+							break;
+						default:
+							System.out.println(table);
 							break;
 					}
 
@@ -450,6 +458,8 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 		private static final Identifier LOOT_ARROW = BiomeMakeover.ID("mansion/arrows");
 		private static final Identifier LOOT_DUNGEON_JUNK = BiomeMakeover.ID("mansion/dungeon_junk");
+		private static final Identifier LOOT_DUNGEON_STANDARD = BiomeMakeover.ID("mansion/dungeon");
+		private static final Identifier LOOT_DUNGEON_GOOD = BiomeMakeover.ID("mansion/dungeon_good");
 		private static final Identifier LOOT_JUNK = BiomeMakeover.ID("mansion/junk");
 		private static final Identifier LOOT_STANDARD = BiomeMakeover.ID("mansion/standard");
 		private static final Identifier LOOT_GOOD = BiomeMakeover.ID("mansion/good");

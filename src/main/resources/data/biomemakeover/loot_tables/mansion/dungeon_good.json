@@ -40,13 +40,13 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 12,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 5.0,
+                "max": 6.0,
                 "type": "minecraft:uniform"
               }
             }
@@ -524,36 +524,6 @@
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:golden_apple"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:cake"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
                 "max": 1.0,
                 "type": "minecraft:uniform"
               }
@@ -590,6 +560,111 @@
             }
           ],
           "name": "minecraft:compass"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 4.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:obsidian"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 1.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 1.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:iron_block"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 2.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "biomemakeover:cladded_stone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 5.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:flint"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 8.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:rabbit_hide"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 8.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:leather"
         }
       ]
     }
