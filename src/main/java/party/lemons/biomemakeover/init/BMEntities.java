@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.init;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.BlockState;
@@ -47,8 +48,8 @@ public class BMEntities
 	public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<LightningBottleEntity>) LightningBottleEntity::new).trackable(4, 10).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build();
 	public static final EntityType<RootlingEntity> ROOTLING = FabricEntityTypeBuilder.<RootlingEntity>create(SpawnGroup.CREATURE, (t, w)->new RootlingEntity(w)).dimensions(EntityDimensions.fixed(0.6F, 1.1F)).trackRangeBlocks(12).build();
 	public static final EntityType<MothEntity> MOTH = FabricEntityTypeBuilder.<MothEntity>create(SpawnGroup.MONSTER, (t, w)->new MothEntity(w)).dimensions(EntityDimensions.fixed(0.8F, 1.2F)).trackRangeBlocks(12).build();
-	public static final EntityType<AdjudicatorEntity> ADJUDICATOR = FabricEntityTypeBuilder.<AdjudicatorEntity>create(SpawnGroup.MONSTER, (t, w)->new AdjudicatorEntity(w)).fireImmune().dimensions(EntityDimensions.fixed(0.6F, 1.95F)).trackRangeBlocks(12).build();
-	public static final EntityType<AdjudicatorMimicEntity> ADJUDICATOR_MIMIC = FabricEntityTypeBuilder.<AdjudicatorMimicEntity>create(SpawnGroup.MONSTER, (t, w)->new AdjudicatorMimicEntity(w)).fireImmune().dimensions(EntityDimensions.fixed(0.6F, 1.95F)).trackRangeBlocks(12).build();
+	public static final EntityType<AdjudicatorEntity> ADJUDICATOR = FabricEntityTypeBuilder.<AdjudicatorEntity>create(SpawnGroup.MONSTER, (t, w)->new AdjudicatorEntity(w)).fireImmune().dimensions(EntityDimensions.fixed(0.6F, 1.95F)).trackRangeBlocks(12).disableSummon().build();
+	public static final EntityType<AdjudicatorMimicEntity> ADJUDICATOR_MIMIC = FabricEntityTypeBuilder.<AdjudicatorMimicEntity>create(SpawnGroup.MONSTER, (t, w)->new AdjudicatorMimicEntity(w)).fireImmune().dimensions(EntityDimensions.fixed(0.6F, 1.95F)).trackRangeBlocks(12).disableSummon().build();
 	public static final EntityType<StoneGolemEntity> STONE_GOLEM = FabricEntityTypeBuilder.<StoneGolemEntity>create(SpawnGroup.MISC, (t, w)->new StoneGolemEntity(w)).dimensions(EntityDimensions.fixed(0.875F, 0.5F)).trackRangeBlocks(12).build();
 
 	public static final EntityAttribute ATT_PROJECTILE_RESISTANCE = new ClampedEntityAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D);
@@ -57,6 +58,8 @@ public class BMEntities
 	{
 		RegistryHelper.register(Registry.ENTITY_TYPE, EntityType.class, BMEntities.class);
 		RegistryHelper.register(Registry.ATTRIBUTE, EntityAttribute.class, BMEntities.class);
+
+
 	}
 
 	public static void registerSpawnRestrictions(Map<EntityType<?>, SpawnRestriction.Entry> restrictions)

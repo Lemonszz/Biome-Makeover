@@ -292,8 +292,11 @@
   "block.biomemakeover.cladded_stone": "Cladded Stone",
   "block.biomemakeover.directional_data": "Directional Data Block",
   "block.biomemakeover.wild_mushrooms": "Wild Mushrooms",
+  "block.biomemakeover.potted_wild_mushrooms": "Potted Wild Mushrooms",
+  "block.biomemakeover.black_thistle": "Black Thistle",
+  "block.biomemakeover.foxglove": "Foxglove",
 
-  "item.biomemakeover.button_mushrooms_music_disk" : "Music Disc",
+  "item.biomemakeover.button_mushrooms_music_disk": "Music Disc",
   "item.biomemakeover.ghost_town_music_disk" : "Music Disc",
   "item.biomemakeover.swamp_jives_music_disk" : "Music Disc",
   "item.biomemakeover.mushroom_trader_spawn_egg" : "Mushroom Trader Spawn Egg",

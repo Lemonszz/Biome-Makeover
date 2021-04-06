@@ -313,6 +313,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			{
 				handleSpawning(meta, world, pos, golem_enemies);
 			}
+			else if(meta.startsWith("ravager"))
+			{
+				handleSpawning(meta, world, pos, ravagers);
+			}
 		}
 
 		private void handleSpawning(String meta, StructureWorldAccess world, BlockPos pos, EntityType[] pool)
@@ -503,7 +507,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		                                                          BiomeMakeover.ID("mansion/room/room_21"),
 		                                                          BiomeMakeover.ID("mansion/room/room_22"),
 		                                                          BiomeMakeover.ID("mansion/room/room_23"),
-		                                                          BiomeMakeover.ID("mansion/room/room_24")
+		                                                          BiomeMakeover.ID("mansion/room/room_24"),
+		                                                          BiomeMakeover.ID("mansion/room/room_25"),
+		                                                          BiomeMakeover.ID("mansion/room/room_26")
 		);
 
 		public static List<Identifier> ROOM_BIG = Lists.newArrayList(BiomeMakeover.ID("mansion/room/big/room_big_1"), BiomeMakeover.ID("mansion/room/big/room_big_2"), BiomeMakeover.ID("mansion/room/big/room_big_3"), BiomeMakeover.ID("mansion/room/big/room_big_4"), BiomeMakeover.ID("mansion/room/big/room_big_5"), BiomeMakeover.ID("mansion/room/big/room_big_6"), BiomeMakeover.ID("mansion/room/big/room_big_7"), BiomeMakeover.ID("mansion/room/big/room_big_8"));
@@ -523,9 +529,28 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 //			BiomeMakeover.ID("mansion/wall/outer/wall_outer_1"),
 				BiomeMakeover.ID("mansion/wall/outer/wall_outer_2"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_3"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_4"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_5"), BiomeMakeover.ID("mansion/wall/outer/wall_outer_6"));
 
-		public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_2"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_3"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_4"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_5"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_6"), BiomeMakeover.ID("mansion/wall/outer/window/wall_window_7"));
+		public static List<Identifier> OUTER_WINDOW = Lists.newArrayList(
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_1"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_2"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_3"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_4"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_5"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_6"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_7"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_8"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_9"),
+				BiomeMakeover.ID("mansion/wall/outer/window/wall_window_10")
+		);
 
-		public static List<Identifier> GARDEN = Lists.newArrayList(BiomeMakeover.ID("mansion/garden/garden_1"), BiomeMakeover.ID("mansion/garden/garden_2"), BiomeMakeover.ID("mansion/garden/garden_3"), BiomeMakeover.ID("mansion/garden/garden_4"), BiomeMakeover.ID("mansion/garden/garden_5"), BiomeMakeover.ID("mansion/garden/garden_6"));
+		public static List<Identifier> GARDEN = Lists.newArrayList(
+				BiomeMakeover.ID("mansion/garden/garden_1"),
+				BiomeMakeover.ID("mansion/garden/garden_2"),
+				BiomeMakeover.ID("mansion/garden/garden_3"),
+				BiomeMakeover.ID("mansion/garden/garden_4"),
+				BiomeMakeover.ID("mansion/garden/garden_5"),
+				BiomeMakeover.ID("mansion/garden/garden_6"),
+				BiomeMakeover.ID("mansion/garden/garden_7")
+		);
 
 		public static List<Identifier> TOWER_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/base/tower_base_1"), BiomeMakeover.ID("mansion/tower/base/tower_base_2"));
 		public static List<Identifier> TOWER_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/mid/tower_middle_1"), BiomeMakeover.ID("mansion/tower/mid/tower_middle_2"));
@@ -537,7 +562,11 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		public static List<Identifier> ROOF_2 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_1"), BiomeMakeover.ID("mansion/roof/roof_2_2"));
 		public static List<Identifier> ROOF_2_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_2_straight_1"), BiomeMakeover.ID("mansion/roof/roof_2_straight_2"));
 
-		public static List<Identifier> ROOF_3 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_3_1"), BiomeMakeover.ID("mansion/roof/roof_3_2"));
+		public static List<Identifier> ROOF_3 = Lists.newArrayList(
+				BiomeMakeover.ID("mansion/roof/roof_3_1"),
+				BiomeMakeover.ID("mansion/roof/roof_3_2"),
+				BiomeMakeover.ID("mansion/roof/roof_3_3")
+		);
 
 		public static List<Identifier> ROOF_4 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_4_1"), BiomeMakeover.ID("mansion/roof/roof_4_2"));
 
@@ -545,7 +574,26 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 		public static List<Identifier> DUNGEON_DOOR = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/door_1"), BiomeMakeover.ID("mansion/dungeon/door_2"), BiomeMakeover.ID("mansion/dungeon/door_3"), BiomeMakeover.ID("mansion/dungeon/door_4"), BiomeMakeover.ID("mansion/dungeon/door_5"), BiomeMakeover.ID("mansion/dungeon/door_6"), BiomeMakeover.ID("mansion/dungeon/door_7"));
 		public static List<Identifier> DUNGEON_WALL = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/wall_1"));
-		public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/room_1"), BiomeMakeover.ID("mansion/dungeon/room_2"), BiomeMakeover.ID("mansion/dungeon/room_3"), BiomeMakeover.ID("mansion/dungeon/room_4"), BiomeMakeover.ID("mansion/dungeon/room_5"), BiomeMakeover.ID("mansion/dungeon/room_6"), BiomeMakeover.ID("mansion/dungeon/room_7"), BiomeMakeover.ID("mansion/dungeon/room_8"), BiomeMakeover.ID("mansion/dungeon/room_9"), BiomeMakeover.ID("mansion/dungeon/room_10"), BiomeMakeover.ID("mansion/dungeon/room_11"));
+		public static List<Identifier> DUNGEON_ROOM = Lists.newArrayList(
+				BiomeMakeover.ID("mansion/dungeon/room_1"),
+				BiomeMakeover.ID("mansion/dungeon/room_2"),
+				BiomeMakeover.ID("mansion/dungeon/room_3"),
+				BiomeMakeover.ID("mansion/dungeon/room_4"),
+				BiomeMakeover.ID("mansion/dungeon/room_5"),
+				BiomeMakeover.ID("mansion/dungeon/room_6"),
+				BiomeMakeover.ID("mansion/dungeon/room_7"),
+				BiomeMakeover.ID("mansion/dungeon/room_8"),
+				BiomeMakeover.ID("mansion/dungeon/room_9"),
+				BiomeMakeover.ID("mansion/dungeon/room_10"),
+				BiomeMakeover.ID("mansion/dungeon/room_11"),
+				BiomeMakeover.ID("mansion/dungeon/room_12"),
+				BiomeMakeover.ID("mansion/dungeon/room_13"),
+				BiomeMakeover.ID("mansion/dungeon/room_14"),
+				BiomeMakeover.ID("mansion/dungeon/room_15"),
+				BiomeMakeover.ID("mansion/dungeon/room_16"),
+				BiomeMakeover.ID("mansion/dungeon/room_17"),
+				BiomeMakeover.ID("mansion/dungeon/room_18")
+		);
 		public static List<Identifier> DUNGEON_STAIR_BOTTOM = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_bottom"));
 		public static List<Identifier> DUNGEON_STAIR_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_mid_1"), BiomeMakeover.ID("mansion/dungeon/stair_mid_2"));
 		public static List<Identifier> DUNGEON_STAIR_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/dungeon/stair_top"));
@@ -561,4 +609,5 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 		private static final EntityType[] ranged_enemies = {EntityType.PILLAGER};
 
 		private static final EntityType[] golem_enemies = {BMEntities.STONE_GOLEM};
+		private static final EntityType[] ravagers = {EntityType.RAVAGER};
 	}

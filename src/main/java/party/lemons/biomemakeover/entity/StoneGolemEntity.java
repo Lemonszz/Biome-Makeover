@@ -134,7 +134,7 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 				this.heal(15.0F);
 				if(this.getHealth() == currentHealth)
 				{
-					return ActionResult.PASS;
+					return ActionResult.success(this.world.isClient);
 				}
 				else
 				{
@@ -150,8 +150,10 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 			}
 			else if(isHolding() && holdCooldown <= 0)
 			{
-				if(!world.isClient())
-					player.inventory.offerOrDrop(world, getEquippedStack(EquipmentSlot.MAINHAND));
+				if(!world.isClient()) {
+					player.inventory.offerOrDrop(world, getEquippedStack(EquipmentSlot.MAINHAND).copy());
+					equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+				}
 				return ActionResult.SUCCESS;
 			}
 			else
@@ -383,6 +385,11 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 	}
 
 	@Override
+	protected void pushAway(Entity entity) {
+		super.pushAway(entity);
+	}
+
+	@Override
 	public List<EntityPart<StoneGolemEntity>> getParts()
 	{
 		return parts;
@@ -469,9 +476,6 @@ public class StoneGolemEntity extends GolemEntity implements CrossbowUser, Anger
 			this.rotateBody();
 			this.rotateLook();
 
-		}
-
-		public void pushAwayFrom(Entity entity) {
 		}
 
 		private void rotateLook() {

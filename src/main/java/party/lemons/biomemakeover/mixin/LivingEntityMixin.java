@@ -7,18 +7,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -97,11 +95,12 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity, L
 	///End Totem Block
 	/////////////////
 
-
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
+
+	@Shadow @Final @Mutable private AttributeContainer attributes;
 
 	@Unique
 	private int slideTime = 0;

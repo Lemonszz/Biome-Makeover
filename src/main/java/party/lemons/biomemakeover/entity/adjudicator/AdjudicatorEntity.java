@@ -350,6 +350,8 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 	{
 		if(phase != null)
 			phase.onExitPhase();
+
+		bossBar.clearPlayers();
 		super.onDeath(source);
 	}
 

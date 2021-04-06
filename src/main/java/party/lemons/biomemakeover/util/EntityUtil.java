@@ -57,7 +57,6 @@ public final class EntityUtil
 					Collection<EntityAttributeModifier> modifiers = e.getAttributeModifiers(slot).get(BMEntities.ATT_PROJECTILE_RESISTANCE);
 					for(EntityAttributeModifier mod : modifiers)
 					{
-						System.out.println("ADDING" + mod.getValue());
 						resistance.add(mod.getValue());
 					}
 				}
