@@ -552,9 +552,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				BiomeMakeover.ID("mansion/garden/garden_7")
 		);
 
-		public static List<Identifier> TOWER_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/base/tower_base_1"), BiomeMakeover.ID("mansion/tower/base/tower_base_2"));
-		public static List<Identifier> TOWER_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/mid/tower_middle_1"), BiomeMakeover.ID("mansion/tower/mid/tower_middle_2"));
-		public static List<Identifier> TOWER_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/top/tower_top_1"), BiomeMakeover.ID("mansion/tower/top/tower_top_2"));
+		public static List<Identifier> TOWER_BASE = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/base/tower_base_1"));
+		public static List<Identifier> TOWER_MID = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/mid/tower_middle_1"));
+		public static List<Identifier> TOWER_TOP = Lists.newArrayList(BiomeMakeover.ID("mansion/tower/top/tower_top_1"));
 
 		public static List<Identifier> ROOF_0 = Lists.newArrayList(BiomeMakeover.ID("mansion/roof/roof_0_1"), BiomeMakeover.ID("mansion/roof/roof_0_2"), BiomeMakeover.ID("mansion/roof/roof_0_3"), BiomeMakeover.ID("mansion/roof/roof_0_4"));
 
