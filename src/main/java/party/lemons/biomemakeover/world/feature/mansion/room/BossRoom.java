@@ -16,7 +16,7 @@ public class BossRoom extends MansionRoom
 
 	public BlockPos getOffsetForRotation(BlockPos offsetPos, BlockRotation rotation)
 	{
-		if(layout.get(Direction.SOUTH)) return offsetPos.south(23).west(8);
+		if(layout.get(Direction.SOUTH)) return offsetPos.south(23).west(9);
 		else if(layout.get(Direction.NORTH)) return offsetPos.north(14).east(19);
 		else if(layout.get(Direction.EAST)) return offsetPos.east(23).south(20);
 		else if(layout.get(Direction.WEST)) return offsetPos.west(14).north(9);

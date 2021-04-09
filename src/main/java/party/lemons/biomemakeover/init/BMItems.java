@@ -101,6 +101,8 @@ public class BMItems
 	{
 		RegistryHelper.register(Registry.ITEM, Item.class, BMItems.class);
 
+
+		//TODO: no real reason this is in this class
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.PURPLE_GLOWSHROOM.asItem(), 0.70F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ORANGE_GLOWSHROOM.asItem(), 0.70F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.GREEN_GLOWSHROOM.asItem(), 0.70F);
@@ -127,10 +129,23 @@ public class BMItems
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BARREL_CACTUS.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.PINK_PETALS.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.MAGENTA_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.BLUE_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.BROWN_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.CYAN_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.GRAY_PETALS.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.LIGHT_BLUE_PETALS.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILLOWING_BRANCHES.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.MARIGOLD.asItem(), 0.65F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.SWAMP_AZALEA.asItem(), 0.65F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WATER_LILY.asItem(), 0.8F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.WILD_MUSHROOMS.asItem(), 0.8F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.IVY.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.ITCHING_IVY.asItem(), 0.3F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.MOTH_BLOSSOM.asItem(), 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.FOXGLOVE.asItem(), 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMBlocks.BLACK_THISTLE.asItem(), 0.7F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.ROOTLING_SEEDS.asItem(), 0.4F);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(BMItems.BULBUS_ROOT.asItem(), 0.4F);
 	}
 
 	public static Item.Settings settings()

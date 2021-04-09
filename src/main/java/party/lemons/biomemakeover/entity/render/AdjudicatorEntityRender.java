@@ -4,13 +4,17 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.feature.EnergySwirlOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelWithArms;
+import net.minecraft.client.render.entity.model.WitherEntityModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
@@ -28,6 +32,7 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 		super(rd, new AdjudicatorEntityModel(), 0.25F);
 		addFeature(new AdjudicatorHeldItemRenderer(this));
 		addFeature(new AdjudicatorEyesRenderLayer(this));
+		addFeature(new InvulnerableFeatureRenderer(this));
 	}
 
 	@Override
@@ -103,4 +108,26 @@ public class AdjudicatorEntityRender extends MobEntityRenderer<AdjudicatorEntity
 			}
 		}
 	}
+
+	private class InvulnerableFeatureRenderer extends EnergySwirlOverlayFeatureRenderer<AdjudicatorEntity, AdjudicatorEntityModel<AdjudicatorEntity>> {
+		private final Identifier SKIN = new Identifier("textures/entity/wither/wither_armor.png");
+		private final AdjudicatorEntityModel<AdjudicatorEntity> model = new AdjudicatorEntityModel<>();
+
+		public InvulnerableFeatureRenderer(FeatureRendererContext<AdjudicatorEntity,AdjudicatorEntityModel<AdjudicatorEntity>> featureRendererContext) {
+			super(featureRendererContext);
+		}
+
+		protected float getEnergySwirlX(float partialAge) {
+			return MathHelper.cos(partialAge * 0.02F) * 3.0F;
+		}
+
+		protected Identifier getEnergySwirlTexture() {
+			return SKIN;
+		}
+
+		protected AdjudicatorEntityModel<AdjudicatorEntity> getEnergySwirlModel() {
+			return this.model;
+		}
+	}
+
 }

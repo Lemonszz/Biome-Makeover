@@ -74,6 +74,7 @@ public enum RoomType
 	public boolean isDungeon()
 	{
 		//TODO: better
+		//also this is unused?
 		return this == DUNGEON_ROOM || this == DUNGEON_STAIRS_MID || this == DUNGEON_STAIRS_BOTTOM;
 	}
 }

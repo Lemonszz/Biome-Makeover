@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
 import net.minecraft.world.World;
@@ -22,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import party.lemons.biomemakeover.enchantments.BMEnchantment;
 import party.lemons.biomemakeover.init.BMEnchantments;
+import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.util.ItemUtil;
 import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.TotemItem;
@@ -64,6 +66,26 @@ public abstract class LivingEntityMixin extends Entity implements SlideEntity, L
 
 	/////////////////
 	///End Loot Block
+	/////////////////
+
+	/////////////////
+	///Start Projectile Resistance
+	/////////////////
+	@Inject(at = @At("HEAD"), method = "damage", cancellable = true)
+	private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cbi)
+	{
+		if(source.isProjectile())
+		{
+			double protection = EntityUtil.getProjectileResistance((LivingEntity)(Object)this);
+			if(protection > 0D && (random.nextDouble() * 30D) < protection) {
+				playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1F, 0.8F + random.nextFloat() * 0.4F);
+				cbi.setReturnValue(true);
+			}
+		}
+	}
+
+	/////////////////
+	///End Projectile Resistance
 	/////////////////
 
 	/////////////////

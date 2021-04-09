@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -56,13 +57,15 @@ import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.NBTUtil;
 import party.lemons.biomemakeover.util.extensions.GoalSelectorExtension;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
-public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob, CrossbowUser, AdjudicatorStateProvider
+public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob, CrossbowUser, AdjudicatorStateProvider, SkinOverlayOwner
 {
 	public static final TrackedData<Integer> STATE = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.INTEGER);     //Adjudicator Phase
 	private static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.BOOLEAN); //Crossbow Charging
+	private static final TrackedData<Boolean> INVULNERABLE = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.BOOLEAN); //Invulnerable
 
 	/*
 		Adjudicator Phases
@@ -120,6 +123,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		super.initDataTracker();
 		dataTracker.startTracking(STATE, 0);
 		dataTracker.startTracking(CHARGING, false);
+		dataTracker.startTracking(INVULNERABLE, false);
 	}
 
 	@Override
@@ -130,7 +134,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		{
 			homePos = getBlockPos();    //Home pos is generally the center of the arena. The position the adjudicator will return to if out of combat.
 
-			roomBounds = new Box(homePos.down()).expand(13,0, 13).stretch(0, 13, 0);    //Get the room bounds.
+			roomBounds = new Box(homePos.down(4)).expand(13,0, 13).stretch(0, 13, 0);    //Get the room bounds.
 			firstTick = false;
 
 			/*
@@ -352,6 +356,7 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 			phase.onExitPhase();
 
 		bossBar.clearPlayers();
+		bossBar.setVisible(false);
 		super.onDeath(source);
 	}
 
@@ -366,6 +371,8 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		GoalSelectorExtension.copy(targetSelector, phase.getTargetSelector());
 
 		bossBar.setVisible(phase.showBossBar());
+
+		dataTracker.set(INVULNERABLE, phase.isInvulnerable());
 	}
 
 	@Override
@@ -691,5 +698,10 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 				return false;
 
 		return super.canTarget(target);
+	}
+
+	@Override
+	public boolean shouldRenderOverlay() {
+		return dataTracker.get(INVULNERABLE);
 	}
 }

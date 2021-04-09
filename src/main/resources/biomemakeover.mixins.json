@@ -53,7 +53,8 @@
     "HostileEntityMixin",
     "RavagerEntityMixin",
     "EntityAttributeModifierMixin",
-    "EnchantmentHelperMixin"
+    "EnchantmentHelperMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenMixin",

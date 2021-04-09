@@ -43,14 +43,6 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
 
 	public BlockPos getOffsetForRotation(BlockPos offsetPos, BlockRotation rotation)
 	{
-		/*
-			TODO: remove
-				if(layout.get(Direction.SOUTH)) return offsetPos.add(12, 0, 9);
-				else if(layout.get(Direction.NORTH)) return offsetPos.add(-2, 0, 1);
-				else if(layout.get(Direction.EAST)) return offsetPos.add(9, 0, -2);
-				else if(layout.get(Direction.WEST)) return offsetPos.add(1, 0, 12);
-		 */
-
 		switch(layout.doorCount())
 		{
 			case 1:

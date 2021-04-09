@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.util;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
@@ -45,8 +46,6 @@ public final class EntityUtil
 
 	public static void applyProjectileResistance(Iterable<ItemStack> equipment, MutableInt resistance)
 	{
-		System.out.println(resistance.getValue());
-
 		MutableInt slotIndex = new MutableInt(0);
 		equipment.forEach(e->{
 			if(!e.isEmpty())
@@ -63,7 +62,24 @@ public final class EntityUtil
 			}
 			slotIndex.add(1);
 		});
-		System.out.println(resistance.getValue());
+	}
+
+	public static double getProjectileResistance(LivingEntity e)
+	{
+		double res = 0;
+		for(EquipmentSlot slot : EquipmentSlot.values())
+		{
+			ItemStack st = e.getEquippedStack(slot);
+			if(!st.isEmpty() && st.getAttributeModifiers(slot).containsKey(BMEntities.ATT_PROJECTILE_RESISTANCE))
+			{
+				Collection<EntityAttributeModifier> modifiers = st.getAttributeModifiers(slot).get(BMEntities.ATT_PROJECTILE_RESISTANCE);
+				for(EntityAttributeModifier mod : modifiers)
+				{
+					res += mod.getValue();
+				}
+			}
+		}
+		return res;
 	}
 
 	private EntityUtil()

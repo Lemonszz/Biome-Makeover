@@ -31,7 +31,6 @@ public class DungeonRoom extends MansionRoom
 	@Override
 	public Identifier getOuterWall(Direction dir, Grid<MansionRoom> roomGrid, Random random)
 	{
-		//TODO: these need thicc
 		return MansionFeature.DUNGEON_WALL.get(random.nextInt(MansionFeature.DUNGEON_WALL.size()));
 	}
 }
