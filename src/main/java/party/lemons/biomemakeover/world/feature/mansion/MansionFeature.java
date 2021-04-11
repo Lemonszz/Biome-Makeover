@@ -241,6 +241,9 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 						Stuntable.setStunted(e, true);
 					world.spawnEntityAndPassengers(e);
 					break;
+				case "shroom":
+					world.setBlockState(pos, RandomUtil.choose(SHROOMS), 3);
+					break;
 			}
 
 			if(meta.startsWith("loot"))
@@ -325,6 +328,10 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			else if(meta.startsWith("ravager"))
 			{
 				handleSpawning(meta, world, pos, ravagers);
+			}
+			else if(meta.startsWith("cow"))
+			{
+				handleSpawning(meta, world, pos, cow);
 			}
 		}
 
@@ -497,32 +504,41 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 		public static List<Identifier> CORRIDOR_CROSS = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_1"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_2"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_3"), BiomeMakeover.ID("mansion/corridor/cross/corridor_cross_4"));
 
-		public static List<Identifier> ROOMS = Lists.newArrayList(BiomeMakeover.ID("mansion/room/room_1"),
-		                                                          BiomeMakeover.ID("mansion/room/room_2"),
-		                                                          BiomeMakeover.ID("mansion/room/room_3"),
-		                                                          BiomeMakeover.ID("mansion/room/room_4"),
-		                                                          BiomeMakeover.ID("mansion/room/room_5"),
-		                                                          BiomeMakeover.ID("mansion/room/room_6"),
-		                                                          BiomeMakeover.ID("mansion/room/room_7"),
-		                                                          BiomeMakeover.ID("mansion/room/room_8"),
-		                                                          BiomeMakeover.ID("mansion/room/room_9"),
-		                                                          BiomeMakeover.ID("mansion/room/room_10"),
-		                                                          BiomeMakeover.ID("mansion/room/room_11"),
-		                                                          BiomeMakeover.ID("mansion/room/room_12"),
-		                                                          BiomeMakeover.ID("mansion/room/room_13"),
-		                                                          BiomeMakeover.ID("mansion/room/room_14"),
-		                                                          BiomeMakeover.ID("mansion/room/room_15"),
-		                                                          BiomeMakeover.ID("mansion/room/room_16"),
-		                                                          BiomeMakeover.ID("mansion/room/room_17"),
-		                                                          BiomeMakeover.ID("mansion/room/room_18"),
-		                                                          BiomeMakeover.ID("mansion/room/room_19"),
-		                                                          BiomeMakeover.ID("mansion/room/room_20"),
-		                                                          BiomeMakeover.ID("mansion/room/room_21"),
-		                                                          BiomeMakeover.ID("mansion/room/room_22"),
-		                                                          BiomeMakeover.ID("mansion/room/room_23"),
-		                                                          BiomeMakeover.ID("mansion/room/room_24"),
-		                                                          BiomeMakeover.ID("mansion/room/room_25"),
-		                                                          BiomeMakeover.ID("mansion/room/room_26")
+		public static List<Identifier> ROOMS = Lists.newArrayList(
+				BiomeMakeover.ID("mansion/room/room_1"),
+			  BiomeMakeover.ID("mansion/room/room_2"),
+			  BiomeMakeover.ID("mansion/room/room_3"),
+			  BiomeMakeover.ID("mansion/room/room_4"),
+			  BiomeMakeover.ID("mansion/room/room_5"),
+			  BiomeMakeover.ID("mansion/room/room_6"),
+			  BiomeMakeover.ID("mansion/room/room_7"),
+			  BiomeMakeover.ID("mansion/room/room_8"),
+			  BiomeMakeover.ID("mansion/room/room_9"),
+			  BiomeMakeover.ID("mansion/room/room_10"),
+			  BiomeMakeover.ID("mansion/room/room_11"),
+			  BiomeMakeover.ID("mansion/room/room_12"),
+			  BiomeMakeover.ID("mansion/room/room_13"),
+			  BiomeMakeover.ID("mansion/room/room_14"),
+			  BiomeMakeover.ID("mansion/room/room_15"),
+			  BiomeMakeover.ID("mansion/room/room_16"),
+			  BiomeMakeover.ID("mansion/room/room_17"),
+			  BiomeMakeover.ID("mansion/room/room_18"),
+			  BiomeMakeover.ID("mansion/room/room_19"),
+			  BiomeMakeover.ID("mansion/room/room_20"),
+			  BiomeMakeover.ID("mansion/room/room_21"),
+			  BiomeMakeover.ID("mansion/room/room_22"),
+			  BiomeMakeover.ID("mansion/room/room_23"),
+			  BiomeMakeover.ID("mansion/room/room_24"),
+			  BiomeMakeover.ID("mansion/room/room_25"),
+			  BiomeMakeover.ID("mansion/room/room_26"),
+			  BiomeMakeover.ID("mansion/room/room_27"),
+			  BiomeMakeover.ID("mansion/room/room_28"),
+			  BiomeMakeover.ID("mansion/room/room_29"),
+			  BiomeMakeover.ID("mansion/room/room_30"),
+			  BiomeMakeover.ID("mansion/room/room_31"),
+			  BiomeMakeover.ID("mansion/room/room_32"),
+			  BiomeMakeover.ID("mansion/room/room_33"),
+			  BiomeMakeover.ID("mansion/room/room_34")
 		);
 
 		public static List<Identifier> ROOM_BIG = Lists.newArrayList(
@@ -640,4 +656,6 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 
 		private static final EntityType[] golem_enemies = {BMEntities.STONE_GOLEM};
 		private static final EntityType[] ravagers = {EntityType.RAVAGER};
+		private static final EntityType[] cow = {EntityType.COW};
+		private static final BlockState[] SHROOMS = {Blocks.RED_MUSHROOM.getDefaultState(), Blocks.BROWN_MUSHROOM.getDefaultState(), BMBlocks.WILD_MUSHROOMS.getDefaultState()};
 	}

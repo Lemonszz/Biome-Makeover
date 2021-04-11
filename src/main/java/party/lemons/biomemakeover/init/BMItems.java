@@ -69,7 +69,7 @@ public class BMItems
 	public static final Item CLADDED_CHESTPLATE = CLADDED_ARMOR.build(EquipmentSlot.CHEST, settings());
 	public static final Item CLADDED_LEGGINGS = CLADDED_ARMOR.build(EquipmentSlot.LEGS, settings());
 	public static final Item CLADDED_BOOTS = CLADDED_ARMOR.build(EquipmentSlot.FEET, settings());
-	public static final Item ENCHANTED_TOTEM = new EnchantedTotemItem(settings().maxCount(1));
+	public static final Item ENCHANTED_TOTEM = new EnchantedTotemItem(settings().rarity(Rarity.EPIC).maxCount(1));
 
 	public static final BMMusicDiskItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMMusicDiskItem(14, BMEffects.BUTTON_MUSHROOMS, settings().maxCount(1).rarity(Rarity.RARE));
 	public static final BMMusicDiskItem GHOST_TOWN_MUSIC_DISK = new BMMusicDiskItem(15, BMEffects.GHOST_TOWN, settings().maxCount(1).rarity(Rarity.RARE));
@@ -177,7 +177,7 @@ public class BMItems
 		@Override
 		public int getEnchantability()
 		{
-			return ArmorMaterials.CHAIN.getEnchantability();
+			return 15;
 		}
 
 		@Override

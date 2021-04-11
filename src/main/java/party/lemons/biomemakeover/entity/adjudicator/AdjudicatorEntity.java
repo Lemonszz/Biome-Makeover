@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvironmentInterface;
+import net.fabricmc.api.EnvironmentInterfaces;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -61,6 +63,10 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
+@EnvironmentInterfaces({@EnvironmentInterface(
+		value = EnvType.CLIENT,
+		itf = SkinOverlayOwner.class
+)})
 public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob, CrossbowUser, AdjudicatorStateProvider, SkinOverlayOwner
 {
 	public static final TrackedData<Integer> STATE = DataTracker.registerData(AdjudicatorEntity.class, TrackedDataHandlerRegistry.INTEGER);     //Adjudicator Phase

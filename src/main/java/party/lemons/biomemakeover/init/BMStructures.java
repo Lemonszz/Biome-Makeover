@@ -47,7 +47,7 @@ public class BMStructures
 
 		FabricStructureBuilder.create(BiomeMakeover.ID("mansion"), MANSION)
 				.step(GenerationStep.Feature.SURFACE_STRUCTURES)
-				.defaultConfig(24, 16, 42069)
+				.defaultConfig(32, 16, 42069)
 				.adjustsSurface().register();
 
 		RegistryHelper.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ConfiguredStructureFeature.class, BMStructures.class);

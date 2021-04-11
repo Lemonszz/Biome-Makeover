@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:ectoplasm"
+    },
+    {
+      "item": "biomemakeover:moth_scales"
+    },
+    {
+      "item": "biomemakeover:moth_scales"
+    },
+    {
+      "item": "biomemakeover:moth_scales"
+    }
+  ],
+  "result": {
+    "item": "minecraft:phantom_membrane",
+    "count": 1
+  }
+}

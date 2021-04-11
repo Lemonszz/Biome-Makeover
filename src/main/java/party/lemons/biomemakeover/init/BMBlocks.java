@@ -15,10 +15,7 @@ import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.Tag;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Lazy;
-import net.minecraft.util.SignType;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
@@ -135,7 +132,7 @@ public class BMBlocks
 	public static final IvyBlock IVY = new IvyBlock(settings(Material.REPLACEABLE_PLANT, RLayer.CUTOUT, 0.15F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
 	public static final IvyBlock ITCHING_IVY = new ItchingIvyBlock(settings(Material.REPLACEABLE_PLANT, RLayer.CUTOUT, 0.15F).velocityMultiplier(0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
 	public static final MothBlossomBlock MOTH_BLOSSOM = new MothBlossomBlock(settings(Material.PLANT, RLayer.CUTOUT, 0.25F).velocityMultiplier(0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.VINE));
-	public static final BMMushroomPlantBlock WILD_MUSHROOMS = new WildMushroomBlock(settings(Material.PLANT, RLayer.CUTOUT, 0F).noCollision().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
+	public static final BMMushroomPlantBlock WILD_MUSHROOMS = new WildMushroomBlock(settings(Material.PLANT, RLayer.CUTOUT, 0F).noCollision().ticksRandomly().nonOpaque().sounds(BlockSoundGroup.FUNGUS));
 
 	public static final FlowerPotBlock POTTED_MYCELIUM_ROOTS = new FlowerPotBlock(MYCELIUM_ROOTS, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
 	public static final FlowerPotBlock POTTED_PURPLE_GLOWSHROOM = new FlowerPotBlock(PURPLE_GLOWSHROOM, settings(Material.SUPPORTED, RLayer.CUTOUT, 0).lightLevel(13).breakInstantly().nonOpaque().sounds(BlockSoundGroup.NETHER_SPROUTS));
@@ -261,7 +258,7 @@ public class BMBlocks
 		Registry.register(Registry.BLOCK, BiomeMakeover.ID("adjudicator_tapestry"), ADJUDICATOR_TAPESTRY);
 		AdjudicatorTapestryWallBlock adjWall = new AdjudicatorTapestryWallBlock(settings(Material.WOOD, 1F).noCollision().sounds(BlockSoundGroup.WOOD).dropsLike(ADJUDICATOR_TAPESTRY));
 		Registry.register(Registry.BLOCK, BiomeMakeover.ID("adjudicator_wall_tapestry"), adjWall);
-		WallStandingBlockItem adjBLItem = new WallStandingBlockItem(ADJUDICATOR_TAPESTRY, adjWall, new Item.Settings().maxCount(16).group(BiomeMakeover.GROUP));
+		WallStandingBlockItem adjBLItem = new WallStandingBlockItem(ADJUDICATOR_TAPESTRY, adjWall, new Item.Settings().rarity(Rarity.EPIC).maxCount(16).group(BiomeMakeover.GROUP));
 		Registry.register(Registry.ITEM, BiomeMakeover.ID("adjudicator_tapestry"), adjBLItem);
 		TAPESTRY_BLOCKS.add(ADJUDICATOR_TAPESTRY);
 		TAPESTRY_BLOCKS.add(adjWall);
