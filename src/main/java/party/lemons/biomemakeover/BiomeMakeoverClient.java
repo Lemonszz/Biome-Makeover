@@ -109,7 +109,8 @@ public class BiomeMakeoverClient implements ClientModInitializer
                if(FabricLoader.getInstance().isDevelopmentEnvironment())
                {
 	               //DebugUtil.printUntaggedItems();
-                   DebugUtil.printMissingLangKeys();
+                   //DebugUtil.printMissingLangKeys();
+				   DebugUtil.printMissingBlockLoot();
                }
                return TypedActionResult.pass(e.getStackInHand(h));
            });
