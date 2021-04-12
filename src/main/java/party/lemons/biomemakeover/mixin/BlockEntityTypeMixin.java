@@ -20,7 +20,7 @@ public class BlockEntityTypeMixin implements BlockEntityTypeAccessor
 	private Set<Block> blocks;
 
 	@Override
-	public void addBlockTypes(Block... toAdd)
+	public void bm_addBlockTypes(Block... toAdd)
 	{
 		Set<Block> b = new HashSet<>(blocks);
 

@@ -253,7 +253,6 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				int chance;
 				if(splits.length < 3)
 				{
-					System.out.println(meta + " " + template);
 					chance = 100;
 				}
 				else
@@ -262,8 +261,12 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 				}
 
 				BlockState setState = null;
-				if(splits.length == 4)
-					setState = Registry.BLOCK.get(new Identifier(splits[3])).getDefaultState();
+				if(splits.length >= 4) {
+					String name = "";
+					for(int i = 3; i < splits.length; i++)
+						name += splits[i] + "_";
+					setState = Registry.BLOCK.get(new Identifier(name.substring(0, name.length() - 1))).getDefaultState();
+				}
 
 				if(random.nextInt(100) <= chance)
 				{
@@ -288,6 +291,7 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 						case "common":
 							tableID = LOOT_STANDARD;
 							break;
+						case "loot_good":
 						case "good":
 							tableID = LOOT_GOOD;
 							break;
@@ -341,12 +345,12 @@ public class MansionFeature extends StructureFeature<DefaultFeatureConfig>
 			int chance;
 			if(splits.length < 2)
 			{
-				System.out.println(meta + " " + template);
 				chance = 100;
 			}
 			else
 			{
 				chance = Integer.parseInt(splits[1]);
+				chance = chance / 2; //Reduce spawn count lol
 			}
 
 			if(world.getRandom().nextInt(100) <= chance)

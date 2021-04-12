@@ -77,7 +77,7 @@ public abstract class PillagerSpawnerMixin implements PillagerSpawnerAccess
 	}
 
 	@Override
-	public void spawn(ServerWorld world, BlockPos pos, boolean captain)
+	public void bm_spawn(ServerWorld world, BlockPos pos, boolean captain)
 	{
 		spawnPillager(world, pos, world.random, captain);
 	}

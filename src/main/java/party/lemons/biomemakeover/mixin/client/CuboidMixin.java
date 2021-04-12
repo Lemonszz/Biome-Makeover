@@ -14,7 +14,7 @@ public class CuboidMixin implements CuboidAccessor
 	private ModelPart.Quad[] sides;
 
 	@Override
-	public ModelPart.Quad[] getSides()
+	public ModelPart.Quad[] bm_getSides()
 	{
 		return sides;
 	}

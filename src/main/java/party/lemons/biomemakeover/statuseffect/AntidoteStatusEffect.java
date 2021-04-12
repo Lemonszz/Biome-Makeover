@@ -35,7 +35,7 @@ public class AntidoteStatusEffect extends InstantStatusEffect
 
 	public void doEffect(LivingEntity target)
 	{
-		target.getStatusEffects().stream().filter((e)->((StatusEffectAccess) e.getEffectType()).getType() == StatusEffectType.HARMFUL).collect(Collectors.toList()).forEach(e->target.removeStatusEffect(e.getEffectType()));
+		target.getStatusEffects().stream().filter((e)->((StatusEffectAccess) e.getEffectType()).bm_getType() == StatusEffectType.HARMFUL).collect(Collectors.toList()).forEach(e->target.removeStatusEffect(e.getEffectType()));
 
 		if(!target.world.isClient())
 		{

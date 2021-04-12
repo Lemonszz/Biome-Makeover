@@ -4,5 +4,5 @@ import net.minecraft.block.Block;
 
 public interface AxeItemAccess
 {
-	void addStrippable(Block log, Block stripped);
+	void bm_addStrippable(Block log, Block stripped);
 }

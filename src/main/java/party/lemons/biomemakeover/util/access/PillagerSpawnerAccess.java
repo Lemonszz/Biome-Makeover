@@ -5,5 +5,5 @@ import net.minecraft.util.math.BlockPos;
 
 public interface PillagerSpawnerAccess
 {
-	void spawn(ServerWorld world, BlockPos pos, boolean leader);
+	void bm_spawn(ServerWorld world, BlockPos pos, boolean leader);
 }

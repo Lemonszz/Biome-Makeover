@@ -9,7 +9,7 @@ public class ClientUtil
 {
 	public static Particle spawnParticle(ParticleEffect parameters, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double velocityX, double velocityY, double velocityZ)
 	{
-		return ((WorldRendererAccess) MinecraftClient.getInstance().worldRenderer).createParticle(parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+		return ((WorldRendererAccess) MinecraftClient.getInstance().worldRenderer).bm_createParticle(parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
 	}
 
 	private ClientUtil()

@@ -4,5 +4,5 @@ import net.minecraft.block.Block;
 
 public interface BlockEntityTypeAccessor
 {
-	void addBlockTypes(Block... toAdd);
+	void bm_addBlockTypes(Block... toAdd);
 }

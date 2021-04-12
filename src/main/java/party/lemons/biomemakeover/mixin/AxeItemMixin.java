@@ -35,7 +35,7 @@ public class AxeItemMixin implements AxeItemAccess
 	}
 
 	@Override
-	public void addStrippable(Block log, Block stripped)
+	public void bm_addStrippable(Block log, Block stripped)
 	{
 		STRIPPED_BLOCKS.put(log, stripped);
 	}

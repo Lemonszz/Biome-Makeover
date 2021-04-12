@@ -4,5 +4,5 @@ import net.minecraft.world.World;
 
 public interface ChunkRenderRegionAccess
 {
-	World getWorld();
+	World bm_getWorld();
 }

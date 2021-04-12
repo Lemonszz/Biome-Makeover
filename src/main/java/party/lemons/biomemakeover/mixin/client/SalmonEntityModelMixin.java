@@ -15,7 +15,7 @@ public class SalmonEntityModelMixin implements SalmonEntityModelAccessor
 	public ModelPart tail;
 
 	@Override
-	public ModelPart getTail()
+	public ModelPart bm_getTail()
 	{
 		return tail;
 	}

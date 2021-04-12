@@ -16,7 +16,7 @@ public class StatusEffectMixin implements StatusEffectAccess
 	private StatusEffectType type;
 
 	@Override
-	public StatusEffectType getType()
+	public StatusEffectType bm_getType()
 	{
 		return type;
 	}

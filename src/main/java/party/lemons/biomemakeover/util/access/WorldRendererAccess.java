@@ -5,5 +5,5 @@ import net.minecraft.particle.ParticleEffect;
 
 public interface WorldRendererAccess
 {
-	Particle createParticle(ParticleEffect parameters, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double velocityX, double velocityY, double velocityZ);
+	Particle bm_createParticle(ParticleEffect parameters, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double velocityX, double velocityY, double velocityZ);
 }

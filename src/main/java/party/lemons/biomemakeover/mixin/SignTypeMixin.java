@@ -17,7 +17,7 @@ public class SignTypeMixin implements SignTypeHelper
 	private static Set<SignType> VALUES;
 
 	@Override
-	public Set<SignType> getTypes()
+	public Set<SignType> bm_getTypes()
 	{
 		return VALUES;
 	}

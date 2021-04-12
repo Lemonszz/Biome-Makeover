@@ -23,7 +23,7 @@ public abstract class FireBlockMixin implements FireBlockAccessor
 	protected abstract void registerFlammableBlock(Block block, int burnChance, int spreadChance);
 
 	@Override
-	public void registerFlammable(Block block, int burnChance, int spreadChance)
+	public void bm_registerFlammable(Block block, int burnChance, int spreadChance)
 	{
 		registerFlammableBlock(block, burnChance, spreadChance);
 	}

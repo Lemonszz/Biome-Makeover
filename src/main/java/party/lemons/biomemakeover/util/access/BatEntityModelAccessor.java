@@ -4,5 +4,5 @@ import net.minecraft.client.model.ModelPart;
 
 public interface BatEntityModelAccessor
 {
-	ModelPart getHead();
+	ModelPart bm_getHead();
 }

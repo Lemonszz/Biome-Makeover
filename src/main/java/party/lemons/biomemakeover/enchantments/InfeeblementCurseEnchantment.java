@@ -7,9 +7,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 
 import java.util.UUID;
 
-public class SicknessCurseEnchantment extends BMEnchantment
+public class InfeeblementCurseEnchantment extends BMEnchantment
 {
-	public SicknessCurseEnchantment()
+	public InfeeblementCurseEnchantment()
 	{
 		super(Rarity.UNCOMMON, EnchantmentTarget.VANISHABLE, EquipmentSlot.values());
 	}

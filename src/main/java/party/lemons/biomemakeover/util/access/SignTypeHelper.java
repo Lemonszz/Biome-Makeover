@@ -6,11 +6,11 @@ import java.util.Set;
 
 public interface SignTypeHelper
 {
-	Set<SignType> getTypes();
+	Set<SignType> bm_getTypes();
 
 	static SignType register(SignType type)
 	{
-		((SignTypeHelper) type).getTypes().add(type);
+		((SignTypeHelper) type).bm_getTypes().add(type);
 
 		return type;
 	}

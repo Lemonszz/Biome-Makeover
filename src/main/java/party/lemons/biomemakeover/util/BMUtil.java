@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.Tag;
@@ -48,7 +47,7 @@ public class BMUtil
 
 	public static void addStrippedLog(Block log, Block stripped)
 	{
-		((AxeItemAccess) Items.WOODEN_AXE).addStrippable(log, stripped);
+		((AxeItemAccess) Items.WOODEN_AXE).bm_addStrippable(log, stripped);
 	}
 
 	public static boolean isAdjacentDirection(Direction current, Direction check)

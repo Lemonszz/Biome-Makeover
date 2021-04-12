@@ -12,7 +12,7 @@ public class BoatEntityMixin implements BoatAccessor
 	private float yawVelocity;
 
 	@Override
-	public float getYawVelocity()
+	public float bm_getYawVelocity()
 	{
 		return yawVelocity;
 	}

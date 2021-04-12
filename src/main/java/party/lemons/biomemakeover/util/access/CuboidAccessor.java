@@ -7,5 +7,5 @@ import net.minecraft.client.model.ModelPart;
 public interface CuboidAccessor
 {
 	@Environment(EnvType.CLIENT)
-	ModelPart.Quad[] getSides();
+	ModelPart.Quad[] bm_getSides();
 }

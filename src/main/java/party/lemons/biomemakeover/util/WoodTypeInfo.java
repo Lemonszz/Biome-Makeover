@@ -111,7 +111,7 @@ public class WoodTypeInfo
 		set(Type.SIGN_WALL, wall);
 		set(Type.SIGN, new SignItem(BMItems.settings(), standing, wall));
 
-		((BlockEntityTypeAccessor) BlockEntityType.SIGN).addBlockTypes(standing, wall);
+		((BlockEntityTypeAccessor) BlockEntityType.SIGN).bm_addBlockTypes(standing, wall);
 		return this;
 	}
 

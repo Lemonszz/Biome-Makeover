@@ -76,7 +76,7 @@ public class CarvedPumpkinBlockMixin implements CarvedPumpkinBlockAccess
 	}
 
 	@Override
-	public Predicate<BlockState> isGolemHeadBlock()
+	public Predicate<BlockState> bm_isGolemHeadBlock()
 	{
 		return IS_GOLEM_HEAD_PREDICATE;
 	}

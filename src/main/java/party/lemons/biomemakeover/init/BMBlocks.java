@@ -303,7 +303,7 @@ public class BMBlocks
 
 	public static void registerFlammable(Block block, int burnChance, int spreadChance)
 	{
-		((FireBlockAccessor) Blocks.FIRE).registerFlammable(block, burnChance, spreadChance);
+		((FireBlockAccessor) Blocks.FIRE).bm_registerFlammable(block, burnChance, spreadChance);
 	}
 
 	public static void registerFlammable(WoodTypeInfo info)

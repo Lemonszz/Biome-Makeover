@@ -48,7 +48,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
 		{
 			if(world instanceof ChunkRenderRegionAccess)
 			{
-				if(((ChunkRenderRegionAccess) world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+				if(((ChunkRenderRegionAccess) world).bm_getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
 				{
 					return new int[]{-20, 40, -20};
 				}
@@ -70,7 +70,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
 		{
 			if(world instanceof ChunkRenderRegionAccess)
 			{
-				if(((ChunkRenderRegionAccess) world).getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
+				if(((ChunkRenderRegionAccess) world).bm_getWorld().getBiome(pos).getCategory() == Biome.Category.SWAMP)
 				{
 					return new int[]{-10, 15, -10};
 				}

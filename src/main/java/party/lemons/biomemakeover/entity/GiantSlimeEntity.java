@@ -75,7 +75,7 @@ public class GiantSlimeEntity extends SlimeEntity
 				slimeEntity.setCustomName(text);
 				slimeEntity.setAiDisabled(bl);
 				slimeEntity.setInvulnerable(this.isInvulnerable());
-				((SlimeEntityAccess) slimeEntity).setSlimeSize(halfSize, true);
+				((SlimeEntityAccess) slimeEntity).bm_setSlimeSize(halfSize, true);
 				slimeEntity.refreshPositionAndAngles(this.getX() + (double) offsetX, this.getY() + 0.5D, this.getZ() + (double) offsetY, this.random.nextFloat() * 360.0F, 0.0F);
 				this.world.spawnEntity(slimeEntity);
 			}

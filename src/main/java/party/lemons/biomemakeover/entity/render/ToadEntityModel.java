@@ -212,7 +212,7 @@ public class ToadEntityModel extends CompositeEntityModel<ToadEntity> implements
 			Matrix4f matrix4f = me.getModel();
 			Matrix3f matrix3f = me.getNormal();
 
-			ModelPart.Quad[] var13 = ((CuboidAccessor) cuboid).getSides();
+			ModelPart.Quad[] var13 = ((CuboidAccessor) cuboid).bm_getSides();
 			int var14 = var13.length;
 
 			for(int var15 = 0; var15 < var14; ++var15)

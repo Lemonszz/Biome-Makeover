@@ -10,27 +10,27 @@ import java.util.Set;
 
 public interface GoalSelectorExtension
 {
-	void copy(GoalSelector selector);
-	Set<PrioritizedGoal> getGoals();
-	void remove(Class<? extends Goal> goalClass);
+	void bm_copy(GoalSelector selector);
+	Set<PrioritizedGoal> bm_getGoals();
+	void bm_remove(Class<? extends Goal> goalClass);
 
 	static void copy(GoalSelector to, GoalSelector from)
 	{
-		((GoalSelectorExtension)to).copy(from);
+		((GoalSelectorExtension)to).bm_copy(from);
 	}
 
 	static void removeGoal(MobEntity mob, Class<? extends Goal> goalClass)
 	{
-		removeFrom(((MobEntityAccess)mob).getGoalSelector(), goalClass);
+		removeFrom(((MobEntityAccess)mob).bm_getGoalSelector(), goalClass);
 	}
 
 	static void removeTarget(MobEntity mob, Class<? extends Goal> goalClass)
 	{
-		removeFrom(((MobEntityAccess)mob).getTargetSelector(), goalClass);
+		removeFrom(((MobEntityAccess)mob).bm_getTargetSelector(), goalClass);
 	}
 
 	static void removeFrom(GoalSelector goalSelector, Class<? extends Goal> goalClass)
 	{
-		((GoalSelectorExtension)goalSelector).remove(goalClass);
+		((GoalSelectorExtension)goalSelector).bm_remove(goalClass);
 	}
 }

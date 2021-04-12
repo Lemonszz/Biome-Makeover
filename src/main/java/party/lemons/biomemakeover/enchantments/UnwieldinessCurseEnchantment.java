@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
-public class HeavyCurseEnchantment extends BMEnchantment
+public class UnwieldinessCurseEnchantment extends BMEnchantment
 {
-	public HeavyCurseEnchantment()
+	public UnwieldinessCurseEnchantment()
 	{
 		super(Rarity.UNCOMMON, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
 	}

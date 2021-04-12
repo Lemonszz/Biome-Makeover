@@ -30,7 +30,7 @@ public class BlightbatFeatureRenderer extends FeatureRenderer<BatEntity, EntityM
 			int m = LivingEntityRenderer.getOverlay(e, 0.0F);
 
 			ms.push();
-			((BatEntityModelAccessor) this.getContextModel()).getHead().rotate(ms);
+			((BatEntityModelAccessor) this.getContextModel()).bm_getHead().rotate(ms);
 			ms.translate(0.0D, -0.7, 0);
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
 			ms.scale(-1.0F, -1.0F, 1.0F);

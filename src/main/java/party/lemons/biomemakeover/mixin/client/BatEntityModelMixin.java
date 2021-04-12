@@ -15,7 +15,7 @@ public class BatEntityModelMixin implements BatEntityModelAccessor
 	public ModelPart head;
 
 	@Override
-	public ModelPart getHead()
+	public ModelPart bm_getHead()
 	{
 		return head;
 	}

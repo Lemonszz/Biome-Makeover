@@ -31,8 +31,8 @@ public class GlowfishFeatureRenderer extends FeatureRenderer<SalmonEntity, Salmo
 			int m = LivingEntityRenderer.getOverlay(e, 0.0F);
 
 			ms.push();
-			((SalmonEntityModelAccessor) this.getContextModel()).getTail().rotate(ms);
-			((SalmonEntityModelAccessor) this.getContextModel()).getTail().visible = false;
+			((SalmonEntityModelAccessor) this.getContextModel()).bm_getTail().rotate(ms);
+			((SalmonEntityModelAccessor) this.getContextModel()).bm_getTail().visible = false;
 			ms.translate(0.0D, 0, 0.5F);
 			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90));
 			ms.scale(-1.0F, -1.0F, 1.0F);

@@ -4,5 +4,5 @@ import net.minecraft.entity.effect.StatusEffectType;
 
 public interface StatusEffectAccess
 {
-	StatusEffectType getType();
+	StatusEffectType bm_getType();
 }

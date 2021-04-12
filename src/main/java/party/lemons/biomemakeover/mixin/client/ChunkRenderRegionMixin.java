@@ -16,7 +16,7 @@ public class ChunkRenderRegionMixin implements ChunkRenderRegionAccess
 	protected World world;
 
 	@Override
-	public World getWorld()
+	public World bm_getWorld()
 	{
 		return world;
 	}

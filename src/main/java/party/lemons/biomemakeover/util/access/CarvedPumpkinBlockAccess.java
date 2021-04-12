@@ -6,5 +6,5 @@ import java.util.function.Predicate;
 
 public interface CarvedPumpkinBlockAccess
 {
-	Predicate<BlockState> isGolemHeadBlock();
+	Predicate<BlockState> bm_isGolemHeadBlock();
 }

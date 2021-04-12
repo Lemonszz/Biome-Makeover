@@ -12,7 +12,7 @@ public abstract class SlimeEntityMixin implements SlimeEntityAccess
 	protected abstract void setSize(int size, boolean heal);
 
 	@Override
-	public void setSlimeSize(int size, boolean heal)
+	public void bm_setSlimeSize(int size, boolean heal)
 	{
 		setSize(size, heal);
 	}

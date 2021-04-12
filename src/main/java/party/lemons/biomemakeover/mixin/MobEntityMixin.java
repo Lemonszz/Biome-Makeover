@@ -15,13 +15,13 @@ public class MobEntityMixin implements MobEntityAccess
 	@Shadow @Final protected GoalSelector targetSelector;
 
 	@Override
-	public GoalSelector getGoalSelector()
+	public GoalSelector bm_getGoalSelector()
 	{
 		return goalSelector;
 	}
 
 	@Override
-	public GoalSelector getTargetSelector()
+	public GoalSelector bm_getTargetSelector()
 	{
 		return targetSelector;
 	}

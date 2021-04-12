@@ -1,5 +1,8 @@
 package party.lemons.biomemakeover.world.feature.mansion.room;
 
+import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePiece;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -7,6 +10,7 @@ import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.world.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.world.feature.mansion.RoomType;
 
+import java.util.List;
 import java.util.Random;
 
 public class DungeonRoom extends MansionRoom
