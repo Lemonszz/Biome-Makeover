@@ -25,6 +25,7 @@ import net.minecraft.util.registry.Registry;
 import party.lemons.biomemakeover.block.AltarBlock;
 import party.lemons.biomemakeover.gui.AltarScreenHandler;
 import party.lemons.biomemakeover.init.BMBlockEntities;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.effect.EffectHelper;
@@ -133,6 +134,9 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 
 		this.pageTurningSpeed = this.nextPageTurningSpeed;
 		this.lastAngle = this.currentAngle;
+
+		if(world.getBlockState(pos).isOf(BMBlocks.ALTAR))
+			return;
 
 		if(world.getBlockState(pos).get(AltarBlock.ACTIVE))
 		{
