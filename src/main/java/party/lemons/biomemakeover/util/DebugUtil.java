@@ -1,8 +1,10 @@
 package party.lemons.biomemakeover.util;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -71,7 +73,7 @@ public class DebugUtil
 		Registry.BLOCK.forEach((i)-> {
 			Identifier id = Registry.BLOCK.getId(i);
 			if (id.getNamespace().equals(BiomeMakeover.MODID)) {
-				if(i.getLootTableId() == LootTables.EMPTY)
+				if(i.getLootTableId() == LootTables.EMPTY || MinecraftClient.getInstance().getServer().getLootManager().getTable(i.getLootTableId()) == LootTable.EMPTY)
 					s[0] += id + "\n";
 			}
 		});
