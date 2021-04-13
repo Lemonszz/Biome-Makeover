@@ -385,7 +385,13 @@ public class MothEntity extends HostileEntity
 			} else if (MothEntity.this.age % 20 == 0 && !MothEntity.this.isAttractive(MothEntity.this.attactPos)) {
 				MothEntity.this.attactPos = null;
 				return false;
-			} else {
+			}
+			else if(attactPos != null && attactPos.getY() < getY() && !MothEntity.this.isWithinDistance(attactPos, 1) && world.getBlockState(MothEntity.this.getBlockPos().down()).isOpaque()){
+				MothEntity.this.attactPos = null;
+
+				return false;
+			}
+			else {
 				return true;
 			}
 		}
