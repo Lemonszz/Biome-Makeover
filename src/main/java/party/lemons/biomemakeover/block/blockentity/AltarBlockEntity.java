@@ -135,7 +135,7 @@ public class AltarBlockEntity extends LootableContainerBlockEntity implements Ti
 		this.pageTurningSpeed = this.nextPageTurningSpeed;
 		this.lastAngle = this.currentAngle;
 
-		if(world.getBlockState(pos).isOf(BMBlocks.ALTAR))
+		if(!world.getBlockState(pos).isOf(BMBlocks.ALTAR))
 			return;
 
 		if(world.getBlockState(pos).get(AltarBlock.ACTIVE))
