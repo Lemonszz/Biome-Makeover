@@ -63,7 +63,7 @@ public class BMItems
 	public static final Item ILLUNITE_SHARD = new Item(settings());
 	public static final Item ROOTLING_SEEDS = new AliasedBlockItem(BMBlocks.ROOTLING_CROP, settings());
 	public static final Item MOTH_SCALES = new Item(settings());
-	public static final Item STUNT_POWDER = new StuntPowderItem(settings());
+	public static final StuntPowderItem STUNT_POWDER = new StuntPowderItem(settings());
 	public static final Item CRUDE_CLADDING = new Item(settings());
 	public static final Item CLADDED_HELMET = CLADDED_ARMOR.build(EquipmentSlot.HEAD, settings());
 	public static final Item CLADDED_CHESTPLATE = CLADDED_ARMOR.build(EquipmentSlot.CHEST, settings());

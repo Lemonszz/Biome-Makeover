@@ -19,8 +19,7 @@ public class StuntPowderItem extends Item
 		super(settings);
 	}
 
-	@Override
-	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand)
+	public ActionResult stuntEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand)
 	{
 		if(entity instanceof Stuntable)
 		{
@@ -36,4 +35,5 @@ public class StuntPowderItem extends Item
 		}
 		return super.useOnEntity(stack, user, entity, hand);
 	}
+
 }

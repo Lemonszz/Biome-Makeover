@@ -141,7 +141,7 @@ public class OwlEntityModel extends CompositeEntityModel<OwlEntity> implements M
 		thigh_right_r1.setPivot(0.0F, 0.0F, 0.0F);
 		leg_right.addChild(thigh_right_r1);
 		setRotationAngle(thigh_right_r1, 0.4363F, 0.0F, 0.0F);
-		thigh_right_r1.setTextureOffset(22, 16).addCuboid(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, 0.0F, false);
+		thigh_right_r1.setTextureOffset(0, 0).addCuboid(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, 0.0F, true);
 
 		foot_right = new ModelPart(this);
 		foot_right.setPivot(0.0F, 2.0F, 0.0F);
