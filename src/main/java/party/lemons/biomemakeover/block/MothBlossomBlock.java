@@ -1,10 +1,7 @@
 package party.lemons.biomemakeover.block;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FacingBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
@@ -224,6 +221,9 @@ public class MothBlossomBlock extends IvyShapedBlock
 			if(validFace)
 				validDirections.add(dir);
 		}
+
+		if(validDirections.isEmpty())
+			return Blocks.AIR.getDefaultState();
 
 		Direction blossomDir = RandomUtil.choose(validDirections);
 		placeState = placeState.with(BLOSSOM_DIRECTION, blossomDir);

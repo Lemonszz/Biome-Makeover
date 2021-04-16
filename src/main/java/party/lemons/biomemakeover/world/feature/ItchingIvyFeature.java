@@ -1,6 +1,8 @@
 package party.lemons.biomemakeover.world.feature;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -29,23 +31,26 @@ public class ItchingIvyFeature extends Feature<DefaultFeatureConfig>
 		if(!world.getBlockState(genPos.down()).isIn(BlockTags.LEAVES))
 			return false;
 
-		world.setBlockState(genPos, BMBlocks.MOTH_BLOSSOM.getGrowState(world, genPos), 3);
-		world.getBlockTickScheduler().schedule(genPos, BMBlocks.MOTH_BLOSSOM, 0);
+		BlockState placeState = BMBlocks.MOTH_BLOSSOM.getGrowState(world, genPos);
+		if(placeState != Blocks.AIR.getDefaultState()) {
+			world.setBlockState(genPos, placeState, 3);
+			world.getBlockTickScheduler().schedule(genPos, BMBlocks.MOTH_BLOSSOM, 0);
 
-		for(int i = 0; i < 10; i++)
-		{
-			int ivyX = RandomUtil.randomRange(-5, 5);
-			int ivyZ = RandomUtil.randomRange(-5, 5);
-			BlockPos ivyPos = genPos.add(ivyX, 0, ivyZ);
-			ivyPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, ivyPos);
-			if(world.getBlockState(ivyPos.down()).isIn(BlockTags.LEAVES))
-			{
-				world.setBlockState(ivyPos, BMBlocks.ITCHING_IVY.getDefaultState().with(IvyBlock.getPropertyForDirection(Direction.DOWN), true), 3);
-				world.getBlockTickScheduler().schedule(ivyPos, BMBlocks.ITCHING_IVY, 0);
+			for (int i = 0; i < 10; i++) {
+				int ivyX = RandomUtil.randomRange(-5, 5);
+				int ivyZ = RandomUtil.randomRange(-5, 5);
+				BlockPos ivyPos = genPos.add(ivyX, 0, ivyZ);
+				ivyPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, ivyPos);
+				if (world.getBlockState(ivyPos.down()).isIn(BlockTags.LEAVES)) {
+					world.setBlockState(ivyPos, BMBlocks.ITCHING_IVY.getDefaultState().with(IvyBlock.getPropertyForDirection(Direction.DOWN), true), 3);
+					world.getBlockTickScheduler().schedule(ivyPos, BMBlocks.ITCHING_IVY, 0);
+				}
+
 			}
 
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 }
