@@ -125,7 +125,7 @@ public class BMBlocks
 	public static WoodTypeInfo ANCIENT_OAK_WOOD_INFO = new WoodTypeInfo("ancient_oak", settings(Material.WOOD, 1.5F).sounds(BlockSoundGroup.WOOD)).all();
 	public static final BMSaplingBlock ANCIENT_OAK_SAPLING = new BMSaplingBlock(new AncientOakSaplingGenerator(), settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final BMLeavesBlock ANCIENT_OAK_LEAVES = new BMLeavesBlock(settings(Material.LEAVES, RLayer.CUTOUT_MIPPED, 0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BMBlocks::canSpawnOnLeaves).suffocates((a, b, c)->false).blockVision((a, b, c)->false));
-	public static final AltarBlock ALTAR = new AltarBlock(settings(Material.STONE, RLayer.CUTOUT, 0.5F).luminance((st)->st.get(AltarBlock.ACTIVE) ? 5 : 1).requiresTool().nonOpaque());
+	public static final AltarBlock ALTAR = new AltarBlock(settings(Material.STONE, RLayer.CUTOUT, 1.5F).luminance((st)->st.get(AltarBlock.ACTIVE) ? 5 : 1).requiresTool().nonOpaque());
 	public static final Block CLADDED_STONE = new BMBlock(settings(Material.STONE, 1.5F));
 
 	public static final RootlingCropBlock ROOTLING_CROP = new RootlingCropBlock(settings(Material.PLANT, RLayer.CUTOUT, 0).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP));
