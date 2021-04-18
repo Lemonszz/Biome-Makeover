@@ -16,7 +16,8 @@ public class S2C_SetSlideTime implements ClientPlayNetworking.PlayChannelHandler
 
 		client.execute(()->
 		{
-			((SlideEntity) client.player).setSlideTime(time);
+			if(client.player != null)
+				((SlideEntity) client.player).setSlideTime(time);
 		});
 	}
 }
