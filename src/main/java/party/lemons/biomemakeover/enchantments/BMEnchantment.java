@@ -72,7 +72,11 @@ public class BMEnchantment extends Enchantment
 			EntityAttributeInstance entityAttributeInstance = entity.getAttributes().getCustomInstance(attributeEntry.getKey());
 			if(entityAttributeInstance != null)
 			{
-				entityAttributeInstance.removeModifier(entityAttributeInstance.getModifier(slotID));
+				EntityAttributeModifier mod = entityAttributeInstance.getModifier(slotID);
+				if(mod != null)
+					entityAttributeInstance.removeModifier(mod);
+				else
+					System.out.println("ERROR REMOVING MODIFIER: DOESNT EXIST??? : " + entityAttributeInstance.getAttribute().getTranslationKey());
 			}
 		}
 	}

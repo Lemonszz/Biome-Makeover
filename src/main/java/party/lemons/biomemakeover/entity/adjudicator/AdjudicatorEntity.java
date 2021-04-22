@@ -251,12 +251,15 @@ public class AdjudicatorEntity extends HostileEntity implements RangedAttackMob,
 		 */
 		//Get all valid players + spectator
 		List<PlayerEntity> playersWithSpectator = world.getEntitiesByClass(PlayerEntity.class, getArenaBounds(), (p)->true);
+		List<ServerPlayerEntity> toRemove = Lists.newArrayList();
+
 		for(ServerPlayerEntity playerEntity : bossBar.getPlayers()) //Loop through current players tracked by the boss bar
 		{
 			//Remove them from tracking if they're no longer valid
 			if(!playersWithSpectator.contains(playerEntity))
-				bossBar.removePlayer(playerEntity);
+				toRemove.add(playerEntity);
 		}
+		toRemove.forEach(bossBar::removePlayer);
 
 		//Loop though valid players
 		for(PlayerEntity playerEntity : playersWithSpectator)
