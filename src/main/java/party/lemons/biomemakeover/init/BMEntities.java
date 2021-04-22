@@ -72,6 +72,7 @@ public class BMEntities
 
 		restrictions.put(BMEntities.TOAD, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
 		restrictions.put(BMEntities.DRAGONFLY, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidAnimalSpawn));
+		restrictions.put(BMEntities.LIGHTNING_BUG, new SpawnRestriction.Entry(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestriction.Location.ON_GROUND, BMEntities::isValidLightningBugSpawn));
 		registerRestriction(restrictions, BMEntities.ROOTLING, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BMEntities::isValidDarkForestAnimalSpawn);
 		registerRestriction(restrictions, BMEntities.OWL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BMEntities::isValidOwlSpawn);
 		registerRestriction(restrictions, BMEntities.MOTH, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, BMEntities::isValidMothSpawn);
@@ -99,6 +100,11 @@ public class BMEntities
 	public static boolean isValidDarkForestAnimalSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
 	{
 		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK) && world.getBaseLightLevel(pos, 0) > 2;
+	}
+
+	public static boolean isValidLightningBugSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
+	{
+		return world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK);
 	}
 
 	public static boolean isValidOwlSpawn(EntityType type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random)
