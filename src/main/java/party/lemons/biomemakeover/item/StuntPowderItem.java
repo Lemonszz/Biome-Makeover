@@ -29,6 +29,7 @@ public class StuntPowderItem extends Item
 				{
 					((Stuntable) entity).setStunted(true);
 					NetworkUtil.doEntityParticle(user.world, ParticleTypes.WARPED_SPORE, entity, 15, 0.2F);
+					stack.decrement(1);
 				}
 				return ActionResult.SUCCESS;
 			}
