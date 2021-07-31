@@ -272,8 +272,8 @@
   "block.biomemakeover.ivy": "Hera",
   "block.biomemakeover.itching_ivy": "Hera venenosa",*
   "block.biomemakeover.moth_blossom": "Moth Blossom",*
-  "block.biomemakeover.white_tapestry": "White Tapestry",
-  "block.biomemakeover.orange_tapestry": "Orange Tapestry",
+  "block.biomemakeover.white_tapestry": "White Tapestry",*
+  "block.biomemakeover.orange_tapestry": "Orange Tapestry",...
   "block.biomemakeover.magenta_tapestry": "Magenta Tapestry",
   "block.biomemakeover.light_blue_tapestry": "Light Blue Tapestry",
   "block.biomemakeover.yellow_tapestry": "Yellow Tapestry",
@@ -286,14 +286,14 @@
   "block.biomemakeover.blue_tapestry": "Blue Tapestry",
   "block.biomemakeover.brown_tapestry": "Brown Tapestry",
   "block.biomemakeover.green_tapestry": "Green Tapestry",
-  "block.biomemakeover.red_tapestry": "Red Tapestry",
-  "block.biomemakeover.black_tapestry": "Black Tapestry",
-  "block.biomemakeover.adjudicator_tapestry": "Adjudicator Tapestry",
-  "block.biomemakeover.cladded_stone": "Cladded Stone",
-  "block.biomemakeover.directional_data": "Directional Data Block",
+  "block.biomemakeover.red_tapestry": "Red Tapestry",...
+  "block.biomemakeover.black_tapestry": "Black Tapestry",*
+  "block.biomemakeover.adjudicator_tapestry": "Adjudicator Tapestry",*
+  "block.biomemakeover.cladded_stone": "Cladded Stone",*
+  "block.biomemakeover.directional_data": "Directional Data Block",*
   "block.biomemakeover.wild_mushrooms": "Cogumelos silvestres",
   "block.biomemakeover.potted_wild_mushrooms": "Cugumelos silvestres envasados",
-  "block.biomemakeover.black_thistle": "Black Thistle",
+  "block.biomemakeover.black_thistle": "Black Thistle",*
   "block.biomemakeover.foxglove": "Dedaleira",
 
   "item.biomemakeover.button_mushrooms_music_disk": "Disco de música",
@@ -426,56 +426,56 @@
   "entity.biomemakeover.adjudicator_mimic": "Adjudicator",*
   "entity.biomemakeover.stone_golem": "Golem de pedra",
 
-  "subtitles.biomemakeover.ghost.charge": "Ghost Shrieks",
-  "subtitles.biomemakeover.ghost.death": "Ghost Dies",
-  "subtitles.biomemakeover.ghost.hurt": "Ghost Hurts",
-  "subtitles.biomemakeover.ghost.angry": "Ghost Screams",
-  "subtitles.biomemakeover.ghost.idle": "Ghost Moans",
-  "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles",
-  "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",
-  "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",
-  "subtitles.biomemakeover.tumbleweed.tumble": "Tumbleweed Tumbles",
-  "subtitles.biomemakeover.tumbleweed.break": "Tumbleweed Breaks",
-  "subtitles.biomemakeover.poltergeist.toggle": "Poltergeist Toggles",
-  "subtitles.biomemakeover.poltergeist.action": "Poltergeist Interacts",
-  "subtitles.entity.lightning_bottle.throw": "Lightning in a Bottle Thrown",
-  "subtitles.entity.toad.have_baby" : "Tadpole Appears",
-  "subtitles.entity.toad.croak": "Toad Croaks",
-  "subtitles.entity.toad.hurt": "Toad Hurts",
-  "subtitles.entity.toad.death": "Toad Dies",
-  "subtitles.entity.toad.mouth": "Toad Attacks",
-  "subtitles.entity.toad.swallow": "Toad Swallows",
-  "subtitles.entity.toad.jump": "Toad Jumps",
-  "subtitles.entity.dragonfly.loop": "Dragonfly Buzzes",
-  "subtitles.entity.dragonfly.hurt": "Dragonfly Hurts",
-  "subtitles.entity.dragonfly.death": "Dragonfly Dies",
+  "subtitles.biomemakeover.ghost.charge": "Fantasma guinchando",
+  "subtitles.biomemakeover.ghost.death": "Fantasma morre",
+  "subtitles.biomemakeover.ghost.hurt": "Fantasma ferido",
+  "subtitles.biomemakeover.ghost.angry": "Fantasma gritando",
+  "subtitles.biomemakeover.ghost.idle": "Fantasma grunhindo",*
+  "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles",*
+  "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",*
+  "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",*
+  "subtitles.biomemakeover.tumbleweed.tumble": "Tumbleweed tombando",
+  "subtitles.biomemakeover.tumbleweed.break": "Tumbleweed quebra",
+  "subtitles.biomemakeover.poltergeist.toggle": "Poltergeist Toggles",*
+  "subtitles.biomemakeover.poltergeist.action": "Poltergeist Interacts",*
+  "subtitles.entity.lightning_bottle.throw": "Lightning in a Bottle Thrown",*
+  "subtitles.entity.toad.have_baby" : "Girino nasce",
+  "subtitles.entity.toad.croak": "Sapo coachando",
+  "subtitles.entity.toad.hurt": "Sapo ferido",
+  "subtitles.entity.toad.death": "Sapo morre",
+  "subtitles.entity.toad.mouth": "Sapo ataca",
+  "subtitles.entity.toad.swallow": "Sapo engole",
+  "subtitles.entity.toad.jump": "Sapo pula",
+  "subtitles.entity.dragonfly.loop": "Libélula zumbindo",
+  "subtitles.entity.dragonfly.hurt": "Libélula ferida",
+  "subtitles.entity.dragonfly.death": "Libélula morre",
   "subtitles.entity.decayed.swim": "Decayed Swims",
   "subtitles.entity.decayed.step": "Decayed Steps",
   "subtitles.entity.decayed.hurt": "Decayed Hurts",
   "subtitles.entity.decayed.death": "Decayed Dies",
   "subtitles.entity.decayed.ambient": "Decayed Gargles",
-  "subtitles.biomemakeover.moth.bite": "Moth Bites",
-  "subtitles.biomemakeover.moth.death": "Moth Dies",
-  "subtitles.biomemakeover.moth.flap": "Moth Flaps",
-  "subtitles.biomemakeover.moth.idle": "Moth Squeeks",
-  "subtitles.biomemakeover.moth.hurt": "Moth Hurts",
-  "subtitles.biomemakeover.rootling.idle": "Rootling Jabbers",
-  "subtitles.biomemakeover.rootling.afraid": "Rootling Gasps",
-  "subtitles.biomemakeover.rootling.death": "Rootling Dies",
-  "subtitles.biomemakeover.rootling.hurt": "Rootling Hurts",
-  "subtitles.biomemakeover.stone_holem.hurt": "Stone Golem Hurts",
-  "subtitles.biomemakeover.stone_holem.death": "Stone Golem Dies",
-  "subtitles.biomemakeover.adjudicator_mimic": "Adjudicator Mimics",
-  "subtitles.biomemakeover.adjudicator_cast_grunt": "Adjudicator Casts",
-  "subtitles.biomemakeover.adjudicator_death": "Adjudicator Dies",
-  "subtitles.biomemakeover.adjudicator_grunt": "Adjudicator Grunts",
-  "subtitles.biomemakeover.adjudicator_hurt": "Adjudicator Hurts",
-  "subtitles.biomemakeover.adjudicator_idle": "Adjudicator Thinks",
-  "subtitles.biomemakeover.adjudicator_laugh": "Adjudicator Laughs",
-  "subtitles.biomemakeover.adjudicator_no": "Adjudicator Denies",
-  "subtitles.biomemakeover.owl_death": "Owl Dies",
-  "subtitles.biomemakeover.owl_hurt": "Owl Hurts",
-  "subtitles.biomemakeover.owl_idle": "Owl Hoots",
+  "subtitles.biomemakeover.moth.bite": "Mariposa mordendo",
+  "subtitles.biomemakeover.moth.death": "Mariposa morre",
+  "subtitles.biomemakeover.moth.flap": "Mariposa voando",
+  "subtitles.biomemakeover.moth.idle": "Mariposa guinchando",
+  "subtitles.biomemakeover.moth.hurt": "Mariposa ferida",
+  "subtitles.biomemakeover.rootling.idle": "Rootling Jabbers",*
+  "subtitles.biomemakeover.rootling.afraid": "Rootling Gasps",*
+  "subtitles.biomemakeover.rootling.death": "Rootling Dies",*
+  "subtitles.biomemakeover.rootling.hurt": "Rootling Hurts",*
+  "subtitles.biomemakeover.stone_holem.hurt": "Golem de pedra ferido",
+  "subtitles.biomemakeover.stone_holem.death": "Golem de pedra morre",
+  "subtitles.biomemakeover.adjudicator_mimic": "Adjudicator Mimics",*
+  "subtitles.biomemakeover.adjudicator_cast_grunt": "Adjudicator Casts",*
+  "subtitles.biomemakeover.adjudicator_death": "Adjudicator Dies",*
+  "subtitles.biomemakeover.adjudicator_grunt": "Adjudicator Grunts",*
+  "subtitles.biomemakeover.adjudicator_hurt": "Adjudicator Hurts",*
+  "subtitles.biomemakeover.adjudicator_idle": "Adjudicator Thinks",*
+  "subtitles.biomemakeover.adjudicator_laugh": "Adjudicator Laughs",*
+  "subtitles.biomemakeover.adjudicator_no": "Adjudicator Denies",*
+  "subtitles.biomemakeover.owl_death": "Coruja morre",
+  "subtitles.biomemakeover.owl_hurt": "Coruja ferida",
+  "subtitles.biomemakeover.owl_idle": "Coruja piando",
 
   "advancements.biomemakeover.all_shrooms.title": "Mycophile",
   "advancements.biomemakeover.all_shrooms.description": "Collect every single mushroom",
