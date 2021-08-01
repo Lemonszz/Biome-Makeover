@@ -42,8 +42,8 @@
   "block.biomemakeover.orange_glowshroom_brick" : "Tijolos de brilhomelo laranja",
   "block.biomemakeover.mushroom_stem_brick" : "Tijolos de caule de cogumelo",
   "block.biomemakeover.glowshroom_stem_brick" : "Tijolos de caule de brilhomelo",
-  "block.biomemakeover.blighted_cobblestone" : "Pedregulho empestado",*
-  "block.biomemakeover.blighted_stone_bricks" : "Tijolos de pedra epestada",*
+  "block.biomemakeover.blighted_cobblestone" : "Pedregulho micélico",
+  "block.biomemakeover.blighted_stone_bricks" : "Tijolos de pedra micélicos",
   "block.biomemakeover.red_mushroom_brick_stairs" : "Escadas de tijolos de cogumelo vermelho",
   "block.biomemakeover.brown_mushroom_brick_stairs" : "Escadas de tijolos de cogumelo marrom",
   "block.biomemakeover.purple_glowshroom_brick_stairs" : "Escadas de tijolos de brilhomelo roxo",
@@ -51,8 +51,8 @@
   "block.biomemakeover.orange_glowshroom_brick_stairs" : "Escadas de tijolos de brilhomelo laranja",
   "block.biomemakeover.mushroom_stem_brick_stairs" : "Escadas de tijolos de caule de cogumelo",
   "block.biomemakeover.glowshroom_stem_brick_stairs" : "Escadas de tijolos de caule de brilhomelo",
-  "block.biomemakeover.blighted_cobblestone_stairs" : "Escadas de pedregulho empestado",*
-  "block.biomemakeover.blighted_stone_bricks_stairs" : "Escadas de tijolos de pedra empestada",*
+  "block.biomemakeover.blighted_cobblestone_stairs" : "Escadas de pedregulho micélico",
+  "block.biomemakeover.blighted_stone_bricks_stairs" : "Escadas de tijolos de pedra micélicos",
   "block.biomemakeover.red_mushroom_brick_slab" : "Laje de tijolos de cogumelo vermelho",
   "block.biomemakeover.brown_mushroom_brick_slab" : "Laje de tijolos de cogumelo marrom",
   "block.biomemakeover.purple_glowshroom_brick_slab" : "Laje de tijolos de brilhomelo roxo",
@@ -60,8 +60,8 @@
   "block.biomemakeover.orange_glowshroom_brick_slab" : "Laje de tijolos de brilhomelo laranja",
   "block.biomemakeover.mushroom_stem_brick_slab" : "Laje de tijolos de caule de cogumelo",
   "block.biomemakeover.glowshroom_stem_brick_slab" : "Laje de tijolos de caule de brilhomelo",
-  "block.biomemakeover.blighted_cobblestone_slab" : "Laje de pedregulho empestado",*
-  "block.biomemakeover.blighted_stone_bricks_slab" : "Laje de tijolos de pedra empestada",*
+  "block.biomemakeover.blighted_cobblestone_slab" : "Laje de pedregulho micélico",
+  "block.biomemakeover.blighted_stone_bricks_slab" : "Laje de tijolos de pedra micélicos",
   "block.biomemakeover.red_mushroom_brick_wall" : "Muro de tijolos de cogumelo vermelho",
   "block.biomemakeover.brown_mushroom_brick_wall" : "Muro de tijolos de cogumelo marrom",
   "block.biomemakeover.purple_glowshroom_brick_wall" : "Muro de tijolos de brilhomelo roxo",
@@ -69,8 +69,8 @@
   "block.biomemakeover.orange_glowshroom_brick_wall" : "Muro de tijolos de brilhomelo laranja",
   "block.biomemakeover.mushroom_stem_brick_wall" : "Muro de tijolos de caule de cogumelo",
   "block.biomemakeover.glowshroom_stem_brick_wall" : "Muro de tijolos de caule de brilhomelo",
-  "block.biomemakeover.blighted_cobblestone_wall" : "Muro de pedregulho empestado",*
-  "block.biomemakeover.blighted_stone_bricks_wall" : "Muro de tijolos de pedra empestada",*
+  "block.biomemakeover.blighted_cobblestone_wall" : "Muro de pedregulho micélico",
+  "block.biomemakeover.blighted_stone_bricks_wall" : "Muro de tijolos de pedra micélicos",
   "block.biomemakeover.terracotta_bricks" : "Tijolos de terracota",
   "block.biomemakeover.terracotta_brick_slab" : "Laje de tijolos de terracota",
   "block.biomemakeover.terracotta_brick_wall" : "Muro de tijolos de terracota",
@@ -218,7 +218,7 @@
   "block.biomemakeover.barrel_cactus_flowered" : "Cacto-barril florido",
   "block.biomemakeover.tumbleweed" : "Tumbleweed",
   "block.biomemakeover.poltergeist" : "Poltergeist",
-  "block.biomemakeover.paydirt" : "Pay Dirt",*
+  "block.biomemakeover.paydirt" : "Terra ",*
   "block.biomemakeover.ectoplasm_composter" : "Composteira",
   "block.biomemakeover.dried_peat_bricks_stairs" : "Escadas de tijolos de turfa seca",
   "block.biomemakeover.dried_peat_bricks_slab" : "Laje de tijolos de turfa seca",
