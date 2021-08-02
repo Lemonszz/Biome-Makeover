@@ -218,7 +218,7 @@
   "block.biomemakeover.barrel_cactus_flowered" : "Cacto-barril florido",
   "block.biomemakeover.tumbleweed" : "Tumbleweed",
   "block.biomemakeover.poltergeist" : "Poltergeist",
-  "block.biomemakeover.paydirt" : "Terra ",*
+  "block.biomemakeover.paydirt" : "Terra com minerais",*
   "block.biomemakeover.ectoplasm_composter" : "Composteira",
   "block.biomemakeover.dried_peat_bricks_stairs" : "Escadas de tijolos de turfa seca",
   "block.biomemakeover.dried_peat_bricks_slab" : "Laje de tijolos de turfa seca",
@@ -236,21 +236,21 @@
   "block.biomemakeover.lightning_bug_bottle" : "Lightning Bug Bottle",
   "block.biomemakeover.marigold" : "Calêndula",
   "block.biomemakeover.swamp_azalea" : "Azaleia do pântano",
-  "block.biomemakeover.illunite_cluster": "Illunite Cluster",*
-  "block.biomemakeover.mesmerite": "Mesmerite",*
-  "block.biomemakeover.polished_mesmerite": "Polished Mesermite",*
+  "block.biomemakeover.illunite_cluster": "Agregado de ilunita",
+  "block.biomemakeover.mesmerite": "Mesmerita",
+  "block.biomemakeover.polished_mesmerite": "Mesmerita polida",
   "block.biomemakeover.potted_saguaro_cactus": "Cacto saguaro envasado",
   "block.biomemakeover.potted_barrel_cactus": "Cacto-barril envasado",
   "block.biomemakeover.potted_flowered_barrel_cactus": "Cacto-barril florido envasado",
   "block.biomemakeover.potted_willow_sapling":  "Muda de salgueiro envasada",
   "block.biomemakeover.potted_swamp_cypress_sapling": "Muda de cipreste-do-pântano envasada",
   "block.biomemakeover.potted_ancient_oak_sapling": "Muda de carvalho ancião envasado",
-  "block.biomemakeover.mesmerite_slab": "Mesmerite Slab",*
-  "block.biomemakeover.mesmerite_stairs": "Mesermite Stairs",*
-  "block.biomemakeover.mesmerite_wall": "Mesermite Wall",*
-  "block.biomemakeover.polished_mesmerite_slab": "Polished Mesmerite Slab",*
-  "block.biomemakeover.polished_mesmerite_stairs": "Polished Mesermite Stairs",*
-  "block.biomemakeover.polished_mesmerite_wall": "Polished Mesmerite Wall",*
+  "block.biomemakeover.mesmerite_slab": "Laje de mesmerita",
+  "block.biomemakeover.mesmerite_stairs": "Escadas de mesmerita",
+  "block.biomemakeover.mesmerite_wall": "Muro de mesmerita",
+  "block.biomemakeover.polished_mesmerite_slab": "Laje de mesmerita polida",
+  "block.biomemakeover.polished_mesmerite_stairs": "Escadas de mesmerita polida",
+  "block.biomemakeover.polished_mesmerite_wall": "Muro de mesmerita polida",
   "block.biomemakeover.ancient_oak_sapling": "Muda de carvalho ancião",
   "block.biomemakeover.ancient_oak_leaves": "Folhas de carvalho ancião",
   "block.biomemakeover.ancient_oak_door": "Porta de carvalho ancião",
@@ -268,48 +268,48 @@
   "block.biomemakeover.ancient_oak_fence": "Cerca de carvalho ancião",
   "block.biomemakeover.ancient_oak_sign": "Placa de carvalho ancião",
   "block.biomemakeover.altar": "Altar",
-  "block.biomemakeover.illunite_block": "Block of Illunite",*
+  "block.biomemakeover.illunite_block": "Bloco de ilunita",
   "block.biomemakeover.ivy": "Hera",
-  "block.biomemakeover.itching_ivy": "Hera venenosa",*
-  "block.biomemakeover.moth_blossom": "Moth Blossom",*
-  "block.biomemakeover.white_tapestry": "White Tapestry",*
-  "block.biomemakeover.orange_tapestry": "Orange Tapestry",...
-  "block.biomemakeover.magenta_tapestry": "Magenta Tapestry",
-  "block.biomemakeover.light_blue_tapestry": "Light Blue Tapestry",
-  "block.biomemakeover.yellow_tapestry": "Yellow Tapestry",
-  "block.biomemakeover.lime_tapestry": "Lime Tapestry",
-  "block.biomemakeover.pink_tapestry": "Pink Tapestry",
-  "block.biomemakeover.gray_tapestry": "Gray Tapestry",
-  "block.biomemakeover.light_gray_tapestry": "Light Gray Tapestry",
-  "block.biomemakeover.cyan_tapestry": "Cyan Tapestry",
-  "block.biomemakeover.purple_tapestry": "Purple Tapestry",
-  "block.biomemakeover.blue_tapestry": "Blue Tapestry",
-  "block.biomemakeover.brown_tapestry": "Brown Tapestry",
-  "block.biomemakeover.green_tapestry": "Green Tapestry",
-  "block.biomemakeover.red_tapestry": "Red Tapestry",...
-  "block.biomemakeover.black_tapestry": "Black Tapestry",*
-  "block.biomemakeover.adjudicator_tapestry": "Adjudicator Tapestry",*
-  "block.biomemakeover.cladded_stone": "Cladded Stone",*
+  "block.biomemakeover.itching_ivy": "Hera venenosa",
+  "block.biomemakeover.moth_blossom": "Flor das mariposas",
+  "block.biomemakeover.white_tapestry": "Tapeçaria branca",
+  "block.biomemakeover.orange_tapestry": "Tapeçaria laranja",
+  "block.biomemakeover.magenta_tapestry": "Tapeçaria magenta",
+  "block.biomemakeover.light_blue_tapestry": "Tapeçaria azul-clara",
+  "block.biomemakeover.yellow_tapestry": "Tapeçaria amarela",
+  "block.biomemakeover.lime_tapestry": "Tapeçaria verde-limão",
+  "block.biomemakeover.pink_tapestry": "Tapeçaria rosa",
+  "block.biomemakeover.gray_tapestry": "Tapeçaria cinza",
+  "block.biomemakeover.light_gray_tapestry": "Tapeçaria cinza-clara",
+  "block.biomemakeover.cyan_tapestry": "Tapeçaria ciano",
+  "block.biomemakeover.purple_tapestry": "Tapeçaria roxa",
+  "block.biomemakeover.blue_tapestry": "Tapeçaria azul",
+  "block.biomemakeover.brown_tapestry": "Tapeçaria marrom",
+  "block.biomemakeover.green_tapestry": "Tapeçaria verde",
+  "block.biomemakeover.red_tapestry": "Tapeçaria vermelha",
+  "block.biomemakeover.black_tapestry": "Tapeçaria preta",
+  "block.biomemakeover.adjudicator_tapestry": "Tapeçaria do mediatário",
+  "block.biomemakeover.cladded_stone": "Pedra revestida",
   "block.biomemakeover.directional_data": "Directional Data Block",*
   "block.biomemakeover.wild_mushrooms": "Cogumelos silvestres",
   "block.biomemakeover.potted_wild_mushrooms": "Cugumelos silvestres envasados",
-  "block.biomemakeover.black_thistle": "Black Thistle",*
+  "block.biomemakeover.black_thistle": "Cardo preto",
   "block.biomemakeover.foxglove": "Dedaleira",
 
   "item.biomemakeover.button_mushrooms_music_disk": "Disco de música",
   "item.biomemakeover.ghost_town_music_disk" : "Disco de música",
   "item.biomemakeover.swamp_jives_music_disk" : "Disco de música",
-  "item.biomemakeover.mushroom_trader_spawn_egg" : "Ovo gerador de vendedor fungolante",
+  "item.biomemakeover.mushroom_trader_spawn_egg" : "Ovo gerador de vendedor-cogumelo",
   "item.biomemakeover.glowfish_spawn_egg" : "Ovo gerador de lumino-peixe",
-  "item.biomemakeover.blightbat_spawn_egg" : "Ovo gerador de infectorcego",*
-  "item.biomemakeover.scuttler_spawn_egg" : "Scuttler Spawn Egg",
+  "item.biomemakeover.blightbat_spawn_egg" : "Ovo gerador de morcegomelo",
+  "item.biomemakeover.scuttler_spawn_egg" : "Scuttler Spawn Egg",*
   "item.biomemakeover.cowboy_spawn_egg" : "Ovo gerador de caubói",
   "item.biomemakeover.ghost_spawn_egg" : "Ovo gerador de fantasma",
   "item.biomemakeover.toad_spawn_egg" : "Ovo gerador de sapo",
   "item.biomemakeover.dragonfly_spawn_egg" : "Ovo gerador de libélula",
   "item.biomemakeover.lightning_bug_spawn_egg" : "Lightning Bug Spawn Egg",*
-  "item.biomemakeover.decayed_spawn_egg" : "Decayed Spawn Egg",*
-  "item.biomemakeover.tadpole_spawn_egg" : "Tadpole Spawn Egg",*
+  "item.biomemakeover.decayed_spawn_egg" : "Ovo gerador de apodrecido",
+  "item.biomemakeover.tadpole_spawn_egg" : "Ovo gerador de girino",
   "item.biomemakeover.giant_slime_spawn_egg" : "Ovo gerador de slime gigante",
   "item.biomemakeover.rootling_spawn_egg" : "Rootling Spawn Egg",*
   "item.biomemakeover.glowshroom_stew" : "Ensopado de brilhomelo",
@@ -319,7 +319,7 @@
   "item.biomemakeover.ghost_town_music_disk.desc" : "Lobo Loco - Ghost Town",
   "item.biomemakeover.swamp_jives_music_disk.desc" : "Isaac Chambers - Swamp Jives",
   "item.biomemakeover.red_rose_music_disk.desc" : "Damiano Baldoni - Red Rose",
-  "item.biomemakeover.cooked_glowfish" : "Lumino-peixe assadp",
+  "item.biomemakeover.cooked_glowfish" : "Lumino-peixe assado",
   "item.biomemakeover.cowboy_hat" : "Chapéu de caubói",
   "item.biomemakeover.ectoplasm" : "Ectoplasma",
   "item.biomemakeover.pink_petals" : "Pétalas cor-de-rosa",
@@ -329,8 +329,8 @@
   "item.biomemakeover.light_blue_petals" : "Pétalas azuis-claras",
   "item.biomemakeover.brown_petals" : "Pétalas marrons",
   "item.biomemakeover.scuttler_tail" : "Scuttler Tail",*
-  "item.biomemakeover.blighted_balsa_boat" : "Bote de balsa infestada",
-  "item.biomemakeover.blighted_balsa_sign" : "Placa de balsa infestada",
+  "item.biomemakeover.blighted_balsa_boat" : "Bote de bálsamo infestado",
+  "item.biomemakeover.blighted_balsa_sign" : "Placa de bálsamo infestado",
   "item.biomemakeover.witch_hat" : "Chapéu de bruxa",
   "item.biomemakeover.willow_boat" : "Bote de salgueiro",
   "item.biomemakeover.swamp_cypress_boat" : "Bote de cipreste-do-pântano",
@@ -338,23 +338,23 @@
   "item.biomemakeover.lightning_bottle" : "Bottle o' Lightning",*
   "item.biomemakeover.dragonfly_wings" : "Asas de libélula",
   "item.biomemakeover.bat_wing" : "Asa de morcego",
-  "item.biomemakeover.blightbat_wing" : "Asa de infectorcego",
-  "item.biomemakeover.tadpole_bucket" : "Bucket of Tadpole",*
-  "item.biomemakeover.wart" : "Verruga",*
+  "item.biomemakeover.blightbat_wing" : "Asa de morcegomelo",
+  "item.biomemakeover.tadpole_bucket" : "Balde com girino",
+  "item.biomemakeover.wart" : "Verruga",
   "item.biomemakeover.cooked_toad" : "Sapo assado",
   "item.biomemakeover.raw_toad" : "Sapo cru",
   "item.biomemakeover.soul_embers" : "Soul Embers",*
   "item.biomemakeover.owl_spawn_egg": "Ovo gerador de coruja",
-  "item.biomemakeover.icon_item": "Biome Makeover",*
+  "item.biomemakeover.icon_item": "Biome Makeover",
   "item.biomemakeover.ancient_oak_boat": "Bote de carvalho ancião",
-  "item.biomemakeover.illunite_shard": "Illunite Shard",*
+  "item.biomemakeover.illunite_shard": "Fragmento de ilunita",
   "item.biomemakeover.rootling_seeds": "Rootling Seeds",*
   "item.biomemakeover.bulbus_root": "Bulbus Root",*
   "item.biomemakeover.roasted_bulbus_root": "Roasted Bulbus Root",*
   "item.biomemakeover.cyan_petals": "Pétalas cíanos",
   "item.biomemakeover.stunt_powder": "Stunt Powder",*
   "item.biomemakeover.moth_spawn_egg": "Ovo gerador de mariposa",
-  "item.biomemakeover.moth_scales": "Moth Scales",*
+  "item.biomemakeover.moth_scales": "Escamas de mariposa",*
   "item.biomemakeover.crude_cladding": "Crude Cladding",*
   "item.biomemakeover.cladded_helmet": "Cladded Helmet",*
   "item.biomemakeover.cladded_chestplate": "Cladded Chestplate",*
@@ -403,9 +403,9 @@
   "item.minecraft.tipped_arrow.effect.antidote": "Antidote Arrow",...
   "item.minecraft.tipped_arrow.effect.nocturnal": "Arrow of the Nocturnal",*
 
-  "entity.biomemakeover.blightbat" : "Infectorcego",*
+  "entity.biomemakeover.blightbat" : "Morcegomelo",
   "entity.biomemakeover.glowfish" : "Lumino-peixe",
-  "entity.biomemakeover.mushroom_trader" : "Vendedor fungolante",
+  "entity.biomemakeover.mushroom_trader" : "Vendedor-cogumelo",
   "entity.biomemakeover.cowboy" : "Saqueador caubói",
   "entity.biomemakeover.ghost" : "Fantasma",
   "entity.biomemakeover.tumbleweed" : "Tumbleweed",
@@ -414,23 +414,23 @@
   "entity.biomemakeover.toad" : "Sapo",
   "entity.biomemakeover.dragonfly" : "Libélula",
   "entity.biomemakeover.lightning_bug" : "Lightning Bug",*
-  "entity.biomemakeover.decayed" : "Decayed",*
+  "entity.biomemakeover.decayed" : "Apodrecido",
   "entity.biomemakeover.lightning_bug_alternate" : "Lightning Bug",*
-  "entity.biomemakeover.tadpole" : "Tadpole",*
+  "entity.biomemakeover.tadpole" : "Girino",
   "entity.biomemakeover.lightning_bottle" : "Bottle o' Lightning",*
   "entity.biomemakeover.giant_slime" : "Slime gigante",
   "entity.biomemakeover.owl": "Coruja",
   "entity.biomemakeover.rootling": "Rootling",*
   "entity.biomemakeover.moth": "Mariposa",
-  "entity.biomemakeover.adjudicator": "Adjudicator",*
-  "entity.biomemakeover.adjudicator_mimic": "Adjudicator",*
+  "entity.biomemakeover.adjudicator": "Mediatário",
+  "entity.biomemakeover.adjudicator_mimic": "Mediatário",
   "entity.biomemakeover.stone_golem": "Golem de pedra",
 
   "subtitles.biomemakeover.ghost.charge": "Fantasma guinchando",
   "subtitles.biomemakeover.ghost.death": "Fantasma morre",
   "subtitles.biomemakeover.ghost.hurt": "Fantasma ferido",
   "subtitles.biomemakeover.ghost.angry": "Fantasma gritando",
-  "subtitles.biomemakeover.ghost.idle": "Fantasma grunhindo",*
+  "subtitles.biomemakeover.ghost.idle": "Fantasma grunhindo",
   "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles",*
   "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",*
   "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",*
@@ -449,10 +449,10 @@
   "subtitles.entity.dragonfly.loop": "Libélula zumbindo",
   "subtitles.entity.dragonfly.hurt": "Libélula ferida",
   "subtitles.entity.dragonfly.death": "Libélula morre",
-  "subtitles.entity.decayed.swim": "Decayed Swims",
-  "subtitles.entity.decayed.step": "Decayed Steps",
-  "subtitles.entity.decayed.hurt": "Decayed Hurts",
-  "subtitles.entity.decayed.death": "Decayed Dies",
+  "subtitles.entity.decayed.swim": "Apodrecido nadando",
+  "subtitles.entity.decayed.step": "Apodrecido andando",
+  "subtitles.entity.decayed.hurt": "Apodrecido ferido",
+  "subtitles.entity.decayed.death": "Apodrecido morre",
   "subtitles.entity.decayed.ambient": "Decayed Gargles",
   "subtitles.biomemakeover.moth.bite": "Mariposa mordendo",
   "subtitles.biomemakeover.moth.death": "Mariposa morre",
@@ -465,54 +465,54 @@
   "subtitles.biomemakeover.rootling.hurt": "Rootling Hurts",*
   "subtitles.biomemakeover.stone_holem.hurt": "Golem de pedra ferido",
   "subtitles.biomemakeover.stone_holem.death": "Golem de pedra morre",
-  "subtitles.biomemakeover.adjudicator_mimic": "Adjudicator Mimics",*
-  "subtitles.biomemakeover.adjudicator_cast_grunt": "Adjudicator Casts",*
-  "subtitles.biomemakeover.adjudicator_death": "Adjudicator Dies",*
-  "subtitles.biomemakeover.adjudicator_grunt": "Adjudicator Grunts",*
-  "subtitles.biomemakeover.adjudicator_hurt": "Adjudicator Hurts",*
-  "subtitles.biomemakeover.adjudicator_idle": "Adjudicator Thinks",*
-  "subtitles.biomemakeover.adjudicator_laugh": "Adjudicator Laughs",*
-  "subtitles.biomemakeover.adjudicator_no": "Adjudicator Denies",*
+  "subtitles.biomemakeover.adjudicator_mimic": "Mediatário imitando",
+  "subtitles.biomemakeover.adjudicator_cast_grunt": "Mediatário lança um feitiço",
+  "subtitles.biomemakeover.adjudicator_death": "Mediatário morre",
+  "subtitles.biomemakeover.adjudicator_grunt": "Mediatário grunhindo",
+  "subtitles.biomemakeover.adjudicator_hurt": "Mediatário ferido",
+  "subtitles.biomemakeover.adjudicator_idle": "Mediatário pensando",
+  "subtitles.biomemakeover.adjudicator_laugh": "Mediatário rindo",
+  "subtitles.biomemakeover.adjudicator_no": "Mediatário nega",
   "subtitles.biomemakeover.owl_death": "Coruja morre",
   "subtitles.biomemakeover.owl_hurt": "Coruja ferida",
   "subtitles.biomemakeover.owl_idle": "Coruja piando",
 
-  "advancements.biomemakeover.all_shrooms.title": "Mycophile",
-  "advancements.biomemakeover.all_shrooms.description": "Collect every single mushroom",
+  "advancements.biomemakeover.all_shrooms.title": "Micófilo",
+  "advancements.biomemakeover.all_shrooms.description": "Colete todos os tipos de cogumelos",
   "advancements.biomemakeover.badlands_disc.title": "Ragtime Gal",
   "advancements.biomemakeover.badlands_disc.description": "Collect the Music Disc from the Badlands biome",
-  "advancements.biomemakeover.blighted_balsa_boat.title": "Lightweight",
-  "advancements.biomemakeover.blighted_balsa_boat.description": "Create a boat made of balsa wood",
-  "advancements.biomemakeover.blighted_balsa_sapling.title": "Not the balsa me",
-  "advancements.biomemakeover.blighted_balsa_sapling.description": "Gather a Blighted Balsa Sapling",
-  "advancements.biomemakeover.blighted_stone.title": "Fictile Fungus",
-  "advancements.biomemakeover.blighted_stone.description": "Craft some Blighted Stone",
+  "advancements.biomemakeover.blighted_balsa_boat.title": "Leve como uma pluma",
+  "advancements.biomemakeover.blighted_balsa_boat.description": "Faça um bote de bálsamo infestado",
+  "advancements.biomemakeover.blighted_balsa_sapling.title": "Bálsamaníaco",
+  "advancements.biomemakeover.blighted_balsa_sapling.description": "Colete uma muda de bálsamo infestado",
+  "advancements.biomemakeover.blighted_stone.title": "Artes fúngicas",
+  "advancements.biomemakeover.blighted_stone.description": "Faça um pedregulho micélico",
   "advancements.biomemakeover.cacti.title": "Acanthochronology",
   "advancements.biomemakeover.cacti.description": "Collect every cactus",
-  "advancements.biomemakeover.compost_soul_soil.title": "Freaky Fertilizer",
-  "advancements.biomemakeover.compost_soul_soil.description": "Create some Soul Soil in a composter",
+  "advancements.biomemakeover.compost_soul_soil.title": "Fertilização assustadora",
+  "advancements.biomemakeover.compost_soul_soil.description": "Use uma composteira para fazer terra das almas",
   "advancements.biomemakeover.cursed_hat.title": "Cattleman's Curse",
   "advancements.biomemakeover.cursed_hat.description": "Equip a Cowboy Hat with a binding curse",
-  "advancements.biomemakeover.ghost_town.title": "Yee hawnted",
-  "advancements.biomemakeover.ghost_town.description": "Enter a Ghost Town",
+  "advancements.biomemakeover.ghost_town.title": "AssombradO",
+  "advancements.biomemakeover.ghost_town.description": "Entre em uma cidade fantasma",
   "advancements.biomemakeover.glowfish_bucket_save.title": "Major League Glowfish",
   "advancements.biomemakeover.glowfish_bucket_save.description": "Save yourself from a fatal fall with a Glowfish Bucket",
   "advancements.biomemakeover.glowshroom_stew.title": "Glowing Gourmet",
   "advancements.biomemakeover.glowshroom_stew.description": "Cook up some Glowshroom Stew",
   "advancements.biomemakeover.mushroom_disc.title": "Badger Badger Badger",
   "advancements.biomemakeover.mushroom_disc.description": "Collect the Music Disc from the Mushroom Fields biome",
-  "advancements.biomemakeover.pink_petal.title": "Pretty in Pink",
-  "advancements.biomemakeover.pink_petal.description": "Gather up some Pink Petals",
-  "advancements.biomemakeover.poltergeist.title": "Physical Phenomena",
-  "advancements.biomemakeover.poltergeist.description": "Craft a Poltergeist block",
+  "advancements.biomemakeover.pink_petal.title": "Rosa shocking",
+  "advancements.biomemakeover.pink_petal.description": "Colete pétalas cor-de-rosa",
+  "advancements.biomemakeover.poltergeist.title": "Fenômenos paranormais",
+  "advancements.biomemakeover.poltergeist.description": "Faça um bloco poltergeist",
   "advancements.biomemakeover.root.title": "Biome Makeover",
-  "advancements.biomemakeover.root.description": "Thank you for installing Biome Makeover!",
+  "advancements.biomemakeover.root.description": "Obrigado por instalar o Biome Makeover!",
   "advancements.biomemakeover.scuttler_tail.title": "Rattling Rump",
   "advancements.biomemakeover.scuttler_tail.description": "Obtain a Scuttler Tail",
   "advancements.biomemakeover.sunken_ruin.title": "Sinking Feeling",
   "advancements.biomemakeover.sunken_ruin.description": "Find a sunken ruin",
-  "advancements.biomemakeover.witch_hat.title": "Which Witch?",
-  "advancements.biomemakeover.witch_hat.description": "Wear a witch hat",
+  "advancements.biomemakeover.witch_hat.title": "Bruxa baratuxa",
+  "advancements.biomemakeover.witch_hat.description": "Equipe um chapéu de bruxa",
   "advancements.biomemakeover.lightning_bug_bottle.title": "Shockingly Bright",
   "advancements.biomemakeover.lightning_bug_bottle.description": "Obtain a Lighting bug in a bottle",
   "advancements.biomemakeover.lightning_bottle.title": "Never Strikes Twice",
@@ -523,16 +523,16 @@
   "advancements.biomemakeover.kill_giant_slime.description": "Defeat a Giant Slime",
   "advancements.biomemakeover.swamp_disc.title": "Swamp Shuffle",
   "advancements.biomemakeover.swamp_disc.description": "Collect the Music Disc from the Swamp biome",
-  "advancements.biomemakeover.antidote.title": "Better than milk!",
-  "advancements.biomemakeover.antidote.description": "Consume a antidote",
-  "advancements.biomemakeover.all_tapestries.title": "Art Collector",
-  "advancements.biomemakeover.all_tapestries.description": "Collect Every Tapestry",
-  "advancements.biomemakeover.altar.title": "Cursed",
-  "advancements.biomemakeover.altar.description": "Obtain an Altar",
+  "advancements.biomemakeover.antidote.title": "Melhor que leite!",
+  "advancements.biomemakeover.antidote.description": "Consuma um antidoto",
+  "advancements.biomemakeover.all_tapestries.title": "Colecionador de artes",
+  "advancements.biomemakeover.all_tapestries.description": "Colete todas as tapeçarias",
+  "advancements.biomemakeover.altar.title": "Amaldiçoado",
+  "advancements.biomemakeover.altar.description": "Obtenha um altar",
   "advancements.biomemakeover.ancient_oak_sapling.title": "Tall, bark and Handsome",
   "advancements.biomemakeover.ancient_oak_sapling.description": "Obtain an Ancient Oak Sapling",
-  "advancements.biomemakeover.arm_golem.title": "Overwatch",
-  "advancements.biomemakeover.arm_golem.description": "Arm a Stone Golem with a Crossbow",
+  "advancements.biomemakeover.arm_golem.title": "Têndencia de batalha",
+  "advancements.biomemakeover.arm_golem.description": "Dê uma besta a um golem de pedra",
   "advancements.biomemakeover.cladded_armor.title": "Cosplay",
   "advancements.biomemakeover.cladded_armor.description": "Obtain a Full Set of Cladded Armor",
   "advancements.biomemakeover.dark_forest_disc.title": "Dark Dance",
@@ -541,10 +541,10 @@
   "advancements.biomemakeover.enchanted_totem.description": "Obtain an Enchanted Totem of Undying",
   "advancements.biomemakeover.illunite_shard.title": "Sick Shard",
   "advancements.biomemakeover.illunite_shard.description": "Obtain an Illunite Shard",
-  "advancements.biomemakeover.mansion.title": "Hostile Neighbors",
-  "advancements.biomemakeover.mansion.description": "Discover a Woodland Mansion",
-  "advancements.biomemakeover.moth_blossom.title": "Orange is the New Orange",
-  "advancements.biomemakeover.moth_blossom.description": "Obtain a Moth Blossom",
+  "advancements.biomemakeover.mansion.title": "Vinzingos agressivos",
+  "advancements.biomemakeover.mansion.description": "Ache uma mansão da floresta",
+  "advancements.biomemakeover.moth_blossom.title": "50 tons de laranja",
+  "advancements.biomemakeover.moth_blossom.description": "Obtenha uma flor das mariposas",
   "advancements.biomemakeover.moth_scales.title": "Bug Swatter",
   "advancements.biomemakeover.moth_scales.description": "Obtain some Moth Scales",
   "advancements.biomemakeover.nocturnal_potion.title": "All Nighter",
