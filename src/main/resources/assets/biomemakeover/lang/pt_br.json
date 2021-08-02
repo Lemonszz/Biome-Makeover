@@ -489,7 +489,7 @@
   "advancements.biomemakeover.blighted_stone.description": "Faça pedregulho micélico",
   "advancements.biomemakeover.cacti.title": "Acantocronologista",
   "advancements.biomemakeover.cacti.description": "Colete todos os tipos de cactos",
-  "advancements.biomemakeover.compost_soul_soil.title": "Fertilização assustadora",
+  "advancements.biomemakeover.compost_soul_soil.title": "Fertilizante assustador",
   "advancements.biomemakeover.compost_soul_soil.description": "Use uma composteira para fazer terra das almas",
   "advancements.biomemakeover.cursed_hat.title": "Boiadeiro errante",
   "advancements.biomemakeover.cursed_hat.description": "Equipe um chapéu de caubói com maldição do ligamento",
@@ -506,11 +506,11 @@
   "advancements.biomemakeover.poltergeist.title": "Fenômenos paranormais",
   "advancements.biomemakeover.poltergeist.description": "Faça um bloco poltergeist",
   "advancements.biomemakeover.root.title": "Biome Makeover",
-  "advancements.biomemakeover.root.description": "Obrigado por instalar o Biome Makeover!",
+  "advancements.biomemakeover.root.description": "Agradecemos por instalar o Biome Makeover!",
   "advancements.biomemakeover.scuttler_tail.title": "Rattling Rump",*
   "advancements.biomemakeover.scuttler_tail.description": "Obtain a Scuttler Tail",*
-  "advancements.biomemakeover.sunken_ruin.title": "Esse é o meu pântano!",*
-  "advancements.biomemakeover.sunken_ruin.description": "Ache uma ruína do pântano",
+  "advancements.biomemakeover.sunken_ruin.title": "Nosso pântano",
+  "advancements.biomemakeover.sunken_ruin.description": "Encontre uma ruína submersa",
   "advancements.biomemakeover.witch_hat.title": "Bruxa Baratuxa",
   "advancements.biomemakeover.witch_hat.description": "Equipe um chapéu de bruxa",
   "advancements.biomemakeover.lightning_bug_bottle.title": "Shockingly Bright",*
@@ -529,12 +529,12 @@
   "advancements.biomemakeover.all_tapestries.description": "Colete todas as tapeçarias",
   "advancements.biomemakeover.altar.title": "Amaldiçoado",
   "advancements.biomemakeover.altar.description": "Obtenha um altar",
-  "advancements.biomemakeover.ancient_oak_sapling.title": "Tall, bark and Handsome",*
-  "advancements.biomemakeover.ancient_oak_sapling.description": "Obtain an Ancient Oak Sapling",*
+  "advancements.biomemakeover.ancient_oak_sapling.title": "Alto, \"mó-lenho\" e simpático",
+  "advancements.biomemakeover.ancient_oak_sapling.description": "Obtenha uma muda de carvalho ancião",
   "advancements.biomemakeover.arm_golem.title": "Têndencia de batalha",
   "advancements.biomemakeover.arm_golem.description": "Dê uma besta a um golem de pedra",
-  "advancements.biomemakeover.cladded_armor.title": "Cosplay",
-  "advancements.biomemakeover.cladded_armor.description": "Obtain a Full Set of Cladded Armor",*
+  "advancements.biomemakeover.cladded_armor.title": "Fantasia",
+  "advancements.biomemakeover.cladded_armor.description": "Obtenha um conjunto completo de armadura revestida",
   "advancements.biomemakeover.dark_forest_disc.title": "Dança sinistra",
   "advancements.biomemakeover.dark_forest_disc.description": "Obtenha o disco de música da floresta escura",
   "advancements.biomemakeover.enchanted_totem.title": "Peace of Mind",*
@@ -542,7 +542,7 @@
   "advancements.biomemakeover.illunite_shard.title": "Fragmentado",
   "advancements.biomemakeover.illunite_shard.description": "Obtenha um fragmento de ilunita",
   "advancements.biomemakeover.mansion.title": "Vizinhos agressivos",
-  "advancements.biomemakeover.mansion.description": "Ache uma mansão da floresta",
+  "advancements.biomemakeover.mansion.description": "Encontre a mansão da floresta",
   "advancements.biomemakeover.moth_blossom.title": "50 tons de laranja",
   "advancements.biomemakeover.moth_blossom.description": "Obtenha uma flor das mariposas",
   "advancements.biomemakeover.moth_scales.title": "Bug Swatter",*
