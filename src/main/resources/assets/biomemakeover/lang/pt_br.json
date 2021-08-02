@@ -233,7 +233,7 @@
   "block.biomemakeover.cracked_dried_peat_brick_wall" : "Muro de tijolos de turfa seca rachados",
   "block.biomemakeover.cracked_dried_peat_bricks" : "Tijolos de turfa seca rachados",
   "block.biomemakeover.water_lily" : "Nenúfar",
-  "block.biomemakeover.lightning_bug_bottle" : "Lightning Bug Bottle",*
+  "block.biomemakeover.lightning_bug_bottle" : "Inseto-relâmpago engarrafado",
   "block.biomemakeover.marigold" : "Calêndula",
   "block.biomemakeover.swamp_azalea" : "Azaleia do pântano",
   "block.biomemakeover.illunite_cluster": "Agregado de ilunita",
@@ -307,11 +307,11 @@
   "item.biomemakeover.ghost_spawn_egg" : "Ovo gerador de fantasma",
   "item.biomemakeover.toad_spawn_egg" : "Ovo gerador de sapo",
   "item.biomemakeover.dragonfly_spawn_egg" : "Ovo gerador de libélula",
-  "item.biomemakeover.lightning_bug_spawn_egg" : "Lightning Bug Spawn Egg",*
+  "item.biomemakeover.lightning_bug_spawn_egg" : "Ovo gerador de inseto-relâmpago",
   "item.biomemakeover.decayed_spawn_egg" : "Ovo gerador de apodrecido",
   "item.biomemakeover.tadpole_spawn_egg" : "Ovo gerador de girino",
   "item.biomemakeover.giant_slime_spawn_egg" : "Ovo gerador de slime gigante",
-  "item.biomemakeover.rootling_spawn_egg" : "Rootling Spawn Egg",*
+  "item.biomemakeover.rootling_spawn_egg" : "Ovo gerador de bulbolino",
   "item.biomemakeover.glowshroom_stew" : "Ensopado de brilhomelo",
   "item.biomemakeover.glowfish_bucket" : "Balde com lumino-peixe",
   "item.biomemakeover.glowfish" : "Lumino-peixe",
@@ -335,31 +335,31 @@
   "item.biomemakeover.willow_boat" : "Bote de salgueiro",
   "item.biomemakeover.swamp_cypress_boat" : "Bote de cipreste-do-pântano",
   "item.biomemakeover.magenta_petals" : "Pétalas magentas",
-  "item.biomemakeover.lightning_bottle" : "Bottle o' Lightning",*
+  "item.biomemakeover.lightning_bottle" : "Frasco com relâmpago",
   "item.biomemakeover.dragonfly_wings" : "Asas de libélula",
   "item.biomemakeover.bat_wing" : "Asa de morcego",
   "item.biomemakeover.blightbat_wing" : "Asa de morcegomelo",
   "item.biomemakeover.tadpole_bucket" : "Balde com girino",
-  "item.biomemakeover.wart" : "Verruga",
+  "item.biomemakeover.wart" : "Verruga de sapo",
   "item.biomemakeover.cooked_toad" : "Sapo assado",
   "item.biomemakeover.raw_toad" : "Sapo cru",
-  "item.biomemakeover.soul_embers" : "Soul Embers",*
+  "item.biomemakeover.soul_embers" : "Brasas de alma",
   "item.biomemakeover.owl_spawn_egg": "Ovo gerador de coruja",
   "item.biomemakeover.icon_item": "Biome Makeover",
   "item.biomemakeover.ancient_oak_boat": "Bote de carvalho ancião",
   "item.biomemakeover.illunite_shard": "Fragmento de ilunita",
-  "item.biomemakeover.rootling_seeds": "Rootling Seeds",*
-  "item.biomemakeover.bulbus_root": "Bulbus Root",*
-  "item.biomemakeover.roasted_bulbus_root": "Roasted Bulbus Root",*
+  "item.biomemakeover.rootling_seeds": "Sementes de bulbolino",
+  "item.biomemakeover.bulbus_root": "Raíz de bulbo",
+  "item.biomemakeover.roasted_bulbus_root": "Raíz de bulbo assada",
   "item.biomemakeover.cyan_petals": "Pétalas cíanos",
   "item.biomemakeover.stunt_powder": "Stunt Powder",*
   "item.biomemakeover.moth_spawn_egg": "Ovo gerador de mariposa",
-  "item.biomemakeover.moth_scales": "Escamas de mariposa",*
-  "item.biomemakeover.crude_cladding": "Crude Cladding",*
-  "item.biomemakeover.cladded_helmet": "Cladded Helmet",*
-  "item.biomemakeover.cladded_chestplate": "Cladded Chestplate",*
-  "item.biomemakeover.cladded_leggings": "Cladded Leggings",*
-  "item.biomemakeover.cladded_boots": "Cladded Boots",*
+  "item.biomemakeover.moth_scales": "Escamas de mariposa",
+  "item.biomemakeover.crude_cladding": "Revestimento bruto",
+  "item.biomemakeover.cladded_helmet": "Capacete revestido",
+  "item.biomemakeover.cladded_chestplate": "Peitoral revestido",
+  "item.biomemakeover.cladded_leggings": "Calças revestidas",
+  "item.biomemakeover.cladded_boots": "Botas revestidas",
   "item.biomemakeover.enchanted_totem": "Totem da imortalidade encantado",
   "item.biomemakeover.red_rose_music_disk": "Disco de música",
   "item.minecraft.potion.effect.adrenaline": "Poção de adrenalina",
@@ -413,14 +413,14 @@
   "entity.biomemakeover.bm_boat" : "Bote",
   "entity.biomemakeover.toad" : "Sapo",
   "entity.biomemakeover.dragonfly" : "Libélula",
-  "entity.biomemakeover.lightning_bug" : "Lightning Bug",*
+  "entity.biomemakeover.lightning_bug" : "Inseto-relâmpago",
   "entity.biomemakeover.decayed" : "Apodrecido",
-  "entity.biomemakeover.lightning_bug_alternate" : "Lightning Bug",*
+  "entity.biomemakeover.lightning_bug_alternate" : "Inseto-relâmpago",
   "entity.biomemakeover.tadpole" : "Girino",
-  "entity.biomemakeover.lightning_bottle" : "Bottle o' Lightning",*
+  "entity.biomemakeover.lightning_bottle" : "Frasco com relâmpago",
   "entity.biomemakeover.giant_slime" : "Slime gigante",
   "entity.biomemakeover.owl": "Coruja",
-  "entity.biomemakeover.rootling": "Rootling",*
+  "entity.biomemakeover.rootling": "Bulbolino",
   "entity.biomemakeover.moth": "Mariposa",
   "entity.biomemakeover.adjudicator": "Mediatário",
   "entity.biomemakeover.adjudicator_mimic": "Mediatário",
@@ -459,10 +459,10 @@
   "subtitles.biomemakeover.moth.flap": "Mariposa voando",
   "subtitles.biomemakeover.moth.idle": "Mariposa guinchando",
   "subtitles.biomemakeover.moth.hurt": "Mariposa ferida",
-  "subtitles.biomemakeover.rootling.idle": "Rootling Jabbers",*
-  "subtitles.biomemakeover.rootling.afraid": "Rootling Gasps",*
-  "subtitles.biomemakeover.rootling.death": "Rootling Dies",*
-  "subtitles.biomemakeover.rootling.hurt": "Rootling Hurts",*
+  "subtitles.biomemakeover.rootling.idle": "Bulbolino tagarelando",
+  "subtitles.biomemakeover.rootling.afraid": "Bulbolino assustado",
+  "subtitles.biomemakeover.rootling.death": "Bulbolino morre",
+  "subtitles.biomemakeover.rootling.hurt": "Bulbolino ferido",
   "subtitles.biomemakeover.stone_holem.hurt": "Golem de pedra ferido",
   "subtitles.biomemakeover.stone_holem.death": "Golem de pedra morre",
   "subtitles.biomemakeover.adjudicator_mimic": "Mediatário imitando",
@@ -529,7 +529,7 @@
   "advancements.biomemakeover.all_tapestries.description": "Colete todas as tapeçarias",
   "advancements.biomemakeover.altar.title": "Amaldiçoado",
   "advancements.biomemakeover.altar.description": "Obtenha um altar",
-  "advancements.biomemakeover.ancient_oak_sapling.title": "Alto, \"mó-lenho\" e simpático",
+  "advancements.biomemakeover.ancient_oak_sapling.title": "Alto, \"mó lenho\" e simpático",
   "advancements.biomemakeover.ancient_oak_sapling.description": "Obtenha uma muda de carvalho ancião",
   "advancements.biomemakeover.arm_golem.title": "Têndencia de batalha",
   "advancements.biomemakeover.arm_golem.description": "Dê uma besta a um golem de pedra",
@@ -537,7 +537,7 @@
   "advancements.biomemakeover.cladded_armor.description": "Obtenha um conjunto completo de armadura revestida",
   "advancements.biomemakeover.dark_forest_disc.title": "Dança sinistra",
   "advancements.biomemakeover.dark_forest_disc.description": "Obtenha o disco de música da floresta escura",
-  "advancements.biomemakeover.enchanted_totem.title": "Peace of Mind",*
+  "advancements.biomemakeover.enchanted_totem.title": "Paz de espírito",*
   "advancements.biomemakeover.enchanted_totem.description": "Obtenha um totem da imortalidade encantado",
   "advancements.biomemakeover.illunite_shard.title": "Fragmentado",
   "advancements.biomemakeover.illunite_shard.description": "Obtenha um fragmento de ilunita",
@@ -545,12 +545,12 @@
   "advancements.biomemakeover.mansion.description": "Encontre a mansão da floresta",
   "advancements.biomemakeover.moth_blossom.title": "50 tons de laranja",
   "advancements.biomemakeover.moth_blossom.description": "Obtenha uma flor das mariposas",
-  "advancements.biomemakeover.moth_scales.title": "Bug Swatter",*
+  "advancements.biomemakeover.moth_scales.title": "Mata mosquitos",*
   "advancements.biomemakeover.moth_scales.description": "Obtenha escamas de mariposa",
   "advancements.biomemakeover.nocturnal_potion.title": "All Nighter",*
   "advancements.biomemakeover.nocturnal_potion.description": "Consume a Nocturnal Potion",*
-  "advancements.biomemakeover.roasted_bulbus_root.title": "Former Friend",*
-  "advancements.biomemakeover.roasted_bulbus_root.description": "Obtain a Roasted Bulbus Root",*
-  "advancements.biomemakeover.rootling_seeds.title": "Future Friend",*
-  "advancements.biomemakeover.rootling_seeds.description": "Obtain some Rootling Seeds"
+  "advancements.biomemakeover.roasted_bulbus_root.title": "Amizade desfeita",
+  "advancements.biomemakeover.roasted_bulbus_root.description": "Obtenha raiz de bulbo assada",
+  "advancements.biomemakeover.rootling_seeds.title": "Futuro amigo",
+  "advancements.biomemakeover.rootling_seeds.description": "Obtenha sementes de bulbolino"
 }
