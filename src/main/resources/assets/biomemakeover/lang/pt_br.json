@@ -268,7 +268,7 @@
   "block.biomemakeover.ancient_oak_fence": "Cerca de carvalho ancião",
   "block.biomemakeover.ancient_oak_sign": "Placa de carvalho ancião",
   "block.biomemakeover.altar": "Altar",
-  "block.biomemakeover.illunite_block": "Bloco de ilunita",
+  "block.biomemakeover.illunite_block": "Bloco de iluminita",
   "block.biomemakeover.ivy": "Hera",
   "block.biomemakeover.itching_ivy": "Hera venenosa",
   "block.biomemakeover.moth_blossom": "Flor das mariposas",
@@ -368,39 +368,39 @@
   "item.minecraft.potion.effect.dolphin_master": "Poção do mestre-golfinho",
   "item.minecraft.potion.effect.liquid_bread": "Potion of Liquid Bread",*
   "item.minecraft.potion.effect.phantom_spirit": "Poção do espírito fantasma",
-  "item.minecraft.potion.effect.light_footed": "Poção de passos luminosos",
+  "item.minecraft.potion.effect.light_footed": "Poção de passos luminosos",*
   "item.minecraft.potion.effect.miner": "Poção do minerador",
   "item.minecraft.potion.effect.antidote": "Antidoto",
   "item.minecraft.potion.effect.nocturnal": "Potion of the Nocturnal",*
-  "item.minecraft.splash_potion.effect.adrenaline": "Splash Potion of Adrenaline",*
-  "item.minecraft.splash_potion.effect.assassin": "Splash Potion of the Assassin",*
-  "item.minecraft.splash_potion.effect.darkness": "Splash Potion of Darkness",*
-  "item.minecraft.splash_potion.effect.dolphin_master": "Splash Potion of the Dolphin Master",...
-  "item.minecraft.splash_potion.effect.liquid_bread": "Splash Potion of Liquid Bread",
-  "item.minecraft.splash_potion.effect.phantom_spirit": "Splash Potion of Phantom Spirit",
-  "item.minecraft.splash_potion.effect.light_footed": "Splash Potion of the Light Footed",
-  "item.minecraft.splash_potion.effect.miner": "Splash Potion of the Miner",
-  "item.minecraft.splash_potion.effect.antidote": "Splash Antidote",
-  "item.minecraft.splash_potion.effect.nocturnal": "Splash Potion of the Nocturnal",
-  "item.minecraft.lingering_potion.effect.adrenaline": "Lingering Potion of Adrenaline",
-  "item.minecraft.lingering_potion.effect.assassin": "Lingering Potion of the Assassin",
-  "item.minecraft.lingering_potion.effect.darkness": "Lingering Potion of Darkness",
-  "item.minecraft.lingering_potion.effect.dolphin_master": "Lingering Potion of the Dolphin Master",
-  "item.minecraft.lingering_potion.effect.liquid_bread": "Lingering Potion of Liquid Bread",
-  "item.minecraft.lingering_potion.effect.phantom_spirit": "Lingering Potion of Phantom Spirit",
-  "item.minecraft.lingering_potion.effect.light_footed": "Lingering Potion of the Light Footed",
-  "item.minecraft.lingering_potion.effect.miner": "Lingering Potion of the Miner",
-  "item.minecraft.lingering_potion.effect.antidote": "Lingering Antidote",
-  "item.minecraft.lingering_potion.effect.nocturnal": "Lingering Potion of the Nocturnal",
-  "item.minecraft.tipped_arrow.effect.adrenaline": "Arrow of Adrenaline",
-  "item.minecraft.tipped_arrow.effect.assassin": "Arrow of the Assassin",
-  "item.minecraft.tipped_arrow.effect.darkness": "Arrow of Darkness",
-  "item.minecraft.tipped_arrow.effect.dolphin_master": "Arrow of the Dolphin Master",
-  "item.minecraft.tipped_arrow.effect.liquid_bread": "Arrow of Liquid Bread",
-  "item.minecraft.tipped_arrow.effect.phantom_spirit": "Arrow of Phantom Spirit",
-  "item.minecraft.tipped_arrow.effect.light_footed": "Arrow of the Light Footed",
-  "item.minecraft.tipped_arrow.effect.miner": "Arrow of the Miner",
-  "item.minecraft.tipped_arrow.effect.antidote": "Antidote Arrow",...
+  "item.minecraft.splash_potion.effect.adrenaline": "Poção arremessável de adrenalina",
+  "item.minecraft.splash_potion.effect.assassin": "Poção arremessável do assassino",
+  "item.minecraft.splash_potion.effect.darkness": "Poção arremessável da escuridão",
+  "item.minecraft.splash_potion.effect.dolphin_master": "Poção arremessável do mestre-golfinho",
+  "item.minecraft.splash_potion.effect.liquid_bread": "Splash Potion of Liquid Bread",*
+  "item.minecraft.splash_potion.effect.phantom_spirit": "Poção arremessável do espírito fantasma",
+  "item.minecraft.splash_potion.effect.light_footed": "Poção arremessável de passos luminosos",*
+  "item.minecraft.splash_potion.effect.miner": "Poção arremessável do minerador",
+  "item.minecraft.splash_potion.effect.antidote": "Antidoto arremessável",
+  "item.minecraft.splash_potion.effect.nocturnal": "Splash Potion of the Nocturnal",*
+  "item.minecraft.lingering_potion.effect.adrenaline": "Poção prolongada de adrenalina",
+  "item.minecraft.lingering_potion.effect.assassin": "Poção prolongada do assassino",
+  "item.minecraft.lingering_potion.effect.darkness": "Poção prolongada da escuridão",
+  "item.minecraft.lingering_potion.effect.dolphin_master": "Poção prolongada do mestre-golfinho",
+  "item.minecraft.lingering_potion.effect.liquid_bread": "Lingering Potion of Liquid Bread",*
+  "item.minecraft.lingering_potion.effect.phantom_spirit": "Poção prolongada do espírito fanstasma",
+  "item.minecraft.lingering_potion.effect.light_footed": "Poção prolongada de passos luminosos",*
+  "item.minecraft.lingering_potion.effect.miner": "Poção prolongada do minerador",
+  "item.minecraft.lingering_potion.effect.antidote": "Antidoto prolongado",
+  "item.minecraft.lingering_potion.effect.nocturnal": "Lingering Potion of the Nocturnal",*
+  "item.minecraft.tipped_arrow.effect.adrenaline": "Flecha de adrenalina",
+  "item.minecraft.tipped_arrow.effect.assassin": "Flecha do assassino",
+  "item.minecraft.tipped_arrow.effect.darkness": "Flecha da escuridão",
+  "item.minecraft.tipped_arrow.effect.dolphin_master": "Flecha do mestre-golfinho",
+  "item.minecraft.tipped_arrow.effect.liquid_bread": "Arrow of Liquid Bread",*
+  "item.minecraft.tipped_arrow.effect.phantom_spirit": "Flecha do espírito fantasma",
+  "item.minecraft.tipped_arrow.effect.light_footed": "Flecha de passos luminosos",*
+  "item.minecraft.tipped_arrow.effect.miner": "Flecha do minerador",
+  "item.minecraft.tipped_arrow.effect.antidote": "Flecha com antidoto",
   "item.minecraft.tipped_arrow.effect.nocturnal": "Arrow of the Nocturnal",*
 
   "entity.biomemakeover.blightbat" : "Morcegomelo",
