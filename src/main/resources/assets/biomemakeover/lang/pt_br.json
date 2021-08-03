@@ -436,9 +436,9 @@
   "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",*
   "subtitles.biomemakeover.tumbleweed.tumble": "Tumbleweed tombando",
   "subtitles.biomemakeover.tumbleweed.break": "Tumbleweed quebra",
-  "subtitles.biomemakeover.poltergeist.toggle": "Poltergeist Toggles",*
-  "subtitles.biomemakeover.poltergeist.action": "Poltergeist Interacts",*
-  "subtitles.entity.lightning_bottle.throw": "Lightning in a Bottle Thrown",*
+  "subtitles.biomemakeover.poltergeist.toggle": "Poltergeist alternando",
+  "subtitles.biomemakeover.poltergeist.action": "Poltergeist interagindo",
+  "subtitles.entity.lightning_bottle.throw": "Frasco com relâmpago arremessado",
   "subtitles.entity.toad.have_baby" : "Girino nasce",
   "subtitles.entity.toad.croak": "Sapo coachando",
   "subtitles.entity.toad.hurt": "Sapo ferido",
@@ -453,7 +453,7 @@
   "subtitles.entity.decayed.step": "Apodrecido andando",
   "subtitles.entity.decayed.hurt": "Apodrecido ferido",
   "subtitles.entity.decayed.death": "Apodrecido morre",
-  "subtitles.entity.decayed.ambient": "Decayed Gargles",
+  "subtitles.entity.decayed.ambient": "Apodrecido gorgolejando",
   "subtitles.biomemakeover.moth.bite": "Mariposa mordendo",
   "subtitles.biomemakeover.moth.death": "Mariposa morre",
   "subtitles.biomemakeover.moth.flap": "Mariposa voando",
@@ -514,9 +514,9 @@
   "advancements.biomemakeover.witch_hat.title": "Bruxa Baratuxa",
   "advancements.biomemakeover.witch_hat.description": "Equipe um chapéu de bruxa",
   "advancements.biomemakeover.lightning_bug_bottle.title": "Shockingly Bright",*
-  "advancements.biomemakeover.lightning_bug_bottle.description": "Obtain a Lighting bug in a bottle",*
+  "advancements.biomemakeover.lightning_bug_bottle.description": "Obtenha um inseto-relâmpago engarrafado",
   "advancements.biomemakeover.lightning_bottle.title": "Never Strikes Twice",*
-  "advancements.biomemakeover.lightning_bottle.description": "Obtain a Bottle o' Lightning",
+  "advancements.biomemakeover.lightning_bottle.description": "Obtenha um frasco com relâmpago",
   "advancements.biomemakeover.witch_quest.title": "Aprendiz de bruxaria",*
   "advancements.biomemakeover.witch_quest.description": "Complete a missão de uma bruxa",
   "advancements.biomemakeover.kill_giant_slime.title": "Reinado gelatinoso",
@@ -545,12 +545,12 @@
   "advancements.biomemakeover.mansion.description": "Encontre a mansão da floresta",
   "advancements.biomemakeover.moth_blossom.title": "50 tons de laranja",
   "advancements.biomemakeover.moth_blossom.description": "Obtenha uma flor das mariposas",
-  "advancements.biomemakeover.moth_scales.title": "Mata mosquitos",*
+  "advancements.biomemakeover.moth_scales.title": "Terrível contra os insetos",
   "advancements.biomemakeover.moth_scales.description": "Obtenha escamas de mariposa",
   "advancements.biomemakeover.nocturnal_potion.title": "All Nighter",*
   "advancements.biomemakeover.nocturnal_potion.description": "Consume a Nocturnal Potion",*
   "advancements.biomemakeover.roasted_bulbus_root.title": "Amizade desfeita",
-  "advancements.biomemakeover.roasted_bulbus_root.description": "Obtenha raiz de bulbo assada",
+  "advancements.biomemakeover.roasted_bulbus_root.description": "Obtenha raíz de bulbo assada",
   "advancements.biomemakeover.rootling_seeds.title": "Futuro amigo",
   "advancements.biomemakeover.rootling_seeds.description": "Obtenha sementes de bulbolino"
 }
