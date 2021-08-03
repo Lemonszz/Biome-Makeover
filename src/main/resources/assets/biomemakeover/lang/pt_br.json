@@ -235,8 +235,8 @@
   "block.biomemakeover.water_lily" : "Nenúfar",
   "block.biomemakeover.lightning_bug_bottle" : "Inseto-relâmpago engarrafado",
   "block.biomemakeover.marigold" : "Calêndula",
-  "block.biomemakeover.swamp_azalea" : "Azaleia do pântano",
-  "block.biomemakeover.illunite_cluster": "Agregado de ilunita",
+  "block.biomemakeover.swamp_azalea" : "Azaleia-do-pântano",
+  "block.biomemakeover.illunite_cluster": "Agregado de iluminita",
   "block.biomemakeover.mesmerite": "Mesmerita",
   "block.biomemakeover.polished_mesmerite": "Mesmerita polida",
   "block.biomemakeover.potted_saguaro_cactus": "Cacto saguaro envasado",
@@ -292,7 +292,7 @@
   "block.biomemakeover.cladded_stone": "Pedra revestida",
   "block.biomemakeover.directional_data": "Directional Data Block",*
   "block.biomemakeover.wild_mushrooms": "Cogumelos silvestres",
-  "block.biomemakeover.potted_wild_mushrooms": "Cugumelos silvestres envasados",
+  "block.biomemakeover.potted_wild_mushrooms": "Cogumelos silvestres envasados",
   "block.biomemakeover.black_thistle": "Cardo preto",
   "block.biomemakeover.foxglove": "Dedaleira",
 
