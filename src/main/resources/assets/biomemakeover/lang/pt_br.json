@@ -406,7 +406,7 @@
   "entity.biomemakeover.blightbat" : "Morcegomelo",
   "entity.biomemakeover.glowfish" : "Lumino-peixe",
   "entity.biomemakeover.mushroom_trader" : "Vendedor-cogumelo",
-  "entity.biomemakeover.cowboy" : "Saqueador caubói",
+  "entity.biomemakeover.cowboy" : "Caubói saqueador",
   "entity.biomemakeover.ghost" : "Fantasma",
   "entity.biomemakeover.tumbleweed" : "Tumbleweed",
   "entity.biomemakeover.scuttler" : "Scuttler",*
@@ -479,7 +479,7 @@
 
   "advancements.biomemakeover.all_shrooms.title": "Micófilo",
   "advancements.biomemakeover.all_shrooms.description": "Colete todos os tipos de cogumelos",
-  "advancements.biomemakeover.badlands_disc.title": "O Velho Oeste",
+  "advancements.biomemakeover.badlands_disc.title": "Velho Oeste",
   "advancements.biomemakeover.badlands_disc.description": "Obtenha o disco de música das terras áridas",
   "advancements.biomemakeover.blighted_balsa_boat.title": "Leve como uma pluma",
   "advancements.biomemakeover.blighted_balsa_boat.description": "Faça um bote de bálsamo infestado",
@@ -540,7 +540,7 @@
   "advancements.biomemakeover.enchanted_totem.title": "Paz de espírito",*
   "advancements.biomemakeover.enchanted_totem.description": "Obtenha um totem da imortalidade encantado",
   "advancements.biomemakeover.illunite_shard.title": "Fragmentado",
-  "advancements.biomemakeover.illunite_shard.description": "Obtenha um fragmento de ilunita",
+  "advancements.biomemakeover.illunite_shard.description": "Obtenha um fragmento de iluminita",
   "advancements.biomemakeover.mansion.title": "Vizinhos agressivos",
   "advancements.biomemakeover.mansion.description": "Encontre a mansão da floresta",
   "advancements.biomemakeover.moth_blossom.title": "50 tons de laranja",
@@ -551,6 +551,6 @@
   "advancements.biomemakeover.nocturnal_potion.description": "Consume a Nocturnal Potion",*
   "advancements.biomemakeover.roasted_bulbus_root.title": "Amizade desfeita",
   "advancements.biomemakeover.roasted_bulbus_root.description": "Obtenha raíz de bulbo assada",
-  "advancements.biomemakeover.rootling_seeds.title": "Futuro amigo",
+  "advancements.biomemakeover.rootling_seeds.title": "Meu amiguinhozinho",
   "advancements.biomemakeover.rootling_seeds.description": "Obtenha sementes de bulbolino"
 }
