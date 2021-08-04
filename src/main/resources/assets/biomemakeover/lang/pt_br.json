@@ -218,7 +218,7 @@
   "block.biomemakeover.barrel_cactus_flowered" : "Cacto-barril florido",
   "block.biomemakeover.tumbleweed" : "Tumbleweed",
   "block.biomemakeover.poltergeist" : "Poltergeist",
-  "block.biomemakeover.paydirt" : "Terra com minerais",*
+  "block.biomemakeover.paydirt" : "Terra com minerais",
   "block.biomemakeover.ectoplasm_composter" : "Composteira",
   "block.biomemakeover.dried_peat_bricks_stairs" : "Escadas de tijolos de turfa seca",
   "block.biomemakeover.dried_peat_bricks_slab" : "Laje de tijolos de turfa seca",
@@ -244,7 +244,7 @@
   "block.biomemakeover.potted_flowered_barrel_cactus": "Cacto-barril florido envasado",
   "block.biomemakeover.potted_willow_sapling":  "Muda de salgueiro envasada",
   "block.biomemakeover.potted_swamp_cypress_sapling": "Muda de cipreste-do-pântano envasada",
-  "block.biomemakeover.potted_ancient_oak_sapling": "Muda de carvalho ancião envasado",
+  "block.biomemakeover.potted_ancient_oak_sapling": "Muda de carvalho ancião envasada",
   "block.biomemakeover.mesmerite_slab": "Laje de mesmerita",
   "block.biomemakeover.mesmerite_stairs": "Escadas de mesmerita",
   "block.biomemakeover.mesmerite_wall": "Muro de mesmerita",
@@ -271,7 +271,7 @@
   "block.biomemakeover.illunite_block": "Bloco de iluminita",
   "block.biomemakeover.ivy": "Hera",
   "block.biomemakeover.itching_ivy": "Hera venenosa",
-  "block.biomemakeover.moth_blossom": "Flor das mariposas",
+  "block.biomemakeover.moth_blossom": "Flor-das-mariposas",
   "block.biomemakeover.white_tapestry": "Tapeçaria branca",
   "block.biomemakeover.orange_tapestry": "Tapeçaria laranja",
   "block.biomemakeover.magenta_tapestry": "Tapeçaria magenta",
@@ -290,7 +290,7 @@
   "block.biomemakeover.black_tapestry": "Tapeçaria preta",
   "block.biomemakeover.adjudicator_tapestry": "Tapeçaria do mediatário",
   "block.biomemakeover.cladded_stone": "Pedra revestida",
-  "block.biomemakeover.directional_data": "Directional Data Block",*
+  "block.biomemakeover.directional_data": "Bloco de dados direcionais",*
   "block.biomemakeover.wild_mushrooms": "Cogumelos silvestres",
   "block.biomemakeover.potted_wild_mushrooms": "Cogumelos silvestres envasados",
   "block.biomemakeover.black_thistle": "Cardo preto",
@@ -302,7 +302,7 @@
   "item.biomemakeover.mushroom_trader_spawn_egg" : "Ovo gerador de vendedor-cogumelo",
   "item.biomemakeover.glowfish_spawn_egg" : "Ovo gerador de lumino-peixe",
   "item.biomemakeover.blightbat_spawn_egg" : "Ovo gerador de morcegomelo",
-  "item.biomemakeover.scuttler_spawn_egg" : "Scuttler Spawn Egg",*
+  "item.biomemakeover.scuttler_spawn_egg" : "Ovo gerador de scuttler",
   "item.biomemakeover.cowboy_spawn_egg" : "Ovo gerador de caubói",
   "item.biomemakeover.ghost_spawn_egg" : "Ovo gerador de fantasma",
   "item.biomemakeover.toad_spawn_egg" : "Ovo gerador de sapo",
@@ -328,7 +328,7 @@
   "item.biomemakeover.blue_petals" : "Pétalas azuis",
   "item.biomemakeover.light_blue_petals" : "Pétalas azuis-claras",
   "item.biomemakeover.brown_petals" : "Pétalas marrons",
-  "item.biomemakeover.scuttler_tail" : "Scuttler Tail",*
+  "item.biomemakeover.scuttler_tail" : "Calda de scuttler",
   "item.biomemakeover.blighted_balsa_boat" : "Bote de bálsamo infestado",
   "item.biomemakeover.blighted_balsa_sign" : "Placa de bálsamo infestado",
   "item.biomemakeover.witch_hat" : "Chapéu de bruxa",
@@ -371,7 +371,7 @@
   "item.minecraft.potion.effect.light_footed": "Poção de passos luminosos",*
   "item.minecraft.potion.effect.miner": "Poção do minerador",
   "item.minecraft.potion.effect.antidote": "Antidoto",
-  "item.minecraft.potion.effect.nocturnal": "Potion of the Nocturnal",*
+  "item.minecraft.potion.effect.nocturnal": "Poção da noite",
   "item.minecraft.splash_potion.effect.adrenaline": "Poção arremessável de adrenalina",
   "item.minecraft.splash_potion.effect.assassin": "Poção arremessável do assassino",
   "item.minecraft.splash_potion.effect.darkness": "Poção arremessável da escuridão",
@@ -381,7 +381,7 @@
   "item.minecraft.splash_potion.effect.light_footed": "Poção arremessável de passos luminosos",*
   "item.minecraft.splash_potion.effect.miner": "Poção arremessável do minerador",
   "item.minecraft.splash_potion.effect.antidote": "Antidoto arremessável",
-  "item.minecraft.splash_potion.effect.nocturnal": "Splash Potion of the Nocturnal",*
+  "item.minecraft.splash_potion.effect.nocturnal": "Poção arremessável da noite",
   "item.minecraft.lingering_potion.effect.adrenaline": "Poção prolongada de adrenalina",
   "item.minecraft.lingering_potion.effect.assassin": "Poção prolongada do assassino",
   "item.minecraft.lingering_potion.effect.darkness": "Poção prolongada da escuridão",
@@ -391,7 +391,7 @@
   "item.minecraft.lingering_potion.effect.light_footed": "Poção prolongada de passos luminosos",*
   "item.minecraft.lingering_potion.effect.miner": "Poção prolongada do minerador",
   "item.minecraft.lingering_potion.effect.antidote": "Antidoto prolongado",
-  "item.minecraft.lingering_potion.effect.nocturnal": "Lingering Potion of the Nocturnal",*
+  "item.minecraft.lingering_potion.effect.nocturnal": "Poção prolongada da noite",
   "item.minecraft.tipped_arrow.effect.adrenaline": "Flecha de adrenalina",
   "item.minecraft.tipped_arrow.effect.assassin": "Flecha do assassino",
   "item.minecraft.tipped_arrow.effect.darkness": "Flecha da escuridão",
@@ -401,15 +401,15 @@
   "item.minecraft.tipped_arrow.effect.light_footed": "Flecha de passos luminosos",*
   "item.minecraft.tipped_arrow.effect.miner": "Flecha do minerador",
   "item.minecraft.tipped_arrow.effect.antidote": "Flecha com antidoto",
-  "item.minecraft.tipped_arrow.effect.nocturnal": "Arrow of the Nocturnal",*
-
+  "item.minecraft.tipped_arrow.effect.nocturnal": "Flecha da noite",
+  
   "entity.biomemakeover.blightbat" : "Morcegomelo",
   "entity.biomemakeover.glowfish" : "Lumino-peixe",
   "entity.biomemakeover.mushroom_trader" : "Vendedor-cogumelo",
   "entity.biomemakeover.cowboy" : "Caubói saqueador",
   "entity.biomemakeover.ghost" : "Fantasma",
   "entity.biomemakeover.tumbleweed" : "Tumbleweed",
-  "entity.biomemakeover.scuttler" : "Scuttler",*
+  "entity.biomemakeover.scuttler" : "Scuttler",
   "entity.biomemakeover.bm_boat" : "Bote",
   "entity.biomemakeover.toad" : "Sapo",
   "entity.biomemakeover.dragonfly" : "Libélula",
@@ -422,8 +422,8 @@
   "entity.biomemakeover.owl": "Coruja",
   "entity.biomemakeover.rootling": "Bulbolino",
   "entity.biomemakeover.moth": "Mariposa",
-  "entity.biomemakeover.adjudicator": "Mediatário",
-  "entity.biomemakeover.adjudicator_mimic": "Mediatário",
+  "entity.biomemakeover.adjudicator": "Arquimago",
+  "entity.biomemakeover.adjudicator_mimic": "Arquimago",
   "entity.biomemakeover.stone_golem": "Golem de pedra",
 
   "subtitles.biomemakeover.ghost.charge": "Fantasma guinchando",
@@ -431,9 +431,9 @@
   "subtitles.biomemakeover.ghost.hurt": "Fantasma ferido",
   "subtitles.biomemakeover.ghost.angry": "Fantasma gritando",
   "subtitles.biomemakeover.ghost.idle": "Fantasma grunhindo",
-  "subtitles.biomemakeover.scuttler.rattle": "Scuttler Rattles",*
-  "subtitles.biomemakeover.scuttler.hurt": "Scuttler Hurts",*
-  "subtitles.biomemakeover.scuttler.step": "Scuttler Scuttles",*
+  "subtitles.biomemakeover.scuttler.rattle": "Scuttler chocalhando",
+  "subtitles.biomemakeover.scuttler.hurt": "Scuttler ferido",
+  "subtitles.biomemakeover.scuttler.step": "Scuttler andando",
   "subtitles.biomemakeover.tumbleweed.tumble": "Tumbleweed tombando",
   "subtitles.biomemakeover.tumbleweed.break": "Tumbleweed quebra",
   "subtitles.biomemakeover.poltergeist.toggle": "Poltergeist alternando",
@@ -465,14 +465,14 @@
   "subtitles.biomemakeover.rootling.hurt": "Bulbolino ferido",
   "subtitles.biomemakeover.stone_holem.hurt": "Golem de pedra ferido",
   "subtitles.biomemakeover.stone_holem.death": "Golem de pedra morre",
-  "subtitles.biomemakeover.adjudicator_mimic": "Mediatário imitando",
-  "subtitles.biomemakeover.adjudicator_cast_grunt": "Mediatário lança um feitiço",
-  "subtitles.biomemakeover.adjudicator_death": "Mediatário morre",
-  "subtitles.biomemakeover.adjudicator_grunt": "Mediatário grunhindo",
-  "subtitles.biomemakeover.adjudicator_hurt": "Mediatário ferido",
-  "subtitles.biomemakeover.adjudicator_idle": "Mediatário pensando",
-  "subtitles.biomemakeover.adjudicator_laugh": "Mediatário rindo",
-  "subtitles.biomemakeover.adjudicator_no": "Mediatário nega",
+  "subtitles.biomemakeover.adjudicator_mimic": "Arquimago imitando",
+  "subtitles.biomemakeover.adjudicator_cast_grunt": "Arquimago lança um feitiço",
+  "subtitles.biomemakeover.adjudicator_death": "Arquimago morre",
+  "subtitles.biomemakeover.adjudicator_grunt": "Arquimago grunhindo",
+  "subtitles.biomemakeover.adjudicator_hurt": "Arquimago ferido",
+  "subtitles.biomemakeover.adjudicator_idle": "Arquimago pensando",
+  "subtitles.biomemakeover.adjudicator_laugh": "Arquimago rindo",
+  "subtitles.biomemakeover.adjudicator_no": "Arquimago nega",
   "subtitles.biomemakeover.owl_death": "Coruja morre",
   "subtitles.biomemakeover.owl_hurt": "Coruja ferida",
   "subtitles.biomemakeover.owl_idle": "Coruja piando",
@@ -508,7 +508,7 @@
   "advancements.biomemakeover.root.title": "Biome Makeover",
   "advancements.biomemakeover.root.description": "Agradecemos por instalar o Biome Makeover!",
   "advancements.biomemakeover.scuttler_tail.title": "Rattling Rump",*
-  "advancements.biomemakeover.scuttler_tail.description": "Obtain a Scuttler Tail",*
+  "advancements.biomemakeover.scuttler_tail.description": "Obtenha a cauda de um scuttler",
   "advancements.biomemakeover.sunken_ruin.title": "Nosso pântano",
   "advancements.biomemakeover.sunken_ruin.description": "Encontre uma ruína submersa",
   "advancements.biomemakeover.witch_hat.title": "Bruxa Baratuxa",
@@ -517,7 +517,7 @@
   "advancements.biomemakeover.lightning_bug_bottle.description": "Obtenha um inseto-relâmpago engarrafado",
   "advancements.biomemakeover.lightning_bottle.title": "Never Strikes Twice",*
   "advancements.biomemakeover.lightning_bottle.description": "Obtenha um frasco com relâmpago",
-  "advancements.biomemakeover.witch_quest.title": "Aprendiz de bruxaria",*
+  "advancements.biomemakeover.witch_quest.title": "Aprendiz de bruxaria",
   "advancements.biomemakeover.witch_quest.description": "Complete a missão de uma bruxa",
   "advancements.biomemakeover.kill_giant_slime.title": "Reinado gelatinoso",
   "advancements.biomemakeover.kill_giant_slime.description": "Derrote um slime gigante",
@@ -537,7 +537,7 @@
   "advancements.biomemakeover.cladded_armor.description": "Obtenha um conjunto completo de armadura revestida",
   "advancements.biomemakeover.dark_forest_disc.title": "Dança sinistra",
   "advancements.biomemakeover.dark_forest_disc.description": "Obtenha o disco de música da floresta escura",
-  "advancements.biomemakeover.enchanted_totem.title": "Paz de espírito",*
+  "advancements.biomemakeover.enchanted_totem.title": "",*
   "advancements.biomemakeover.enchanted_totem.description": "Obtenha um totem da imortalidade encantado",
   "advancements.biomemakeover.illunite_shard.title": "Fragmentado",
   "advancements.biomemakeover.illunite_shard.description": "Obtenha um fragmento de iluminita",
@@ -548,7 +548,7 @@
   "advancements.biomemakeover.moth_scales.title": "Terrível contra os insetos",
   "advancements.biomemakeover.moth_scales.description": "Obtenha escamas de mariposa",
   "advancements.biomemakeover.nocturnal_potion.title": "All Nighter",*
-  "advancements.biomemakeover.nocturnal_potion.description": "Consume a Nocturnal Potion",*
+  "advancements.biomemakeover.nocturnal_potion.description": "Consuma uma poção da noite",
   "advancements.biomemakeover.roasted_bulbus_root.title": "Amizade desfeita",
   "advancements.biomemakeover.roasted_bulbus_root.description": "Obtenha raíz de bulbo assada",
   "advancements.biomemakeover.rootling_seeds.title": "Meu amiguinhozinho",
