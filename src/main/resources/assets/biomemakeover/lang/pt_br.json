@@ -21,11 +21,11 @@
   "enchantment.biomemakeover.suffocation_curse" : "Maldição do sufocamento",
   "enchantment.biomemakeover.unwieldiness_curse" : "Maldição da incapacidade",
   "enchantment.biomemakeover.inaccuracy_curse" : "Maldição da inexatidão",
-  "enchantment.biomemakeover.buckling_curse": "Curse of Buckling",*
+  "enchantment.biomemakeover.buckling_curse": "Maldição do colapso",
 
   "effect.biomemakeover.shocked" : "Shocado",
   "effect.biomemakeover.antidote" : "Antidoto",
-  "effect.biomemakeover.nocturnal" : "Noturno",
+  "effect.biomemakeover.nocturnal" : "Notívago",
 
   "attribute.name.biomemakeover.projectile_resistance": "Resistência a projéteis",
 
@@ -352,7 +352,7 @@
   "item.biomemakeover.bulbus_root": "Raíz de bulbo",
   "item.biomemakeover.roasted_bulbus_root": "Raíz de bulbo assada",
   "item.biomemakeover.cyan_petals": "Pétalas cíanos",
-  "item.biomemakeover.stunt_powder": "Stunt Powder",*
+  "item.biomemakeover.stunt_powder": "Pó de anti-crescimento",*
   "item.biomemakeover.moth_spawn_egg": "Ovo gerador de mariposa",
   "item.biomemakeover.moth_scales": "Escamas de mariposa",
   "item.biomemakeover.crude_cladding": "Revestimento bruto",
@@ -366,42 +366,42 @@
   "item.minecraft.potion.effect.assassin": "Poção do assassino",
   "item.minecraft.potion.effect.darkness": "Poção da escuridão",
   "item.minecraft.potion.effect.dolphin_master": "Poção do mestre-golfinho",
-  "item.minecraft.potion.effect.liquid_bread": "Potion of Liquid Bread",*
+  "item.minecraft.potion.effect.liquid_bread": "Poção de pão líquido",
   "item.minecraft.potion.effect.phantom_spirit": "Poção do espírito fantasma",
-  "item.minecraft.potion.effect.light_footed": "Poção de passos luminosos",*
+  "item.minecraft.potion.effect.light_footed": "Poção de passos leves",
   "item.minecraft.potion.effect.miner": "Poção do minerador",
   "item.minecraft.potion.effect.antidote": "Antidoto",
-  "item.minecraft.potion.effect.nocturnal": "Poção da noite",
+  "item.minecraft.potion.effect.nocturnal": "Poção do notívago",
   "item.minecraft.splash_potion.effect.adrenaline": "Poção arremessável de adrenalina",
   "item.minecraft.splash_potion.effect.assassin": "Poção arremessável do assassino",
   "item.minecraft.splash_potion.effect.darkness": "Poção arremessável da escuridão",
   "item.minecraft.splash_potion.effect.dolphin_master": "Poção arremessável do mestre-golfinho",
-  "item.minecraft.splash_potion.effect.liquid_bread": "Splash Potion of Liquid Bread",*
+  "item.minecraft.splash_potion.effect.liquid_bread": "Poção arremessável de pão líquido",
   "item.minecraft.splash_potion.effect.phantom_spirit": "Poção arremessável do espírito fantasma",
-  "item.minecraft.splash_potion.effect.light_footed": "Poção arremessável de passos luminosos",*
+  "item.minecraft.splash_potion.effect.light_footed": "Poção arremessável de passos leves",
   "item.minecraft.splash_potion.effect.miner": "Poção arremessável do minerador",
   "item.minecraft.splash_potion.effect.antidote": "Antidoto arremessável",
-  "item.minecraft.splash_potion.effect.nocturnal": "Poção arremessável da noite",
+  "item.minecraft.splash_potion.effect.nocturnal": "Poção arremessável do notívago",
   "item.minecraft.lingering_potion.effect.adrenaline": "Poção prolongada de adrenalina",
   "item.minecraft.lingering_potion.effect.assassin": "Poção prolongada do assassino",
   "item.minecraft.lingering_potion.effect.darkness": "Poção prolongada da escuridão",
   "item.minecraft.lingering_potion.effect.dolphin_master": "Poção prolongada do mestre-golfinho",
-  "item.minecraft.lingering_potion.effect.liquid_bread": "Lingering Potion of Liquid Bread",*
+  "item.minecraft.lingering_potion.effect.liquid_bread": "Poção prolongada de pão líquido",
   "item.minecraft.lingering_potion.effect.phantom_spirit": "Poção prolongada do espírito fanstasma",
-  "item.minecraft.lingering_potion.effect.light_footed": "Poção prolongada de passos luminosos",*
+  "item.minecraft.lingering_potion.effect.light_footed": "Poção prolongada de passos leves",
   "item.minecraft.lingering_potion.effect.miner": "Poção prolongada do minerador",
   "item.minecraft.lingering_potion.effect.antidote": "Antidoto prolongado",
-  "item.minecraft.lingering_potion.effect.nocturnal": "Poção prolongada da noite",
+  "item.minecraft.lingering_potion.effect.nocturnal": "Poção prolongada do notívago",
   "item.minecraft.tipped_arrow.effect.adrenaline": "Flecha de adrenalina",
   "item.minecraft.tipped_arrow.effect.assassin": "Flecha do assassino",
   "item.minecraft.tipped_arrow.effect.darkness": "Flecha da escuridão",
   "item.minecraft.tipped_arrow.effect.dolphin_master": "Flecha do mestre-golfinho",
-  "item.minecraft.tipped_arrow.effect.liquid_bread": "Arrow of Liquid Bread",*
+  "item.minecraft.tipped_arrow.effect.liquid_bread": "Flecha de pão líquido",
   "item.minecraft.tipped_arrow.effect.phantom_spirit": "Flecha do espírito fantasma",
-  "item.minecraft.tipped_arrow.effect.light_footed": "Flecha de passos luminosos",*
+  "item.minecraft.tipped_arrow.effect.light_footed": "Flecha de passos leves",
   "item.minecraft.tipped_arrow.effect.miner": "Flecha do minerador",
   "item.minecraft.tipped_arrow.effect.antidote": "Flecha com antidoto",
-  "item.minecraft.tipped_arrow.effect.nocturnal": "Flecha da noite",
+  "item.minecraft.tipped_arrow.effect.nocturnal": "Flecha do notívago",
   
   "entity.biomemakeover.blightbat" : "Morcegomelo",
   "entity.biomemakeover.glowfish" : "Lumino-peixe",
@@ -507,15 +507,15 @@
   "advancements.biomemakeover.poltergeist.description": "Faça um bloco poltergeist",
   "advancements.biomemakeover.root.title": "Biome Makeover",
   "advancements.biomemakeover.root.description": "Agradecemos por instalar o Biome Makeover!",
-  "advancements.biomemakeover.scuttler_tail.title": "Rattling Rump",*
+  "advancements.biomemakeover.scuttler_tail.title": "Não vai crescer de novo...",
   "advancements.biomemakeover.scuttler_tail.description": "Obtenha a cauda de um scuttler",
   "advancements.biomemakeover.sunken_ruin.title": "Nosso pântano",
   "advancements.biomemakeover.sunken_ruin.description": "Encontre uma ruína submersa",
   "advancements.biomemakeover.witch_hat.title": "Bruxa Baratuxa",
   "advancements.biomemakeover.witch_hat.description": "Equipe um chapéu de bruxa",
-  "advancements.biomemakeover.lightning_bug_bottle.title": "Shockingly Bright",*
+  "advancements.biomemakeover.lightning_bug_bottle.title": "Jurava que era um churrumino!",
   "advancements.biomemakeover.lightning_bug_bottle.description": "Obtenha um inseto-relâmpago engarrafado",
-  "advancements.biomemakeover.lightning_bottle.title": "Never Strikes Twice",*
+  "advancements.biomemakeover.lightning_bottle.title": "Katchau!",
   "advancements.biomemakeover.lightning_bottle.description": "Obtenha um frasco com relâmpago",
   "advancements.biomemakeover.witch_quest.title": "Aprendiz de bruxaria",
   "advancements.biomemakeover.witch_quest.description": "Complete a missão de uma bruxa",
@@ -529,7 +529,7 @@
   "advancements.biomemakeover.all_tapestries.description": "Colete todas as tapeçarias",
   "advancements.biomemakeover.altar.title": "Amaldiçoado",
   "advancements.biomemakeover.altar.description": "Obtenha um altar",
-  "advancements.biomemakeover.ancient_oak_sapling.title": "Alto, \"mó lenho\" e simpático",
+  "advancements.biomemakeover.ancient_oak_sapling.title": "",
   "advancements.biomemakeover.ancient_oak_sapling.description": "Obtenha uma muda de carvalho ancião",
   "advancements.biomemakeover.arm_golem.title": "Têndencia de batalha",
   "advancements.biomemakeover.arm_golem.description": "Dê uma besta a um golem de pedra",
@@ -537,20 +537,20 @@
   "advancements.biomemakeover.cladded_armor.description": "Obtenha um conjunto completo de armadura revestida",
   "advancements.biomemakeover.dark_forest_disc.title": "Dança sinistra",
   "advancements.biomemakeover.dark_forest_disc.description": "Obtenha o disco de música da floresta escura",
-  "advancements.biomemakeover.enchanted_totem.title": "",*
+  "advancements.biomemakeover.enchanted_totem.title": "Eu transcendi a humanidade!",
   "advancements.biomemakeover.enchanted_totem.description": "Obtenha um totem da imortalidade encantado",
   "advancements.biomemakeover.illunite_shard.title": "Fragmentado",
   "advancements.biomemakeover.illunite_shard.description": "Obtenha um fragmento de iluminita",
   "advancements.biomemakeover.mansion.title": "Vizinhos agressivos",
   "advancements.biomemakeover.mansion.description": "Encontre a mansão da floresta",
   "advancements.biomemakeover.moth_blossom.title": "50 tons de laranja",
-  "advancements.biomemakeover.moth_blossom.description": "Obtenha uma flor das mariposas",
+  "advancements.biomemakeover.moth_blossom.description": "Obtenha uma flor-das-mariposas",
   "advancements.biomemakeover.moth_scales.title": "Terrível contra os insetos",
   "advancements.biomemakeover.moth_scales.description": "Obtenha escamas de mariposa",
-  "advancements.biomemakeover.nocturnal_potion.title": "All Nighter",*
-  "advancements.biomemakeover.nocturnal_potion.description": "Consuma uma poção da noite",
+  "advancements.biomemakeover.nocturnal_potion.title": "Noite em claro",
+  "advancements.biomemakeover.nocturnal_potion.description": "Consuma uma poção do notívago",
   "advancements.biomemakeover.roasted_bulbus_root.title": "Amizade desfeita",
   "advancements.biomemakeover.roasted_bulbus_root.description": "Obtenha raíz de bulbo assada",
-  "advancements.biomemakeover.rootling_seeds.title": "Meu amiguinhozinho",
+  "advancements.biomemakeover.rootling_seeds.title": "Seu melhor amigo...",
   "advancements.biomemakeover.rootling_seeds.description": "Obtenha sementes de bulbolino"
 }
