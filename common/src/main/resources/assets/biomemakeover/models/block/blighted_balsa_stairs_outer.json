@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/blighted_balsa_planks",
+    "top": "biomemakeover:block/blighted_balsa_planks",
+    "side": "biomemakeover:block/blighted_balsa_planks"
+  }
+}

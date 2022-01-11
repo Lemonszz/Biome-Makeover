@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/ancient_oak_sapling",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:moth_scales"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.moth_scales.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.moth_scales.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:moth_scales"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

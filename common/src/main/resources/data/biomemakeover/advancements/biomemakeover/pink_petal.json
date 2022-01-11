@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/cacti",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:pink_petals"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.pink_petal.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.pink_petal.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:pink_petals"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

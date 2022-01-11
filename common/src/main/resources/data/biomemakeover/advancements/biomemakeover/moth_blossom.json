@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/moth_scales",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:moth_blossom"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.moth_blossom.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.moth_blossom.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:moth_blossom"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

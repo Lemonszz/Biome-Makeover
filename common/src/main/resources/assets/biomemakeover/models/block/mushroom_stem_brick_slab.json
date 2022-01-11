@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "biomemakeover:block/mushroom_stem_brick",
+    "top": "biomemakeover:block/mushroom_stem_brick",
+    "side": "biomemakeover:block/mushroom_stem_brick"
+  }
+}

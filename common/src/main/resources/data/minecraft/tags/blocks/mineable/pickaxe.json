@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:dried_peat_bricks",
+    "biomemakeover:mossy_dried_peat_bricks",
+    "biomemakeover:dried_peat",
+    "biomemakeover:dried_peat_bricks_slab",
+    "biomemakeover:dried_peat_bricks_stairs",
+    "biomemakeover:dried_peat_bricks_wall",
+    "biomemakeover:mossy_dried_peat_brick_slab",
+    "biomemakeover:mossy_dried_peat_brick_stairs",
+    "biomemakeover:mossy_dried_peat_brick_wall",
+    "biomemakeover:cracked_dried_peat_bricks",
+    "biomemakeover:cracked_dried_peat_brick_slab",
+    "biomemakeover:cracked_dried_peat_brick_stairs",
+    "biomemakeover:cracked_dried_peat_brick_wall"
+  ]
+}

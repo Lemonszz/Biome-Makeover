@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:blighted_balsa_sapling",
+    "biomemakeover:willow_sapling",
+    "biomemakeover:swamp_cypress_sapling",
+    "biomemakeover:ancient_oak_sapling"
+  ]
+}

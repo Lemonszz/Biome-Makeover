@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:illunite_shard"
+    },
+    {
+      "item": "biomemakeover:bulbus_root"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:stunt_powder",
+    "count": 2
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/swamp_cypress_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/swamp_cypress_planks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/swamp_cypress_slab_top"
+    }
+  }
+}

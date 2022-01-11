@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "biomemakeover:block/ancient_oak_log",
+    "side": "biomemakeover:block/ancient_oak_log"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "biomemakeover:peat"
+  },
+  "result": "biomemakeover:dried_peat",
+  "experience": 0.15,
+  "cookingtime": 200
+}

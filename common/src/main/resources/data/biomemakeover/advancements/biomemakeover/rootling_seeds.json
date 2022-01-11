@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:rootling_seeds"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.rootling_seeds.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.rootling_seeds.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:rootling_seeds"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

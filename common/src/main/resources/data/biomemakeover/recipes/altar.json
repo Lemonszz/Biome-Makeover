@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "ICI",
+    "MCM"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "I": {
+      "item": "biomemakeover:illunite_shard"
+    },
+    "M": {
+      "item": "biomemakeover:mesmerite"
+    },
+    "C": {
+      "item": "minecraft:crying_obsidian"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:altar",
+    "count": 1
+  }
+}

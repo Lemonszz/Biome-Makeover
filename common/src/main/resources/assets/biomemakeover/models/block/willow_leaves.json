@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "biomemakeover:block/willow_leaves"
+  }
+}

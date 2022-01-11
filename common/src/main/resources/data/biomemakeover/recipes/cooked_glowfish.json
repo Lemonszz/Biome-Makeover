@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "biomemakeover:glowfish"
+  },
+  "result": "biomemakeover:cooked_glowfish",
+  "experience": 0.35,
+  "cookingtime": 200
+}

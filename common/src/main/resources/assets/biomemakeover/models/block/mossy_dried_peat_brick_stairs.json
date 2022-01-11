@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/mossy_dried_peat_brick",
+    "top": "biomemakeover:block/mossy_dried_peat_brick",
+    "side": "biomemakeover:block/mossy_dried_peat_brick"
+  }
+}

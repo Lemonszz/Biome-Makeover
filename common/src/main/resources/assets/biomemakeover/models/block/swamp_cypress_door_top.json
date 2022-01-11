@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top",
+  "textures": {
+    "top": "biomemakeover:block/swamp_cypress_door_top",
+    "bottom": "biomemakeover:block/swamp_cypress_door_bottom"
+  }
+}

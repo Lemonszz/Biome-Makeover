@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "biomemakeover:block/blighted_balsa_sapling"
+  }
+}

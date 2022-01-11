@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "biomemakeover:block/tall_brown_mushroom_bottom"
+    },
+    "half=upper": {
+      "model": "biomemakeover:block/tall_brown_mushroom_top"
+    }
+  }
+}

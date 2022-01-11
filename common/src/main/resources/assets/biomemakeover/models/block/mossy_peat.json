@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "biomemakeover:block/peat",
+    "north": "biomemakeover:block/mossy_peat_side",
+    "south": "biomemakeover:block/mossy_peat_side",
+    "east": "biomemakeover:block/mossy_peat_side",
+    "west": "biomemakeover:block/mossy_peat_side",
+    "up": "biomemakeover:block/mossy_peat_top",
+    "down": "biomemakeover:block/peat"
+  }
+}

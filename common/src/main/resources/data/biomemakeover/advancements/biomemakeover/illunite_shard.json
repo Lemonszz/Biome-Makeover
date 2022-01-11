@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:illunite_shard"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.illunite_shard.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.illunite_shard.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:illunite_shard"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

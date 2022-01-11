@@ -1,0 +1,33 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:ectoplasm"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.ghost_town.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.ghost_town.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ghost_town": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "feature": "biomemakeover:ghost_town"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ghost_town"
+    ]
+  ]
+}

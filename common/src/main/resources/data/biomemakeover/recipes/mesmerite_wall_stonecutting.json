@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:mesmerite"
+  },
+  "result": "biomemakeover:mesmerite_wall",
+  "count": 1
+}

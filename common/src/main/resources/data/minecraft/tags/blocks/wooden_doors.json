@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:blighted_balsa_door",
+    "biomemakeover:willow_door",
+    "biomemakeover:swamp_cypress_door",
+    "biomemakeover:ancient_oak_door"
+  ]
+}

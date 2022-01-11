@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "biomemakeover:block/tall_red_mushroom_top"
+  }
+}

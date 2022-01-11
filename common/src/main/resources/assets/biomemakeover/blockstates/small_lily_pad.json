@@ -1,0 +1,68 @@
+{
+  "variants": {
+    "pads=0": [
+      {"model": "biomemakeover:block/small_lily_pad_0"},
+      {"model": "biomemakeover:block/small_lily_pad_0", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_0", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_0",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_0_a"},
+      {"model": "biomemakeover:block/small_lily_pad_0_a", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_0_a", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_0_a",  "y": 270}
+    ],
+    "pads=1": [
+      {"model": "biomemakeover:block/small_lily_pad_1"},
+      {"model": "biomemakeover:block/small_lily_pad_1", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_1", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_1",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_1_a"},
+      {"model": "biomemakeover:block/small_lily_pad_1_a", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_1_a", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_1_a",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_1_b"},
+      {"model": "biomemakeover:block/small_lily_pad_1_b", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_1_b", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_1_b",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_1_c"},
+      {"model": "biomemakeover:block/small_lily_pad_1_c", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_1_c", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_1_c",  "y": 270}
+    ],
+    "pads=2": [
+      {"model": "biomemakeover:block/small_lily_pad_2"},
+      {"model": "biomemakeover:block/small_lily_pad_2", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_2", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_2",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_2_a"},
+      {"model": "biomemakeover:block/small_lily_pad_2_a", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_2_a", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_2_a",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_2_b"},
+      {"model": "biomemakeover:block/small_lily_pad_2_b", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_2_b", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_2_b",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_2_c"},
+      {"model": "biomemakeover:block/small_lily_pad_2_c", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_2_c", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_2_c",  "y": 270}
+    ],
+    "pads=3": [
+      {"model": "biomemakeover:block/small_lily_pad_3"},
+      {"model": "biomemakeover:block/small_lily_pad_3", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_3", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_3",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_3_a"},
+      {"model": "biomemakeover:block/small_lily_pad_3_a", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_3_a", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_3_a",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_3_b"},
+      {"model": "biomemakeover:block/small_lily_pad_3_b", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_3_b", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_3_b",  "y": 270},
+      {"model": "biomemakeover:block/small_lily_pad_3_c"},
+      {"model": "biomemakeover:block/small_lily_pad_3_c", "y": 90},
+      {"model": "biomemakeover:block/small_lily_pad_3_c", "y": 180},
+      {"model": "biomemakeover:block/small_lily_pad_3_c",  "y": 270}
+    ]
+  }
+}

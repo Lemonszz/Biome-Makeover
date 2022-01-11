@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:blighted_balsa_slab",
+    "biomemakeover:willow_slab",
+    "biomemakeover:swamp_cypress_slab",
+    "biomemakeover:ancient_oak_slab"
+  ]
+}

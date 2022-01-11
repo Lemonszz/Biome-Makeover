@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "PSP",
+    "PCP"
+  ],
+  "key": {
+    "E": {
+      "item": "biomemakeover:ectoplasm"
+    },
+    "P": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "S": {
+      "item": "minecraft:soul_soil"
+    },
+    "C": {
+      "item": "minecraft:cauldron"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:poltergeist",
+    "count": 1
+  }
+}

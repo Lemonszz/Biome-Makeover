@@ -1,0 +1,45 @@
+{
+  "parent": "biomemakeover:biomemakeover/arm_golem",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:cladded_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.cladded_armor.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.cladded_armor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "netherite_armor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:cladded_helmet"]
+          },
+          {
+            "items": ["biomemakeover:cladded_chestplate"]
+          },
+          {
+            "items": ["biomemakeover:cladded_leggings"]
+          },
+          {
+            "items": ["biomemakeover:cladded_boots"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "netherite_armor"
+    ]
+  ]
+}

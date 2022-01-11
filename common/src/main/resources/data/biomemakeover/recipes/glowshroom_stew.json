@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "biomemakeover:purple_glowshroom"
+    },
+    {
+      "item": "biomemakeover:green_glowshroom"
+    },
+    {
+      "item": "biomemakeover:orange_glowshroom"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:glowshroom_stew"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/rootling_seeds",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:roasted_bulbus_root"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.roasted_bulbus_root.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.roasted_bulbus_root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:roasted_bulbus_root"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

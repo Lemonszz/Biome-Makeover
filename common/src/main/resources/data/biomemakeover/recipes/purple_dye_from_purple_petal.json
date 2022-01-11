@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:purple_petals"
+    }
+  },
+  "result": {
+    "item": "minecraft:purple_dye",
+    "count": 1
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:barrel_cactus_flowered"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.cacti.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.cacti.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cacti": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:saguaro_cactus"]
+          },
+          {
+            "item": ["minecraft:cactus"]
+          },
+          {
+            "items": ["biomemakeover:barrel_cactus_flowered"]
+          },
+          {
+            "items": ["biomemakeover:barrel_cactus"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "cacti"
+    ]
+  ]
+}

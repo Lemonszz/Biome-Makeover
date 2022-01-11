@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "biomemakeover:block/blighted_balsa_log_top",
+    "side": "biomemakeover:block/blighted_balsa_log"
+  }
+}

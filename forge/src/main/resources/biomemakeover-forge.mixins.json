@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "party.lemons.biomemakeover.mixin.forge",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+  ],
+  "mixins": [
+    "StructureSettingsAccessor",
+    "ChunkGeneratorAccessor",
+    "DefaultBiomesMixin_RemoveSwampTrees",
+    "LilypadBlockMixin_PlantType"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

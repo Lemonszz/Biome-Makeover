@@ -1,0 +1,28 @@
+{
+  "parent": "biomemakeover:biomemakeover/witch_hat",
+  "display": {
+    "icon": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.witch_quest.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.witch_quest.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "do_trade": {
+      "trigger": "biomemakeover:witch_trade"
+    }
+  },
+  "requirements": [
+    [
+      "do_trade"
+    ]
+  ]
+}

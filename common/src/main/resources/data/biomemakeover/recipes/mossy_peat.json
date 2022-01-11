@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "biomemakeover:peat"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:mossy_peat",
+    "count": 1
+  }
+}

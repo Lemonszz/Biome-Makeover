@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/light_blue_terracotta_brick_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/light_blue_terracotta_bricks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/light_blue_terracotta_brick_slab_top"
+    }
+  }
+}

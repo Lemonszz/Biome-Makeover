@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "biomemakeover:block/itching_ivy",
+    "layer1": "biomemakeover:block/itching_ivy_top"
+  }
+}

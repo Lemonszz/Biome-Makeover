@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "biomemakeover:block/foxglove_bottom"
+    },
+    "half=upper": [
+      {
+        "model": "biomemakeover:block/foxglove_top"
+      }
+    ]
+  }
+}

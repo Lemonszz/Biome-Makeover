@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "biomemakeover:block/mossy_dried_peat_brick"
+  }
+}

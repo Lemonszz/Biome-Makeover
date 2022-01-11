@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "red_dye",
+  "ingredients": [
+    {
+      "item": "biomemakeover:black_thistle"
+    }
+  ],
+  "result": {
+    "item": "minecraft:black_dye",
+    "count": 2
+  }
+}

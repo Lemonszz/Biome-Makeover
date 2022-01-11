@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[37,)"
+#issueTrackerURL = ""
+license = "Custom"
+
+[[mods]]
+modId = "biomemakeover"
+version = "${version}"
+displayName = "Biome Makeover"
+authors = "LASERKNIGHTS"
+description = '''
+Biome Makeover is a mod designed to update vanilla's biomes.
+'''
+logoFile = "assets/biomemakeover/logo.png"
+
+[[dependencies.biomemakeover]]
+modId = "forge"
+mandatory = true
+versionRange = "[39,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.biomemakeover]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.biomemakeover]]
+modId = "architectury"
+mandatory = true
+versionRange = "[3.2.52,)"
+ordering = "AFTER"
+side = "BOTH"

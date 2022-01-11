@@ -1,0 +1,34 @@
+{
+  "parent": "biomemakeover:biomemakeover/moth_scales",
+  "display": {
+    "icon": {
+      "item": "minecraft:potion",
+      "nbt": "{Potion:\"biomemakeover:nocturnal_pot\"}"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.nocturnal_potion.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.nocturnal_potion.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_effect": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "biomemakeover:nocturnal": {}
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_effect"
+    ]
+  ]
+}

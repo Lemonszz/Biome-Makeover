@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "biomemakeover:block/tall_red_mushroom_top"
+  }
+}

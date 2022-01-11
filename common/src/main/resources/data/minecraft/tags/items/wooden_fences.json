@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:blighted_balsa_fence",
+    "biomemakeover:willow_fence",
+    "biomemakeover:swamp_cypress_fence",
+    "biomemakeover:ancient_oak_fence"
+  ]
+}

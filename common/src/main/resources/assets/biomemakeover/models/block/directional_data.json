@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube_directional",
+  "textures": {
+    "particle": "biomemakeover:block/data_arrow",
+    "north": "biomemakeover:block/data_top",
+    "south": "biomemakeover:block/data_back",
+    "east": "biomemakeover:block/data_arrow",
+    "west": "biomemakeover:block/data_arrow",
+    "up": "biomemakeover:block/data_arrow",
+    "down": "biomemakeover:block/data_arrow"
+  }
+}

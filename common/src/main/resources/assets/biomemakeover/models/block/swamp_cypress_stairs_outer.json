@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/swamp_cypress_planks",
+    "top": "biomemakeover:block/swamp_cypress_planks",
+    "side": "biomemakeover:block/swamp_cypress_planks"
+  }
+}

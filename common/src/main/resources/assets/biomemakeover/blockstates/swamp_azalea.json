@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "biomemakeover:block/swamp_azalea_bottom"
+    },
+    "half=upper": [
+      {
+        "model": "biomemakeover:block/swamp_azalea_top"
+      }
+    ]
+  }
+}

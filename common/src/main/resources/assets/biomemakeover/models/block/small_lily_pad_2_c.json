@@ -1,0 +1,6 @@
+{
+  "parent": "biomemakeover:block/small_lily_pad",
+  "textures": {
+    "texture": "biomemakeover:block/small_lily_pad_2d"
+  }
+}

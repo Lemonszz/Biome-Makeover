@@ -1,0 +1,83 @@
+{
+  "parent": "biomemakeover:biomemakeover/enchanted_totem",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:adjudicator_tapestry"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.all_tapestries.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.all_tapestries.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_shrooms": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:white_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:orange_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:magenta_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:light_blue_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:yellow_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:lime_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:pink_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:gray_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:light_gray_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:cyan_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:purple_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:blue_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:brown_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:green_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:red_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:black_tapestry"]
+          },
+          {
+            "items": ["biomemakeover:adjudicator_tapestry"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_shrooms"
+    ]
+  ]
+}

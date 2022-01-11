@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "item": "biomemakeover:icon_item"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.root.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "biomemakeover:textures/gui/advancements.png"
+  },
+  "criteria": {
+    "enter_badlands": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "minecraft:badlands"
+        }
+      }
+    },
+    "enter_mushroom_fields": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "minecraft:mushroom_fields"
+        }
+      }
+    },
+    "enter_swamp": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "minecraft:swamp"
+        }
+      }
+    },
+    "enter_dark_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "minecraft:dark_forest"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "enter_badlands",
+      "enter_mushroom_fields",
+      "enter_swamp",
+      "enter_dark_forest"
+    ]
+  ]
+}

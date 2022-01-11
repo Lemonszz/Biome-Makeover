@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "biomemakeover:block/ancient_oak_leaves"
+  }
+}

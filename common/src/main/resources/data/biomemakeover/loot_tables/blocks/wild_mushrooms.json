@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "item": "minecraft:shears"
+                  }
+                }
+              ],
+              "name": "biomemakeover:wild_mushrooms"
+            },
+            {
+              "type": "minecraft:loot_table",
+              "name": "biomemakeover:blocks/wild_shrooms",
+              "conditions": [
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

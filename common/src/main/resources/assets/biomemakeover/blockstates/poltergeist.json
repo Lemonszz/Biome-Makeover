@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=true": {
+      "model": "biomemakeover:block/poltergeist_on"
+    },
+    "enabled=false": {
+      "model": "biomemakeover:block/poltergeist_off"
+    }
+  }
+}

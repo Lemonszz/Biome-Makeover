@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/mansion",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:enchanted_totem"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.enchanted_totem.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.enchanted_totem.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_shrooms": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:enchanted_totem"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_shrooms"
+    ]
+  ]
+}

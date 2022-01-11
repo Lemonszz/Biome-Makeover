@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/flower_pot_cross",
+  "textures": {
+    "plant": "biomemakeover:block/wild_mushrooms_potted"
+  }
+}

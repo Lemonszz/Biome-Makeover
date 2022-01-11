@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/blighted_balsa_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/blighted_balsa_planks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/blighted_balsa_slab_top"
+    }
+  }
+}

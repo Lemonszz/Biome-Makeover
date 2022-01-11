@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/brown_mushroom_brick_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/brown_mushroom_brick"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/brown_mushroom_brick_slab_top"
+    }
+  }
+}

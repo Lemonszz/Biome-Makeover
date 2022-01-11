@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/illunite_shard",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:altar"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.altar.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.altar.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_stew": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:altar"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_stew"
+    ]
+  ]
+}

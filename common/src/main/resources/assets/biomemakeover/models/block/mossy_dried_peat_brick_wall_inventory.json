@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "biomemakeover:block/mossy_dried_peat_brick"
+  }
+}
