@@ -482,8 +482,11 @@ public class BMWorldGen
 
                     ));
 
+            MUSHROOM_GEN.put(GenerationStep.Decoration.FLUID_SPRINGS, Lists.newArrayList(
+                    BLIGHTED_BALSA_TREES_PLACED //Moving trees a step earlier to generate before Terralith giant mushrooms.
+                    ));
 
-            //Vegetal
+                    //Vegetal
             MUSHROOM_GEN.put(GenerationStep.Decoration.VEGETAL_DECORATION, Lists.newArrayList(
                     SPROUTS_PLACED,
                     ROOTS_PLACED,
@@ -495,7 +498,6 @@ public class BMWorldGen
                     ORANGE_GLOWSHROOM_PLACED,
                     TALL_BROWN_MUSHROOMS_PLACED,
                     TALL_RED_MUSHROOMS_PLACED,
-                    BLIGHTED_BALSA_TREES_PLACED,
                     DarkForest.WILD_MUSHROOMS_PLACED
             ));
         }

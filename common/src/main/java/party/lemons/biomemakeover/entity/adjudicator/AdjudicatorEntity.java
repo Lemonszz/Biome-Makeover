@@ -350,6 +350,12 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         super.die(damageSource);
     }
 
+    @Override
+    public void stopSeenByPlayer(ServerPlayer serverPlayer) {
+        super.stopSeenByPlayer(serverPlayer);
+        this.bossBar.removePlayer(serverPlayer);
+    }
+
     private void setUpPhase()
     {
         //Stop pathing
