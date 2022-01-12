@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:ancient_oak_wood"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:ancient_oak_planks",
+    "count": 4
+  }
+}

@@ -75,10 +75,9 @@ public class HatLayer<T extends LivingEntity, M extends EntityModel<T>> extends 
 
     public void setupHat(PoseStack poseStack)
     {
-        poseStack.scale(1.2F,1.2F,1.2F);
-        poseStack.translate(0, yOffset, 0);
-
         ((HeadedModel) this.getParentModel()).getHead().translateAndRotate(poseStack);
+        poseStack.scale(1.25F,1.25F,1.25F);
+        poseStack.translate(0, yOffset, 0);
     }
 
     @Override

@@ -13,7 +13,7 @@
     "homepage": "httpsL//youtube.com/LASERKNIGHTS"
   },
   "license": "CUSTOM",
-  "icon": "assets/biomemakeover/logo.png",
+  "icon": "bm-logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [

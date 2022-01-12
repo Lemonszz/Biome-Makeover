@@ -11,7 +11,7 @@ authors = "LASERKNIGHTS"
 description = '''
 Biome Makeover is a mod designed to update vanilla's biomes.
 '''
-logoFile = "assets/biomemakeover/logo.png"
+logoFile = "bm-logo.png"
 
 [[dependencies.biomemakeover]]
 modId = "forge"

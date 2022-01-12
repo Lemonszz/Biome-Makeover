@@ -17,10 +17,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
+import party.lemons.biomemakeover.util.extension.Stuntable;
 
-public class TadpoleEntity extends AbstractFish {
+public class TadpoleEntity extends AbstractFish implements Stuntable {
 
     private int babyTime = -6000;
+    private boolean stunted = false;
 
     public TadpoleEntity(EntityType<? extends AbstractFish> entityType, Level level) {
         super(entityType, level);
@@ -32,7 +34,8 @@ public class TadpoleEntity extends AbstractFish {
 
         if(!level.isClientSide())
         {
-            babyTime++;
+            if(!isStunted())
+                babyTime++;
             if(!isBaby())
             {
                 ToadEntity toad = BMEntities.TOAD.create(level);
@@ -86,12 +89,14 @@ public class TadpoleEntity extends AbstractFish {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("BabyTime", babyTime);
+        compoundTag.putBoolean("Stunted", isStunted());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if(tag.contains("BabyTime")) babyTime = tag.getInt("BabyTime");
+        setStunted(tag.getBoolean("Stunted"));
     }
 
     @Override
@@ -110,5 +115,15 @@ public class TadpoleEntity extends AbstractFish {
         return createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
+    }
+
+    @Override
+    public boolean isStunted() {
+        return stunted;
+    }
+
+    @Override
+    public void setStunted(boolean stunted) {
+        this.stunted = stunted;
     }
 }

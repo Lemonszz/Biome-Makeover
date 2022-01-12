@@ -25,7 +25,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class LightningBugBottleBlock extends BMBlock implements EntityBlock, SimpleWaterloggedBlock
 {
-        static final BooleanProperty UPPER = BooleanProperty.create("up");
+    public static final BooleanProperty UPPER = BooleanProperty.create("up");
 
     private static final VoxelShape LOWER_SHAPE = Shapes.or(Block.box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D), Block.box(6.0D, 8.0D, 6.0D, 10.0D, 12.0D, 10.0D));
     private static final VoxelShape UPPER_SHAPE = Shapes.or(Block.box(4.0D, 4.0D, 4.0D, 12.0D, 12.0D, 12.0D), Block.box(6.0D, 11.0D, 6.0D, 10.0D, 16.0D, 10.0D));

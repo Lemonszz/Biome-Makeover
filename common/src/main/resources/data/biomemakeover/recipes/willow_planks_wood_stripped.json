@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "biomemakeover:stripped_willow_wood"
+    }
+  ],
+  "result": {
+    "item": "biomemakeover:willow_planks",
+    "count": 4
+  }
+}

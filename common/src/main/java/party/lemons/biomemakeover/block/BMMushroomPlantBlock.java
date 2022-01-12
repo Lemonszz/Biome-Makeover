@@ -28,19 +28,6 @@ public class BMMushroomPlantBlock extends MushroomBlock implements BonemealableB
     }
 
     @Override
-    public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
-        BlockPos downPos = blockPos.below();
-        BlockState downstate = levelReader.getBlockState(downPos);
-        if(downstate.is(BlockTags.MUSHROOM_GROW_BLOCK))
-        {
-            return true;
-        }else
-        {
-            return (levelReader.getRawBrightness(downPos, 0) < 13 || defaultBlockState().getLightEmission() > 6) && this.mayPlaceOn(downstate, levelReader, downPos);
-        }
-    }
-
-    @Override
     public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean bl) {
         return giantShroomFeature != null;
     }

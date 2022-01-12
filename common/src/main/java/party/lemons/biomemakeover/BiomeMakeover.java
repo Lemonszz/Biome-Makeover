@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import party.lemons.biomemakeover.block.blockentity.render.AltarRenderer;
+import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.TapestryRenderer;
 import party.lemons.biomemakeover.crafting.AltarScreen;
 import party.lemons.biomemakeover.crafting.DirectionDataScreen;
@@ -98,6 +99,7 @@ public class BiomeMakeover {
             BMBlocks.initClient();
             BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY, TapestryRenderer::new);
             BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR, AltarRenderer::new);
+            BlockEntityRendererRegistry.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, LightningBugBottleRenderer::new);
 
             initColors();
 

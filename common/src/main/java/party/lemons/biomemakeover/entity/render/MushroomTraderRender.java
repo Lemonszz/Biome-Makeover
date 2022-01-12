@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -66,12 +67,35 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
 
         @Override
         public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, MushroomVillagerEntity entity, float f, float g, float h, float j, float k, float l) {
-            BlockPos blockPos = new BlockPos(entity.getLightProbePosition(f));
-            int light = LightTexture.pack(entity.isOnFire() ? 15 : entity.level.getBrightness(LightLayer.BLOCK, blockPos), entity.level.getBrightness(LightLayer.SKY, blockPos));
+            int light = getPackedLightCoords(entity, l);
             getParentModel().copyPropertiesTo(model);
             model.setupAnim(entity, f, g, j, k, l);
 
             renderColoredCutoutModel(model, TEXTURE, poseStack, multiBufferSource, light, entity, 1.0F, 1.0F,1.0F);
+        }
+
+        public final int getPackedLightCoords(MushroomVillagerEntity entity, float f) {
+            BlockPos blockPos = new BlockPos(((Entity)entity).getLightProbePosition(f));
+            return LightTexture.pack(this.getBlockLightLevel(entity, blockPos), this.getSkyLightLevel(entity, blockPos));
+        }
+
+        protected int getSkyLightLevel(MushroomVillagerEntity entity, BlockPos blockPos) {
+            return entity.level.getBrightness(LightLayer.SKY, blockPos);
+        }
+
+        protected int getBlockLightLevel(MushroomVillagerEntity entity, BlockPos blockPos) {
+            if (entity.isOnFire()) {
+                return 15;
+            }
+            return entity.level.getBrightness(LightLayer.BLOCK, blockPos);
+        }
+
+
+        protected int getOverlayLight(MushroomVillagerEntity entity, BlockPos blockPos) {
+            if (entity.isOnFire()) {
+                return 15;
+            }
+            return entity.level.getBrightness(LightLayer.BLOCK, blockPos);
         }
     }
 

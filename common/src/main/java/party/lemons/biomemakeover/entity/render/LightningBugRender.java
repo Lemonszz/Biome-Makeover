@@ -16,7 +16,6 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
-import party.lemons.biomemakeover.init.LightningBugModel;
 import party.lemons.biomemakeover.util.MathUtils;
 
 public class LightningBugRender extends MobRenderer<LightningBugEntity, LightningBugModel> {
