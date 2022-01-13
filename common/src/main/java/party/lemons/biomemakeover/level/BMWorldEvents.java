@@ -10,6 +10,7 @@ import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Evoker;
@@ -43,14 +44,16 @@ public final class BMWorldEvents {
         TickEvent.SERVER_LEVEL_POST.register((s)-> TumbleweedSpawner.update(s.getLevel()));
 
         EntityEvent.LIVING_DEATH.register((entity, source) -> {
-            if(!entity.level.isClientSide() && source.getEntity() instanceof Player && entity instanceof Evoker)
+            if(!entity.level.isClientSide() && source.getEntity() instanceof Player && !LootBlocker.isBlocked(entity))
             {
-                if(!LootBlocker.isBlocked(entity))
-                {
-                    if(entity.getRandom().nextFloat() < 0.15F)
-                    {
+                if(entity instanceof Evoker) {
+                    if (entity.getRandom().nextFloat() < 0.15F) {
                         entity.spawnAtLocation(new ItemStack(BMItems.ILLUNITE_SHARD, 1 + entity.getRandom().nextInt(2)));
                     }
+                }
+                else if(entity.getType() == EntityType.BAT)
+                {
+                    entity.spawnAtLocation(new ItemStack(BMItems.BAT_WING, 1 + entity.getRandom().nextInt(1)));
                 }
             }
             return EventResult.pass();

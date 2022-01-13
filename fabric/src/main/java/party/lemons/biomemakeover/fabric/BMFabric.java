@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.fabric;
 
+import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.fabricmc.fabric.api.biome.v1.*;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
@@ -34,7 +36,9 @@ public class BMFabric implements ModInitializer
     @Override
     public void onInitialize() {
         BiomeMakeover.init();
-        BiomeMakeover.initClient();
+        if (Platform.getEnvironment() == Env.CLIENT)
+            BiomeMakeoverClient.init();
+
         BMEntities.registerModels();
 
         BMEffects.registerParticleProvider();

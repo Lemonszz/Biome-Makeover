@@ -2,8 +2,11 @@ package party.lemons.biomemakeover.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,6 +17,10 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -22,7 +29,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.FlyWanderGoal;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.NetworkUtil;
 
 import java.util.List;
@@ -65,6 +74,25 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
                 .add(Attributes.FLYING_SPEED, 0.6D)
                 .add(Attributes.MAX_HEALTH, 3)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+
+        ItemStack heldStack = player.getItemInHand(hand);
+
+        if(!heldStack.isEmpty() && (heldStack.getItem() == Items.GLASS_BOTTLE || heldStack.getItem() == Items.EXPERIENCE_BOTTLE))
+        {
+            if(!level.isClientSide())
+            {
+                ItemStack result = ItemUtils.createFilledResult(heldStack, player, new ItemStack(heldStack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
+                player.setItemInHand(hand, result);
+                remove(RemovalReason.DISCARDED);
+                player.playSound(SoundEvents.BOTTLE_FILL, 1F, 1F);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
     }
 
     @Override

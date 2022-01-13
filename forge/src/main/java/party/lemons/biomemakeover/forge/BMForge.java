@@ -39,6 +39,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import party.lemons.biomemakeover.BiomeMakeover;
 import net.minecraftforge.fml.common.Mod;
+import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.entity.render.BMBoatRender;
 import party.lemons.biomemakeover.entity.render.TumbleweedRender;
@@ -82,7 +83,7 @@ public class BMForge
     public static void clientSetup(FMLClientSetupEvent event)
     {
         if (Platform.getEnvironment() == Env.CLIENT) {
-            BiomeMakeover.initClient();
+            BiomeMakeoverClient.init();
         }
     }
 

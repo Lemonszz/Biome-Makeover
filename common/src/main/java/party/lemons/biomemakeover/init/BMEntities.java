@@ -155,6 +155,9 @@ public class BMEntities
         registerSpawn(DARK_FOREST, ROOTLING, MobCategory.CREATURE, 20, 2, 6);
         SpawnPlacementsInvoker.callRegister(ROOTLING, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BMEntities::checkDFSpawnRules);
 
+        registerSpawn(DARK_FOREST, MOTH, MobCategory.MONSTER, 90, 2, 3);
+        SpawnPlacementsInvoker.callRegister(MOTH, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, MothEntity::checkSpawnRules);
+
     }
 
     private static <T extends Mob> boolean checkDFSpawnRules(EntityType<T> tEntityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, Random random)

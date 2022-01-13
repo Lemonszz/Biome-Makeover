@@ -91,52 +91,6 @@ public class BiomeMakeover {
             return 1;
         })))));
     }
-
-    public static void initClient()
-    {
-        if (Platform.getEnvironment() == Env.CLIENT) {
-            BMEntities.registerModelLayers();
-            BMBlocks.initClient();
-            BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY, TapestryRenderer::new);
-            BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR, AltarRenderer::new);
-            BlockEntityRendererRegistry.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE, LightningBugBottleRenderer::new);
-
-            initColors();
-
-            MenuRegistry.registerScreenFactory(BMScreens.WITCH, WitchScreen::new);
-            MenuRegistry.registerScreenFactory(BMScreens.ALTAR, AltarScreen::new);
-            MenuRegistry.registerScreenFactory(BMScreens.DIRECTIONAL_DATA, DirectionDataScreen::new);
-        }
-
-    }
-
-    private static void initColors()
-    {
-        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
-                BMBlocks.ANCIENT_OAK_LEAVES,
-                BMBlocks.IVY
-        );
-        ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
-                BMBlocks.SWAMP_CYPRESS_LEAVES
-        );
-
-        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Lillies(),
-                BMBlocks.SMALL_LILY_PAD,
-                Blocks.LILY_PAD,
-                BMBlocks.WATER_LILY
-        );
-
-        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Willow(),
-                BMBlocks.WILLOW_LEAVES,
-                BMBlocks.WILLOWING_BRANCHES
-        );
-
-        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),
-                BMBlocks.MOTH_BLOSSOM, BMBlocks.ITCHING_IVY
-        );
-    }
-
-
     public static ResourceLocation ID(String path)
     {
         return new ResourceLocation(Constants.MOD_ID, path);
