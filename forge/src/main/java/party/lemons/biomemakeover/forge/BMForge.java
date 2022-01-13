@@ -78,12 +78,12 @@ public class BMForge
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::particleSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::lootLoad);
 
         BiomeMakeover.init();
         BMEntities.registerModels();
     }
 
+    @SubscribeEvent
     public static void lootLoad(LootTableLoadEvent event)
     {
         for(BMLootTableInjection.InjectedItem item : BMLootTableInjection.getInsertedEntries())
