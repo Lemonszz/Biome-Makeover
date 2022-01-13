@@ -377,7 +377,7 @@ public class BMWorldGen
     public static final class MushroomFields
     {
         private static final int UG_START = 60;
-        private static final int UG_END = 0;
+        private static final int UG_END = -30;
         private static final HeightRangePlacement UG_HEIGHT = HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.absolute(UG_END), VerticalAnchor.absolute(UG_START)));
 
         //Underground Mycelium
@@ -392,7 +392,7 @@ public class BMWorldGen
                 .add(BMBlocks.TALL_RED_MUSHROOM.defaultBlockState(), 3)
         )));
 
-        public static final VegetationPatchConfiguration UNDERGROUND_MYCELIUM_CONFIG = new VegetationPatchConfiguration(BlockTags.STONE_ORE_REPLACEABLES.getName(), BlockStateProvider.simple(Blocks.MYCELIUM), UNDERGROUND_MYCELIUM_VEGETATION::placed, CaveSurface.FLOOR, UniformInt.of(1, 3), 0.25f, 3, 0.1f, UniformInt.of(7, 12), 0.8f);
+        public static final VegetationPatchConfiguration UNDERGROUND_MYCELIUM_CONFIG = new VegetationPatchConfiguration(BMBlocks.ORE_REPLACEABLE.getName(), BlockStateProvider.simple(Blocks.MYCELIUM), UNDERGROUND_MYCELIUM_VEGETATION::placed, CaveSurface.FLOOR, UniformInt.of(1, 3), 0.25f, 3, 0.1f, UniformInt.of(7, 12), 0.8f);
         public static final ConfiguredFeature<?, ?> UNDERGROUND_MYCELIUM = Feature.VEGETATION_PATCH.configured(UNDERGROUND_MYCELIUM_CONFIG);
         public static final PlacedFeature UNDERGROUND_MYCELIUM_PLACED = UNDERGROUND_MYCELIUM.placed(CountPlacement.of(12), InSquarePlacement.spread(), UG_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
@@ -425,7 +425,7 @@ public class BMWorldGen
         public static final ConfiguredFeature<?, ?> HUGE_GREEN_GLOWSHROOM = HUGE_GREEN_GLOWSHROOM_CONFIG.configured(new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(BMBlocks.GREEN_GLOWSHROOM_BLOCK), BlockStateProvider.simple(BMBlocks.GLOWSHROOM_STEM), 1));
         public static final PlacedFeature HUGE_GREEN_GLOWSHROOM_PLACED = HUGE_GREEN_GLOWSHROOM.placed();
 
-        public static final ConfiguredFeature<?, ?> UNDERGROUND_GLOWSHROOMS = Feature.SIMPLE_RANDOM_SELECTOR.configured(new SimpleRandomFeatureConfiguration(List.of(()->HUGE_GREEN_GLOWSHROOM_PLACED, ()->HUGE_PURPLE_GLOWSHROOM_PLACED)));
+        public static final ConfiguredFeature<?, ?> UNDERGROUND_GLOWSHROOMS = Feature.RANDOM_BOOLEAN_SELECTOR.configured(new RandomBooleanFeatureConfiguration(()->HUGE_GREEN_GLOWSHROOM_PLACED, ()->HUGE_PURPLE_GLOWSHROOM_PLACED));
         public static final PlacedFeature UNDERGROUND_GLOWSHROOMS_PLACED = UNDERGROUND_GLOWSHROOMS.placed(CountPlacement.of(120), InSquarePlacement.spread(), UG_HEIGHT);
 
         public static final Feature<HugeMushroomFeatureConfiguration> HUGE_ORANGE_GLOWSHROOM_FEATURE = new HugeOrangeGlowshroomFeature(HugeMushroomFeatureConfiguration.CODEC);

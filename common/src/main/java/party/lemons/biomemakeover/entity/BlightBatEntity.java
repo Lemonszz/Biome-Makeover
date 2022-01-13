@@ -20,16 +20,10 @@ public class BlightBatEntity extends Bat {
         if (blockPos.getY() >= levelAccessor.getSeaLevel()) {
             return false;
         }
-        int i = levelAccessor.getMaxLocalRawBrightness(blockPos);
-        int j = 4;
-        if (isHalloween()) {
-            j = 7;
-        } else if (random.nextBoolean()) {
+
+        if(random.nextBoolean())
             return false;
-        }
-        if (i > random.nextInt(j)) {
-            return false;
-        }
+
         return checkMobSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
 

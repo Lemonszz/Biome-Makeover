@@ -299,5 +299,6 @@ public class BMBlocks
     public static final Tag<Block> MOTH_ATTRACTIVE = BlockTagsInvoker.callBind(BiomeMakeover.ID("moth_attractive").toString());
     public static final Tag<Block> IVY_TAG = BlockTagsInvoker.callBind(BiomeMakeover.ID("ivy").toString());
     public static final Tag<Block> ITCHING_IVY_TAG = BlockTagsInvoker.callBind(BiomeMakeover.ID("itching_ivy").toString());
+    public static final Tag.Named<Block> ORE_REPLACEABLE = BlockTagsInvoker.callBind(BiomeMakeover.ID("ore_replaceable").toString());
 
 }
