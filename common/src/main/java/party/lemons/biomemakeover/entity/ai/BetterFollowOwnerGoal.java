@@ -56,7 +56,7 @@ public class BetterFollowOwnerGoal extends Goal
         {
             return false;
         }
-        else if(this.tameable.isInSittingPose())
+        else if(this.tameable.isOrderedToSit())
         {
             return false;
         }
@@ -77,7 +77,7 @@ public class BetterFollowOwnerGoal extends Goal
         {
             return false;
         }
-        else if(this.tameable.isInSittingPose())
+        else if(this.tameable.isOrderedToSit())
         {
             return false;
         }

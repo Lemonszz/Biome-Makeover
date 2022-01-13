@@ -132,7 +132,7 @@ public class OwlEntity extends ShoulderRidingEntity
     @Override
     public void tick() {
         super.tick();
-        setStandingState(onGround || isInWater() || isInSittingPose() ? StandingState.STANDING : StandingState.FLYING);
+        setStandingState(onGround || isInWater() || isOrderedToSit() ? StandingState.STANDING : StandingState.FLYING);
 
         lastLeaningPitch = leaningPitch;
         switch(getStandingState())
@@ -198,7 +198,7 @@ public class OwlEntity extends ShoulderRidingEntity
             {
                 if(!level.isClientSide())
                 {
-                    this.setInSittingPose(!this.isInSittingPose());
+                    setOrderedToSit(!isOrderedToSit());
                     this.jumping = false;
                     this.navigation.stop();
                     this.setTarget(null);
@@ -223,7 +223,7 @@ public class OwlEntity extends ShoulderRidingEntity
                         this.tame(player);
                         this.navigation.stop();
                         this.setTarget(null);
-                        this.setInSittingPose(true);
+                        setOrderedToSit(true);
                         this.level.broadcastEntityEvent(this, (byte) 7);
                     }
                     else
