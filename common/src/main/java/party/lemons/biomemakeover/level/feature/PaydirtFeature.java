@@ -36,7 +36,7 @@ public class PaydirtFeature extends Feature<NoneFeatureConfiguration>
             for(BlockPos generatePos : BlockPos.betweenClosed(blockPos.offset(-xSize, -ySize, -zSize), blockPos.offset(xSize, ySize, zSize)))
             {
                 BlockState currentState = level.getBlockState(generatePos);
-                if(currentState.getBlock() == Blocks.WATER || currentState.isAir() || currentState.canOcclude()) continue;
+                if(currentState.getBlock() == Blocks.WATER || currentState.isAir() || !currentState.canOcclude()) continue;
 
                 if(generatePos.distSqr(blockPos) <= (double) (distance * distance))
                 {

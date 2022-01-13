@@ -64,12 +64,12 @@ public class GhostTownFeature extends JigsawFeature {
                     new ResourceLocation("empty"),
                     ImmutableList.of(
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 2),
-                            Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_02", ROADS_PROCESSOR), 3),
+                            Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_02", ROADS_PROCESSOR), 2),
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_03", ROADS_PROCESSOR), 2),
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_04", ROADS_PROCESSOR), 2),
-                            Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_05", ROADS_PROCESSOR), 1),
+                            Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_05", ROADS_PROCESSOR), 2),
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_06", ROADS_PROCESSOR), 2),
-                            Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_07", ROADS_PROCESSOR), 1)
+                            Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_07", ROADS_PROCESSOR), 2)
                     ),
                     StructureTemplatePool.Projection.RIGID));
 
@@ -99,7 +99,15 @@ public class GhostTownFeature extends JigsawFeature {
 
 
         //Roads,
-        Pools.register(new StructureTemplatePool(BiomeMakeover.ID("ghosttown/roads"), new ResourceLocation("village/plains/terminators"), ImmutableList.of(Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 2), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_02", ROADS_PROCESSOR), 5), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_03", ROADS_PROCESSOR), 2), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_04", ROADS_PROCESSOR), 2), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_05", ROADS_PROCESSOR), 1), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_06", ROADS_PROCESSOR), 2)), StructureTemplatePool.Projection.RIGID));
+        Pools.register(new StructureTemplatePool(BiomeMakeover.ID("ghosttown/roads"), new ResourceLocation("village/plains/terminators"), ImmutableList.of(
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 2),
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_02", ROADS_PROCESSOR), 2),
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_03", ROADS_PROCESSOR), 2),
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_04", ROADS_PROCESSOR), 2),
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_05", ROADS_PROCESSOR), 2),
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_06", ROADS_PROCESSOR), 2),
+                Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_07", ROADS_PROCESSOR), 2)
+        ), StructureTemplatePool.Projection.RIGID));
 
         //Buildings
         Pools.register(new StructureTemplatePool(BiomeMakeover.ID("ghosttown/buildings"), new ResourceLocation("village/plains/terminators"), ImmutableList.of(Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_01", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_02", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_03", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_04", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_05", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_06", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_07", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_08", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_09", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_10", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_11", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_small_12", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_medium_01", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_medium_02", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_medium_03", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_medium_04", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_medium_05", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_medium_06", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_large_01", BUILDING_PROCESSOR), 8), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_large_02", BUILDING_PROCESSOR), 8), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_large_03", BUILDING_PROCESSOR), 8), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_large_04", BUILDING_PROCESSOR), 8), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/houses/house_large_05", BUILDING_PROCESSOR), 8), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/decoration/water_tower_1", BUILDING_PROCESSOR), 15), Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/decoration/water_tower_2", BUILDING_PROCESSOR), 15)), StructureTemplatePool.Projection.RIGID));
