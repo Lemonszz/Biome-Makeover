@@ -53,7 +53,7 @@ public final class BMWorldEvents {
                 }
                 else if(entity.getType() == EntityType.BAT)
                 {
-                    entity.spawnAtLocation(new ItemStack(BMItems.BAT_WING, 1 + entity.getRandom().nextInt(1)));
+            //        entity.spawnAtLocation(new ItemStack(BMItems.BAT_WING, 1 + entity.getRandom().nextInt(1)));
                 }
             }
             return EventResult.pass();

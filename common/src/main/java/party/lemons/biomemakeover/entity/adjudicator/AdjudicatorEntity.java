@@ -345,6 +345,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         if(phase != null)
             phase.onExitPhase();
 
+        active = false;
         bossBar.removeAllPlayers();
         bossBar.setVisible(false);
         super.die(damageSource);

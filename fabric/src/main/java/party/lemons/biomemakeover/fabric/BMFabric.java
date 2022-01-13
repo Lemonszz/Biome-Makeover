@@ -6,10 +6,16 @@ import dev.architectury.utils.EnvExecutor;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -18,6 +24,8 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.Constants;
@@ -25,6 +33,7 @@ import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMWorldGen;
+import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
 
 import java.util.List;
 import java.util.Map;
@@ -43,6 +52,22 @@ public class BMFabric implements ModInitializer
 
         BMEffects.registerParticleProvider();
         doWorldGen();
+
+        injectLootTables();
+    }
+
+    private void injectLootTables()
+    {
+        LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
+            for(BMLootTableInjection.InjectedItem item : BMLootTableInjection.getInsertedEntries())
+            {
+                if(id.equals(item.table()))
+                {
+                    FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder().rolls(item.rolls()).withEntry(LootItem.lootTableItem(item.itemLike()).build());
+                    supplier.withPool(builder.build());
+                }
+            }
+        });
     }
 
     public void doWorldGen()

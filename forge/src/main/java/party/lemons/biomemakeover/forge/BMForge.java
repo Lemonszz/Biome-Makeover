@@ -26,12 +26,18 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StrongholdConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -52,6 +58,7 @@ import party.lemons.biomemakeover.level.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.level.particle.TeleportParticle;
 import party.lemons.biomemakeover.mixin.forge.ChunkGeneratorAccessor;
 import party.lemons.biomemakeover.mixin.forge.StructureSettingsAccessor;
+import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,9 +78,22 @@ public class BMForge
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::particleSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::lootLoad);
 
         BiomeMakeover.init();
         BMEntities.registerModels();
+    }
+
+    public static void lootLoad(LootTableLoadEvent event)
+    {
+        for(BMLootTableInjection.InjectedItem item : BMLootTableInjection.getInsertedEntries())
+        {
+            if(event.getName().equals(item.table()))
+            {
+                LootPool pool = new LootPool.Builder().setRolls(item.rolls()).add(LootItem.lootTableItem(item.itemLike())).build();
+                event.getTable().addPool(pool);
+            }
+        }
     }
 
     public static void commonSetup(FMLCommonSetupEvent event)

@@ -27,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import party.lemons.biomemakeover.block.blockentity.render.AltarRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.TapestryRenderer;
@@ -49,6 +50,7 @@ import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
 import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
 import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
 import party.lemons.biomemakeover.util.data.wiki.WikiGenerator;
+import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
 import party.lemons.biomemakeover.util.registry.boat.BoatTypes;
 import party.lemons.biomemakeover.util.task.TaskManager;
 
@@ -90,6 +92,8 @@ public class BiomeMakeover {
             ((PatrolSpawnerInvoker)new PatrolSpawner()).callSpawnPatrolMember(c.getSource().getLevel(), BlockPosArgument.getLoadedBlockPos(c, "pos"), c.getSource().getLevel().random, BoolArgumentType.getBool(c, "leader"));
             return 1;
         })))));
+
+        BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/bat"), BinomialDistributionGenerator.binomial(2, 0.5F), BMItems.BAT_WING);
     }
     public static ResourceLocation ID(String path)
     {
