@@ -94,6 +94,7 @@ public class BiomeMakeover {
         })))));
 
         BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/bat"), BinomialDistributionGenerator.binomial(2, 0.5F), BMItems.BAT_WING);
+        BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/evoker"), BinomialDistributionGenerator.binomial(3, 0.15F), BMItems.ILLUNITE_SHARD);
     }
     public static ResourceLocation ID(String path)
     {

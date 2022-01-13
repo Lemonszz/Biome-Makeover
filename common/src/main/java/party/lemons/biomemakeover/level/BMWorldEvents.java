@@ -43,22 +43,6 @@ public final class BMWorldEvents {
         TickEvent.SERVER_POST.register((s)-> WindSystem.update());
         TickEvent.SERVER_LEVEL_POST.register((s)-> TumbleweedSpawner.update(s.getLevel()));
 
-        EntityEvent.LIVING_DEATH.register((entity, source) -> {
-            if(!entity.level.isClientSide() && source.getEntity() instanceof Player && !LootBlocker.isBlocked(entity))
-            {
-                if(entity instanceof Evoker) {
-                    if (entity.getRandom().nextFloat() < 0.15F) {
-                        entity.spawnAtLocation(new ItemStack(BMItems.ILLUNITE_SHARD, 1 + entity.getRandom().nextInt(2)));
-                    }
-                }
-                else if(entity.getType() == EntityType.BAT)
-                {
-            //        entity.spawnAtLocation(new ItemStack(BMItems.BAT_WING, 1 + entity.getRandom().nextInt(1)));
-                }
-            }
-            return EventResult.pass();
-        });
-
         DispenserBlock.registerBehavior(Items.CROSSBOW, new OptionalDispenseItemBehavior(){
             @Override
             protected ItemStack execute(BlockSource block, ItemStack itemStack) {
