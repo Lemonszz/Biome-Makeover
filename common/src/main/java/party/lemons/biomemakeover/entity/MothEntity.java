@@ -92,7 +92,7 @@ public class MothEntity extends Monster
 
     public static AttributeSupplier.Builder createAttributes()
     {
-        return createMobAttributes()
+        return createMonsterAttributes()
                 .add(Attributes.FLYING_SPEED, 0.6D)
                 .add(Attributes.MAX_HEALTH, 10D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);

@@ -83,6 +83,7 @@ public class BMFabric implements ModInitializer
         addBiomeStructures(gen, BADLANDS_BIOMES, BMWorldGen.BADLANDS_STRUCTURES);
 
         addBiomeFeatures(gen, MUSHROOM_BIOMES, BMWorldGen.MUSHROOM_GEN);
+        addBiomeCarvers(gen, MUSHROOM_BIOMES, BMWorldGen.MUSHROOM_CARVERS);
 
         addBiomeFeatures(gen, SWAMP_BIOMES, BMWorldGen.SWAMP_GEN);
         addBiomeStructures(gen, SWAMP_BIOMES, BMWorldGen.SWAMP_STRUCTURES);
@@ -94,6 +95,18 @@ public class BMFabric implements ModInitializer
         gen.add(ModificationPhase.REMOVALS, SWAMP_BIOMES, (biomeSelectionContext, ctx) -> {
             ctx.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP);
         });
+    }
+
+    private void addBiomeCarvers(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, List<ConfiguredWorldCarver> carvers)
+    {
+        for(ConfiguredWorldCarver<?> carer : carvers)
+        {
+            gen.add(ModificationPhase.ADDITIONS, biomes, ctx->{
+                Optional<ResourceKey<ConfiguredWorldCarver<?>>> k =  BuiltinRegistries.CONFIGURED_CARVER.getResourceKey(carer);
+
+                ctx.getGenerationSettings().addCarver(GenerationStep.Carving.AIR, k.get());
+            });
+        }
     }
 
     private void addBiomeStructures(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, List<ConfiguredStructureFeature<?,?>> structures)

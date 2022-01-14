@@ -263,7 +263,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     public boolean hurt(DamageSource damageSource, float amount) {
         //9/01/21 WTF does this comment mean
         //Activate the fight if the tracker if the player
-        if(!active && damageSource.getEntity() instanceof Player)
+        if(!active)
         {
             active = true;
         }

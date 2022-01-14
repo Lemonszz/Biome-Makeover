@@ -111,31 +111,25 @@ public class HugeOrangeGlowshroomFeature extends AbstractHugeMushroomFeature {
         if (world.isEmptyBlock(pos) || world.getFluidState(pos).is(FluidTags.WATER)) world.setBlock(pos, state, 3);
     }
 
-    @Override
-    protected boolean isValidPosition(LevelAccessor level, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration ctx) {
-        int i = pos.getY();
-        if(i >= 1 && i + height + 1 < 256)
-        {
-            for(int j = 0; j <= height; ++j)
-            {
-                int k = this.getTreeRadiusForHeight(-1, -1, ctx.foliageRadius, j);
-
-                for(int l = -k; l <= k; ++l)
-                {
-                    for(int m = -k; m <= k; ++m)
-                    {
-                        BlockState blockState = level.getBlockState(mutable.setWithOffset(pos, l, j, m));
-                        if(!blockState.isAir() && !level.getFluidState(mutable).is(FluidTags.WATER) && !blockState.is(BlockTags.LEAVES))
-                        {
-                            return false;
-                        }
-                    }
+    protected boolean isValidPosition(LevelAccessor levelAccessor, BlockPos blockPos, int i, BlockPos.MutableBlockPos mutableBlockPos, HugeMushroomFeatureConfiguration hugeMushroomFeatureConfiguration) {
+        int j = blockPos.getY();
+        if (j < levelAccessor.getMinBuildHeight() + 1 || j + i + 1 >= levelAccessor.getMaxBuildHeight()) {
+            return false;
+        }
+        BlockState blockState = levelAccessor.getBlockState(blockPos.below());
+        if (!AbstractHugeMushroomFeature.isDirt(blockState) && !blockState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
+            return false;
+        }
+        for (int k = 0; k <= i; ++k) {
+            int l = this.getTreeRadiusForHeight(-1, -1, hugeMushroomFeatureConfiguration.foliageRadius, k);
+            for (int m = -l; m <= l; ++m) {
+                for (int n = -l; n <= l; ++n) {
+                    BlockState blockState2 = levelAccessor.getBlockState(mutableBlockPos.setWithOffset(blockPos, m, k, n));
+                    if(!blockState2.isAir() && !levelAccessor.getFluidState(mutableBlockPos).is(FluidTags.WATER) && !blockState2.is(BlockTags.LEAVES))
+                        return false;
                 }
             }
-
-            return true;
         }
-        return false;
-
+        return true;
     }
 }

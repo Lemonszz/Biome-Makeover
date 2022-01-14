@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:block/mycelium_sprouts"
+    "layer0": "biomemakeover:item/mycelium_sprouts"
   }
 }

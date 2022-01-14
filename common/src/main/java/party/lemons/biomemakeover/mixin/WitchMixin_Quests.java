@@ -50,6 +50,7 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
     {
         this.targetSelector.removeGoal(attackPlayersGoal);
         attackPlayersGoal = new NearestAttackableWitchTargetGoal<>(this, Player.class, 10, true, false, (e)->e.getType() == EntityType.PLAYER && !canInteract((Player) e));
+        this.targetSelector.addGoal(3, attackPlayersGoal);
 
         this.goalSelector.addGoal(1, new WitchStopFollowingCustomerGoal((Witch)(Object)this));
         this.goalSelector.addGoal(1, new WitchLookAtCustomerGoal((Witch)(Object)this));
@@ -113,7 +114,12 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
     @Override
     public boolean canInteract(Player player)
     {
-        return getTarget() == null && !hasActiveRaid() && player.getItemBySlot(EquipmentSlot.HEAD).getItem() == BMItems.WITCH_HAT;
+        return getTarget() == null && !hasActiveRaid() && playerHasHat(player);
+    }
+
+    public boolean playerHasHat(Player player)
+    {
+        return player.getItemBySlot(EquipmentSlot.HEAD).getItem() == BMItems.WITCH_HAT;
     }
 
     @Override

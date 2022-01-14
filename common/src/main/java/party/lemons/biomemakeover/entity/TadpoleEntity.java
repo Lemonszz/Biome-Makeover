@@ -113,8 +113,7 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
     public static AttributeSupplier.Builder createAttributes()
     {
         return createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D);
+                .add(Attributes.MAX_HEALTH, 10D);
     }
 
     @Override

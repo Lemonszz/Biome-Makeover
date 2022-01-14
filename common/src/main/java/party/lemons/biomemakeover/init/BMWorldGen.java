@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import dev.architectury.registry.level.biome.BiomeModifications;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -17,16 +19,17 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.ClampedInt;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.carver.CarverDebugSettings;
+import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
@@ -41,6 +44,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecora
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.apache.commons.lang3.tuple.Pair;
@@ -463,13 +467,18 @@ public class BMWorldGen
         public static final ConfiguredFeature<?, ?> BLIGHTED_BALSA_FILTERED =  Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(BLIGHTED_BALSA_CHECKED, 0.8f)), BLIGHTED_BALSA_CHECKED));
         public static final PlacedFeature BLIGHTED_BALSA_TREES_PLACED =BLIGHTED_BALSA_FILTERED.placed(VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(12)));
 
+        //Bigger Caves
+        public static final ConfiguredWorldCarver<CaveCarverConfiguration> BIGGER_CAVES = WorldCarver.CAVE.configured(new CaveCarverConfiguration(0.3f, UniformHeight.of(VerticalAnchor.absolute(UG_END), VerticalAnchor.absolute(UG_START)), UniformFloat.of(0.1f, 0.9f), VerticalAnchor.aboveBottom(8), CarverDebugSettings.of(false, Blocks.OAK_BUTTON.defaultBlockState()), UniformFloat.of(0.1f, 4f), UniformFloat.of(0.1f, 4f), UniformFloat.of(-1.0f, -0.4f)));
+
         public static void init()
         {
             RegistryHelper.register(Constants.MOD_ID, Registry.FEATURE, Feature.class, MushroomFields.class);
+            Registry.register(BuiltinRegistries.CONFIGURED_CARVER, BiomeMakeover.ID("bigger_caves"), BIGGER_CAVES);
 
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, MushroomFields.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, MushroomFields.class, PL_FEATURES);
 
+            MUSHROOM_CARVERS.add(BIGGER_CAVES);
             setFeatures();
         }
 
@@ -488,14 +497,14 @@ public class BMWorldGen
 
                     //Vegetal
             MUSHROOM_GEN.put(GenerationStep.Decoration.VEGETAL_DECORATION, Lists.newArrayList(
+                    GREEN_GLOWSHROOM_PLACED,
+                    PURPLE_GLOWSHROOM_PLACED,
+                    ORANGE_GLOWSHROOM_PLACED,
                     SPROUTS_PLACED,
                     ROOTS_PLACED,
                     UNDERGROUND_GLOWSHROOMS_PLACED,
                     UNDERGROUND_HUGE_BROWN_SHROOM_PLACED,
                     UNDERGROUND_HUGE_RED_SHROOM_PLACED,
-                    GREEN_GLOWSHROOM_PLACED,
-                    PURPLE_GLOWSHROOM_PLACED,
-                    ORANGE_GLOWSHROOM_PLACED,
                     TALL_BROWN_MUSHROOMS_PLACED,
                     TALL_RED_MUSHROOMS_PLACED,
                     DarkForest.WILD_MUSHROOMS_PLACED
@@ -507,6 +516,7 @@ public class BMWorldGen
 
     private static boolean registered = false;
     public static Map<GenerationStep.Decoration, List<PlacedFeature>> MUSHROOM_GEN = Maps.newHashMap();
+    public static List<ConfiguredWorldCarver> MUSHROOM_CARVERS = Lists.newArrayList();
     public static Map<GenerationStep.Decoration, List<PlacedFeature>> BADLANDS_GEN = Maps.newHashMap();
     public static List<ConfiguredStructureFeature<?, ?>> BADLANDS_STRUCTURES = Lists.newArrayList();
     public static Map<GenerationStep.Decoration, List<PlacedFeature>> SWAMP_GEN = Maps.newHashMap();

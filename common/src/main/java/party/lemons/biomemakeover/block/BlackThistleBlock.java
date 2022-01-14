@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -19,9 +20,8 @@ public class BlackThistleBlock extends BMTallFlowerBlock{
     @Override
     public void entityInside(BlockState state, Level level, BlockPos blockPos, Entity entity) {
         if (entity instanceof LivingEntity && entity.getType() != BMEntities.ROOTLING && entity.getType() != BMEntities.OWL && entity.getType() != EntityType.BEE) {
-            if (!level.isClientSide() && state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            if (!level.isClientSide() && state.getValue(HALF) == DoubleBlockHalf.UPPER  && !entity.isInvulnerableTo(DamageSource.WITHER)) {
                 ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 110, 0));
-
             }
         }
     }
