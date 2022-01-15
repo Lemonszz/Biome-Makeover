@@ -59,7 +59,7 @@ import java.lang.reflect.Constructor;
 public class BiomeMakeover {
 
     public static final CreativeModeTab TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM));
-    private static final boolean ENABLE_WIKI = true;
+    private static final boolean ENABLE_WIKI = false;
 
     public static void init()
     {
