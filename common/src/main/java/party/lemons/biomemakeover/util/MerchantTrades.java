@@ -250,7 +250,7 @@ public class MerchantTrades
 
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
-            List list = Registry.ENCHANTMENT.stream().filter(Enchantment::isTradeable).collect(Collectors.toList());
+            List list = Registry.ENCHANTMENT.stream().filter(Enchantment::isTradeable).toList();
             Enchantment enchantment = (Enchantment)list.get(random.nextInt(list.size()));
             int i = Mth.nextInt(random, enchantment.getMinLevel(), enchantment.getMaxLevel());
             ItemStack itemStack = EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, i));

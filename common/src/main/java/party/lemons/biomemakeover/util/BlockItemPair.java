@@ -3,34 +3,20 @@ package party.lemons.biomemakeover.util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public class BlockItemPair
-{
-    private final Block block;
-    private final Item item;
-
-    public static BlockItemPair of(Block block, Item item)
-    {
+public record BlockItemPair(Block block, Item item) {
+    public static BlockItemPair of(Block block, Item item) {
         return new BlockItemPair(block, item);
     }
 
-    public static BlockItemPair of(Item item, Block block)
-    {
+    public static BlockItemPair of(Item item, Block block) {
         return of(block, item);
     }
 
-    public BlockItemPair(Block block, Item item)
-    {
-        this.block = block;
-        this.item = item;
-    }
-
-    public Block getBlock()
-    {
+    public Block getBlock() {
         return block;
     }
 
-    public Item getItem()
-    {
+    public Item getItem() {
         return item;
     }
 }

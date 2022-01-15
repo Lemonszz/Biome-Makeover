@@ -10,7 +10,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.mutable.MutableInt;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.mixin.LivingEntityMixin;
 
 import java.util.Collection;
 

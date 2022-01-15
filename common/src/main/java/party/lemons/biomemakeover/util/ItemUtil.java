@@ -30,7 +30,6 @@ public class ItemUtil
                     consumer.accept(enchantment, stack, j);
                 });
             }
-
         }
     }
 

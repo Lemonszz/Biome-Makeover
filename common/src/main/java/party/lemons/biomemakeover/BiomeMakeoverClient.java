@@ -39,7 +39,7 @@ public class BiomeMakeoverClient
         }
     }
 
-    private static void initColors()
+    private static void initColors()    //TODO: move these to a block modifier? Need to be careful of sidedness
     {
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
                 BMBlocks.ANCIENT_OAK_LEAVES,

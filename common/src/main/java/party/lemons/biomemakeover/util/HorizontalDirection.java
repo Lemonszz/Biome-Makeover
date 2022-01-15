@@ -6,12 +6,19 @@ import java.util.Random;
 
 public enum HorizontalDirection
 {
-    NORTH(0, -1, 4, true), NORTH_EAST(1, -1, 5, false), EAST(1, 0, 6, true), SOUTH_EAST(1, 1, 7, false), SOUTH(0, 1, 0, true), SOUTH_WEST(-1, 1, 1, false), WEST(-1, 0, 2, true), NORTH_WEST(-1, -1, 3, false);
+    NORTH(0, -1, 4, true),
+    NORTH_EAST(1, -1, 5, false),
+    EAST(1, 0, 6, true),
+    SOUTH_EAST(1, 1, 7, false),
+    SOUTH(0, 1, 0, true),
+    SOUTH_WEST(-1, 1, 1, false),
+    WEST(-1, 0, 2, true),
+    NORTH_WEST(-1, -1, 3, false);
 
-    public int x;
-    public int z;
+    public final int x;
+    public final int z;
     private final int opposite;
-    public boolean isStraight;
+    public final boolean isStraight;
 
     HorizontalDirection(int x, int z, int opposite, boolean straight)
     {

@@ -12,5 +12,4 @@ public class ClientUtil
     {
         return ((LevelRendererAccess) Minecraft.getInstance().levelRenderer).bm_createParticle(parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
     }
-
 }

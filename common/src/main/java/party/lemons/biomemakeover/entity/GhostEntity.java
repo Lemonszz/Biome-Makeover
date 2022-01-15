@@ -68,7 +68,7 @@ public class GhostEntity extends Monster implements NeutralMob
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
@@ -173,18 +173,6 @@ public class GhostEntity extends Monster implements NeutralMob
         super.setTarget(target);
     }
 
-    private void tickAngerSounds()
-    {
-        if(this.angrySoundDelay > 0)
-        {
-            --this.angrySoundDelay;
-            if(this.angrySoundDelay == 0)
-            {
-                this.playAngerSound();
-            }
-        }
-    }
-
     private void playAngerSound()
     {
         this.playSound(BMEffects.GHOST_ANGRY, this.getSoundVolume() * 2.0F, this.getVoicePitch());
@@ -208,7 +196,7 @@ public class GhostEntity extends Monster implements NeutralMob
     @Nullable
     @Override
     public UUID getPersistentAngerTarget() {
-        return uuid;
+        return targetUuid;
     }
 
     @Override
@@ -219,7 +207,7 @@ public class GhostEntity extends Monster implements NeutralMob
 
     @Override
     public void startPersistentAngerTimer() {
-
+        chooseRandomAngerTime();
     }
 
     @Override

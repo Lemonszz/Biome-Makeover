@@ -59,7 +59,7 @@ import java.lang.reflect.Constructor;
 public class BiomeMakeover {
 
     public static final CreativeModeTab TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM));
-    private static final boolean ENABLE_WIKI = false;
+    private static final boolean ENABLE_WIKI = true;
 
     public static void init()
     {
@@ -87,12 +87,14 @@ public class BiomeMakeover {
                 return EventResult.pass();
             });
 
+        //TODO: Find somewhere else for this
         CommandRegistrationEvent.EVENT.register((dispatcher, selection) -> dispatcher.register(Commands.literal("pillager").requires((serverCommandSource)->serverCommandSource.hasPermission(2)).then(Commands.argument("pos", BlockPosArgument.blockPos()).then(Commands.argument("leader", BoolArgumentType.bool()).executes(c->
         {
             ((PatrolSpawnerInvoker)new PatrolSpawner()).callSpawnPatrolMember(c.getSource().getLevel(), BlockPosArgument.getLoadedBlockPos(c, "pos"), c.getSource().getLevel().random, BoolArgumentType.getBool(c, "leader"));
             return 1;
         })))));
 
+        //TODO: Find somewhere else for this
         BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/bat"), BinomialDistributionGenerator.binomial(2, 0.5F), BMItems.BAT_WING);
         BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/evoker"), BinomialDistributionGenerator.binomial(3, 0.15F), BMItems.ILLUNITE_SHARD);
     }

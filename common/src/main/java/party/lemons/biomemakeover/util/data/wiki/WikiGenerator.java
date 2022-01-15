@@ -3,15 +3,23 @@ package party.lemons.biomemakeover.util.data.wiki;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.Constants;
+import party.lemons.biomemakeover.block.modifier.CompostModifier;
+import party.lemons.biomemakeover.block.modifier.FlammableModifier;
+import party.lemons.biomemakeover.init.BMBlocks;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,11 +27,14 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class WikiGenerator
 {
     private static final List<ItemPage> ITEMS = Lists.newArrayList();
+    private static final List<BlockPage> BLOCKS = Lists.newArrayList();
     private static String ITEM_TEMPLATE;
+    private static String BLOCK_TEMPLATE;
 
     public static void generate()
     {
@@ -33,6 +44,12 @@ public final class WikiGenerator
             {
                 generateItem(item);
             }
+        }
+
+        for(Block block : Registry.BLOCK)
+        {
+            if(isValidBlock(block))
+                generateBlock(block);
         }
 
         doOutput();
@@ -51,6 +68,13 @@ public final class WikiGenerator
             ITEM_TEMPLATE = builder.toString();
 
             Files.createDirectories(Paths.get("wiki/items/pages/"));
+
+            StringBuilder blockBuilder = new StringBuilder();
+            Files.readAllLines(Paths.get("wiki/template/block_template.md")).forEach(s-> blockBuilder.append(s).append("\n"));
+            BLOCK_TEMPLATE = blockBuilder.toString();
+
+            Files.createDirectories(Paths.get("wiki/blocks/pages/"));
+
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -79,6 +103,29 @@ public final class WikiGenerator
             }
         });
 
+        BLOCKS.forEach(i ->{
+            try
+            {
+                FileWriter writer = new FileWriter("wiki/blocks/" + idToFileName(i.id()) + ".json");
+                gson.toJson(i, writer);
+                writer.flush();
+                writer.close();
+
+                FileWriter fileWriter = new FileWriter("wiki/blocks/pages/" + idToFileName(i.id()) + ".md");
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+                String pageString = BLOCK_TEMPLATE.replace("[BLOCK_NAME]", i.name()).replace("[BLOCK_FILE]", idToFileName(i.id()));
+                printWriter.println(pageString);
+                fileWriter.flush();
+                printWriter.close();
+                fileWriter.close();
+
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private static String getItemDescription()
@@ -86,6 +133,10 @@ public final class WikiGenerator
         return "This item does not have a description yet!";
     }
 
+    private static String getBlockDescription()
+    {
+        return "This block does not have a description yet!";
+    }
 
     private static void generateItem(Item item)
     {
@@ -99,11 +150,24 @@ public final class WikiGenerator
         }
     }
 
+    private static void generateBlock(Block block)
+    {
+        BLOCKS.add(new BlockPageImpl(block));
+    }
+
     private static boolean isValidItem(Item item)
     {
         return Registry.ITEM.getKey(item).getNamespace().equals(Constants.MOD_ID) &&
                 item.getClass() != BlockItem.class &&
                 !(item instanceof StandingAndWallBlockItem);
+    }
+
+    private static boolean isValidBlock(Block block)
+    {
+        return Registry.BLOCK.getKey(block).getNamespace().equals(Constants.MOD_ID) &&
+                !(BMBlocks.TAPESTRY_WALL_BLOCKS.contains(block))
+
+                ;
     }
 
     private static String idToFileName(String id)
@@ -286,6 +350,144 @@ public final class WikiGenerator
             super(record);
 
             name = name() + " (" + I18n.get(record.getDescriptionId() + ".desc") + ")";
+        }
+    }
+
+    private static class BlockPageImpl implements BlockPage
+    {
+        protected String name;
+        protected String id;
+        protected String description;
+        protected BlockSettingsWiki settings;
+        protected BlockTagsWiki blockTags;
+        protected BlockModifiersWiki modifiers;
+
+        protected List<String> tags = Lists.newArrayList();
+
+        public BlockPageImpl(Block block)
+        {
+            this.name = I18n.get(block.getDescriptionId());
+            this.id = Registry.BLOCK.getKey(block).toString();
+            this.description = WikiGenerator.getBlockDescription();
+
+            settings = new BlockSettingsWikiImpl(block);
+            blockTags = new BlockTagsWikiImpl(block);
+            modifiers = new BlockModifiersWikiImpl(block);
+
+        }
+
+        @Override
+        public String name() {
+            return name;
+        }
+
+        @Override
+        public String id() {
+            return id;
+        }
+
+        @Override
+        public String description() {
+            return description;
+        }
+
+        @Override
+        public BlockSettingsWiki settings() {
+            return settings;
+        }
+
+        @Override
+        public BlockTagsWiki tags() {
+            return blockTags;
+        }
+
+        @Override
+        public BlockModifiersWiki modifiers() {
+            return modifiers;
+        }
+
+        @Override
+        public List<String> getTags() {
+            return tags;
+        }
+    }
+
+    private static class BlockSettingsWikiImpl implements BlockSettingsWiki
+    {
+        private float explosionResistance;
+        private float destroyTime;
+        private boolean requiresTool;
+
+        public BlockSettingsWikiImpl(Block block)
+        {
+            this.explosionResistance = block.getExplosionResistance();
+            this.destroyTime = block.defaultDestroyTime();
+            requiresTool = block.defaultBlockState().requiresCorrectToolForDrops();
+        }
+        @Override
+        public float explosionResistance() {
+            return explosionResistance;
+        }
+
+        @Override
+        public float destroyTime() {
+            return destroyTime;
+        }
+
+        @Override
+        public boolean requiresTool() {
+            return requiresTool;
+        }
+    }
+
+    private static class BlockTagsWikiImpl implements BlockTagsWiki {
+        List<String> tags = Lists.newArrayList();
+
+        public BlockTagsWikiImpl(Block block)
+        {
+            tags.addAll(BlockTags.getAllTags().getMatchingTags(block).stream().map(ResourceLocation::toString).toList());
+        }
+
+        @Override
+        public List<String> blocktags() {
+            return tags;
+        }
+    }
+
+    private static class BlockModifiersWikiImpl implements BlockModifiersWiki
+    {
+        private float compostChance = 0;
+        private int flameCatchChance = 0;
+        private int flameBurnChance = 0;
+
+        public BlockModifiersWikiImpl(Block block)
+        {
+            for(CompostModifier.CompostValue compostValue : BMBlocks.COMPOSTABLES)
+                if(compostValue.block() == block)
+                {
+                    compostChance = compostValue.chance();
+                }
+
+            if(FlammableModifier.CATCH_ODDS.containsKey(block))
+            {
+                flameCatchChance = FlammableModifier.CATCH_ODDS.get(block);
+                flameBurnChance = FlammableModifier.BURN_ODDS.get(block);
+            }
+        }
+
+        @Override
+        public float compostChance() {
+            return compostChance;
+        }
+
+        @Override
+        public int flameCatchChance() {
+            return flameCatchChance;
+        }
+
+        @Override
+        public int flameBurnChance() {
+            return flameBurnChance;
         }
     }
 }
