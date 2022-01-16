@@ -159,8 +159,7 @@ public class WitchQuestHandler
     {
         QuestRarity rarity = QuestRarity.getRarityFromQuest(quest);
 
-        List<QuestRewardTable> rewards = rarity.rewards.shuffle().stream().toList();
-        return rewards.get(random.nextInt(rewards.size())).pickRandom(random);
+        return rarity.rewards.sample().pickRandom(random);
     }
 
     public static WitchQuest createQuest(Random random)

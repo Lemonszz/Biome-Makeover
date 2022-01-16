@@ -397,7 +397,8 @@ public class BMWorldGen
         )));
 
         public static final VegetationPatchConfiguration UNDERGROUND_MYCELIUM_CONFIG = new VegetationPatchConfiguration(BMBlocks.ORE_REPLACEABLE.getName(), BlockStateProvider.simple(Blocks.MYCELIUM), UNDERGROUND_MYCELIUM_VEGETATION::placed, CaveSurface.FLOOR, UniformInt.of(1, 3), 0.25f, 3, 0.1f, UniformInt.of(7, 12), 0.8f);
-        public static final ConfiguredFeature<?, ?> UNDERGROUND_MYCELIUM = Feature.VEGETATION_PATCH.configured(UNDERGROUND_MYCELIUM_CONFIG);
+        public static final Feature<VegetationPatchConfiguration> GRASS_PATCH = new GrassPatchFeature(VegetationPatchConfiguration.CODEC);
+        public static final ConfiguredFeature<?, ?> UNDERGROUND_MYCELIUM = GRASS_PATCH.configured(UNDERGROUND_MYCELIUM_CONFIG);
         public static final PlacedFeature UNDERGROUND_MYCELIUM_PLACED = UNDERGROUND_MYCELIUM.placed(CountPlacement.of(12), InSquarePlacement.spread(), UG_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
         //Lichen

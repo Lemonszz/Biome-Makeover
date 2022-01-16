@@ -2,8 +2,10 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,5 +50,19 @@ public class UnderwaterMushroomPlantBlock extends BMMushroomPlantBlock implement
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
         return super.updateShape(blockState, direction, newState, levelAccessor, blockPos, posFrom);
+    }
+
+    @Override
+    public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
+        BlockPos downPos = blockPos.below();
+        BlockState downstate = levelReader.getBlockState(downPos);
+        if(downstate.is(BlockTags.MUSHROOM_GROW_BLOCK))
+        {
+            return true;
+        }
+        else
+        {
+            return this.mayPlaceOn(downstate, levelReader, downPos);
+        }
     }
 }

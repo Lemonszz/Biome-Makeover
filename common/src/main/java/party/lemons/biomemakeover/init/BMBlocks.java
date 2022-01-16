@@ -142,7 +142,7 @@ public class BMBlocks
 
     public static final BMSaplingBlock ANCIENT_OAK_SAPLING = new BMSaplingBlock(new AncientOakSaplingGenerator(), properties(Material.PLANT, 0).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.create(RType.CUTOUT));
     public static final BMLeavesBlock ANCIENT_OAK_LEAVES = new BMLeavesBlock(properties(Material.LEAVES, 0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating((a, b, c)->false).isViewBlocking((a, b, c)->false)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), CompostModifier.create(0.3F), FlammableModifier.LEAVES);
-    public static final BMBlock ALTAR = new AltarBlock(properties(Material.STONE, 1.5F).lightLevel((st)->st.getValue(AltarBlock.ACTIVE) ? 5 : 1).requiresCorrectToolForDrops().noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT));
+    public static final BMBlock ALTAR = new AltarBlock(properties(Material.STONE, 5F).lightLevel((st)->st.getValue(AltarBlock.ACTIVE) ? 5 : 1).requiresCorrectToolForDrops().noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT));
     public static final Block CLADDED_STONE = new BMBlock(properties(Material.STONE, 1.5F).requiresCorrectToolForDrops());
 
     public static final RootlingCropBlock ROOTLING_CROP = new RootlingCropBlock(properties(Material.PLANT, 0).noCollission().randomTicks().instabreak().sound(SoundType.CROP)).modifiers(RTypeModifier.create(RType.CUTOUT));

@@ -2,8 +2,8 @@ package party.lemons.biomemakeover.crafting.witch;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.entity.ai.behavior.ShufflingList;
 import net.minecraft.world.item.Rarity;
+import party.lemons.biomemakeover.util.WeightedList;
 
 import java.util.Locale;
 
@@ -12,17 +12,15 @@ public enum QuestRarity
     COMMON(Rarity.COMMON, 0, new int[]{110, 150, 10, 1}), UNCOMMON(Rarity.UNCOMMON, 8, new int[]{90, 120, 75, 10}), RARE(Rarity.RARE, 15, new int[]{0, 0, 100, 50}), EPIC(Rarity.EPIC, 30, new int[]{0, 0, 0, 100});
 
     private final int requiredPoints;
-    private final int[] rewardWeights;
     private final Rarity vanillaRarity;
-    public final ShufflingList<QuestRewardTable> rewards;
+    public final WeightedList<QuestRewardTable> rewards;
 
     QuestRarity(Rarity rarity, int requiredPoints, int[] rewardWeights)
     {
         this.requiredPoints = requiredPoints;
-        this.rewardWeights = rewardWeights;
         this.vanillaRarity = rarity;
 
-        rewards = new ShufflingList<>();
+        rewards = new WeightedList<>();
         rewards.add(QuestRewardTable.ITEMS, rewardWeights[0]);
         rewards.add(QuestRewardTable.POTION_INGREDIENTS, rewardWeights[1]);
         rewards.add(QuestRewardTable.POTION, rewardWeights[2]);

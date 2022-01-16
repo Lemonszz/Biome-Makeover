@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
-import org.apache.commons.compress.utils.Lists;
+import com.google.common.collect.Lists;
 import party.lemons.biomemakeover.entity.PlayerCreatable;
 
 import java.util.List;

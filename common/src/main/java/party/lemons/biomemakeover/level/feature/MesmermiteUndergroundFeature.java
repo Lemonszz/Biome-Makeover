@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.level.feature;
 
+import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,10 +10,8 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import org.apache.commons.compress.utils.Lists;
 import party.lemons.biomemakeover.block.IlluniteClusterBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
 

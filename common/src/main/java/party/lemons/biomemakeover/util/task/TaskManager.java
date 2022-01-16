@@ -1,7 +1,7 @@
 package party.lemons.biomemakeover.util.task;
 
 import dev.architectury.event.events.common.TickEvent;
-import org.apache.commons.compress.utils.Lists;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 

@@ -8,8 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
-import org.apache.commons.compress.utils.Lists;
-
+import com.google.common.collect.Lists;
 import java.util.List;
 
 public class BMLootTableInjection

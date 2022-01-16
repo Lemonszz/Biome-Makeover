@@ -1,21 +1,14 @@
 package party.lemons.biomemakeover.util.registry.boat;
 
-import com.mojang.serialization.Lifecycle;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.core.MappedRegistry;
-import net.minecraft.core.Registry;
-import net.minecraft.core.WritableRegistry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Items;
-import org.apache.commons.compress.utils.Lists;
+import com.google.common.collect.Lists;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.entity.BMBoatEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
 import party.lemons.biomemakeover.util.registry.WoodTypeInfo;
 import party.lemons.biomemakeover.util.registry.modellayer.ModelLayerRegistry;
 

@@ -5,6 +5,7 @@ import dev.architectury.registry.level.biome.BiomeModifications;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -51,6 +52,9 @@ import java.util.function.Predicate;
 
 public class BMEntities
 {
+    static boolean dfCache = SharedConstants.CHECK_DATA_FIXER_SCHEMA;
+    static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;}
+
     public static final EntityType<TumbleweedEntity> TUMBLEWEED = EntityType.Builder.of(TumbleweedEntity::new, MobCategory.MISC).sized(0.7F, 0.7F).clientTrackingRange(12).build("tumbleweed");
     public static final EntityType<BMBoatEntity> BM_BOAT = EntityType.Builder.of( (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_boat");
     public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = EntityType.Builder.of( (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new, MobCategory.MISC).clientTrackingRange(10).updateInterval(4).sized(0.25F, 0.25F).build("lightning_bottle");
@@ -74,12 +78,16 @@ public class BMEntities
     public static final EntityType<AdjudicatorMimicEntity> ADJUDICATOR_MIMIC = EntityType.Builder.of(AdjudicatorMimicEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator_mimic");
     public static final EntityType<StoneGolemEntity> STONE_GOLEM = EntityType.Builder.of(StoneGolemEntity::new, MobCategory.MISC).sized(1.6F, 2.5F).clientTrackingRange(12).build("stone_golem");
 
+    static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;}
 
     public static final Attribute ATT_PROJECTILE_RESISTANCE = new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D);
 
     public static void init()
     {
+        boolean dfCache = SharedConstants.CHECK_DATA_FIXER_SCHEMA;
+        SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;
         RegistryHelper.register(Constants.MOD_ID, Registry.ENTITY_TYPE, EntityType.class, BMEntities.class);
+        SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;
 
         initSpawns();
         initAttributes();
