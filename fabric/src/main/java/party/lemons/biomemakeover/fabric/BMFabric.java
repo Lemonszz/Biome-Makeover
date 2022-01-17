@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -25,9 +26,16 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.Constants;
@@ -65,11 +73,10 @@ public class BMFabric implements ModInitializer
             {
                 if(id.equals(item.table()))
                 {
-                    LootPool.Builder builder = FabricLootPoolBuilder.builder().rolls(item.rolls()).withEntry(LootItem.lootTableItem(item.itemLike()).build());
-                    if(item.playerOnly())
-                        builder = builder.when(LootItemKilledByPlayerCondition.killedByPlayer());
-
-                    supplier.withPool(builder.build());
+                    supplier.withPool(LootPool.lootPool()
+                            .setRolls(item.rolls())
+                            .add(LootItem.lootTableItem(item.itemLike())
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f)))).when(LootItemKilledByPlayerCondition.killedByPlayer()).build());
                 }
             }
         });

@@ -30,8 +30,11 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.BiomeDictionary;
@@ -92,13 +95,11 @@ public class BMForge
         {
             if(event.getName().equals(item.table()))
             {
-                LootPool.Builder pool = new LootPool.Builder().setRolls(item.rolls()).add(LootItem.lootTableItem(item.itemLike()));
-                if(item.playerOnly())
-                {
-                    pool = pool.when(LootItemKilledByPlayerCondition.killedByPlayer());
-                }
+                event.getTable().addPool(LootPool.lootPool()
+                        .setRolls(item.rolls())
+                        .add(LootItem.lootTableItem(item.itemLike())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f)))).when(LootItemKilledByPlayerCondition.killedByPlayer()).build());
 
-                event.getTable().addPool(pool.build());
             }
         }
     }
