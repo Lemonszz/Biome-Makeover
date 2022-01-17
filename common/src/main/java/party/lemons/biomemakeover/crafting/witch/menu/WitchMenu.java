@@ -71,9 +71,17 @@ public class WitchMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int i) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        return itemStack;
+    public ItemStack quickMoveStack(Player player, int i)
+    {
+        if(i == 0)
+        {
+            ItemStack stack = getSlot(0).getItem();
+
+            if (!this.moveItemStackTo(stack, 1, 37, true)) {
+                return ItemStack.EMPTY;
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override
