@@ -8,7 +8,6 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.entity.event.EntityEvent;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.util.NBTUtil;
-import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.effect.BiomeMakeoverEffect;
 import party.lemons.biomemakeover.util.effect.EffectHelper;
 

@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
@@ -35,11 +36,9 @@ public enum BiomeMakeoverEffect
     private static void playCurseSound(Level world, BlockPos pos)
     {
         BlockEntity be = world.getBlockEntity(pos);
-        if(be instanceof AltarBlockEntity)
-        {
-            AltarCursingSoundInstance sound = new AltarCursingSoundInstance((AltarBlockEntity) be);
-            Minecraft.getInstance().getSoundManager().play(sound);
-        }
+        if(be instanceof AltarBlockEntity altar && world.isClientSide())
+            BiomeMakeoverClient.curseSound(altar);
+
     }
 
     private final Event event;

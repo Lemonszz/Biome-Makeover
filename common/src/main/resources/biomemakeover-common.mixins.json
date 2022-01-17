@@ -10,6 +10,7 @@
     "client.PlayerRendererMixin_Hat",
     "multipart.client.GameRendererMixin",
     "multipart.client.EntityRenderDispatcherMixin",
+    "multipart.ClientPacketListenerMixin",
     "totem.ClientPacketListenerMixin",
     "badlands.HorseRendererMixin"
   ],
@@ -52,7 +53,6 @@
     "LivingEntityMixin_Lootblock",
     "MobAccess",
     "GoalSelectorMixin",
-    "multipart.ClientPacketListenerMixin",
     "multipart.EntityCallbacksMixin",
     "multipart.ServerLevelMixin",
     "multipart.LevelMixin",

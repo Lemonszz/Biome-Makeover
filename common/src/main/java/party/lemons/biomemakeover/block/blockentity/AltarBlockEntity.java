@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.block.blockentity;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -36,6 +37,7 @@ import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.effect.BiomeMakeoverEffect;
 import party.lemons.biomemakeover.util.effect.EffectHelper;
+import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 
 import java.util.List;
 import java.util.Map;
