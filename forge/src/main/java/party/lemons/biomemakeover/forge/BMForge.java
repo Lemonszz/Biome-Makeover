@@ -30,6 +30,8 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.BiomeDictionary;
@@ -90,8 +92,13 @@ public class BMForge
         {
             if(event.getName().equals(item.table()))
             {
-                LootPool pool = new LootPool.Builder().setRolls(item.rolls()).add(LootItem.lootTableItem(item.itemLike())).build();
-                event.getTable().addPool(pool);
+                LootPool.Builder pool = new LootPool.Builder().setRolls(item.rolls()).add(LootItem.lootTableItem(item.itemLike()));
+                if(item.playerOnly())
+                {
+                    pool = pool.when(LootItemKilledByPlayerCondition.killedByPlayer());
+                }
+
+                event.getTable().addPool(pool.build());
             }
         }
     }

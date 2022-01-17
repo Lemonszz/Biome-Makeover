@@ -69,7 +69,8 @@
     "mushroom.HugeMushroomBlockMixin",
     "mushroom.MushroomCowMixin",
     "totem.LivingEntityMixin",
-    "badlands.HorseMixin"
+    "badlands.HorseMixin",
+    "PoweredSnowBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

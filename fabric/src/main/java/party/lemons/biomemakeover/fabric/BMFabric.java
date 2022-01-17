@@ -24,8 +24,10 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.Constants;
@@ -63,7 +65,10 @@ public class BMFabric implements ModInitializer
             {
                 if(id.equals(item.table()))
                 {
-                    FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder().rolls(item.rolls()).withEntry(LootItem.lootTableItem(item.itemLike()).build());
+                    LootPool.Builder builder = FabricLootPoolBuilder.builder().rolls(item.rolls()).withEntry(LootItem.lootTableItem(item.itemLike()).build());
+                    if(item.playerOnly())
+                        builder = builder.when(LootItemKilledByPlayerCondition.killedByPlayer());
+
                     supplier.withPool(builder.build());
                 }
             }

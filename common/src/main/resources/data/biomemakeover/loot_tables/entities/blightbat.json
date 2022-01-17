@@ -18,6 +18,11 @@
           ],
           "name": "biomemakeover:blightbat_wing"
         }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
       ]
     }
   ]
