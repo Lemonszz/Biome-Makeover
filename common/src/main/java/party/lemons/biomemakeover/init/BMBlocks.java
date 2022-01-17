@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
+import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
@@ -215,7 +216,7 @@ public class BMBlocks
 
     public static BlockBehaviour.Properties properties(Material material, float hardness)
     {
-        return  BlockBehaviour.Properties.of(material).strength(hardness, hardness);
+        return BlockProperties.of(material).strength(hardness, hardness);
     }
 
     public static Boolean canSpawnOnLeaves(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> type)
