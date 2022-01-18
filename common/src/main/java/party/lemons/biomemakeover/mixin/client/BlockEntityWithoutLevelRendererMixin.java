@@ -22,11 +22,14 @@ import party.lemons.biomemakeover.init.BMBlocks;
 public class BlockEntityWithoutLevelRendererMixin {
 
     @Shadow @Final private BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-    private static TapestryBlockEntity TAPESTRY = new TapestryBlockEntity(BlockPos.ZERO, BMBlocks.TAPESTRY_FLOOR_BLOCKS.get(0).defaultBlockState());
+    private static TapestryBlockEntity TAPESTRY;
 
 
     @Inject(at = @At("HEAD"), method = "renderByItem", cancellable = true)
     public void renderByItem(ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo cbi) {
+        if(TAPESTRY == null)
+            TAPESTRY = new TapestryBlockEntity(BlockPos.ZERO, BMBlocks.TAPESTRY_FLOOR_BLOCKS.get(0).defaultBlockState());
+
         if(stack.getItem() instanceof StandingAndWallBlockItem standingBlockItem)
         {
             if(standingBlockItem.getBlock() instanceof AbstractTapestryBlock)

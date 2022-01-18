@@ -25,6 +25,7 @@ import java.util.Map;
 public class HatLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
     public Map<Item, EntityModel<T>> MODELS = Maps.newHashMap();
+    private final EntityModelSet modelSet;
     private final float yOffset;
 
     public HatLayer(RenderLayerParent<T, M> par, EntityModelSet modelSet) {
@@ -33,10 +34,8 @@ public class HatLayer<T extends LivingEntity, M extends EntityModel<T>> extends 
 
     public HatLayer(RenderLayerParent<T, M> par, EntityModelSet modelSet, float yOffset) {
         super(par);
-
-        MODELS.put(BMItems.COWBOY_HAT, new CowboyHatModel<>(modelSet.bakeLayer(CowboyHatModel.LAYER_LOCATION)));
-        MODELS.put(BMItems.WITCH_HAT, new WitchHatModel<>(modelSet.bakeLayer(WitchHatModel.LAYER_LOCATION)));
         this.yOffset = yOffset;
+        this.modelSet = modelSet;
     }
 
     public HatItem getHatItem(T entity)
@@ -52,6 +51,11 @@ public class HatLayer<T extends LivingEntity, M extends EntityModel<T>> extends 
         Item hatItem = getHatItem(entity);
         if(hatItem != null)
         {
+            if(MODELS.isEmpty()) {  //Doing this here to prevent premature class loading
+                MODELS.put(BMItems.COWBOY_HAT, new CowboyHatModel<>(modelSet.bakeLayer(CowboyHatModel.LAYER_LOCATION)));
+                MODELS.put(BMItems.WITCH_HAT,new WitchHatModel<>(modelSet.bakeLayer(WitchHatModel.LAYER_LOCATION)));
+            }
+
             return MODELS.get(hatItem);
         }
         return null;
