@@ -395,20 +395,19 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     private void playRotateSound()
     {
         boolean nulled = turnSound == null;
-        if(nulled || turnSound.isStopped())
+        if(nulled || ((StoneGolemTurnSoundInstance)turnSound).isStopped())
         {
             if(!nulled)
-                Minecraft.getInstance().getSoundManager().stop(turnSound);
+                Minecraft.getInstance().getSoundManager().stop(((StoneGolemTurnSoundInstance)turnSound));
 
             turnSound = new StoneGolemTurnSoundInstance(this);
-            Minecraft.getInstance().getSoundManager().play(turnSound);
+            Minecraft.getInstance().getSoundManager().play(((StoneGolemTurnSoundInstance)turnSound));
         }
         else if(!nulled)
-            turnSound.tick();
+            ((StoneGolemTurnSoundInstance)turnSound).tick();
     }
 
-    @Environment(EnvType.CLIENT)
-    private StoneGolemTurnSoundInstance turnSound = null;
+    private Object turnSound = null;
 
     public IronGolem.Crackiness getCrack() {
         return IronGolem.Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
