@@ -1,7 +1,9 @@
 package party.lemons.biomemakeover.entity;
 
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.utils.NbtType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -67,7 +69,7 @@ public class BMBoatEntity extends Boat
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
-        if(tag.contains(TAG_TYPE, 8))
+        if(tag.contains(TAG_TYPE, Tag.TAG_INT))
         {
             this.setBoatType(BoatTypes.TYPES.get(tag.getInt(TAG_TYPE)));
         }
