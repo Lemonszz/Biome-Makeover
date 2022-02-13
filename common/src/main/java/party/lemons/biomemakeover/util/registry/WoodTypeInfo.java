@@ -121,8 +121,8 @@ public class WoodTypeInfo
 
     public WoodTypeInfo sign()
     {
-        SignBlock standing = new StandingSignBlock(BMBlocks.properties(Material.WOOD, 1.0F).noCollission(), woodType);
-        WallSignBlock wall = new WallSignBlock(BMBlocks.properties(Material.WOOD, 1.0F).noCollission(), woodType);
+        SignBlock standing = new StandingSignBlock(BMBlocks.properties(Material.WOOD, 1.0F).sound(SoundType.WOOD).noCollission(), woodType);
+        WallSignBlock wall = new WallSignBlock(BMBlocks.properties(Material.WOOD, 1.0F).sound(SoundType.WOOD).noCollission(), woodType);
         set(Type.SIGN, standing);
         set(Type.SIGN_WALL, wall);
         set(Type.SIGN, new SignItem(properties(), standing, wall));

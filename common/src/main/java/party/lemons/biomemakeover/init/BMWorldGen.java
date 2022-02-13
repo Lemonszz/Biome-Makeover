@@ -123,7 +123,7 @@ public class BMWorldGen
         ).ignoreVines().decorators(List.of(new BeehiveDecorator(0.002f))).build());
 
         //Small Ancient Oak
-        public static final TreeDecoratorType<IvyDecorator> IVY_DECORATOR = TreeDecoratorTypeInvoker.callRegister(BiomeMakeover.ID("ivy").toString(), IvyDecorator.CODEC);
+        public static final TreeDecoratorType<IvyDecorator> IVY_DECORATOR = new TreeDecoratorType<>(IvyDecorator.CODEC);
 
         public static final ConfiguredFeature<?, ?> ANCIENT_OAK_SMALL = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).defaultBlockState()),
@@ -195,6 +195,7 @@ public class BMWorldGen
             registerStructure("mansion", MANSION, new StructureFeatureConfiguration(32, 9, 420), true);
 
             RegistryHelper.register(Constants.MOD_ID, Registry.FEATURE, Feature.class, DarkForest.class);
+            RegistryHelper.register(Constants.MOD_ID, Registry.TREE_DECORATOR_TYPES, TreeDecoratorType.class, DarkForest.class);
 
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, DarkForest.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, DarkForest.class, PL_FEATURES);
@@ -208,9 +209,9 @@ public class BMWorldGen
     public static final class Swamp
     {
         //Trees
-        public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE = FoliagePlacerTypeInvoker.callRegister(BiomeMakeover.ID("willow").toString(), WillowFoliagePlacer.CODEC);
-        public static final TreeDecoratorType<HangingLeavesDecorator> HANGING_LEAVES_DECORATOR = TreeDecoratorTypeInvoker.callRegister(BiomeMakeover.ID("hanging_leaves").toString(), HangingLeavesDecorator.CODEC);
-        public static final TreeDecoratorType<WillowingBranchDecorator> WILLOWING_BRANCH_DECORATOR = TreeDecoratorTypeInvoker.callRegister(BiomeMakeover.ID("willowing_branch").toString(), WillowingBranchDecorator.CODEC);
+        public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE = new FoliagePlacerType<>(WillowFoliagePlacer.CODEC);
+        public static final TreeDecoratorType<HangingLeavesDecorator> HANGING_LEAVES_DECORATOR = new TreeDecoratorType<>(HangingLeavesDecorator.CODEC);
+        public static final TreeDecoratorType<WillowingBranchDecorator> WILLOWING_BRANCH_DECORATOR = new TreeDecoratorType<>(WillowingBranchDecorator.CODEC);
 
         public static final Feature<TreeConfiguration> WATER_TREE = new WaterTreeFeature(TreeConfiguration.CODEC);
 
@@ -288,6 +289,8 @@ public class BMWorldGen
             registerStructure("sunken_ruin", SUNKEN_RUIN, new StructureFeatureConfiguration(24, 9, 420), false);
 
             RegistryHelper.register(Constants.MOD_ID, Registry.FEATURE, Feature.class, Swamp.class);
+            RegistryHelper.register(Constants.MOD_ID, Registry.TREE_DECORATOR_TYPES, TreeDecoratorType.class, Swamp.class);
+            RegistryHelper.register(Constants.MOD_ID, Registry.FOLIAGE_PLACER_TYPES, FoliagePlacerType.class, Swamp.class);
 
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, Swamp.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, Swamp.class, PL_FEATURES);
