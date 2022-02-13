@@ -25,6 +25,6 @@
   "depends": {
     "fabric": "*",
     "minecraft": "1.18.x",
-    "architectury": ">=3.4.9"
+    "architectury": ">=3.6.15"
   }
 }
