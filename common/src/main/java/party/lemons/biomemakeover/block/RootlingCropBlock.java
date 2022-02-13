@@ -1,11 +1,11 @@
 package party.lemons.biomemakeover.block;
 
+//import net.gudenau.minecraft.moretags.MoreTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -17,9 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import party.lemons.biomemakeover.block.modifier.BlockModifier;
 import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
 import party.lemons.biomemakeover.entity.RootlingEntity;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMItems;
 
 import java.util.Random;
 
@@ -37,11 +35,6 @@ public class RootlingCropBlock extends BushBlock implements BonemealableBlock, B
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return AGE_TO_SHAPE[blockState.getValue(AGE_4)];
-    }
-
-    @Override
-    protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-        return blockState.is(Blocks.FARMLAND) || blockState.is(BMBlocks.PEAT_FARMLAND);
     }
 
     @Override
@@ -129,7 +122,7 @@ public class RootlingCropBlock extends BushBlock implements BonemealableBlock, B
             {
                 float g = 0.0F;
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
-                if(blockState.is(Blocks.FARMLAND) || blockState.is(BMBlocks.PEAT_FARMLAND))
+                if(false /*FIXME I am not sure why this class can't be found, MoreTags.FARMLAND.contains(blockState.getBlock()) */)
                 {
                     g = 1.0F;
                     if(blockState.getValue(FarmBlock.MOISTURE) > 0)
