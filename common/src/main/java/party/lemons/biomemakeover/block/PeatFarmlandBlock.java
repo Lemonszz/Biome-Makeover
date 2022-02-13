@@ -51,7 +51,6 @@ public class PeatFarmlandBlock extends FarmBlock implements BlockWithItem
         BlockState aboveState = level.getBlockState(pos.above());
         if(aboveState.isRandomlyTicking())
         {
-            System.out.println("TICK");
             aboveState.randomTick(level, pos.above(), random);
         }
     }

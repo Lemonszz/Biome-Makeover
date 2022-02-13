@@ -19,6 +19,16 @@ loom {
     accessWidenerPath = file("src/main/resources/biomemakeover-common.accessWidener")
 }
 
+repositories {
+    maven {
+        name = 'gudenau\'s maven'
+        url = 'https://maven.gudenau.net'
+        content {
+            includeGroup 'net.gudenau.minecraft'
+        }
+    }
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
@@ -26,6 +36,10 @@ dependencies {
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    modImplementation include("net.gudenau.minecraft:MoreTags:${rootProject.moreTagsVersion}"){
+        transitive = false
+    }
 }
 
 processResources {

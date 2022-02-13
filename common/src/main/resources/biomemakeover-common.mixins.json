@@ -28,8 +28,6 @@
     "StructureFeatureMixin",
     "StructureSettingsMixin",
     "InputContainerMixin_EctoCompost",
-    "BushBlockMixin",
-    "CropBlockMixin",
     "FireBlockInvoker",
     "WaterlilyBlockMixin",
     "WitchMixin_Quests",
