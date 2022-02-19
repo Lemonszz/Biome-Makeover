@@ -9,8 +9,9 @@
     "ChunkGeneratorAccessor",
     "DefaultBiomesMixin_RemoveSwampTrees",
     "LilypadBlockMixin_PlantType",
-    "BushBlockMixin",
-    "CropBlockMixin"
+    "farmland.BushBlockMixin",
+    "farmland.CropBlockMixin",
+    "farmland.StemBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

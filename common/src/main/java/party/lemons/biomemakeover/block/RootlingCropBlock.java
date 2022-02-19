@@ -63,23 +63,6 @@ public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<R
         return AGE_4;
     }
 
-    /*
-    public boolean isMature(BlockState state)
-    {
-        return state.getValue(AGE_4) >= getMaxAge();
-    }
-
-    public int getMaxAge()
-    {
-        return 4;
-    }
-
-    @Override
-    public boolean isRandomlyTicking(BlockState blockState) {
-        return !this.isMature(blockState);
-    }*/
-
-
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
         if(level.getRawBrightness(pos, 0) >= 9)
@@ -95,36 +78,6 @@ public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<R
             }
         }
     }
-
-    /*
-    protected int getAge(BlockState state)
-    {
-        return state.getValue(AGE_4);
-    }
-
-    public BlockState withAge(int age)
-    {
-        return this.defaultBlockState().setValue(AGE_4, age);
-    }*/
-
-    /*
-    public void applyGrowth(Level world, BlockPos pos, BlockState state)
-    {
-        int i = this.getAge(state) + this.getGrowthAmount(world);
-        int j = this.getMaxAge();
-        if(i > j)
-        {
-            i = j;
-        }
-
-        world.setBlock(pos, this.withAge(i), 2);
-    }
-
-    protected int getGrowthAmount(Level world)
-    {
-        return Mth.nextInt(world.random, 1, 2);
-    }*/
-
 
     protected static float getGrowthSpeed(Block block, Level world, BlockPos pos)
     {
@@ -175,49 +128,6 @@ public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<R
 
         return f;
     }
-
-    /*
-    @Override
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && super.canSurvive(state, level, pos);
-    }
-
-    @Override
-    public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity) {
-        if(entity instanceof Ravager && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
-        {
-            level.destroyBlock(blockPos, true, entity);
-        }
-
-        super.entityInside(blockState, level, blockPos, entity);
-    }*/
-
-    /*
-    protected ItemLike getSeedsItem()
-    {return BMItems.ROOTLING_SEEDS;
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
-        return new ItemStack(this.getSeedsItem());
-    }
-*/
-    /*
-    @Override
-    public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean bl) {
-        return !this.isMature(blockState);
-    }
-
-    @Override
-    public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
-        return true;
-    }
-
-    @Override
-    public void performBonemeal(ServerLevel serverLevel, Random random, BlockPos blockPos, BlockState blockState) {
-        this.applyGrowth(serverLevel, blockPos, blockState);
-    }
-*/
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
