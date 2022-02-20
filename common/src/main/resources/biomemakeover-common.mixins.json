@@ -8,6 +8,7 @@
     "client.LevelRendererMixin",
     "client.BlockEntityWithoutLevelRendererMixin",
     "client.PlayerRendererMixin_Hat",
+    "client.ArmorStandRendererMixin",
     "multipart.client.GameRendererMixin",
     "multipart.client.EntityRenderDispatcherMixin",
     "multipart.ClientPacketListenerMixin",

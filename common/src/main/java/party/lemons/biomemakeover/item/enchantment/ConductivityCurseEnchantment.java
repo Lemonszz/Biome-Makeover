@@ -38,6 +38,32 @@ public class ConductivityCurseEnchantment extends BMEnchantment {
     }
 
     @Override
+    public int getMinCost(int i) {
+        return 25;
+    }
+
+    @Override
+    public int getMaxCost(int i) {
+        return 50;
+    }
+
+    @Override
+    public int getMaxLevel()
+    {
+        return 5;
+    }
+
+    @Override
+    public boolean isTreasureOnly() {
+        return true;
+    }
+
+    @Override
+    public boolean isCurse() {
+        return true;
+    }
+
+    @Override
     public boolean isDiscoverable() {
         return false;
     }
