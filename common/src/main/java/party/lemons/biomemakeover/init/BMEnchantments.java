@@ -4,7 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.item.enchantment.Enchantment;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.item.enchantment.*;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMEnchantments {
     //TODO: Some of these don't really need their own class.

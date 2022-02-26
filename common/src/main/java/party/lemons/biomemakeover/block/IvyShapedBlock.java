@@ -19,15 +19,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
-import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
 import party.lemons.biomemakeover.util.BMUtil;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
+import party.lemons.taniwha.block.modifier.BlockModifier;
+import party.lemons.taniwha.block.modifier.BlockWithModifiers;
+import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.*;
 import java.util.function.Function;
 
-public class IvyShapedBlock extends BMBlock
+public class IvyShapedBlock extends TBlock
 {
     private static final VoxelShape UP_SHAPE = Block.box(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     private static final VoxelShape DOWN_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);

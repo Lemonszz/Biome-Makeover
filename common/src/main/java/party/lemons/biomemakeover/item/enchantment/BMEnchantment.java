@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import party.lemons.biomemakeover.util.MathUtils;
+import party.lemons.taniwha.util.MathUtils;
 
 import java.util.Map;
 import java.util.UUID;

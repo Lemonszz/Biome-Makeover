@@ -34,12 +34,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.Random;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class AltarBlock extends BMBlock implements SimpleWaterloggedBlock, EntityBlock
+public class AltarBlock extends TBlock implements SimpleWaterloggedBlock, EntityBlock
 {
     public static final VoxelShape BOTTOM_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 2.0D, 14.0D);
     public static final VoxelShape MIDDLE_SHAPE = Block.box(4.0D, 2.0D, 4D, 12.0D, 10.0D, 12.0D);

@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import party.lemons.biomemakeover.init.BMWorldGen;
-import party.lemons.biomemakeover.util.HorizontalDirection;
+import party.lemons.taniwha.util.HorizontalDirection;
 
 import java.util.List;
 import java.util.Random;

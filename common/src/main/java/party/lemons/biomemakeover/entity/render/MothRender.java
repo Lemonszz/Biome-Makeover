@@ -5,11 +5,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.Vec3;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.MothEntity;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.sound.EntityLoopSoundInstance;
+import party.lemons.taniwha.client.sound.EntityLoopSoundInstance;
 
 public class MothRender extends MobRenderer<MothEntity, MothModel> {
 

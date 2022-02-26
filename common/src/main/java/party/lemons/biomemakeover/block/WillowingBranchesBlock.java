@@ -19,10 +19,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.Random;
 
-public class WillowingBranchesBlock extends BMBlock implements SimpleWaterloggedBlock {
+public class WillowingBranchesBlock extends TBlock implements SimpleWaterloggedBlock {
 
     public static final int MAX_STAGE = 2;
 

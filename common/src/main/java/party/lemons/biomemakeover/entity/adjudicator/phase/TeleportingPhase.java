@@ -7,12 +7,11 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.entity.event.EntityEvent;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.NBTUtil;
 import party.lemons.biomemakeover.util.effect.BiomeMakeoverEffect;
 import party.lemons.biomemakeover.util.effect.EffectHelper;
+import party.lemons.taniwha.util.NBTUtil;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TeleportingPhase extends TimedPhase
 {

@@ -1,6 +1,8 @@
 package party.lemons.biomemakeover.block;
 
-public class NoItemBMBlock extends BMBlock
+import party.lemons.taniwha.block.types.TBlock;
+
+public class NoItemBMBlock extends TBlock
 {
     public NoItemBMBlock(Properties properties) {
         super(properties);

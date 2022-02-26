@@ -15,7 +15,7 @@ public class EntityCallbacksMixin
     public void onEndTracking(Entity e, CallbackInfo cbi)
     {
         if(e instanceof MultiPartEntity mpe)
-            MultiPartEntity.unload(mpe);
+            MultiPartEntity.removeParts(mpe);
     }
 
     @Inject(at = @At("TAIL"), method = "onTrackingStart")

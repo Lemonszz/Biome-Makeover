@@ -15,8 +15,9 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.taniwha.block.types.TTallFlowerBlock;
 
-public class WaterTallFlowerBlock extends BMTallFlowerBlock implements LiquidBlockContainer {
+public class WaterTallFlowerBlock extends TTallFlowerBlock implements LiquidBlockContainer {
     public WaterTallFlowerBlock(Properties properties) {
         super(properties);
 

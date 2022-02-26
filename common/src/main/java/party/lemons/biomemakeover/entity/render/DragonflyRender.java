@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DragonflyEntity;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.sound.EntityLoopSoundInstance;
+import party.lemons.taniwha.client.sound.EntityLoopSoundInstance;
 
 public class DragonflyRender extends MobRenderer<DragonflyEntity, DragonflyModel>
 {

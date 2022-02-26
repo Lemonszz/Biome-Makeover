@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.init;
 
+import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.level.biome.BiomeModifications;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
@@ -43,9 +44,7 @@ import party.lemons.biomemakeover.level.golem.GolemHandler;
 import party.lemons.biomemakeover.mixin.EntityTypeTagsInvoker;
 import party.lemons.biomemakeover.mixin.SpawnPlacementsInvoker;
 import party.lemons.biomemakeover.util.access.CarvedPumpkinAccess;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
-import party.lemons.biomemakeover.util.registry.boat.BoatTypes;
-import party.lemons.biomemakeover.util.registry.modellayer.ModelLayerRegistry;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 import java.util.Random;
 import java.util.function.Predicate;
@@ -56,7 +55,6 @@ public class BMEntities
     static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;}
 
     public static final EntityType<TumbleweedEntity> TUMBLEWEED = EntityType.Builder.of(TumbleweedEntity::new, MobCategory.MISC).sized(0.7F, 0.7F).clientTrackingRange(12).build("tumbleweed");
-    public static final EntityType<BMBoatEntity> BM_BOAT = EntityType.Builder.of( (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_boat");
     public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = EntityType.Builder.of( (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new, MobCategory.MISC).clientTrackingRange(10).updateInterval(4).sized(0.25F, 0.25F).build("lightning_bottle");
 
     public static final EntityType<GlowfishEntity> GLOWFISH = EntityType.Builder.of(GlowfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.7F, 0.4F).clientTrackingRange(4).build("glowfish");
@@ -180,7 +178,6 @@ public class BMEntities
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
 
             EntityRendererRegistry.register(() -> BMEntities.TUMBLEWEED, TumbleweedRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.BM_BOAT, BMBoatRender::new);
             EntityRendererRegistry.register(() -> BMEntities.LIGHTNING_BOTTLE, ThrownItemRenderer::new);
 
             EntityRendererRegistry.register(() -> BMEntities.GLOWFISH, GlowfishRender::new);
@@ -206,32 +203,30 @@ public class BMEntities
 
     public static void registerModelLayers()
     {
-        BoatTypes.registerModelLayers();
-
         LayerDefinition HUMANOID_OVERLAY = LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(0.5f), 0.0f), 64, 64);
         LayerDefinition HUMANOID_OVERLAY2 = LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(0.5f), 0.0f), 64, 32);
 
-        ModelLayerRegistry.registerModelLayer(TapestryRenderer.LAYER_LOCATION, TapestryRenderer::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(CowboyHatModel.LAYER_LOCATION, CowboyHatModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(WitchHatModel.LAYER_LOCATION, WitchHatModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(BlightBatRender.BlightBatModel.LAYER_LOCATION, BlightBatRender.BlightBatModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(ScuttlerModel.LAYER_LOCATION, ScuttlerModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(GhostModel.LAYER_LOCATION, GhostModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(CowboyRender.LAYER_LOCATION, IllagerModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(DecayedModel.LAYER_LOCATION, ()->DecayedModel.createBodyLayer(CubeDeformation.NONE));
-        ModelLayerRegistry.registerModelLayer(DecayedModel.LAYER_LOCATION_2, ()->HUMANOID_OVERLAY);
-        ModelLayerRegistry.registerModelLayer(DecayedModel.LAYER_LOCATION_3, ()->HUMANOID_OVERLAY2);
-        ModelLayerRegistry.registerModelLayer(DragonflyModel.LAYER_LOCATION, DragonflyModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(ToadModel.LAYER_LOCATION, ToadModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(TadpoleModel.LAYER_LOCATION, TadpoleModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(LightningBugModel.LAYER_LOCATION, LightningBugModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(LightningBugModel.LAYER_LOCATION_INNER, LightningBugModel.LightningBugInner::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(LightningBugModel.LAYER_LOCATION_OUTER, LightningBugModel.LightningBugOuter::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(OwlModel.LAYER_LOCATION, OwlModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(MothModel.LAYER_LOCATION, MothModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(RootlingModel.LAYER_LOCATION, RootlingModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(AdjudicatorModel.LAYER_LOCATION, AdjudicatorModel::createBodyLayer);
-        ModelLayerRegistry.registerModelLayer(StoneGolemModel.LAYER_LOCATION, StoneGolemModel::createBodyLayer);
+        EntityModelLayerRegistry.register(TapestryRenderer.LAYER_LOCATION, TapestryRenderer::createBodyLayer);
+        EntityModelLayerRegistry.register(CowboyHatModel.LAYER_LOCATION, CowboyHatModel::createBodyLayer);
+        EntityModelLayerRegistry.register(WitchHatModel.LAYER_LOCATION, WitchHatModel::createBodyLayer);
+        EntityModelLayerRegistry.register(BlightBatRender.BlightBatModel.LAYER_LOCATION, BlightBatRender.BlightBatModel::createBodyLayer);
+        EntityModelLayerRegistry.register(ScuttlerModel.LAYER_LOCATION, ScuttlerModel::createBodyLayer);
+        EntityModelLayerRegistry.register(GhostModel.LAYER_LOCATION, GhostModel::createBodyLayer);
+        EntityModelLayerRegistry.register(CowboyRender.LAYER_LOCATION, IllagerModel::createBodyLayer);
+        EntityModelLayerRegistry.register(DecayedModel.LAYER_LOCATION, ()->DecayedModel.createBodyLayer(CubeDeformation.NONE));
+        EntityModelLayerRegistry.register(DecayedModel.LAYER_LOCATION_2, ()->HUMANOID_OVERLAY);
+        EntityModelLayerRegistry.register(DecayedModel.LAYER_LOCATION_3, ()->HUMANOID_OVERLAY2);
+        EntityModelLayerRegistry.register(DragonflyModel.LAYER_LOCATION, DragonflyModel::createBodyLayer);
+        EntityModelLayerRegistry.register(ToadModel.LAYER_LOCATION, ToadModel::createBodyLayer);
+        EntityModelLayerRegistry.register(TadpoleModel.LAYER_LOCATION, TadpoleModel::createBodyLayer);
+        EntityModelLayerRegistry.register(LightningBugModel.LAYER_LOCATION, LightningBugModel::createBodyLayer);
+        EntityModelLayerRegistry.register(LightningBugModel.LAYER_LOCATION_INNER, LightningBugModel.LightningBugInner::createBodyLayer);
+        EntityModelLayerRegistry.register(LightningBugModel.LAYER_LOCATION_OUTER, LightningBugModel.LightningBugOuter::createBodyLayer);
+        EntityModelLayerRegistry.register(OwlModel.LAYER_LOCATION, OwlModel::createBodyLayer);
+        EntityModelLayerRegistry.register(MothModel.LAYER_LOCATION, MothModel::createBodyLayer);
+        EntityModelLayerRegistry.register(RootlingModel.LAYER_LOCATION, RootlingModel::createBodyLayer);
+        EntityModelLayerRegistry.register(AdjudicatorModel.LAYER_LOCATION, AdjudicatorModel::createBodyLayer);
+        EntityModelLayerRegistry.register(StoneGolemModel.LAYER_LOCATION, StoneGolemModel::createBodyLayer);
 
     }
 

@@ -16,7 +16,7 @@ import party.lemons.biomemakeover.level.particle.BlossomParticle;
 import party.lemons.biomemakeover.level.particle.LightningSparkParticle;
 import party.lemons.biomemakeover.level.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.level.particle.TeleportParticle;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMEffects
 {

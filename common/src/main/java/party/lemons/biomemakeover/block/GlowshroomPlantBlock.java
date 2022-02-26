@@ -6,10 +6,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import party.lemons.taniwha.block.types.TMushroomPlantBlock;
 
 import java.util.function.Supplier;
 
-public class GlowshroomPlantBlock extends BMMushroomPlantBlock {
+public class GlowshroomPlantBlock extends TMushroomPlantBlock {
 
     public GlowshroomPlantBlock(Supplier<ConfiguredFeature<?, ?>> giantShroomFeature, Properties properties) {
         super(giantShroomFeature, properties);

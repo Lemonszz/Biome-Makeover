@@ -16,7 +16,7 @@ import party.lemons.biomemakeover.mixin.PotionBrewingInvoker;
 import party.lemons.biomemakeover.mobeffect.AntidoteMobEffect;
 import party.lemons.biomemakeover.mobeffect.BMMobEffect;
 import party.lemons.biomemakeover.mobeffect.NocturnalMobEffect;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMPotions
 {

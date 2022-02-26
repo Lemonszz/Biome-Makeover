@@ -2,10 +2,9 @@ package party.lemons.biomemakeover.level.feature.mansion.room;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
-import party.lemons.biomemakeover.util.Grid;
+import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.Random;
 

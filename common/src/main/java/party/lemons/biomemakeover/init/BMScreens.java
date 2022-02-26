@@ -2,14 +2,12 @@ package party.lemons.biomemakeover.init;
 
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.crafting.AltarMenu;
 import party.lemons.biomemakeover.crafting.DirectionalDataMenu;
 import party.lemons.biomemakeover.crafting.witch.menu.WitchMenu;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMScreens
 {

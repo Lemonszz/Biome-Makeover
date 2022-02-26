@@ -17,9 +17,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
+import party.lemons.taniwha.registry.BlockWithItem;
 
 public abstract class AbstractTapestryBlock extends BaseEntityBlock implements BlockWithItem
 {

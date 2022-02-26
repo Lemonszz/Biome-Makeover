@@ -20,10 +20,11 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.LightningBugBottleBlockEntity;
+import party.lemons.taniwha.block.types.TBlock;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class LightningBugBottleBlock extends BMBlock implements EntityBlock, SimpleWaterloggedBlock
+public class LightningBugBottleBlock extends TBlock implements EntityBlock, SimpleWaterloggedBlock
 {
     public static final BooleanProperty UPPER = BooleanProperty.create("up");
 

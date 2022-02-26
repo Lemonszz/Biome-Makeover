@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.block;
 
-import dev.architectury.injectables.annotations.PlatformOnly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -10,7 +9,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.WaterLilyBlockItem;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -18,14 +16,11 @@ import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
+import party.lemons.taniwha.block.modifier.BlockModifier;
+import party.lemons.taniwha.block.modifier.BlockWithModifiers;
+import party.lemons.taniwha.registry.BlockWithItem;
 
 public class SmallLilyPadBlock extends WaterlilyBlock implements BlockWithItem, BlockWithModifiers<SmallLilyPadBlock>
 {

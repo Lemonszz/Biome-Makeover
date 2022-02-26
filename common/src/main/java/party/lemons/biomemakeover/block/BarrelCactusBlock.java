@@ -18,10 +18,11 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.Random;
 
-public class BarrelCactusBlock extends BMBlock
+public class BarrelCactusBlock extends TBlock
 {
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D);
     private final boolean flowered;

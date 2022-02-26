@@ -10,6 +10,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.util.extension.MultipartHolder;
 
 public class EntityPart<T extends LivingEntity & MultiPartEntity> extends Entity
 {
@@ -29,6 +30,17 @@ public class EntityPart<T extends LivingEntity & MultiPartEntity> extends Entity
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.offsetZ = offsetZ;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(!owner.isAlive() && !isRemoved())
+        {
+            remove(Entity.RemovalReason.DISCARDED);
+            if(level instanceof MultipartHolder && ((MultipartHolder)level).getPartMap().containsKey(getId()))
+                ((MultipartHolder)level).getPartMap().remove(getId(), this);
+        }
     }
 
     public EntityPart<T> collides()

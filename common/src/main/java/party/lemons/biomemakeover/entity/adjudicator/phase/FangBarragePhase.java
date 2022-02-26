@@ -10,7 +10,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.HorizontalDirection;
+import party.lemons.taniwha.util.HorizontalDirection;
 
 public class FangBarragePhase extends TimedPhase
 {

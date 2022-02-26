@@ -4,10 +4,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.block.AltarBlock;
-import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.*;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMBlockEntities
 {

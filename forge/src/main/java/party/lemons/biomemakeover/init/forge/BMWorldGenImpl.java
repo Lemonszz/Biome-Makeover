@@ -2,14 +2,12 @@ package party.lemons.biomemakeover.init.forge;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.StructureSettings;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.util.access.StructureSettingsAccess;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMWorldGenImpl {
     public static void registerStructure(String name, StructureFeature<?> feature, StructureFeatureConfiguration cfg, boolean terraform)

@@ -16,10 +16,11 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.taniwha.block.types.TMushroomPlantBlock;
 
 import java.util.function.Supplier;
 
-public class UnderwaterMushroomPlantBlock extends BMMushroomPlantBlock implements SimpleWaterloggedBlock {
+public class UnderwaterMushroomPlantBlock extends TMushroomPlantBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public UnderwaterMushroomPlantBlock(Supplier<ConfiguredFeature<?, ?>> giantShroomFeature, Properties properties) {

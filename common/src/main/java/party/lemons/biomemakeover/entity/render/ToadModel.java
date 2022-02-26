@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.ToadEntity;
-import party.lemons.biomemakeover.util.MathUtils;
+import party.lemons.taniwha.util.MathUtils;
 
 public class ToadModel extends EntityModel<ToadEntity>
 {

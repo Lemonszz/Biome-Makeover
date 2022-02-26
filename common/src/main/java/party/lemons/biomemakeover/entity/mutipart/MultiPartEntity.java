@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.entity.mutipart;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
@@ -25,7 +24,7 @@ public interface MultiPartEntity<T extends EntityPart<?>>
         }
     }
 
-    static void unload(MultiPartEntity<?> e)
+    static void removeParts(MultiPartEntity<?> e)
     {
         for(EntityPart part : e.getParts()) {
             part.remove(Entity.RemovalReason.DISCARDED);

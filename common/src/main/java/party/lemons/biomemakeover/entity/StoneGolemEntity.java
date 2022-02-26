@@ -149,6 +149,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
                             setItemSlot(EquipmentSlot.MAINHAND, newStack);
                             playerStack.shrink(1);
                             holdCooldown++;
+                            onCrossbowEquip();
 
                             BMAdvancements.ARM_GOLEM.trigger((ServerPlayer) player);
                         }
@@ -248,6 +249,14 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
         super.readAdditionalSaveData(tag);
         this.setPlayerCreated(tag.getBoolean("PlayerCreated"));
         this.readPersistentAngerSaveData(this.level, tag);
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+
+        if(!level.isClientSide())
+            MultiPartEntity.removeParts(this);
     }
 
     @Override
@@ -447,6 +456,11 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     @Override
     public AABB getBoundingBoxForCulling() {
         return cullBox.move(position());
+    }
+
+    public void onCrossbowEquip()
+    {
+        handDropChances[0] = 1.0F;
     }
 
     private static class StoneGolemBodyControl extends BodyRotationControl {

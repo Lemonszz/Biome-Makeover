@@ -40,6 +40,10 @@ dependencies {
     modImplementation include("net.gudenau.minecraft:MoreTags:${rootProject.moreTagsVersion}"){
         transitive = false
     }
+
+    modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
+        transitive = false;
+    }
 }
 
 processResources {

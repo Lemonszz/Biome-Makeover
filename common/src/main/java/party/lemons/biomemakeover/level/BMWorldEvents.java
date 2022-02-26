@@ -51,6 +51,7 @@ public final class BMWorldEvents {
                 if(!list.isEmpty())
                 {
                     list.get(0).setItemSlot(EquipmentSlot.MAINHAND, itemStack.copy());
+                    list.get(0).onCrossbowEquip();
                     itemStack.shrink(1);
                     this.setSuccess(true);
                     return itemStack;

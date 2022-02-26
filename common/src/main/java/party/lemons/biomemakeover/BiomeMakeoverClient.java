@@ -17,11 +17,11 @@ import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMScreens;
-import party.lemons.biomemakeover.util.color.ColorProviderHelper;
-import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
-import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
-import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
+import party.lemons.taniwha.client.color.ColorProviderHelper;
+import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
+import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
+import party.lemons.taniwha.client.color.StaticBlockColorProvider;
 
 public class BiomeMakeoverClient
 {
@@ -42,7 +42,7 @@ public class BiomeMakeoverClient
         }
     }
 
-    private static void initColors()    //TODO: move these to a block modifier? Need to be careful of sidedness
+    private static void initColors()
     {
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
                 BMBlocks.ANCIENT_OAK_LEAVES,

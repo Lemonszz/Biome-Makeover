@@ -13,21 +13,19 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.block.BMItemNameBlockItem;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
 import party.lemons.biomemakeover.item.*;
-import party.lemons.biomemakeover.item.modifier.CompostItemModifier;
-import party.lemons.biomemakeover.item.modifier.ItemModifier;
 import party.lemons.biomemakeover.mixin.ItemTagsInvoker;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.item.modifier.CompostItemModifier;
+import party.lemons.taniwha.item.types.FakeItem;
+import party.lemons.taniwha.item.types.TItem;
+import party.lemons.taniwha.item.types.TItemNameBlockItem;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 public class BMItems
 {
-    public static final Multimap<Item, ItemModifier> MODIFIERS = ArrayListMultimap.create();
 
     public static final FoodProperties GLOWSHROOM_SOUP_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.6F).nutrition(5).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0), 1).effect(new MobEffectInstance(MobEffects.GLOWING, 1200, 0), 1).build();
     public static final FoodProperties GLOWFISH_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.1F).nutrition(1).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200, 0), 0.5F).effect(new MobEffectInstance(MobEffects.GLOWING, 200, 0), 0.5F).build();
@@ -45,22 +43,22 @@ public class BMItems
     public static final Item COOKED_GLOWFISH = new Item(properties().food(COOKED_GLOWFISH_FOOD));
     public static final Item RAW_TOAD = new Item(properties().food(RAW_TOAD_FOOD));
     public static final Item COOKED_TOAD = new Item(properties().food(COOKED_TOAD_FOOD));
-    public static final Item BULBUS_ROOT = new BMItem(properties().food(RAW_BULBUS_ROOT_FOOD)).modifiers(CompostItemModifier.create(0.4F));
+    public static final Item BULBUS_ROOT = new TItem(properties().food(RAW_BULBUS_ROOT_FOOD)).modifiers(CompostItemModifier.create(0.4F));
     public static final Item ROASTED_BULBUS_ROOT = new Item(properties().food(BULBUS_ROOT_FOOD));
 
     public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), properties());
     public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), properties());
 
-    public static final Item MAGENTA_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item LIGHT_BLUE_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item PINK_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item GRAY_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item CYAN_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item PURPLE_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item BLUE_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item BROWN_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item MAGENTA_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item LIGHT_BLUE_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item PINK_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item GRAY_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item CYAN_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item PURPLE_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item BLUE_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Item BROWN_PETALS = new TItem(properties()).modifiers(CompostItemModifier.create(0.3F));
 
-    public static final Item SCUTTLER_TAIL = new BMItem(properties());
+    public static final Item SCUTTLER_TAIL = new TItem(properties());
     public static final Item ECTOPLASM = new EctoplasmItem(properties());
 
     public static final Item LIGHTNING_BOTTLE = new LightningBottleItem(properties());
@@ -71,7 +69,7 @@ public class BMItems
     public static final Item SOUL_EMBERS = new Item(properties());
 
     public static final Item ILLUNITE_SHARD = new Item(properties());
-    public static final Item ROOTLING_SEEDS = new BMItemNameBlockItem(BMBlocks.ROOTLING_CROP, properties()).modifiers(CompostItemModifier.create(0.4F));;
+    public static final Item ROOTLING_SEEDS = new TItemNameBlockItem(BMBlocks.ROOTLING_CROP, properties()).modifiers(CompostItemModifier.create(0.4F));;
     public static final Item MOTH_SCALES = new Item(properties());
     public static final Item STUNT_POWDER = new StuntPowderItem(properties());
     public static final Item CRUDE_CLADDING = new Item(properties());
@@ -116,9 +114,6 @@ public class BMItems
 
     public static void init() {
         RegistryHelper.register(Constants.MOD_ID, Registry.ITEM, Item.class, BMItems.class);
-        MODIFIERS.forEach((b, a)->a.accept(b));
-
-        BMBlocks.initCompostables();
     }
 
     public static Item.Properties properties()

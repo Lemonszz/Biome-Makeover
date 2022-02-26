@@ -17,9 +17,9 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.block.modifier.CompostModifier;
-import party.lemons.biomemakeover.block.modifier.FlammableModifier;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.taniwha.block.modifier.CompostModifier;
+import party.lemons.taniwha.block.modifier.FlammableModifier;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -467,12 +467,6 @@ public final class WikiGenerator
                 {
                     compostChance = compostValue.chance();
                 }
-
-            if(FlammableModifier.CATCH_ODDS.containsKey(block))
-            {
-                flameCatchChance = FlammableModifier.CATCH_ODDS.get(block);
-                flameBurnChance = FlammableModifier.BURN_ODDS.get(block);
-            }
         }
 
         @Override

@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.DirectionalDataBlockEntity;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
+import party.lemons.taniwha.registry.BlockWithItem;
 
 public class DirectionalDataBlock extends DirectionalBlock implements BlockWithItem, EntityBlock
 {

@@ -5,8 +5,8 @@ import party.lemons.biomemakeover.level.feature.mansion.LayoutType;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
 import party.lemons.biomemakeover.level.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.level.feature.mansion.room.NonRoofedMansionRoom;
-import party.lemons.biomemakeover.util.Grid;
-import party.lemons.biomemakeover.util.MathUtils;
+import party.lemons.taniwha.util.MathUtils;
+import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.Random;
 

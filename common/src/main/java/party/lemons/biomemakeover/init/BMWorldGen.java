@@ -4,11 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import dev.architectury.registry.level.biome.BiomeModifications;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -19,7 +17,10 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.*;
+import net.minecraft.util.valueproviders.ClampedInt;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformFloat;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,7 +45,6 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecora
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.apache.commons.lang3.tuple.Pair;
@@ -55,11 +55,9 @@ import party.lemons.biomemakeover.level.feature.*;
 import party.lemons.biomemakeover.level.feature.foliage.*;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.generate.foliage.WillowTrunkPlacer;
-import party.lemons.biomemakeover.mixin.FoliagePlacerTypeInvoker;
-import party.lemons.biomemakeover.mixin.TreeDecoratorTypeInvoker;
 import party.lemons.biomemakeover.mixin.TrunkPlacerTypeInvoker;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
-import party.lemons.biomemakeover.util.registry.WoodTypeInfo;
+import party.lemons.taniwha.block.WoodBlockFactory;
+import party.lemons.taniwha.registry.RegistryHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -126,7 +124,7 @@ public class BMWorldGen
         public static final TreeDecoratorType<IvyDecorator> IVY_DECORATOR = new TreeDecoratorType<>(IvyDecorator.CODEC);
 
         public static final ConfiguredFeature<?, ?> ANCIENT_OAK_SMALL = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).defaultBlockState()),
+                BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodBlockFactory.Type.LOG).defaultBlockState()),
                 new FancyTrunkPlacer(8, 11, 2),
                 BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_LEAVES.defaultBlockState()),
                 new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), 2),
@@ -137,7 +135,7 @@ public class BMWorldGen
         public static final TrunkPlacerType<AncientOakTrunkPlacer> ANCIENT_OAK_TRUNK = TrunkPlacerTypeInvoker.callRegister(BiomeMakeover.ID("ancient_oak").toString(), AncientOakTrunkPlacer.CODEC);
 
         public static final ConfiguredFeature<?, ?> ANCIENT_OAK = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG).defaultBlockState()),
+                BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodBlockFactory.Type.LOG).defaultBlockState()),
                 new AncientOakTrunkPlacer(10, 2, 14),
                 BlockStateProvider.simple(BMBlocks.ANCIENT_OAK_LEAVES.defaultBlockState()),
                 new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
@@ -218,7 +216,7 @@ public class BMWorldGen
         //Cypress
         public static final TrunkPlacerType<CypressTrunkPlacer> CYPRESS_TRUNK = TrunkPlacerTypeInvoker.callRegister(BiomeMakeover.ID("swamp_cypress").toString(), CypressTrunkPlacer.CODEC);
         public static final ConfiguredFeature<TreeConfiguration, ?> SWAMP_CYPRESS = WATER_TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG)),
+                BlockStateProvider.simple(BMBlocks.SWAMP_CYPRESS_WOOD_INFO.getBlock(WoodBlockFactory.Type.LOG)),
                 new CypressTrunkPlacer(16, 3, 2),
                 BlockStateProvider.simple(BMBlocks.SWAMP_CYPRESS_LEAVES),
                 new WillowFoliagePlacer(ConstantInt.of(1), ConstantInt.of(2), 3, false),
@@ -233,7 +231,7 @@ public class BMWorldGen
         //Willow
         public static final TrunkPlacerType<WillowTrunkPlacer> WILLOW_TRUNK = TrunkPlacerTypeInvoker.callRegister(BiomeMakeover.ID("willow").toString(), WillowTrunkPlacer.CODEC);
         public static final ConfiguredFeature<TreeConfiguration, ?> WILLOW = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG)),
+                BlockStateProvider.simple(BMBlocks.WILLOW_WOOD_INFO.getBlock(WoodBlockFactory.Type.LOG)),
                 new WillowTrunkPlacer(6, 3, 2),
                 BlockStateProvider.simple(BMBlocks.WILLOW_LEAVES),
                 new WillowFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 3, false),
@@ -460,7 +458,7 @@ public class BMWorldGen
         //Blighted Balsa
         public static final TrunkPlacerType<BalsaTrunkPlacer> BLIGHTED_BALSA_TRUNK = TrunkPlacerTypeInvoker.callRegister(BiomeMakeover.ID("blighted_balse").toString(), BalsaTrunkPlacer.CODEC);
         public static final ConfiguredFeature<TreeConfiguration, ?> BLIGHTED_BALSA = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodTypeInfo.Type.LOG)),
+                BlockStateProvider.simple(BMBlocks.BLIGHTED_BALSA_WOOD_INFO.getBlock(WoodBlockFactory.Type.LOG)),
                 new BalsaTrunkPlacer(4, 6, 8),
                 BlockStateProvider.simple(BMBlocks.BLIGHTED_BALSA_LEAVES),
                 new AcaciaFoliagePlacer(UniformInt.of(1, 1), ConstantInt.of(0)),

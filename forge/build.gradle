@@ -29,6 +29,10 @@ dependencies {
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+    modApi("party.lemons:taniwha-forge:${rootProject.taniwha_version}"){
+        transitive = false;
+    }
 }
 
 processResources {

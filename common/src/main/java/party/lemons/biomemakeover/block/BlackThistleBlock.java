@@ -11,8 +11,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.taniwha.block.types.TTallFlowerBlock;
 
-public class BlackThistleBlock extends BMTallFlowerBlock{
+public class BlackThistleBlock extends TTallFlowerBlock {
     public BlackThistleBlock(Properties properties) {
         super(properties);
     }
