@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +20,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class PoltergeistHandler {
-    private static final Map<Tag<Block>, PoltergeistBehaviour> BEHAVIOUR_TAG = Maps.newHashMap();
+    private static final Map<TagKey<Block>, PoltergeistBehaviour> BEHAVIOUR_TAG = Maps.newHashMap();
     private static final Map<Block, PoltergeistBehaviour> BEHAVIOUR_BLOCK = Maps.newHashMap();
 
     static
@@ -155,9 +156,9 @@ public class PoltergeistHandler {
             return BEHAVIOUR_BLOCK.get(bl).handle(level, pos, state);
         }
 
-        for(Tag<Block> tag : BEHAVIOUR_TAG.keySet())
+        for(TagKey<Block> tag : BEHAVIOUR_TAG.keySet())
         {
-            if(tag.contains(bl)) return BEHAVIOUR_TAG.get(tag).handle(level, pos, state);
+            if(state.is(tag)) return BEHAVIOUR_TAG.get(tag).handle(level, pos, state);
         }
 
         return false;
@@ -168,7 +169,7 @@ public class PoltergeistHandler {
         boolean handle(Level world, BlockPos pos, BlockState state);
     }
 
-    public static void registerBehaviour(Tag<Block> blockTag, PoltergeistBehaviour behaviour)
+    public static void registerBehaviour(TagKey<Block> blockTag, PoltergeistBehaviour behaviour)
     {
         BEHAVIOUR_TAG.put(blockTag, behaviour);
     }

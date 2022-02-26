@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.util.color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -51,7 +52,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
         {
             if(world instanceof ClientLevel && pos != null)
             {
-                if(((ClientLevel) world).getBiome(pos).getBiomeCategory() == Biome.BiomeCategory.SWAMP)
+                if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
                 {
                     return new int[]{-20, 40, -20};
                 }
@@ -73,7 +74,7 @@ public class FoliageShiftBlockColorProvider extends FoliageBlockColorProvider
         {
             if(world instanceof ClientLevel)
             {
-                if(((ClientLevel) world).getBiome(pos).getBiomeCategory() == Biome.BiomeCategory.SWAMP)
+                if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
                 {
                     return new int[]{-10, 15, -10};
                 }

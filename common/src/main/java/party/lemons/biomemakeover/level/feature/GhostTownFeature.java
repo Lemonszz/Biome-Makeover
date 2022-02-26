@@ -5,29 +5,25 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Pools;
-import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.JigsawFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
-import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -38,14 +34,14 @@ import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class GhostTownFeature extends JigsawFeature {
 
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> SPAWNS = WeightedRandomList.create(Lists.newArrayList(new MobSpawnSettings.SpawnerData(BMEntities.GHOST, 8, 1, 1)));
+    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> SPAWNS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(BMEntities.GHOST, 8, 1, 1));
 
-    public static final StructureProcessorList ROADS_PROCESSOR = Registry.register(BuiltinRegistries.PROCESSOR_LIST, BiomeMakeover.ID("roads_ghosttown"),
+
+    public static final Holder<StructureProcessorList> ROADS_PROCESSOR = BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, BiomeMakeover.ID("roads_ghosttown"),
             new StructureProcessorList(
                             ImmutableList.of(
                                     new RuleProcessor(ImmutableList.of(new ProcessorRule(new BlockMatchTest(Blocks.DIRT_PATH), new BlockMatchTest(Blocks.WATER), Blocks.OAK_PLANKS.defaultBlockState()))),
@@ -54,13 +50,12 @@ public class GhostTownFeature extends JigsawFeature {
                                     new RuleProcessor(ImmutableList.of(new ProcessorRule(new BlockMatchTest(Blocks.DIRT), new BlockMatchTest(Blocks.WATER), Blocks.WATER.defaultBlockState())))
             )));
 
-    public static final StructureProcessorList BUILDING_PROCESSOR = Registry.register(BuiltinRegistries.PROCESSOR_LIST, BiomeMakeover.ID("buildings_ghosttown"),new StructureProcessorList(
+    public static final Holder<StructureProcessorList> BUILDING_PROCESSOR = BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, BiomeMakeover.ID("buildings_ghosttown"),new StructureProcessorList(
             ImmutableList.of(
                     new RuleProcessor(BMBlocks.BRICK_TO_TERRACOTTA.keySet().stream().map(b->new ProcessorRule(new RandomBlockMatchTest(b, 0.25F), AlwaysTrueTest.INSTANCE, BMBlocks.BRICK_TO_TERRACOTTA.get(b).defaultBlockState())).collect(Collectors.toList())))));
 
-    private static final StructureTemplatePool POOL = Pools.register(
-            new StructureTemplatePool(
-                    BiomeMakeover.ID("ghosttown/centers"),
+    private static final Holder<StructureTemplatePool> POOL = Pools.register(
+            new StructureTemplatePool(BiomeMakeover.ID("ghosttown/centers"),
                     new ResourceLocation("empty"),
                     ImmutableList.of(
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_01", ROADS_PROCESSOR), 2),
@@ -71,9 +66,11 @@ public class GhostTownFeature extends JigsawFeature {
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_06", ROADS_PROCESSOR), 2),
                             Pair.of(StructurePoolElement.legacy("biomemakeover:ghosttown/roads/street_07", ROADS_PROCESSOR), 2)
                     ),
-                    StructureTemplatePool.Projection.RIGID));
+                    StructureTemplatePool.Projection.RIGID
+            )
+    );
 
-    public static final JigsawConfiguration CONFIG = new JigsawConfiguration(()->POOL, 3);
+    public static final JigsawConfiguration CONFIG = new JigsawConfiguration(POOL, 3);
 
     public GhostTownFeature(Codec<JigsawConfiguration> codec) {
         super(codec, 0, true, true, context -> true);

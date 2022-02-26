@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
@@ -33,7 +33,6 @@ import party.lemons.biomemakeover.level.generate.foliage.AncientOakSaplingGenera
 import party.lemons.biomemakeover.level.generate.foliage.BalsaSaplingGenerator;
 import party.lemons.biomemakeover.level.generate.foliage.SwampCypressSaplingGenerator;
 import party.lemons.biomemakeover.level.generate.foliage.WillowSaplingGenerator;
-import party.lemons.biomemakeover.mixin.BlockTagsInvoker;
 import party.lemons.biomemakeover.util.BlockItemPair;
 import party.lemons.biomemakeover.util.FieldConsumer;
 import party.lemons.biomemakeover.util.registry.DecorationBlockInfo;
@@ -296,10 +295,9 @@ public class BMBlocks
         return true;
     }
 
-    public static final Tag<Block> LILY_PADS = BlockTagsInvoker.callBind(BiomeMakeover.ID("lily_pads").toString());
-    public static final Tag<Block> MOTH_ATTRACTIVE = BlockTagsInvoker.callBind(BiomeMakeover.ID("moth_attractive").toString());
-    public static final Tag<Block> IVY_TAG = BlockTagsInvoker.callBind(BiomeMakeover.ID("ivy").toString());
-    public static final Tag<Block> ITCHING_IVY_TAG = BlockTagsInvoker.callBind(BiomeMakeover.ID("itching_ivy").toString());
-    public static final Tag.Named<Block> ORE_REPLACEABLE = BlockTagsInvoker.callBind(BiomeMakeover.ID("ore_replaceable").toString());
-
+    public static final TagKey<Block> LILY_PADS = TagKey.create(Registry.BLOCK_REGISTRY, BiomeMakeover.ID("lily_pads"));
+    public static final TagKey<Block> MOTH_ATTRACTIVE = TagKey.create(Registry.BLOCK_REGISTRY, BiomeMakeover.ID("moth_attractive"));
+    public static final TagKey<Block> IVY_TAG = TagKey.create(Registry.BLOCK_REGISTRY, BiomeMakeover.ID("ivy"));
+    public static final TagKey<Block> ITCHING_IVY_TAG = TagKey.create(Registry.BLOCK_REGISTRY, BiomeMakeover.ID("itching_ivy"));
+    public static final TagKey<Block> ORE_REPLACEABLE = TagKey.create(Registry.BLOCK_REGISTRY, BiomeMakeover.ID("ore_replaceable"));
 }

@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.sun.jna.Structure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
@@ -368,27 +368,28 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
                 }
 
                 //TODO: CLEANUP Copied from grass block
+                //ALso it's broken
                 BlockPos blockPos2 = blockPos.above();
                 BlockState blockState2 = Blocks.GRASS.defaultBlockState();
                 block0: for (int l = 0; l < 128; ++l) {
-                    PlacedFeature placedFeature;
+                    Holder<PlacedFeature> holder;
                     BlockPos blockPos3 = blockPos2;
                     for (int j = 0; j < l / 16; ++j) {
                         if (!level.getBlockState((blockPos3 = blockPos3.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1)).below()).is(Blocks.GRASS_BLOCK) || level.getBlockState(blockPos3).isCollisionShapeFullBlock(level, blockPos3)) continue block0;
                     }
                     BlockState blockState3 = level.getBlockState(blockPos3);
                     if (blockState3.is(blockState2.getBlock()) && random.nextInt(10) == 0) {
-                        ((BonemealableBlock) blockState2.getBlock()).performBonemeal(level.getLevel(), random, blockPos3, blockState3);
+                     //   ((BonemealableBlock)((Object)blockState2.getBlock())).performBonemeal(level, random, blockPos3, blockState3);
                     }
                     if (!blockState3.isAir()) continue;
                     if (random.nextInt(8) == 0) {
-                        List<ConfiguredFeature<?, ?>> list = level.getBiome(blockPos3).getGenerationSettings().getFlowerFeatures();
+                        List<ConfiguredFeature<?, ?>> list = level.getBiome(blockPos3).value().getGenerationSettings().getFlowerFeatures();
                         if (list.isEmpty()) continue;
-                        placedFeature = ((RandomPatchConfiguration)list.get(0).config()).feature().get();
+                        holder = ((RandomPatchConfiguration)list.get(0).config()).feature();
                     } else {
-                        placedFeature = VegetationPlacements.GRASS_BONEMEAL;
+                        holder = VegetationPlacements.GRASS_BONEMEAL;
                     }
-                    placedFeature.place(level, level.getLevel().getChunkSource().getGenerator(), random, blockPos3);
+                    //holder.value().place(level, chunk, random, blockPos3);
                 }
             }
         }
@@ -462,10 +463,6 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
         }
     }
 
-    @Override
-    protected boolean linearSeparation() {
-        return false;
-    }
     private static final ResourceLocation LOOT_ARROW = BiomeMakeover.ID("mansion/arrows");
     private static final ResourceLocation LOOT_DUNGEON_JUNK = BiomeMakeover.ID("mansion/dungeon_junk");
     private static final ResourceLocation LOOT_DUNGEON_STANDARD = BiomeMakeover.ID("mansion/dungeon");

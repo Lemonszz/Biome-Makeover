@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.util.registry.boat;
 
+import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
@@ -10,7 +11,6 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.registry.WoodTypeInfo;
-import party.lemons.biomemakeover.util.registry.modellayer.ModelLayerRegistry;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class BoatTypes
     {
         for(BoatType type : TYPES)
         {
-            ModelLayerRegistry.registerModelLayer(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
+            EntityModelLayerRegistry.register(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
         }
     }
 }

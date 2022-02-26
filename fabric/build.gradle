@@ -37,9 +37,9 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-    modImplementation include("net.gudenau.minecraft:MoreTags:${rootProject.moreTagsVersion}"){
+  /*  modImplementation include("net.gudenau.minecraft:MoreTags:${rootProject.moreTagsVersion}"){
         transitive = false
-    }
+    }*/
 }
 
 processResources {
