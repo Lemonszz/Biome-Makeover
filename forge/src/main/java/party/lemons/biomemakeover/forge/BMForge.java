@@ -26,6 +26,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
@@ -64,9 +65,10 @@ public class BMForge
     {
         EventBuses.registerModEventBus(Constants.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::clientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.LOWEST, BMForge::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::particleSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::registerRenderer);
 
         BiomeMakeover.init();
         BMEntities.registerModels();
@@ -97,6 +99,11 @@ public class BMForge
         if (Platform.getEnvironment() == Env.CLIENT) {
             BiomeMakeoverClient.init();
         }
+    }
+
+    public static void registerRenderer(EntityRenderersEvent.RegisterLayerDefinitions event)
+    {
+        BiomeMakeoverClient.registerLayers();
     }
 
     public static void particleSetup(ParticleFactoryRegisterEvent event)

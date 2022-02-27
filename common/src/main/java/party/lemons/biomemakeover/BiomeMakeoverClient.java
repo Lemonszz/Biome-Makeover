@@ -28,7 +28,6 @@ public class BiomeMakeoverClient
     public static void init()
     {
         if (Platform.getEnvironment() == Env.CLIENT) {
-            BMEntities.registerModelLayers();
             BMBlocks.initClient();
             BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY, TapestryRenderer::new);
             BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR, AltarRenderer::new);
@@ -73,5 +72,11 @@ public class BiomeMakeoverClient
     {
         AltarCursingSoundInstance sound = new AltarCursingSoundInstance(altar);
         Minecraft.getInstance().getSoundManager().play(sound);
+    }
+
+    public static void registerLayers() {
+        if (Platform.getEnvironment() == Env.CLIENT) {
+            BMEntities.registerModelLayers();
+        }
     }
 }
