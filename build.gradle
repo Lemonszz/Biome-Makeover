@@ -31,7 +31,7 @@ allprojects {
     version = rootProject.mod_version
     group = rootProject.maven_group
 
-    def apikeyPropertiesFile = rootProject.file("secrets.properties");
+    def apikeyPropertiesFile = rootProject.file("secret/secrets.properties");
     def apikeyProperties = new Properties()
     apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 

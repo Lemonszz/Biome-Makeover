@@ -19,4 +19,4 @@ classes/
 *.launch
 common/.architectury-transformer/
 
-secrets.properties
+secret/
