@@ -54,6 +54,7 @@ remapJar {
 
 jar {
     classifier "dev"
+    setArchivesBaseName("biomemakeover-FORGE");
 }
 
 sourcesJar {

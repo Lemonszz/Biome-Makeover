@@ -11,7 +11,8 @@
     "multipart.client.EntityRenderDispatcherMixin",
     "multipart.ClientPacketListenerMixin",
     "totem.ClientPacketListenerMixin",
-    "badlands.HorseRendererMixin"
+    "badlands.HorseRendererMixin",
+    "client.SheetsMixin"
   ],
   "mixins": [
     "antigen.StructureFeatureMixin",
