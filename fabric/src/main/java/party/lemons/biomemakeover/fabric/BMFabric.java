@@ -9,6 +9,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -105,7 +106,7 @@ public class BMFabric implements ModInitializer
 
         //TODO: Some sort of removal system that works together with forge?
         gen.add(ModificationPhase.REMOVALS, SWAMP_BIOMES, (biomeSelectionContext, ctx) -> {
-            ctx.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP);
+            ctx.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
         });
     }
 
@@ -123,22 +124,22 @@ public class BMFabric implements ModInitializer
 
     private void addBiomeStructures(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, List<ConfiguredStructureFeature<?,?>> structures)
     {
-        for(ConfiguredStructureFeature<?, ?> structureFeature : structures)
+      /*  for(ConfiguredStructureFeature<?, ?> structureFeature : structures)
         {
             gen.add(ModificationPhase.ADDITIONS, biomes, ctx->{
                 Optional<ResourceKey<ConfiguredStructureFeature<?,?>>> k =  BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getResourceKey(structureFeature);
                 ctx.getGenerationSettings().addStructure(k.get());
             });
-        }
+        }*/
     }
 
-    private void addBiomeFeatures(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, Map<GenerationStep.Decoration, List<PlacedFeature>> features)
+    private void addBiomeFeatures(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> features)
     {
         for(GenerationStep.Decoration step : features.keySet())
         {
-            for(PlacedFeature feature : features.get(step))
+            for(Holder<PlacedFeature> feature : features.get(step))
                 gen.add(ModificationPhase.ADDITIONS, biomes,
-                        ctx -> ctx.getGenerationSettings().addBuiltInFeature(step, feature)
+                        ctx -> ctx.getGenerationSettings().addBuiltInFeature(step, feature.value())
                 );
         }
     }

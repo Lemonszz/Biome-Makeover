@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
@@ -11,7 +12,7 @@ import java.util.function.Supplier;
 
 public class GlowshroomPlantBlock extends BMMushroomPlantBlock {
 
-    public GlowshroomPlantBlock(Supplier<ConfiguredFeature<?, ?>> giantShroomFeature, Properties properties) {
+    public GlowshroomPlantBlock(Supplier<Holder<? extends ConfiguredFeature<?, ?>>>  giantShroomFeature, Properties properties) {
         super(giantShroomFeature, properties);
     }
 

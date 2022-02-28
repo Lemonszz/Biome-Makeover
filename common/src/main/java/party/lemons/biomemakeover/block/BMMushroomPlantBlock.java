@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
@@ -19,9 +20,9 @@ import java.util.function.Supplier;
 
 public class BMMushroomPlantBlock extends MushroomBlock implements BonemealableBlock, BlockWithItem, BlockWithModifiers<BMMushroomPlantBlock> {
 
-    private final Supplier<ConfiguredFeature<?, ?>> giantShroomFeature;
+    private final Supplier<Holder<? extends ConfiguredFeature<?, ?>>> giantShroomFeature;
 
-    public BMMushroomPlantBlock(Supplier<ConfiguredFeature<?, ?>> giantShroomFeature, Properties properties) {
+    public BMMushroomPlantBlock(Supplier<Holder<? extends ConfiguredFeature<?, ?>>>  giantShroomFeature, Properties properties) {
         super(properties, giantShroomFeature);
 
         this.giantShroomFeature = giantShroomFeature;
@@ -43,7 +44,7 @@ public class BMMushroomPlantBlock extends MushroomBlock implements BonemealableB
             return false;
 
         serverLevel.removeBlock(blockPos, false);
-        if (this.giantShroomFeature.get().place(serverLevel, serverLevel.getChunkSource().getGenerator(), random, blockPos)) {
+        if (this.giantShroomFeature.get().value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), random, blockPos)) {
             return true;
         }
         serverLevel.setBlock(blockPos, blockState, 3);

@@ -1,7 +1,9 @@
 package party.lemons.biomemakeover.mixin;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -26,8 +28,8 @@ public abstract class PatrolSpawnerMixin_Cowboy {
     @Inject(at = @At("HEAD"), method = "spawnPatrolMember", cancellable = true)
     private void spawnPatrolMember(ServerLevel level, BlockPos pos, Random random, boolean isLeader, CallbackInfoReturnable<Boolean> cbi)
     {
-        Biome biome = level.getBiome(pos);
-        if(biome.getBiomeCategory() == Biome.BiomeCategory.MESA)
+        Holder<Biome> biome = level.getBiome(pos);
+        if(biome.is(BiomeTags.IS_BADLANDS))
         {
             BlockState blockState = level.getBlockState(pos);
             if (!NaturalSpawner.isValidEmptySpawnBlock(level, pos, blockState, blockState.getFluidState(), BMEntities.COWBOY)) {

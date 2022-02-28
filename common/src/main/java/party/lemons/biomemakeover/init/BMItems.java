@@ -3,9 +3,11 @@ package party.lemons.biomemakeover.init;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,16 +15,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.block.BMItemNameBlockItem;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
 import party.lemons.biomemakeover.item.*;
 import party.lemons.biomemakeover.item.modifier.CompostItemModifier;
 import party.lemons.biomemakeover.item.modifier.ItemModifier;
-import party.lemons.biomemakeover.mixin.ItemTagsInvoker;
 import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
 public class BMItems
@@ -106,7 +105,7 @@ public class BMItems
 
     public static final Item ICON_ITEM = new FakeItem();
 
-    public static final Tag<Item> CURSE_FUEL = ItemTagsInvoker.callBind(BiomeMakeover.ID("curse_fuel").toString());
+    public static final TagKey<Item> CURSE_FUEL = TagKey.create(Registry.ITEM_REGISTRY, BiomeMakeover.ID("curse_fuel"));
 
   //  public static final Tag<Item> MUSHROOM_FIELDS = ItemTagsInvoker.callBind(BiomeMakeover.ID("mushroom_fields").toString());
   //  public static final Tag<Item> BADLANDS = ItemTagsInvoker.callBind(BiomeMakeover.ID("badlands").toString());

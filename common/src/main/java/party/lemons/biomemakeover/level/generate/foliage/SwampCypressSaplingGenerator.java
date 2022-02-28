@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.level.generate.foliage;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelAccessor;
@@ -17,17 +18,17 @@ import java.util.Random;
 public class SwampCypressSaplingGenerator extends AbstractTreeGrower {
     @Nullable
     @Override
-    protected ConfiguredFeature<?, ?> getConfiguredFeature(Random random, boolean bl) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean bl) {
         return BMWorldGen.Swamp.SWAMP_CYPRESS;
     }
 
     public boolean growTree(ServerLevel serverLevel, ChunkGenerator chunkGenerator, BlockPos blockPos, BlockState blockState, Random random) {
-        ConfiguredFeature<?, ?> configuredFeature = this.getConfiguredFeature(random, this.hasFlowers(serverLevel, blockPos));
+        Holder<? extends ConfiguredFeature<?, ?>> configuredFeature = this.getConfiguredFeature(random, this.hasFlowers(serverLevel, blockPos));
         if (configuredFeature == null) {
             return false;
         }
         serverLevel.setBlock(blockPos, Blocks.WATER.defaultBlockState(), 4);
-        if (configuredFeature.place(serverLevel, chunkGenerator, random, blockPos)) {
+        if (configuredFeature.value().place(serverLevel, chunkGenerator, random, blockPos)) {
             return true;
         }
         serverLevel.setBlock(blockPos, blockState, 4);

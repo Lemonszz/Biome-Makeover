@@ -445,7 +445,7 @@ public final class WikiGenerator
 
         public BlockTagsWikiImpl(Block block)
         {
-            tags.addAll(BlockTags.getAllTags().getMatchingTags(block).stream().map(ResourceLocation::toString).toList());
+         //   tags.addAll(BlockTags.getAllTags().getMatchingTags(block).stream().map(ResourceLocation::toString).toList());
         }
 
         @Override

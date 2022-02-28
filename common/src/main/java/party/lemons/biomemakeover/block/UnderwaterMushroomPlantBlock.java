@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
@@ -22,7 +23,7 @@ import java.util.function.Supplier;
 public class UnderwaterMushroomPlantBlock extends BMMushroomPlantBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public UnderwaterMushroomPlantBlock(Supplier<ConfiguredFeature<?, ?>> giantShroomFeature, Properties properties) {
+    public UnderwaterMushroomPlantBlock(Supplier<Holder<? extends ConfiguredFeature<?, ?>>>  giantShroomFeature, Properties properties) {
         super(giantShroomFeature, properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false));
     }

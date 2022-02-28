@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import party.lemons.biomemakeover.entity.TumbleweedEntity;
@@ -43,7 +44,7 @@ public class TumbleweedSpawner
             {
                 BlockPos pos = group.getSpawnPos();
 
-                if(pos != null && level.hasChunkAt(pos) && level.isEmptyBlock(pos) && level.getBiome(pos).getBiomeCategory() == Biome.BiomeCategory.MESA)
+                if(pos != null && level.hasChunkAt(pos) && level.isEmptyBlock(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS))
                 {
                     TumbleweedEntity tumble = BMEntities.TUMBLEWEED.create(level);
                     tumble.moveTo(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);
