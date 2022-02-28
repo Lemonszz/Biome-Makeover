@@ -40,10 +40,10 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorMimicEntity;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatModel;
 import party.lemons.biomemakeover.entity.render.feature.WitchHatModel;
-import party.lemons.biomemakeover.level.golem.GolemHandler;
 import party.lemons.biomemakeover.mixin.EntityTypeTagsInvoker;
 import party.lemons.biomemakeover.mixin.SpawnPlacementsInvoker;
 import party.lemons.biomemakeover.util.access.CarvedPumpkinAccess;
+import party.lemons.taniwha.entity.golem.GolemHandler;
 import party.lemons.taniwha.registry.RegistryHelper;
 
 import java.util.Random;
@@ -96,11 +96,12 @@ public class BMEntities
                         .where('^', BlockInWorld.hasState(((CarvedPumpkinAccess)Blocks.CARVED_PUMPKIN).bm_isGolemHeadBlock()))
                         .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE)))
                         .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
-        ).build(),
+                        ).build(),
                 BlockPatternBuilder.start().aisle("~ ~", "###", "~#~")
                         .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE)))
                         .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
-                        ).build(),
+                        )
+                        .build(),
                 new GolemHandler.SummonGolemResult<>(STONE_GOLEM));
     }
 

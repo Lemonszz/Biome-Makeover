@@ -48,7 +48,6 @@
     "multipart.ServerLevelMixin",
     "multipart.LevelMixin",
     "multipart.ProjectileUtilMixin",
-    "golem.CarvedPumpkinBlockMixin",
     "level.BoneMealItemMixin",
     "enchantment.ItemStackMixin",
     "enchantment.LivingEntityMixin",

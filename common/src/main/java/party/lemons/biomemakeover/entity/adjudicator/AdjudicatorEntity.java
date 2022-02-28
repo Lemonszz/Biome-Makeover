@@ -45,7 +45,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.entity.PlayerCreatable;
 import party.lemons.biomemakeover.entity.adjudicator.phase.*;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
 import party.lemons.biomemakeover.init.BMBlocks;
