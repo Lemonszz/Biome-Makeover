@@ -52,6 +52,7 @@ import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.extension.GoalSelectorExtension;
+import party.lemons.taniwha.entity.golem.PlayerCreatable;
 import party.lemons.taniwha.util.NBTUtil;
 
 import java.util.List;
