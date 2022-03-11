@@ -25,7 +25,7 @@ public class FangAttackingPhase extends AttackingPhase
     {
         super.onEnterPhase();
         adjudicator.setState(AdjudicatorState.SUMMONING);
-        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_1, 1F, 1F);
+        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_1.get(), 1F, 1F);
     }
 
     @Override

@@ -64,7 +64,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
 
     public LightningBugEntity(Level level, boolean isAlternate)
     {
-        this(BMEntities.LIGHTNING_BUG_ALTERNATE, level);
+        this(BMEntities.LIGHTNING_BUG_ALTERNATE.get(), level);
         this.isAlternate = true;
     }
 
@@ -85,7 +85,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         {
             if(!level.isClientSide())
             {
-                ItemStack result = ItemUtils.createFilledResult(heldStack, player, new ItemStack(heldStack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE : BMItems.LIGHTNING_BOTTLE));
+                ItemStack result = ItemUtils.createFilledResult(heldStack, player, new ItemStack(heldStack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE.get() : BMItems.LIGHTNING_BOTTLE.get()));
                 player.setItemInHand(hand, result);
                 remove(RemovalReason.DISCARDED);
                 player.playSound(SoundEvents.BOTTLE_FILL, 1F, 1F);
@@ -101,7 +101,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         {
             for(int i = 0; i < random.nextInt(5); i++)
             {
-                LightningBugEntity alternate = BMEntities.LIGHTNING_BUG_ALTERNATE.create(level);
+                LightningBugEntity alternate = BMEntities.LIGHTNING_BUG_ALTERNATE.get().create(level);
                 alternate.isAlternate = true;
                 alternate.moveTo(getX(), getY(), getZ());
                 level.addFreshEntity(alternate);

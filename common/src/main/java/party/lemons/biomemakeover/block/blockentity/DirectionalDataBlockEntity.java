@@ -20,7 +20,7 @@ public class DirectionalDataBlockEntity extends BlockEntity implements MenuProvi
     private String metadata = "";
 
     public DirectionalDataBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BMBlockEntities.DIRECTIONAL_DATA, blockPos, blockState);
+        super(BMBlockEntities.DIRECTIONAL_DATA.get(), blockPos, blockState);
     }
 
     public String getMetadata() {

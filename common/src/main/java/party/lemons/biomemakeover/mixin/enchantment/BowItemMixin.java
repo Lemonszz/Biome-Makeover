@@ -23,7 +23,7 @@ public class BowItemMixin
             method = "releaseUsing", locals = LocalCapture.CAPTURE_FAILSOFT)
     public void onStoppedUsing(ItemStack stack, Level level, LivingEntity livingEntity, int remainingUseTicks, CallbackInfo cbi, Player player, boolean bl, ItemStack itemStack2, int j, float f, boolean bl2, ArrowItem arrowItem, AbstractArrow abstractArrow)
     {
-        int inaccuracy = EnchantmentHelper.getItemEnchantmentLevel(BMEnchantments.INACCURACY_CURSE, stack);
+        int inaccuracy = EnchantmentHelper.getItemEnchantmentLevel(BMEnchantments.INACCURACY_CURSE.get(), stack);
         if(inaccuracy >= 1)
         {
             float pitch = player.getXRot() + RandomUtil.randomDirection(level.random.nextFloat() * (inaccuracy * 1.3F));

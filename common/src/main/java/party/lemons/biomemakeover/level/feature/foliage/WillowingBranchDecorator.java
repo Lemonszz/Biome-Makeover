@@ -14,6 +14,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import party.lemons.biomemakeover.block.WillowingBranchesBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMFeatures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -27,7 +28,7 @@ public class WillowingBranchDecorator extends TreeDecorator {
 
     @Override
     protected TreeDecoratorType<?> type() {
-        return BMWorldGen.Swamp.WILLOWING_BRANCH_DECORATOR;
+        return BMFeatures.WILLOWING_BRANCH_DECORATOR.get();
     }
 
     @Override
@@ -38,12 +39,12 @@ public class WillowingBranchDecorator extends TreeDecorator {
             BlockPos.MutableBlockPos pos = leaves.get(random.nextInt(leaves.size())).below().mutable();
             for(int j = 0; j < 3; j++)
             {
-                if((level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir) || level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState())) && level.isStateAtPosition(pos.above(), (s)->s.is(BlockTags.LEAVES) || (s.is(BMBlocks.WILLOWING_BRANCHES) && s.getValue(WillowingBranchesBlock.STAGE) < WillowingBranchesBlock.MAX_STAGE)))
+                if((level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir) || level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState())) && level.isStateAtPosition(pos.above(), (s)->s.is(BlockTags.LEAVES) || (s.is(BMBlocks.WILLOWING_BRANCHES.get()) && s.getValue(WillowingBranchesBlock.STAGE) < WillowingBranchesBlock.MAX_STAGE)))
                 {
                     boolean water = level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState());
                     if(water || level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir))
                     {
-                        biConsumer.accept(pos, BMBlocks.WILLOWING_BRANCHES.defaultBlockState().setValue(WillowingBranchesBlock.STAGE, j).setValue(BlockStateProperties.WATERLOGGED, water));
+                        biConsumer.accept(pos, BMBlocks.WILLOWING_BRANCHES.get().defaultBlockState().setValue(WillowingBranchesBlock.STAGE, j).setValue(BlockStateProperties.WATERLOGGED, water));
                         pos.move(Direction.DOWN);
                     }else break;
                 }else

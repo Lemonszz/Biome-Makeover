@@ -116,7 +116,7 @@ public class MesmermiteUndergroundFeature extends OreFeature
                     BlockPos offsetPos = pos.relative(direction);
                     if(worldGenLevel.isEmptyBlock(offsetPos) && random.nextBoolean())
                     {
-                        worldGenLevel.setBlock(offsetPos, BMBlocks.ILLUNITE_CLUSTER.defaultBlockState().setValue(IlluniteClusterBlock.FACING, direction), 16);
+                        worldGenLevel.setBlock(offsetPos, BMBlocks.ILLUNITE_CLUSTER.get().defaultBlockState().setValue(IlluniteClusterBlock.FACING, direction), 16);
                     }
                 }
             }

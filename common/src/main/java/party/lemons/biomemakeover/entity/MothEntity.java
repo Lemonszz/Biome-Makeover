@@ -194,7 +194,7 @@ public class MothEntity extends Monster
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return BMEffects.MOTH_IDLE;
+        return BMEffects.MOTH_IDLE.get();
     }
     @Override
     public boolean causeFallDamage(float f, float g, DamageSource damageSource) {
@@ -268,13 +268,13 @@ public class MothEntity extends Monster
     @Override
     protected SoundEvent getDeathSound()
     {
-        return BMEffects.MOTH_DEATH;
+        return BMEffects.MOTH_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source)
     {
-        return BMEffects.MOTH_HURT;
+        return BMEffects.MOTH_HURT.get();
     }
 
     @Override
@@ -282,7 +282,7 @@ public class MothEntity extends Monster
         boolean attacked = super.doHurtTarget(getTarget());
         if(attacked)
         {
-            this.playSound(BMEffects.MOTH_BITE, 1.0F, 1.0F);
+            this.playSound(BMEffects.MOTH_BITE.get(), 1.0F, 1.0F);
         }
         return attacked;
     }

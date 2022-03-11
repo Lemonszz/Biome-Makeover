@@ -45,7 +45,7 @@ public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<R
         {
             level.destroyBlock(blockPos, false);
 
-            RootlingEntity rootling = BMEntities.ROOTLING.create(level);
+            RootlingEntity rootling = BMEntities.ROOTLING.get().create(level);
             rootling.moveTo(blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F, level.random.nextFloat(), level.random.nextFloat());
             rootling.setDeltaMovement(0, 0.25F, 0);
             rootling.randomizeFlower();

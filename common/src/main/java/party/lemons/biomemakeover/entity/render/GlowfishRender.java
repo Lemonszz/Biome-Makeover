@@ -48,7 +48,7 @@ public class GlowfishRender extends SalmonRenderer {
             if(!e.isBaby() && !e.isInvisible())
             {
                 BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
-                BlockState shroom = BMBlocks.ORANGE_GLOWSHROOM.defaultBlockState();
+                BlockState shroom = BMBlocks.ORANGE_GLOWSHROOM.get().defaultBlockState();
                 int m = LivingEntityRenderer.getOverlayCoords(e, 0.0F);
 
                 pose.pushPose();

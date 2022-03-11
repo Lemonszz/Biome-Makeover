@@ -1,24 +1,30 @@
 package party.lemons.biomemakeover.init;
 
+import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.block.AltarBlock;
 import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.*;
 import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
+import java.util.function.Supplier;
+
 public class BMBlockEntities
 {
-    public static final BlockEntityType<PoltergeistBlockEntity> POLTERGEIST = BlockEntityType.Builder.of(PoltergeistBlockEntity::new, BMBlocks.POLTERGEIST).build(null);
-    public static final BlockEntityType<LightningBugBottleBlockEntity> LIGHTNING_BUG_BOTTLE = BlockEntityType.Builder.of(LightningBugBottleBlockEntity::new, BMBlocks.LIGHTNING_BUG_BOTTLE).build(null);
-    public static final BlockEntityType<TapestryBlockEntity> TAPESTRY = BlockEntityType.Builder.of(TapestryBlockEntity::new, BMBlocks.TAPESTRY_BLOCKS.toArray(new Block[0])).build(null);
-    public static final BlockEntityType<AltarBlockEntity> ALTAR = BlockEntityType.Builder.of(AltarBlockEntity::new, BMBlocks.ALTAR).build(null);
-    public static final BlockEntityType<DirectionalDataBlockEntity> DIRECTIONAL_DATA = BlockEntityType.Builder.of(DirectionalDataBlockEntity::new, BMBlocks.DIRECTIONAL_DATA).build(null);
+    private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_ENTITY_TYPE_REGISTRY);
+
+    public static final Supplier<BlockEntityType<PoltergeistBlockEntity>> POLTERGEIST = BLOCK_ENTITIES.register(BiomeMakeover.ID("poltergeist"), ()->BlockEntityType.Builder.of(PoltergeistBlockEntity::new, BMBlocks.POLTERGEIST.get()).build(null));
+    public static final Supplier<BlockEntityType<LightningBugBottleBlockEntity>> LIGHTNING_BUG_BOTTLE = BLOCK_ENTITIES.register(BiomeMakeover.ID("lightning_bug_bottle"), ()->BlockEntityType.Builder.of(LightningBugBottleBlockEntity::new, BMBlocks.LIGHTNING_BUG_BOTTLE.get()).build(null));
+    public static final Supplier<BlockEntityType<TapestryBlockEntity>> TAPESTRY = BLOCK_ENTITIES.register(BiomeMakeover.ID("tapestry"), ()->BlockEntityType.Builder.of(TapestryBlockEntity::new, BMBlocks.TAPESTRY_BLOCKS.stream().map(Supplier::get).toList().toArray(new Block[0])).build(null));
+    public static final Supplier<BlockEntityType<AltarBlockEntity>> ALTAR = BLOCK_ENTITIES.register(BiomeMakeover.ID("altar"), ()->BlockEntityType.Builder.of(AltarBlockEntity::new, BMBlocks.ALTAR.get()).build(null));
+    public static final Supplier<BlockEntityType<DirectionalDataBlockEntity>> DIRECTIONAL_DATA = BLOCK_ENTITIES.register(BiomeMakeover.ID("directional_data"), ()->BlockEntityType.Builder.of(DirectionalDataBlockEntity::new, BMBlocks.DIRECTIONAL_DATA.get()).build(null));
 
     public static void init()
     {
-        RegistryHelper.register(Constants.MOD_ID, Registry.BLOCK_ENTITY_TYPE, BlockEntityType.class, BMBlockEntities.class);
+        BLOCK_ENTITIES.register();
     }
 }

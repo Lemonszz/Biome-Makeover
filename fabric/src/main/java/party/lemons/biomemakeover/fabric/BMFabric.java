@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.fabric;
 
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
@@ -62,7 +63,10 @@ public class BMFabric implements ModInitializer
         BMEntities.registerModels();
 
         BMEffects.registerParticleProvider();
-        doWorldGen();
+
+        LifecycleEvent.SETUP.register(()->{
+            doWorldGen();
+        });
 
         injectLootTables();
     }

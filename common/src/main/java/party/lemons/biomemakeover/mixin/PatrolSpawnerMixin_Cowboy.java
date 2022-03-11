@@ -32,13 +32,13 @@ public abstract class PatrolSpawnerMixin_Cowboy {
         if(biome.is(BiomeTags.IS_BADLANDS))
         {
             BlockState blockState = level.getBlockState(pos);
-            if (!NaturalSpawner.isValidEmptySpawnBlock(level, pos, blockState, blockState.getFluidState(), BMEntities.COWBOY)) {
+            if (!NaturalSpawner.isValidEmptySpawnBlock(level, pos, blockState, blockState.getFluidState(), BMEntities.COWBOY.get())) {
                 cbi.setReturnValue(false);
             }
             if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.PILLAGER, level, MobSpawnType.PATROL, pos, random)) {
                 cbi.setReturnValue(false);
             }
-            PatrollingMonster patrollingMonster = BMEntities.COWBOY.create(level);
+            PatrollingMonster patrollingMonster = BMEntities.COWBOY.get().create(level);
             if (patrollingMonster != null)
             {
                 Horse horse = EntityType.HORSE.create(level);

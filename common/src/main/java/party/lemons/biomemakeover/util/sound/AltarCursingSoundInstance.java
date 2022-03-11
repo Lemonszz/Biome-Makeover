@@ -14,7 +14,7 @@ public class AltarCursingSoundInstance extends AbstractTickableSoundInstance
 
     public AltarCursingSoundInstance(AltarBlockEntity altar)
     {
-        super(BMEffects.ALTAR_CURSING, SoundSource.BLOCKS);
+        super(BMEffects.ALTAR_CURSING.get(), SoundSource.BLOCKS);
         this.altar = altar;
         this.x = (float) altar.getBlockPos().getX();
         this.y = (float) altar.getBlockPos().getY();

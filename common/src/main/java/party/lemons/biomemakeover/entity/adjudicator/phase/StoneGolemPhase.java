@@ -53,7 +53,7 @@ public class StoneGolemPhase extends AttackingPhase
         super.onEnterPhase();
         adjudicator.setState(AdjudicatorState.FIGHTING);
 
-        StoneGolemEntity golem = BMEntities.STONE_GOLEM.create(level);
+        StoneGolemEntity golem = BMEntities.STONE_GOLEM.get().create(level);
         ((LootBlocker)golem).setLootBlocked(true);
         golem.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.CROSSBOW));
         golem.moveTo(adjudicator.getX(), adjudicator.getY(), adjudicator.getZ(), adjudicator.getYRot(), adjudicator.getXRot());
@@ -65,7 +65,7 @@ public class StoneGolemPhase extends AttackingPhase
         stack.enchant(Enchantments.PUNCH_ARROWS, 1);
         adjudicator.setItemInHand(InteractionHand.MAIN_HAND, stack);
 
-        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_GRUNT, 1F, 1F);
+        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_GRUNT.get(), 1F, 1F);
     }
 
     @Override

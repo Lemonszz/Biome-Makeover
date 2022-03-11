@@ -299,11 +299,11 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     protected void dropCustomDeathLoot(DamageSource damageSource, int i, boolean bl) {
         //Drop totem and tapestry
         //This isn't done via loot table because we want the item to be coveted
-        ItemEntity enchantedTotem = this.spawnAtLocation(BMItems.ENCHANTED_TOTEM);
+        ItemEntity enchantedTotem = this.spawnAtLocation(BMItems.ENCHANTED_TOTEM.get());
         if (enchantedTotem != null)
             enchantedTotem.setExtendedLifetime();
 
-        ItemEntity tapestry = this.spawnAtLocation(BMBlocks.ADJUDICATOR_TAPESTRY);
+        ItemEntity tapestry = this.spawnAtLocation(BMBlocks.ADJUDICATOR_TAPESTRY.get());
         if(tapestry != null)
             tapestry.setExtendedLifetime();
     }
@@ -463,19 +463,19 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     @Override
     protected SoundEvent getAmbientSound()
     {
-        return isActive() ? BMEffects.ADJUDICATOR_LAUGH : BMEffects.ADJUDICATOR_IDLE;
+        return isActive() ? BMEffects.ADJUDICATOR_LAUGH.get() : BMEffects.ADJUDICATOR_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source)
     {
-        return BMEffects.ADJUDICATOR_HURT;
+        return BMEffects.ADJUDICATOR_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return BMEffects.ADJUDICATOR_DEATH;
+        return BMEffects.ADJUDICATOR_DEATH.get();
     }
 
     @Override

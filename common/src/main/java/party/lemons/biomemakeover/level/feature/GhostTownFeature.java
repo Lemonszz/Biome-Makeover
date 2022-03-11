@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 
 public class GhostTownFeature extends JigsawFeature {
 
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> SPAWNS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(BMEntities.GHOST, 8, 1, 1));
+    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> SPAWNS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(BMEntities.GHOST.get(), 8, 1, 1));
 
 
     public static final Holder<StructureProcessorList> ROADS_PROCESSOR = BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, BiomeMakeover.ID("roads_ghosttown"),
@@ -52,7 +52,7 @@ public class GhostTownFeature extends JigsawFeature {
 
     public static final Holder<StructureProcessorList> BUILDING_PROCESSOR = BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, BiomeMakeover.ID("buildings_ghosttown"),new StructureProcessorList(
             ImmutableList.of(
-                    new RuleProcessor(BMBlocks.BRICK_TO_TERRACOTTA.keySet().stream().map(b->new ProcessorRule(new RandomBlockMatchTest(b, 0.25F), AlwaysTrueTest.INSTANCE, BMBlocks.BRICK_TO_TERRACOTTA.get(b).defaultBlockState())).collect(Collectors.toList())))));
+                    new RuleProcessor(BMBlocks.BRICK_TO_TERRACOTTA.keySet().stream().map(b->new ProcessorRule(new RandomBlockMatchTest(b.get(), 0.25F), AlwaysTrueTest.INSTANCE, BMBlocks.BRICK_TO_TERRACOTTA.get(b).defaultBlockState())).collect(Collectors.toList())))));
 
     private static final Holder<StructureTemplatePool> POOL = Pools.register(
             new StructureTemplatePool(BiomeMakeover.ID("ghosttown/centers"),

@@ -65,13 +65,13 @@ public class AdjudicatorMimicEntity extends Monster  implements AdjudicatorState
     @Override
     protected SoundEvent getAmbientSound()
     {
-        return BMEffects.ADJUDICATOR_LAUGH;
+        return BMEffects.ADJUDICATOR_LAUGH.get();
     }
 
     @Override
     public void die(DamageSource damageSource) {
-        playSound(BMEffects.ADJUDICATOR_NO,1F, 1F);
-        playSound(BMEffects.ADJUDICATOR_LAUGH,0.25F, 1F);
+        playSound(BMEffects.ADJUDICATOR_NO.get(),1F, 1F);
+        playSound(BMEffects.ADJUDICATOR_LAUGH.get(),0.25F, 1F);
         spawnAnim();
         remove(RemovalReason.DISCARDED);
 
@@ -85,7 +85,7 @@ public class AdjudicatorMimicEntity extends Monster  implements AdjudicatorState
     public void baseTick() {
         if(firstTick)
         {
-            playSound(BMEffects.ADJUDICATOR_MIMIC, 1F, 1F);
+            playSound(BMEffects.ADJUDICATOR_MIMIC.get(), 1F, 1F);
         }
 
         super.baseTick();

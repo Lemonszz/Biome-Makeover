@@ -2,59 +2,74 @@ package party.lemons.biomemakeover.util.registry;
 
 import com.google.common.collect.Maps;
 import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.apache.commons.compress.utils.Lists;
 import party.lemons.biomemakeover.Constants;
+import party.lemons.biomemakeover.block.BMSlabBlock;
 import party.lemons.biomemakeover.block.BMStairBlock;
 import party.lemons.biomemakeover.init.BMItems;
 
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class DecorationBlockInfo
 {
-    private final Map<Type, Block> blocks = Maps.newHashMap();
+    public static final List<DecorationBlockInfo> REGISTERED_FACTORIES = Lists.newArrayList();
+
+    private final List<DecorationBlockInfo.Type> types = Lists.newArrayList();
+    private final Map<DecorationBlockInfo.Type, Supplier<Block>> blocks = Maps.newHashMap();
     private final String name;
     private final BlockBehaviour.Properties settings;
-    private final Block base;
-    private final Callback callback;
+    private final Supplier<Block> base;
+    private final Consumer<Supplier<Block>> callback;
     private final String modid;
+    private final CreativeModeTab tab;
+    protected Supplier<Item.Properties> blockItemProperties;
 
-    public DecorationBlockInfo(String modid, String name, Block baseBlock, Block.Properties settings)
+    public DecorationBlockInfo(String modid, CreativeModeTab tab, String name, Supplier<Block> baseBlock, Block.Properties settings)
     {
-        this(modid, name, baseBlock, settings, null);
+        this(modid, tab, name, baseBlock, settings, null);
     }
 
-    public DecorationBlockInfo(String modid, String name, Block baseBlock, Block.Properties settings, Callback callback)
+    public DecorationBlockInfo(String modid, CreativeModeTab tab, String name, Supplier<Block> baseBlock, Block.Properties settings, Consumer<Supplier<Block>> callback)
     {
         this.modid = modid;
         this.name = name;
         this.settings = settings;
         this.base = baseBlock;
+        this.tab = tab;
         this.callback = callback;
+
+        this.blockItemProperties = ()->new Item.Properties().tab(this.tab);
     }
 
     public DecorationBlockInfo slab()
     {
-        set(Type.SLAB, new SlabBlock(settings));
+        types.add(DecorationBlockInfo.Type.SLAB);
         return this;
     }
 
     public DecorationBlockInfo stair()
     {
-        set(Type.STAIR, new BMStairBlock(base.defaultBlockState(), settings));
+        types.add(DecorationBlockInfo.Type.STAIR);
         return this;
     }
 
     public DecorationBlockInfo wall()
     {
-        set(Type.WALL, new WallBlock(settings));
+        types.add(DecorationBlockInfo.Type.WALL);
         return this;
     }
 
@@ -63,40 +78,67 @@ public class DecorationBlockInfo
         return slab().stair().wall();
     }
 
-    private void set(Type type, Block block)
+    public DecorationBlockInfo blocKItemProperties(Supplier<Item.Properties> properties)
+    {
+        this.blockItemProperties = properties;
+        return this;
+    }
+
+    private void set(DecorationBlockInfo.Type type, Supplier<Block> block)
     {
         this.blocks.put(type, block);
     }
 
-    public Block get(Type type)
+    public Supplier<Block> get(DecorationBlockInfo.Type type)
     {
         return blocks.get(type);
     }
 
-    public DecorationBlockInfo register()
+    public boolean has(DecorationBlockInfo.Type type)
     {
-        DeferredRegister bR = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_REGISTRY);
-        DeferredRegister iR = DeferredRegister.create(Constants.MOD_ID, Registry.ITEM_REGISTRY);
+        return blocks.containsKey(type);
+    }
 
-        for(Type key : blocks.keySet())
+    public Supplier<Block> getBase()
+    {
+        return base;
+    }
+
+    public DecorationBlockInfo register(DeferredRegister<Block> blockRegister, DeferredRegister<Item> itemRegister)
+    {
+        for(DecorationBlockInfo.Type type : types)
         {
-            Block bl = blocks.get(key);
-            bR.register(key.make(modid, name), ()->bl);
-            iR.register( key.make(modid, name), ()->new BlockItem(bl, BMItems.properties()));
+            switch (type)
+            {
+                case SLAB -> {
+                    set(type, ()->new BMSlabBlock(this.settings));
+                }
+                case STAIR -> {
+                    set(type, ()->new BMStairBlock(base.get().defaultBlockState(), this.settings));
+                }
+                case WALL -> {
+                    set(type, ()->new WallBlock(this.settings));
+                }
+            }
+        }
+
+        for(DecorationBlockInfo.Type key : blocks.keySet())
+        {
+            Supplier<Block> bl = blocks.get(key);
+
+            ResourceLocation id = key.make(this.modid, name);
+
+            RegistrySupplier<Block> regBlock = blockRegister.register(id, bl);
+            itemRegister.register(id, ()->new BlockItem(regBlock.get(), blockItemProperties.get()));
 
             if(callback != null)
             {
-                callback.onCreateBlock(bl);
+                callback.accept(bl);
             }
         }
-        bR.register();
-        iR.register();
-        return this;
-    }
 
-    public interface Callback
-    {
-        void onCreateBlock(Block block);
+        REGISTERED_FACTORIES.add(this);
+        return this;
     }
 
     public enum Type

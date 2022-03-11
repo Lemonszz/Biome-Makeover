@@ -41,7 +41,7 @@ public class TemplateStructurePieceMixin_DirectionalData
     {
         if(this instanceof DirectionalDataHandler)
         {
-            List<StructureTemplate.StructureBlockInfo> list = this.template.filterBlocks(this.templatePosition, this.placeSettings, BMBlocks.DIRECTIONAL_DATA);
+            List<StructureTemplate.StructureBlockInfo> list = this.template.filterBlocks(this.templatePosition, this.placeSettings, BMBlocks.DIRECTIONAL_DATA.get());
             for(StructureTemplate.StructureBlockInfo info : list)
             {
                 if(info.nbt != null)

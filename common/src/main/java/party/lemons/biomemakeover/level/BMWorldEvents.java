@@ -83,17 +83,17 @@ public final class BMWorldEvents {
             {
                 if(random.nextInt(5) > 0)
                 {
-                    placeState = random.nextInt(3) == 0 ? BMBlocks.CATTAIL.defaultBlockState() : BMBlocks.REED.defaultBlockState();
+                    placeState = random.nextInt(3) == 0 ? BMBlocks.CATTAIL.get().defaultBlockState() : BMBlocks.REED.get().defaultBlockState();
                 }else
                 {
                     placePos = placePos.above();
                     requireWater = false;
                     if(random.nextBoolean())
                     {
-                        placeState = BMBlocks.SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.PADS, random.nextInt(4));
+                        placeState = BMBlocks.SMALL_LILY_PAD.get().defaultBlockState().setValue(SmallLilyPadBlock.PADS, random.nextInt(4));
                     }else
                     {
-                        if(random.nextInt(4) == 0) placeState = BMBlocks.WATER_LILY.defaultBlockState();
+                        if(random.nextInt(4) == 0) placeState = BMBlocks.WATER_LILY.get().defaultBlockState();
                         else placeState = Blocks.LILY_PAD.defaultBlockState();
                     }
                 }

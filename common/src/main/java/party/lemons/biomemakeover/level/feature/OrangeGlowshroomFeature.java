@@ -37,7 +37,7 @@ public class OrangeGlowshroomFeature extends Feature<ProbabilityFeatureConfigura
         BlockPos placePos = new BlockPos(pos.getX() + xOffset, yLevel, pos.getZ() + zOffset);
         if (level.getBlockState(placePos).is(Blocks.WATER))
         {
-            BlockState state = BMBlocks.ORANGE_GLOWSHROOM.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
+            BlockState state = BMBlocks.ORANGE_GLOWSHROOM.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
             if (state.canSurvive(level, placePos)) {
                 level.setBlock(placePos, state, 2);
                 success = true;

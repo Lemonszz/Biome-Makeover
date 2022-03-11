@@ -28,7 +28,7 @@ public abstract class EntityMixin {
         {
             if((Entity) ((Object)this) instanceof LivingEntity living)
             {
-                float level = (float) EnchantmentHelper.getEnchantmentLevel(BMEnchantments.FLAMMABILITY_CURSE, living);
+                float level = (float) EnchantmentHelper.getEnchantmentLevel(BMEnchantments.FLAMMABILITY_CURSE.get(), living);
                 if(level > 0)
                 {
                     ticks += ((float)ticks * (level / 2));
@@ -44,7 +44,7 @@ public abstract class EntityMixin {
     {
         if((Entity) ((Object)this) instanceof LivingEntity living)
         {
-            if(EnchantmentHelper.getEnchantmentLevel(BMEnchantments.DEPTH_CURSE,living) > 0)
+            if(EnchantmentHelper.getEnchantmentLevel(BMEnchantments.DEPTH_CURSE.get(),living) > 0)
             {
                 setSwimming(false);
             }
@@ -58,7 +58,7 @@ public abstract class EntityMixin {
         {
             if(((Entity) ((Object) this)).tickCount > 20) //Max air gets checked before inventory is created, this prevents a npe
             {
-                float level = (float) EnchantmentHelper.getEnchantmentLevel(BMEnchantments.SUFFOCATION_CURSE,living);
+                float level = (float) EnchantmentHelper.getEnchantmentLevel(BMEnchantments.SUFFOCATION_CURSE.get(),living);
                 if(level > 0)
                 {
                     int maxAir = (int) (300F / ((level) * 1.5F));

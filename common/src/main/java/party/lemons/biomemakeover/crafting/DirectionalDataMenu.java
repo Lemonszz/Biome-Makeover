@@ -16,7 +16,7 @@ public class DirectionalDataMenu extends AbstractContainerMenu{
     }
 
     public DirectionalDataMenu(int i, BlockPos pos, String data) {
-        super(BMScreens.DIRECTIONAL_DATA, i);
+        super(BMScreens.DIRECTIONAL_DATA.get(), i);
 
         this.pos = pos;
         this.meta = data;

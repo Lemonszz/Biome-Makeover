@@ -26,7 +26,7 @@ public class CowboyEntity extends Pillager {
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
         super.populateDefaultEquipmentSlots(difficultyInstance);
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(BMItems.COWBOY_HAT));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(BMItems.COWBOY_HAT.get()));
     }
 
     @Override

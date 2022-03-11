@@ -13,7 +13,7 @@ public class SaguaroCactusFeature extends Feature<NoneFeatureConfiguration> {
         super(codec);
     }
 
-    private final SaguaroCactusBlock CACTUS = (SaguaroCactusBlock) BMBlocks.SAGUARO_CACTUS;
+    private final SaguaroCactusBlock CACTUS = (SaguaroCactusBlock) BMBlocks.SAGUARO_CACTUS.get();
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {

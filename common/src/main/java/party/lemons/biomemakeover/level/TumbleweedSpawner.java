@@ -46,7 +46,7 @@ public class TumbleweedSpawner
 
                 if(pos != null && level.hasChunkAt(pos) && level.isEmptyBlock(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS))
                 {
-                    TumbleweedEntity tumble = BMEntities.TUMBLEWEED.create(level);
+                    TumbleweedEntity tumble = BMEntities.TUMBLEWEED.get().create(level);
                     tumble.moveTo(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);
                     level.addFreshEntity(tumble);
                 }

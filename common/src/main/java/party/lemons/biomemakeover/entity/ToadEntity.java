@@ -79,7 +79,7 @@ public class ToadEntity extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(BMItems.DRAGONFLY_WINGS, Items.SPIDER_EYE), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(BMItems.DRAGONFLY_WINGS.get(), Items.SPIDER_EYE), false));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
     }
@@ -90,7 +90,7 @@ public class ToadEntity extends Animal {
         e.setEatenBy(this);
         if(!level.isClientSide())
         {
-            this.playSound(BMEffects.TOAD_MOUTH, 1F, 1F + ((float) random.nextGaussian() / 5F));
+            this.playSound(BMEffects.TOAD_MOUTH.get(), 1F, 1F + ((float) random.nextGaussian() / 5F));
         }
     }
 
@@ -234,7 +234,7 @@ public class ToadEntity extends Animal {
 
     protected SoundEvent getJumpSound()
     {
-        return BMEffects.TOAD_JUMP;
+        return BMEffects.TOAD_JUMP.get();
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -297,19 +297,19 @@ public class ToadEntity extends Animal {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return BMEffects.TOAD_CROAK;
+        return BMEffects.TOAD_CROAK.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return BMEffects.TOAD_DEATH;
+        return BMEffects.TOAD_DEATH.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BMEffects.TOAD_HURT;
+        return BMEffects.TOAD_HURT.get();
     }
 
     private static class LookAtTongueTarget extends Goal
@@ -370,10 +370,10 @@ public class ToadEntity extends Animal {
                 ServerLevel world = (ServerLevel) this.toad.level;
                 this.toad.setHasBaby(false);
 
-                TadpoleEntity tadpole = BMEntities.TADPOLE.create(world);
+                TadpoleEntity tadpole = BMEntities.TADPOLE.get().create(world);
                 if(tadpole != null)
                 {
-                    world.playSound(null, blockPos, BMEffects.TOAD_HAVE_BABY, SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
+                    world.playSound(null, blockPos, BMEffects.TOAD_HAVE_BABY.get(), SoundSource.BLOCKS, 0.3F, 0.9F + world.random.nextFloat() * 0.2F);
                     tadpole.setBaby(true);
                     tadpole.moveTo(toad.getX(), toad.getY(), toad.getZ(), 0.0F, 0.0F);
                     world.addFreshEntityWithPassengers(tadpole);

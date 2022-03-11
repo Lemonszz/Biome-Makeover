@@ -146,7 +146,7 @@ public class BlightBatRender extends MobRenderer<BlightBatEntity, BlightBatRende
             if(!e.isBaby() && !e.isInvisible())
             {
                 BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
-                BlockState shroom = BMBlocks.PURPLE_GLOWSHROOM.defaultBlockState();
+                BlockState shroom = BMBlocks.PURPLE_GLOWSHROOM.get().defaultBlockState();
                 int m = LivingEntityRenderer.getOverlayCoords(e, 0.0F);
 
                 pose.pushPose();

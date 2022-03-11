@@ -12,6 +12,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class BMArmorItem extends ArmorItem
 {
@@ -85,7 +86,7 @@ public class BMArmorItem extends ArmorItem
             return this;
         }
 
-        public BMArmorItem build(EquipmentSlot slot, Properties properties)
+        public Supplier<Item> build(EquipmentSlot slot, Properties properties)
         {
             if(!overrideProtection)
                 protection = material.getDefenseForSlot(slot);
@@ -101,7 +102,7 @@ public class BMArmorItem extends ArmorItem
                 attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DUMMY_UUID, "Armor knockback resistance", (double)this.knockbackResistance, AttributeModifier.Operation.ADDITION));
             }
 
-            return new BMArmorItem(material, buildAttributes(slot), protection, toughness, slot, properties);
+            return ()->new BMArmorItem(material, buildAttributes(slot), protection, toughness, slot, properties);
         }
 
         private LinkedListMultimap<Attribute, AttributeModifier> buildAttributes(EquipmentSlot slot)

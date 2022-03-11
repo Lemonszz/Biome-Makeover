@@ -114,8 +114,8 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
     public void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
         if (!level.isClientSide) {
             BlockPos blockPos = blockHitResult.getBlockPos();
-            level.playSound(null, blockPos, BMEffects.ILLUNITE_HIT, SoundSource.BLOCKS, 1.0f, 0.5f + level.random.nextFloat() * 1.2f);
-            level.playSound(null, blockPos, BMEffects.ILLUNITE_STEP, SoundSource.BLOCKS, 1.0f, 0.5f + level.random.nextFloat() * 1.2f);
+            level.playSound(null, blockPos, BMEffects.ILLUNITE_HIT.get(), SoundSource.BLOCKS, 1.0f, 0.5f + level.random.nextFloat() * 1.2f);
+            level.playSound(null, blockPos, BMEffects.ILLUNITE_STEP.get(), SoundSource.BLOCKS, 1.0f, 0.5f + level.random.nextFloat() * 1.2f);
         }
     }
 

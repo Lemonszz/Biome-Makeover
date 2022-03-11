@@ -17,7 +17,7 @@ public class GlowfishEntity extends Salmon {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(BMItems.GLOWFISH_BUCKET);
+        return new ItemStack(BMItems.GLOWFISH_BUCKET.get());
     }
 
     public static AttributeSupplier.Builder createAttributes() {

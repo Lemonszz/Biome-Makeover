@@ -71,9 +71,9 @@ public final class RegistryHelper
 
     public static <T> void registerObject(Registry<T> registry, ResourceLocation id, T object)
     {
-        DeferredRegister r = DeferredRegister.create(id.getNamespace(), (ResourceKey)registry.key());
-        r.register(id, ()->object);
-        r.register();
+     //   DeferredRegister r = DeferredRegister.create(id.getNamespace(), (ResourceKey)registry.key());
+     //   r.register(id, ()->object);
+     //   r.register();
     }
 
     public static <T> void gatherFields(String modid, Class<T> typeClass, Class<?> from, List<Pair<ResourceLocation, T>> list)

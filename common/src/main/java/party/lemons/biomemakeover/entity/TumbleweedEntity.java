@@ -71,7 +71,7 @@ public class TumbleweedEntity extends Entity
             if(onGround)
             {
                 vY = Mth.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
-                this.playSound(BMEffects.TUMBLEWEED_TUMBLE, 0.25F, 1.0F);
+                this.playSound(BMEffects.TUMBLEWEED_TUMBLE.get(), 0.25F, 1.0F);
             }
 
             if(isInWater())
@@ -136,7 +136,7 @@ public class TumbleweedEntity extends Entity
     public boolean hurt(DamageSource damageSource, float f) {
         if(damageSource != DamageSource.CACTUS)
         {
-            this.playSound(BMEffects.TUMBLEWEED_BREAK, 0.25F, 1.0F);
+            this.playSound(BMEffects.TUMBLEWEED_BREAK.get(), 0.25F, 1.0F);
             kill();
         }
 
@@ -147,7 +147,7 @@ public class TumbleweedEntity extends Entity
     {
         for(int i = 0; i < count; i++)
         {
-            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, BMBlocks.TUMBLEWEED.defaultBlockState()), -0.5D + (getX() + random.nextDouble()), getY() + random.nextDouble(), -0.5D + (getZ() + random.nextDouble()), 0.0D, 0.0D, 0.0D);
+            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, BMBlocks.TUMBLEWEED.get().defaultBlockState()), -0.5D + (getX() + random.nextDouble()), getY() + random.nextDouble(), -0.5D + (getZ() + random.nextDouble()), 0.0D, 0.0D, 0.0D);
         }
     }
 

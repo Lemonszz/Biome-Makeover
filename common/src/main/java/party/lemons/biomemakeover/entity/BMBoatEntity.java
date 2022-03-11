@@ -29,7 +29,7 @@ public class BMBoatEntity extends Boat
 
     public BMBoatEntity(Level world, double x, double y, double z)
     {
-        this(BMEntities.BM_BOAT, world);
+        this(BMEntities.BM_BOAT.get(), world);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -38,7 +38,7 @@ public class BMBoatEntity extends Boat
 
     public BMBoatEntity(Boat boatEntity, BoatType type)
     {
-        this(BMEntities.BM_BOAT, boatEntity.level);
+        this(BMEntities.BM_BOAT.get(), boatEntity.level);
 
         this.copyPosition(boatEntity);
         setBoatType(type);

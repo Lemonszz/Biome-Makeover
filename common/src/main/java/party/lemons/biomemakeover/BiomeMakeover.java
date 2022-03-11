@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.platform.Platform;
@@ -58,24 +59,24 @@ import java.lang.reflect.Constructor;
 
 public class BiomeMakeover {
 
-    public static final CreativeModeTab TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM));
+    public static final CreativeModeTab TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM.get()));
     private static final boolean ENABLE_WIKI = false;
 
     public static void init()
     {
         BMEffects.init();
+        BMEntities.init();
+
         BMBlocks.init();
         BMBlockEntities.init();
         BMItems.init();
-        BMEntities.init();
         BMNetwork.init();
         BMPotions.init();
-        BMWorldGen.init();
+        BMFeatures.init();
         BMScreens.init();
         BMAdvancements.init();
         BMEnchantments.init();
 
-        WitchQuestHandler.init();
         AdjudicatorRoomListener.init();
         BMWorldEvents.init();
         TaskManager.init();
@@ -94,9 +95,17 @@ public class BiomeMakeover {
             return 1;
         })))));
 
-        //TODO: Find somewhere else for this
-        BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/bat"), BinomialDistributionGenerator.binomial(2, 0.5F), BMItems.BAT_WING);
-        BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/evoker"), BinomialDistributionGenerator.binomial(3, 0.15F), BMItems.ILLUNITE_SHARD);
+
+
+        LifecycleEvent.SETUP.register(()->{
+            BMWorldGen.init();
+            WitchQuestHandler.init();
+            BMEntities.initSpawnsAndAttributes();
+
+            //TODO: Find somewhere else for this
+            BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/bat"), BinomialDistributionGenerator.binomial(2, 0.5F), BMItems.BAT_WING.get());
+            BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/evoker"), BinomialDistributionGenerator.binomial(3, 0.15F), BMItems.ILLUNITE_SHARD.get());
+        });
     }
     public static ResourceLocation ID(String path)
     {

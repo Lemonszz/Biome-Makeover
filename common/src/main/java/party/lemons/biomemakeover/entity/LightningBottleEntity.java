@@ -34,18 +34,18 @@ public class LightningBottleEntity extends ThrowableItemProjectile
 
     public LightningBottleEntity(Level world, LivingEntity owner)
     {
-        super(BMEntities.LIGHTNING_BOTTLE, owner, world);
+        super(BMEntities.LIGHTNING_BOTTLE.get(), owner, world);
     }
 
     public LightningBottleEntity(Level world, double x, double y, double z)
     {
-        super(BMEntities.LIGHTNING_BOTTLE, x, y, z, world);
+        super(BMEntities.LIGHTNING_BOTTLE.get(), x, y, z, world);
     }
 
     @Override
     protected Item getDefaultItem()
     {
-        return BMItems.LIGHTNING_BOTTLE;
+        return BMItems.LIGHTNING_BOTTLE.get();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LightningBottleEntity extends ThrowableItemProjectile
 
         if(!this.level.isClientSide())
         {
-            level.playSound(null, getOnPos(), BMEffects.BOTTLE_THUNDER, SoundSource.NEUTRAL, 50F, 0.8F + this.random.nextFloat() * 0.2F);
+            level.playSound(null, getOnPos(), BMEffects.BOTTLE_THUNDER.get(), SoundSource.NEUTRAL, 50F, 0.8F + this.random.nextFloat() * 0.2F);
 
             AABB box = this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D);
             List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, box, EntitySelector.LIVING_ENTITY_STILL_ALIVE);
@@ -97,10 +97,10 @@ public class LightningBottleEntity extends ThrowableItemProjectile
                     if (distance < 16.0D) {
                         NetworkUtil.doLightningEntity(level, e, 100);
 
-                        if (!e.hasEffect(BMPotions.SHOCKED)) {
-                            e.addEffect(new MobEffectInstance(BMPotions.SHOCKED, 1000, 0));
+                        if (!e.hasEffect(BMPotions.SHOCKED.get())) {
+                            e.addEffect(new MobEffectInstance(BMPotions.SHOCKED.get(), 1000, 0));
                         } else {
-                            e.addEffect(new MobEffectInstance(BMPotions.SHOCKED, 1000, Math.min(3, e.getEffect(BMPotions.SHOCKED).getAmplifier() + 1)));
+                            e.addEffect(new MobEffectInstance(BMPotions.SHOCKED.get(), 1000, Math.min(3, e.getEffect(BMPotions.SHOCKED.get()).getAmplifier() + 1)));
                         }
                         e.hurt(DamageSource.indirectMagic(this, this.getOwner()), 0);
                         if (getOwner() instanceof LivingEntity) {

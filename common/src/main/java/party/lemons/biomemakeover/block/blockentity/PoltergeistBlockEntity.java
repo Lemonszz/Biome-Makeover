@@ -12,7 +12,7 @@ import party.lemons.biomemakeover.level.PoltergeistHandler;
 public class PoltergeistBlockEntity extends BlockEntity
 {
     public PoltergeistBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BMBlockEntities.POLTERGEIST, blockPos, blockState);
+        super(BMBlockEntities.POLTERGEIST.get(), blockPos, blockState);
     }
 
     public static <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState) {

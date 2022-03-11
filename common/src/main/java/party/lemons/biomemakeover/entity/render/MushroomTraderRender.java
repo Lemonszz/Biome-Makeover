@@ -109,7 +109,7 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
             if(!e.isBaby() && !e.isInvisible())
             {
                 BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
-                BlockState shroom = BMBlocks.GREEN_GLOWSHROOM.defaultBlockState();
+                BlockState shroom = BMBlocks.GREEN_GLOWSHROOM.get().defaultBlockState();
                 int m = LivingEntityRenderer.getOverlayCoords(e, 0.0F);
 
                 pose.pushPose();

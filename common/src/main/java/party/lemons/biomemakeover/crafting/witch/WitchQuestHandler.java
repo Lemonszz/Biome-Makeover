@@ -25,32 +25,32 @@ public class WitchQuestHandler
 
     public static void init()
     {
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMItems.GLOWFISH, 10, 3));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GLOWSHROOM_STEM, 10, 3));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GREEN_GLOWSHROOM_BLOCK, 10, 3));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.ORANGE_GLOWSHROOM_BLOCK, 13, 3));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.PURPLE_GLOWSHROOM_BLOCK, 10, 3));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GREEN_GLOWSHROOM, 5, 1));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.ORANGE_GLOWSHROOM, 8, 1));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.PURPLE_GLOWSHROOM, 5, 1));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.MYCELIUM_ROOTS, 3, 2));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.MYCELIUM_SPROUTS, 3, 2));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.TALL_BROWN_MUSHROOM, 5, 2));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.TALL_RED_MUSHROOM, 5, 2));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMItems.GLOWFISH.get(), 10, 3));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GLOWSHROOM_STEM.get(), 10, 3));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GREEN_GLOWSHROOM_BLOCK.get(), 10, 3));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.ORANGE_GLOWSHROOM_BLOCK.get(), 13, 3));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.get(), 10, 3));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GREEN_GLOWSHROOM.get(), 5, 1));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.ORANGE_GLOWSHROOM.get(), 8, 1));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.PURPLE_GLOWSHROOM.get(), 5, 1));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.MYCELIUM_ROOTS.get(), 3, 2));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.MYCELIUM_SPROUTS.get(), 3, 2));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.TALL_BROWN_MUSHROOM.get(), 5, 2));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.TALL_RED_MUSHROOM.get(), 5, 2));
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(Blocks.MYCELIUM, 10, 1));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMItems.BLIGHTBAT_WING, 5, 1));
+        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMItems.BLIGHTBAT_WING.get(), 5, 1));
 
-        addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.SCUTTLER_TAIL, 5, 5));
-        addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.ECTOPLASM, 8, 3));
-        addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.PINK_PETALS, 12, 1));
-        addQuestItem(QuestCategory.MESA, QuestItem.of(BMBlocks.SAGUARO_CACTUS, 1, 10));
+        addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.SCUTTLER_TAIL.get(), 5, 5));
+        addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.ECTOPLASM.get(), 8, 3));
+        addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.PINK_PETALS.get(), 12, 1));
+        addQuestItem(QuestCategory.MESA, QuestItem.of(BMBlocks.SAGUARO_CACTUS.get(), 1, 10));
 
-        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.MOTH_SCALES, 5, 6));
-        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.BULBUS_ROOT, 5, 5));
-        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.ILLUNITE_SHARD, 10, 2));
+        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.MOTH_SCALES.get(), 5, 6));
+        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.BULBUS_ROOT.get(), 5, 5));
+        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMItems.ILLUNITE_SHARD.get(), 10, 2));
 
-        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMBlocks.IVY, 3, 10));
-        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMBlocks.MOTH_BLOSSOM, 10, 2));
+        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMBlocks.IVY.get(), 3, 10));
+        addQuestItem(QuestCategory.DARK_FOREST, QuestItem.of(BMBlocks.MOTH_BLOSSOM.get(), 10, 2));
 
         addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.DANDELION, 1, 4));
         addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.POPPY, 1, 4));
@@ -69,14 +69,14 @@ public class WitchQuestHandler
         addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.ROSE_BUSH, 1, 4));
         addQuestItem(QuestCategory.FLOWER, QuestItem.of(Blocks.PEONY, 1, 4));
 
-        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.SMALL_LILY_PAD, 1.25F, 4));
-        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.CATTAIL, 1.25F, 4));
-        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.REED, 0.75F, 4));
-        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.WILLOWING_BRANCHES, 1F, 4));
+        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.SMALL_LILY_PAD.get(), 1.25F, 4));
+        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.CATTAIL.get(), 1.25F, 4));
+        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.REED.get(), 0.75F, 4));
+        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMBlocks.WILLOWING_BRANCHES.get(), 1F, 4));
         addQuestItem(QuestCategory.SWAMP, QuestItem.of(Blocks.LILY_PAD, 1, 4));
         addQuestItem(QuestCategory.SWAMP, QuestItem.of(Items.SLIME_BALL, 2, 4));
-        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMItems.MAGENTA_PETALS, 3, 4));
-        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMItems.WART, 5, 4));
+        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMItems.MAGENTA_PETALS.get(), 3, 4));
+        addQuestItem(QuestCategory.SWAMP, QuestItem.of(BMItems.WART.get(), 5, 4));
 
         addQuestItem(QuestCategory.OCEAN, QuestItem.of(Blocks.KELP, 0.8F, 5));
         addQuestItem(QuestCategory.OCEAN, QuestItem.of(Blocks.SEAGRASS, 0.8F, 5));
@@ -141,7 +141,7 @@ public class WitchQuestHandler
         addQuestItem(QuestCategory.COMMON, QuestItem.of(Blocks.LARGE_FERN, 0.75F, 4));
         addQuestItem(QuestCategory.COMMON, QuestItem.of(Blocks.GRASS, 0.5F, 4));
         addQuestItem(QuestCategory.COMMON, QuestItem.of(Blocks.CAULDRON, 4F, 1));
-        addQuestItem(QuestCategory.COMMON, QuestItem.of(BMItems.BAT_WING, 3F, 1));
+        addQuestItem(QuestCategory.COMMON, QuestItem.of(BMItems.BAT_WING.get(), 3F, 1));
 
         addQuestItem(QuestCategory.RARE, QuestItem.of(Blocks.WITHER_ROSE, 10, 1));
         addQuestItem(QuestCategory.RARE, QuestItem.of(Items.TOTEM_OF_UNDYING, 15, 1));

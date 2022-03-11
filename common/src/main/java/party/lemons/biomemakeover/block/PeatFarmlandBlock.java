@@ -66,7 +66,7 @@ public class PeatFarmlandBlock extends FarmBlock implements BlockWithItem
 
     public static void setToPeat(BlockState state, Level world, BlockPos pos)
     {
-        world.setBlock(pos, pushEntitiesUp(state, BMBlocks.PEAT.defaultBlockState(), world, pos), 3);
+        world.setBlock(pos, pushEntitiesUp(state, BMBlocks.PEAT.get().defaultBlockState(), world, pos), 3);
     }
 
     private static boolean isWaterNearby(Level world, BlockPos pos) {

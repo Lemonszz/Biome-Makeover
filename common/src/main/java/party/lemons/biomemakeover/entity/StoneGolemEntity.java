@@ -108,7 +108,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
         {
             ItemStack playerStack = player.getItemInHand(hand);
 
-            if(!playerStack.isEmpty() && playerStack.getItem() == BMBlocks.CLADDED_STONE.asItem())
+            if(!playerStack.isEmpty() && playerStack.getItem() == BMBlocks.CLADDED_STONE.get().asItem())
             {
                 float currentHealth = this.getHealth();
                 this.heal(15.0F);
@@ -253,13 +253,13 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     @Override
     protected SoundEvent getDeathSound()
     {
-        return BMEffects.STONE_GOLEM_DEATH;
+        return BMEffects.STONE_GOLEM_DEATH.get();
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source)
     {
-        return BMEffects.STONE_GOLEM_HURT;
+        return BMEffects.STONE_GOLEM_HURT.get();
     }
 
     @Override

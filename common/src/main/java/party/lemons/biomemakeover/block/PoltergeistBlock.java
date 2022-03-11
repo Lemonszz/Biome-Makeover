@@ -82,7 +82,7 @@ public class PoltergeistBlock extends BMBlock implements EntityBlock
 
     private void doToggleEffects(Level world, BlockPos pos)
     {
-        world.playSound(null, pos, BMEffects.POLTERGEIST_TOGGLE, SoundSource.BLOCKS, 1F, 1F);
+        world.playSound(null, pos, BMEffects.POLTERGEIST_TOGGLE.get(), SoundSource.BLOCKS, 1F, 1F);
         PoltergeistHandler.doParticles(world, pos);
     }
 

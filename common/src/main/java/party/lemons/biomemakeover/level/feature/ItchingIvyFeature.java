@@ -30,10 +30,10 @@ public class ItchingIvyFeature extends Feature<NoneFeatureConfiguration> {
         if(!level.getBlockState(genPos.below()).is(BlockTags.LEAVES))
             return false;
 
-        BlockState placeState = ((MothBlossomBlock)BMBlocks.MOTH_BLOSSOM).getGrowState(level, genPos);
+        BlockState placeState = ((MothBlossomBlock)BMBlocks.MOTH_BLOSSOM.get()).getGrowState(level, genPos);
         if(placeState != Blocks.AIR.defaultBlockState()) {
             level.setBlock(genPos, placeState, 3);
-            level.scheduleTick(genPos, BMBlocks.MOTH_BLOSSOM, 0);
+            level.scheduleTick(genPos, BMBlocks.MOTH_BLOSSOM.get(), 0);
 
             for (int i = 0; i < 10; i++) {
                 int ivyX = RandomUtil.randomRange(-5, 5);
@@ -41,8 +41,8 @@ public class ItchingIvyFeature extends Feature<NoneFeatureConfiguration> {
                 BlockPos ivyPos = genPos.offset(ivyX, 0, ivyZ);
                 ivyPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ivyPos);
                 if (level.getBlockState(ivyPos.below()).is(BlockTags.LEAVES)) {
-                    level.setBlock(ivyPos, BMBlocks.ITCHING_IVY.defaultBlockState().setValue(IvyBlock.getPropertyForDirection(Direction.DOWN), true), 3);
-                    level.scheduleTick(ivyPos, BMBlocks.ITCHING_IVY, 0);
+                    level.setBlock(ivyPos, BMBlocks.ITCHING_IVY.get().defaultBlockState().setValue(IvyBlock.getPropertyForDirection(Direction.DOWN), true), 3);
+                    level.scheduleTick(ivyPos, BMBlocks.ITCHING_IVY.get(), 0);
                 }
 
             }

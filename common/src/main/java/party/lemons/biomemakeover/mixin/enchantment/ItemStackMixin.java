@@ -13,6 +13,6 @@ public class ItemStackMixin
     @ModifyVariable(at = @At("HEAD"), method = "hurtAndBreak")
     private int modifyAmount(int amount)
     {
-        return amount + EnchantmentHelper.getItemEnchantmentLevel(BMEnchantments.DECAY_CURSE, ((ItemStack) (Object)this));
+        return amount + EnchantmentHelper.getItemEnchantmentLevel(BMEnchantments.DECAY_CURSE.get(), ((ItemStack) (Object)this));
     }
 }

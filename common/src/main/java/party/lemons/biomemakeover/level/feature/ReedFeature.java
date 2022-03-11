@@ -25,8 +25,8 @@ public class ReedFeature extends Feature<NoneFeatureConfiguration>
     private static final int SPREADZ = 4;
     private static final int SPREADY = 0;
     private static final BlockStateProvider STATES = new WeightedStateProvider(SimpleWeightedRandomList .<BlockState>builder()
-                .add(BMBlocks.REED.defaultBlockState(), 10)
-                .add(BMBlocks.CATTAIL.defaultBlockState(), 5)
+                .add(BMBlocks.REED.get().defaultBlockState(), 10)
+                .add(BMBlocks.CATTAIL.get().defaultBlockState(), 5)
         );
     public ReedFeature(Codec<NoneFeatureConfiguration> codec)
     {

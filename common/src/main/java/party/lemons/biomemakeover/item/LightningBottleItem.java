@@ -51,7 +51,7 @@ public class LightningBottleItem extends Item
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand interactionHand) {
         ItemStack itemStack = user.getItemInHand(interactionHand);
-        level.playSound(null, user.getX(), user.getY(), user.getZ(), BMEffects.LIGHTNING_BOTTLE_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (RandomUtil.RANDOM.nextFloat() * 0.4F + 0.8F));
+        level.playSound(null, user.getX(), user.getY(), user.getZ(), BMEffects.LIGHTNING_BOTTLE_THROW.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (RandomUtil.RANDOM.nextFloat() * 0.4F + 0.8F));
 
         if(!level.isClientSide())
         {

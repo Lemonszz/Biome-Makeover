@@ -27,7 +27,7 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
 
         this.minecraft = Minecraft.getInstance();
         BlockState state = minecraft.getInstance().level.getBlockState(handler.pos);
-        if(!state.is(BMBlocks.DIRECTIONAL_DATA))
+        if(!state.is(BMBlocks.DIRECTIONAL_DATA.get()))
         {
             this.minecraft.setScreen(null);
             return;

@@ -1,26 +1,34 @@
 package party.lemons.biomemakeover.init;
 
+import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.enchantment.Enchantment;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.item.enchantment.*;
 import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
+import java.util.function.Supplier;
+
 public class BMEnchantments {
+
+    public static final DeferredRegister<Enchantment> ENCHANTS = DeferredRegister.create(Constants.MOD_ID, Registry.ENCHANTMENT_REGISTRY);
+
     //TODO: Some of these don't really need their own class.
 
-    public static final Enchantment DECAY_CURSE = new DecayCurseEnchantment();
-    public static final Enchantment INSOMNIA_CURSE = new InsomniaCurseEnchantment();
-    public static final Enchantment CONDUCTIVITY_CURSE = new ConductivityCurseEnchantment();
-    public static final Enchantment ENFEEBLEMENT_CURSE = new EnfeeblementCurseEnchantment();
-    public static final Enchantment DEPTH_CURSE = new DepthsCurseEnchantment();
-    public static final Enchantment FLAMMABILITY_CURSE = new FlammabilityCurseEnchantment();
-    public static final Enchantment SUFFOCATION_CURSE = new SuffocationCurseEnchantment();
-    public static final Enchantment UNWIELDINESS_CURSE = new UnwieldinessCurseEnchantment();
-    public static final Enchantment INACCURACY_CURSE = new InaccuracyCurseEnchantment();
-    public static final Enchantment BUCKLING_CURSE = new BucklingCurseEnchantment();
+    public static final Supplier<Enchantment> DECAY_CURSE = ENCHANTS.register(BiomeMakeover.ID("decay_curse"), DecayCurseEnchantment::new);
+    public static final Supplier<Enchantment> INSOMNIA_CURSE = ENCHANTS.register(BiomeMakeover.ID("insomnia_curse"), InsomniaCurseEnchantment::new);
+    public static final Supplier<Enchantment> CONDUCTIVITY_CURSE = ENCHANTS.register(BiomeMakeover.ID("conductivity_curse"), ConductivityCurseEnchantment::new);
+    public static final Supplier<Enchantment> ENFEEBLEMENT_CURSE = ENCHANTS.register(BiomeMakeover.ID("enfeeblement_curse"), EnfeeblementCurseEnchantment::new);
+    public static final Supplier<Enchantment> DEPTH_CURSE = ENCHANTS.register(BiomeMakeover.ID("depth_curse"), DepthsCurseEnchantment::new);
+    public static final Supplier<Enchantment> FLAMMABILITY_CURSE = ENCHANTS.register(BiomeMakeover.ID("flammability_curse"), FlammabilityCurseEnchantment::new);
+    public static final Supplier<Enchantment> SUFFOCATION_CURSE = ENCHANTS.register(BiomeMakeover.ID("suffocation_curse"), SuffocationCurseEnchantment::new);
+    public static final Supplier<Enchantment> UNWIELDINESS_CURSE = ENCHANTS.register(BiomeMakeover.ID("unwieldiness_curse"), UnwieldinessCurseEnchantment::new);
+    public static final Supplier<Enchantment> INACCURACY_CURSE = ENCHANTS.register(BiomeMakeover.ID("inaccuracy_curse"), InaccuracyCurseEnchantment::new);
+    public static final Supplier<Enchantment> BUCKLING_CURSE = ENCHANTS.register(BiomeMakeover.ID("buckling_curse"), BucklingCurseEnchantment::new);
 
     public static void init() {
-        RegistryHelper.register(Constants.MOD_ID, Registry.ENCHANTMENT, Enchantment.class, BMEnchantments.class);
+        ENCHANTS.register();
     }
 }

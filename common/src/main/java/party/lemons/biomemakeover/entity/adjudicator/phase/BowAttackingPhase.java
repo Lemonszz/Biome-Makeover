@@ -27,7 +27,7 @@ public class BowAttackingPhase extends AttackingPhase
     {
         super.onEnterPhase();
         adjudicator.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BOW));
-        adjudicator.playSound(BMEffects.ADJUDICATOR_GRUNT, 1F, 1F);
+        adjudicator.playSound(BMEffects.ADJUDICATOR_GRUNT.get(), 1F, 1F);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class StoneGolemTurnSoundInstance extends AbstractTickableSoundInstance {
 
     public StoneGolemTurnSoundInstance(StoneGolemEntity golem)
     {
-        super(BMEffects.STONE_GOLEM_TURN, SoundSource.NEUTRAL);
+        super(BMEffects.STONE_GOLEM_TURN.get(), SoundSource.NEUTRAL);
         this.golem = golem;
         this.volume = 0.5F;
         noTurnTime = 0;
@@ -41,7 +41,7 @@ public class StoneGolemTurnSoundInstance extends AbstractTickableSoundInstance {
         if(golem.isRemoved() || noTurnTime > 3 || !Minecraft.getInstance().getSoundManager().isActive(this))
         {
             if(time > 5 && !isStopped())
-                Minecraft.getInstance().getSoundManager().queueTickingSound(new EntityBoundSoundInstance(BMEffects.STONE_GOLEM_STOP, SoundSource.NEUTRAL, 0.25F, 1F + ((-0.5F + golem.getRandom().nextFloat()) / 5F), golem));
+                Minecraft.getInstance().getSoundManager().queueTickingSound(new EntityBoundSoundInstance(BMEffects.STONE_GOLEM_STOP.get(), SoundSource.NEUTRAL, 0.25F, 1F + ((-0.5F + golem.getRandom().nextFloat()) / 5F), golem));
             stop();
         }
     }

@@ -138,13 +138,13 @@ public class DragonflyEntity extends ToadTargetEntity implements FlyingAnimal {
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BMEffects.DRAGONFLY_HURT;
+        return BMEffects.DRAGONFLY_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return BMEffects.DRAGONFLY_DEATH;
+        return BMEffects.DRAGONFLY_DEATH.get();
     }
 
     @Override

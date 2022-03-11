@@ -44,7 +44,7 @@ public class FangBarragePhase extends TimedPhase
         super.tick();
         if(time % 50 == 0)
         {
-            adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_2, 1F, 1F);
+            adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_2.get(), 1F, 1F);
             for(HorizontalDirection direction : HorizontalDirection.values())
             {
                 for(int i = 0; i < 10; i++)

@@ -53,7 +53,7 @@ public class PaydirtFeature extends Feature<NoneFeatureConfiguration>
 
                     if(!found) continue;
 
-                    level.setBlock(generatePos, BMBlocks.PAYDIRT.defaultBlockState(), 4);
+                    level.setBlock(generatePos, BMBlocks.PAYDIRT.get().defaultBlockState(), 4);
                 }
             }
 

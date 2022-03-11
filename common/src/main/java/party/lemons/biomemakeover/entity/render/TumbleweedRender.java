@@ -31,7 +31,7 @@ public class TumbleweedRender extends EntityRenderer<TumbleweedEntity> {
         poseStack.translate(-0.5D, -0.5D, 0.5D);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
 
-        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(BMBlocks.TUMBLEWEED.defaultBlockState(), poseStack, multiBufferSource, i, OverlayTexture.NO_OVERLAY);
+        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(BMBlocks.TUMBLEWEED.get().defaultBlockState(), poseStack, multiBufferSource, i, OverlayTexture.NO_OVERLAY);
 
         poseStack.popPose();
     }

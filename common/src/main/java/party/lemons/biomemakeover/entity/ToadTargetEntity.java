@@ -50,7 +50,7 @@ public class ToadTargetEntity extends PathfinderMob {
 
                 if(distanceTo(eatenBy) <= 0.2F)
                 {
-                    eatenBy.playSound(BMEffects.TOAD_SWALLOW, 1F, 1F + ((float) random.nextGaussian() / 5F));
+                    eatenBy.playSound(BMEffects.TOAD_SWALLOW.get(), 1F, 1F + ((float) random.nextGaussian() / 5F));
                     remove(RemovalReason.DISCARDED);
                 }
             }

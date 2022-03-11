@@ -32,7 +32,7 @@ public class WitchMenu extends AbstractContainerMenu {
 
     public WitchMenu(int containerID, Inventory playerInventory, WitchQuestEntity witch)
     {
-        super(BMScreens.WITCH, containerID);
+        super(BMScreens.WITCH.get(), containerID);
 
         this.witch = witch;
         this.container = new SimpleContainer(1);

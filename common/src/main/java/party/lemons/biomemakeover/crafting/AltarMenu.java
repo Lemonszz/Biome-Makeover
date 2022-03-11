@@ -23,7 +23,7 @@ public class AltarMenu extends AbstractContainerMenu
     }
 
     public AltarMenu(int containerID, Inventory playerInventory, Container inventory, ContainerData data) {
-        super(BMScreens.ALTAR, containerID);
+        super(BMScreens.ALTAR.get(), containerID);
 
         checkContainerSize(inventory, 2);
         checkContainerDataCount(data, 1);

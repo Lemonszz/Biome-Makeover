@@ -52,8 +52,8 @@ public class HatLayer<T extends LivingEntity, M extends EntityModel<T>> extends 
         if(hatItem != null)
         {
             if(MODELS.isEmpty()) {  //Doing this here to prevent premature class loading
-                MODELS.put(BMItems.COWBOY_HAT, new CowboyHatModel<>(modelSet.bakeLayer(CowboyHatModel.LAYER_LOCATION)));
-                MODELS.put(BMItems.WITCH_HAT,new WitchHatModel<>(modelSet.bakeLayer(WitchHatModel.LAYER_LOCATION)));
+                MODELS.put(BMItems.COWBOY_HAT.get(), new CowboyHatModel<>(modelSet.bakeLayer(CowboyHatModel.LAYER_LOCATION)));
+                MODELS.put(BMItems.WITCH_HAT.get(),new WitchHatModel<>(modelSet.bakeLayer(WitchHatModel.LAYER_LOCATION)));
             }
 
             return MODELS.get(hatItem);

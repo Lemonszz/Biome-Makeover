@@ -45,7 +45,7 @@ public class ScuttlerEntity extends Animal {
     public static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(ScuttlerEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(ScuttlerEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public Ingredient TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS);
+    public Ingredient TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS.get());
     public float rattleTime = 0;
     private int eatCooldown = 100;
     public int eatTime = 0;
@@ -56,7 +56,7 @@ public class ScuttlerEntity extends Animal {
 
     @Override
     protected void registerGoals() {
-        TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS);
+        TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS.get());
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TemptGoal(this, 0.7D, TEMPT_ITEM, false));
@@ -98,7 +98,7 @@ public class ScuttlerEntity extends Animal {
 
             if(dir != Math.signum(Math.sin(rattleTime)))
             {
-                playSound(BMEffects.SCUTTLER_RATTLE, 0.25F, 0.75F + random.nextFloat());
+                playSound(BMEffects.SCUTTLER_RATTLE.get(), 0.25F, 0.75F + random.nextFloat());
             }
         }else
         {
@@ -170,7 +170,7 @@ public class ScuttlerEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        ScuttlerEntity baby = BMEntities.SCUTTLER.create(serverLevel);
+        ScuttlerEntity baby = BMEntities.SCUTTLER.get().create(serverLevel);
         baby.setPassive(true);
         return baby;
     }
@@ -203,7 +203,7 @@ public class ScuttlerEntity extends Animal {
     protected void playStepSound(BlockPos blockPos, BlockState state) {
         if(!state.getMaterial().isLiquid())
         {
-            playSound(BMEffects.SCUTTLER_STEP, 0.10F, 1.25F + random.nextFloat());
+            playSound(BMEffects.SCUTTLER_STEP.get(), 0.10F, 1.25F + random.nextFloat());
             spawnSprintParticle();
         }
     }
@@ -211,13 +211,13 @@ public class ScuttlerEntity extends Animal {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return BMEffects.SCUTTLER_DEATH;
+        return BMEffects.SCUTTLER_DEATH.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BMEffects.SCUTTLER_RATTLE;
+        return BMEffects.SCUTTLER_RATTLE.get();
     }
 
     @Override
@@ -272,14 +272,14 @@ public class ScuttlerEntity extends Animal {
                 return false;
             }else
             {
-                return !targetEntity.isHolding(BMItems.PINK_PETALS) && scuttler.distanceTo(targetEntity) >= distance / 2;
+                return !targetEntity.isHolding(BMItems.PINK_PETALS.get()) && scuttler.distanceTo(targetEntity) >= distance / 2;
             }
         }
 
         @Override
         public boolean canContinueToUse()
         {
-            if(targetEntity.isHolding(BMItems.PINK_PETALS)) return false;
+            if(targetEntity.isHolding(BMItems.PINK_PETALS.get())) return false;
 
             double d = scuttler.distanceTo(targetEntity);
             return d > distance / 2 && d < distance && scuttler.hasLineOfSight(targetEntity) && targetEntity.hasLineOfSight(scuttler);
@@ -372,10 +372,10 @@ public class ScuttlerEntity extends Animal {
             if(eatTime <= 1)
             {
                 BlockState st = level.getBlockState(targetPos);
-                if(st.is(BMBlocks.BARREL_CACTUS_FLOWERED))
+                if(st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                 {
-                    level.setBlock(targetPos, BMBlocks.BARREL_CACTUS.defaultBlockState(), 2);
-                    Containers.dropItemStack(level, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETALS));
+                    level.setBlock(targetPos, BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 2);
+                    Containers.dropItemStack(level, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETALS.get()));
                     eatCooldown = 100 + random.nextInt(200);
                 }
             }
@@ -387,7 +387,7 @@ public class ScuttlerEntity extends Animal {
             if(eatTime <= 0 || eatCooldown > 0) return false;
 
             BlockState st = level.getBlockState(targetPos);
-            if(!st.is(BMBlocks.BARREL_CACTUS_FLOWERED)) return false;
+            if(!st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get())) return false;
 
             return distanceToSqr(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 2;
         }
@@ -417,7 +417,7 @@ public class ScuttlerEntity extends Animal {
                 {
                     m.set(x, startPos.getY(), z);
                     BlockState checkState = level.getBlockState(m);
-                    if(checkState.is(BMBlocks.BARREL_CACTUS_FLOWERED))
+                    if(checkState.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                     {
                         spots.add(new BlockPos(m.getX(), m.getY(), m.getZ()));
                     }

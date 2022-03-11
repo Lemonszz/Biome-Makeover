@@ -43,7 +43,7 @@ public class SmallLilyPadBlock extends WaterlilyBlock implements BlockWithItem, 
         ItemStack stack = player.getItemInHand(hand);
         BlockPos pos = blockHitResult.getBlockPos();
 
-        if(level.mayInteract(player, pos) && state.getValue(PADS) < 3 && !stack.isEmpty() && stack.getItem() == BMBlocks.SMALL_LILY_PAD.asItem())
+        if(level.mayInteract(player, pos) && state.getValue(PADS) < 3 && !stack.isEmpty() && stack.getItem() == BMBlocks.SMALL_LILY_PAD.get().asItem())
         {
             level.setBlock(pos, state.setValue(PADS, state.getValue(PADS) + 1), 3);
             if(!player.isCreative()) stack.shrink(1);

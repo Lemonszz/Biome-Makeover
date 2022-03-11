@@ -69,7 +69,7 @@ public class MesmeriteBoulderFeature extends Feature<BlockStateConfiguration>
                             placePos = placePos.below();
                             belowState = level.getBlockState(placePos.below());
                         }
-                        if(!(belowState.is(BMBlocks.MESMERITE) || isDirt(belowState) || isStone(belowState) || belowState.getBlock() == Blocks.GRAVEL))
+                        if(!(belowState.is(BMBlocks.MESMERITE.get()) || isDirt(belowState) || isStone(belowState) || belowState.getBlock() == Blocks.GRAVEL))
                             continue;
 
                         level.setBlock(placePos, ctx.config().state, 4);
@@ -87,7 +87,7 @@ public class MesmeriteBoulderFeature extends Feature<BlockStateConfiguration>
                         BlockPos offsetPos = placePositions.relative(direction);
                         if(level.isEmptyBlock(offsetPos) && random.nextBoolean())
                         {
-                            level.setBlock(offsetPos, BMBlocks.ILLUNITE_CLUSTER.defaultBlockState().setValue(IlluniteClusterBlock.FACING, direction), 16);
+                            level.setBlock(offsetPos, BMBlocks.ILLUNITE_CLUSTER.get().defaultBlockState().setValue(IlluniteClusterBlock.FACING, direction), 16);
                         }
                     }
                 }

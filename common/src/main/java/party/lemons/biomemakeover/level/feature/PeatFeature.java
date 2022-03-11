@@ -49,7 +49,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
                         placePeat(placePos, level, random, 5);
                         if(random.nextInt(20) == 0)
                         {
-                            level.setBlock(placePos.above(), BMBlocks.MOSSY_PEAT.defaultBlockState(), 2);
+                            level.setBlock(placePos.above(), BMBlocks.MOSSY_PEAT.get().defaultBlockState(), 2);
                         }
                         placeCount++;
                         isSuccessful = true;
@@ -72,7 +72,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
                         BlockState upState = level.getBlockState(placePos.above());
                         if(random.nextInt(5) == 0 && level.getBlockState(placePos).canOcclude() && upState.is(Blocks.WATER) && level.getBlockState(placePos.above(2)).isAir())
                         {
-                            level.setBlock(placePos, BMBlocks.MOSSY_PEAT.defaultBlockState(), 2);
+                            level.setBlock(placePos, BMBlocks.MOSSY_PEAT.get().defaultBlockState(), 2);
                         }
                     }
                 }
@@ -102,7 +102,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
 
     private void placePeat(BlockPos pos, WorldGenLevel level, Random random, int chance)
     {
-        level.setBlock(pos, BMBlocks.PEAT.defaultBlockState(), 2);
+        level.setBlock(pos, BMBlocks.PEAT.get().defaultBlockState(), 2);
         if(random.nextInt(chance) == 0)
         {
             placePeat(pos.below(), level, random, chance + 2);

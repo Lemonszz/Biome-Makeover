@@ -7,6 +7,6 @@ import party.lemons.biomemakeover.init.BMBlockEntities;
 
 public class TapestryBlockEntity extends BlockEntity {
     public TapestryBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BMBlockEntities.TAPESTRY, blockPos, blockState);
+        super(BMBlockEntities.TAPESTRY.get(), blockPos, blockState);
     }
 }

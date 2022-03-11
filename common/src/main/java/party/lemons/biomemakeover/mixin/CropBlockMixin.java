@@ -20,7 +20,7 @@ public class CropBlockMixin
     @Inject(at = @At("HEAD"), method = "mayPlaceOn", cancellable = true)
     private void mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<Boolean> cbi)
     {
-        if(blockState.is(BMBlocks.PEAT_FARMLAND))
+        if(blockState.is(BMBlocks.PEAT_FARMLAND.get()))
             cbi.setReturnValue(true);
 
     }
@@ -28,6 +28,6 @@ public class CropBlockMixin
     @Redirect(at = @At(value = "INVOKE", target = "net/minecraft/world/level/block/state/BlockState.is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0), method = "getGrowthSpeed")
     private static boolean isFarmland(BlockState blockState, Block block)
     {
-        return blockState.is(Blocks.FARMLAND) || blockState.is(BMBlocks.PEAT_FARMLAND);
+        return blockState.is(Blocks.FARMLAND) || blockState.is(BMBlocks.PEAT_FARMLAND.get());
     }
 }

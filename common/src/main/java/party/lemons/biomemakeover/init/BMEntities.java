@@ -1,9 +1,11 @@
 package party.lemons.biomemakeover.init;
 
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.level.biome.BiomeModifications;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
+import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.SharedConstants;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -50,34 +53,36 @@ import party.lemons.biomemakeover.util.registry.boat.BoatTypes;
 
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class BMEntities
 {
     static boolean dfCache = SharedConstants.CHECK_DATA_FIXER_SCHEMA;
     static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;}
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registry.ENTITY_TYPE_REGISTRY);
 
-    public static final EntityType<TumbleweedEntity> TUMBLEWEED = EntityType.Builder.of(TumbleweedEntity::new, MobCategory.MISC).sized(0.7F, 0.7F).clientTrackingRange(12).build("tumbleweed");
-    public static final EntityType<BMBoatEntity> BM_BOAT = EntityType.Builder.of( (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_boat");
-    public static final EntityType<LightningBottleEntity> LIGHTNING_BOTTLE = EntityType.Builder.of( (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new, MobCategory.MISC).clientTrackingRange(10).updateInterval(4).sized(0.25F, 0.25F).build("lightning_bottle");
+    public static final Supplier<EntityType<TumbleweedEntity>> TUMBLEWEED = ENTITIES.register(BiomeMakeover.ID("tumbleweed"), ()->EntityType.Builder.of(TumbleweedEntity::new, MobCategory.MISC).sized(0.7F, 0.7F).clientTrackingRange(12).build("tumbleweed"));
+    public static final Supplier<EntityType<BMBoatEntity>> BM_BOAT = ENTITIES.register(BiomeMakeover.ID("bm_boat"), ()->EntityType.Builder.of( (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_boat"));
+    public static final Supplier<EntityType<LightningBottleEntity>> LIGHTNING_BOTTLE = ENTITIES.register(BiomeMakeover.ID("lightning_bottle"), ()->EntityType.Builder.of( (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new, MobCategory.MISC).clientTrackingRange(10).updateInterval(4).sized(0.25F, 0.25F).build("lightning_bottle"));
 
-    public static final EntityType<GlowfishEntity> GLOWFISH = EntityType.Builder.of(GlowfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.7F, 0.4F).clientTrackingRange(4).build("glowfish");
-    public static final EntityType<BlightBatEntity> BLIGHTBAT = EntityType.Builder.of(BlightBatEntity::new, MobCategory.AMBIENT).sized(0.56F, 0.9F).clientTrackingRange(5).build("blightbat");
-    public static final EntityType<MushroomVillagerEntity> MUSHROOM_TRADER = EntityType.Builder.of(MushroomVillagerEntity::new, MobCategory.AMBIENT).sized(0.6F, 1.95F).clientTrackingRange(12).build("mushroom_trader");
-    public static final EntityType<ScuttlerEntity> SCUTTLER = EntityType.Builder.of(ScuttlerEntity::new, MobCategory.CREATURE).sized(0.8F, 0.6F).clientTrackingRange(12).build("scuttler");
-    public static final EntityType<GhostEntity> GHOST = EntityType.Builder.of(GhostEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).canSpawnFarFromPlayer().clientTrackingRange(12).build("ghost");
-    public static final EntityType<CowboyEntity> COWBOY = EntityType.Builder.of(CowboyEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).canSpawnFarFromPlayer().clientTrackingRange(12).build("cowboy");
-    public static final EntityType<DecayedEntity> DECAYED = EntityType.Builder.of(DecayedEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("decayed");
-    public static final EntityType<DragonflyEntity> DRAGONFLY = EntityType.Builder.of(DragonflyEntity::new, MobCategory.AMBIENT).sized(0.8F, 0.6F).clientTrackingRange(12).build("dragonfly");
-    public static final EntityType<ToadEntity> TOAD = EntityType.Builder.of(ToadEntity::new, MobCategory.CREATURE).sized(0.8F, 0.6F).clientTrackingRange(12).build("toad");
-    public static final EntityType<TadpoleEntity> TADPOLE = EntityType.Builder.of(TadpoleEntity::new, MobCategory.WATER_CREATURE).sized(0.5F, 0.3F).clientTrackingRange(12).build("tadpole");
-    public static final EntityType<LightningBugEntity> LIGHTNING_BUG = EntityType.Builder.of((EntityType.EntityFactory<LightningBugEntity>) LightningBugEntity::new, MobCategory.AMBIENT).sized(0.4F, 0.4F).clientTrackingRange(12).build("lightning_bug");
-    public static final EntityType<LightningBugEntity> LIGHTNING_BUG_ALTERNATE = EntityType.Builder.of((EntityType.EntityFactory<LightningBugEntity>) (entityType, level) -> new LightningBugEntity(level, true), MobCategory.AMBIENT).sized(0.4F, 0.4F).clientTrackingRange(12).build("lightning_bug_alternate");
-    public static final EntityType<OwlEntity> OWL = EntityType.Builder.of(OwlEntity::new, MobCategory.CREATURE).sized(0.7F, 0.8F).clientTrackingRange(12).build("owl");
-    public static final EntityType<MothEntity> MOTH = EntityType.Builder.of(MothEntity::new, MobCategory.MONSTER).sized(0.8F, 1.2F).clientTrackingRange(12).build("moth");
-    public static final EntityType<RootlingEntity> ROOTLING = EntityType.Builder.of(RootlingEntity::new, MobCategory.CREATURE).sized(0.6F, 1.1F).clientTrackingRange(12).build("rootling");
-    public static final EntityType<AdjudicatorEntity> ADJUDICATOR = EntityType.Builder.of(AdjudicatorEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator");
-    public static final EntityType<AdjudicatorMimicEntity> ADJUDICATOR_MIMIC = EntityType.Builder.of(AdjudicatorMimicEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator_mimic");
-    public static final EntityType<StoneGolemEntity> STONE_GOLEM = EntityType.Builder.of(StoneGolemEntity::new, MobCategory.MISC).sized(1.6F, 2.5F).clientTrackingRange(12).build("stone_golem");
+    public static final Supplier<EntityType<GlowfishEntity>> GLOWFISH = ENTITIES.register(BiomeMakeover.ID("glowfish"), ()->EntityType.Builder.of(GlowfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.7F, 0.4F).clientTrackingRange(4).build("glowfish"));
+    public static final Supplier<EntityType<BlightBatEntity>> BLIGHTBAT = ENTITIES.register(BiomeMakeover.ID("blightbat"), ()->EntityType.Builder.of(BlightBatEntity::new, MobCategory.AMBIENT).sized(0.56F, 0.9F).clientTrackingRange(5).build("blightbat"));
+    public static final Supplier<EntityType<MushroomVillagerEntity>> MUSHROOM_TRADER = ENTITIES.register(BiomeMakeover.ID("mushroom_trader"), ()->EntityType.Builder.of(MushroomVillagerEntity::new, MobCategory.AMBIENT).sized(0.6F, 1.95F).clientTrackingRange(12).build("mushroom_trader"));
+    public static final Supplier<EntityType<ScuttlerEntity>> SCUTTLER = ENTITIES.register(BiomeMakeover.ID("scuttler"), ()->EntityType.Builder.of(ScuttlerEntity::new, MobCategory.CREATURE).sized(0.8F, 0.6F).clientTrackingRange(12).build("scuttler"));
+    public static final Supplier<EntityType<GhostEntity>> GHOST = ENTITIES.register(BiomeMakeover.ID("ghost"), ()->EntityType.Builder.of(GhostEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).canSpawnFarFromPlayer().clientTrackingRange(12).build("ghost"));
+    public static final Supplier<EntityType<CowboyEntity>> COWBOY = ENTITIES.register(BiomeMakeover.ID("cowboy"), ()->EntityType.Builder.of(CowboyEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).canSpawnFarFromPlayer().clientTrackingRange(12).build("cowboy"));
+    public static final Supplier<EntityType<DecayedEntity>> DECAYED = ENTITIES.register(BiomeMakeover.ID("decayed"), ()->EntityType.Builder.of(DecayedEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("decayed"));
+    public static final Supplier<EntityType<DragonflyEntity>> DRAGONFLY = ENTITIES.register(BiomeMakeover.ID("dragonfly"), ()->EntityType.Builder.of(DragonflyEntity::new, MobCategory.AMBIENT).sized(0.8F, 0.6F).clientTrackingRange(12).build("dragonfly"));
+    public static final Supplier<EntityType<ToadEntity>> TOAD = ENTITIES.register(BiomeMakeover.ID("toad"), ()->EntityType.Builder.of(ToadEntity::new, MobCategory.CREATURE).sized(0.8F, 0.6F).clientTrackingRange(12).build("toad"));
+    public static final Supplier<EntityType<TadpoleEntity>> TADPOLE = ENTITIES.register(BiomeMakeover.ID("tadpole"), ()->EntityType.Builder.of(TadpoleEntity::new, MobCategory.WATER_CREATURE).sized(0.5F, 0.3F).clientTrackingRange(12).build("tadpole"));
+    public static final Supplier<EntityType<LightningBugEntity>> LIGHTNING_BUG = ENTITIES.register(BiomeMakeover.ID("lightning_bug"), ()->EntityType.Builder.of((EntityType.EntityFactory<LightningBugEntity>) LightningBugEntity::new, MobCategory.AMBIENT).sized(0.4F, 0.4F).clientTrackingRange(12).build("lightning_bug"));
+    public static final Supplier<EntityType<LightningBugEntity>> LIGHTNING_BUG_ALTERNATE = ENTITIES.register(BiomeMakeover.ID("lightning_bug_alternate"), ()->EntityType.Builder.of((EntityType.EntityFactory<LightningBugEntity>) (entityType, level) -> new LightningBugEntity(level, true), MobCategory.AMBIENT).sized(0.4F, 0.4F).clientTrackingRange(12).build("lightning_bug_alternate"));
+    public static final Supplier<EntityType<OwlEntity>> OWL = ENTITIES.register(BiomeMakeover.ID("owl"), ()->EntityType.Builder.of(OwlEntity::new, MobCategory.CREATURE).sized(0.7F, 0.8F).clientTrackingRange(12).build("owl"));
+    public static final Supplier<EntityType<MothEntity>> MOTH = ENTITIES.register(BiomeMakeover.ID("moth"), ()->EntityType.Builder.of(MothEntity::new, MobCategory.MONSTER).sized(0.8F, 1.2F).clientTrackingRange(12).build("moth"));
+    public static final Supplier<EntityType<RootlingEntity>> ROOTLING = ENTITIES.register(BiomeMakeover.ID("rootling"), ()->EntityType.Builder.of(RootlingEntity::new, MobCategory.CREATURE).sized(0.6F, 1.1F).clientTrackingRange(12).build("rootling"));
+    public static final Supplier<EntityType<AdjudicatorEntity>> ADJUDICATOR = ENTITIES.register(BiomeMakeover.ID("adjudicator"), ()->EntityType.Builder.of(AdjudicatorEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator"));
+    public static final Supplier<EntityType<AdjudicatorMimicEntity>> ADJUDICATOR_MIMIC = ENTITIES.register(BiomeMakeover.ID("adjudicator_mimic"), ()->EntityType.Builder.of(AdjudicatorMimicEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator_mimic"));
+    public static final Supplier<EntityType<StoneGolemEntity>> STONE_GOLEM = ENTITIES.register(BiomeMakeover.ID("stone_golem"), ()->EntityType.Builder.of(StoneGolemEntity::new, MobCategory.MISC).sized(1.6F, 2.5F).clientTrackingRange(12).build("stone_golem"));
 
     static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;}
 
@@ -87,45 +92,50 @@ public class BMEntities
     {
         boolean dfCache = SharedConstants.CHECK_DATA_FIXER_SCHEMA;
         SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;
-        RegistryHelper.register(Constants.MOD_ID, Registry.ENTITY_TYPE, EntityType.class, BMEntities.class);
+        ENTITIES.register();
         SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;
 
-        initSpawns();
+        LifecycleEvent.SETUP.register(()->{
+            GolemHandler.addPattern(
+                    BlockPatternBuilder.start().aisle("~^~", "###", "~#~")
+                            .where('^', BlockInWorld.hasState(((CarvedPumpkinAccess)Blocks.CARVED_PUMPKIN).bm_isGolemHeadBlock()))
+                            .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE.get())))
+                            .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
+                            ).build(),
+                    BlockPatternBuilder.start().aisle("~ ~", "###", "~#~")
+                            .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE.get())))
+                            .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
+                            ).build(),
+                    new GolemHandler.SummonGolemResult<>(BMEntities.STONE_GOLEM.get()));
+        });
+
         initAttributes();
-
-
-        GolemHandler.addPattern(
-                BlockPatternBuilder.start().aisle("~^~", "###", "~#~")
-                        .where('^', BlockInWorld.hasState(((CarvedPumpkinAccess)Blocks.CARVED_PUMPKIN).bm_isGolemHeadBlock()))
-                        .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE)))
-                        .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
-        ).build(),
-                BlockPatternBuilder.start().aisle("~ ~", "###", "~#~")
-                        .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE)))
-                        .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
-                        ).build(),
-                new GolemHandler.SummonGolemResult<>(STONE_GOLEM));
     }
 
+    public static void initSpawnsAndAttributes() {
+        initSpawns();
+    }
+
+
     public static void initAttributes() {
-        EntityAttributeRegistry.register(() -> GLOWFISH, GlowfishEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> BLIGHTBAT, BlightBatEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> MUSHROOM_TRADER, MushroomVillagerEntity::createMobAttributes);
-        EntityAttributeRegistry.register(() -> SCUTTLER, ScuttlerEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> GHOST, Monster::createMonsterAttributes);
-        EntityAttributeRegistry.register(() -> COWBOY, Pillager::createAttributes);
-        EntityAttributeRegistry.register(() -> DECAYED, DecayedEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> DRAGONFLY, DragonflyEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> TOAD, ToadEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> TADPOLE, TadpoleEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> LIGHTNING_BUG, LightningBugEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> LIGHTNING_BUG_ALTERNATE, LightningBugEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> OWL, OwlEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> MOTH, MothEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> ROOTLING, RootlingEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> ADJUDICATOR, AdjudicatorEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> ADJUDICATOR_MIMIC, AdjudicatorMimicEntity::createAttributes);
-        EntityAttributeRegistry.register(() -> STONE_GOLEM, StoneGolemEntity::createAttributes);
+        EntityAttributeRegistry.register(GLOWFISH::get, GlowfishEntity::createAttributes);
+        EntityAttributeRegistry.register(BLIGHTBAT::get, BlightBatEntity::createAttributes);
+        EntityAttributeRegistry.register(MUSHROOM_TRADER::get, MushroomVillagerEntity::createMobAttributes);
+        EntityAttributeRegistry.register(SCUTTLER::get, ScuttlerEntity::createAttributes);
+        EntityAttributeRegistry.register(GHOST::get, Monster::createMonsterAttributes);
+        EntityAttributeRegistry.register(COWBOY::get, Pillager::createAttributes);
+        EntityAttributeRegistry.register(DECAYED::get, DecayedEntity::createAttributes);
+        EntityAttributeRegistry.register(DRAGONFLY::get, DragonflyEntity::createAttributes);
+        EntityAttributeRegistry.register(TOAD::get, ToadEntity::createAttributes);
+        EntityAttributeRegistry.register(TADPOLE::get, TadpoleEntity::createAttributes);
+        EntityAttributeRegistry.register(LIGHTNING_BUG::get, LightningBugEntity::createAttributes);
+        EntityAttributeRegistry.register(LIGHTNING_BUG_ALTERNATE::get, LightningBugEntity::createAttributes);
+        EntityAttributeRegistry.register(OWL::get, OwlEntity::createAttributes);
+        EntityAttributeRegistry.register(MOTH::get, MothEntity::createAttributes);
+        EntityAttributeRegistry.register(ROOTLING::get, RootlingEntity::createAttributes);
+        EntityAttributeRegistry.register(ADJUDICATOR::get, AdjudicatorEntity::createAttributes);
+        EntityAttributeRegistry.register(ADJUDICATOR_MIMIC::get, AdjudicatorMimicEntity::createAttributes);
+        EntityAttributeRegistry.register(STONE_GOLEM::get, StoneGolemEntity::createAttributes);
     }
 
     private static void initSpawns()
@@ -135,37 +145,37 @@ public class BMEntities
         Predicate<BiomeModifications.BiomeContext> SWAMP_BIOMES = (ctx)->ctx.getProperties().getCategory() == Biome.BiomeCategory.SWAMP;
         Predicate<BiomeModifications.BiomeContext> DARK_FOREST = (ctx)->ctx.getKey().equals(new ResourceLocation("dark_forest"));
 
-        registerSpawn(MUSHROOM_BIOMES, GLOWFISH, MobCategory.WATER_AMBIENT, 7, 2, 7);
-        SpawnPlacementsInvoker.callRegister(GLOWFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        registerSpawn(MUSHROOM_BIOMES, GLOWFISH.get(), MobCategory.WATER_AMBIENT, 7, 2, 7);
+        SpawnPlacementsInvoker.callRegister(GLOWFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 
-        registerSpawn(MUSHROOM_BIOMES, BLIGHTBAT, MobCategory.AMBIENT, 5, 1, 1);
-        SpawnPlacementsInvoker.callRegister(BLIGHTBAT, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlightBatEntity::checkSpawnRules);
+        registerSpawn(MUSHROOM_BIOMES, BLIGHTBAT.get(), MobCategory.AMBIENT, 5, 1, 1);
+        SpawnPlacementsInvoker.callRegister(BLIGHTBAT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlightBatEntity::checkSpawnRules);
 
-        registerSpawn(MUSHROOM_BIOMES, MUSHROOM_TRADER, MobCategory.AMBIENT, 1, 1, 1);
+        registerSpawn(MUSHROOM_BIOMES, MUSHROOM_TRADER.get(), MobCategory.AMBIENT, 1, 1, 1);
 
-        registerSpawn(MESA_BIOMES, SCUTTLER, MobCategory.CREATURE, 4, 1, 2);
-        SpawnPlacementsInvoker.callRegister(SCUTTLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttlerEntity::checkSpawnRules);
+        registerSpawn(MESA_BIOMES, SCUTTLER.get(), MobCategory.CREATURE, 4, 1, 2);
+        SpawnPlacementsInvoker.callRegister(SCUTTLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttlerEntity::checkSpawnRules);
 
-        registerSpawn(SWAMP_BIOMES, DECAYED, MobCategory.MONSTER, 60, 1, 1);
-        SpawnPlacementsInvoker.callRegister(DECAYED, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DecayedEntity::checkSpawnRules);
+        registerSpawn(SWAMP_BIOMES, DECAYED.get(), MobCategory.MONSTER, 60, 1, 1);
+        SpawnPlacementsInvoker.callRegister(DECAYED.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DecayedEntity::checkSpawnRules);
 
-        registerSpawn(SWAMP_BIOMES, DRAGONFLY, MobCategory.AMBIENT, 20, 3, 8);
-        SpawnPlacementsInvoker.callRegister(DRAGONFLY, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DragonflyEntity::checkSpawnRules);
+        registerSpawn(SWAMP_BIOMES, DRAGONFLY.get(), MobCategory.AMBIENT, 20, 3, 8);
+        SpawnPlacementsInvoker.callRegister(DRAGONFLY.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DragonflyEntity::checkSpawnRules);
 
-        registerSpawn(SWAMP_BIOMES, TOAD, MobCategory.CREATURE, 20, 2, 4);
-        SpawnPlacementsInvoker.callRegister(TOAD, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        registerSpawn(SWAMP_BIOMES, TOAD.get(), MobCategory.CREATURE, 20, 2, 4);
+        SpawnPlacementsInvoker.callRegister(TOAD.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
-        registerSpawn(SWAMP_BIOMES, LIGHTNING_BUG, MobCategory.AMBIENT, 20, 1, 1);
-        SpawnPlacementsInvoker.callRegister(LIGHTNING_BUG, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LightningBugEntity::checkSpawnRules);
+        registerSpawn(SWAMP_BIOMES, LIGHTNING_BUG.get(), MobCategory.AMBIENT, 20, 1, 1);
+        SpawnPlacementsInvoker.callRegister(LIGHTNING_BUG.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LightningBugEntity::checkSpawnRules);
 
-        registerSpawn(DARK_FOREST, OWL, MobCategory.CREATURE, 20, 1, 4);
-        SpawnPlacementsInvoker.callRegister(OWL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, OwlEntity::checkSpawnRules);
+        registerSpawn(DARK_FOREST, OWL.get(), MobCategory.CREATURE, 20, 1, 4);
+        SpawnPlacementsInvoker.callRegister(OWL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, OwlEntity::checkSpawnRules);
 
-        registerSpawn(DARK_FOREST, ROOTLING, MobCategory.CREATURE, 40, 2, 6);
-        SpawnPlacementsInvoker.callRegister(ROOTLING, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BMEntities::checkDFSpawnRules);
+        registerSpawn(DARK_FOREST, ROOTLING.get(), MobCategory.CREATURE, 40, 2, 6);
+        SpawnPlacementsInvoker.callRegister(ROOTLING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BMEntities::checkDFSpawnRules);
 
-        registerSpawn(DARK_FOREST, MOTH, MobCategory.MONSTER, 90, 2, 3);
-        SpawnPlacementsInvoker.callRegister(MOTH, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, MothEntity::checkSpawnRules);
+        registerSpawn(DARK_FOREST, MOTH.get(), MobCategory.MONSTER, 90, 2, 3);
+        SpawnPlacementsInvoker.callRegister(MOTH.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, MothEntity::checkSpawnRules);
 
         registerSpawn(DARK_FOREST, EntityType.FOX, MobCategory.CREATURE, 4, 2, 2);
         registerSpawn(DARK_FOREST, EntityType.RABBIT, MobCategory.CREATURE, 4, 2, 3);
@@ -180,28 +190,28 @@ public class BMEntities
     {
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
 
-            EntityRendererRegistry.register(() -> BMEntities.TUMBLEWEED, TumbleweedRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.BM_BOAT, BMBoatRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.LIGHTNING_BOTTLE, ThrownItemRenderer::new);
+            EntityRendererRegistry.register(BMEntities.TUMBLEWEED::get, TumbleweedRender::new);
+            EntityRendererRegistry.register(BMEntities.BM_BOAT::get, BMBoatRender::new);
+            EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE::get, ThrownItemRenderer::new);
 
-            EntityRendererRegistry.register(() -> BMEntities.GLOWFISH, GlowfishRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.BLIGHTBAT, BlightBatRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.MUSHROOM_TRADER, MushroomTraderRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.SCUTTLER, ScuttlerRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.GHOST, GhostRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.COWBOY, CowboyRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.DECAYED, DecayedRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.DRAGONFLY, DragonflyRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.TOAD, ToadRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.TADPOLE, TadpoleRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.LIGHTNING_BUG, LightningBugRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.LIGHTNING_BUG_ALTERNATE, LightningBugRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.OWL, OwlRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.MOTH, MothRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.ROOTLING, RootlingRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.ADJUDICATOR, AdjudicatorRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.ADJUDICATOR_MIMIC, AdjudicatorMimicRender::new);
-            EntityRendererRegistry.register(() -> BMEntities.STONE_GOLEM, StoneGolemRender::new);
+            EntityRendererRegistry.register(BMEntities.GLOWFISH::get, GlowfishRender::new);
+            EntityRendererRegistry.register(BMEntities.BLIGHTBAT::get, BlightBatRender::new);
+            EntityRendererRegistry.register(BMEntities.MUSHROOM_TRADER::get, MushroomTraderRender::new);
+            EntityRendererRegistry.register(BMEntities.SCUTTLER::get, ScuttlerRender::new);
+            EntityRendererRegistry.register(BMEntities.GHOST::get, GhostRender::new);
+            EntityRendererRegistry.register(BMEntities.COWBOY::get, CowboyRender::new);
+            EntityRendererRegistry.register(BMEntities.DECAYED::get, DecayedRender::new);
+            EntityRendererRegistry.register(BMEntities.DRAGONFLY::get, DragonflyRender::new);
+            EntityRendererRegistry.register(BMEntities.TOAD::get, ToadRender::new);
+            EntityRendererRegistry.register(BMEntities.TADPOLE::get, TadpoleRender::new);
+            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG::get, LightningBugRender::new);
+            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG_ALTERNATE::get, LightningBugRender::new);
+            EntityRendererRegistry.register(BMEntities.OWL::get, OwlRender::new);
+            EntityRendererRegistry.register(BMEntities.MOTH::get, MothRender::new);
+            EntityRendererRegistry.register(BMEntities.ROOTLING::get, RootlingRender::new);
+            EntityRendererRegistry.register(BMEntities.ADJUDICATOR::get, AdjudicatorRender::new);
+            EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC::get, AdjudicatorMimicRender::new);
+            EntityRendererRegistry.register(BMEntities.STONE_GOLEM::get, StoneGolemRender::new);
         });
     }
 
@@ -243,4 +253,6 @@ public class BMEntities
 
     public static final TagKey<EntityType<?>> LIGHTNING_BUG_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, BiomeMakeover.ID("lightning_bugs"));
     public static final TagKey<EntityType<?>> OWL_TARGETS = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, BiomeMakeover.ID("owl_targets"));
+
+
 }

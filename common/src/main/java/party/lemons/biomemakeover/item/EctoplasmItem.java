@@ -25,7 +25,7 @@ public class EctoplasmItem extends BMItem{
                 if(!ctx.getLevel().isClientSide())
                 {
                     ctx.getLevel().levelEvent(LevelEvent.COMPOSTER_FILL, ctx.getClickedPos(), 1);
-                    ctx.getLevel().setBlock(ctx.getClickedPos(), BMBlocks.ECTOPLASM_COMPOSTER.defaultBlockState().setValue(ComposterBlock.LEVEL, compostLevel), 3);
+                    ctx.getLevel().setBlock(ctx.getClickedPos(), BMBlocks.ECTOPLASM_COMPOSTER.get().defaultBlockState().setValue(ComposterBlock.LEVEL, compostLevel), 3);
 
                     if(ctx.getPlayer() != null && !ctx.getPlayer().isCreative())
                         ctx.getItemInHand().shrink(1);

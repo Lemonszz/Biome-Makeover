@@ -63,7 +63,7 @@ public class S2C_DoLightningSplash extends BaseS2CMessage
             {
                 for(int i = 0; i < 8; ++i)
                 {
-                    level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BMItems.LIGHTNING_BOTTLE)), dir.x, dir.y, dir.z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+                    level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BMItems.LIGHTNING_BOTTLE.get())), dir.x, dir.y, dir.z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
                 }
                 level.playSound(null, pos, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F);
             }

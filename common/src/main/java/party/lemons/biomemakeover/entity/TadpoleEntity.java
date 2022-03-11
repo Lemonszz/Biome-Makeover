@@ -38,7 +38,7 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
                 babyTime++;
             if(!isBaby())
             {
-                ToadEntity toad = BMEntities.TOAD.create(level);
+                ToadEntity toad = BMEntities.TOAD.get().create(level);
                 toad.moveTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
                 toad.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
                 ((ServerLevel) level).addFreshEntityWithPassengers(toad);
@@ -107,7 +107,7 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
     @Override
     public ItemStack getBucketItemStack()
     {
-        return new ItemStack(BMItems.TADPOLE_BUCKET);
+        return new ItemStack(BMItems.TADPOLE_BUCKET.get());
     }
 
     public static AttributeSupplier.Builder createAttributes()

@@ -105,7 +105,7 @@ public class OwlEntity extends ShoulderRidingEntity
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        OwlEntity owl = BMEntities.OWL.create(serverLevel);
+        OwlEntity owl = BMEntities.OWL.get().create(serverLevel);
         UUID uUID = this.getOwnerUUID();
         if (uUID != null) {
             owl.setOwnerUUID(uUID);
@@ -301,19 +301,19 @@ public class OwlEntity extends ShoulderRidingEntity
     @Override
     protected SoundEvent getDeathSound()
     {
-        return BMEffects.OWL_DEATH;
+        return BMEffects.OWL_DEATH.get();
     }
 
     @Override
     protected @Nullable SoundEvent getAmbientSound()
     {
-        return BMEffects.OWL_IDLE;
+        return BMEffects.OWL_IDLE.get();
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source)
     {
-        return BMEffects.OWL_HURT;
+        return BMEffects.OWL_HURT.get();
     }
 
     public enum StandingState

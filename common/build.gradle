@@ -4,17 +4,9 @@ dependencies {
 }
 
 architectury {
-    common(false)
+    common()
 }
 
 loom {
     accessWidenerPath = file("src/main/resources/biomemakeover-common.accessWidener")
-}
-
-afterEvaluate {
-    tasks {
-        remapJar {
-            remapAccessWidener.set(false)
-        }
-    }
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import party.lemons.biomemakeover.init.BMFeatures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class HangingLeavesDecorator extends TreeDecorator
 
     @Override
     protected TreeDecoratorType<?> type() {
-        return BMWorldGen.Swamp.HANGING_LEAVES_DECORATOR;
+        return BMFeatures.HANGING_LEAVES_DECORATOR.get();
     }
 
     @Override

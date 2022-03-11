@@ -26,7 +26,7 @@ public class LightningBugBottleRenderer implements BlockEntityRenderer<Lightning
         poseStack.pushPose();
 
         poseStack.translate(0.5D, 0.0D, 0.5D);
-        if(be.getBlockState().is(BMBlocks.LIGHTNING_BUG_BOTTLE) && be.getBlockState().getValue(LightningBugBottleBlock.UPPER))
+        if(be.getBlockState().is(BMBlocks.LIGHTNING_BUG_BOTTLE.get()) && be.getBlockState().getValue(LightningBugBottleBlock.UPPER))
         {
             poseStack.translate(0, 0.25F, 0);
         }

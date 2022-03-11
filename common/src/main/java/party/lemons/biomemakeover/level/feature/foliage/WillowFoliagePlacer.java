@@ -19,6 +19,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import party.lemons.biomemakeover.block.WillowingBranchesBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMFeatures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -38,7 +39,7 @@ public class WillowFoliagePlacer extends FoliagePlacer
     }
     @Override
     protected FoliagePlacerType<?> type() {
-        return BMWorldGen.Swamp.WILLOW_FOLIAGE;
+        return BMFeatures.WILLOW_FOLIAGE.get();
     }
 
     @Override

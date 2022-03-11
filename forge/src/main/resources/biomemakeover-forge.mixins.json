@@ -5,8 +5,6 @@
   "client": [
   ],
   "mixins": [
-    "StructureSettingsAccessor",
-    "ChunkGeneratorAccessor",
     "DefaultBiomesMixin_RemoveSwampTrees",
     "LilypadBlockMixin_PlantType",
     "farmland.BushBlockMixin",

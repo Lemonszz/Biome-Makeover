@@ -175,7 +175,7 @@ public class GhostEntity extends Monster implements NeutralMob
 
     private void playAngerSound()
     {
-        this.playSound(BMEffects.GHOST_ANGRY, this.getSoundVolume() * 2.0F, this.getVoicePitch());
+        this.playSound(BMEffects.GHOST_ANGRY.get(), this.getSoundVolume() * 2.0F, this.getVoicePitch());
     }
 
     public void chooseRandomAngerTime()
@@ -251,13 +251,13 @@ public class GhostEntity extends Monster implements NeutralMob
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isAngry() ? BMEffects.GHOST_ANGRY : BMEffects.GHOST_IDLE;
+        return this.isAngry() ? BMEffects.GHOST_ANGRY.get() : BMEffects.GHOST_IDLE.get();
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return BMEffects.GHOST_DEATH;
+        return BMEffects.GHOST_DEATH.get();
     }
     private void setCharging(boolean charging)
     {
@@ -380,7 +380,7 @@ public class GhostEntity extends Monster implements NeutralMob
             Vec3 targetPosition = target.getEyePosition(1.0F);
             GhostEntity.this.moveControl.setWantedPosition(targetPosition.x, targetPosition.y, targetPosition.z, 1.25D);
             GhostEntity.this.setCharging(true);
-            GhostEntity.this.playSound(BMEffects.GHOST_CHARGE, 1.0F, 1.0F);
+            GhostEntity.this.playSound(BMEffects.GHOST_CHARGE.get(), 1.0F, 1.0F);
         }
 
         @Override

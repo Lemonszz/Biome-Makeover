@@ -16,7 +16,7 @@ public class StemBlockMixin {
     @Inject(at = @At("HEAD"), method = "mayPlaceOn", cancellable = true)
     public void mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<Boolean> cbi)
     {
-        if(blockState.is(BMBlocks.PEAT_FARMLAND))
+        if(blockState.is(BMBlocks.PEAT_FARMLAND.get()))
             cbi.setReturnValue(true);
     }
 }

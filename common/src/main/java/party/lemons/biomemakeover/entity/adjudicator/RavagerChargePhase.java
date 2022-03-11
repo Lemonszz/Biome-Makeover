@@ -54,7 +54,7 @@ public class RavagerChargePhase extends AdjudicatorPhase
         stack.enchant(Enchantments.MULTISHOT, 3);
         adjudicator.setItemInHand(InteractionHand.MAIN_HAND, stack);
 
-        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_GRUNT, 1F, 1F);
+        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_GRUNT.get(), 1F, 1F);
 
     }
 

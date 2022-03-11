@@ -84,7 +84,7 @@ public abstract class LivingEntityMixin extends Entity
     @ModifyArg(method = "causeFallDamage", at = @At(value = "INVOKE", target="Lnet/minecraft/world/entity/LivingEntity;calculateFallDamage(FF)I"), index = 0)
     private float changeFallDistance(float distance){
         if(distance >= 3.0)
-            return distance + EnchantmentHelper.getEnchantmentLevel(BMEnchantments.BUCKLING_CURSE, (LivingEntity)(Object)this);
+            return distance + EnchantmentHelper.getEnchantmentLevel(BMEnchantments.BUCKLING_CURSE.get(), (LivingEntity)(Object)this);
 
         return distance;
     }

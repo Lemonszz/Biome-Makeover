@@ -47,7 +47,7 @@ public class TeleportingPhase extends TimedPhase
         nextPhase = selectNextPhase();
         teleportPos = nextPhase.getStartPosition();
         adjudicator.setState(AdjudicatorState.TELEPORT);
-        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_3, 1F, 1F);
+        adjudicator.playSound(BMEffects.ADJUDICATOR_SPELL_3.get(), 1F, 1F);
     }
 
     @Override

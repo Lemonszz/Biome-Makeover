@@ -10,6 +10,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import party.lemons.biomemakeover.block.IvyBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMFeatures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class IvyDecorator extends TreeDecorator
 
     @Override
     protected TreeDecoratorType<?> type() {
-        return BMWorldGen.DarkForest.IVY_DECORATOR;
+        return BMFeatures.IVY_DECORATOR.get();
     }
 
     @Override
@@ -64,6 +65,6 @@ public class IvyDecorator extends TreeDecorator
 
     protected void placeIvy(LevelSimulatedReader level, BlockPos pos, Direction dir, BiConsumer<BlockPos, BlockState> biConsumer)
     {
-        biConsumer.accept(pos, BMBlocks.IVY.defaultBlockState().setValue(IvyBlock.getPropertyForDirection(dir), true));
+        biConsumer.accept(pos, BMBlocks.IVY.get().defaultBlockState().setValue(IvyBlock.getPropertyForDirection(dir), true));
     }
 }

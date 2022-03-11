@@ -79,7 +79,7 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
     {
         if(causedByPlayer && random.nextInt(20) == 0)
         {
-            spawnAtLocation(new ItemStack(BMItems.WITCH_HAT));
+            spawnAtLocation(new ItemStack(BMItems.WITCH_HAT.get()));
         }
         super.dropFromLootTable(damageSource, causedByPlayer);
     }

@@ -68,7 +68,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
     private boolean workingPrevious = false;
 
     public AltarBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BMBlockEntities.ALTAR, blockPos, blockState);
+        super(BMBlockEntities.ALTAR.get(), blockPos, blockState);
 
         this.data = new ContainerData() {
             public int get(int index)
@@ -146,7 +146,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         this.pageTurningSpeed = this.nextPageTurningSpeed;
         this.lastAngle = this.currentAngle;
 
-        if(!level.getBlockState(pos).is(BMBlocks.ALTAR))
+        if(!level.getBlockState(pos).is(BMBlocks.ALTAR.get()))
             return;
 
         if(level.getBlockState(pos).getValue(AltarBlock.ACTIVE))

@@ -35,7 +35,7 @@ public class BarrelCactusBlock extends BMBlock
     @Override
     public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
         BlockState checkState = levelReader.getBlockState(blockPos.below());
-        return checkState.is(Blocks.SAND) || checkState.is(Blocks.RED_SAND) || checkState.is(Blocks.CACTUS) || checkState.is(BMBlocks.SAGUARO_CACTUS);
+        return checkState.is(Blocks.SAND) || checkState.is(Blocks.RED_SAND) || checkState.is(Blocks.CACTUS) || checkState.is(BMBlocks.SAGUARO_CACTUS.get());
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BarrelCactusBlock extends BMBlock
     @Override
     public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
         if(!flowered && serverLevel.getRawBrightness(blockPos, 0) >= 9 && random.nextInt(7) == 0)
-            serverLevel.setBlock(blockPos, BMBlocks.BARREL_CACTUS_FLOWERED.defaultBlockState(), 3);
+            serverLevel.setBlock(blockPos, BMBlocks.BARREL_CACTUS_FLOWERED.get().defaultBlockState(), 3);
     }
 
     @Override

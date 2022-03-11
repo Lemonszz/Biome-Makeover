@@ -43,12 +43,13 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class RootlingEntity extends Animal implements Shearable, EntityEventBroadcaster {
 
     public static final EntityDataAccessor<Boolean> HAS_FLOWER = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FLOWER_TYPE = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.INT);
-    public static final Item[] PETAL_ITEMS = new Item[]{BMItems.BLUE_PETALS, BMItems.BROWN_PETALS, BMItems.CYAN_PETALS, BMItems.GRAY_PETALS, BMItems.LIGHT_BLUE_PETALS, BMItems.PURPLE_PETALS,};
+    public static final Supplier<Item>[] PETAL_ITEMS = new Supplier[]{BMItems.BLUE_PETALS, BMItems.BROWN_PETALS, BMItems.CYAN_PETALS, BMItems.GRAY_PETALS, BMItems.LIGHT_BLUE_PETALS, BMItems.PURPLE_PETALS,};
 
     private boolean hasAction = false;
     public RootlingEntity forcedDancePartner = null;
@@ -199,7 +200,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
                 randomizeFlower();
             }else
             {
-                EntityUtil.scatterItemStack(this, new ItemStack(PETAL_ITEMS[getEntityData().get(FLOWER_TYPE)], RandomUtil.randomRange(1, 4)));
+                EntityUtil.scatterItemStack(this, new ItemStack(PETAL_ITEMS[getEntityData().get(FLOWER_TYPE)].get(), RandomUtil.randomRange(1, 4)));
             }
         }
     }
@@ -252,19 +253,19 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source)
     {
-        return BMEffects.ROOTLING_HURT;
+        return BMEffects.ROOTLING_HURT.get();
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound()
     {
-        return BMEffects.ROOTLING_DEATH;
+        return BMEffects.ROOTLING_DEATH.get();
     }
 
     @Override
     protected @Nullable SoundEvent getAmbientSound()
     {
-        return BMEffects.ROOTLING_IDLE;
+        return BMEffects.ROOTLING_IDLE.get();
     }
 
     private static final TargetingConditions VALID_ROOTLING_PARTNER = (TargetingConditions.forNonCombat()).range(8.0D);
@@ -603,7 +604,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
         {
             super.start();
             if(soundTime == 0)
-                this.mob.playSound(BMEffects.ROOTLING_AFRAID, 1F, 1F + (random.nextFloat() / 10F));
+                this.mob.playSound(BMEffects.ROOTLING_AFRAID.get(), 1F, 1F + (random.nextFloat() / 10F));
         }
 
         @Override
@@ -614,7 +615,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
             soundTime++;
             if(soundTime > 100)
             {
-                this.mob.playSound(BMEffects.ROOTLING_AFRAID, 1F, 1F + (random.nextFloat() / 10F));
+                this.mob.playSound(BMEffects.ROOTLING_AFRAID.get(), 1F, 1F + (random.nextFloat() / 10F));
                 soundTime = 0;
             }
         }

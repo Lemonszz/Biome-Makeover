@@ -133,7 +133,7 @@ public class PoltergeistHandler {
             doParticles(level, checkPos);
 
             float pitch = random.nextFloat() * 0.4F + random.nextFloat() > 0.9F ? 0.6F : 0.0F;
-            level.playSound(null, pos, BMEffects.POLTERGEIST_ACTION, SoundSource.BLOCKS, pitch, 0.6F + random.nextFloat() * 0.4F);
+            level.playSound(null, pos, BMEffects.POLTERGEIST_ACTION.get(), SoundSource.BLOCKS, pitch, 0.6F + random.nextFloat() * 0.4F);
         }
     }
 

@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.util.registry;
 import com.google.common.collect.Maps;
 import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -15,11 +16,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
+import org.apache.commons.compress.utils.Lists;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.block.modifier.FlammableModifier;
 import party.lemons.biomemakeover.block.modifier.RTypeModifier;
+import party.lemons.biomemakeover.block.modifier.StrippableModifier;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.item.BMBoatItem;
 import party.lemons.biomemakeover.util.StripUtil;
@@ -27,209 +30,225 @@ import party.lemons.biomemakeover.util.access.BlockEntityTypeAccess;
 import party.lemons.biomemakeover.util.registry.boat.BoatType;
 import party.lemons.biomemakeover.util.registry.sign.WoodTypeHelper;
 
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class WoodTypeInfo
 {
-    private final Map<Type, Block> blocks = Maps.newHashMap();
-    private final Map<Type, Item> items = Maps.newHashMap();
+    private final List<Type> types = Lists.newArrayList();
+    private final List<WoodTypeInfo.Type> itemTypes = Lists.newArrayList();
+
+    private final Map<Type, Supplier<Block>> blocks = Maps.newHashMap();
+    private final Map<Type, Supplier<Item>> items = Maps.newHashMap();
     private final WoodType woodType;
     private final String name;
-    private final BlockBehaviour.Properties settings;
-    private final DecorationBlockInfo.Callback callback;
-    private final BlockState defaultState;
+    private final BlockBehaviour.Properties properties;
+    private final Consumer<Supplier<Block>> callback;
     private final String modid;
-    private final CreativeModeTab group;
+    private final CreativeModeTab tab;
+    private Supplier<BoatType> boatType;
 
-    public WoodTypeInfo(String modid, CreativeModeTab group, String name, Block.Properties settings)
+    public WoodTypeInfo(String modid, CreativeModeTab group, String name)
     {
-        this(modid, group, name, settings, null);
+        this(modid, group, name, BlockBehaviour.Properties.of(Material.WOOD).strength(2F, 3F).sound(SoundType.WOOD), null);
     }
 
-    public WoodTypeInfo(String modid, CreativeModeTab group, String name, Block.Properties settings, DecorationBlockInfo.Callback callback)
+    public WoodTypeInfo(String modid, CreativeModeTab group, String name, Block.Properties settings, Consumer<Supplier<Block>> callback)
     {
         this.modid = modid;
         this.name = name;
-        this.settings = settings;
+        this.properties = settings;
         this.callback = callback;
-        this.group = group;
+        this.tab = group;
 
-        woodType = WoodTypeHelper.register(name);
-
-        set(Type.LOG, new BMPillarBlock(settings).modifiers(FlammableModifier.WOOD));
-        set(Type.STRIPPED_LOG, new BMPillarBlock(settings).modifiers(FlammableModifier.WOOD));;
-        set(Type.PLANK, new BMBlock(settings).modifiers(FlammableModifier.WOOD));
-
-        StripUtil.addStrippedLog(getBlock(Type.LOG), getBlock(Type.STRIPPED_LOG));
-
-        defaultState = getBlock(Type.PLANK).defaultBlockState();
+        woodType = WoodTypeHelper.createWoodType(name);
+        types.add(Type.LOG);
+        types.add(Type.STRIPPED_LOG);
+        types.add(Type.PLANK);
     }
 
     public WoodTypeInfo slab()
     {
-        set(Type.SLAB, new BMSlabBlock(settings).modifiers(FlammableModifier.WOOD));
+        types.add(Type.SLAB);
         return this;
     }
 
     public WoodTypeInfo stair()
     {
-        set(Type.STAIR, new BMStairBlock(defaultState, settings).modifiers(FlammableModifier.WOOD));
+        types.add(Type.STAIR);
         return this;
     }
 
     public WoodTypeInfo fence()
     {
-        set(Type.FENCE, new BMFenceBlock(settings).modifiers(FlammableModifier.WOOD));
-        set(Type.FENCE_GATE, new BMFenceGateBlock(settings).modifiers(FlammableModifier.WOOD));
+        types.add(Type.FENCE);
+        types.add(Type.FENCE_GATE);
+
         return this;
     }
 
     public WoodTypeInfo wood()
     {
-        set(Type.WOOD, new BMPillarBlock(settings).modifiers(FlammableModifier.WOOD));
-        set(Type.STRIPPED_WOOD, new BMPillarBlock(settings).modifiers(FlammableModifier.WOOD));
-
-        StripUtil.addStrippedLog(getBlock(Type.WOOD), getBlock(Type.STRIPPED_WOOD));
+        types.add(Type.WOOD);
+        types.add(Type.STRIPPED_WOOD);
 
         return this;
     }
 
     public WoodTypeInfo pressure_plate()
     {
-        set(Type.PRESSURE_PLATE, new BMPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockProperties.copy(settings).noCollission()));
+        types.add(Type.PRESSURE_PLATE);
         return this;
     }
 
     public WoodTypeInfo button()
     {
-        set(Type.BUTTON, new BMButtonBlock(BlockProperties.copy(settings).noCollission()));
+        types.add(Type.BUTTON);
         return this;
     }
 
     public WoodTypeInfo trapdoor()
     {
-        set(Type.TRAP_DOOR, new BMTrapdoorBlock(BlockProperties.copy(settings).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT)));
+        types.add(Type.TRAP_DOOR);
         return this;
     }
 
     public WoodTypeInfo door()
     {
-        set(Type.DOOR, new BMDoorBlock(BlockProperties.copy(settings).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT)));
+        types.add(Type.DOOR);
         return this;
     }
 
     public WoodTypeInfo sign()
     {
-        SignBlock standing = new StandingSignBlock(BMBlocks.properties(Material.WOOD, 1.0F).sound(SoundType.WOOD).noCollission(), woodType);
-        WallSignBlock wall = new WallSignBlock(BMBlocks.properties(Material.WOOD, 1.0F).sound(SoundType.WOOD).noCollission(), woodType);
-        set(Type.SIGN, standing);
-        set(Type.SIGN_WALL, wall);
-        set(Type.SIGN, new SignItem(properties(), standing, wall));
-        ((BlockEntityTypeAccess) BlockEntityType.SIGN).bm_addBlockTypes(standing, wall);
+        types.add(Type.SIGN);
+        types.add(Type.SIGN_WALL);
+
+        itemTypes.add(Type.SIGN_ITEM);
 
         return this;
-    }
-
-    //Duplicate of BMItems.properties() otherwise BMItems get initialized too early and it's annoying.
-    public static Item.Properties properties()
-    {
-        return new Item.Properties().tab(BiomeMakeover.TAB);
     }
 
     public WoodTypeInfo boat(Supplier<BoatType> boatType)
     {
-        set(Type.BOAT, new BMBoatItem(boatType, properties().stacksTo(1)));
+        this.boatType = boatType;
+        itemTypes.add(Type.BOAT);
         return this;
     }
 
-    public WoodTypeInfo all()
+    public Item.Properties properties()
     {
-        return slab().stair().fence().wood().pressure_plate().button().trapdoor().door().sign();
+        return new Item.Properties().tab(this.tab);
     }
 
-    private void set(Type type, Block block)
+    public WoodTypeInfo all(Supplier<BoatType> boatType)
+    {
+        return slab().stair().fence().wood().pressure_plate().button().trapdoor().door().sign().boat(boatType);
+    }
+
+    private void set(Type type, Supplier<Block> block)
     {
         this.blocks.put(type, block);
     }
 
-    private void set(Type type, Item item)
+    private void setItem(Type type, Supplier<Item> item)
     {
         this.items.put(type, item);
     }
 
-    public Block getBlock(Type type)
+    public Supplier<Block> getBlock(Type type)
     {
         return blocks.get(type);
     }
 
-    public Item getItem(Type type)
+    public Supplier<Item> getItem(Type type)
     {
         return items.get(type);
     }
 
-    public WoodTypeInfo register()
+    public WoodTypeInfo register(DeferredRegister<Block> blockRegister, DeferredRegister<Item> itemRegister)
     {
-        DeferredRegister<Block> bR = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_REGISTRY);
-        DeferredRegister<Item> iR = DeferredRegister.create(Constants.MOD_ID, Registry.ITEM_REGISTRY);
+        for(Type type : types) {
+            Supplier<Block> blockSupplier = type.blockSupplier.getSupplier(this);
 
-        for(Type key : blocks.keySet())
+            if (blockSupplier != null) {
+                ResourceLocation id = type.make(this.modid, name);
+                RegistrySupplier<Block> regBlock = blockRegister.register(id, blockSupplier);
+                set(type, regBlock);
+
+                if (type.hasBlockItem) {
+                    itemRegister.register(id, () -> new BlockItem(regBlock.get(), properties()));
+                }
+
+                if (callback != null) {
+                    callback.accept(regBlock);
+                }
+            }
+        }
+        for(Type type : itemTypes)
         {
-            Block bl = blocks.get(key);
-            bR.register(key.make(modid, name), ()->bl);
+            Supplier<Item> itemSupplier = type.itemSupplier.getSupplier(this);
 
-            if(key.hasBlockItem)
-                if(bl instanceof BlockWithItem bwi)
-                {
-                    iR.register( key.make(modid, name), bwi::makeItem);
-                }
-                else
-                {
-                    iR.register( key.make(modid, name), ()->new BlockItem(bl, properties()));
-                }
-
-            if(callback != null)
-            {
-                callback.onCreateBlock(bl);
+            if(itemSupplier != null) {
+                RegistrySupplier<Item> item = itemRegister.register(type.make(modid, name), itemSupplier);
+                setItem(type, item);
             }
         }
 
-        for(Type key : items.keySet())
-        {
-            iR.register(key.make(modid, name), ()->items.get(key));
-        }
+        // if(types.contains(Type.SIGN))
+        //     BlockEntityHooks.addAdditionalBlock(BlockEntityType.SIGN, blocks.get(Type.SIGN).get(), blocks.get(Type.SIGN_WALL).get());
 
-        bR.register();
-        iR.register();
         return this;
     }
 
-    public interface Callback
+    @FunctionalInterface
+    private interface TypeBlockSupplier<T>
     {
-        void onCreateBlock(Block block);
+        public Supplier<T> getSupplier(WoodTypeInfo factory);
     }
 
     public enum Type
     {
-        LOG("", "log", true), WOOD("", "wood", true), PLANK("", "planks", true), STRIPPED_LOG("stripped", "log", true), STRIPPED_WOOD("stripped", "wood", true), SLAB("", "slab", true), STAIR("", "stairs", true), FENCE("", "fence", true), FENCE_GATE("", "fence_gate", true), PRESSURE_PLATE("", "pressure_plate", true), BUTTON("", "button", true), TRAP_DOOR("", "trapdoor", true), DOOR("", "door", true), SIGN("", "sign", false), SIGN_WALL("", "wall_sign", false), BOAT("", "boat", true);
+        STRIPPED_WOOD("stripped", "wood", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD)),
+        STRIPPED_LOG("stripped", "log", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD)),
+        PLANK("", "planks", true, (f)->()->new BMBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
+        LOG("", "log", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD, new StrippableModifier(()->f.getBlock(Type.STRIPPED_LOG).get()))),
+        WOOD("", "wood", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD, new StrippableModifier(()->f.getBlock(Type.STRIPPED_WOOD).get()))),
+        SLAB("", "slab", true, (f)->()->new BMSlabBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
+        STAIR("", "stairs", true, (f)->()->new BMStairBlock(f.getBlock(Type.PLANK).get().defaultBlockState(), BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
+        FENCE("", "fence", true, (f)->()->new BMFenceBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
+        FENCE_GATE("", "fence_gate", true, (f)->()->new BMFenceGateBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
+        PRESSURE_PLATE("", "pressure_plate", true, (f)->()->new BMPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockProperties.copy(f.properties).strength(0.5F).noCollission())),
+        BUTTON("", "button", true, (f)-> ()->new BMButtonBlock(BlockProperties.copy(f.properties).strength(0.5F).noCollission())),
+        TRAP_DOOR("", "trapdoor", true, (f)->()->new BMTrapdoorBlock(BlockProperties.copy(f.properties).strength(3F).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT))),
+        DOOR("", "door", true, (f)->()->new BMDoorBlock(BlockProperties.copy(f.properties).strength(3.0F).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT))),
+        SIGN("", "sign", false, (f)->()->new StandingSignBlock(BlockProperties.of(Material.WOOD).strength(1F).sound(SoundType.WOOD).noCollission(), f.woodType)),
+        SIGN_WALL("", "wall_sign", false, (f)->()->new WallSignBlock(BlockProperties.of(Material.WOOD).strength(1F).sound(SoundType.WOOD).noCollission(), f.woodType)),
+        SIGN_ITEM("", "sign", false, null, (f)->()->new SignItem(f.properties().stacksTo(16), f.getBlock(Type.SIGN).get(), f.getBlock(Type.SIGN_WALL).get())),
+        BOAT("", "boat", false, null, (f)->()->new BMBoatItem(f.boatType, f.properties().stacksTo(1)));
 
         private final String postfix;
         private final String prefix;
-        private final boolean isItem;
         private final boolean hasBlockItem;
+        private final TypeBlockSupplier<Block> blockSupplier;
+        private final TypeBlockSupplier<Item> itemSupplier;
 
-        Type(String prefix, String postfix, boolean hasBlockItem)
+        Type(String prefix, String postfix, boolean hasBlockItem, TypeBlockSupplier<Block> blockSupplier)
         {
-            this(prefix, postfix, hasBlockItem, false);
+            this(prefix, postfix, hasBlockItem, blockSupplier, null);
         }
 
-        Type(String prefix, String postfix, boolean hasBlockItem, boolean isItem)
+        Type(String prefix, String postfix, boolean hasBlockItem, TypeBlockSupplier<Block> blockSupplier, TypeBlockSupplier<Item> itemSupplier)
         {
             this.postfix = postfix;
             this.prefix = prefix;
-            this.isItem = isItem;
             this.hasBlockItem = hasBlockItem;
+            this.blockSupplier = blockSupplier;
+            this.itemSupplier = itemSupplier;
         }
+
 
         public ResourceLocation make(String modid, String name)
         {

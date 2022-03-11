@@ -51,7 +51,7 @@ public abstract class InputContainerMixin_EctoCompost extends SimpleContainer {
             level.levelEvent(1500, this.pos, 1);
             this.removeItemNoUpdate(0);
 
-            level.setBlock(pos, BMBlocks.ECTOPLASM_COMPOSTER.defaultBlockState().setValue(ComposterBlock.LEVEL, state.getValue(ComposterBlock.LEVEL)), 3);
+            level.setBlock(pos, BMBlocks.ECTOPLASM_COMPOSTER.get().defaultBlockState().setValue(ComposterBlock.LEVEL, state.getValue(ComposterBlock.LEVEL)), 3);
         }
     }
 }

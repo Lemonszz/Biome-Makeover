@@ -2,11 +2,11 @@ package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,11 +22,13 @@ import party.lemons.biomemakeover.block.BMItemNameBlockItem;
 import party.lemons.biomemakeover.item.*;
 import party.lemons.biomemakeover.item.modifier.CompostItemModifier;
 import party.lemons.biomemakeover.item.modifier.ItemModifier;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+
+import java.util.function.Supplier;
 
 public class BMItems
 {
     public static final Multimap<Item, ItemModifier> MODIFIERS = ArrayListMultimap.create();
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registry.ITEM_REGISTRY);
 
     public static final FoodProperties GLOWSHROOM_SOUP_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.6F).nutrition(5).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0), 1).effect(new MobEffectInstance(MobEffects.GLOWING, 1200, 0), 1).build();
     public static final FoodProperties GLOWFISH_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.1F).nutrition(1).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200, 0), 0.5F).effect(new MobEffectInstance(MobEffects.GLOWING, 200, 0), 0.5F).build();
@@ -39,71 +41,71 @@ public class BMItems
     public static final ArmorMaterial CLADDED_MATERIAL = new CladdedArmorMaterial();
     public static final BMArmorItem.Builder CLADDED_ARMOR = BMArmorItem.Builder.create(CLADDED_MATERIAL).attribute("Armor Proj Res", BMEntities.ATT_PROJECTILE_RESISTANCE, 1, AttributeModifier.Operation.ADDITION);
 
-    public static final Item GLOWSHROOM_STEW = new SuspiciousStewItem(properties().stacksTo(1).craftRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD));
-    public static final Item GLOWFISH = new Item(properties().food(GLOWFISH_FOOD));
-    public static final Item COOKED_GLOWFISH = new Item(properties().food(COOKED_GLOWFISH_FOOD));
-    public static final Item RAW_TOAD = new Item(properties().food(RAW_TOAD_FOOD));
-    public static final Item COOKED_TOAD = new Item(properties().food(COOKED_TOAD_FOOD));
-    public static final Item BULBUS_ROOT = new BMItem(properties().food(RAW_BULBUS_ROOT_FOOD)).modifiers(CompostItemModifier.create(0.4F));
-    public static final Item ROASTED_BULBUS_ROOT = new Item(properties().food(BULBUS_ROOT_FOOD));
+    public static final Supplier<Item> GLOWSHROOM_STEW = registerItem("glowshroom_stew", ()->new SuspiciousStewItem(properties().stacksTo(1).craftRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD)));
+    public static final Supplier<Item> GLOWFISH = registerItem("glowfish", ()->new Item(properties().food(GLOWFISH_FOOD)));
+    public static final Supplier<Item> COOKED_GLOWFISH = registerItem("cooked_glowfish", ()->new Item(properties().food(COOKED_GLOWFISH_FOOD)));
+    public static final Supplier<Item> RAW_TOAD = registerItem("raw_toad", ()->new Item(properties().food(RAW_TOAD_FOOD)));
+    public static final Supplier<Item> COOKED_TOAD = registerItem("cooked_toad", ()->new Item(properties().food(COOKED_TOAD_FOOD)));
+    public static final Supplier<Item> BULBUS_ROOT = registerItem("bulbus_root", ()->new BMItem(properties().food(RAW_BULBUS_ROOT_FOOD)).modifiers(CompostItemModifier.create(0.4F)));
+    public static final Supplier<Item> ROASTED_BULBUS_ROOT = registerItem("roasted_bulbus_root", ()->new Item(properties().food(BULBUS_ROOT_FOOD)));
 
-    public static final Item COWBOY_HAT = new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), properties());
-    public static final Item WITCH_HAT = new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), properties());
+    public static final Supplier<Item> COWBOY_HAT = registerItem("cowboy_hat", ()->new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), properties()));
+    public static final Supplier<Item> WITCH_HAT = registerItem("witch_hat", ()->new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), properties()));
 
-    public static final Item MAGENTA_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item LIGHT_BLUE_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item PINK_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item GRAY_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item CYAN_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item PURPLE_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item BLUE_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
-    public static final Item BROWN_PETALS = new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F));
+    public static final Supplier<Item> MAGENTA_PETALS = registerItem("magenta_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> LIGHT_BLUE_PETALS = registerItem("light_blue_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> PINK_PETALS = registerItem("pink_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> GRAY_PETALS = registerItem("gray_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> CYAN_PETALS = registerItem("cyan_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> PURPLE_PETALS = registerItem("purple_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> BLUE_PETALS = registerItem("blue_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
+    public static final Supplier<Item> BROWN_PETALS = registerItem("brown_petals", ()->new BMItem(properties()).modifiers(CompostItemModifier.create(0.3F)));
 
-    public static final Item SCUTTLER_TAIL = new BMItem(properties());
-    public static final Item ECTOPLASM = new EctoplasmItem(properties());
+    public static final Supplier<Item> SCUTTLER_TAIL = registerItem("scuttler_tail", ()->new BMItem(properties()));
+    public static final Supplier<Item> ECTOPLASM = registerItem("ectoplasm", ()->new EctoplasmItem(properties()));
 
-    public static final Item LIGHTNING_BOTTLE = new LightningBottleItem(properties());
-    public static final Item DRAGONFLY_WINGS = new Item(properties());
-    public static final Item BAT_WING = new Item(properties());
-    public static final Item BLIGHTBAT_WING = new Item(properties());
-    public static final Item WART = new Item(properties());
-    public static final Item SOUL_EMBERS = new Item(properties());
+    public static final Supplier<Item> LIGHTNING_BOTTLE = registerItem("lightning_bottle", ()->new LightningBottleItem(properties()));
+    public static final Supplier<Item> DRAGONFLY_WINGS = registerItem("dragonfly_wings", ()->new Item(properties()));
+    public static final Supplier<Item> BAT_WING = registerItem("bat_wing", ()->new Item(properties()));
+    public static final Supplier<Item> BLIGHTBAT_WING = registerItem("blightbat_wing", ()->new Item(properties()));
+    public static final Supplier<Item> WART = registerItem("wart", ()->new Item(properties()));
+    public static final Supplier<Item> SOUL_EMBERS = registerItem("soul_embers", ()->new Item(properties()));
 
-    public static final Item ILLUNITE_SHARD = new Item(properties());
-    public static final Item ROOTLING_SEEDS = new BMItemNameBlockItem(BMBlocks.ROOTLING_CROP, properties()).modifiers(CompostItemModifier.create(0.4F));;
-    public static final Item MOTH_SCALES = new Item(properties());
-    public static final Item STUNT_POWDER = new StuntPowderItem(properties());
-    public static final Item CRUDE_CLADDING = new Item(properties());
-    public static final Item CLADDED_HELMET = CLADDED_ARMOR.build(EquipmentSlot.HEAD, properties());
-    public static final Item CLADDED_CHESTPLATE = CLADDED_ARMOR.build(EquipmentSlot.CHEST, properties());
-    public static final Item CLADDED_LEGGINGS = CLADDED_ARMOR.build(EquipmentSlot.LEGS, properties());
-    public static final Item CLADDED_BOOTS = CLADDED_ARMOR.build(EquipmentSlot.FEET, properties());
-    public static final Item ENCHANTED_TOTEM = new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1));
+    public static final Supplier<Item> ILLUNITE_SHARD = registerItem("illunite_shard", ()->new Item(properties()));
+    public static final Supplier<Item> ROOTLING_SEEDS = registerItem("rootling_seeds", ()->new BMItemNameBlockItem(BMBlocks.ROOTLING_CROP.get(), properties()).modifiers(CompostItemModifier.create(0.4F)));
+    public static final Supplier<Item> MOTH_SCALES = registerItem("moth_scales", ()->new Item(properties()));
+    public static final Supplier<Item> STUNT_POWDER = registerItem("stunt_powder", ()->new StuntPowderItem(properties()));
+    public static final Supplier<Item> CRUDE_CLADDING = registerItem("crude_cladding", ()->new Item(properties()));
+    public static final Supplier<Item> CLADDED_HELMET = registerItem("cladded_helmet", CLADDED_ARMOR.build(EquipmentSlot.HEAD, properties()));
+    public static final Supplier<Item> CLADDED_CHESTPLATE = registerItem("cladded_chestplate", CLADDED_ARMOR.build(EquipmentSlot.CHEST, properties()));
+    public static final Supplier<Item> CLADDED_LEGGINGS = registerItem("cladded_leggings",CLADDED_ARMOR.build(EquipmentSlot.LEGS, properties()));
+    public static final Supplier<Item> CLADDED_BOOTS = registerItem("cladded_boots", CLADDED_ARMOR.build(EquipmentSlot.FEET, properties()));
+    public static final Supplier<Item> ENCHANTED_TOTEM = registerItem("enchanted_totem", ()->new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1)));
 
-    public static final BMRecordItem BUTTON_MUSHROOMS_MUSIC_DISK = new BMRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE));
-    public static final BMRecordItem GHOST_TOWN_MUSIC_DISK = new BMRecordItem(15, BMEffects.GHOST_TOWN, properties().stacksTo(1).rarity(Rarity.RARE));
-    public static final BMRecordItem SWAMP_JIVES_MUSIC_DISK = new BMRecordItem(1, BMEffects.SWAMP_JIVES, properties().stacksTo(1).rarity(Rarity.RARE));
-    public static final BMRecordItem RED_ROSE_MUSIC_DISK = new BMRecordItem(2, BMEffects.RED_ROSE, properties().stacksTo(1).rarity(Rarity.RARE));
+    public static final Supplier<Item> BUTTON_MUSHROOMS_MUSIC_DISK = registerItem("button_mushrooms_music_disk", ()->new BMRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final Supplier<Item> GHOST_TOWN_MUSIC_DISK = registerItem("ghost_town_music_disk", ()->new BMRecordItem(15, BMEffects.GHOST_TOWN, properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final Supplier<Item> SWAMP_JIVES_MUSIC_DISK = registerItem("swamp_jives_music_disk", ()->new BMRecordItem(1, BMEffects.SWAMP_JIVES, properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final Supplier<Item> RED_ROSE_MUSIC_DISK = registerItem("red_rose_music_disk", ()->new BMRecordItem(2, BMEffects.RED_ROSE, properties().stacksTo(1).rarity(Rarity.RARE)));
 
-    public static final Item GLOWFISH_BUCKET = new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties().stacksTo(1));
-    public static final Item TADPOLE_BUCKET = new MobBucketItem(BMEntities.TADPOLE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties().stacksTo(1));
+    public static final Supplier<Item> GLOWFISH_BUCKET = registerItem("glowfish_bucket", ()->new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties().stacksTo(1)));
+    public static final Supplier<Item> TADPOLE_BUCKET = registerItem("tadpole_bucket", ()->new BMMobBucketItem(BMEntities.TADPOLE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties().stacksTo(1)));
 
-    public static final Item GLOWFISH_SPAWN_EGG = new SpawnEggItem(BMEntities.GLOWFISH, 0xff7b00, 0xffd7b3, properties());
-    public static final Item MUSHROOM_TRADER_SPAWN_EGG = new SpawnEggItem(BMEntities.MUSHROOM_TRADER, 0x37ff00, 0xb1ff9c, properties());
-    public static final Item BLIGHTBAT_SPAWN_EGG = new SpawnEggItem(BMEntities.BLIGHTBAT, 0xae00ff, 0xdf9ffc, properties());
-    public static final Item GHOST_SPAWN_EGG = new SpawnEggItem(BMEntities.GHOST, 0x566b6b, 0xb5fffe, properties());
-    public static final Item SCUTTLER_SPAWN_EGG = new SpawnEggItem(BMEntities.SCUTTLER, 0x473427, 0x806553, properties());
-    public static final Item COWBOY_SPAWN_EGG = new SpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, properties());
-    public static final Item TOAD_SPAWN_EGG = new SpawnEggItem(BMEntities.TOAD, 0x4b8252, 0x614d33, properties());
-    public static final Item TADPOLE_SPAWN_EGG = new SpawnEggItem(BMEntities.TADPOLE, 0x67824b, 0x614d33, properties());
-    public static final Item DRAGONFLY_SPAWN_EGG = new SpawnEggItem(BMEntities.DRAGONFLY, 0xc7b634, 0xf2ebb6, properties());
-    public static final Item LIGHTNING_BUG_SPAWN_EGG = new SpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, properties());
-    public static final Item DECAYED_SPAWN_EGG = new SpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, properties());
-    public static final Item OWL_SPAWN_EGG = new SpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, properties());
-    public static final Item ROOTLING_SPAWN_EGG = new SpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, properties());
-    public static final Item MOTH_SPAWN_EGG = new SpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties());
+    public static final Supplier<Item> GLOWFISH_SPAWN_EGG = registerItem("glowfish_spawn_egg", ()->new BMSpawnEggItem(BMEntities.GLOWFISH, 0xff7b00, 0xffd7b3, properties()));
+    public static final Supplier<Item> MUSHROOM_TRADER_SPAWN_EGG = registerItem("mushroom_trader_spawn_egg", ()->new BMSpawnEggItem(BMEntities.MUSHROOM_TRADER, 0x37ff00, 0xb1ff9c, properties()));
+    public static final Supplier<Item> BLIGHTBAT_SPAWN_EGG = registerItem("blightbat_spawn_egg", ()->new BMSpawnEggItem(BMEntities.BLIGHTBAT, 0xae00ff, 0xdf9ffc, properties()));
+    public static final Supplier<Item> GHOST_SPAWN_EGG =registerItem("ghost_spawn_egg", ()-> new BMSpawnEggItem(BMEntities.GHOST, 0x566b6b, 0xb5fffe, properties()));
+    public static final Supplier<Item> SCUTTLER_SPAWN_EGG = registerItem("scuttler_spawn_egg", ()->new BMSpawnEggItem(BMEntities.SCUTTLER, 0x473427, 0x806553, properties()));
+    public static final Supplier<Item> COWBOY_SPAWN_EGG = registerItem("cowboy_spawn_egg", ()->new BMSpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, properties()));
+    public static final Supplier<Item> TOAD_SPAWN_EGG = registerItem("toad_spawn_egg", ()->new BMSpawnEggItem(BMEntities.TOAD, 0x4b8252, 0x614d33, properties()));
+    public static final Supplier<Item> TADPOLE_SPAWN_EGG = registerItem("tadpole_spawn_egg", ()->new BMSpawnEggItem(BMEntities.TADPOLE, 0x67824b, 0x614d33, properties()));
+    public static final Supplier<Item> DRAGONFLY_SPAWN_EGG = registerItem("dragonfly_spawn_egg", ()->new BMSpawnEggItem(BMEntities.DRAGONFLY, 0xc7b634, 0xf2ebb6, properties()));
+    public static final Supplier<Item> LIGHTNING_BUG_SPAWN_EGG = registerItem("lightning_bug_spawn_egg", ()->new BMSpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, properties()));
+    public static final Supplier<Item> DECAYED_SPAWN_EGG = registerItem("decayed_spawn_egg", ()->new BMSpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, properties()));
+    public static final Supplier<Item> OWL_SPAWN_EGG = registerItem("owl_spawn_egg", ()->new BMSpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, properties()));
+    public static final Supplier<Item> ROOTLING_SPAWN_EGG = registerItem("rootling_spawn_egg", ()->new BMSpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, properties()));
+    public static final Supplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new BMSpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
 
-    public static final Item ICON_ITEM = new FakeItem();
+    public static final Supplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
 
     public static final TagKey<Item> CURSE_FUEL = TagKey.create(Registry.ITEM_REGISTRY, BiomeMakeover.ID("curse_fuel"));
 
@@ -114,11 +116,19 @@ public class BMItems
 
 
     public static void init() {
-        RegistryHelper.register(Constants.MOD_ID, Registry.ITEM, Item.class, BMItems.class);
-        MODIFIERS.forEach((b, a)->a.accept(b));
 
-        BMBlocks.initCompostables();
+        ITEMS.register();
+
+        LifecycleEvent.SETUP.register(()->
+                MODIFIERS.forEach((b, a)->a.accept(b))
+        );
+
     }
+
+    private static Supplier<Item> registerItem(String id, Supplier<Item> item) {
+        return ITEMS.register(BiomeMakeover.ID(id), item);
+    }
+
 
     public static Item.Properties properties()
     {

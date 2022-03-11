@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 public class FieldConsumer
 {
-    public static <T> void run(Class<?> from, Class<?> typeClass, Consumer<T> consumer)
+    public static <T> void run(Class<?> from, Class<T> typeClass, Consumer<T> consumer)
     {
         try
         {

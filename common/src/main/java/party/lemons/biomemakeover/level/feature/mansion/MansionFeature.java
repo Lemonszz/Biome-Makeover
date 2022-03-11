@@ -72,8 +72,8 @@ import java.util.stream.Collectors;
 
 public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 {
-    public static final BlockIgnoreProcessor IGNORE_AIR_AND_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.AIR, Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA));
-    public static final BlockIgnoreProcessor IGNORE_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA));
+    public static final BlockIgnoreProcessor IGNORE_AIR_AND_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.AIR, Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA.get()));
+    public static final BlockIgnoreProcessor IGNORE_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA.get()));
 
     public MansionFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec,  PieceGeneratorSupplier.simple(PieceGeneratorSupplier.checkForBiomeOnTop(Heightmap.Types.WORLD_SURFACE_WG), MansionFeature::generatePieces));
@@ -180,7 +180,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 
         private void spawnBoss(ServerLevelAccessor level, BlockPos pos)
         {
-            AdjudicatorEntity boss = BMEntities.ADJUDICATOR.create(level.getLevel());
+            AdjudicatorEntity boss = BMEntities.ADJUDICATOR.get().create(level.getLevel());
             boss.setPersistenceRequired();
             boss.moveTo(pos, 0.0F, 0.0F);
             boss.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), MobSpawnType.STRUCTURE, null, null);
@@ -217,7 +217,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
                     }
                     break;
                 case "owl":
-                    OwlEntity e = BMEntities.OWL.create(world.getLevel());
+                    OwlEntity e = BMEntities.OWL.get().create(world.getLevel());
                     e.moveTo(pos, 0, 0);
                     if(random.nextFloat() < 0.25F)
                         Stuntable.setStunted(e, true);
@@ -399,12 +399,12 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             Block tapestryBlock;
             if(dir == Direction.DOWN || dir == Direction.UP)
             {
-                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_FLOOR_BLOCKS);
+                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_FLOOR_BLOCKS).get();
                 world.setBlock(pos, tapestryBlock.defaultBlockState().setValue(AbstractTapestryBlock.ROTATION, Rotation.getRandom(random).ordinal()), 3);
             }
             else
             {
-                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_WALL_BLOCKS);
+                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_WALL_BLOCKS).get();
                 world.setBlock(pos, tapestryBlock.defaultBlockState().setValue(AbstractTapestryWallBlock.FACING, dir.getOpposite()), 3);
             }
         }
@@ -416,7 +416,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             //Attempt to not generate if there's a roof lol
             BlockPos topPos = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos.relative(dir.getOpposite(), 2)).below();
             BlockState topState = world.getBlockState(topPos);
-            if(topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB)) || topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR))) return;
+            if(topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB).get()) || topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR).get())) return;
 
             int size = 3;
             BlockPos startPos, endPos;
@@ -438,20 +438,20 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             BlockPos.betweenClosed(startPos, endPos).forEach(p->
             {
                 BlockState currentState = world.getBlockState(p);
-                if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.is(BMBlocks.IVY)))
+                if(random.nextFloat() <= 0.25F && (currentState.isAir() || currentState.is(BMBlocks.IVY.get())))
                 {
                     BlockPos onPos = p.relative(dir);
                     BlockState onState = world.getBlockState(onPos);
 
                     if(onState.isFaceSturdy(world, onPos, dir.getOpposite()))
                     {
-                        if(currentState.is(BMBlocks.IVY))
+                        if(currentState.is(BMBlocks.IVY.get()))
                         {
                             world.setBlock(p, currentState.setValue(IvyBlock.getPropertyForDirection(dir), true), 3);
                         }
                         else
                         {
-                            world.setBlock(p, BMBlocks.IVY.defaultBlockState().setValue(IvyBlock.getPropertyForDirection(dir), true), 3);
+                            world.setBlock(p, BMBlocks.IVY.get().defaultBlockState().setValue(IvyBlock.getPropertyForDirection(dir), true), 3);
                         }
                     }
                 }
@@ -641,8 +641,8 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 
     private static final EntityType[] ranged_enemies = {EntityType.PILLAGER};
 
-    private static final EntityType[] golem_enemies = {BMEntities.STONE_GOLEM};
+    private static final EntityType[] golem_enemies = {BMEntities.STONE_GOLEM.get()};
     private static final EntityType[] ravagers = {EntityType.RAVAGER};
     private static final EntityType[] cow = {EntityType.COW};
-    private static final BlockState[] SHROOMS = {Blocks.RED_MUSHROOM.defaultBlockState(), Blocks.BROWN_MUSHROOM.defaultBlockState(), BMBlocks.WILD_MUSHROOMS.defaultBlockState()};
+    private static final BlockState[] SHROOMS = {Blocks.RED_MUSHROOM.defaultBlockState(), Blocks.BROWN_MUSHROOM.defaultBlockState(), BMBlocks.WILD_MUSHROOMS.get().defaultBlockState()};
 }

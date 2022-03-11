@@ -40,11 +40,11 @@ public abstract class MyceliumBlockMixin extends Block implements BonemealableBl
     @Override
     public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState blockState) {
         BlockPos startPos = pos.above();
-        BlockState sprouts = BMBlocks.MYCELIUM_SPROUTS.defaultBlockState();
-        BlockState roots = BMBlocks.MYCELIUM_ROOTS.defaultBlockState();
-        BlockState purple_shroom = BMBlocks.PURPLE_GLOWSHROOM.defaultBlockState();
-        BlockState green_shroom = BMBlocks.GREEN_GLOWSHROOM.defaultBlockState();
-        BlockState orange_shroom = BMBlocks.ORANGE_GLOWSHROOM.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
+        BlockState sprouts = BMBlocks.MYCELIUM_SPROUTS.get().defaultBlockState();
+        BlockState roots = BMBlocks.MYCELIUM_ROOTS.get().defaultBlockState();
+        BlockState purple_shroom = BMBlocks.PURPLE_GLOWSHROOM.get().defaultBlockState();
+        BlockState green_shroom = BMBlocks.GREEN_GLOWSHROOM.get().defaultBlockState();
+        BlockState orange_shroom = BMBlocks.ORANGE_GLOWSHROOM.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
         BlockState red_shroom = Blocks.RED_MUSHROOM.defaultBlockState();
         BlockState brown_shroom = Blocks.BROWN_MUSHROOM.defaultBlockState();
 

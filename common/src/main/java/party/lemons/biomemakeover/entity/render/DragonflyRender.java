@@ -22,7 +22,7 @@ public class DragonflyRender extends MobRenderer<DragonflyEntity, DragonflyModel
         if(!entity.hasPlayedLoop)
         {
             entity.hasPlayedLoop = true;
-            Minecraft.getInstance().getSoundManager().play(new EntityLoopSoundInstance(entity, BMEffects.DRAGONFLY_LOOP));
+            Minecraft.getInstance().getSoundManager().play(new EntityLoopSoundInstance(entity, BMEffects.DRAGONFLY_LOOP.get()));
         }
 
         return TEXTURE[entity.getVariant() % TEXTURE.length];

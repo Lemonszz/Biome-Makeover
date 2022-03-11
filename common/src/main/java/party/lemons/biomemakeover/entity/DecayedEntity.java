@@ -198,7 +198,7 @@ public class DecayedEntity extends Zombie
                         {
                             ItemStack stack = new ItemStack(item);
 
-                            stack.enchant(BMEnchantments.DECAY_CURSE, 1 + random.nextInt(4));
+                            stack.enchant(BMEnchantments.DECAY_CURSE.get(), 1 + random.nextInt(4));
                             this.setItemSlot(equipmentSlot, stack);
                         }
                     }
@@ -207,7 +207,7 @@ public class DecayedEntity extends Zombie
         }
 
         ItemStack shield = new ItemStack(Items.SHIELD);
-        shield.enchant(BMEnchantments.DECAY_CURSE, 1 + random.nextInt(4));
+        shield.enchant(BMEnchantments.DECAY_CURSE.get(), 1 + random.nextInt(4));
         this.setItemSlot(EquipmentSlot.OFFHAND, shield);
         return spawnGroupData;
     }
@@ -240,27 +240,27 @@ public class DecayedEntity extends Zombie
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isInWater() ? BMEffects.DECAYED_AMBIENT_WATER : BMEffects.DECAYED_AMBIENT;
+        return this.isInWater() ? BMEffects.DECAYED_AMBIENT_WATER.get() : BMEffects.DECAYED_AMBIENT.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource source)
     {
-        return this.isInWater() ? BMEffects.DECAYED_HURT_WATER : BMEffects.DECAYED_HURT;
+        return this.isInWater() ? BMEffects.DECAYED_HURT_WATER.get() : BMEffects.DECAYED_HURT.get();
     }
 
     protected SoundEvent getDeathSound()
     {
-        return this.isInWater() ? BMEffects.DECAYED_DEATH_WATER : BMEffects.DECAYED_DEATH;
+        return this.isInWater() ? BMEffects.DECAYED_DEATH_WATER.get() : BMEffects.DECAYED_DEATH.get();
     }
 
     protected SoundEvent getStepSound()
     {
-        return BMEffects.DECAYED_STEP;
+        return BMEffects.DECAYED_STEP.get();
     }
 
     protected SoundEvent getSwimSound()
     {
-        return BMEffects.DECAYED_SWIM;
+        return BMEffects.DECAYED_SWIM.get();
     }
 
     protected ItemStack getSkull()
