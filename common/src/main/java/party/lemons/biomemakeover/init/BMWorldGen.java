@@ -274,7 +274,7 @@ public class BMWorldGen
                 .add(BMBlocks.WATER_LILY.get().defaultBlockState(), 2)
         );
 
-        public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SMALL_AND_FLOWERED_PADS = configure("small_and_flowered_pads", Feature.RANDOM_PATCH, new RandomPatchConfiguration(10, 7, 3, place("pads", configure("pads_place", Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(PADS)))));
+        public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SMALL_AND_FLOWERED_PADS = configure("small_and_flowered_pads", Feature.RANDOM_PATCH, new RandomPatchConfiguration(10, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(PADS))));
         public static final Holder<PlacedFeature> LILY_PAD_PATCH_PLACED = place("small_and_flowered_pads", SMALL_AND_FLOWERED_PADS, VegetationPlacements.worldSurfaceSquaredWithCount(1));
 
         //Sunken Ruin
