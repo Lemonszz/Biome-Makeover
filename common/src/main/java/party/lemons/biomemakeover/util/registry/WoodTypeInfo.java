@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.util.registry;
 
 import com.google.common.collect.Maps;
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -63,7 +64,7 @@ public class WoodTypeInfo
         this.callback = callback;
         this.tab = group;
 
-        woodType = WoodTypeHelper.createWoodType(name);
+        woodType = WoodTypeHelper.register(name);
         types.add(Type.LOG);
         types.add(Type.STRIPPED_LOG);
         types.add(Type.PLANK);
@@ -197,9 +198,11 @@ public class WoodTypeInfo
             }
         }
 
-        // if(types.contains(Type.SIGN))
-        //     BlockEntityHooks.addAdditionalBlock(BlockEntityType.SIGN, blocks.get(Type.SIGN).get(), blocks.get(Type.SIGN_WALL).get());
-
+         if(types.contains(Type.SIGN)) {
+             LifecycleEvent.SETUP.register(()->{
+                 ((BlockEntityTypeAccess)BlockEntityType.SIGN).bm_addBlockTypes( blocks.get(Type.SIGN).get(), blocks.get(Type.SIGN_WALL).get());
+             });
+         }
         return this;
     }
 

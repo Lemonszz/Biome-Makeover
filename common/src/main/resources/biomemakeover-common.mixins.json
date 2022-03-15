@@ -11,11 +11,11 @@
     "multipart.client.EntityRenderDispatcherMixin",
     "multipart.ClientPacketListenerMixin",
     "totem.ClientPacketListenerMixin",
-    "badlands.HorseRendererMixin",
-    "client.SheetsMixin"
+    "badlands.HorseRendererMixin"
   ],
   "mixins": [
     "antigen.StructureFeatureMixin",
+    "antigen.WoodlandMansionFeatureMixin",
     "AxeItemMixin",
     "EnchantmentHelperMixin",
     "LivingEntityMixin",
