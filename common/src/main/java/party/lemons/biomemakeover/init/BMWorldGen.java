@@ -160,7 +160,7 @@ public class BMWorldGen
         public static final Holder<PlacedFeature> DF_TREES_PLACED = place("df_trees", DF_TREES, CountPlacement.of(3), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome());
 
         //Mansion
-        public static final ConfiguredStructureFeature<?, ?> MANSION_CONFIGURED = BMFeatures.MANSION.get().configured(NoneFeatureConfiguration.INSTANCE, BiomeTags.HAS_WOODLAND_MANSION, true);
+        public static final ConfiguredStructureFeature<?, ?> MANSION_CONFIGURED = BMFeatures.MANSION.get().configured(NoneFeatureConfiguration.INSTANCE, BMFeatures.HAS_REWORKED_MANSION, true);
 
         public static final StructurePieceType MANSION_PIECE = MansionFeature.Piece::new;
 

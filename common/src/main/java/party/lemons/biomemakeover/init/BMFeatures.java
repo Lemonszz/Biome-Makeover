@@ -1,11 +1,10 @@
 package party.lemons.biomemakeover.init;
 
 import dev.architectury.registry.registries.DeferredRegister;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.JigsawFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -51,6 +50,7 @@ public class BMFeatures {
     public static final Supplier<StructureFeature<JigsawConfiguration>> GHOST_TOWN = STRUCTURES.register(BiomeMakeover.ID("ghost_town"), ()->new GhostTownFeature(JigsawConfiguration.CODEC));
     public static final Supplier<StructureFeature<NoneFeatureConfiguration>> MANSION = STRUCTURES.register(BiomeMakeover.ID("mansion"), ()->new MansionFeature(NoneFeatureConfiguration.CODEC));
 
+    public static final TagKey<Biome> HAS_REWORKED_MANSION = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("has_structure/reworked_mansion"));
 
     public static void init()
     {
