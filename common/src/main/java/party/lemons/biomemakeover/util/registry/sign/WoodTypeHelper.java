@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.util.registry.sign;
 
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
@@ -30,7 +32,8 @@ public interface WoodTypeHelper
 
             WoodType type = constructor.newInstance(name);
 
-            Sheets.SIGN_MATERIALS.put(type, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + type.name())));
+            if (Platform.getEnvironment() == Env.CLIENT)
+                Sheets.SIGN_MATERIALS.put(type, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + type.name())));
 
             return type;
         }
