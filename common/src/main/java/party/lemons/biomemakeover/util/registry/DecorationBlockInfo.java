@@ -1,23 +1,18 @@
 package party.lemons.biomemakeover.util.registry;
 
 import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.apache.commons.compress.utils.Lists;
-import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.block.BMSlabBlock;
 import party.lemons.biomemakeover.block.BMStairBlock;
-import party.lemons.biomemakeover.init.BMItems;
 
 import java.util.List;
 import java.util.Map;
