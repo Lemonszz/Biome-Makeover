@@ -20,7 +20,7 @@ public class HorseHatRenderLayer extends HatLayer<Horse, HorseModel<Horse>> {
     @Override
     public HatItem getHatItem(Horse entity) {
         if(((HorseHat)entity).hasHat())
-            return (HatItem) BMItems.COWBOY_HAT;
+            return (HatItem) BMItems.COWBOY_HAT.get();
         return null;
     }
 
