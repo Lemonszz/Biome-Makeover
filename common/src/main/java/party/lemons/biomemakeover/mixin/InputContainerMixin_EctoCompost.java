@@ -38,7 +38,7 @@ public abstract class InputContainerMixin_EctoCompost extends SimpleContainer {
 
     @Inject(at = @At("RETURN"), method = "canPlaceItemThroughFace", cancellable = true)
     public void canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction, CallbackInfoReturnable<Boolean> cbi) {
-        cbi.setReturnValue(ComposterBlock.COMPOSTABLES.containsKey(itemStack.getItem()) || ((!itemStack.isEmpty() && itemStack.getItem() == BMItems.ECTOPLASM) && state.getBlock() == Blocks.COMPOSTER && state.getValue(ComposterBlock.LEVEL) > 0));
+        cbi.setReturnValue(ComposterBlock.COMPOSTABLES.containsKey(itemStack.getItem()) || ((!itemStack.isEmpty() && itemStack.getItem() == BMItems.ECTOPLASM.get()) && state.getBlock() == Blocks.COMPOSTER && state.getValue(ComposterBlock.LEVEL) > 0));
     }
 
     @Inject(at = @At("HEAD"), method = "setChanged")

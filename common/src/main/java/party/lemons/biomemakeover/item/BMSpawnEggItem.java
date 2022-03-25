@@ -5,12 +5,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.GlowfishEntity;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class BMSpawnEggItem extends SpawnEggItem {
+
+    public static final List<BMSpawnEggItem> eggs = Lists.newArrayList();
 
     private Supplier<EntityType<? extends Mob>> type;
 
@@ -18,6 +22,8 @@ public class BMSpawnEggItem extends SpawnEggItem {
         super(null, i, i1, properties);
 
         this.type = type;
+
+        eggs.add(this);
     }
 
     public EntityType<?> getType(@Nullable CompoundTag compoundTag) {

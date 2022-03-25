@@ -119,7 +119,7 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
 
     public boolean playerHasHat(Player player)
     {
-        return player.getItemBySlot(EquipmentSlot.HEAD).getItem() == BMItems.WITCH_HAT;
+        return player.getItemBySlot(EquipmentSlot.HEAD).getItem() == BMItems.WITCH_HAT.get();
     }
 
     @Override

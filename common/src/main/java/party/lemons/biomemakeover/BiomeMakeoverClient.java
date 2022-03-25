@@ -3,9 +3,11 @@ package party.lemons.biomemakeover;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
+import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.utils.Env;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Blocks;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.block.blockentity.render.AltarRenderer;
@@ -18,10 +20,8 @@ import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMScreens;
-import party.lemons.biomemakeover.util.color.ColorProviderHelper;
-import party.lemons.biomemakeover.util.color.FoliageBlockColorProvider;
-import party.lemons.biomemakeover.util.color.FoliageShiftBlockColorProvider;
-import party.lemons.biomemakeover.util.color.StaticBlockColorProvider;
+import party.lemons.biomemakeover.item.BMSpawnEggItem;
+import party.lemons.biomemakeover.util.color.*;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 
 public class BiomeMakeoverClient
@@ -73,6 +73,10 @@ public class BiomeMakeoverClient
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),
                 BMBlocks.MOTH_BLOSSOM.get(), BMBlocks.ITCHING_IVY.get()
         );
+
+        for (BMSpawnEggItem eggie : BMSpawnEggItem.eggs) {
+            ColorHandlerRegistry.registerItemColors((stack, i) -> eggie.getColor(i), eggie);
+        }
     }
 
     //TODO: Find somewhere else for this

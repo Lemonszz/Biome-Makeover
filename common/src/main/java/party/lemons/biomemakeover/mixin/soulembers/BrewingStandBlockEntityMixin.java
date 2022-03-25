@@ -40,7 +40,7 @@ public abstract class BrewingStandBlockEntityMixin extends BlockEntity implement
 
         BrewingStandFuelAccess access = ((BrewingStandFuelAccess) brew);
 
-        if(access.getFuel() <= 0 && itemStack.getItem() == BMItems.SOUL_EMBERS)
+        if(access.getFuel() <= 0 && itemStack.getItem() == BMItems.SOUL_EMBERS.get())
         {
             access.setFuel(20);
             itemStack.shrink(1);

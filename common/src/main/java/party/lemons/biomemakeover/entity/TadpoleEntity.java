@@ -52,7 +52,7 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 
         ItemStack itemStack = player.getItemInHand(hand);
-        if(!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WINGS)
+        if(!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WINGS.get())
         {
             if(this.isBaby())
             {
