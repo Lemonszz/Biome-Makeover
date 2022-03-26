@@ -1,11 +1,11 @@
 package party.lemons.biomemakeover.item;
 
+import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.GlowfishEntity;
 

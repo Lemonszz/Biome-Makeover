@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public class BMBlockEntities
 {
-    private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_ENTITY_TYPE_REGISTRY);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_ENTITY_TYPE_REGISTRY);
 
     public static final Supplier<BlockEntityType<PoltergeistBlockEntity>> POLTERGEIST = BLOCK_ENTITIES.register(BiomeMakeover.ID("poltergeist"), ()->BlockEntityType.Builder.of(PoltergeistBlockEntity::new, BMBlocks.POLTERGEIST.get()).build(null));
     public static final Supplier<BlockEntityType<LightningBugBottleBlockEntity>> LIGHTNING_BUG_BOTTLE = BLOCK_ENTITIES.register(BiomeMakeover.ID("lightning_bug_bottle"), ()->BlockEntityType.Builder.of(LightningBugBottleBlockEntity::new, BMBlocks.LIGHTNING_BUG_BOTTLE.get()).build(null));
