@@ -49,7 +49,6 @@ public class TumbleweedSpawner
                 BlockPos pos = group.getSpawnPos();
                 if(pos != null) {
                     pos = new BlockPos(pos.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING, pos.getX(), pos.getZ()), pos.getZ());
-                    System.out.println(pos);
                     //if(pos != null && level.hasChunk(pos.getX(), pos.getZ()) && level.isEmptyBlock(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS))
 
                     //TODO: hasChunk was removed to fix potential crash

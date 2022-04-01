@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.level.feature.mansion;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.sun.jna.Structure;
 import net.minecraft.core.BlockPos;
@@ -45,6 +46,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureMana
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.material.FluidState;
+import org.apache.logging.slf4j.Log4jLogger;
+import org.slf4j.Logger;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.AbstractTapestryBlock;
 import party.lemons.biomemakeover.block.AbstractTapestryWallBlock;
@@ -74,6 +77,8 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 {
     public static final BlockIgnoreProcessor IGNORE_AIR_AND_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.AIR, Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA.get()));
     public static final BlockIgnoreProcessor IGNORE_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA.get()));
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public MansionFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec,  PieceGeneratorSupplier.simple(PieceGeneratorSupplier.checkForBiomeOnTop(Heightmap.Types.WORLD_SURFACE_WG), MansionFeature::generatePieces));
@@ -190,6 +195,8 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 
         @Override
         public void handleDirectionalMetadata(String meta, Direction dir, BlockPos pos, WorldGenLevel world, Random random) {
+
+        
             world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             BlockPos offsetPos = pos.relative(dir);
             BlockState offsetState = world.getBlockState(offsetPos);
@@ -197,7 +204,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             switch(meta)
             {
                 case "ivy":
-                      generateIvy(dir, pos, world, random);
+                    generateIvy(dir, pos, world, random);
                     break;
                 case "tapestry":
                       generateTapestry(dir, pos, world, random);
@@ -219,9 +226,10 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
                 case "owl":
                     OwlEntity e = BMEntities.OWL.get().create(world.getLevel());
                     e.moveTo(pos, 0, 0);
-                    if(random.nextFloat() < 0.25F)
+                    if(random.nextFloat() < 0.25F) {
                         Stuntable.setStunted(e, true);
-                    world.addFreshEntity(e);
+                    }
+                    world.addFreshEntityWithPassengers(e);
                     break;
                 case "shroom":
                       world.setBlock(pos, RandomUtil.choose(SHROOMS), 3);
@@ -525,13 +533,13 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             BiomeMakeover.ID("mansion/room/room_30"),
             BiomeMakeover.ID("mansion/room/room_31"),
             BiomeMakeover.ID("mansion/room/room_32"),
-            BiomeMakeover.ID("mansion/room/room_33"),
+             BiomeMakeover.ID("mansion/room/room_33"),
             BiomeMakeover.ID("mansion/room/room_34")
     );
 
     public static List<ResourceLocation> ROOM_BIG = Lists.newArrayList(
             BiomeMakeover.ID("mansion/room/big/room_big_1"),
-            BiomeMakeover.ID("mansion/room/big/room_big_2"),
+           BiomeMakeover.ID("mansion/room/big/room_big_2"),
             BiomeMakeover.ID("mansion/room/big/room_big_3"),
             BiomeMakeover.ID("mansion/room/big/room_big_4"),
             BiomeMakeover.ID("mansion/room/big/room_big_5"),

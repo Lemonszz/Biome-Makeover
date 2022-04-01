@@ -22,7 +22,7 @@ public class TeleportingPhase extends TimedPhase
     public TeleportingPhase(ResourceLocation phaseID, AdjudicatorEntity adjudicator)
     {
         super(phaseID, 30, adjudicator);
-        teleportPos = adjudicator.getOnPos();
+        teleportPos = new BlockPos(adjudicator.position());
     }
 
     @Override
