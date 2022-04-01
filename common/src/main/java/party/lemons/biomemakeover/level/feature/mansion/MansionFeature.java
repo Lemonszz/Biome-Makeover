@@ -260,6 +260,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
                             break;
                         case "dungeonjunk":
                             tableID = LOOT_DUNGEON_JUNK;
+                            break;
                         case "dungeon":
                             tableID = LOOT_DUNGEON_STANDARD;
                             break;
@@ -306,7 +307,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             }
             else if(meta.startsWith("golem"))
             {
-                //handleSpawning(meta, world, pos, golem_enemies);
+                handleSpawning(meta, world, pos, new EntityType[]{BMEntities.STONE_GOLEM.get()});
             }
             else if(meta.startsWith("ravager"))
             {

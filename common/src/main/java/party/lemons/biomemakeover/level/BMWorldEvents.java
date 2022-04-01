@@ -46,6 +46,7 @@ public final class BMWorldEvents {
         DispenserBlock.registerBehavior(Items.CROSSBOW, new OptionalDispenseItemBehavior(){
             @Override
             protected ItemStack execute(BlockSource block, ItemStack itemStack) {
+
                 BlockPos blockPos = block.getPos().relative(block.getBlockState().getValue(DispenserBlock.FACING));
                 List<StoneGolemEntity> list = block.getLevel().getEntitiesOfClass(StoneGolemEntity.class, new AABB(blockPos), (golem)->!golem.isHolding(Items.CROSSBOW) && golem.isPlayerCreated() && golem.isAlive());
                 if(!list.isEmpty())

@@ -64,11 +64,17 @@ public class MesmeriteBoulderFeature extends Feature<BlockStateConfiguration>
                     {
                         BlockPos placePos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, genPos);
                         BlockState belowState = level.getBlockState(placePos.below());
-                        while(belowState.getMaterial().isReplaceable() || belowState.is(BlockTags.LOGS) || belowState.is(BlockTags.LEAVES))
+                        int maxAttempts = 100;
+
+                        while(maxAttempts > 0 && (belowState.getMaterial().isReplaceable() || belowState.is(BlockTags.LOGS) || belowState.is(BlockTags.LEAVES)))
                         {
                             placePos = placePos.below();
                             belowState = level.getBlockState(placePos.below());
+                            maxAttempts--;
                         }
+                        if(maxAttempts <= 0)
+                            return false;
+
                         if(!(belowState.is(BMBlocks.MESMERITE.get()) || isDirt(belowState) || isStone(belowState) || belowState.getBlock() == Blocks.GRAVEL))
                             continue;
 

@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import party.lemons.biomemakeover.entity.TumbleweedEntity;
@@ -15,10 +16,13 @@ import java.util.List;
 
 public class TumbleweedSpawner
 {
+    static final List<TumbleweedPlayerGroup> groups = Lists.newArrayList();
+
     public static void update(ServerLevel level)
     {
-        List<TumbleweedPlayerGroup> groups = Lists.newArrayList();
-        for(ServerPlayer pl : level.getPlayers((p)->true))
+        groups.clear();
+
+        for(ServerPlayer pl : level.getPlayers((p)->p.getLevel().getBiome(p.getOnPos()).is(BiomeTags.IS_BADLANDS)))
         {
             if(pl.isSpectator()) continue;
 
@@ -43,12 +47,17 @@ public class TumbleweedSpawner
             if(level.random.nextInt(200) == 0)
             {
                 BlockPos pos = group.getSpawnPos();
+                if(pos != null) {
+                    pos = new BlockPos(pos.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING, pos.getX(), pos.getZ()), pos.getZ());
+                    System.out.println(pos);
+                    //if(pos != null && level.hasChunk(pos.getX(), pos.getZ()) && level.isEmptyBlock(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS))
 
-                if(pos != null && level.hasChunkAt(pos) && level.isEmptyBlock(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS))
-                {
-                    TumbleweedEntity tumble = BMEntities.TUMBLEWEED.get().create(level);
-                    tumble.moveTo(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);
-                    level.addFreshEntity(tumble);
+                    //TODO: hasChunk was removed to fix potential crash
+                    if (pos != null && level.getBiome(pos).is(BiomeTags.IS_BADLANDS)) {
+                        TumbleweedEntity tumble = BMEntities.TUMBLEWEED.get().create(level);
+                        tumble.moveTo(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
+                        level.addFreshEntity(tumble);
+                    }
                 }
             }
         }
@@ -91,28 +100,26 @@ public class TumbleweedSpawner
                 if((p.getZ() - 20) - 45 < minZ) minZ = (int) p.getZ() - 20 - 45;
             }
 
-            int spawnX = RandomUtil.randomRange(minX, maxX);
-            int spawnZ = RandomUtil.randomRange(minZ, maxZ);
-            int spawnY = main.level.getHeight(Heightmap.Types.WORLD_SURFACE, spawnX, spawnZ);
-
+            int spawnX, spawnZ;
             int attempts = 20;
-            while(!isOutOfRange(spawnX, spawnY, spawnZ) && attempts-- > 0)
-            {
+            BlockPos pos;
+            do{
                 spawnX = RandomUtil.randomRange(minX, maxX);
                 spawnZ = RandomUtil.randomRange(minZ, maxZ);
-                spawnY = main.level.getHeight(Heightmap.Types.WORLD_SURFACE, spawnX, spawnZ);
-            }
+                pos = new BlockPos(spawnX, 0, spawnZ);
+
+            }while(!isOutOfRange(spawnX, spawnZ) && attempts-- > 0);
 
             if(attempts <= 0) return null;
 
-            return new BlockPos(spawnX, spawnY, spawnZ);
+            return pos;
         }
 
-        private boolean isOutOfRange(double x, double y, double z)
+        private boolean isOutOfRange(double x, double z)
         {
             for(ServerPlayer pl : nearPlayers)
             {
-                if(pl.distanceToSqr(x, y, z) < 20) return false;
+                if(pl.distanceToSqr(x, pl.getY(), z) < 20) return false;
             }
             return true;
         }
