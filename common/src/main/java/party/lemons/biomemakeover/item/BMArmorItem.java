@@ -99,13 +99,14 @@ public class BMArmorItem extends ArmorItem
             attributes.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DUMMY_UUID, "Armor toughness", this.toughness, AttributeModifier.Operation.ADDITION));
             if (this.knockbackResistance != 0.0F)
             {
-                attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DUMMY_UUID, "Armor knockback resistance", (double)this.knockbackResistance, AttributeModifier.Operation.ADDITION));
+                attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DUMMY_UUID, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION));
             }
 
-            return ()->new BMArmorItem(material, buildAttributes(slot), protection, toughness, slot, properties);
+            LinkedListMultimap<Attribute, AttributeModifier> builtAttributes = buildAttributes(slot);
+            return ()->new BMArmorItem(material, builtAttributes, protection, toughness, slot, properties);
         }
 
-        private LinkedListMultimap<Attribute, AttributeModifier> buildAttributes(EquipmentSlot slot)
+        public LinkedListMultimap<Attribute, AttributeModifier> buildAttributes(EquipmentSlot slot)
         {
             LinkedListMultimap<Attribute, AttributeModifier> atts = LinkedListMultimap.create();
             for(Attribute attribute : attributes.keys())

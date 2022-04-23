@@ -130,6 +130,11 @@ public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<R
     }
 
     @Override
+    protected ItemLike getBaseSeedId() {
+        return BMItems.ROOTLING_SEEDS.get();
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(getAgeProperty());
     }

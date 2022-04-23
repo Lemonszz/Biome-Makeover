@@ -7,6 +7,7 @@ import com.google.common.collect.Multimap;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
+import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
@@ -129,8 +130,8 @@ public class BMBlocks
 
     public static final Supplier<Block> CATTAIL = registerBlockItem("cattail", ()->new ReedBlock(properties(Material.PLANT, 0).instabreak().noCollission().sound(SoundType.GRASS)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.5F)));
     public static final Supplier<Block> REED = registerBlockItem("reed", ()->new ReedBlock(properties(Material.PLANT, 0).instabreak().noCollission().sound(SoundType.GRASS)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.2F)));
-    public static final Supplier<Block> SMALL_LILY_PAD = registerBlockItem("small_lily_pad", ()->new SmallLilyPadBlock(properties(Material.PLANT, 0).instabreak().sound(BM_LILY_PAD_SOUND)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.3F)));
-    public static final Supplier<Block> WATER_LILY = registerBlockItem("water_lily", ()->new FloweredWaterlilyPadBlock(properties(Material.PLANT, 0).instabreak().sound(BM_LILY_PAD_SOUND)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.8F)));
+    public static final Supplier<Block> SMALL_LILY_PAD = registerLilyPad("small_lily_pad", ()->new SmallLilyPadBlock(properties(Material.PLANT, 0).instabreak().sound(BM_LILY_PAD_SOUND)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.3F)));
+    public static final Supplier<Block> WATER_LILY = registerLilyPad("water_lily", ()->new FloweredWaterlilyPadBlock(properties(Material.PLANT, 0).instabreak().sound(BM_LILY_PAD_SOUND)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.8F)));
     public static final Supplier<Block> WILLOW_LEAVES = registerBlockItem("willow_leaves", ()->new BMLeavesBlock(properties(Material.LEAVES, 0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating((a, b, c)->false).isViewBlocking((a, b, c)->false)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), CompostModifier.create(0.3F), FlammableModifier.LEAVES));
     public static final Supplier<Block> SWAMP_CYPRESS_LEAVES = registerBlockItem("swamp_cypress_leaves", ()->new BMLeavesBlock(properties(Material.LEAVES, 0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating((a, b, c)->false).isViewBlocking((a, b, c)->false)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), CompostModifier.create(0.3F), FlammableModifier.LEAVES));
     public static final Supplier<Block> LIGHTNING_BUG_BOTTLE = registerBlockItem("lightning_bug_bottle", ()->new LightningBugBottleBlock(properties(Material.STONE, 0.5F).lightLevel((b)->15).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT)));
@@ -167,7 +168,7 @@ public class BMBlocks
     public static final Supplier<Block> POTTED_ANCIENT_OAK_SAPLING =  BLOCKS.register(BiomeMakeover.ID("potted_ancient_oak_sapling"), ()->new BMFlowerPotBlock(ANCIENT_OAK_SAPLING.get(), properties(Material.DECORATION, 0).instabreak().noOcclusion().sound(SoundType.WOOL)).modifiers(RTypeModifier.create(RType.CUTOUT)));
     public static final Supplier<Block> POTTED_WILD_MUSHROOMS =  BLOCKS.register(BiomeMakeover.ID("potted_wild_mushrooms"), ()->new BMFlowerPotBlock(WILD_MUSHROOMS.get(), properties(Material.DECORATION, 0).instabreak().noOcclusion().sound(SoundType.WOOL)).modifiers(RTypeModifier.create(RType.CUTOUT)));
 
-    public static final Supplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(properties(Material.STONE, -1).noDrops()));
+    public static final Supplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of(Material.STONE).strength(-1).noDrops()));
 
     public static final Map<DyeColor, Supplier<Block>> DYE_TO_TAPESTRY = Maps.newHashMap();
     public static final List<Supplier<Block>> TAPESTRY_BLOCKS = Lists.newArrayList();
@@ -193,6 +194,8 @@ public class BMBlocks
         createTapestries();
 
         BLOCKS.register();
+
+        FuelRegistry.register(10000, DRIED_PEAT.get());
 
         postRegister();
     }
@@ -301,6 +304,14 @@ public class BMBlocks
     {
         RegistrySupplier<Block> bl = BLOCKS.register(BiomeMakeover.ID(id), block);
         BMItems.ITEMS.register(BiomeMakeover.ID(id), ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+
+        return bl;
+    }
+
+    public static Supplier<Block> registerLilyPad(String id, Supplier<Block> block)
+    {
+        RegistrySupplier<Block> bl = BLOCKS.register(BiomeMakeover.ID(id), block);
+        BMItems.ITEMS.register(BiomeMakeover.ID(id), ()->new WaterLilyBlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
 
         return bl;
     }

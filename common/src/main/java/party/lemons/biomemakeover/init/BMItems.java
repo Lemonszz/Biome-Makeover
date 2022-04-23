@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import dev.architectury.core.item.ArchitecturySpawnEggItem;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Registry;
@@ -76,10 +77,12 @@ public class BMItems
     public static final Supplier<Item> MOTH_SCALES = registerItem("moth_scales", ()->new Item(properties()));
     public static final Supplier<Item> STUNT_POWDER = registerItem("stunt_powder", ()->new StuntPowderItem(properties()));
     public static final Supplier<Item> CRUDE_CLADDING = registerItem("crude_cladding", ()->new Item(properties()));
+
     public static final Supplier<Item> CLADDED_HELMET = registerItem("cladded_helmet", CLADDED_ARMOR.build(EquipmentSlot.HEAD, properties()));
     public static final Supplier<Item> CLADDED_CHESTPLATE = registerItem("cladded_chestplate", CLADDED_ARMOR.build(EquipmentSlot.CHEST, properties()));
     public static final Supplier<Item> CLADDED_LEGGINGS = registerItem("cladded_leggings",CLADDED_ARMOR.build(EquipmentSlot.LEGS, properties()));
     public static final Supplier<Item> CLADDED_BOOTS = registerItem("cladded_boots", CLADDED_ARMOR.build(EquipmentSlot.FEET, properties()));
+
     public static final Supplier<Item> ENCHANTED_TOTEM = registerItem("enchanted_totem", ()->new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1)));
 
     public static final Supplier<Item> BUTTON_MUSHROOMS_MUSIC_DISK = registerItem("button_mushrooms_music_disk", ()->new BMRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE)));
@@ -90,20 +93,20 @@ public class BMItems
     public static final Supplier<Item> GLOWFISH_BUCKET = registerItem("glowfish_bucket", ()->new GlowfishBucketItem(BMEntities.GLOWFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties().stacksTo(1)));
     public static final Supplier<Item> TADPOLE_BUCKET = registerItem("tadpole_bucket", ()->new BMMobBucketItem(BMEntities.TADPOLE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties().stacksTo(1)));
 
-    public static final Supplier<Item> GLOWFISH_SPAWN_EGG = registerItem("glowfish_spawn_egg", ()->new BMSpawnEggItem(BMEntities.GLOWFISH, 0xff7b00, 0xffd7b3, properties()));
-    public static final Supplier<Item> MUSHROOM_TRADER_SPAWN_EGG = registerItem("mushroom_trader_spawn_egg", ()->new BMSpawnEggItem(BMEntities.MUSHROOM_TRADER, 0x37ff00, 0xb1ff9c, properties()));
-    public static final Supplier<Item> BLIGHTBAT_SPAWN_EGG = registerItem("blightbat_spawn_egg", ()->new BMSpawnEggItem(BMEntities.BLIGHTBAT, 0xae00ff, 0xdf9ffc, properties()));
-    public static final Supplier<Item> GHOST_SPAWN_EGG =registerItem("ghost_spawn_egg", ()-> new BMSpawnEggItem(BMEntities.GHOST, 0x566b6b, 0xb5fffe, properties()));
-    public static final Supplier<Item> SCUTTLER_SPAWN_EGG = registerItem("scuttler_spawn_egg", ()->new BMSpawnEggItem(BMEntities.SCUTTLER, 0x473427, 0x806553, properties()));
-    public static final Supplier<Item> COWBOY_SPAWN_EGG = registerItem("cowboy_spawn_egg", ()->new BMSpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, properties()));
-    public static final Supplier<Item> TOAD_SPAWN_EGG = registerItem("toad_spawn_egg", ()->new BMSpawnEggItem(BMEntities.TOAD, 0x4b8252, 0x614d33, properties()));
-    public static final Supplier<Item> TADPOLE_SPAWN_EGG = registerItem("tadpole_spawn_egg", ()->new BMSpawnEggItem(BMEntities.TADPOLE, 0x67824b, 0x614d33, properties()));
-    public static final Supplier<Item> DRAGONFLY_SPAWN_EGG = registerItem("dragonfly_spawn_egg", ()->new BMSpawnEggItem(BMEntities.DRAGONFLY, 0xc7b634, 0xf2ebb6, properties()));
-    public static final Supplier<Item> LIGHTNING_BUG_SPAWN_EGG = registerItem("lightning_bug_spawn_egg", ()->new BMSpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, properties()));
-    public static final Supplier<Item> DECAYED_SPAWN_EGG = registerItem("decayed_spawn_egg", ()->new BMSpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, properties()));
-    public static final Supplier<Item> OWL_SPAWN_EGG = registerItem("owl_spawn_egg", ()->new BMSpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, properties()));
-    public static final Supplier<Item> ROOTLING_SPAWN_EGG = registerItem("rootling_spawn_egg", ()->new BMSpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, properties()));
-    public static final Supplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new BMSpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
+    public static final Supplier<Item> GLOWFISH_SPAWN_EGG = registerItem("glowfish_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.GLOWFISH, 0xff7b00, 0xffd7b3, properties()));
+    public static final Supplier<Item> MUSHROOM_TRADER_SPAWN_EGG = registerItem("mushroom_trader_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.MUSHROOM_TRADER, 0x37ff00, 0xb1ff9c, properties()));
+    public static final Supplier<Item> BLIGHTBAT_SPAWN_EGG = registerItem("blightbat_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.BLIGHTBAT, 0xae00ff, 0xdf9ffc, properties()));
+    public static final Supplier<Item> GHOST_SPAWN_EGG =registerItem("ghost_spawn_egg", ()-> new ArchitecturySpawnEggItem(BMEntities.GHOST, 0x566b6b, 0xb5fffe, properties()));
+    public static final Supplier<Item> SCUTTLER_SPAWN_EGG = registerItem("scuttler_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.SCUTTLER, 0x473427, 0x806553, properties()));
+    public static final Supplier<Item> COWBOY_SPAWN_EGG = registerItem("cowboy_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.COWBOY, 0x9bc2c2, 0x6b3f39, properties()));
+    public static final Supplier<Item> TOAD_SPAWN_EGG = registerItem("toad_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.TOAD, 0x4b8252, 0x614d33, properties()));
+    public static final Supplier<Item> TADPOLE_SPAWN_EGG = registerItem("tadpole_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.TADPOLE, 0x67824b, 0x614d33, properties()));
+    public static final Supplier<Item> DRAGONFLY_SPAWN_EGG = registerItem("dragonfly_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.DRAGONFLY, 0xc7b634, 0xf2ebb6, properties()));
+    public static final Supplier<Item> LIGHTNING_BUG_SPAWN_EGG = registerItem("lightning_bug_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.LIGHTNING_BUG_ALTERNATE, 0x62c961, 0x96ebe1, properties()));
+    public static final Supplier<Item> DECAYED_SPAWN_EGG = registerItem("decayed_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, properties()));
+    public static final Supplier<Item> OWL_SPAWN_EGG = registerItem("owl_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, properties()));
+    public static final Supplier<Item> ROOTLING_SPAWN_EGG = registerItem("rootling_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, properties()));
+    public static final Supplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
 
     public static final Supplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
 

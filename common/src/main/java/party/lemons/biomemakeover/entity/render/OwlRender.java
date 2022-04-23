@@ -3,14 +3,21 @@ package party.lemons.biomemakeover.entity.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Mob;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.OwlEntity;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
+import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorStateProvider;
 
 public class OwlRender extends MobRenderer<OwlEntity, OwlModel>
 {
@@ -20,6 +27,7 @@ public class OwlRender extends MobRenderer<OwlEntity, OwlModel>
 
     public OwlRender(EntityRendererProvider.Context context) {
         super(context, new OwlModel(context.bakeLayer(OwlModel.LAYER_LOCATION)), 0.5F);
+        addLayer(new OwlRender.OwnEyesRenderer(this));
     }
 
     @Override
@@ -56,5 +64,19 @@ public class OwlRender extends MobRenderer<OwlEntity, OwlModel>
             poseStack.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(i, 0, -7.0F)));
         }
         poseStack.scale(0.75F, 0.75F, 0.75F);
+    }
+
+    public static class OwnEyesRenderer extends EyesLayer<OwlEntity, OwlModel>
+    {
+        private static RenderType renderType = RenderType.eyes(BiomeMakeover.ID("textures/entity/owl_eyes.png"));
+
+        public OwnEyesRenderer(RenderLayerParent<OwlEntity, OwlModel> renderLayerParent) {
+            super(renderLayerParent);
+        }
+
+        @Override
+        public RenderType renderType() {
+            return renderType;
+        }
     }
 }
