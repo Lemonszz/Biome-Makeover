@@ -4,7 +4,9 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import dev.architectury.core.item.ArchitecturySpawnEggItem;
 import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
@@ -106,7 +109,7 @@ public class BMItems
     public static final Supplier<Item> DECAYED_SPAWN_EGG = registerItem("decayed_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.DECAYED, 0x2e7068, 0x4a4034, properties()));
     public static final Supplier<Item> OWL_SPAWN_EGG = registerItem("owl_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.OWL, 0x302e27, 0x635c49, properties()));
     public static final Supplier<Item> ROOTLING_SPAWN_EGG = registerItem("rootling_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, properties()));
-    public static final Supplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
+    public static final RegistrySupplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
 
     public static final Supplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
 
@@ -120,15 +123,18 @@ public class BMItems
 
     public static void init() {
 
+        BMBlocks.BLOCK_ITEMS.get(BiomeMakeover.ID("dried_peat")).listen((i)->{
+            FuelRegistry.register(10000, i);
+        });
+
         ITEMS.register();
 
         LifecycleEvent.SETUP.register(()->
                 MODIFIERS.forEach((b, a)->a.accept(b))
         );
-
     }
 
-    private static Supplier<Item> registerItem(String id, Supplier<Item> item) {
+    private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item) {
         return ITEMS.register(BiomeMakeover.ID(id), item);
     }
 

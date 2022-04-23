@@ -52,6 +52,8 @@ import java.util.function.Supplier;
 public class BMBlocks
 {
     public static final List<Block> blocks = Lists.newArrayList();
+    public static final Map<ResourceLocation, RegistrySupplier<Item>> BLOCK_ITEMS = Maps.newHashMap();
+
     public static final Multimap<Block, BlockModifier> MODIFIERS = ArrayListMultimap.create();
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_REGISTRY);
 
@@ -114,7 +116,7 @@ public class BMBlocks
     public static final Supplier<Block> WILLOW_SAPLING = registerBlockItem("willow_sapling", ()->new WaterSaplingBlock(new WillowSaplingGenerator(), 1, properties(Material.PLANT, 0).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.4F)));
     public static final Supplier<Block> SWAMP_CYPRESS_SAPLING = registerBlockItem("swamp_cypress_sapling", ()->new WaterSaplingBlock(new SwampCypressSaplingGenerator(), 3, properties(Material.PLANT, 0).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.create(RType.CUTOUT), CompostModifier.create(0.4F)));
     public static final Supplier<Block> PEAT = registerBlockItem("peat", ()->new BMBlock(properties(Material.DIRT, 0.5F).sound(SoundType.WET_GRASS)).modifiers(new HoeModifier(BMBlocks.PEAT_FARMLAND)));
-    public static final Supplier<Block> DRIED_PEAT = registerBlockItem("dried_peat", ()->new BMBlock(properties(Material.DIRT, 1F).sound(SoundType.NETHERRACK)));
+    public static final RegistrySupplier<Block> DRIED_PEAT = registerBlockItem("dried_peat", ()->new BMBlock(properties(Material.DIRT, 1F).sound(SoundType.NETHERRACK)));
     public static final Supplier<Block> MOSSY_PEAT = registerBlockItem("mossy_peat", ()->new BMSpreadableBlock(properties(Material.DIRT, 0.5F).randomTicks().sound(SoundType.WET_GRASS), PEAT).modifiers(new HoeModifier(BMBlocks.PEAT_FARMLAND)));
     public static final Supplier<Block> PEAT_FARMLAND = registerBlockItem("peat_farmland", ()->new PeatFarmlandBlock(properties(Material.DIRT, 0.5F).sound(SoundType.WET_GRASS).randomTicks().noOcclusion()));
     public static final Supplier<Block> DRIED_PEAT_BRICKS = registerBlockItem("dried_peat_bricks", ()->new BMBlock(properties(Material.STONE, 2).sound(SoundType.STONE).requiresCorrectToolForDrops()));
@@ -192,10 +194,7 @@ public class BMBlocks
 
         createTerracottaBricks();
         createTapestries();
-
         BLOCKS.register();
-
-        FuelRegistry.register(10000, DRIED_PEAT.get());
 
         postRegister();
     }
@@ -214,7 +213,7 @@ public class BMBlocks
 
     public static BlockBehaviour.Properties properties(Material material, float hardness)
     {
-        return BlockProperties.of(material).strength(hardness, hardness);
+        return BlockBehaviour.Properties.of(material).strength(hardness, hardness);
     }
 
     public static Boolean canSpawnOnLeaves(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> type)
@@ -300,10 +299,13 @@ public class BMBlocks
         return true;
     }
 
-    public static Supplier<Block> registerBlockItem(String id, Supplier<Block> block)
+    public static RegistrySupplier<Block> registerBlockItem(String id, Supplier<Block> block)
     {
-        RegistrySupplier<Block> bl = BLOCKS.register(BiomeMakeover.ID(id), block);
-        BMItems.ITEMS.register(BiomeMakeover.ID(id), ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+        ResourceLocation loc = BiomeMakeover.ID(id);
+        RegistrySupplier<Block> bl = BLOCKS.register(loc, block);
+        RegistrySupplier<Item> it = BMItems.ITEMS.register(loc, ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+
+        BLOCK_ITEMS.put(loc, it);
 
         return bl;
     }
