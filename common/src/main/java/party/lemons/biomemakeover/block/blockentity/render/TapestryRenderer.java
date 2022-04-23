@@ -47,11 +47,11 @@ public class TapestryRenderer implements BlockEntityRenderer<TapestryBlockEntity
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
-        partDefinition.addOrReplaceChild(FLAG, CubeListBuilder.create().texOffs(0, 0)
-                .addBox(-10.0f, 0.0f, -2.0f, 20.0f, 35.0f, 1.0f)
-                .addBox(-10.0F, 35.0F, -2.0F, 4.0F, 5.0F, 1.0F)
-                .addBox(-2.0F, 35.0F,-2.0F, 4.0F, 5.0F, 1.0F)
-                .addBox(6.0F, 35.0F, -2.0F, 4.0F, 5.0F, 1.0F)
+        partDefinition.addOrReplaceChild(FLAG, CubeListBuilder.create()
+                .texOffs(0, 0).addBox(-10.0f, 0.0f, -2.0f, 20.0f, 35.0f, 1.0f)
+                .texOffs(0, 36).addBox(-10.0F, 35.0F, -2.0F, 4.0F, 5.0F, 1.0F)
+                .texOffs(10, 36).addBox(-2.0F, 35.0F,-2.0F, 4.0F, 5.0F, 1.0F)
+                .texOffs(20, 36).addBox(6.0F, 35.0F, -2.0F, 4.0F, 5.0F, 1.0F)
                 , PartPose.ZERO);
         partDefinition.addOrReplaceChild(POLE, CubeListBuilder.create().texOffs(44, 0).addBox(-1.0f, -30.0f, -1.0f, 2.0f, 42.0f, 2.0f), PartPose.ZERO);
         partDefinition.addOrReplaceChild(BAR, CubeListBuilder.create().texOffs(0, 42).addBox(-10.0f, -32.0f, -1.0f, 20.0f, 2.0f, 2.0f), PartPose.ZERO);
