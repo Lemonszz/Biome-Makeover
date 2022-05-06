@@ -25,10 +25,10 @@ public class BMEffects
 {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Constants.MOD_ID, Registry.SOUND_EVENT_REGISTRY);
 
-    public static final Supplier<SoundEvent> BUTTON_MUSHROOMS = registerSound(BiomeMakeover.ID("button_mushrooms"));
-    public static final Supplier<SoundEvent> GHOST_TOWN = registerSound(BiomeMakeover.ID("ghost_town"));
-    public static final Supplier<SoundEvent> SWAMP_JIVES = registerSound(BiomeMakeover.ID("swamp_jives"));
-    public static final Supplier<SoundEvent> RED_ROSE = registerSound(BiomeMakeover.ID("red_rose"));
+    public static final RegistrySupplier<SoundEvent> BUTTON_MUSHROOMS = registerSound(BiomeMakeover.ID("button_mushrooms"));
+    public static final RegistrySupplier<SoundEvent> GHOST_TOWN = registerSound(BiomeMakeover.ID("ghost_town"));
+    public static final RegistrySupplier<SoundEvent> SWAMP_JIVES = registerSound(BiomeMakeover.ID("swamp_jives"));
+    public static final RegistrySupplier<SoundEvent> RED_ROSE = registerSound(BiomeMakeover.ID("red_rose"));
     public static final Supplier<SoundEvent> GHOST_CHARGE = registerSound(BiomeMakeover.ID("ghost_charge"));
     public static final Supplier<SoundEvent> GHOST_DEATH = registerSound(BiomeMakeover.ID("ghost_death"));
     public static final Supplier<SoundEvent> GHOST_IDLE = registerSound(BiomeMakeover.ID("ghost_idle"));
@@ -122,7 +122,7 @@ public class BMEffects
        }
     }
 
-    private static Supplier<SoundEvent> registerSound(ResourceLocation sound)
+    private static RegistrySupplier<SoundEvent> registerSound(ResourceLocation sound)
     {
         return SOUNDS.register(sound, ()->new SoundEvent(sound));
     }

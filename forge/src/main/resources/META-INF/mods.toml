@@ -16,7 +16,7 @@ logoFile = "bm-logo.png"
 [[dependencies.biomemakeover]]
 modId = "forge"
 mandatory = true
-versionRange = "[39.0.66,)"
+versionRange = "[40.1.16,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -30,6 +30,6 @@ side = "BOTH"
 [[dependencies.biomemakeover]]
 modId = "architectury"
 mandatory = true
-versionRange = "[4.0.30,)"
+versionRange = "[4.4.54,)"
 ordering = "AFTER"
 side = "BOTH"
