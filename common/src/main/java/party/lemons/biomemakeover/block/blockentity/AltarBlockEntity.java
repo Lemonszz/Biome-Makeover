@@ -116,6 +116,8 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                     {
                         ItemStack newStack = new ItemStack(Items.ENCHANTED_BOOK);
                         Enchantment curse = getRandomCurse(level.random);
+                        if(curse == null)
+                            return;
                         newStack.enchant(curse, 1);
                         inventory.set(0, newStack);
                     }else if(curseItemStack(getItem(0), level.random))
@@ -250,6 +252,9 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         {
             curses.addAll(Registry.ENCHANTMENT.stream().filter(Enchantment::isCurse).toList());
         }
+        if(curses.isEmpty())
+            return null;
+
         return curses.get(random.nextInt(curses.size()));
     }
 
@@ -263,10 +268,16 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
             enchantments.put(toUpgrade, enchantments.get(toUpgrade) + 1);
 
             Enchantment curse = getRandomCurse(random);
+            if(curse == null)
+                return false;
+
             int attempts = 0;   //Attempts is to stop a potential infinite loop, if code is up to this point we SHOULD have a curse that's compatible, we gonna brute force it at this point lol
             while(enchantments.containsKey(curse) || !curse.canEnchant(stack) && attempts < 100)
             {
                 curse = getRandomCurse(random);
+                if(curse == null)
+                    return false;
+
                 attempts++;
                 if(attempts >= 100)
                 {
@@ -283,6 +294,9 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                         curse = enchantment;
                 }
             }
+
+            if(curse == null)
+                return false;
 
             int curseLevel = curse.getMaxLevel() == 1 ? 1 : RandomUtil.randomRange(curse.getMinLevel(), curse.getMaxLevel());
             enchantments.put(curse, curseLevel);
