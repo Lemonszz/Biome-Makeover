@@ -22,7 +22,10 @@ public class TumbleweedSpawner
     {
         groups.clear();
 
-        for(ServerPlayer pl : level.getPlayers((p)->p.getLevel().getBiome(p.getOnPos()).is(BiomeTags.IS_BADLANDS)))
+        for(ServerPlayer pl : level.getPlayers((p)->{
+            BlockPos pos = new BlockPos(p.position());
+            return level.isLoaded(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS);
+        }))
         {
             if(pl.isSpectator()) continue;
 
