@@ -4,6 +4,7 @@ import dev.architectury.utils.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +17,7 @@ public class WitchQuest
     private final ItemStack[] requiredItems;
     private float rarityPoints;
 
-    public WitchQuest(Random random, List<QuestItem> items)
+    public WitchQuest(RandomSource random, List<QuestItem> items)
     {
         requiredItems = new ItemStack[items.size()];
         for(int i = 0; i < items.size(); i++)

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -32,7 +33,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, int trunkHeight, BlockPos pos, TreeConfiguration treeConfiguration) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int trunkHeight, BlockPos pos, TreeConfiguration treeConfiguration) {
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         BlockPos blockPos = pos.below();
         setDirtAt(level, biConsumer, random, blockPos, treeConfiguration);
@@ -92,7 +93,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
         return list;
     }
 
-    public void makeBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, List<FoliagePlacer.FoliageAttachment> foliage, List<HorizontalDirection> directions, int foliageX, int genY, int foliageZ, int branchY, int trunkHeight, TreeConfiguration config)
+    public void makeBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, List<FoliagePlacer.FoliageAttachment> foliage, List<HorizontalDirection> directions, int foliageX, int genY, int foliageZ, int branchY, int trunkHeight, TreeConfiguration config)
     {
         HorizontalDirection lastDirection = null;
         for(int i = 0; i < 2; i++)

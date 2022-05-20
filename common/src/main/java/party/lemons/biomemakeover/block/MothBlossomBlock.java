@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -74,7 +75,7 @@ public class MothBlossomBlock extends IvyShapedBlock{
 
 
     @Override
-    public void tick(BlockState blockState, ServerLevel level, BlockPos pos, Random random) {
+    public void tick(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random) {
         for(int i = 0; i < 3; i++)
         {
             if(attemptSpread(level, pos.offset(0, yOffset[i], 0), random))
@@ -83,7 +84,7 @@ public class MothBlossomBlock extends IvyShapedBlock{
     }
     private final int[] yOffset = {0, 1, -1};
 
-    private boolean attemptSpread(Level level, BlockPos pos, Random random)
+    private boolean attemptSpread(Level level, BlockPos pos, RandomSource random)
     {
         for(Direction direction : BMUtil.randomOrderedHorizontals())
         {
@@ -101,12 +102,12 @@ public class MothBlossomBlock extends IvyShapedBlock{
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         tick(blockState, serverLevel, blockPos, random);
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if(random.nextInt(3) == 0)
         {
             double xx = 0, yy = 0, zz = 0, vx = 0, vy = 0, vz = 0;

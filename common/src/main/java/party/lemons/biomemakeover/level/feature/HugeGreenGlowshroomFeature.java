@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,7 +37,7 @@ public class HugeGreenGlowshroomFeature extends AbstractHugeMushroomFeature
         }
     }
 
-    protected BlockPos generateCrookedStem(LevelAccessor world, Random random, BlockPos pos, HugeMushroomFeatureConfiguration config, int height, BlockPos.MutableBlockPos mutable)
+    protected BlockPos generateCrookedStem(LevelAccessor world, RandomSource random, BlockPos pos, HugeMushroomFeatureConfiguration config, int height, BlockPos.MutableBlockPos mutable)
     {
         Direction dir = Direction.getRandom(random);
         mutable.set(pos);
@@ -58,7 +59,7 @@ public class HugeGreenGlowshroomFeature extends AbstractHugeMushroomFeature
     }
 
     @Override
-    protected int getTreeHeight(Random random)
+    protected int getTreeHeight(RandomSource random)
     {
         int i = random.nextInt(3) + 6;
         if(random.nextInt(12) == 0)
@@ -75,7 +76,7 @@ public class HugeGreenGlowshroomFeature extends AbstractHugeMushroomFeature
     }
 
     @Override
-    protected void makeCap(LevelAccessor level, Random random, BlockPos start, int y, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration config) {
+    protected void makeCap(LevelAccessor level, RandomSource random, BlockPos start, int y, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration config) {
         for (int yy = y - 3; yy <= y; ++yy) {
             int size = yy < y ? config.foliageRadius : config.foliageRadius - 1;
             int k = config.foliageRadius - 2;

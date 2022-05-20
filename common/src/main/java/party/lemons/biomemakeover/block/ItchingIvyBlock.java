@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -29,12 +30,12 @@ public class ItchingIvyBlock extends IvyBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState blockState) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState blockState) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState blockState) {
         level.setBlock(pos, ((MothBlossomBlock)BMBlocks.MOTH_BLOSSOM).getGrowState(level, pos), 3);
     }
 }

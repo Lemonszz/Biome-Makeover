@@ -1,0 +1,69 @@
+{
+  "name": "biomemakeover:ghosttown/roads",
+  "fallback": "minecraft:village/plains/terminators",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_01",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_02",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_03",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_04",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_05",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_06",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "biomemakeover:ghosttown/roads/street_07",
+        "processors": "biomemakeover:ghosttown_roads",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

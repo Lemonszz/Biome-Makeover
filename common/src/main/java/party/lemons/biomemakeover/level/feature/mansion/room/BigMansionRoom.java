@@ -3,16 +3,13 @@ package party.lemons.biomemakeover.level.feature.mansion.room;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
 import party.lemons.biomemakeover.util.Grid;
-
-import java.util.List;
-import java.util.Random;
 
 public class BigMansionRoom extends MansionRoom
 {
@@ -30,7 +27,7 @@ public class BigMansionRoom extends MansionRoom
     }
 
     @Override
-    public Rotation getRotation(Random random)
+    public Rotation getRotation(RandomSource random)
     {
         if(isDummy())
             return Rotation.NONE;
@@ -51,7 +48,7 @@ public class BigMansionRoom extends MansionRoom
     }
 
     @Override
-    public ResourceLocation getTemplate(Random random)
+    public ResourceLocation getTemplate(RandomSource random)
     {
         if(isDummy())
             return MansionFeature.EMPTY;
@@ -65,7 +62,7 @@ public class BigMansionRoom extends MansionRoom
     }
 
     @Override
-    public void addWalls(Random random, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
+    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
         boolean ground = getPosition().getY() == 0;
 
         if(getRoomType().hasWalls())
@@ -95,7 +92,7 @@ public class BigMansionRoom extends MansionRoom
         }
     }
 
-    private void addWall(Direction direction, StructureManager manager, StructurePiecesBuilder children, String wall, BlockPos pos, Rotation rotation, boolean ground)
+    private void addWall(Direction direction, StructureTemplateManager manager, StructurePiecesBuilder children, String wall, BlockPos pos, Rotation rotation, boolean ground)
     {
         if(direction == partnerDirection)
             return;

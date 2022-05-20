@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +25,7 @@ public class PeatFarmlandBlock extends FarmBlock implements BlockWithItem
     }
 
     @Override
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         if(!blockState.canSurvive(serverLevel, blockPos))
         {
             setToPeat(blockState, serverLevel, blockPos);
@@ -32,7 +33,7 @@ public class PeatFarmlandBlock extends FarmBlock implements BlockWithItem
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int i = state.getValue(MOISTURE);
         if(!isWaterNearby(level, pos) && !level.isRainingAt(pos.above()))
         {

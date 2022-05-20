@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -554,7 +555,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
         protected Vec3 locateSkyPos()
         {
-            Random random = getRandom();
+            RandomSource random = getRandom();
             BlockPos blockPos = getOnPos();
 
             for(int i = 0; i < 10; ++i)

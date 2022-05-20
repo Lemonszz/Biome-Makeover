@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.mixin.mushroom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -30,7 +31,7 @@ public abstract class MyceliumBlockMixin extends Block implements BonemealableBl
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState blockState) {
         FluidState fs = level.getFluidState(blockPos.above());
         boolean isWater = fs.is(FluidTags.WATER) && fs.getAmount() == 8;
 
@@ -38,7 +39,7 @@ public abstract class MyceliumBlockMixin extends Block implements BonemealableBl
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState blockState) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState blockState) {
         BlockPos startPos = pos.above();
         BlockState sprouts = BMBlocks.MYCELIUM_SPROUTS.get().defaultBlockState();
         BlockState roots = BMBlocks.MYCELIUM_ROOTS.get().defaultBlockState();

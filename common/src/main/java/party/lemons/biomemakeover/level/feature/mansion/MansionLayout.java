@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature.mansion;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.level.feature.mansion.processor.CorridorReplaceProcessor;
 import party.lemons.biomemakeover.level.feature.mansion.processor.FloorRoomReplaceProcessor;
 import party.lemons.biomemakeover.level.feature.mansion.processor.GardenRoomReplaceProcessor;
@@ -28,7 +29,7 @@ public class MansionLayout
         floorProcessors.add(new GardenRoomReplaceProcessor());
     }
 
-    public void generateLayout(Random random, int startY)
+    public void generateLayout(RandomSource random, int startY)
     {
         int floorCorridorTarget = 10 + random.nextInt(5);   //How many corridors to target per floor
         int floors = 4 + random.nextInt(4); //How many floors to create
@@ -142,7 +143,7 @@ public class MansionLayout
         });
     }
 
-    private void createBigRooms(Random random, List<MansionRoom> allRooms)
+    private void createBigRooms(RandomSource random, List<MansionRoom> allRooms)
     {
         for(int i = 0; i < allRooms.size(); i++)
         {
@@ -179,7 +180,7 @@ public class MansionLayout
         }
     }
 
-    protected void createEntrance(Random random, List<MansionRoom> allRooms)
+    protected void createEntrance(RandomSource random, List<MansionRoom> allRooms)
     {
         MansionRoom entranceConnected = null;
         Direction offsetDirection = null;
@@ -222,7 +223,7 @@ public class MansionLayout
         return null;
     }
 
-    protected void createTowers(Random random, List<MansionRoom> allRooms)
+    protected void createTowers(RandomSource random, List<MansionRoom> allRooms)
     {
         //Towers
         final int maxTowers = 3;
@@ -251,7 +252,7 @@ public class MansionLayout
         }
     }
 
-    protected void createDungeon(Random random, List<MansionRoom> allRooms, int startY)
+    protected void createDungeon(RandomSource random, List<MansionRoom> allRooms, int startY)
     {
         //Dungeon
         final int maxY = 30;        //Max level dungeon will generate at
@@ -328,7 +329,7 @@ public class MansionLayout
         dungeonRooms.forEach(rm->rm.setLayout(this, random));
     }
 
-    public List<MansionRoom> placeCorridors(int y, int maxCount, List<BlockPos.MutableBlockPos> positions, Random random)
+    public List<MansionRoom> placeCorridors(int y, int maxCount, List<BlockPos.MutableBlockPos> positions, RandomSource random)
     {
         int attempts = 20;
         int placed = 0;
@@ -367,7 +368,7 @@ public class MansionLayout
         return corridors;
     }
 
-    private void setNextPos(List<MansionRoom> corridors, Random random, int y, BlockPos.MutableBlockPos pos)
+    private void setNextPos(List<MansionRoom> corridors, RandomSource random, int y, BlockPos.MutableBlockPos pos)
     {
         BlockPos nextPos = corridors.get(random.nextInt(corridors.size())).getPosition();
         BlockPos checkPos = nextPos;
@@ -379,7 +380,7 @@ public class MansionLayout
         pos.set(checkPos.getX(), checkPos.getY(), checkPos.getZ());
     }
 
-    public List<MansionRoom> placeRooms(int y, int maxCount, Random random)
+    public List<MansionRoom> placeRooms(int y, int maxCount, RandomSource random)
     {
         int roomsPlaced = 0;
         int roomTarget = maxCount;

@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "biomemakeover:ghost_town",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "spacing": 32,
+    "separation": 12,
+    "spread_type": "linear",
+    "salt": 6969,
+    "type": "minecraft:random_spread"
+  }
+}

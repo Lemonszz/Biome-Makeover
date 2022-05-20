@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.LevelWriter;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.material.Fluid;
@@ -72,7 +74,7 @@ public class WaterTreeFeature extends Feature<TreeConfiguration> {
         return TreeFeature.isAirOrLeaves(levelSimulatedReader, blockPos) || isReplaceablePlant(levelSimulatedReader, blockPos) || isBlockWater(levelSimulatedReader, blockPos);
     }
 
-    private boolean doPlace(WorldGenLevel worldGenLevel, Random random, BlockPos blockPos, BiConsumer<BlockPos, BlockState> biConsumer, BiConsumer<BlockPos, BlockState> biConsumer2, TreeConfiguration treeConfiguration) {
+    private boolean doPlace(WorldGenLevel worldGenLevel, RandomSource random, BlockPos blockPos, BiConsumer<BlockPos, BlockState> biConsumer, BiConsumer<BlockPos, BlockState> biConsumer2, TreeConfiguration treeConfiguration) {
         int i = treeConfiguration.trunkPlacer.getTreeHeight(random);
         int j = treeConfiguration.foliagePlacer.foliageHeight(random, i, treeConfiguration);
         int k = i - j;
@@ -114,7 +116,7 @@ public class WaterTreeFeature extends Feature<TreeConfiguration> {
     @Override
     public final boolean place(FeaturePlaceContext<TreeConfiguration> featurePlaceContext) {
         WorldGenLevel worldGenLevel = featurePlaceContext.level();
-        Random random = featurePlaceContext.random();
+        RandomSource random = featurePlaceContext.random();
         BlockPos blockPos2 = featurePlaceContext.origin();
 
         if(featurePlaceContext.level().getFluidState(featurePlaceContext.origin()).getType() != Fluids.WATER)
@@ -145,7 +147,11 @@ public class WaterTreeFeature extends Feature<TreeConfiguration> {
             ArrayList<BlockPos> list2 = Lists.newArrayList(set2);
             list.sort(Comparator.comparingInt(Vec3i::getY));
             list2.sort(Comparator.comparingInt(Vec3i::getY));
-            treeConfiguration.decorators.forEach(treeDecorator -> treeDecorator.place(worldGenLevel, biConsumer3, random, list, list2));
+            treeConfiguration.decorators.forEach(treeDecorator -> {
+                TreeDecorator.Context context = new TreeDecorator.Context(worldGenLevel, biConsumer3, random, set2, set3, set);
+
+                treeDecorator.place(context);
+            });
         }
 
         return BoundingBox.encapsulatingPositions(Iterables.concat(set, set2, set3)).map(bb->{

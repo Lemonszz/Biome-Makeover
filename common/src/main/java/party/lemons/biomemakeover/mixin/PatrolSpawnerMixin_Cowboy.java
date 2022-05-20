@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -26,7 +27,7 @@ import java.util.Random;
 public abstract class PatrolSpawnerMixin_Cowboy {
 
     @Inject(at = @At("HEAD"), method = "spawnPatrolMember", cancellable = true)
-    private void spawnPatrolMember(ServerLevel level, BlockPos pos, Random random, boolean isLeader, CallbackInfoReturnable<Boolean> cbi)
+    private void spawnPatrolMember(ServerLevel level, BlockPos pos, RandomSource random, boolean isLeader, CallbackInfoReturnable<Boolean> cbi)
     {
         Holder<Biome> biome = level.getBiome(pos);
         if(biome.is(BiomeTags.IS_BADLANDS))

@@ -15,13 +15,22 @@
     "announce_to_chat": true,
     "hidden": false
   },
+
   "criteria": {
     "ghost_town": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "biomemakeover:ghost_town"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "biomemakeover:ghost_town"
+              }
+            }
+          }
+        ]
       }
     }
   },

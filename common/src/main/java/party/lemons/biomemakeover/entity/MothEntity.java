@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -125,7 +126,7 @@ public class MothEntity extends Monster
         }
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends MothEntity> entityType, ServerLevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, Random random) {
+    public static boolean checkSpawnRules(EntityType<? extends MothEntity> entityType, ServerLevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, RandomSource random) {
 
         return levelAccessor.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(levelAccessor, pos, random) && (mobSpawnType == MobSpawnType.SPAWNER || levelAccessor.getBlockState(pos.below()).is(BlockTags.LEAVES));
     }

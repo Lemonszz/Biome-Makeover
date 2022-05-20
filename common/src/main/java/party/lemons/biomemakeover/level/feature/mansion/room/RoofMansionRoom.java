@@ -3,10 +3,11 @@ package party.lemons.biomemakeover.level.feature.mansion.room;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.feature.mansion.MansionLayout;
@@ -29,14 +30,14 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
     }
 
     @Override
-    public void addWalls(Random random, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
+    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
         if(isRoofConnected(Direction.NORTH, roomGrid))
             children.addPiece(new MansionFeature.Piece(manager, getRoofSplit(random).toString(), wallPos.relative(Direction.NORTH).offset(-2, 0, 0), Rotation.NONE, getPosition().getY() == 0, true));
         if(isRoofConnected(Direction.WEST, roomGrid))
             children.addPiece(new MansionFeature.Piece(manager, getRoofSplit(random).toString(), wallPos.relative(Direction.WEST).offset(0, 0, -2), Rotation.CLOCKWISE_90, getPosition().getY() == 0, true));
     }
 
-    private ResourceLocation getRoofSplit(Random random)
+    private ResourceLocation getRoofSplit(RandomSource random)
     {
         return MansionFeature.ROOF_SPLIT.get(random.nextInt(MansionFeature.ROOF_SPLIT.size()));
     }
@@ -77,7 +78,7 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
         return offsetPos;
     }
 
-    public ResourceLocation getTemplate(Random random)
+    public ResourceLocation getTemplate(RandomSource random)
     {
         List<ResourceLocation> ids;
         switch(layout.doorCount())
@@ -106,7 +107,7 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
         return ids.get(random.nextInt(ids.size()));
     }
 
-    public Rotation getRotation(Random random)
+    public Rotation getRotation(RandomSource random)
     {
         switch(layout.doorCount())
         {
@@ -144,7 +145,7 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
     }
 
     @Override
-    public void setLayout(MansionLayout layout, Random random)
+    public void setLayout(MansionLayout layout, RandomSource random)
     {
         Grid<MansionRoom> lo = layout.getLayout();
         for(int i = 0; i < 4; i++)

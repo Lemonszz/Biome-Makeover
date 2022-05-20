@@ -15,7 +15,7 @@ public class AdjudicatorMimicRender extends MobRenderer<AdjudicatorMimicEntity, 
         super(context, new AdjudicatorModel<>(context.bakeLayer(AdjudicatorModel.LAYER_LOCATION)), 0.25F);
 
         addLayer(new AdjudicatorRender.AdjudicatorEyesRenderLayer<>(this));
-        addLayer(new AdjudicatorRender.AdjudicatorHeldItemRenderer<>(this));
+        addLayer(new AdjudicatorRender.AdjudicatorHeldItemRenderer<>(this, context.getItemInHandRenderer()));
     }
 
     @Override

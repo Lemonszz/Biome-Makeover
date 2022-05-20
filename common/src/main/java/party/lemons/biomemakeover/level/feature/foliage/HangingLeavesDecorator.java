@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature.foliage;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -33,14 +34,16 @@ public class HangingLeavesDecorator extends TreeDecorator
     }
 
     @Override
-    public void place(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, List<BlockPos> logs, List<BlockPos> leaves)
+    public void place(Context context)
     {
+        RandomSource random = context.random();
+        LevelSimulatedReader level = context.level();
         for(int i = 0; i < 4 + random.nextInt(8); i++)
         {
-            BlockPos.MutableBlockPos downPos = leaves.get(random.nextInt(leaves.size())).below().mutable();
+            BlockPos.MutableBlockPos downPos = context.leaves().get(random.nextInt(context.leaves().size())).below().mutable();
             if(TreeFeature.isAirOrLeaves(level, downPos) && level.isStateAtPosition(downPos.above(), (state)->state.is(BlockTags.LEAVES)))
             {
-                biConsumer.accept(downPos, provider.getState(random, downPos));
+                context.setBlock(downPos, provider.getState(random, downPos));
             }
         }
     }

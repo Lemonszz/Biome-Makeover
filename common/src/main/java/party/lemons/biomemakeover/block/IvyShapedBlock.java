@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -163,7 +164,7 @@ public class IvyShapedBlock extends BMBlock
         return stateDefinition.getPossibleStates().stream().collect(ImmutableMap.toImmutableMap(Function.identity(), (s)->IvyShapedBlock.calculateShape(s, this)));
     }
 
-    protected Direction getRandomStateSide(BlockState state, Random random)
+    protected Direction getRandomStateSide(BlockState state, RandomSource random)
     {
         List<Direction> dirs = Arrays.stream(Direction.values()).filter(d -> state.getValue(getPropertyForDirection(d))).toList();
         if(dirs.isEmpty()) return null;

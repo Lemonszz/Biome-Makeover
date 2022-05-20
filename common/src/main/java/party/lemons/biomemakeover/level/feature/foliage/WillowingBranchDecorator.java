@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -32,11 +33,13 @@ public class WillowingBranchDecorator extends TreeDecorator {
     }
 
     @Override
-    public void place(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, List<BlockPos> list, List<BlockPos> leaves) {
-
+    public void place(Context context)
+    {
+        RandomSource random = context.random();
+        LevelSimulatedReader level = context.level();
         for(int i = 0; i < 10; i++)
         {
-            BlockPos.MutableBlockPos pos = leaves.get(random.nextInt(leaves.size())).below().mutable();
+            BlockPos.MutableBlockPos pos = context.leaves().get(random.nextInt(context.leaves().size())).below().mutable();
             for(int j = 0; j < 3; j++)
             {
                 if((level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir) || level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState())) && level.isStateAtPosition(pos.above(), (s)->s.is(BlockTags.LEAVES) || (s.is(BMBlocks.WILLOWING_BRANCHES.get()) && s.getValue(WillowingBranchesBlock.STAGE) < WillowingBranchesBlock.MAX_STAGE)))
@@ -44,7 +47,7 @@ public class WillowingBranchDecorator extends TreeDecorator {
                     boolean water = level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState());
                     if(water || level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir))
                     {
-                        biConsumer.accept(pos, BMBlocks.WILLOWING_BRANCHES.get().defaultBlockState().setValue(WillowingBranchesBlock.STAGE, j).setValue(BlockStateProperties.WATERLOGGED, water));
+                        context.setBlock(pos, BMBlocks.WILLOWING_BRANCHES.get().defaultBlockState().setValue(WillowingBranchesBlock.STAGE, j).setValue(BlockStateProperties.WATERLOGGED, water));
                         pos.move(Direction.DOWN);
                     }else break;
                 }else

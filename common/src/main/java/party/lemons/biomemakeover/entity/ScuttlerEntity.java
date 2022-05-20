@@ -8,6 +8,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -231,13 +232,13 @@ public class ScuttlerEntity extends Animal {
     }
 
     @Override
-    public boolean checkSpawnRules(LevelAccessor level, MobSpawnType mobSpawnType) {
-        return level.getRandom().nextBoolean() && level.getEntitiesOfClass(ScuttlerEntity.class, new AABB(new BlockPos(getX(), getY(), getZ())).inflate(50), (e)->true).isEmpty() && super.checkSpawnRules(level, mobSpawnType);
-    }
-
-    @Override
     public int getMaxSpawnClusterSize() {
         return 1;
+    }
+
+    public static boolean checkSpawnRules(EntityType<ScuttlerEntity> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource random)
+    {
+        return random.nextBoolean() && level.getEntitiesOfClass(ScuttlerEntity.class, new AABB(pos).inflate(50), (e)->true).isEmpty() && isBrightEnoughToSpawn(level, pos);
     }
 
     private static class RattleGoal<T extends LivingEntity> extends Goal

@@ -5,6 +5,7 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -31,7 +32,7 @@ public class AdjudicatorRender extends MobRenderer<AdjudicatorEntity, Adjudicato
 
     public AdjudicatorRender(EntityRendererProvider.Context context) {
         super(context, new AdjudicatorModel<>(context.bakeLayer(AdjudicatorModel.LAYER_LOCATION)), 0.25F);
-        addLayer(new AdjudicatorHeldItemRenderer<>(this));
+        addLayer(new AdjudicatorHeldItemRenderer<>(this, context.getItemInHandRenderer()));
         addLayer(new AdjudicatorEyesRenderLayer<>(this));
         addLayer(new InvulnerableFeatureRenderer(this));
     }
@@ -61,8 +62,12 @@ public class AdjudicatorRender extends MobRenderer<AdjudicatorEntity, Adjudicato
     }
 
     public static class AdjudicatorHeldItemRenderer<T extends Mob & AdjudicatorStateProvider , M extends EntityModel<T> & ArmedModel> extends ItemInHandLayer<T, M> {
-        public AdjudicatorHeldItemRenderer(RenderLayerParent renderLayerParent) {
-            super(renderLayerParent);
+        private final ItemInHandRenderer itemInHandRenderer;
+
+        public AdjudicatorHeldItemRenderer(RenderLayerParent renderLayerParent, ItemInHandRenderer itemInHandRenderer) {
+            super(renderLayerParent, itemInHandRenderer);
+
+            this.itemInHandRenderer = itemInHandRenderer;
         }
 
         @Override
@@ -88,7 +93,7 @@ public class AdjudicatorRender extends MobRenderer<AdjudicatorEntity, Adjudicato
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
                 boolean isLeft = humanoidArm == HumanoidArm.LEFT;
                 poseStack.translate((isLeft ? -0.7F : 0.7F) / 16.0F, 0.125D, -0.625D);
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(livingEntity, stack, transformType, isLeft, poseStack, multiBufferSource, i);
+                itemInHandRenderer.renderItem(livingEntity, stack, transformType, isLeft, poseStack, multiBufferSource, i);
                 poseStack.popPose();
             }
         }

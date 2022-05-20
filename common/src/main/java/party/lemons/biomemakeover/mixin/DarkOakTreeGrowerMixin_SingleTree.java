@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.mixin;
 
 import net.minecraft.core.Holder;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.DarkOakTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +15,7 @@ import java.util.Random;
 @Mixin(DarkOakTreeGrower.class)
 public class DarkOakTreeGrowerMixin_SingleTree {
     @Inject(at = @At("HEAD"), method = "getConfiguredFeature", cancellable = true)
-    protected void getConfiguredFeature(Random random, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cbi)
+    protected void getConfiguredFeature(RandomSource random, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cbi)
     {
         cbi.setReturnValue(BMWorldGen.DarkForest.DARK_OAK_SMALL);
     }

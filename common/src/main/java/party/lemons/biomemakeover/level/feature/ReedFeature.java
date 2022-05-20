@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.level.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -37,7 +38,7 @@ public class ReedFeature extends Feature<NoneFeatureConfiguration>
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
         WorldGenLevel level = ctx.level();
         BlockPos origin = ctx.origin();
-        Random random = ctx.random();
+        RandomSource random = ctx.random();
 
 
         BlockPos centerPos = level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, origin).below();

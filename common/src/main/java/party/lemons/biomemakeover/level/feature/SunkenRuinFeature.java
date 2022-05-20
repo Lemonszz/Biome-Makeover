@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Witch;
@@ -23,14 +24,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.NoiseEffect;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.*;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
+import net.minecraft.world.level.levelgen.structure.structures.OceanRuinPieces;
+import net.minecraft.world.level.levelgen.structure.structures.OceanRuinStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.material.FluidState;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -39,34 +40,61 @@ import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
-public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.SunkenRuinFeatureConfig>
+public class SunkenRuinFeature extends Structure
 {
+    public static final Codec<SunkenRuinFeature> CODEC = RecordCodecBuilder.create(i->{
+        return  i.group(settingsCodec(i), Codec.floatRange(0, 1).fieldOf("large_probability").forGetter(s -> s.largeProbability),
+                Codec.floatRange(0, 1).fieldOf("cluster_probability").forGetter(s -> s.clusterProbability)
+        ).apply(i, SunkenRuinFeature::new);
+    });
+
+    public final float largeProbability;
+    public final float clusterProbability;
+
     private static final ResourceLocation[] LARGE_PIECES = new ResourceLocation[]{BiomeMakeover.ID("sunken_ruins/sunken_1"), BiomeMakeover.ID("sunken_ruins/sunken_2"), BiomeMakeover.ID("sunken_ruins/sunken_3")};
     private static final ResourceLocation[] SMALL_PIECES = new ResourceLocation[]{BiomeMakeover.ID("sunken_ruins/sunken_small_1"), BiomeMakeover.ID("sunken_ruins/sunken_small_2"), BiomeMakeover.ID("sunken_ruins/sunken_small_3"), BiomeMakeover.ID("sunken_ruins/sunken_small_4"), BiomeMakeover.ID("sunken_ruins/sunken_small_5"), BiomeMakeover.ID("sunken_ruins/sunken_small_6")};
 
 
     private static final ResourceLocation LOOT = BiomeMakeover.ID("sunken_ruin");
 
-    public SunkenRuinFeature(Codec<SunkenRuinFeatureConfig> codec)
+    public SunkenRuinFeature(StructureSettings settings, float largeProbability, float clusterProbability)
     {
-        super(codec, PieceGeneratorSupplier.simple(PieceGeneratorSupplier.checkForBiomeOnTop(Heightmap.Types.WORLD_SURFACE_WG), SunkenRuinFeature::generatePieces));
+        super(settings);
+        this.largeProbability = largeProbability;
+        this.clusterProbability = clusterProbability;
     }
+
 
     @Override
     public GenerationStep.Decoration step() {
         return GenerationStep.Decoration.LOCAL_MODIFICATIONS;
     }
 
-    private static <C extends FeatureConfiguration> void generatePieces(StructurePiecesBuilder builder, PieceGenerator.Context<SunkenRuinFeatureConfig> ctx)
+    @Override
+    public Optional<GenerationStub> findGenerationPoint(GenerationContext generationContext)
     {
-        BlockPos blockPos = new BlockPos(ctx.chunkPos().getMinBlockX(), 90, ctx.chunkPos().getMinBlockZ());
-        Rotation rotation = Rotation.getRandom(ctx.random());
-        addPieces(ctx.structureManager(), blockPos, rotation, builder, ctx.random(), ctx.config());
+        return onTopOfChunkCenter(generationContext, Heightmap.Types.OCEAN_FLOOR_WG, (structurePiecesBuilder) -> {
+            this.generatePieces(structurePiecesBuilder, generationContext);
+        });
     }
 
-    public static void addPieces(StructureManager manager, BlockPos blockPos, Rotation rotation, StructurePieceAccessor pieceAccessor, Random random, SunkenRuinFeatureConfig cfg) {
+    private void generatePieces(StructurePiecesBuilder structurePiecesBuilder, GenerationContext generationContext) {
+        BlockPos blockPos = new BlockPos(generationContext.chunkPos().getMinBlockX(), 90, generationContext.chunkPos().getMinBlockZ());
+        Rotation rotation = Rotation.getRandom(generationContext.random());
+        addPieces(generationContext.structureTemplateManager(), blockPos, rotation, structurePiecesBuilder, generationContext.random(), this);
+    }
+
+    @Override
+    public StructureType<?> type()
+    {
+        return BMWorldGen.Swamp.SUNKEN_RUIN.get();
+    }
+
+
+    public static void addPieces(StructureTemplateManager manager, BlockPos blockPos, Rotation rotation, StructurePieceAccessor pieceAccessor, RandomSource random, SunkenRuinFeature cfg) {
         boolean isLarge = random.nextFloat() <= cfg.largeProbability;
         float f = isLarge ? 0.9f : 0.8f;
 
@@ -76,12 +104,12 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
         }
     }
 
-    private static void addPiece(StructureManager structureManager, BlockPos blockPos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, Random random, SunkenRuinFeatureConfig oceanRuinConfiguration, boolean bl, float f) {
+    private static void addPiece(StructureTemplateManager structureManager, BlockPos blockPos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, RandomSource random, SunkenRuinFeature oceanRuinConfiguration, boolean bl, float f) {
         ResourceLocation resourceLocation = bl ? LARGE_PIECES[random.nextInt(LARGE_PIECES.length)] : SMALL_PIECES[random.nextInt(SMALL_PIECES.length)];
         structurePieceAccessor.addPiece(new SunkenRuinPiece(structureManager, resourceLocation, blockPos, rotation, 1, bl));
     }
 
-    private static void addClusterRuins(StructureManager structureManager, Random random, Rotation rotation, BlockPos blockPos, SunkenRuinFeatureConfig oceanRuinConfiguration, StructurePieceAccessor structurePieceAccessor) {
+    private static void addClusterRuins(StructureTemplateManager structureManager, RandomSource random, Rotation rotation, BlockPos blockPos, SunkenRuinFeature oceanRuinConfiguration, StructurePieceAccessor structurePieceAccessor) {
         BlockPos blockPos2 = new BlockPos(blockPos.getX(), 90, blockPos.getZ());
         BlockPos blockPos3 = StructureTemplate.transform(new BlockPos(15, 0, 15), Mirror.NONE, rotation, BlockPos.ZERO).offset(blockPos2);
         BoundingBox boundingBox = BoundingBox.fromCorners(blockPos2, blockPos3);
@@ -99,7 +127,7 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
         }
     }
 
-    private static List<BlockPos> allPositions(Random random, BlockPos blockPos) {
+    private static List<BlockPos> allPositions(RandomSource random, BlockPos blockPos) {
         ArrayList<BlockPos> list = Lists.newArrayList();
         list.add(blockPos.offset(-16 + Mth.nextInt(random, 1, 8), 0, 16 + Mth.nextInt(random, 1, 7)));
         list.add(blockPos.offset(-16 + Mth.nextInt(random, 1, 8), 0, Mth.nextInt(random, 1, 7)));
@@ -113,33 +141,18 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
     }
 
 
-    public static class SunkenRuinFeatureConfig implements FeatureConfiguration
-    {
-        public static final Codec<SunkenRuinFeatureConfig> CODEC = RecordCodecBuilder.create((instance)->
-                instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("large_probability").forGetter((cfg)->cfg.largeProbability), Codec.floatRange(0.0F, 1.0F).fieldOf("cluster_probability").forGetter((cfg)->cfg.clusterProbability)).apply(instance, SunkenRuinFeatureConfig::new));
-
-        public final float largeProbability;
-        public final float clusterProbability;
-
-        public SunkenRuinFeatureConfig(float largeProbability, float clusterProbability)
-        {
-            this.largeProbability = largeProbability;
-            this.clusterProbability = clusterProbability;
-        }
-    }
-
     public static class SunkenRuinPiece
             extends TemplateStructurePiece {
         private final float integrity;
         private final boolean isLarge;
 
-        public SunkenRuinPiece(StructureManager structureManager, ResourceLocation resourceLocation, BlockPos blockPos, Rotation rotation, float f, boolean bl) {
+        public SunkenRuinPiece(StructureTemplateManager structureManager, ResourceLocation resourceLocation, BlockPos blockPos, Rotation rotation, float f, boolean bl) {
             super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, 0, structureManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation), blockPos);
             this.integrity = f;
             this.isLarge = bl;
         }
 
-        public SunkenRuinPiece(StructureManager structureManager, CompoundTag compoundTag) {
+        public SunkenRuinPiece(StructureTemplateManager structureManager, CompoundTag compoundTag) {
             super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, compoundTag, structureManager, resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
             this.integrity = compoundTag.getFloat("Integrity");
             this.isLarge = compoundTag.getBoolean("IsLarge");
@@ -147,18 +160,13 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
 
         public SunkenRuinPiece(StructurePieceSerializationContext structurePieceSerializationContext, CompoundTag compoundTag)
         {
-            super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, compoundTag, structurePieceSerializationContext.structureManager(), resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
+            super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, compoundTag, structurePieceSerializationContext.structureTemplateManager(), resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
             this.integrity = compoundTag.getFloat("Integrity");
             this.isLarge = compoundTag.getBoolean("IsLarge");
         }
 
         private static StructurePlaceSettings makeSettings(Rotation rotation) {
             return new StructurePlaceSettings().setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
-        }
-
-        @Override
-        public NoiseEffect getNoiseEffect() {
-            return NoiseEffect.BURY;
         }
 
         @Override
@@ -170,7 +178,7 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
         }
 
         @Override
-        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor level, Random random, BoundingBox boundingBox) {
+        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox boundingBox) {
             if("chest".equals(metadata))
             {
                 level.setBlock(pos, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.WATERLOGGED, level.getFluidState(pos).is(FluidTags.WATER)), 2);
@@ -201,13 +209,13 @@ public class SunkenRuinFeature extends StructureFeature<SunkenRuinFeature.Sunken
         }
 
         @Override
-        public void postProcess(WorldGenLevel worldGenLevel, StructureFeatureManager structureFeatureManager, ChunkGenerator chunkGenerator, Random random, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos blockPos) {
+        public void postProcess(WorldGenLevel worldGenLevel, StructureManager structureManager, ChunkGenerator chunkGenerator, RandomSource randomSource, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos blockPos) {
             this.placeSettings.clearProcessors().addProcessor(new BlockRotProcessor(this.integrity)).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
             int i = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, this.templatePosition.getX(), this.templatePosition.getZ()) - RandomUtil.randomRange(1, 4);
             this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
             BlockPos blockPos2 = StructureTemplate.transform(new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1), Mirror.NONE, this.placeSettings.getRotation(), BlockPos.ZERO).offset(this.templatePosition);
             this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getHeight(this.templatePosition, worldGenLevel, blockPos2), this.templatePosition.getZ());
-            super.postProcess(worldGenLevel, structureFeatureManager, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+            super.postProcess(worldGenLevel, structureManager, chunkGenerator, randomSource, boundingBox, chunkPos, blockPos);
         }
 
         private int getHeight(BlockPos blockPos, BlockGetter blockGetter, BlockPos blockPos2) {

@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -64,7 +65,7 @@ public final class BMWorldEvents {
         });
     }
 
-    public static void handleSwampBoneMeal(Level level, BlockPos pos, Random random)
+    public static void handleSwampBoneMeal(Level level, BlockPos pos, RandomSource random)
     {
         start:
         for(int i = 0; i < 128; ++i)

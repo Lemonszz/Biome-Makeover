@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
@@ -177,15 +178,19 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance)
+    {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
     }
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        this.populateDefaultEquipmentSlots(difficultyInstance);
-        this.populateDefaultEquipmentEnchantments(difficultyInstance);
+
+        RandomSource randomSource = serverLevelAccessor.getRandom();
+
+        this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
+        this.populateDefaultEquipmentEnchantments(randomSource, difficultyInstance);
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
@@ -400,7 +405,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
             if(!nulled)
                 Minecraft.getInstance().getSoundManager().stop(((StoneGolemTurnSoundInstance)turnSound));
 
-            turnSound = new StoneGolemTurnSoundInstance(this);
+            turnSound = new StoneGolemTurnSoundInstance(this, getRandom());
             Minecraft.getInstance().getSoundManager().play(((StoneGolemTurnSoundInstance)turnSound));
         }
         else if(!nulled)
@@ -426,11 +431,6 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     @Override
     public double getPassengersRidingOffset() {
         return 2F;
-    }
-
-    @Override
-    public boolean canBeControlledByRider() {
-        return false;
     }
 
     @Override

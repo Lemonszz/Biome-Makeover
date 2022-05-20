@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -47,8 +48,9 @@ public class AdjudicatorMimicEntity extends Monster  implements AdjudicatorState
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
-        super.populateDefaultEquipmentSlots(difficultyInstance);
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance)
+    {
+        super.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
 
         handDropChances[0] = 0;
         handDropChances[1] = 0;
@@ -59,7 +61,7 @@ public class AdjudicatorMimicEntity extends Monster  implements AdjudicatorState
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        populateDefaultEquipmentSlots(difficultyInstance);
+        populateDefaultEquipmentSlots(serverLevelAccessor.getRandom(), difficultyInstance);
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
     @Override

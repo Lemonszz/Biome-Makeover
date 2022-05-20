@@ -2,9 +2,10 @@ package party.lemons.biomemakeover.level.feature.mansion;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.mojang.datafixers.util.Either;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import com.sun.jna.Structure;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -12,8 +13,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerChunkCache;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -28,26 +28,19 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
-import net.minecraft.world.level.levelgen.structure.WoodlandMansionPieces;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.level.material.FluidState;
-import org.apache.logging.slf4j.Log4jLogger;
-import org.slf4j.Logger;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.AbstractTapestryBlock;
 import party.lemons.biomemakeover.block.AbstractTapestryWallBlock;
@@ -64,24 +57,22 @@ import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.extension.Stuntable;
 import party.lemons.biomemakeover.util.registry.WoodTypeInfo;
-import party.lemons.biomemakeover.util.task.TaskManager;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
+public class MansionFeature extends Structure
 {
+    public static final Codec<MansionFeature> CODEC = RecordCodecBuilder.create(i->{
+        return  i.group(settingsCodec(i)
+        ).apply(i, MansionFeature::new);
+    });
+
     public static final BlockIgnoreProcessor IGNORE_AIR_AND_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.AIR, Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA.get()));
     public static final BlockIgnoreProcessor IGNORE_STRUCTURE_BLOCKS = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_BLOCK, BMBlocks.DIRECTIONAL_DATA.get()));
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-
-    public MansionFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec,  PieceGeneratorSupplier.simple(PieceGeneratorSupplier.checkForBiomeOnTop(Heightmap.Types.WORLD_SURFACE_WG), MansionFeature::generatePieces));
+    public MansionFeature(StructureSettings structureSettings) {
+        super(structureSettings);
     }
 
     @Override
@@ -89,17 +80,19 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    private static <C extends FeatureConfiguration> void generatePieces(StructurePiecesBuilder builder, PieceGenerator.Context<C> ctx)
+    @Override
+    public Optional<GenerationStub> findGenerationPoint(GenerationContext ctx)
     {
+        StructurePiecesBuilder builder = new StructurePiecesBuilder();
         MansionLayout layout = new MansionLayout();
         ChunkPos chunkPos = ctx.chunkPos();
         ChunkGenerator chunkGenerator = ctx.chunkGenerator();
         LevelHeightAccessor levelHeightAccessor = ctx.heightAccessor();
-        Random random=  ctx.random();
+        RandomSource random=  ctx.random();
 
         int x = chunkPos.x * 16;
         int z = chunkPos.z * 16;
-        BlockPos pos = new BlockPos(x, chunkGenerator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, levelHeightAccessor), z);
+        BlockPos pos = new BlockPos(x, chunkGenerator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, levelHeightAccessor, ctx.randomState()), z);
         layout.generateLayout(random, pos.getY());
 
         Grid<MansionRoom> roomGrid = layout.getLayout();
@@ -125,12 +118,20 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 
             //Add room
             ResourceLocation template = rm.getTemplate(random);
-            builder.addPiece(new Piece(ctx.structureManager(), template.toString(), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP));
+            builder.addPiece(new Piece(ctx.structureTemplateManager(), template.toString(), offsetPos, rotation, ground, rm.getRoomType() == RoomType.TOWER_MID || rm.getRoomType() == RoomType.TOWER_TOP));
 
             //Create walls
             BlockPos wallPos = new BlockPos(xx, yy, zz);
-            rm.addWalls(random, wallPos, ctx.structureManager(), roomGrid, builder);
+            rm.addWalls(random, wallPos, ctx.structureTemplateManager(), roomGrid, builder);
         });
+
+        return Optional.of(new GenerationStub(getLowestYIn5by5BoxOffset7Blocks(ctx, Rotation.NONE), Either.right(builder)));
+    }
+
+    @Override
+    public StructureType<?> type()
+    {
+        return BMWorldGen.DarkForest.MANSION.get();
     }
 
     public static class Piece extends TemplateStructurePiece implements DirectionalDataHandler
@@ -138,14 +139,14 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
         private final boolean ground;
         private final boolean isWall;
 
-        public Piece(StructureManager structureManager, String string, BlockPos blockPos, Rotation rotation, boolean needsGroundAdjustment, boolean isWall) {
+        public Piece(StructureTemplateManager structureManager, String string, BlockPos blockPos, Rotation rotation, boolean needsGroundAdjustment, boolean isWall) {
             super(BMWorldGen.DarkForest.MANSION_PIECE, 0, structureManager, new ResourceLocation(string), string, makeSettings(rotation, isWall), blockPos);
             this.ground = needsGroundAdjustment;
             this.isWall = isWall;
         }
 
 
-        public Piece(StructureManager structureManager, CompoundTag compoundTag) {
+        public Piece(StructureTemplateManager structureManager, CompoundTag compoundTag) {
             super(BMWorldGen.DarkForest.MANSION_PIECE, compoundTag, structureManager, (ResourceLocation resourceLocation) -> makeSettings(Rotation.valueOf(compoundTag.getString("Rotation")), compoundTag.getBoolean("IsWall")));
 
             this.ground = compoundTag.getBoolean("Ground");
@@ -154,7 +155,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
 
         public Piece(StructurePieceSerializationContext ctx, CompoundTag compoundTag)
         {
-            this(ctx.structureManager(), compoundTag);
+            this(ctx.structureTemplateManager(), compoundTag);
         }
 
         private static StructurePlaceSettings makeSettings(Rotation rotation, boolean isWall) {
@@ -170,7 +171,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
         }
 
         @Override
-        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor level, Random random, BoundingBox boundingBox)
+        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox boundingBox)
         {
             if(metadata.equals("boss"))
             {
@@ -194,7 +195,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
         }
 
         @Override
-        public void handleDirectionalMetadata(String meta, Direction dir, BlockPos pos, WorldGenLevel world, Random random) {
+        public void handleDirectionalMetadata(String meta, Direction dir, BlockPos pos, WorldGenLevel world, RandomSource random) {
 
         
             world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
@@ -403,7 +404,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             }
         }
 
-        private void generateTapestry(Direction dir, BlockPos pos, WorldGenLevel world, Random random)
+        private void generateTapestry(Direction dir, BlockPos pos, WorldGenLevel world, RandomSource random)
         {
             Block tapestryBlock;
             if(dir == Direction.DOWN || dir == Direction.UP)
@@ -418,7 +419,7 @@ public class MansionFeature extends StructureFeature<NoneFeatureConfiguration>
             }
         }
 
-        private void generateIvy(Direction dir, BlockPos pos, WorldGenLevel world, Random random)
+        private void generateIvy(Direction dir, BlockPos pos, WorldGenLevel world, RandomSource random)
         {
             if(random.nextFloat() < 0.25F) return;
 

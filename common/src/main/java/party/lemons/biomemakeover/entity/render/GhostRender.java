@@ -17,7 +17,7 @@ public class GhostRender extends MobRenderer<GhostEntity, GhostModel>
     public GhostRender(EntityRendererProvider.Context context) {
         super(context, new GhostModel(context.bakeLayer(GhostModel.LAYER_LOCATION)), 0);
 
-        addLayer(new ItemInHandLayer<>(this));
+        addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
     }
 
     @Nullable

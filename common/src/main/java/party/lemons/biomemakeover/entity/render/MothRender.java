@@ -31,7 +31,7 @@ public class MothRender extends MobRenderer<MothEntity, MothModel> {
         if(!entity.hasPlayedLoop)
         {
             entity.hasPlayedLoop = true;
-            Minecraft.getInstance().getSoundManager().play(new EntityLoopSoundInstance(entity, BMEffects.MOTH_FLAP.get()));
+            Minecraft.getInstance().getSoundManager().play(new EntityLoopSoundInstance(entity, BMEffects.MOTH_FLAP.get(), entity.getRandom()));
         }
 
 

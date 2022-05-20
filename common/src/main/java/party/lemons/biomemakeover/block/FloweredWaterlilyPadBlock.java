@@ -2,7 +2,7 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.WaterLilyBlockItem;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import party.lemons.biomemakeover.block.modifier.BlockModifier;
 import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
@@ -15,7 +15,7 @@ public class FloweredWaterlilyPadBlock extends WaterlilyBlock implements BlockWi
 
     @Override
     public Item makeItem(CreativeModeTab group) {
-        return new WaterLilyBlockItem(this, makeItemSettings(group));
+        return new PlaceOnWaterBlockItem(this, makeItemSettings(group));
     }
 
     @Override

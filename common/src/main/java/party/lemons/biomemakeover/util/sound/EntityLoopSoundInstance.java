@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.util.sound;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 
 public class EntityLoopSoundInstance extends AbstractTickableSoundInstance
@@ -10,8 +11,8 @@ public class EntityLoopSoundInstance extends AbstractTickableSoundInstance
     protected final LivingEntity entity;
     private boolean replaced;
 
-    public EntityLoopSoundInstance(LivingEntity entity, SoundEvent soundEvent) {
-        super(soundEvent, entity.getSoundSource());
+    public EntityLoopSoundInstance(LivingEntity entity, SoundEvent soundEvent, RandomSource randomSource) {
+        super(soundEvent, entity.getSoundSource(), randomSource);
 
         this.entity = entity;
         this.x = (float) entity.getX();

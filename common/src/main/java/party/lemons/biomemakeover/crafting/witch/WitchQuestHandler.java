@@ -6,6 +6,7 @@ import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.behavior.ShufflingList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -155,14 +156,14 @@ public class WitchQuestHandler
         addQuestItem(QuestCategory.RARE, QuestItem.of(Items.ZOMBIE_HEAD, 30, 1));
     }
 
-    public static ItemStack getRewardFor(WitchQuest quest, Random random)
+    public static ItemStack getRewardFor(WitchQuest quest, RandomSource random)
     {
         QuestRarity rarity = QuestRarity.getRarityFromQuest(quest);
 
         return rarity.rewards.sample().pickRandom(random);
     }
 
-    public static WitchQuest createQuest(Random random)
+    public static WitchQuest createQuest(RandomSource random)
     {
         List<Integer> counts = ITEM_COUNT_SELECTOR.shuffle().stream().toList();
 

@@ -5,7 +5,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -16,7 +15,6 @@ import party.lemons.biomemakeover.level.feature.foliage.HangingLeavesDecorator;
 import party.lemons.biomemakeover.level.feature.foliage.IvyDecorator;
 import party.lemons.biomemakeover.level.feature.foliage.WillowFoliagePlacer;
 import party.lemons.biomemakeover.level.feature.foliage.WillowingBranchDecorator;
-import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 
 import java.util.function.Supplier;
 
@@ -24,7 +22,6 @@ public class BMFeatures {
     private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Constants.MOD_ID, Registry.FEATURE_REGISTRY);
     private static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE = DeferredRegister.create(Constants.MOD_ID, Registry.FOLIAGE_PLACER_TYPE_REGISTRY);
     private static final DeferredRegister<TreeDecoratorType<?>> DECORATOR = DeferredRegister.create(Constants.MOD_ID, Registry.TREE_DECORATOR_TYPE_REGISTRY);
-    private static final DeferredRegister<StructureFeature<?>> STRUCTURES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_FEATURE_REGISTRY);
 
     public static final Supplier<Feature<BlockStateConfiguration>> MESMERMITE_BOULDER_FEATURE = FEATURES.register(BiomeMakeover.ID("mesmerite_boulder_feature"), ()->new MesmeriteBoulderFeature(BlockStateConfiguration.CODEC));
     public static final Supplier<Feature<OreConfiguration>> MESMERITE_UNDERGROUND_FEATURE = FEATURES.register(BiomeMakeover.ID("mesmerite_underground_feature"), ()->new MesmermiteUndergroundFeature(OreConfiguration.CODEC));
@@ -46,10 +43,6 @@ public class BMFeatures {
     public static final Supplier<TreeDecoratorType<WillowingBranchDecorator>> WILLOWING_BRANCH_DECORATOR = DECORATOR.register(BiomeMakeover.ID("willowing_brand_decorator"), ()->new TreeDecoratorType<>(WillowingBranchDecorator.CODEC));
     public static final Supplier<TreeDecoratorType<IvyDecorator>> IVY_DECORATOR =  DECORATOR.register(BiomeMakeover.ID("ivy_decorator"), ()->new TreeDecoratorType<>(IvyDecorator.CODEC));
 
-    public static final Supplier<StructureFeature<SunkenRuinFeature.SunkenRuinFeatureConfig>> SUNKEN_RUIN = STRUCTURES.register(BiomeMakeover.ID("sunken_ruin"), ()->new SunkenRuinFeature(SunkenRuinFeature.SunkenRuinFeatureConfig.CODEC));
-    public static final Supplier<StructureFeature<JigsawConfiguration>> GHOST_TOWN = STRUCTURES.register(BiomeMakeover.ID("ghost_town"), ()->new GhostTownFeature(JigsawConfiguration.CODEC));
-    public static final Supplier<StructureFeature<NoneFeatureConfiguration>> MANSION = STRUCTURES.register(BiomeMakeover.ID("mansion"), ()->new MansionFeature(NoneFeatureConfiguration.CODEC));
-
     public static final TagKey<Biome> HAS_REWORKED_MANSION = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("has_structure/reworked_mansion"));
 
     public static void init()
@@ -57,6 +50,5 @@ public class BMFeatures {
         FEATURES.register();
         FOLIAGE.register();
         DECORATOR.register();
-        STRUCTURES.register();
     }
 }

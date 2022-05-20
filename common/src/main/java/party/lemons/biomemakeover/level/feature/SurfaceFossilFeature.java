@@ -3,8 +3,8 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Mirror;
@@ -12,13 +12,11 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.FossilFeature;
-import net.minecraft.world.level.levelgen.feature.FossilFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Random;
@@ -32,13 +30,13 @@ public class SurfaceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
-        Random random = ctx.random();
+        RandomSource random = ctx.random();
         WorldGenLevel worldGenLevel = ctx.level();
         BlockPos blockPos = ctx.origin();
         Rotation rotation = Rotation.getRandom(random);
         int fossilIndex = random.nextInt(FOSSILS.length);
 
-        StructureManager structureManager = worldGenLevel.getLevel().getServer().getStructureManager();
+        StructureTemplateManager structureManager = worldGenLevel.getLevel().getServer().getStructureManager();
         StructureTemplate structureTemplate = structureManager.getOrCreate(FOSSILS[fossilIndex]);
 
         ChunkPos chunkPos = new ChunkPos(blockPos);

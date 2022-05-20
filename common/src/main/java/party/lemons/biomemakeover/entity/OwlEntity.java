@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +32,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -66,11 +68,11 @@ public class OwlEntity extends ShoulderRidingEntity
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends OwlEntity> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, Random random) {
+    public static boolean checkSpawnRules(EntityType<OwlEntity> owlEntityEntityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
+    {
+        BlockState state = level.getBlockState(pos.below());
 
-        BlockState state = levelAccessor.getBlockState(pos.below());
-
-        return ((state.is(Blocks.GRASS_BLOCK) || state.is(BlockTags.LEAVES))) && levelAccessor.getRawBrightness(pos, 0) > 2;
+        return ((state.is(Blocks.GRASS_BLOCK) || state.is(BlockTags.LEAVES))) && level.getRawBrightness(pos, 0) > 2;
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -316,7 +318,9 @@ public class OwlEntity extends ShoulderRidingEntity
         return BMEffects.OWL_HURT.get();
     }
 
-    public enum StandingState
+
+
+	public enum StandingState
     {
         STANDING, FLYING
     }

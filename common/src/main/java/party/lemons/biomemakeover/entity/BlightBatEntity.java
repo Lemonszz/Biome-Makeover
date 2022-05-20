@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ambient.Bat;
@@ -16,7 +17,7 @@ public class BlightBatEntity extends Bat {
         super(entityType, level);
     }
 
-    public static boolean checkSpawnRules(EntityType<BlightBatEntity> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random) {
+    public static boolean checkSpawnRules(EntityType<BlightBatEntity> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random) {
         if (blockPos.getY() >= levelAccessor.getSeaLevel()) {
             return false;
         }

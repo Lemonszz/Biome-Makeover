@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,7 +35,7 @@ public class HugeOrangeGlowshroomFeature extends AbstractHugeMushroomFeature {
         }
     }
 
-    protected BlockPos generateCrookedStem(LevelAccessor world, Random random, BlockPos pos, HugeMushroomFeatureConfiguration config, int height, BlockPos.MutableBlockPos mutable) {
+    protected BlockPos generateCrookedStem(LevelAccessor world, RandomSource random, BlockPos pos, HugeMushroomFeatureConfiguration config, int height, BlockPos.MutableBlockPos mutable) {
         Direction dir = Direction.getRandom(random);
         mutable.set(pos);
 
@@ -52,7 +53,7 @@ public class HugeOrangeGlowshroomFeature extends AbstractHugeMushroomFeature {
     }
 
     @Override
-    protected int getTreeHeight(Random random) {
+    protected int getTreeHeight(RandomSource random) {
         int i = random.nextInt(3) + 6;
         if (random.nextInt(12) == 0) {
             i *= 2;
@@ -67,7 +68,7 @@ public class HugeOrangeGlowshroomFeature extends AbstractHugeMushroomFeature {
     }
 
     @Override
-    protected void makeCap(LevelAccessor level, Random random, BlockPos start, int y, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration config) {
+    protected void makeCap(LevelAccessor level, RandomSource random, BlockPos start, int y, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration config) {
         int size = config.foliageRadius + RandomUtil.randomRange(1, 3);
 
         for (int xx = -size; xx <= size; ++xx) {

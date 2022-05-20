@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -262,7 +263,8 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         return true;
     }
 
-    public record GroupInfo(LightningBugEntity leader) implements SpawnGroupData {
+
+	public record GroupInfo(LightningBugEntity leader) implements SpawnGroupData {
     }
 
     private static class FollowGroupLeaderGoal extends Goal
@@ -331,7 +333,8 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         }
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends LightningBugEntity> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random) {
-        return levelAccessor.getBlockState(blockPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && levelAccessor.getRawBrightness(blockPos, 0) > 8;
+    public static boolean checkSpawnRules(EntityType<LightningBugEntity> lightningBugEntityEntityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
+    {
+        return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8;
     }
 }

@@ -3,16 +3,15 @@ package party.lemons.biomemakeover.level.feature.mansion.room;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.level.feature.mansion.*;
 
 import java.util.List;
-import java.util.Random;
 
 public class MansionRoom
 {
@@ -40,7 +39,7 @@ public class MansionRoom
         this.type = type;
     }
 
-    public void setLayout(MansionLayout layout, Random random)
+    public void setLayout(MansionLayout layout, RandomSource random)
     {
         Grid<MansionRoom> lo = layout.getLayout();
         for(int i = 0; i < 4; i++)
@@ -76,7 +75,7 @@ public class MansionRoom
         return position;
     }
 
-    public ResourceLocation getTemplate(Random random)
+    public ResourceLocation getTemplate(RandomSource random)
     {
         if(type != RoomType.CORRIDOR) return type.getRandomTemplate(position, random);
         else
@@ -106,7 +105,7 @@ public class MansionRoom
         }
     }
 
-    public Rotation getRotation(Random random)
+    public Rotation getRotation(RandomSource random)
     {
         if(type.hasColumnRotation())
         {
@@ -193,7 +192,7 @@ public class MansionRoom
         return getPosition().getY() == 0;
     }
 
-    public void addWalls(Random random, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children)
+    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children)
     {
         boolean ground = hasGroundModifications();
 
@@ -224,17 +223,17 @@ public class MansionRoom
         }
     }
 
-    public String getInnerWall(Random random)
+    public String getInnerWall(RandomSource random)
     {
         return MansionFeature.INNER_WALL.get(random.nextInt(MansionFeature.INNER_WALL.size())).toString();
     }
 
-    public String getFlatWall(Random random)
+    public String getFlatWall(RandomSource random)
     {
         return MansionFeature.FLAT_WALL.get(random.nextInt(MansionFeature.FLAT_WALL.size())).toString();
     }
 
-    public String getOuterWall(Direction dir, Grid<MansionRoom> roomGrid, Random random)
+    public String getOuterWall(Direction dir, Grid<MansionRoom> roomGrid, RandomSource random)
     {
         if(getPosition().getY() > 0)
         {

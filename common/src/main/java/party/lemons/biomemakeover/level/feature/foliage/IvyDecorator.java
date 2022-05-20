@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature.foliage;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -28,43 +29,45 @@ public class IvyDecorator extends TreeDecorator
     }
 
     @Override
-    public void place(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, List<BlockPos> logPositions, List<BlockPos> leafPositions) {
-        logPositions.forEach((pos) ->
+    public void place(Context context)
+    {
+        RandomSource random = context.random();
+        context.logs().forEach((pos) ->
         {
             BlockPos placePos;
             if (random.nextInt(8) == 0) {
                 placePos = pos.west();
-                if (Feature.isAir(level, placePos)) {
-                    this.placeIvy(level, placePos, Direction.EAST, biConsumer);
+                if (context.isAir(placePos)) {
+                    this.placeIvy(placePos, Direction.EAST, context);
                 }
             }
 
             if (random.nextInt(8) == 0) {
                 placePos = pos.east();
-                if (Feature.isAir(level, placePos)) {
-                    this.placeIvy(level, placePos, Direction.WEST, biConsumer);
+                if (context.isAir(placePos)) {
+                    this.placeIvy(placePos, Direction.WEST, context);
                 }
             }
 
             if (random.nextInt(8) == 0) {
                 placePos = pos.north();
-                if (Feature.isAir(level, placePos)) {
-                    this.placeIvy(level, placePos, Direction.SOUTH, biConsumer);
+                if (context.isAir(placePos)) {
+                    this.placeIvy(placePos, Direction.SOUTH, context);
                 }
             }
 
             if (random.nextInt(8) == 0) {
                 placePos = pos.south();
-                if (Feature.isAir(level, placePos)) {
-                    this.placeIvy(level, placePos, Direction.NORTH, biConsumer);
+                if (context.isAir(placePos)) {
+                    this.placeIvy(placePos, Direction.NORTH, context);
                 }
             }
 
         });
     }
 
-    protected void placeIvy(LevelSimulatedReader level, BlockPos pos, Direction dir, BiConsumer<BlockPos, BlockState> biConsumer)
+    protected void placeIvy(BlockPos pos, Direction dir,  Context context)
     {
-        biConsumer.accept(pos, BMBlocks.IVY.get().defaultBlockState().setValue(IvyBlock.getPropertyForDirection(dir), true));
+        context.setBlock(pos, BMBlocks.IVY.get().defaultBlockState().setValue(IvyBlock.getPropertyForDirection(dir), true));
     }
 }

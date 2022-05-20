@@ -49,7 +49,8 @@ public class BoatTypes
     {
         for(BoatType type : TYPES)
         {
-            EntityModelLayerRegistry.register(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
+            EntityModelLayerRegistry.register(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, type.getModelLocation()), "main"), ()->BoatModel.createBodyModel(false));
+            EntityModelLayerRegistry.register(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, type.getChestModelLocation()), "main"), ()->BoatModel.createBodyModel(true));
         }
     }
 }

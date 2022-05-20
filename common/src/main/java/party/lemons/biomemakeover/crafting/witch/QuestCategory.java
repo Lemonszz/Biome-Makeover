@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.crafting.witch;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.behavior.ShufflingList;
 
 import java.util.Random;
@@ -26,7 +27,7 @@ public enum QuestCategory
         }
     }
 
-    public static QuestCategory choose(Random random)
+    public static QuestCategory choose(RandomSource random)
     {
         return CATEGORIES.shuffle().stream().toList().get(random.nextInt(values().length));
     }

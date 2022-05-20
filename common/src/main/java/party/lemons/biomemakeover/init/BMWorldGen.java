@@ -3,15 +3,13 @@ package party.lemons.biomemakeover.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.data.worldgen.StructureSets;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
@@ -25,13 +23,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.random.WeightedEntry;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.util.valueproviders.*;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.util.valueproviders.ClampedInt;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformFloat;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,7 +37,9 @@ import net.minecraft.world.level.levelgen.carver.CarverDebugSettings;
 import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
-import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -57,17 +54,19 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
+import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import org.apache.commons.lang3.tuple.Pair;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.block.SmallLilyPadBlock;
-import party.lemons.biomemakeover.level.feature.*;
+import party.lemons.biomemakeover.level.feature.SunkenRuinFeature;
 import party.lemons.biomemakeover.level.feature.foliage.*;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
+import party.lemons.biomemakeover.level.generate.GhostTownLootProcessor;
 import party.lemons.biomemakeover.level.generate.foliage.WillowTrunkPlacer;
 import party.lemons.biomemakeover.mixin.TrunkPlacerTypeInvoker;
 import party.lemons.biomemakeover.util.registry.RegistryHelper;
@@ -76,12 +75,14 @@ import party.lemons.biomemakeover.util.registry.WoodTypeInfo;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
-import java.util.function.Supplier;
 
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
 
 public class BMWorldGen
 {
+    private static final DeferredRegister<StructureProcessorType<?>> PROCESSOR_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_PROCESSOR_REGISTRY);
+    private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_TYPE_REGISTRY);
+
 
     public static class DarkForest
     {
@@ -159,9 +160,7 @@ public class BMWorldGen
         public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> DF_TREES = configure("df_trees", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ANCIENT_OAK_SMALL_CHECKED, 0.1f), new WeightedPlacedFeature(DARK_OAK_SMALL_CHECKED, 0.2F), new WeightedPlacedFeature(ANCIENT_OAK_CHECKED, 0.05F)), TreePlacements.DARK_OAK_CHECKED));
         public static final Holder<PlacedFeature> DF_TREES_PLACED = place("df_trees", DF_TREES, CountPlacement.of(3), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome());
 
-        //Mansion
-        public static final ConfiguredStructureFeature<?, ?> MANSION_CONFIGURED = BMFeatures.MANSION.get().configured(NoneFeatureConfiguration.INSTANCE, BMFeatures.HAS_REWORKED_MANSION, true);
-
+        public static RegistrySupplier<StructureType<MansionFeature>> MANSION = STRUCTURE_TYPES.register(BiomeMakeover.ID("mansion"), ()->()->MansionFeature.CODEC);
         public static final StructurePieceType MANSION_PIECE = MansionFeature.Piece::new;
 
         public static void setFeatures()
@@ -192,16 +191,10 @@ public class BMWorldGen
             DF_GEN.put(GenerationStep.Decoration.SURFACE_STRUCTURES, Lists.newArrayList(
             ));
 
-            DF_STRUCTURES.add(MANSION_CONFIGURED);
-
         }
 
         public static void init()
         {
-            Holder<ConfiguredStructureFeature<?,?>> mansionHolder = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, BiomeMakeover.ID("mansion")), MANSION_CONFIGURED);
-            StructureSets.register(ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, BiomeMakeover.ID("mansion")), mansionHolder, new RandomSpreadStructurePlacement(32, 9, RandomSpreadType.LINEAR, 420));
-
-            RegistryHelper.register(Constants.MOD_ID, Registry.STRUCTURE_FEATURE, StructureFeature.class, DarkForest.class);
             RegistryHelper.register(Constants.MOD_ID, Registry.FEATURE, Feature.class, DarkForest.class);
 
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, DarkForest.class, CFG_FEATURES);
@@ -223,7 +216,7 @@ public class BMWorldGen
                 BlockStateProvider.simple(BMBlocks.SWAMP_CYPRESS_LEAVES.get()),
                 new WillowFoliagePlacer(ConstantInt.of(1), ConstantInt.of(2), 3, false),
                 new TwoLayersFeatureSize(1,0,1, OptionalInt.of(3)))
-                .decorators(ImmutableList.of(new HangingLeavesDecorator(BlockStateProvider.simple(BMBlocks.SWAMP_CYPRESS_LEAVES.get())), new BeehiveDecorator(0.01f), new LeaveVineDecorator()))
+                .decorators(ImmutableList.of(new HangingLeavesDecorator(BlockStateProvider.simple(BMBlocks.SWAMP_CYPRESS_LEAVES.get())), new BeehiveDecorator(0.01f), new LeaveVineDecorator(0.25F)))
                 .ignoreVines().build());
 
         public static final Holder<PlacedFeature> SWAMP_CYPRESS_CHECKED = place("swamp_cypress_checked", SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(BMBlocks.SWAMP_CYPRESS_SAPLING.get()));
@@ -278,22 +271,17 @@ public class BMWorldGen
         public static final Holder<PlacedFeature> LILY_PAD_PATCH_PLACED = place("small_and_flowered_pads", SMALL_AND_FLOWERED_PADS, VegetationPlacements.worldSurfaceSquaredWithCount(1));
 
         //Sunken Ruin
-        public static final ConfiguredStructureFeature<?, ?> SUNKEN_RUIN_CONFIGURED = BMFeatures.SUNKEN_RUIN.get().configured(new SunkenRuinFeature.SunkenRuinFeatureConfig(0.8F, 0.6F), BiomeTags.HAS_SWAMP_HUT);
+        public static RegistrySupplier<StructureType<SunkenRuinFeature>> SUNKEN_RUIN = STRUCTURE_TYPES.register(BiomeMakeover.ID("sunken_ruin"), ()->()->SunkenRuinFeature.CODEC);
         public static final StructurePieceType SUNKEN_RUIN_PIECE = SunkenRuinFeature.SunkenRuinPiece::new;
 
         public static void init()
         {
-
-            Holder<ConfiguredStructureFeature<?,?>> ruinHolder = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, BiomeMakeover.ID("sunken_ruin")), SUNKEN_RUIN_CONFIGURED);
-            StructureSets.register(ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, BiomeMakeover.ID("sunken_ruin")), ruinHolder, new RandomSpreadStructurePlacement(24, 9, RandomSpreadType.LINEAR, 420));
-
             RegistryHelper.register(Constants.MOD_ID, Registry.FOLIAGE_PLACER_TYPES, FoliagePlacerType.class, Swamp.class);
 
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, Swamp.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, Swamp.class, PL_FEATURES);
 
             Registry.register(Registry.STRUCTURE_PIECE, BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN_PIECE);
-     //       Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN_CONFIGURED);
             setFeatures();
         }
 
@@ -311,9 +299,6 @@ public class BMWorldGen
                     PEAT_PLACED,
                     REEDS_PLACED
             ));
-
-            SWAMP_STRUCTURES.add(SUNKEN_RUIN_CONFIGURED);
-
         }
     }
 
@@ -336,14 +321,10 @@ public class BMWorldGen
         public static final Holder<PlacedFeature> SURFACE_FOSSIL_PLACED = place("surface_fossil", SURFACE_FOSSIL, RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE,  BiomeFilter.biome());
 
         //Ghost Town
-        public static final ConfiguredStructureFeature<?, ?> GHOST_TOWN_CONFIGURED = BMFeatures.GHOST_TOWN.get().configured(GhostTownFeature.CONFIG, BiomeTags.IS_BADLANDS, true,Map.of(MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, GhostTownFeature.SPAWNS)));
+        public static final RegistrySupplier<StructureProcessorType<GhostTownLootProcessor>> GHOST_TOWN_LOOT_PROCESSOR = PROCESSOR_TYPES.register(BiomeMakeover.ID("ghost_town_loot"), ()->()->GhostTownLootProcessor.CODEC);
+
         public static void init()
         {
-            GhostTownFeature.init();
-
-            Holder<ConfiguredStructureFeature<?,?>> townHolder = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, BiomeMakeover.ID("ghost_town")), GHOST_TOWN_CONFIGURED);
-            StructureSets.register(ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, BiomeMakeover.ID("ghost_town")), townHolder, new RandomSpreadStructurePlacement(32, 12, RandomSpreadType.LINEAR, 6969));
-
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, Badlands.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, Badlands.class, PL_FEATURES);
 
@@ -365,8 +346,6 @@ public class BMWorldGen
             BADLANDS_GEN.put(GenerationStep.Decoration.SURFACE_STRUCTURES, Lists.newArrayList(
                     SURFACE_FOSSIL_PLACED
             ));
-
-            BADLANDS_STRUCTURES.add(GHOST_TOWN_CONFIGURED);
         }
     }
 
@@ -455,17 +434,11 @@ public class BMWorldGen
         public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BLIGHTED_BALSA_FILTERED =  configure("blighted_balsa_filtered", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(BLIGHTED_BALSA_CHECKED, 0.8f)), BLIGHTED_BALSA_CHECKED));
         public static final Holder<PlacedFeature> BLIGHTED_BALSA_TREES_PLACED = place("blighted_balsa_placed", BLIGHTED_BALSA_FILTERED, VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(12)));
 
-        //Bigger Caves
-        public static final ConfiguredWorldCarver<CaveCarverConfiguration> BIGGER_CAVES = WorldCarver.CAVE.configured(new CaveCarverConfiguration(0.3f, UniformHeight.of(VerticalAnchor.absolute(UG_END), VerticalAnchor.absolute(UG_START)), UniformFloat.of(0.1f, 0.9f), VerticalAnchor.aboveBottom(8), CarverDebugSettings.of(false, Blocks.OAK_BUTTON.defaultBlockState()), UniformFloat.of(0.1f, 4f), UniformFloat.of(0.1f, 4f), UniformFloat.of(-1.0f, -0.4f)));
-
         public static void init()
         {
-            Registry.register(BuiltinRegistries.CONFIGURED_CARVER, BiomeMakeover.ID("bigger_caves"), BIGGER_CAVES);
-
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, MushroomFields.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, MushroomFields.class, PL_FEATURES);
 
-            MUSHROOM_CARVERS.add(BIGGER_CAVES);
             setFeatures();
         }
 
@@ -505,11 +478,8 @@ public class BMWorldGen
     public static Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> MUSHROOM_GEN = Maps.newHashMap();
     public static List<ConfiguredWorldCarver> MUSHROOM_CARVERS = Lists.newArrayList();
     public static Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> BADLANDS_GEN = Maps.newHashMap();
-    public static List<ConfiguredStructureFeature<?, ?>> BADLANDS_STRUCTURES = Lists.newArrayList();
     public static Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> SWAMP_GEN = Maps.newHashMap();
-    public static List<ConfiguredStructureFeature<?, ?>> SWAMP_STRUCTURES = Lists.newArrayList();
     public static Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> DF_GEN = Maps.newHashMap();
-    public static List<ConfiguredStructureFeature<?, ?>> DF_STRUCTURES = Lists.newArrayList();
 
 
     public static void init()
@@ -522,6 +492,9 @@ public class BMWorldGen
         Badlands.init();
         Swamp.init();
         DarkForest.init();
+
+        PROCESSOR_TYPES.register();
+        STRUCTURE_TYPES.register();
 
         registerStuff();
     }

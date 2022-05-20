@@ -1,11 +1,13 @@
 package party.lemons.biomemakeover.util;
 
+import net.minecraft.util.RandomSource;
+
 import java.util.List;
 import java.util.Random;
 
 public final class RandomUtil
 {
-    public static final Random RANDOM = new Random();
+    public static final RandomSource RANDOM = RandomSource.create();
 
     public static int randomRange(int min, int max)
     {

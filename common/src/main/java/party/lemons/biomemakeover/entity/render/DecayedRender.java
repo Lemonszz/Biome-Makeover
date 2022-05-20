@@ -7,6 +7,7 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.DrownedModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
@@ -34,7 +35,7 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
         this.addLayer(new DecayedOverlayFeatureRenderer(this, context.getModelSet()));
         this.layers.removeIf((l)->l instanceof ItemInHandLayer);
 
-        this.addLayer(new DecayedItemInHandLayer(this));
+        this.addLayer(new DecayedItemInHandLayer(this, context.getItemInHandRenderer()));
 
     }
 
@@ -71,8 +72,12 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
     }
 
     private static class DecayedItemInHandLayer extends ItemInHandLayer<DecayedEntity, DecayedModel> {
-        public DecayedItemInHandLayer(RenderLayerParent<DecayedEntity, DecayedModel> renderLayerParent) {
-            super(renderLayerParent);
+        private final ItemInHandRenderer itemInHandRenderer;
+
+        public DecayedItemInHandLayer(RenderLayerParent<DecayedEntity, DecayedModel> renderLayerParent, ItemInHandRenderer itemInHandRenderer) {
+            super(renderLayerParent, itemInHandRenderer);
+
+            this.itemInHandRenderer = itemInHandRenderer;
         }
 
         private boolean usingShield(LivingEntity entity)
@@ -102,7 +107,7 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
                 poseStack.mulPose(dirZ.rotationDegrees(0));
                 poseStack.mulPose(dirX.rotationDegrees(25));
 
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(livingEntity, itemStack, transformType, isLeft, poseStack, multiBufferSource, i);
+                itemInHandRenderer.renderItem(livingEntity, itemStack, transformType, isLeft, poseStack, multiBufferSource, i);
                 poseStack.popPose();
             }
             else {
@@ -112,7 +117,7 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f));
                 boolean isLeft = humanoidArm == HumanoidArm.LEFT;
                 poseStack.translate((float) (isLeft ? -1 : 1) / 16.0f, 0.125, -0.625);
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(livingEntity, itemStack, transformType, isLeft, poseStack, multiBufferSource, i);
+                itemInHandRenderer.renderItem(livingEntity, itemStack, transformType, isLeft, poseStack, multiBufferSource, i);
                 poseStack.popPose();
             }
         }

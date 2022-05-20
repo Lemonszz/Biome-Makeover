@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -28,7 +29,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
         int radius = RandomUtil.randomRange(4, 8);
         BlockPos origin = ctx.origin();
         WorldGenLevel level = ctx.level();
-        Random random = ctx.random();
+        RandomSource random = ctx.random();
 
         BlockPos centerPos = new BlockPos(origin.getX(), 61, origin.getZ());
         if(!isWaterNearby(ctx.level(), centerPos)) return false;
@@ -100,7 +101,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
         return true;
     }
 
-    private void placePeat(BlockPos pos, WorldGenLevel level, Random random, int chance)
+    private void placePeat(BlockPos pos, WorldGenLevel level, RandomSource random, int chance)
     {
         level.setBlock(pos, BMBlocks.PEAT.get().defaultBlockState(), 2);
         if(random.nextInt(chance) == 0)

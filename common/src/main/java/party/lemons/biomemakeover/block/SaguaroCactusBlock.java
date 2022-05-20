@@ -6,6 +6,7 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -84,7 +85,7 @@ public class SaguaroCactusBlock extends BMBlock implements BonemealableBlock
     }
 
     @Override
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         if(!blockState.canSurvive(serverLevel, blockPos))
         {
             serverLevel.destroyBlock(blockPos, true);
@@ -171,7 +172,7 @@ public class SaguaroCactusBlock extends BMBlock implements BonemealableBlock
 
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         if(isValidBonemealTarget(serverLevel, blockPos, blockState, serverLevel.isClientSide) && random.nextInt(10) == 0)
             performBonemeal(serverLevel, random, blockPos, blockState);
     }
@@ -192,19 +193,19 @@ public class SaguaroCactusBlock extends BMBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState blockState) {
         return (double) level.random.nextFloat() < 0.45D;
     }
 
     @Override
-    public void performBonemeal(ServerLevel serverLevel, Random random, BlockPos blockPos, BlockState blockState) {
+    public void performBonemeal(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState) {
         generateCactus(this, serverLevel, random.nextBoolean(), blockPos, random, false);
     }
 
 
     private final static Direction[] NORTH_SOUTH = {Direction.NORTH, Direction.SOUTH};
     private final static Direction[] EAST_WEST = {Direction.EAST, Direction.WEST};
-    public static boolean generateCactus(Block block, WorldGenLevel world, boolean northSouth, BlockPos pos, Random random, boolean isBig)
+    public static boolean generateCactus(Block block, WorldGenLevel world, boolean northSouth, BlockPos pos, RandomSource random, boolean isBig)
     {
         if(!block.defaultBlockState().canSurvive(world, pos)) return false;
 

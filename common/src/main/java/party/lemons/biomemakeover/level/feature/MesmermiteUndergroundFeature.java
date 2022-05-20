@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
@@ -25,7 +26,7 @@ public class MesmermiteUndergroundFeature extends OreFeature
         super(codec);
     }
 
-    protected boolean doPlace(WorldGenLevel worldGenLevel, Random random, OreConfiguration oreConfiguration, double d, double e, double f, double g, double h, double i, int j, int k, int l, int m, int n) {
+    protected boolean doPlace(WorldGenLevel worldGenLevel, RandomSource random, OreConfiguration oreConfiguration, double d, double e, double f, double g, double h, double i, int j, int k, int l, int m, int n) {
         List<BlockPos> placePositons = Lists.newArrayList();
 
         double v;

@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -27,7 +28,7 @@ public class OrangeGlowshroomFeature extends Feature<ProbabilityFeatureConfigura
     @Override
     public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> featurePlaceContext) {
         boolean success = false;
-        Random random = featurePlaceContext.random();
+        RandomSource random = featurePlaceContext.random();
         WorldGenLevel level = featurePlaceContext.level();
         BlockPos pos = featurePlaceContext.origin();
         int xOffset = random.nextInt(8) - random.nextInt(8);

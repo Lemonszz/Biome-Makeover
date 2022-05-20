@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import party.lemons.biomemakeover.init.BMScreens;
 
 public class DirectionalDataMenu extends AbstractContainerMenu{
@@ -20,6 +21,12 @@ public class DirectionalDataMenu extends AbstractContainerMenu{
 
         this.pos = pos;
         this.meta = data;
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player player, int i)
+    {
+        return ItemStack.EMPTY;
     }
 
     @Override

@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.level.feature.mansion;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 
 import java.util.List;
 import java.util.Random;
@@ -39,7 +40,7 @@ public enum RoomType
         this.templates = templates;
     }
 
-    public ResourceLocation getRandomTemplate(BlockPos pos, Random random)
+    public ResourceLocation getRandomTemplate(BlockPos pos, RandomSource random)
     {
         if(columnRotation)
         {

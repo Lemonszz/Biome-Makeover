@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -18,11 +19,11 @@ import java.util.Random;
 public class SwampCypressSaplingGenerator extends AbstractTreeGrower {
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean bl) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bl) {
         return BMWorldGen.Swamp.SWAMP_CYPRESS;
     }
 
-    public boolean growTree(ServerLevel serverLevel, ChunkGenerator chunkGenerator, BlockPos blockPos, BlockState blockState, Random random) {
+    public boolean growTree(ServerLevel serverLevel, ChunkGenerator chunkGenerator, BlockPos blockPos, BlockState blockState, RandomSource random) {
         Holder<? extends ConfiguredFeature<?, ?>> configuredFeature = this.getConfiguredFeature(random, this.hasFlowers(serverLevel, blockPos));
         if (configuredFeature == null) {
             return false;

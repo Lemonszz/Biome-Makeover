@@ -7,7 +7,6 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.block.blockentity.DirectionalDataBlockEntity;
@@ -55,7 +54,7 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
             this.cancel();
         }));
 
-        this.inputMetadata = new EditBox(font, this.width / 2 - 152, 120, 308, 20, new TranslatableComponent("structure_block.custom_data"));
+        this.inputMetadata = new EditBox(font, this.width / 2 - 152, 120, 308, 20, Component.translatable("structure_block.custom_data"));
         this.inputMetadata.setMaxLength(128);
         this.inputMetadata.setValue(initialMeta);
 

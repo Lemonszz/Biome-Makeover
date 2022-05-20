@@ -1,33 +1,24 @@
 package party.lemons.biomemakeover.util;
 
-import com.google.common.collect.Lists;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerDataHolder;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerType;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SuspiciousStewItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
-import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Random;
 
 public class MerchantTrades
 {
@@ -48,7 +39,7 @@ public class MerchantTrades
         }
 
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             ItemStack itemStack = new ItemStack(this.item, this.cost);
             return new MerchantOffer(itemStack, new ItemStack(Items.EMERALD), this.maxUses, this.villagerXp, this.priceMultiplier);
         }
@@ -89,7 +80,7 @@ public class MerchantTrades
         }
 
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             return new MerchantOffer(new ItemStack(Items.EMERALD, this.emeraldCost), new ItemStack(this.itemStack.getItem(), this.numberOfItems), this.maxUses, this.villagerXp, this.priceMultiplier);
         }
     }
@@ -110,7 +101,7 @@ public class MerchantTrades
 
         @Override
         @Nullable
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             ItemStack itemStack = new ItemStack(Items.SUSPICIOUS_STEW, 1);
             SuspiciousStewItem.saveMobEffect(itemStack, this.effect, this.duration);
             return new MerchantOffer(new ItemStack(Items.EMERALD, 1), itemStack, 12, this.xp, this.priceMultiplier);
@@ -145,7 +136,7 @@ public class MerchantTrades
 
         @Override
         @Nullable
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             return new MerchantOffer(new ItemStack(Items.EMERALD, this.emeraldCost), new ItemStack(this.fromItem.getItem(), this.fromCount), new ItemStack(this.toItem.getItem(), this.toCount), this.maxUses, this.villagerXp, this.priceMultiplier);
         }
     }
@@ -170,8 +161,10 @@ public class MerchantTrades
             this.priceMultiplier = f;
         }
 
+        @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random)
+        {
             int i = 5 + random.nextInt(15);
             ItemStack itemStack = EnchantmentHelper.enchantItem(random, new ItemStack(this.itemStack.getItem()), i, false);
             int j = Math.min(this.baseEmeraldCost + i, 64);
@@ -197,9 +190,11 @@ public class MerchantTrades
             this.villagerXp = k;
         }
 
-        @Override
+
         @Nullable
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        @Override
+        public MerchantOffer getOffer(Entity entity, RandomSource randomSource)
+        {
             if (entity instanceof VillagerDataHolder) {
                 ItemStack itemStack = new ItemStack(this.trades.get(((VillagerDataHolder)((Object)entity)).getVillagerData().getType()), this.cost);
                 return new MerchantOffer(itemStack, new ItemStack(Items.EMERALD), this.maxUses, this.villagerXp, 0.05f);

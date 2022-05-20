@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -52,8 +53,9 @@ public class DragonflyEntity extends ToadTargetEntity implements FlyingAnimal {
         this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0F);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends DragonflyEntity> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random) {
-        return levelAccessor.getBlockState(blockPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && levelAccessor.getRawBrightness(blockPos, 0) > 8;
+    public static boolean checkSpawnRules(EntityType<DragonflyEntity> dragonflyEntityEntityType, ServerLevelAccessor serverLevelAccessor, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
+    {
+        return serverLevelAccessor.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && serverLevelAccessor.getRawBrightness(pos, 0) > 8;
     }
 
     public static AttributeSupplier.Builder createAttributes()

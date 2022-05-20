@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.entity.adjudicator.phase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.level.Level;
@@ -17,7 +18,7 @@ public abstract class AdjudicatorPhase
     protected final GoalSelector targetSelector;
     protected final Level level;
     protected final AdjudicatorEntity adjudicator;
-    protected final Random random;
+    protected final RandomSource random;
 
     public AdjudicatorPhase(ResourceLocation phaseID, AdjudicatorEntity adjudicator)
     {

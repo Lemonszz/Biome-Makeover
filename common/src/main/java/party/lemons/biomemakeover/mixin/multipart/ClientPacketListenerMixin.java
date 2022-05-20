@@ -2,8 +2,9 @@ package party.lemons.biomemakeover.mixin.multipart;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,8 +19,8 @@ public class ClientPacketListenerMixin
 {
     @Shadow private ClientLevel level;
 
-    @Inject(method = "handleAddMob", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/LivingEntity.recreateFromPacket(Lnet/minecraft/network/protocol/game/ClientboundAddMobPacket;)V"), locals = LocalCapture.CAPTURE_FAILSOFT)
-    private void onHandleMobSpawn(ClientboundAddMobPacket packet, CallbackInfo cbi, LivingEntity livingEntity)
+    @Inject(method = "handleAddEntity", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/Entity.recreateFromPacket(Lnet/minecraft/network/protocol/game/ClientboundAddEntityPacket;)V"), locals = LocalCapture.CAPTURE_FAILSOFT)
+    private void onHandleMobSpawn(ClientboundAddEntityPacket packet, CallbackInfo cbi, EntityType<?> entityType, Entity livingEntity)
     {
         if(livingEntity instanceof MultiPartEntity<?> mpe)
         {

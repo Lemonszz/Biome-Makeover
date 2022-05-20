@@ -6,21 +6,19 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.ItemStack;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.StoneGolemEntity;
-import party.lemons.biomemakeover.entity.mutipart.EntityPart;
 
 import java.util.Map;
 
@@ -31,7 +29,7 @@ public class StoneGolemRender extends MobRenderer<StoneGolemEntity, StoneGolemMo
     public StoneGolemRender(EntityRendererProvider.Context context) {
         super(context, new StoneGolemModel(context.bakeLayer(StoneGolemModel.LAYER_LOCATION)), 1F);
 
-        addLayer(new StoneGolemItemLayer(this));
+        addLayer(new StoneGolemItemLayer(this, context.getItemInHandRenderer()));
         addLayer(new StoneGolemCrackLayer(this));
     }
 
@@ -86,8 +84,12 @@ public class StoneGolemRender extends MobRenderer<StoneGolemEntity, StoneGolemMo
     }
 
     private class StoneGolemItemLayer extends RenderLayer<StoneGolemEntity, StoneGolemModel> {
-        public StoneGolemItemLayer(StoneGolemRender stoneGolemRender) {
+        private final ItemInHandRenderer itemInHandRenderer;
+
+        public StoneGolemItemLayer(StoneGolemRender stoneGolemRender, ItemInHandRenderer itemInHandRenderer) {
             super(stoneGolemRender);
+
+            this.itemInHandRenderer = itemInHandRenderer;
         }
 
         @Override
@@ -113,7 +115,7 @@ public class StoneGolemRender extends MobRenderer<StoneGolemEntity, StoneGolemMo
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
                 boolean isLeft = arm == HumanoidArm.LEFT;
                 poseStack.translate((isLeft ? -0.7F : 0.7F) / 16.0F, 0.125D, -1.75);
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(entity, stack, transformationMode, isLeft, poseStack, multiBufferSource, light);
+                itemInHandRenderer.renderItem(entity, stack, transformationMode, isLeft, poseStack, multiBufferSource, light);
                 poseStack.popPose();
             }
         }

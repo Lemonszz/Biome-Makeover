@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.item.enchantment;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
@@ -23,7 +24,7 @@ public class ConductivityCurseEnchantment extends BMEnchantment {
     public void onTick(LivingEntity entity, ItemStack stack, int level)
     {
         ServerLevel world = (ServerLevel) entity.level;
-        Random random = world.random;
+        RandomSource random = world.random;
 
         if(random.nextInt(11000 - (level * 1000)) == 0 && world.isThundering())
         {

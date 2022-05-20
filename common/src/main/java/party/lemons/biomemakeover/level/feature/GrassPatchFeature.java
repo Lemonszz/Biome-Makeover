@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -29,7 +30,7 @@ public class GrassPatchFeature extends VegetationPatchFeature
     }
 
     @Override
-    protected boolean placeGround(WorldGenLevel worldGenLevel, VegetationPatchConfiguration vegetationPatchConfiguration, Predicate<BlockState> predicate, Random random, BlockPos.MutableBlockPos mutableBlockPos, int i) {
+    protected boolean placeGround(WorldGenLevel worldGenLevel, VegetationPatchConfiguration vegetationPatchConfiguration, Predicate<BlockState> predicate, RandomSource random, BlockPos.MutableBlockPos mutableBlockPos, int i) {
         for (int j = 0; j < i; ++j) {
             BlockState currentPos;
             BlockState grassState = vegetationPatchConfiguration.groundState.getState(random, mutableBlockPos);

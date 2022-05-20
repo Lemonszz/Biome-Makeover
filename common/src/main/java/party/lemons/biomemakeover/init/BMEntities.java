@@ -17,8 +17,8 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
@@ -44,6 +44,7 @@ import party.lemons.biomemakeover.entity.*;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorMimicEntity;
 import party.lemons.biomemakeover.entity.render.*;
+import party.lemons.biomemakeover.entity.render.TadpoleModel;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatModel;
 import party.lemons.biomemakeover.entity.render.feature.WitchHatModel;
 import party.lemons.biomemakeover.level.golem.GolemHandler;
@@ -141,9 +142,9 @@ public class BMEntities
 
     private static void initSpawns()
     {
-        Predicate<BiomeModifications.BiomeContext> MUSHROOM_BIOMES = (ctx)->ctx.getProperties().getCategory() == Biome.BiomeCategory.MUSHROOM;
-        Predicate<BiomeModifications.BiomeContext> MESA_BIOMES = (ctx)->ctx.getProperties().getCategory() == Biome.BiomeCategory.MESA;
-        Predicate<BiomeModifications.BiomeContext> SWAMP_BIOMES = (ctx)->ctx.getProperties().getCategory() == Biome.BiomeCategory.SWAMP;
+        Predicate<BiomeModifications.BiomeContext> MUSHROOM_BIOMES = (ctx)->ctx.getKey().equals(new ResourceLocation("mushroom_fields"));
+        Predicate<BiomeModifications.BiomeContext> MESA_BIOMES = (ctx)->ctx.getKey().getPath().contains("badlands");
+        Predicate<BiomeModifications.BiomeContext> SWAMP_BIOMES = (ctx)->ctx.getKey().getPath().contains("swamp");
         Predicate<BiomeModifications.BiomeContext> DARK_FOREST = (ctx)->ctx.getKey().equals(new ResourceLocation("dark_forest"));
 
         registerSpawn(MUSHROOM_BIOMES, GLOWFISH.get(), MobCategory.WATER_AMBIENT, 7, 2, 7);
@@ -182,7 +183,7 @@ public class BMEntities
         registerSpawn(DARK_FOREST, EntityType.RABBIT, MobCategory.CREATURE, 4, 2, 3);
     }
 
-    private static <T extends Mob> boolean checkDFSpawnRules(EntityType<T> tEntityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, Random random)
+    private static boolean checkDFSpawnRules(EntityType<?> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
     {
         return level.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) && level.getRawBrightness(pos, 0) > 2;
     }

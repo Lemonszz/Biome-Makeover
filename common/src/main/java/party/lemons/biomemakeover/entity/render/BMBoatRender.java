@@ -36,7 +36,7 @@ public class BMBoatRender extends EntityRenderer<BMBoatEntity>
 
         for(BoatType boatType : BoatTypes.TYPES)
         {
-            boatResources.put(boatType, Pair.of(boatType.getTexture(), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, boatType.getModelLocation()), "main")))));
+            boatResources.put(boatType, Pair.of(boatType.getTexture(), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, boatType.getModelLocation()), "main")), false)));
         }
     }
 

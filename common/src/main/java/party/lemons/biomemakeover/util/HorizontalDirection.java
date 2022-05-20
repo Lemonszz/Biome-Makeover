@@ -1,8 +1,7 @@
 package party.lemons.biomemakeover.util;
 
 import net.minecraft.core.BlockPos;
-
-import java.util.Random;
+import net.minecraft.util.RandomSource;
 
 public enum HorizontalDirection
 {
@@ -38,7 +37,7 @@ public enum HorizontalDirection
         return pos.offset(x, 0, z);
     }
 
-    public static HorizontalDirection random(Random random)
+    public static HorizontalDirection random(RandomSource random)
     {
         return values()[random.nextInt(values().length)];
     }

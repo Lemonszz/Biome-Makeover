@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -32,7 +33,7 @@ public class CypressTrunkPlacer  extends TrunkPlacer {
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, int trunkHeight, BlockPos pos, TreeConfiguration treeConfiguration) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int trunkHeight, BlockPos pos, TreeConfiguration treeConfiguration) {
         setDirtAt(level, biConsumer, random, pos.below(), treeConfiguration);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 
@@ -67,7 +68,7 @@ public class CypressTrunkPlacer  extends TrunkPlacer {
         return list;
     }
 
-    protected static boolean setBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, TreeConfiguration treeConfiguration, Random random, BlockPos blockPos)
+    protected boolean setBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, TreeConfiguration treeConfiguration, RandomSource random, BlockPos blockPos)
     {
         if(TreeFeature.isAirOrLeaves(level, blockPos))
         {

@@ -2,10 +2,9 @@ package party.lemons.biomemakeover.level.feature.mansion.room;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
-
-import java.util.Random;
 
 public class BossRoom extends MansionRoom
 {
@@ -24,7 +23,7 @@ public class BossRoom extends MansionRoom
         return offsetPos;
     }
 
-    public Rotation getRotation(Random random)
+    public Rotation getRotation(RandomSource random)
     {
         if(layout.get(Direction.SOUTH)) return Rotation.COUNTERCLOCKWISE_90;
         else if(layout.get(Direction.NORTH)) return Rotation.CLOCKWISE_90;

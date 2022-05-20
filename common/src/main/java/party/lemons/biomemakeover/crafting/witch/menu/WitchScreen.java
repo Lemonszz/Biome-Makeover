@@ -11,8 +11,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -25,9 +23,9 @@ import party.lemons.biomemakeover.network.C2S_HandleCompleteQuest;
 public class WitchScreen extends AbstractContainerScreen<WitchMenu>
 {
     private static final ResourceLocation TEXTURE = BiomeMakeover.ID("textures/gui/witch.png");
-    private static final Component QUESTS_TEXT = new TranslatableComponent("witch.quests");
-    private static final Component SEPARATOR = new TextComponent(" - ");
-    private static final Component DEPRECATED_TEXT = new TranslatableComponent("merchant.deprecated");
+    private static final Component QUESTS_TEXT = Component.translatable("witch.quests");
+    private static final Component SEPARATOR = Component.literal(" - ");
+    private static final Component DEPRECATED_TEXT = Component.translatable("merchant.deprecated");
     private final QuestButton[] questButtons = new QuestButton[3];
     private final Inventory inventory;
 
@@ -124,7 +122,7 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
 
         public QuestButton(int x, int y, WitchQuest quest, OnPress action)
         {
-            super(x, y, 104, 26, TextComponent.EMPTY, action);
+            super(x, y, 104, 26, Component.empty(), action);
             this.quest = quest;
             this.questRarity = QuestRarity.getRarityFromQuest(quest);
         }

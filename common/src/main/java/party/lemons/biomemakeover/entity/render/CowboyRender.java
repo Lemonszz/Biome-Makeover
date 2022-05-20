@@ -17,7 +17,7 @@ public class CowboyRender extends IllagerRenderer<CowboyEntity> {
     public CowboyRender(EntityRendererProvider.Context context) {
         super(context, new IllagerModel<>(context.bakeLayer(LAYER_LOCATION)), 0.5F);
 
-        this.addLayer(new ItemInHandLayer<>(this));
+        this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
         this.addLayer(new HatLayer<>(this, context.getModelSet(), -0.2F));
 
     }

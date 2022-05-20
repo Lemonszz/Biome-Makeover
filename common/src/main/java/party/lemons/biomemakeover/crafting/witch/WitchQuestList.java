@@ -4,6 +4,7 @@ import dev.architectury.utils.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,7 +31,7 @@ public class WitchQuestList extends ArrayList<WitchQuest>
         }
     }
 
-    public void populate(Random random)
+    public void populate(RandomSource random)
     {
         clear();
         for(int i = 0; i < 3; i++)

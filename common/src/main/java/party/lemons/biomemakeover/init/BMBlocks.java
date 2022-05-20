@@ -170,7 +170,7 @@ public class BMBlocks
     public static final Supplier<Block> POTTED_ANCIENT_OAK_SAPLING =  BLOCKS.register(BiomeMakeover.ID("potted_ancient_oak_sapling"), ()->new BMFlowerPotBlock(ANCIENT_OAK_SAPLING.get(), properties(Material.DECORATION, 0).instabreak().noOcclusion().sound(SoundType.WOOL)).modifiers(RTypeModifier.create(RType.CUTOUT)));
     public static final Supplier<Block> POTTED_WILD_MUSHROOMS =  BLOCKS.register(BiomeMakeover.ID("potted_wild_mushrooms"), ()->new BMFlowerPotBlock(WILD_MUSHROOMS.get(), properties(Material.DECORATION, 0).instabreak().noOcclusion().sound(SoundType.WOOL)).modifiers(RTypeModifier.create(RType.CUTOUT)));
 
-    public static final Supplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of(Material.STONE).strength(-1).noDrops()));
+    public static final Supplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of(Material.STONE).strength(-1).noLootTable()));
 
     public static final Map<DyeColor, Supplier<Block>> DYE_TO_TAPESTRY = Maps.newHashMap();
     public static final List<Supplier<Block>> TAPESTRY_BLOCKS = Lists.newArrayList();
@@ -313,7 +313,7 @@ public class BMBlocks
     public static Supplier<Block> registerLilyPad(String id, Supplier<Block> block)
     {
         RegistrySupplier<Block> bl = BLOCKS.register(BiomeMakeover.ID(id), block);
-        BMItems.ITEMS.register(BiomeMakeover.ID(id), ()->new WaterLilyBlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+        BMItems.ITEMS.register(BiomeMakeover.ID(id), ()->new PlaceOnWaterBlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
 
         return bl;
     }

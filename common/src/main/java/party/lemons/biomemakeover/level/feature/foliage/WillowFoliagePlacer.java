@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Blocks;
@@ -43,7 +44,7 @@ public class WillowFoliagePlacer extends FoliagePlacer
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, Random random, TreeConfiguration treeConfiguration, int trunkHeight, FoliageAttachment attachment, int foliageHeight, int radius, int offset) {
+    protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, TreeConfiguration treeConfiguration, int trunkHeight, FoliageAttachment attachment, int foliageHeight, int radius, int offset) {
         BoundingBox box = new BoundingBox(attachment.pos());
 
 
@@ -58,7 +59,7 @@ public class WillowFoliagePlacer extends FoliagePlacer
         }
     }
 
-    protected void placeLeavesRow(LevelSimulatedReader levelSimulatedReader, BiConsumer<BlockPos, BlockState> biConsumer, Random random, TreeConfiguration treeConfiguration, BlockPos blockPos, int i, int j, boolean bl, BoundingBox box) {
+    protected void placeLeavesRow(LevelSimulatedReader levelSimulatedReader, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, TreeConfiguration treeConfiguration, BlockPos blockPos, int i, int j, boolean bl, BoundingBox box) {
         int k = bl ? 1 : 0;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (int l = -i; l <= i + k; ++l) {
@@ -73,12 +74,12 @@ public class WillowFoliagePlacer extends FoliagePlacer
     }
 
     @Override
-    public int foliageHeight(Random random, int i, TreeConfiguration treeConfiguration) {
+    public int foliageHeight(RandomSource random, int i, TreeConfiguration treeConfiguration) {
         return this.height;
     }
 
     @Override
-    protected boolean shouldSkipLocation(Random random, int baseHeight, int dx, int dy, int dz, boolean giantTrunk) {
+    protected boolean shouldSkipLocation(RandomSource random, int baseHeight, int dx, int dy, int dz, boolean giantTrunk) {
         if(baseHeight + dy >= 4)
         {
             return true;

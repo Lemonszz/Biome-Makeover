@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.crafting.witch;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
@@ -29,7 +30,7 @@ public class QuestItem
         return points;
     }
 
-    public ItemStack createStack(Random random)
+    public ItemStack createStack(RandomSource random)
     {
         return new ItemStack(item, maxSize == 1 ? 1 : 1 + random.nextInt(maxSize - 1));
     }

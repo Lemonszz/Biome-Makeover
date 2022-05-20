@@ -51,7 +51,7 @@ public class ToadRender extends MobRenderer<ToadEntity, ToadModel>
         @Override
         public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, ToadEntity entity, float f, float g, float h, float j, float k, float l)
         {
-            ModelPart.Cube cube = tounge.getRandomCube(RandomUtil.RANDOM);
+            ModelPart.Cube cube = tounge.getRandomCube(entity.getRandom());
 
             poseStack.pushPose();
             poseStack.translate(0, 1.5, 0);

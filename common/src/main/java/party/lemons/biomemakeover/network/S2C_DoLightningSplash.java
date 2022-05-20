@@ -13,6 +13,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -56,7 +57,7 @@ public class S2C_DoLightningSplash extends BaseS2CMessage
     public void handle(NetworkManager.PacketContext context) {
         context.queue(()->{
             Vec3 dir = Vec3.atBottomCenterOf(pos);
-            Random random = context.getPlayer().getRandom();
+            RandomSource random = context.getPlayer().getRandom();
             Level level =  context.getPlayer().level;
 
             if(doBottle)
@@ -69,7 +70,7 @@ public class S2C_DoLightningSplash extends BaseS2CMessage
             }
 
             ParticleOptions particleEffect = BMEffects.LIGHTNING_SPARK.get();
-            ParticleStatus mode = Minecraft.getInstance().options.particles;
+            ParticleStatus mode = Minecraft.getInstance().options.particles().get();
             int particleCount = mode == ParticleStatus.ALL ? 100 : mode == ParticleStatus.DECREASED ? 50 : 10;
 
             for(int i = 0; i < particleCount; ++i)

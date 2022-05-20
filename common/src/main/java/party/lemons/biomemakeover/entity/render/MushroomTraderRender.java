@@ -32,8 +32,8 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
         super(context, new VillagerModel<>(context.bakeLayer(ModelLayers.VILLAGER)), 0.5f);
 
         this.addLayer(new MushroomTraderOverlay(this, new VillagerModel<>(context.bakeLayer(ModelLayers.VILLAGER))));
-        this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-        this.addLayer(new CrossedArmsItemLayer<>(this));
+        this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+        this.addLayer(new CrossedArmsItemLayer<>(this, context.getItemInHandRenderer()));
         this.addLayer(new MushroomTraderFeatures(this));
     }
 

@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.util.effect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
@@ -19,7 +20,7 @@ public enum BiomeMakeoverEffect
 
     private static void createEnderParticles(Level level, BlockPos pos)
     {
-        Random random = RandomUtil.RANDOM;
+        RandomSource random = RandomUtil.RANDOM;
         for(int i = 0; i < 5; ++i) {
             int xOffset = random.nextInt(2) * 2 - 1;
             int zOffset = random.nextInt(2) * 2 - 1;

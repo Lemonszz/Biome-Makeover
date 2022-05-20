@@ -5,6 +5,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.init.BMEffects;
 
@@ -14,9 +15,9 @@ public class StoneGolemTurnSoundInstance extends AbstractTickableSoundInstance {
     private int noTurnTime = 0;
     private int time = 0;
 
-    public StoneGolemTurnSoundInstance(StoneGolemEntity golem)
+    public StoneGolemTurnSoundInstance(StoneGolemEntity golem, RandomSource randomSource)
     {
-        super(BMEffects.STONE_GOLEM_TURN.get(), SoundSource.NEUTRAL);
+        super(BMEffects.STONE_GOLEM_TURN.get(), SoundSource.NEUTRAL, randomSource);
         this.golem = golem;
         this.volume = 0.5F;
         noTurnTime = 0;
@@ -41,7 +42,7 @@ public class StoneGolemTurnSoundInstance extends AbstractTickableSoundInstance {
         if(golem.isRemoved() || noTurnTime > 3 || !Minecraft.getInstance().getSoundManager().isActive(this))
         {
             if(time > 5 && !isStopped())
-                Minecraft.getInstance().getSoundManager().queueTickingSound(new EntityBoundSoundInstance(BMEffects.STONE_GOLEM_STOP.get(), SoundSource.NEUTRAL, 0.25F, 1F + ((-0.5F + golem.getRandom().nextFloat()) / 5F), golem));
+                Minecraft.getInstance().getSoundManager().queueTickingSound(new EntityBoundSoundInstance(BMEffects.STONE_GOLEM_STOP.get(), SoundSource.NEUTRAL, 0.25F, 1F + ((-0.5F + golem.getRandom().nextFloat()) / 5F), golem, random.nextLong()));
             stop();
         }
     }

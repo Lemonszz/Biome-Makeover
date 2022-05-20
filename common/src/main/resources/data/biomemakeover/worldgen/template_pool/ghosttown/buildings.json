@@ -1,0 +1,231 @@
+{
+  "name": "biomemakeover:ghosttown/buildings",
+  "fallback": "minecraft:village/plains/terminators",
+  "elements": [
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_01",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_02",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_03",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_04",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_05",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_06",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_07",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_08",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_09",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_10",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_11",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_12",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_01",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_02",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_03",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_04",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_05",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_06",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_large_01",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_large_02",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_large_03",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_large_04",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_large_05",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/decoration/water_tower_1",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/decoration/water_tower_1",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

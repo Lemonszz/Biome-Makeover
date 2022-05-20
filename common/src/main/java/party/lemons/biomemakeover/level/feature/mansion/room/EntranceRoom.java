@@ -2,16 +2,13 @@ package party.lemons.biomemakeover.level.feature.mansion.room;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
 import party.lemons.biomemakeover.util.Grid;
-
-import java.util.List;
-import java.util.Random;
 
 public class EntranceRoom extends MansionRoom
 {
@@ -22,7 +19,7 @@ public class EntranceRoom extends MansionRoom
     }
 
     @Override
-    public void addWalls(Random random, BlockPos wallPos, StructureManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
+    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
         boolean ground = getPosition().getY() == 0;
 
         if(getRoomType().hasWalls())
@@ -38,7 +35,7 @@ public class EntranceRoom extends MansionRoom
                 children.addPiece(new MansionFeature.Piece(manager, MansionFeature.CORNER_FILLER.toString(), wallPos.relative(Direction.WEST).relative(Direction.NORTH).offset(0, 0, 0), Rotation.NONE, ground, false));
         }
     }
-    public Rotation getRotation(Random random)
+    public Rotation getRotation(RandomSource random)
     {
         switch(layout.doorCount())
         {

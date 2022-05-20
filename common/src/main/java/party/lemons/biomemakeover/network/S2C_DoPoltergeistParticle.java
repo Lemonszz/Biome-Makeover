@@ -5,6 +5,7 @@ import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMNetwork;
 import party.lemons.biomemakeover.util.RandomUtil;
@@ -41,7 +42,7 @@ public class S2C_DoPoltergeistParticle extends BaseS2CMessage {
             if(context.getPlayer().level == null)
                 return;
 
-            Random random = context.getPlayer().level.random;
+            RandomSource random = context.getPlayer().level.random;
             int x = pos.getX();
             int y = pos.getY();
             int z = pos.getZ();

@@ -9,6 +9,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
@@ -55,7 +56,7 @@ public class S2C_DoLightningEntity extends BaseS2CMessage
             return;
 
         context.queue(()->{
-            Random random = ((LivingEntity) e).getRandom();
+            RandomSource random = ((LivingEntity) e).getRandom();
             Vec3 entityPos = e.position();
             SimpleParticleType particleEffect = BMEffects.LIGHTNING_SPARK.get();
 

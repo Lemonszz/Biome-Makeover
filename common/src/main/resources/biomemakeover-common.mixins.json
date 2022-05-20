@@ -14,8 +14,6 @@
     "badlands.HorseRendererMixin"
   ],
   "mixins": [
-    "antigen.StructureFeatureMixin",
-    "antigen.WoodlandMansionFeatureMixin",
     "AxeItemMixin",
     "EnchantmentHelperMixin",
     "LivingEntityMixin",

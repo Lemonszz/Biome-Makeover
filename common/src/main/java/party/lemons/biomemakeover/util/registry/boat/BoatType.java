@@ -27,4 +27,9 @@ public class BoatType
     {
         return "boat/" + id.getPath();
     }
+
+    public String getChestModelLocation()
+    {
+        return "chestboat/" + id.getPath();
+    }
 }

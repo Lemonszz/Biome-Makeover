@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -26,7 +27,7 @@ public class WaterSaplingBlock extends BMSaplingBlock implements SimpleWaterlogg
         this.maxDepth = maxDepth;
     }
 
-    public void advanceTree(ServerLevel serverLevel, BlockPos blockPos, BlockState blockState, Random random) {
+    public void advanceTree(ServerLevel serverLevel, BlockPos blockPos, BlockState blockState, RandomSource random) {
         if(blockState.getValue(WATERLOGGED))
         {
             if(serverLevel.getFluidState(blockPos.above(maxDepth)).getType() == Fluids.WATER) return;

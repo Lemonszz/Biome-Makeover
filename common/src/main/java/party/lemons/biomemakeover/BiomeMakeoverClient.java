@@ -43,9 +43,6 @@ public class BiomeMakeoverClient
                 MenuRegistry.registerScreenFactory(BMScreens.ALTAR.get(), AltarScreen::new);
                 MenuRegistry.registerScreenFactory(BMScreens.DIRECTIONAL_DATA.get(), DirectionDataScreen::new);
             });
-
-
-
         }
     }
 
@@ -73,16 +70,12 @@ public class BiomeMakeoverClient
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),
                 BMBlocks.MOTH_BLOSSOM.get(), BMBlocks.ITCHING_IVY.get()
         );
-
-        for (BMSpawnEggItem eggie : BMSpawnEggItem.eggs) {
-            ColorHandlerRegistry.registerItemColors((stack, i) -> eggie.getColor(i), eggie);
-        }
     }
 
     //TODO: Find somewhere else for this
     public static void curseSound(AltarBlockEntity altar)
     {
-        AltarCursingSoundInstance sound = new AltarCursingSoundInstance(altar);
+        AltarCursingSoundInstance sound = new AltarCursingSoundInstance(altar, altar.getLevel().getRandom());
         Minecraft.getInstance().getSoundManager().play(sound);
     }
 }

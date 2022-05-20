@@ -8,8 +8,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
@@ -246,7 +246,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         return hasNewCompatibleCurse;
     }
 
-    public static Enchantment getRandomCurse(Random random)
+    public static Enchantment getRandomCurse(RandomSource random)
     {
         if(curses.isEmpty())
         {
@@ -258,7 +258,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         return curses.get(random.nextInt(curses.size()));
     }
 
-    public static boolean curseItemStack(ItemStack stack, Random random)
+    public static boolean curseItemStack(ItemStack stack, RandomSource random)
     {
         if(isValidForCurse(stack))
         {
@@ -430,7 +430,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
 
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent(getBlockState().getBlock().getDescriptionId());
+        return Component.translatable(getBlockState().getBlock().getDescriptionId());
     }
 
     @Override

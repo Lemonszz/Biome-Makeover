@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.util.sound;
 
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.block.AltarBlock;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.init.BMEffects;
@@ -12,9 +13,9 @@ public class AltarCursingSoundInstance extends AbstractTickableSoundInstance
     private int age = 0;
 
 
-    public AltarCursingSoundInstance(AltarBlockEntity altar)
+    public AltarCursingSoundInstance(AltarBlockEntity altar, RandomSource randomSource)
     {
-        super(BMEffects.ALTAR_CURSING.get(), SoundSource.BLOCKS);
+        super(BMEffects.ALTAR_CURSING.get(), SoundSource.BLOCKS, randomSource);
         this.altar = altar;
         this.x = (float) altar.getBlockPos().getX();
         this.y = (float) altar.getBlockPos().getY();

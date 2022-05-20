@@ -5,8 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -128,7 +128,7 @@ public class PoltergeistHandler {
         BlockPos checkPos = new BlockPos(pX - half, pY - half, pZ - half);
         if(PoltergeistHandler.doBehaviour(level, checkPos))
         {
-            Random random = level.random;
+            RandomSource random = level.random;
 
             doParticles(level, checkPos);
 

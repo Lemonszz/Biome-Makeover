@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -23,7 +24,7 @@ public class PaydirtFeature extends Feature<NoneFeatureConfiguration>
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx)
     {
-        Random random = ctx.random();
+        RandomSource random = ctx.random();
         BlockPos blockPos = ctx.origin();
         WorldGenLevel level = ctx.level();
         for(int i = 0; i < 3; ++i)

@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.crafting.witch;
 
 import com.google.common.collect.Lists;
 import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,7 +31,7 @@ public enum QuestRewardTable
         this.itemTable = itemTable;
     }
 
-    public ItemStack pickRandom(Random random)
+    public ItemStack pickRandom(RandomSource random)
     {
         List<RewardItem> rewards = itemTable.get();
         return rewards.get(random.nextInt(rewards.size())).getRewardStack().copy();

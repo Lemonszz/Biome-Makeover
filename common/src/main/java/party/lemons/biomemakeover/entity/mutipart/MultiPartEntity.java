@@ -1,9 +1,8 @@
 package party.lemons.biomemakeover.entity.mutipart;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -15,7 +14,7 @@ import java.util.function.Predicate;
 public interface MultiPartEntity<T extends EntityPart<?>>
 {
     @Environment(value= EnvType.CLIENT)
-    static void handleClientSpawn(ClientboundAddMobPacket packet, MultiPartEntity<?> entity)
+    static void handleClientSpawn(ClientboundAddEntityPacket packet, MultiPartEntity<?> entity)
     {
         List<? extends EntityPart<?>> parts = entity.getParts();
 

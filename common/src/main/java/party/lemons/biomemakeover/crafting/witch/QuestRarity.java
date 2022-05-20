@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.crafting.witch;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Rarity;
 import party.lemons.biomemakeover.util.WeightedList;
 
@@ -29,7 +28,7 @@ public enum QuestRarity
 
     public Component getTooltipText()
     {
-        return new TranslatableComponent("tooltip." + name().toLowerCase(Locale.ROOT)).withStyle(vanillaRarity.color);
+        return Component.translatable("tooltip." + name().toLowerCase(Locale.ROOT)).withStyle(vanillaRarity.color);
     }
 
     public static QuestRarity getRarityFromPoints(float points)

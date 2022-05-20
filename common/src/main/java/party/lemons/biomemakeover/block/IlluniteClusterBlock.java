@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
@@ -48,7 +49,7 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         Type expectedType = getType(level);
         if(state.getValue(TYPE) != expectedType)
         {
@@ -79,7 +80,7 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         scheduleUpdates(serverLevel, blockPos, random);
     }
 
@@ -92,7 +93,7 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
 
     }
 
-    public void scheduleUpdates(LevelAccessor world, BlockPos pos, Random random)
+    public void scheduleUpdates(LevelAccessor world, BlockPos pos, RandomSource random)
     {
         if(!world.getBlockTicks().hasScheduledTick(pos, this))
             world.scheduleTick(new BlockPos(pos), this, 20 + random.nextInt(150));

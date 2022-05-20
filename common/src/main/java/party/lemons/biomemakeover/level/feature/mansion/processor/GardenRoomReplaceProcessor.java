@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.level.feature.mansion.processor;
 
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.level.feature.mansion.LayoutType;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
 import party.lemons.biomemakeover.level.feature.mansion.room.MansionRoom;
@@ -14,7 +15,7 @@ public class GardenRoomReplaceProcessor extends FloorRoomReplaceProcessor
 {
 
     @Override
-    public boolean isValid(Random random, int floor, Grid<MansionRoom> layout, MansionRoom currentRoom)
+    public boolean isValid(RandomSource random, int floor, Grid<MansionRoom> layout, MansionRoom currentRoom)
     {
         if(floor == 0 && random.nextInt(3) == 0)
         {
