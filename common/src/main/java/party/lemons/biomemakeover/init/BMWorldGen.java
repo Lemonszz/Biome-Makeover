@@ -333,7 +333,7 @@ public class BMWorldGen
 
         //Surface Fossils
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> SURFACE_FOSSIL = configure("surface_fossil", BMFeatures.SURFACE_FOSSIL_FEATURE.get());
-        public static final Holder<PlacedFeature> SURFACE_FOSSIL_PLACED = place("surface_fossil", SURFACE_FOSSIL, RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE,  BiomeFilter.biome());
+        public static final Holder<PlacedFeature> SURFACE_FOSSIL_PLACED = place("surface_fossil", SURFACE_FOSSIL, RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE,  BiomeFilter.biome());
 
         //Ghost Town
         public static final ConfiguredStructureFeature<?, ?> GHOST_TOWN_CONFIGURED = BMFeatures.GHOST_TOWN.get().configured(GhostTownFeature.CONFIG, BiomeTags.IS_BADLANDS, true,Map.of(MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, GhostTownFeature.SPAWNS)));
