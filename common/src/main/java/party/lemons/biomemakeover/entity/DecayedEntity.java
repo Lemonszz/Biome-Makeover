@@ -366,7 +366,7 @@ public class DecayedEntity extends Zombie
     public static boolean checkSpawnRules(EntityType<DecayedEntity> entityType, ServerLevelAccessor serverLevelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random) {
         boolean validReasons = serverLevelAccessor.getDifficulty() != Difficulty.PEACEFUL && Drowned.isDarkEnoughToSpawn(serverLevelAccessor, blockPos, random) && (mobSpawnType == MobSpawnType.SPAWNER || serverLevelAccessor.getFluidState(blockPos).is(FluidTags.WATER));
 
-        return validReasons && blockPos.getY() <= serverLevelAccessor.getSeaLevel();
+        return random.nextInt(3) == 0 && validReasons && blockPos.getY() <= serverLevelAccessor.getSeaLevel();
     }
 
     static class DecayedMoveControl extends MoveControl {
