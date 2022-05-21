@@ -347,7 +347,7 @@ public class MansionLayout
         {
             if(!layout.contains(pos))
             {
-                attempts = 20;
+                //attempts = 20;
                 if(y != 0 && !layout.contains(pos.below()))
                 {
                     setNextPos(corridors, random, y, pos);

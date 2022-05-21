@@ -1,6 +1,6 @@
 {
   "replace": true,
   "values": [
-    "minecraft:dark_forest"
+    "#biomemakeover:dark_forest"
   ]
 }

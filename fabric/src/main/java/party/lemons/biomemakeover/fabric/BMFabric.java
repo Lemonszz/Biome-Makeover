@@ -6,6 +6,7 @@ import dev.architectury.utils.Env;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -71,10 +72,10 @@ public class BMFabric implements ModInitializer
 
     public void doWorldGen()
     {
-        final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.spawnsOneOf(EntityType.MOOSHROOM);
-        final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.tag(BiomeTags.IS_BADLANDS);
-        final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.spawnsOneOf(BMEntities.DRAGONFLY.get());
-        final Predicate<BiomeSelectionContext> DF_BIOMES = BiomeSelectors.includeByKey(Biomes.DARK_FOREST);
+        final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.tag(ConventionalBiomeTags.MUSHROOM);
+        final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.tag(BiomeTags.IS_BADLANDS).or(BiomeSelectors.tag(ConventionalBiomeTags.BADLANDS));
+        final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.tag(ConventionalBiomeTags.SWAMP);
+        final Predicate<BiomeSelectionContext> DF_BIOMES = BiomeSelectors.tag(BMWorldGen.DARK_FOREST_BIOMES);
 
         BiomeModification gen = BiomeModifications.create(BiomeMakeover.ID("biomemakeover"));
 

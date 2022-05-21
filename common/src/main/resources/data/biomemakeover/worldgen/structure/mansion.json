@@ -1,0 +1,6 @@
+{
+  "type": "biomemakeover:mansion",
+  "biomes": "#biomemakeover:has_structure/reworked_mansion",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

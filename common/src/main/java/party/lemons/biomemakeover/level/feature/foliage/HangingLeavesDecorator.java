@@ -40,6 +40,9 @@ public class HangingLeavesDecorator extends TreeDecorator
         LevelSimulatedReader level = context.level();
         for(int i = 0; i < 4 + random.nextInt(8); i++)
         {
+            if(context.leaves().isEmpty())
+                return;
+
             BlockPos.MutableBlockPos downPos = context.leaves().get(random.nextInt(context.leaves().size())).below().mutable();
             if(TreeFeature.isAirOrLeaves(level, downPos) && level.isStateAtPosition(downPos.above(), (state)->state.is(BlockTags.LEAVES)))
             {

@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.init;
 
 import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.level.biome.BiomeModifications;
@@ -142,10 +143,10 @@ public class BMEntities
 
     private static void initSpawns()
     {
-        Predicate<BiomeModifications.BiomeContext> MUSHROOM_BIOMES = (ctx)->ctx.getKey().equals(new ResourceLocation("mushroom_fields"));
-        Predicate<BiomeModifications.BiomeContext> MESA_BIOMES = (ctx)->ctx.getKey().getPath().contains("badlands");
-        Predicate<BiomeModifications.BiomeContext> SWAMP_BIOMES = (ctx)->ctx.getKey().getPath().contains("swamp");
-        Predicate<BiomeModifications.BiomeContext> DARK_FOREST = (ctx)->ctx.getKey().equals(new ResourceLocation("dark_forest"));
+        TagKey<Biome>[] MUSHROOM_BIOMES = getMushroomTags();
+        TagKey<Biome>[] MESA_BIOMES = getBadlandsTags();
+        TagKey<Biome>[] SWAMP_BIOMES = getSwampTags();
+        TagKey<Biome>[] DARK_FOREST = getDarkForestTags();
 
         registerSpawn(MUSHROOM_BIOMES, GLOWFISH.get(), MobCategory.WATER_AMBIENT, 7, 2, 7);
         SpawnPlacementsInvoker.callRegister(GLOWFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
@@ -248,9 +249,33 @@ public class BMEntities
 
     }
 
-    private static void registerSpawn(Predicate<BiomeModifications.BiomeContext> biomes, EntityType<?> type, MobCategory category, int weight, int min, int max)
+    @ExpectPlatform
+    private static TagKey<Biome>[] getMushroomTags()
     {
-        BiomeModifications.addProperties(biomes, (ctx, p)->p.getSpawnProperties().addSpawn(category, new MobSpawnSettings.SpawnerData(type, weight, min, max)));
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    private static TagKey<Biome>[] getBadlandsTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    private static TagKey<Biome>[] getSwampTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    private static TagKey<Biome>[] getDarkForestTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    private static void registerSpawn(TagKey<Biome>[] tags, EntityType<?> type, MobCategory category, int weight, int min, int max)
+    {
     }
 
     public static final TagKey<EntityType<?>> LIGHTNING_BUG_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, BiomeMakeover.ID("lightning_bugs"));
