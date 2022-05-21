@@ -87,6 +87,7 @@ public class BMEntities
     public static final RegistrySupplier<EntityType<AdjudicatorEntity>> ADJUDICATOR = ENTITIES.register(BiomeMakeover.ID("adjudicator"), ()->EntityType.Builder.of(AdjudicatorEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator"));
     public static final RegistrySupplier<EntityType<AdjudicatorMimicEntity>> ADJUDICATOR_MIMIC = ENTITIES.register(BiomeMakeover.ID("adjudicator_mimic"), ()->EntityType.Builder.of(AdjudicatorMimicEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build("adjudicator_mimic"));
     public static final RegistrySupplier<EntityType<StoneGolemEntity>> STONE_GOLEM = ENTITIES.register(BiomeMakeover.ID("stone_golem"), ()->EntityType.Builder.of(StoneGolemEntity::new, MobCategory.MISC).sized(1.6F, 2.5F).clientTrackingRange(12).build("stone_golem"));
+    public static final RegistrySupplier<EntityType<HelmitCrabEntity>> HELMIT_CRAB = ENTITIES.register(BiomeMakeover.ID("helmit_crab"), ()->EntityType.Builder.of(HelmitCrabEntity::new, MobCategory.CREATURE).sized(0.825F, 0.5F).clientTrackingRange(12).build("helmit_crab"));
 
     static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;}
 
@@ -140,6 +141,7 @@ public class BMEntities
         EntityAttributeRegistry.register(ADJUDICATOR::get, AdjudicatorEntity::createAttributes);
         EntityAttributeRegistry.register(ADJUDICATOR_MIMIC::get, AdjudicatorMimicEntity::createAttributes);
         EntityAttributeRegistry.register(STONE_GOLEM::get, StoneGolemEntity::createAttributes);
+        EntityAttributeRegistry.register(HELMIT_CRAB::get, HelmitCrabEntity::createAttributes);
     }
 
     private static void initSpawns()
@@ -148,6 +150,7 @@ public class BMEntities
         TagKey<Biome>[] MESA_BIOMES = getBadlandsTags();
         TagKey<Biome>[] SWAMP_BIOMES = getSwampTags();
         TagKey<Biome>[] DARK_FOREST = getDarkForestTags();
+        TagKey<Biome>[] BEACH_BIOMES = getBeachTags();
 
         registerSpawn(MUSHROOM_BIOMES, GLOWFISH.get(), MobCategory.WATER_AMBIENT, 7, 2, 7);
         SpawnPlacementsInvoker.callRegister(GLOWFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
@@ -183,6 +186,8 @@ public class BMEntities
 
         registerSpawn(DARK_FOREST, EntityType.FOX, MobCategory.CREATURE, 4, 2, 2);
         registerSpawn(DARK_FOREST, EntityType.RABBIT, MobCategory.CREATURE, 4, 2, 3);
+
+        registerSpawn(BEACH_BIOMES, HELMIT_CRAB.get(), MobCategory.CREATURE, 6, 2, 5);
     }
 
     private static boolean checkDFSpawnRules(EntityType<?> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
@@ -217,6 +222,7 @@ public class BMEntities
             EntityRendererRegistry.register(BMEntities.ADJUDICATOR::get, AdjudicatorRender::new);
             EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC::get, AdjudicatorMimicRender::new);
             EntityRendererRegistry.register(BMEntities.STONE_GOLEM::get, StoneGolemRender::new);
+            EntityRendererRegistry.register(BMEntities.HELMIT_CRAB::get, HelmitCrabRender::new);
         });
     }
 
@@ -248,6 +254,7 @@ public class BMEntities
         EntityModelLayerRegistry.register(RootlingModel.LAYER_LOCATION, RootlingModel::createBodyLayer);
         EntityModelLayerRegistry.register(AdjudicatorModel.LAYER_LOCATION, AdjudicatorModel::createBodyLayer);
         EntityModelLayerRegistry.register(StoneGolemModel.LAYER_LOCATION, StoneGolemModel::createBodyLayer);
+        EntityModelLayerRegistry.register(HelmitCrabModel.LAYER_LOCATION, HelmitCrabModel::createBodyLayer);
 
     }
 
@@ -271,6 +278,12 @@ public class BMEntities
 
     @ExpectPlatform
     private static TagKey<Biome>[] getDarkForestTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    private static TagKey<Biome>[] getBeachTags()
     {
         throw new AssertionError();
     }

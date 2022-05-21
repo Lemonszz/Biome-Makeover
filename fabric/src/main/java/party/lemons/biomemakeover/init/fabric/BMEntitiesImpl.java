@@ -52,4 +52,11 @@ public class BMEntitiesImpl
 				BMWorldGen.DARK_FOREST_BIOMES
 		};
 	}
+
+	public static TagKey<Biome>[] getBeachTags()
+	{
+		return new TagKey[]{
+				ConventionalBiomeTags.BEACH
+		};
+	}
 }
