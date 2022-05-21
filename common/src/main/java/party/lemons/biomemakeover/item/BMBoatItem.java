@@ -23,6 +23,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import party.lemons.biomemakeover.entity.BMBoatEntity;
+import party.lemons.biomemakeover.entity.BMChestBoatEntity;
 import party.lemons.biomemakeover.util.registry.boat.BoatType;
 
 import java.util.List;
@@ -31,11 +32,13 @@ import java.util.function.Supplier;
 public class BMBoatItem extends BMItem
 {
     private final Supplier<BoatType> type;
+    private final boolean hasChest;
 
-    public BMBoatItem(Supplier<BoatType> boatType, Properties settings)
+    public BMBoatItem(boolean chest, Supplier<BoatType> boatType, Properties settings)
     {
         super(settings);
         this.type = boatType;
+        this.hasChest = chest;
 
         DispenserBlock.registerBehavior(this, new BMBoatDispenseItemBehavior(boatType));
     }
@@ -78,7 +81,7 @@ public class BMBoatItem extends BMItem
 
     public BMBoatEntity createBoat(Level world, double x, double y, double z, float yaw)
     {
-        BMBoatEntity boatEntity = new BMBoatEntity(world, x, y, z);
+        BMBoatEntity boatEntity = hasChest ? new BMChestBoatEntity(world, x, y, z) : new BMBoatEntity(world, x, y, z);
         boatEntity.setBoatType(type.get());
         boatEntity.setYRot(yaw);
         return boatEntity;

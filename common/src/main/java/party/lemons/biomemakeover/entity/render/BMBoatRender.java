@@ -25,18 +25,18 @@ import java.util.Map;
 public class BMBoatRender extends EntityRenderer<BMBoatEntity>
 {
     private final Map<BoatType, Pair<ResourceLocation, BoatModel>> boatResources = Maps.newHashMap();
-
-
     private final Map<BoatType, ResourceLocation> textures = Maps.newHashMap();
+    private final boolean chest;
 
-    public BMBoatRender(EntityRendererProvider.Context context)
+    public BMBoatRender(EntityRendererProvider.Context context, boolean chest)
     {
         super(context);
         this.shadowRadius = 0.8F;
+        this.chest = chest;
 
         for(BoatType boatType : BoatTypes.TYPES)
         {
-            boatResources.put(boatType, Pair.of(boatType.getTexture(), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, boatType.getModelLocation()), "main")), false)));
+            boatResources.put(boatType, Pair.of(boatType.getTexture(chest), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, chest ? boatType.getChestModelLocation() : boatType.getModelLocation()), "main")), chest)));
         }
     }
 
@@ -89,7 +89,7 @@ public class BMBoatRender extends EntityRenderer<BMBoatEntity>
         if(textures.containsKey(type)) return textures.get(type);
         else
         {
-            ResourceLocation texture = type.getTexture();
+            ResourceLocation texture = type.getTexture(chest);
             textures.put(type, texture);
 
             return texture;

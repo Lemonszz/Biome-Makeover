@@ -66,6 +66,7 @@ public class BMEntities
 
     public static final RegistrySupplier<EntityType<TumbleweedEntity>> TUMBLEWEED = ENTITIES.register(BiomeMakeover.ID("tumbleweed"), ()->EntityType.Builder.of(TumbleweedEntity::new, MobCategory.MISC).sized(0.7F, 0.7F).clientTrackingRange(12).build("tumbleweed"));
     public static final RegistrySupplier<EntityType<BMBoatEntity>> BM_BOAT = ENTITIES.register(BiomeMakeover.ID("bm_boat"), ()->EntityType.Builder.of( (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_boat"));
+    public static final RegistrySupplier<EntityType<BMChestBoatEntity>> BM_CHEST_BOAT = ENTITIES.register(BiomeMakeover.ID("bm_chest_boat"), ()->EntityType.Builder.of( (EntityType.EntityFactory<BMChestBoatEntity>)BMChestBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_chest_boat"));
     public static final RegistrySupplier<EntityType<LightningBottleEntity>> LIGHTNING_BOTTLE = ENTITIES.register(BiomeMakeover.ID("lightning_bottle"), ()->EntityType.Builder.of( (EntityType.EntityFactory<LightningBottleEntity>)LightningBottleEntity::new, MobCategory.MISC).clientTrackingRange(10).updateInterval(4).sized(0.25F, 0.25F).build("lightning_bottle"));
 
     public static final RegistrySupplier<EntityType<GlowfishEntity>> GLOWFISH = ENTITIES.register(BiomeMakeover.ID("glowfish"), ()->EntityType.Builder.of(GlowfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.7F, 0.4F).clientTrackingRange(4).build("glowfish"));
@@ -194,7 +195,8 @@ public class BMEntities
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
 
             EntityRendererRegistry.register(BMEntities.TUMBLEWEED::get, TumbleweedRender::new);
-            EntityRendererRegistry.register(BMEntities.BM_BOAT::get, BMBoatRender::new);
+            EntityRendererRegistry.register(BMEntities.BM_BOAT::get, (c)->new BMBoatRender(c, false));
+            EntityRendererRegistry.register(BMEntities.BM_CHEST_BOAT::get, (c)->new BMBoatRender(c, true));
             EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE::get, ThrownItemRenderer::new);
 
             EntityRendererRegistry.register(BMEntities.GLOWFISH::get, GlowfishRender::new);

@@ -8,9 +8,9 @@ public class VanillaBoatType extends BoatType
 {
     private final Boat.Type vanillaType;
 
-    public VanillaBoatType(ResourceLocation id, Boat.Type type, Item boatitem)
+    public VanillaBoatType(ResourceLocation id, Boat.Type type, Item boatitem, Item chestItem)
     {
-        super(id, ()->boatitem);
+        super(id, ()->boatitem, ()->chestItem);
         this.vanillaType = type;
     }
 
@@ -20,8 +20,11 @@ public class VanillaBoatType extends BoatType
     }
 
     @Override
-    public ResourceLocation getTexture()
+    public ResourceLocation getTexture(boolean chest)
     {
+        if(chest)
+            return new ResourceLocation("minecraft", "textures/entity/chest_boat/" + vanillaType.getName() + ".png");
+
         return new ResourceLocation("minecraft", "textures/entity/boat/" + vanillaType.getName() + ".png");
     }
 }
