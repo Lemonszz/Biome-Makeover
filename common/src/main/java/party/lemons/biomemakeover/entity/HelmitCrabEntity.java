@@ -1,7 +1,9 @@
 package party.lemons.biomemakeover.entity;
 
 import com.google.common.collect.Lists;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -9,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -19,7 +22,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -31,10 +36,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMEntities;
@@ -59,6 +67,7 @@ public class HelmitCrabEntity extends Animal
 		setPathfindingMalus(BlockPathTypes.WATER, 0);
 		setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0);
 		getNavigation().setCanFloat(true);
+
 	}
 	private int hideTime = 0;
 
@@ -79,17 +88,17 @@ public class HelmitCrabEntity extends Animal
 	}
 
 	@Override
+	protected BodyRotationControl createBodyControl()
+	{
+		return new CrabBodyControl(this);
+	}
+
+	@Override
 	protected void defineSynchedData()
 	{
 		getEntityData().define(SHELL_ITEM, ItemStack.EMPTY);
 		getEntityData().define(HIDING, false);
 		super.defineSynchedData();
-	}
-
-	@Override
-	protected BodyRotationControl createBodyControl()
-	{
-		return new HelmitCrabBodyControl(this);
 	}
 
 	@Override
@@ -500,65 +509,10 @@ public class HelmitCrabEntity extends Animal
 		this.calculateEntityAnimation(this, this instanceof FlyingAnimal);
 	}
 
-	private static class HelmitCrabBodyControl extends BodyRotationControl
+	@Override
+	public MobType getMobType()
 	{
-		private final HelmitCrabEntity entity;
-		private int activeTicks;
-		private float lastHeadYaw;
-
-		public HelmitCrabBodyControl(HelmitCrabEntity entity) {
-			super(entity);
-			this.entity = entity;
-		}
-
-		public void tick() {
-			if (this.isMoving()) {
-				this.entity.yBodyRot = this.entity.yBodyRot + 90F;
-				this.rotateHead();
-				this.lastHeadYaw = this.entity.yHeadRot;
-				this.activeTicks = 0;
-			} else {
-				if (this.isIndependent()) {
-					if (Math.abs(this.entity.yHeadRot - this.lastHeadYaw) > 15.0F) {
-						this.activeTicks = 0;
-						this.lastHeadYaw = this.entity.yHeadRot;
-						this.rotateLook();
-					} else {
-						++this.activeTicks;
-						if (this.activeTicks > 10) {
-							this.rotateBody();
-						}
-					}
-				}
-
-			}
-		}
-		private void rotateLook()
-		{
-			this.entity.yBodyRot = Mth.approach(this.entity.yBodyRot, this.entity.yHeadRot, (float)this.entity.getMaxHeadYRot());
-		}
-
-		private void rotateHead()
-		{
-			this.entity.yHeadRot = Mth.approach(this.entity.yHeadRot, this.entity.yBodyRot, (float)this.entity.getMaxHeadYRot());
-		}
-
-		private void rotateBody() {
-			int i = this.activeTicks - 10;
-			float f = Mth.clamp((float)i / 10.0F, 0.0F, 1.0F);
-			float g = (float)this.entity.getMaxHeadYRot() * (1.0F - f);
-			this.entity.yBodyRot = Mth.approach(this.entity.yBodyRot, this.entity.yHeadRot, g);
-		}
-
-		private boolean isIndependent() {
-			return this.entity.getPassengers().isEmpty() || !(this.entity.getPassengers().get(0) instanceof Mob);
-		}
-
-		private boolean isMoving() {
-			double d = this.entity.getX() - this.entity.xo;
-			double e = this.entity.getZ() - this.entity.zo;
-			return d * d + e * e > 2.500000277905201E-7D;
-		}
+		return MobType.ARTHROPOD;
 	}
 
 	public void setTargetingUnderwater(boolean targetingUnderwater) {
@@ -763,6 +717,69 @@ public class HelmitCrabEntity extends Animal
 		public boolean canContinueToUse()
 		{
 			return itemEntity != null && !itemEntity.isRemoved();
+		}
+	}
+
+
+	private class CrabBodyControl extends BodyRotationControl
+	{
+		private final Mob mob;
+		private static final int HEAD_STABLE_ANGLE = 15;
+		private static final int DELAY_UNTIL_STARTING_TO_FACE_FORWARD = 10;
+		private static final int HOW_LONG_IT_TAKES_TO_FACE_FORWARD = 10;
+		private int headStableTime;
+		private float lastStableYHeadRot;
+
+		public CrabBodyControl(Mob mob) {
+			super(mob);
+			this.mob = mob;
+		}
+
+		public void clientTick() {
+			if (this.isMoving()) {
+				this.mob.yBodyRot = this.mob.getYRot() + 90F;
+				this.rotateHeadIfNecessary();
+				this.lastStableYHeadRot = this.mob.yHeadRot;
+				this.headStableTime = 0;
+				return;
+			}
+			if (this.notCarryingMobPassengers()) {
+				if (Math.abs(this.mob.yHeadRot - this.lastStableYHeadRot) > HEAD_STABLE_ANGLE) {
+					this.headStableTime = 0;
+					this.lastStableYHeadRot = this.mob.yHeadRot;
+					this.rotateBodyIfNecessary();
+				} else {
+					++this.headStableTime;
+					if (this.headStableTime > DELAY_UNTIL_STARTING_TO_FACE_FORWARD) {
+						this.rotateHeadTowardsFront();
+					}
+				}
+			}
+		}
+
+		private void rotateBodyIfNecessary() {
+			this.mob.yBodyRot = Mth.rotateIfNecessary(this.mob.yBodyRot, this.mob.yHeadRot, this.mob.getMaxHeadYRot());
+		}
+
+		private void rotateHeadIfNecessary() {
+			this.mob.yHeadRot = Mth.rotateIfNecessary(this.mob.yHeadRot, this.mob.yBodyRot, this.mob.getMaxHeadYRot());
+		}
+
+		private void rotateHeadTowardsFront() {
+			int i = this.headStableTime - HOW_LONG_IT_TAKES_TO_FACE_FORWARD;
+			float f = Mth.clamp((float)i / HOW_LONG_IT_TAKES_TO_FACE_FORWARD, 0.0f, 1.0f);
+			float g = (float)this.mob.getMaxHeadYRot() * (1.0f - f);
+			this.mob.yBodyRot = Mth.rotateIfNecessary(this.mob.yBodyRot, this.mob.yHeadRot, g);
+		}
+
+		private boolean notCarryingMobPassengers() {
+			return !(this.mob.getFirstPassenger() instanceof Mob);
+		}
+
+		private boolean isMoving() {
+			double e;
+			double d = this.mob.getX() - this.mob.xo;
+			return d * d + (e = this.mob.getZ() - this.mob.zo) * e > 2.500000277905201E-7;
 		}
 	}
 }

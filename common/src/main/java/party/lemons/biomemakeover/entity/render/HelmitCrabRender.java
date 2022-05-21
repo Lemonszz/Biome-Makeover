@@ -78,7 +78,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 
 	private class HelmitCrabShellRenderLayer extends RenderLayer<HelmitCrabEntity, HelmitCrabModel>
 	{
-		private final PlayerModel BIPED_MODEL;
+		private final HumanoidModel BIPED_MODEL;
 		private final HelmitCrabModel CRAB_MODEL;
 		private final ItemInHandRenderer itemInHandRenderer;
 		private final EntityRendererProvider.Context context;
@@ -95,7 +95,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			this.context = context;
 			this.skullModels = SkullBlockRenderer.createSkullRenderers(context.getModelSet());
 
-			BIPED_MODEL = new PlayerModel(context.bakeLayer(ModelLayers.PLAYER), false);
+			BIPED_MODEL = new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR));
 			CRAB_MODEL = new HelmitCrabModel(context.bakeLayer(HelmitCrabModel.LAYER_LOCATION));
 
 			BIPED_MODEL.leftArm.visible = false;
@@ -145,11 +145,16 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 		private void renderSkull(ItemStack shell, PoseStack poseStack, MultiBufferSource mbSource, int light, float limbAngle)
 		{
 			float scale = 1;
+			if(shell.getItem() == Items.DRAGON_HEAD) {
+				scale = 0.6F;
+				poseStack.translate(0, 0.6F, -0.07);
+			}
+
 			poseStack.scale(scale, -scale, scale);
 			poseStack.translate(0, -1.4F, 0.1F);
 
 
-			poseStack.translate(-0.5D, 0.0D, -0.5D);
+		//	poseStack.translate(-0.5D, 0.0D, -0.5D);
 			CompoundTag compoundTag;
 
 			GameProfile gameProfile = null;
@@ -199,6 +204,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 
 			matrices.pushPose();
 			matrices.translate(0, 0.63F, 0.05);
+			matrices.scale(1.1F, 1.1F, 1.1F);
 			ArmorItem armorItem = (ArmorItem)stack.getItem();
 			boolean hasGlint = stack.hasFoil();
 			if (armorItem instanceof DyeableArmorItem)
