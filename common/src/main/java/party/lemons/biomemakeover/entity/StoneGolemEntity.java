@@ -86,8 +86,13 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, StoneGolemEntity.class, false));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, StoneGolemEntity.class, 10, true, false, living -> {
+            if (living instanceof StoneGolemEntity other) {
+                return isPlayerCreated() != other.isPlayerCreated();
+            }
+            return false;
+        }));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, IronGolem.class, 10, true, false, (g) -> !isPlayerCreated()));
         this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
             return livingEntity instanceof Monster && !(livingEntity instanceof Creeper);
@@ -204,19 +209,12 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
         {
             if(target instanceof Player || target instanceof AbstractVillager)
                 return false;
-            if(target instanceof IronGolem)
-                return !((IronGolem) target).isPlayerCreated();
         }
         else
         {
             if(target instanceof Monster)
                 return false;
-            if(target instanceof IronGolem)
-                return ((IronGolem) target).isPlayerCreated();
         }
-
-        if(target instanceof StoneGolemEntity)
-            return ((StoneGolemEntity) target).isPlayerCreated() != isPlayerCreated();
 
         return super.canAttack(target);
     }
