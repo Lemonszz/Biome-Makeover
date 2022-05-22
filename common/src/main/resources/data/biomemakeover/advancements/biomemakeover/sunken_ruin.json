@@ -19,9 +19,17 @@
     "ruin": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "biomemakeover:sunken_ruin"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "biomemakeover:sunken_ruin"
+              }
+            }
+          }
+        ]
       }
     }
   },

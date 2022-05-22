@@ -19,9 +19,17 @@
     "ghost_town": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "feature": "biomemakeover:mansion"
-        }
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "biomemakeover:mansion"
+              }
+            }
+          }
+        ]
       }
     }
   },

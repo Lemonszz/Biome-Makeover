@@ -15,7 +15,6 @@
     "announce_to_chat": true,
     "hidden": false
   },
-
   "criteria": {
     "ghost_town": {
       "trigger": "minecraft:location",
