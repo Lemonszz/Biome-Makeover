@@ -2,5 +2,6 @@
   "type": "biomemakeover:mansion",
   "biomes": "#biomemakeover:has_structure/reworked_mansion",
   "spawn_overrides": {},
+  "terrain_adaptation": "beard_box",
   "step": "surface_structures"
 }
