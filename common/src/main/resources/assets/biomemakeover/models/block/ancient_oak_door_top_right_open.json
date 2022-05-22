@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right_open",
+  "textures": {
+    "bottom": "biomemakeover:block/willow_door_bottom",
+    "top": "biomemakeover:block/ancient_oak_door_top"
+  }
+}

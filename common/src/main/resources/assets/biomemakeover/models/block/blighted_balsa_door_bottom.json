@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom",
-  "textures": {
-    "top": "biomemakeover:block/blighted_balsa_door_top",
-    "bottom": "biomemakeover:block/blighted_balsa_door_bottom"
-  }
-}
