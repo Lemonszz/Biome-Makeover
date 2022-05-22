@@ -16,7 +16,7 @@ logoFile = "bm-logo.png"
 [[dependencies.biomemakeover]]
 modId = "forge"
 mandatory = true
-versionRange = "[40.1.16,)"
+versionRange = "[40.1.22,)"
 ordering = "NONE"
 side = "BOTH"
 
