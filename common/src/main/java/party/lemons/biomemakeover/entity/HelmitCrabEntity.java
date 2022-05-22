@@ -1,9 +1,7 @@
 package party.lemons.biomemakeover.entity;
 
 import com.google.common.collect.Lists;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -11,7 +9,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -22,9 +19,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -36,13 +31,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMEntities;
@@ -62,7 +54,7 @@ public class HelmitCrabEntity extends Animal
 	private int shellChangeCooldown = 0;
 
 	public HelmitCrabEntity(EntityType<? extends Animal> entityType, Level level) {
-		super(BMEntities.HELMIT_CRAB.get(), level);
+		super(entityType, level);
 
 		setPathfindingMalus(BlockPathTypes.WATER, 0);
 		setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0);
@@ -117,25 +109,13 @@ public class HelmitCrabEntity extends Animal
 				}
 			}
 
-			ItemStack itemStack;
-			switch (tier)
-			{
-				case 1:
-					itemStack = new ItemStack(Items.LEATHER_HELMET);
-					break;
-				case 2:
-					itemStack = new ItemStack(Items.GOLDEN_HELMET);
-					break;
-				case 3:
-					itemStack = new ItemStack(Items.IRON_HELMET);
-					break;
-				case 4:
-					itemStack = new ItemStack(Items.DIAMOND_HELMET);
-					break;
-				default:
-					itemStack = new ItemStack(Items.NAUTILUS_SHELL);
-					break;
-			}
+			ItemStack itemStack = switch (tier) {
+				case 1 -> new ItemStack(Items.LEATHER_HELMET);
+				case 2 -> new ItemStack(Items.GOLDEN_HELMET);
+				case 3 -> new ItemStack(Items.IRON_HELMET);
+				case 4 -> new ItemStack(Items.DIAMOND_HELMET);
+				default -> new ItemStack(Items.NAUTILUS_SHELL);
+			};
 			if(random.nextFloat() < 0.05F)
 				EnchantmentHelper.enchantItem(this.random, itemStack, (int)(5.0F + (float)this.random.nextInt(10)), false);
 
@@ -150,11 +130,7 @@ public class HelmitCrabEntity extends Animal
 
 	public void updateSwimming() {
 		if (!this.level.isClientSide()) {
-			if (this.isEffectiveAi() && this.isInWater() && this.isTargetingUnderwater()) {
-				this.setSwimming(true);
-			} else {
-				this.setSwimming(false);
-			}
+			this.setSwimming(this.isEffectiveAi() && this.isInWater() && this.isTargetingUnderwater());
 		}
 	}
 
@@ -236,11 +212,10 @@ public class HelmitCrabEntity extends Animal
 			{
 				return true;
 			}
-			else if (!(currentShell.getItem() instanceof ArmorItem)) //If we're not wearing armor, we should swap
+			else if (!(currentShell.getItem() instanceof ArmorItem current)) //If we're not wearing armor, we should swap
 				return true;
 			else {
 				ArmorItem newShell = (ArmorItem) itemStack.getItem();
-				ArmorItem current = (ArmorItem) currentShell.getItem();
 
 				if (newShell.getDefense() != current.getDefense()) {  //If we've got more protection, choose that
 					return newShell.getDefense() > current.getDefense();
@@ -383,9 +358,8 @@ public class HelmitCrabEntity extends Animal
 
 	public void travel(Vec3 vec3) {
 		if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
-			boolean bl;
 			double d = 0.08;
-			boolean bl2 = bl = this.getDeltaMovement().y <= 0.0;
+			boolean bl = this.getDeltaMovement().y <= 0.0;
 			if (bl && this.hasEffect(MobEffects.SLOW_FALLING)) {
 				d = 0.01;
 				this.resetFallDistance();
@@ -721,7 +695,7 @@ public class HelmitCrabEntity extends Animal
 	}
 
 
-	private class CrabBodyControl extends BodyRotationControl
+	private static class CrabBodyControl extends BodyRotationControl
 	{
 		private final Mob mob;
 		private static final int HEAD_STABLE_ANGLE = 15;
