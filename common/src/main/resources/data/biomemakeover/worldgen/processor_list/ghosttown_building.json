@@ -7,10 +7,10 @@
       "rules": [
         {
           "output_state": {
-            "Name": "biomemakeover:black_terracotta_bricks"
+            "Name": "minecraft:black_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:black_terracotta",
+            "block": "biomemakeover:black_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -20,10 +20,10 @@
         },
         {
           "output_state": {
-            "Name": "biomemakeover:red_terracotta_bricks"
+            "Name": "minecraft:red_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:red_terracotta",
+            "block": "biomemakeover:red_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -33,10 +33,10 @@
         },
         {
           "output_state": {
-            "Name": "biomemakeover:blue_terracotta_bricks"
+            "Name": "minecraft:blue_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:blue_terracotta",
+            "block": "biomemakeover:blue_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -46,10 +46,10 @@
         },
         {
           "output_state": {
-            "Name": "biomemakeover:brown_terracotta_bricks"
+            "Name": "minecraft:brown_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:brown_terracotta",
+            "block": "biomemakeover:brown_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -58,10 +58,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:cyan_terracotta_bricks"
+            "Name": "minecraft:cyan_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:cyan_terracotta",
+            "block": "biomemakeover:cyan_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -70,10 +70,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:gray_terracotta_bricks"
+            "Name": "minecraft:gray_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:gray_terracotta",
+            "block": "biomemakeover:gray_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -82,10 +82,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:green_terracotta_bricks"
+            "Name": "minecraft:green_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:green_terracotta",
+            "block": "biomemakeover:green_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -94,10 +94,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:light_blue_terracotta_bricks"
+            "Name": "minecraft:light_blue_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:light_blue_terracotta",
+            "block": "biomemakeover:light_blue_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -106,10 +106,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:light_gray_terracotta_bricks"
+            "Name": "minecraft:light_gray_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:light_gray_terracotta",
+            "block": "biomemakeover:light_gray_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -118,10 +118,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:lime_terracotta_bricks"
+            "Name": "minecraft:lime_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:lime_terracotta",
+            "block": "biomemakeover:lime_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -130,10 +130,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:magenta_terracotta_bricks"
+            "Name": "minecraft:magenta_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:magenta_terracotta",
+            "block": "biomemakeover:magenta_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -142,10 +142,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:orange_terracotta_bricks"
+            "Name": "minecraft:orange_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:orange_terracotta",
+            "block": "biomemakeover:orange_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -154,10 +154,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:pink_terracotta_bricks"
+            "Name": "minecraft:pink_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:pink_terracotta",
+            "block": "biomemakeover:pink_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -166,10 +166,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:purple_terracotta_bricks"
+            "Name": "minecraft:purple_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:purple_terracotta",
+            "block": "biomemakeover:purple_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -178,10 +178,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:white_terracotta_bricks"
+            "Name": "minecraft:white_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:white_terracotta",
+            "block": "biomemakeover:white_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
@@ -190,10 +190,10 @@
           }
         },        {
           "output_state": {
-            "Name": "biomemakeover:yellow_terracotta_bricks"
+            "Name": "minecraft:yellow_terracotta"
           },
           "input_predicate": {
-            "block": "minecraft:yellow_terracotta",
+            "block": "biomemakeover:yellow_terracotta_bricks",
             "probability": 0.25,
             "predicate_type": "minecraft:random_block_match"
           },
