@@ -214,7 +214,7 @@ public class MansionRoom
                 children.addPiece(new MansionFeature.Piece(manager, getFlatWall(random), wallPos, Rotation.CLOCKWISE_90, ground, false));
 
             if(!roomGrid.contains(getPosition().east()) || !roomGrid.get(getPosition().east()).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.EAST, roomGrid, random), wallPos.relative(Direction.EAST, 12).west().south(11), Rotation.COUNTERCLOCKWISE_90, ground, true));
+                children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.EAST, roomGrid, random), wallPos.relative(Direction.EAST, 11).west().south(11), Rotation.COUNTERCLOCKWISE_90, ground, true));
             if(!roomGrid.contains(getPosition().south()) || !roomGrid.get(getPosition().south()).getRoomType().hasWalls())
                 children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.SOUTH, roomGrid, random), wallPos.relative(Direction.SOUTH, 10).west(), Rotation.NONE, ground, true));
 
