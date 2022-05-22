@@ -3,7 +3,6 @@
   "package": "party.lemons.biomemakeover.mixin.forge",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "multipart.GameRendererMixin"
   ],
   "mixins": [
     "DefaultBiomesMixin_RemoveSwampTrees",

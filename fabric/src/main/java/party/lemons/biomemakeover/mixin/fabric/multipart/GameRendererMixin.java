@@ -18,6 +18,7 @@ import party.lemons.biomemakeover.entity.mutipart.EntityPart;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin
 {
+    /*
     @Shadow
     @Final
     private Minecraft minecraft;
@@ -31,5 +32,5 @@ public class GameRendererMixin
                 this.minecraft.crosshairPickEntity = entity2;
             }
         }
-    }
+    }*/
 }
