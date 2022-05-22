@@ -1,4 +1,4 @@
-package party.lemons.biomemakeover.mixin.multipart.client;
+package party.lemons.biomemakeover.mixin.fabric.multipart;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
