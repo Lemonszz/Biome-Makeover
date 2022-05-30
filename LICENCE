@@ -5,6 +5,7 @@ You can:
 - Submit Pull Requests
 - Copy portions of this code for use in other projects
 - Create "addons" using the code as a dependency
+- Distribute official binaries as part of a greater whole (mod packs)
 
 You may not, without direct permission from the copyright holder:
 - Port this software to any other version/modloader/engine or game.
