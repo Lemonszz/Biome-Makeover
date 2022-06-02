@@ -23,6 +23,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -120,8 +121,10 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                             return;
                         newStack.enchant(curse, 1);
                         inventory.set(0, newStack);
-                    }else if(curseItemStack(getItem(0), level.random))
+                    }else if(!curseItemStack(getItem(0), level.random))
                     {
+                        Block.popResource(level, getBlockPos(), getItem(0).copy());
+                        getItem(0).shrink(1);
                     }
                     progress = 0;
                     getItem(1).shrink(1);
@@ -272,7 +275,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                 return false;
 
             int attempts = 0;   //Attempts is to stop a potential infinite loop, if code is up to this point we SHOULD have a curse that's compatible, we gonna brute force it at this point lol
-            while(enchantments.containsKey(curse) || !curse.canEnchant(stack) && attempts < 100)
+            while(enchantments.containsKey(curse) || !curse.canEnchant(stack))
             {
                 curse = getRandomCurse(random);
                 if(curse == null)
@@ -282,6 +285,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                 if(attempts >= 100)
                 {
                     curse = null;
+                    break;
                 }
             }
 
