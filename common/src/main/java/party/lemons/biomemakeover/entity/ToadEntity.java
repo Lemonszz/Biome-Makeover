@@ -79,7 +79,7 @@ public class ToadEntity extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(Items.SLIME_BALL.get(), Items.SPIDER_EYE), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(Items.SLIME_BALL, Items.SPIDER_EYE), false));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
     }
