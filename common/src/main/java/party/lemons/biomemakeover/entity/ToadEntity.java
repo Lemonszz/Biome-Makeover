@@ -33,6 +33,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
@@ -79,7 +80,7 @@ public class ToadEntity extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(BMItems.DRAGONFLY_WINGS.get(), Items.SPIDER_EYE), false));
+        this.goalSelector.addGoal(3, new PredicateTemptGoal(this, 1.0D, (s->s.is(BMItems.TOAD_FOOD)), false));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
     }
@@ -181,7 +182,7 @@ public class ToadEntity extends Animal {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.getItem() == BMItems.DRAGONFLY_WINGS || stack.getItem() == Items.SPIDER_EYE;
+        return stack.is(BMItems.TOAD_FOOD);
     }
 
     private final TargetingConditions predicate = TargetingConditions.forNonCombat().selector((e)->e.distanceTo(e) < 10);

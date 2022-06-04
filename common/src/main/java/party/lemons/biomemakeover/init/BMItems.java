@@ -114,6 +114,7 @@ public class BMItems
     public static final Supplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
 
     public static final TagKey<Item> CURSE_FUEL = TagKey.create(Registry.ITEM_REGISTRY, BiomeMakeover.ID("curse_fuel"));
+    public static final TagKey<Item> TOAD_FOOD = TagKey.create(Registry.ITEM_REGISTRY, BiomeMakeover.ID("toad_food"));
 
   //  public static final Tag<Item> MUSHROOM_FIELDS = ItemTagsInvoker.callBind(BiomeMakeover.ID("mushroom_fields").toString());
   //  public static final Tag<Item> BADLANDS = ItemTagsInvoker.callBind(BiomeMakeover.ID("badlands").toString());
