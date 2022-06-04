@@ -59,7 +59,7 @@ public enum QuestRewardTable
 
     private static List<RewardItem> createPotionIngredientTable()
     {
-        return Lists.newArrayList(new ItemStackRewardItem(new ItemStack(Items.FERMENTED_SPIDER_EYE), 6, 20), new ItemStackRewardItem(new ItemStack(Items.REDSTONE), 12, 32), new ItemStackRewardItem(new ItemStack(Items.GLOWSTONE_DUST), 5, 25), new ItemStackRewardItem(new ItemStack(Items.GUNPOWDER), 5, 25), new ItemStackRewardItem(new ItemStack(Items.SPIDER_EYE), 5, 32), new ItemStackRewardItem(new ItemStack(Items.GLISTERING_MELON_SLICE), 5, 15), new ItemStackRewardItem(new ItemStack(BMItems.SOUL_EMBERS.get()), 3, 5), new ItemStackRewardItem(new ItemStack(Items.GHAST_TEAR), 1, 10), new ItemStackRewardItem(new ItemStack(Items.RABBIT_FOOT), 1, 20), new ItemStackRewardItem(new ItemStack(BMItems.WART.get()), 1, 7));
+        return Lists.newArrayList(new ItemStackRewardItem(new ItemStack(Items.FERMENTED_SPIDER_EYE), 6, 20), new ItemStackRewardItem(new ItemStack(Items.REDSTONE), 12, 32), new ItemStackRewardItem(new ItemStack(Items.GLOWSTONE_DUST), 5, 25), new ItemStackRewardItem(new ItemStack(Items.GUNPOWDER), 5, 25), new ItemStackRewardItem(new ItemStack(Items.SPIDER_EYE), 5, 32), new ItemStackRewardItem(new ItemStack(Items.GLISTERING_MELON_SLICE), 5, 15), new ItemStackRewardItem(new ItemStack(BMItems.SOUL_EMBERS.get()), 3, 5), new ItemStackRewardItem(new ItemStack(Items.GHAST_TEAR), 1, 10), new ItemStackRewardItem(new ItemStack(Items.RABBIT_FOOT), 1, 20));
     }
 
     private static List<RewardItem> createPotionTable()

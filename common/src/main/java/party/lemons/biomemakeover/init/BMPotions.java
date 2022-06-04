@@ -54,6 +54,7 @@ public class BMPotions
 
         LifecycleEvent.SETUP.register(()->{
                     PotionBrewingInvoker.callAddMix(Potions.AWKWARD, BMItems.WART.get(), ANTIDOTE_POT.get());
+                    PotionBrewingInvoker.callAddMix(Potions.AWKWARD, BMItems.SCUTTLER_TAIL.get(), ANTIDOTE_POT.get());
                     PotionBrewingInvoker.callAddMix(Potions.AWKWARD, BMItems.MOTH_SCALES.get(), NOCTURNAL_POT.get());
                     PotionBrewingInvoker.callAddMix(NOCTURNAL_POT.get(), Items.REDSTONE, LONG_NOCTURNAL_POT.get());
                 });

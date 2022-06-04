@@ -169,7 +169,7 @@ public class BMEntities
         registerSpawn(SWAMP_BIOMES, DRAGONFLY.get(), MobCategory.AMBIENT, 20, 3, 8);
         SpawnPlacementsInvoker.callRegister(DRAGONFLY.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DragonflyEntity::checkSpawnRules);
 
-        registerSpawn(SWAMP_BIOMES, TOAD.get(), MobCategory.CREATURE, 20, 2, 4);
+        //registerSpawn(SWAMP_BIOMES, TOAD.get(), MobCategory.CREATURE, 20, 2, 4);
         SpawnPlacementsInvoker.callRegister(TOAD.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
         registerSpawn(SWAMP_BIOMES, LIGHTNING_BUG.get(), MobCategory.AMBIENT, 20, 1, 1);

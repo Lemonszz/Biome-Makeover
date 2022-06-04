@@ -319,6 +319,7 @@
   "item.biomemakeover.cowboy_spawn_egg" : "Cowboy Spawn Egg",
   "item.biomemakeover.ghost_spawn_egg" : "Ghost Spawn Egg",
   "item.biomemakeover.toad_spawn_egg" : "Toad Spawn Egg",
+  "item.biomemakeover.toad_spawn_egg.desc" : "Toad Spawning has been disabled in 1.19!",
   "item.biomemakeover.dragonfly_spawn_egg" : "Dragonfly Spawn Egg",
   "item.biomemakeover.lightning_bug_spawn_egg" : "Lightning Bug Spawn Egg",
   "item.biomemakeover.decayed_spawn_egg" : "Decayed Spawn Egg",
