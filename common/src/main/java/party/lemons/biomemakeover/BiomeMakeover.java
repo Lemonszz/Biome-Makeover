@@ -103,7 +103,6 @@ public class BiomeMakeover {
             BMEntities.initSpawnsAndAttributes();
 
             //TODO: Find somewhere else for this
-            BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/bat"), BinomialDistributionGenerator.binomial(2, 0.5F), BMItems.BAT_WING.get());
             BMLootTableInjection.inject(new ResourceLocation("minecraft", "entities/evoker"), BinomialDistributionGenerator.binomial(3, 0.15F), BMItems.ILLUNITE_SHARD.get());
         });
     }

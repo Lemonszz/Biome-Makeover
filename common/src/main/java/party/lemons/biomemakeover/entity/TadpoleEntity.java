@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
@@ -52,7 +53,7 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 
         ItemStack itemStack = player.getItemInHand(hand);
-        if(!itemStack.isEmpty() && itemStack.getItem() == BMItems.DRAGONFLY_WINGS.get())
+        if(!itemStack.isEmpty() && itemStack.getItem() == Items.SLIME_BALL)
         {
             if(this.isBaby())
             {

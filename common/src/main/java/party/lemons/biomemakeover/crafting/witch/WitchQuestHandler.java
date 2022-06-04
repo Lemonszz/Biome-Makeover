@@ -39,7 +39,6 @@ public class WitchQuestHandler
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.TALL_BROWN_MUSHROOM.get(), 5, 2));
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.TALL_RED_MUSHROOM.get(), 5, 2));
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(Blocks.MYCELIUM, 10, 1));
-        addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMItems.BLIGHTBAT_WING.get(), 5, 1));
 
         addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.SCUTTLER_TAIL.get(), 5, 5));
         addQuestItem(QuestCategory.MESA, QuestItem.of(BMItems.ECTOPLASM.get(), 8, 3));
@@ -141,7 +140,6 @@ public class WitchQuestHandler
         addQuestItem(QuestCategory.COMMON, QuestItem.of(Blocks.LARGE_FERN, 0.75F, 4));
         addQuestItem(QuestCategory.COMMON, QuestItem.of(Blocks.GRASS, 0.5F, 4));
         addQuestItem(QuestCategory.COMMON, QuestItem.of(Blocks.CAULDRON, 4F, 1));
-        addQuestItem(QuestCategory.COMMON, QuestItem.of(BMItems.BAT_WING.get(), 3F, 1));
 
         addQuestItem(QuestCategory.RARE, QuestItem.of(Blocks.WITHER_ROSE, 10, 1));
         addQuestItem(QuestCategory.RARE, QuestItem.of(Items.TOTEM_OF_UNDYING, 15, 1));

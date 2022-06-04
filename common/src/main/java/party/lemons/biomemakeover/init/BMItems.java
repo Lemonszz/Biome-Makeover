@@ -69,9 +69,9 @@ public class BMItems
     public static final Supplier<Item> ECTOPLASM = registerItem("ectoplasm", ()->new EctoplasmItem(properties()));
 
     public static final Supplier<Item> LIGHTNING_BOTTLE = registerItem("lightning_bottle", ()->new LightningBottleItem(properties()));
-    public static final Supplier<Item> DRAGONFLY_WINGS = registerItem("dragonfly_wings", ()->new Item(properties()));
-    public static final Supplier<Item> BAT_WING = registerItem("bat_wing", ()->new Item(properties()));
-    public static final Supplier<Item> BLIGHTBAT_WING = registerItem("blightbat_wing", ()->new Item(properties()));
+    public static final Supplier<Item> DRAGONFLY_WINGS = registerItem("dragonfly_wings", ()->new Item(properties().tab(null)));
+    public static final Supplier<Item> BAT_WING = registerItem("bat_wing", ()->new Item(properties().tab(null)));
+    public static final Supplier<Item> BLIGHTBAT_WING = registerItem("blightbat_wing", ()->new Item(properties().tab(null)));
     public static final Supplier<Item> WART = registerItem("wart", ()->new Item(properties().tab(null)));
     public static final Supplier<Item> SOUL_EMBERS = registerItem("soul_embers", ()->new Item(properties()));
 
