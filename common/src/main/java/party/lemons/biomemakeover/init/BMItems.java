@@ -41,6 +41,10 @@ public class BMItems
     public static final FoodProperties RAW_TOAD_FOOD = new FoodProperties.Builder().nutrition(3).saturationMod(0.3F).meat().build();
     public static final FoodProperties RAW_BULBUS_ROOT_FOOD = new FoodProperties.Builder().nutrition(2).saturationMod(0.6F).build();
     public static final FoodProperties BULBUS_ROOT_FOOD = new FoodProperties.Builder().nutrition(5).saturationMod(0.8F).build();
+    public static final FoodProperties RAW_CRAB_FOOD = new FoodProperties.Builder().nutrition(2).saturationMod(0.1F).build();
+    public static final FoodProperties COOKED_CRAB_FOOD = new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).build();
+    public static final FoodProperties CRAB_CHOWDER_FOOD = new FoodProperties.Builder().nutrition(11).saturationMod(0.9F).build();
+
 
     public static final ArmorMaterial CLADDED_MATERIAL = new CladdedArmorMaterial();
     public static final BMArmorItem.Builder CLADDED_ARMOR = BMArmorItem.Builder.create(CLADDED_MATERIAL).attribute("Armor Proj Res", BMEntities.ATT_PROJECTILE_RESISTANCE, 1, AttributeModifier.Operation.ADDITION);
@@ -52,6 +56,9 @@ public class BMItems
     public static final Supplier<Item> COOKED_TOAD = registerItem("cooked_toad", ()->new Item(properties().food(COOKED_TOAD_FOOD).tab(null)));
     public static final Supplier<Item> BULBUS_ROOT = registerItem("bulbus_root", ()->new BMItem(properties().food(RAW_BULBUS_ROOT_FOOD)).modifiers(CompostItemModifier.create(0.4F)));
     public static final Supplier<Item> ROASTED_BULBUS_ROOT = registerItem("roasted_bulbus_root", ()->new Item(properties().food(BULBUS_ROOT_FOOD)));
+    public static final Supplier<Item> RAW_CRAB = registerItem("raw_crab", ()->new BMItem(properties().food(RAW_CRAB_FOOD)));
+    public static final Supplier<Item> COOKED_CRAB = registerItem("cooked_crab", ()->new BMItem(properties().food(COOKED_CRAB_FOOD)));
+    public static final Supplier<Item> CRAB_CHOWDER = registerItem("crab_chowder", ()->new BowlFoodItem(properties().food(COOKED_CRAB_FOOD).stacksTo(1)));
 
     public static final Supplier<Item> COWBOY_HAT = registerItem("cowboy_hat", ()->new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), properties()));
     public static final Supplier<Item> WITCH_HAT = registerItem("witch_hat", ()->new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), properties()));

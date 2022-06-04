@@ -63,7 +63,7 @@ public class HelmitCrabEntity extends Animal
 		setPathfindingMalus(BlockPathTypes.WATER, 0);
 		setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0);
 		getNavigation().setCanFloat(true);
-
+		armorDropChances[0] = 1.0F;
 	}
 	private int hideTime = 0;
 
