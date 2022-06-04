@@ -128,7 +128,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			else if(shell.getItem() instanceof ArmorItem)
 				renderHelmet(shell, poseStack, multiBufferSource, light);
 			else if(shell.getItem() instanceof BlockItem && ((BlockItem)shell.getItem()).getBlock() instanceof AbstractSkullBlock)
-				renderSkull(shell, poseStack, multiBufferSource, light, limbAngle);
+				renderSkull(shell, poseStack, multiBufferSource, light);
 			else
 				renderHeadItem(entity, shell, poseStack, multiBufferSource, light);
 		}
@@ -142,7 +142,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			itemInHandRenderer.renderItem(crab, shell, ItemTransforms.TransformType.HEAD, false, poseStack, mbSource, light);
 		}
 
-		private void renderSkull(ItemStack shell, PoseStack poseStack, MultiBufferSource mbSource, int light, float limbAngle)
+		private void renderSkull(ItemStack shell, PoseStack poseStack, MultiBufferSource mbSource, int light)
 		{
 			float scale = 1;
 			if(shell.getItem() == Items.DRAGON_HEAD) {
@@ -153,10 +153,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			poseStack.scale(scale, -scale, scale);
 			poseStack.translate(0, -1.4F, 0.1F);
 
-
-		//	poseStack.translate(-0.5D, 0.0D, -0.5D);
 			CompoundTag compoundTag;
-
 			GameProfile gameProfile = null;
 			if (shell.hasTag() && (compoundTag = shell.getTag()).contains("SkullOwner", 10)) {
 				gameProfile = NbtUtils.readGameProfile(compoundTag.getCompound("SkullOwner"));
