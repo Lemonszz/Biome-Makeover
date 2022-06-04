@@ -326,6 +326,11 @@ public class MansionFeature extends Structure
             {
                 handleSpawning(meta, world, pos, cow);
             }
+            else if(meta.startsWith("allay"))
+            {
+                for(int i = 0; i < 3; i++)
+                    handleSpawning(meta, world, pos, allays);
+            }
         }
 
         private void handleSpawning(String meta, WorldGenLevel world, BlockPos pos, EntityType<?>[] pool)
@@ -654,5 +659,6 @@ public class MansionFeature extends Structure
     private static final EntityType[] golem_enemies = {BMEntities.STONE_GOLEM.get()};
     private static final EntityType[] ravagers = {EntityType.RAVAGER};
     private static final EntityType[] cow = {EntityType.COW};
+    private static final EntityType[] allays = {EntityType.ALLAY};
     private static final BlockState[] SHROOMS = {Blocks.RED_MUSHROOM.defaultBlockState(), Blocks.BROWN_MUSHROOM.defaultBlockState(), BMBlocks.WILD_MUSHROOMS.get().defaultBlockState()};
 }
