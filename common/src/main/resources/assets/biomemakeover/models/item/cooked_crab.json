@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:block/cooked_crab"
+    "layer0": "biomemakeover:item/cooked_crab"
   }
 }
