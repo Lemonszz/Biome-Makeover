@@ -34,6 +34,6 @@ public class DungeonRoom extends MansionRoom
 
     @Override
     public boolean hasGroundModifications() {
-        return true;
+        return false;
     }
 }
