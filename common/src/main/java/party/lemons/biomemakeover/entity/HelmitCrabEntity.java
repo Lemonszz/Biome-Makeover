@@ -9,9 +9,11 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -34,9 +36,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.item.HatItem;
 
@@ -91,6 +95,11 @@ public class HelmitCrabEntity extends Animal
 		getEntityData().define(SHELL_ITEM, ItemStack.EMPTY);
 		getEntityData().define(HIDING, false);
 		super.defineSynchedData();
+	}
+
+	public static boolean checkSpawnRules(EntityType<HelmitCrabEntity> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource random)
+	{
+		return level.getBlockState(pos.below()).is(BMBlocks.CRAB_SPAWNABLE_ON) && Animal.isBrightEnoughToSpawn(level, pos);
 	}
 
 	@Override
