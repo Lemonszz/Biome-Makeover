@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;

@@ -1,8 +1,8 @@
 package party.lemons.biomemakeover.crafting.witch;
 
-import dev.architectury.utils.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
-import java.util.Random;
 
 public class WitchQuest
 {
@@ -31,7 +30,7 @@ public class WitchQuest
     public WitchQuest(CompoundTag tag)
     {
         rarityPoints = tag.getFloat("Points");
-        ListTag items = tag.getList("Items", NbtType.COMPOUND);
+        ListTag items = tag.getList("Items", Tag.TAG_COMPOUND);
 
         requiredItems = new ItemStack[items.size()];
         for(int i = 0; i < items.size(); i++)

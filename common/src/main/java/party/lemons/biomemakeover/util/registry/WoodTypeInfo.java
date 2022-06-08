@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.util.registry;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Lists;
 import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.resources.ResourceLocation;
@@ -198,6 +197,7 @@ public class WoodTypeInfo
                  ((BlockEntityTypeAccess)BlockEntityType.SIGN).bm_addBlockTypes( blocks.get(Type.SIGN).get(), blocks.get(Type.SIGN_WALL).get());
              });
          }
+
         return this;
     }
 
@@ -207,23 +207,43 @@ public class WoodTypeInfo
         public Supplier<T> getSupplier(WoodTypeInfo factory);
     }
 
+    private static BlockBehaviour.Properties props(BlockBehaviour.Properties props)
+    {
+        BlockBehaviour be = new BlockBehaviour(props)
+        {
+            @Override
+            public Item asItem()
+            {
+                return null;
+            }
+
+            @Override
+            protected Block asBlock()
+            {
+                return null;
+            }
+        };
+
+        return BlockBehaviour.Properties.copy(be);
+    }
+
     public enum Type
     {
-        STRIPPED_WOOD("stripped", "wood", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD)),
-        STRIPPED_LOG("stripped", "log", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD)),
-        PLANK("", "planks", true, (f)->()->new BMBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
-        LOG("", "log", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD, new StrippableModifier(()->f.getBlock(Type.STRIPPED_LOG).get()))),
-        WOOD("", "wood", true, (f)->()->new BMPillarBlock(BlockProperties.copy(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD, new StrippableModifier(()->f.getBlock(Type.STRIPPED_WOOD).get()))),
-        SLAB("", "slab", true, (f)->()->new BMSlabBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
-        STAIR("", "stairs", true, (f)->()->new BMStairBlock(f.getBlock(Type.PLANK).get().defaultBlockState(), BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
-        FENCE("", "fence", true, (f)->()->new BMFenceBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
-        FENCE_GATE("", "fence_gate", true, (f)->()->new BMFenceGateBlock(BlockProperties.copy(f.properties)).modifiers(FlammableModifier.WOOD)),
-        PRESSURE_PLATE("", "pressure_plate", true, (f)->()->new BMPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockProperties.copy(f.properties).strength(0.5F).noCollission())),
-        BUTTON("", "button", true, (f)-> ()->new BMButtonBlock(BlockProperties.copy(f.properties).strength(0.5F).noCollission())),
-        TRAP_DOOR("", "trapdoor", true, (f)->()->new BMTrapdoorBlock(BlockProperties.copy(f.properties).strength(3F).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT))),
-        DOOR("", "door", true, (f)->()->new BMDoorBlock(BlockProperties.copy(f.properties).strength(3.0F).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT))),
-        SIGN("", "sign", false, (f)->()->new StandingSignBlock(BlockProperties.of(Material.WOOD).strength(1F).sound(SoundType.WOOD).noCollission(), f.woodType)),
-        SIGN_WALL("", "wall_sign", false, (f)->()->new WallSignBlock(BlockProperties.of(Material.WOOD).strength(1F).sound(SoundType.WOOD).noCollission(), f.woodType)),
+        STRIPPED_WOOD("stripped", "wood", true, (f)->()->new BMPillarBlock(props(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD)),
+        STRIPPED_LOG("stripped", "log", true, (f)->()->new BMPillarBlock(props(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD)),
+        PLANK("", "planks", true, (f)->()->new BMBlock(props(f.properties)).modifiers(FlammableModifier.WOOD)),
+        LOG("", "log", true, (f)->()->new BMPillarBlock(props(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD, new StrippableModifier(()->f.getBlock(Type.STRIPPED_LOG).get()))),
+        WOOD("", "wood", true, (f)->()->new BMPillarBlock(props(f.properties).explosionResistance(2.0F)).modifiers(FlammableModifier.WOOD, new StrippableModifier(()->f.getBlock(Type.STRIPPED_WOOD).get()))),
+        SLAB("", "slab", true, (f)->()->new BMSlabBlock(props(f.properties)).modifiers(FlammableModifier.WOOD)),
+        STAIR("", "stairs", true, (f)->()->new BMStairBlock(f.getBlock(Type.PLANK).get().defaultBlockState(), props(f.properties)).modifiers(FlammableModifier.WOOD)),
+        FENCE("", "fence", true, (f)->()->new BMFenceBlock(props(f.properties)).modifiers(FlammableModifier.WOOD)),
+        FENCE_GATE("", "fence_gate", true, (f)->()->new BMFenceGateBlock(props(f.properties)).modifiers(FlammableModifier.WOOD)),
+        PRESSURE_PLATE("", "pressure_plate", true, (f)->()->new BMPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props(f.properties).strength(0.5F).noCollission())),
+        BUTTON("", "button", true, (f)-> ()->new BMButtonBlock(props(f.properties).strength(0.5F).noCollission())),
+        TRAP_DOOR("", "trapdoor", true, (f)->()->new BMTrapdoorBlock(props(f.properties).strength(3F).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT))),
+        DOOR("", "door", true, (f)->()->new BMDoorBlock(props(f.properties).strength(3.0F).noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT))),
+        SIGN("", "sign", false, (f)->()->new StandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(1F).sound(SoundType.WOOD).noCollission(), f.woodType)),
+        SIGN_WALL("", "wall_sign", false, (f)->()->new WallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(1F).sound(SoundType.WOOD).noCollission(), f.woodType)),
         SIGN_ITEM("", "sign", false, null, (f)->()->new SignItem(f.properties().stacksTo(16), f.getBlock(Type.SIGN).get(), f.getBlock(Type.SIGN_WALL).get())),
         BOAT("", "boat", false, null, (f)->()->new BMBoatItem(false, f.boatType, f.properties().stacksTo(1))),
         CHEST_BOAT("", "chest_boat", false, null, (f)->()->new BMBoatItem(true, f.boatType, f.properties().stacksTo(1)));

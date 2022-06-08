@@ -1,6 +1,6 @@
 package party.lemons.biomemakeover.init;
 
-import dev.architectury.registry.level.advancement.CriteriaTriggersRegistry;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import party.lemons.biomemakeover.util.FieldConsumer;
@@ -17,6 +17,6 @@ public class BMAdvancements
 
     public static void init()
     {
-        FieldConsumer.run(BMAdvancements.class, SimpleCriterionTrigger.class, (t)->CriteriaTriggersRegistry.register((CriterionTrigger)t));
+        FieldConsumer.run(BMAdvancements.class, SimpleCriterionTrigger.class, (t)-> CriteriaTriggers.register((CriterionTrigger)t));
     }
 }
