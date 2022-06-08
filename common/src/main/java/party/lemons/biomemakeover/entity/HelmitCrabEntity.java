@@ -9,7 +9,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -36,11 +35,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.item.HatItem;
 
@@ -141,6 +140,13 @@ public class HelmitCrabEntity extends Animal
 		if (!this.level.isClientSide()) {
 			this.setSwimming(this.isEffectiveAi() && this.isInWater() && this.isTargetingUnderwater());
 		}
+	}
+
+	@Override
+	public boolean doHurtTarget(Entity entity)
+	{
+		playSound(BMEffects.CRAB_SNIP.get(), 0.5F, 1.0F);
+		return super.doHurtTarget(entity);
 	}
 
 	@Override
@@ -359,10 +365,36 @@ public class HelmitCrabEntity extends Animal
 
 		if(hiding)
 		{
+			playSound(BMEffects.CRAB_ENTER_SHELL.get());
 			getNavigation().stop();
 			hideTime = 0;
 			setTarget(null);
 		}
+		else
+		{
+			playSound(BMEffects.CRAB_LEAVE_SHELL.get());
+		}
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource)
+	{
+		return BMEffects.CRAB_HURT.get();
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return BMEffects.CRAB_DEATH.get();
+	}
+
+	@Override
+	protected void playStepSound(BlockPos blockPos, BlockState blockState)
+	{
+		this.playSound(BMEffects.CRAB_SCUTTLE.get(), 0.1F, 1.0F - (random.nextFloat() / 5F));
+		super.playStepSound(blockPos, blockState);
 	}
 
 	public void travel(Vec3 vec3) {

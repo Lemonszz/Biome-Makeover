@@ -759,5 +759,56 @@
       "biomemakeover:owl/owl_idle_4"
     ],
     "subtitle": "subtitles.biomemakeover.owl_idle"
+  },
+  "crab_death": {
+    "sounds": [
+      "biomemakeover:crab/death1",
+      "biomemakeover:crab/death2",
+      "biomemakeover:crab/death3",
+      "biomemakeover:crab/death4"
+    ],
+    "subtitle": "subtitles.biomemakeover.crab_death"
+  },
+  "crab_enter_shell": {
+    "sounds": [
+      "biomemakeover:crab/entershell1",
+      "biomemakeover:crab/entershell2",
+      "biomemakeover:crab/entershell3"
+    ],
+    "subtitle": "subtitles.biomemakeover.crab_enter_shell"
+  },
+  "crab_leave_shell": {
+    "sounds": [
+      "biomemakeover:crab/leaveshell1",
+      "biomemakeover:crab/leaveshell2",
+      "biomemakeover:crab/leaveshell3",
+      "biomemakeover:crab/leaveshell4"
+    ],
+    "subtitle": "subtitles.biomemakeover.crab_leave_shell"
+  },
+  "crab_hurt": {
+    "sounds": [
+      "biomemakeover:crab/hurt1",
+      "biomemakeover:crab/hurt2",
+      "biomemakeover:crab/hurt3",
+      "biomemakeover:crab/hurt4"
+    ],
+    "subtitle": "subtitles.biomemakeover.crab_hurt"
+  },
+  "crab_scuttle": {
+    "sounds": [
+      "biomemakeover:crab/scuttle1",
+      "biomemakeover:crab/scuttle2",
+      "biomemakeover:crab/scuttle3",
+      "biomemakeover:crab/scuttle4"
+    ],
+    "subtitle": "subtitles.biomemakeover.crab_scuttle"
+  },
+  "crab_snip": {
+    "sounds": [
+      "biomemakeover:crab/snip1",
+      "biomemakeover:crab/snip2"
+    ],
+    "subtitle": "subtitles.biomemakeover.crab_snip"
   }
 }

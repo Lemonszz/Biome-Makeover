@@ -449,6 +449,8 @@
   "entity.biomemakeover.adjudicator_mimic": "Adjudicator",
   "entity.biomemakeover.stone_golem": "Stone Golem",
   "entity.biomemakeover.helmit_crab": "Helmit Crab",
+  "entity.biomemakeover.helmit_crab": "Helmit Crab",
+  "entity.biomemakeover.bm_chest_boat" : "Chest Boat",
 
   "subtitles.biomemakeover.ghost.charge": "Ghost Shrieks",
   "subtitles.biomemakeover.ghost.death": "Ghost Dies",
@@ -500,6 +502,12 @@
   "subtitles.biomemakeover.owl_death": "Owl Dies",
   "subtitles.biomemakeover.owl_hurt": "Owl Hurts",
   "subtitles.biomemakeover.owl_idle": "Owl Hoots",
+  "subtitles.biomemakeover.crab_death": "Helmit Crab Dies",
+  "subtitles.biomemakeover.crab_enter_shell": "Helmit Crab Enters Shell",
+  "subtitles.biomemakeover.crab_leave_shell": "Helmit Crab Leaves Shell",
+  "subtitles.biomemakeover.crab_hurt": "Helmit Crab Hurts",
+  "subtitles.biomemakeover.crab_scuttle": "Helmit Crab Scuttles",
+  "subtitles.biomemakeover.crab_snip": "Helmit Crab Snips",
 
   "advancements.biomemakeover.all_shrooms.title": "Mycophile",
   "advancements.biomemakeover.all_shrooms.description": "Collect every single mushroom",

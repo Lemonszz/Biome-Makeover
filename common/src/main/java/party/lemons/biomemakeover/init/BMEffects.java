@@ -94,6 +94,12 @@ public class BMEffects
     public static final Supplier<SoundEvent> OWL_DEATH = registerSound(BiomeMakeover.ID("owl_death"));
     public static final Supplier<SoundEvent> OWL_IDLE = registerSound(BiomeMakeover.ID("owl_idle"));
     public static final Supplier<SoundEvent> OWL_HURT = registerSound(BiomeMakeover.ID("owl_hurt"));
+    public static final Supplier<SoundEvent> CRAB_DEATH = registerSound(BiomeMakeover.ID("crab_death"));
+    public static final Supplier<SoundEvent> CRAB_ENTER_SHELL = registerSound(BiomeMakeover.ID("crab_enter_shell"));
+    public static final Supplier<SoundEvent> CRAB_LEAVE_SHELL = registerSound(BiomeMakeover.ID("crab_leave_shell"));
+    public static final Supplier<SoundEvent> CRAB_HURT = registerSound(BiomeMakeover.ID("crab_hurt"));
+    public static final Supplier<SoundEvent> CRAB_SCUTTLE = registerSound(BiomeMakeover.ID("crab_scuttle"));
+    public static final Supplier<SoundEvent> CRAB_SNIP = registerSound(BiomeMakeover.ID("crab_snip"));
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.PARTICLE_TYPE_REGISTRY);
     public static final RegistrySupplier<SimpleParticleType> LIGHTNING_SPARK = PARTICLE_TYPES.register("lightning_spark", () -> new SimpleParticleType(true));
