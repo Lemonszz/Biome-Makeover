@@ -10,6 +10,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import party.lemons.biomemakeover.entity.TumbleweedEntity;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class TumbleweedSpawner
 
         for(ServerPlayer pl : level.getPlayers((p)->{
             BlockPos pos = new BlockPos(p.position());
-            return level.isLoaded(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS);
+            return level.isLoaded(pos) && level.getBiome(pos).is(BMWorldGen.HAS_TUMBLEWEED);
         }))
         {
             if(pl.isSpectator()) continue;

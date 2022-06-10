@@ -562,4 +562,5 @@ public class BMWorldGen
     }
 
     public static TagKey<Biome> DARK_FOREST_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("dark_forest"));
+    public static TagKey<Biome> HAS_TUMBLEWEED = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("spawns_tumbleweed"));
 }
