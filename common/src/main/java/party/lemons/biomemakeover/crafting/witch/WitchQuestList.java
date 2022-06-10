@@ -5,6 +5,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.RandomSource;
+import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,9 @@ public class WitchQuestList extends ArrayList<WitchQuest>
     public void populate(RandomSource random)
     {
         clear();
+        if(!QuestCategories.hasQuests())
+            return;
+
         for(int i = 0; i < 3; i++)
         {
             add(WitchQuestHandler.createQuest(random));

@@ -1,0 +1,45 @@
+{
+  "weight": 9,
+  "requests": [
+    {
+      "item": "minecraft:kelp",
+      "max_count": 5,
+      "points": 0.8
+    },
+    {
+      "item": "minecraft:seagrass",
+      "max_count": 5,
+      "points": 0.8
+    },
+    {
+      "item": "minecraft:salmon",
+      "max_count": 2,
+      "points": 1
+    },
+    {
+      "item": "minecraft:cod",
+      "max_count": 2,
+      "points": 1
+    },
+    {
+      "item": "minecraft:ink_sac",
+      "max_count": 4,
+      "points": 2
+    },
+    {
+      "item": "minecraft:sea_pickle",
+      "max_count": 4,
+      "points": 4
+    },
+    {
+      "item": "minecraft:tropical_fish",
+      "max_count": 2,
+      "points": 5
+    },
+    {
+      "item": "minecraft:pufferfish",
+      "max_count": 2,
+      "points": 5
+    }
+  ]
+}

@@ -24,6 +24,7 @@ import party.lemons.biomemakeover.crafting.witch.WitchQuest;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestEntity;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestList;
+import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
 import party.lemons.biomemakeover.entity.ai.WitchLookAtCustomerGoal;
 import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
 import party.lemons.biomemakeover.init.BMItems;
@@ -58,7 +59,6 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
         if(this.isAlive() && !this.hasCustomer() && canInteract(player))
         {
             if(!this.level.isClientSide())
@@ -114,7 +114,7 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
     @Override
     public boolean canInteract(Player player)
     {
-        return getTarget() == null && !hasActiveRaid() && playerHasHat(player);
+        return getTarget() == null && !hasActiveRaid() && playerHasHat(player) && QuestCategories.hasQuests();
     }
 
     public boolean playerHasHat(Player player)

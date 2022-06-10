@@ -7,9 +7,11 @@ import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabRegistry;
+import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
+import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.level.BMWorldEvents;
@@ -49,6 +52,8 @@ public class BiomeMakeover {
         BMWorldEvents.init();
         TaskManager.init();
 
+        ReloadListenerRegistry.register(PackType.SERVER_DATA, new QuestCategoryReloadListener());
+
         if(Platform.isDevelopmentEnvironment() && ENABLE_WIKI)
             PlayerEvent.DROP_ITEM.register((Player player, ItemEntity entity)->{
                 WikiGenerator.generate();
@@ -62,8 +67,6 @@ public class BiomeMakeover {
             ((PatrolSpawnerInvoker)new PatrolSpawner()).callSpawnPatrolMember(c.getSource().getLevel(), BlockPosArgument.getLoadedBlockPos(c, "pos"), c.getSource().getLevel().random, BoolArgumentType.getBool(c, "leader"));
             return 1;
         })))));
-
-
 
         LifecycleEvent.SETUP.register(()->{
             BMWorldGen.init();

@@ -1,0 +1,25 @@
+{
+  "weight": 4,
+  "requests": [
+    {
+      "item": "biomemakeover:scuttler_tail",
+      "max_count": 5,
+      "points": 3.0
+    },
+    {
+      "item": "biomemakeover:ectoplasm",
+      "max_count": 3,
+      "points": 8.0
+    },
+    {
+      "item": "biomemakeover:pink_petals",
+      "max_count": 1,
+      "points": 12.0
+    },
+    {
+      "item": "biomemakeover:saguaro_cactus",
+      "max_count": 10,
+      "points": 1.0
+    }
+  ]
+}

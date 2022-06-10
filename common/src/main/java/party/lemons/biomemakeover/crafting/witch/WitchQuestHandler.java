@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.network.S2C_HandleWitchQuests;
@@ -22,10 +23,9 @@ import java.util.Random;
 
 public class WitchQuestHandler
 {
-    private static final Map<QuestCategory, List<QuestItem>> QUEST_ITEMS = Maps.newHashMap();
-
     public static void init()
     {
+        /*
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMItems.GLOWFISH.get(), 10, 3));
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GLOWSHROOM_STEM.get(), 10, 3));
         addQuestItem(QuestCategory.MUSHROOM, QuestItem.of(BMBlocks.GREEN_GLOWSHROOM_BLOCK.get(), 10, 3));
@@ -151,6 +151,8 @@ public class WitchQuestHandler
         addQuestItem(QuestCategory.RARE, QuestItem.of(Items.CREEPER_HEAD, 30, 1));
         addQuestItem(QuestCategory.RARE, QuestItem.of(Items.SKELETON_SKULL, 30, 1));
         addQuestItem(QuestCategory.RARE, QuestItem.of(Items.ZOMBIE_HEAD, 30, 1));
+        */
+
     }
 
     public static ItemStack getRewardFor(WitchQuest quest, RandomSource random)
@@ -167,10 +169,13 @@ public class WitchQuestHandler
         int count = counts.get(random.nextInt(counts.size()));
         List<QuestItem> questItems = Lists.newArrayList();
 
-        while(questItems.size() < count)
+        int safetyCount = count * 2;    //If there's not enough items to select, it infinite loops
+
+        while(questItems.size() < count && safetyCount > 0)
         {
-            QuestCategory category = QuestCategory.choose(random);
-            List<QuestItem> itemPool = QUEST_ITEMS.get(category);
+            safetyCount--;
+            QuestCategory category = QuestCategories.choose();
+            List<QuestItem> itemPool = category.getRequestedItemPool();
 
             QuestItem item = itemPool.get(random.nextInt(itemPool.size()));
             if(!questItems.contains(item)) questItems.add(item);
@@ -179,13 +184,6 @@ public class WitchQuestHandler
         WitchQuest quest = new WitchQuest(random, questItems);
 
         return quest;
-    }
-
-    public static void addQuestItem(QuestCategory category, QuestItem questItem)
-    {
-        if(!QUEST_ITEMS.containsKey(category)) QUEST_ITEMS.put(category, Lists.newArrayList());
-
-        QUEST_ITEMS.get(category).add(questItem);
     }
 
     public static void sendQuests(Player player, int index, WitchQuestList quests)
