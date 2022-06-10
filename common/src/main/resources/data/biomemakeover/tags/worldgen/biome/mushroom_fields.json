@@ -2,11 +2,11 @@
   "replace": false,
   "values": [
     {
-      "id": "#c:swamp",
+      "id": "#c:mushroom",
       "required": false
     },
     {
-      "id": "#forge:is_swamp",
+      "id": "#forge:is_mushroom",
       "required": false
     }
   ]

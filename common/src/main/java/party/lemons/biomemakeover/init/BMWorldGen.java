@@ -531,37 +531,46 @@ public class BMWorldGen
         return place(string, holder, List.of(placementModifiers));
     }
 
-    @ExpectPlatform
+    //TODO: these don't need to be arrays anymore
     public static TagKey<Biome>[] getMushroomTags()
     {
-        throw new AssertionError();
+        return new TagKey[]{
+                MUSHROOM_FIELD_BIOMES
+        };
     }
 
-    @ExpectPlatform
     public static TagKey<Biome>[] getBadlandsTags()
     {
-        throw new AssertionError();
+        return new TagKey[]{
+                BADLANDS_BIOMES
+        };
     }
 
-    @ExpectPlatform
     public static TagKey<Biome>[] getSwampTags()
     {
-        throw new AssertionError();
+        return new TagKey[]{
+                SWAMP_BIOMES
+        };
     }
 
-    @ExpectPlatform
     public static TagKey<Biome>[] getDarkForestTags()
     {
-        throw new AssertionError();
+        return new TagKey[]{
+                DARK_FOREST_BIOMES
+        };
     }
 
-    @ExpectPlatform
     public static TagKey<Biome>[] getBeachTags()
     {
-        throw new AssertionError();
+        return new TagKey[]{
+                BEACH_BIOMES
+        };
     }
 
     public static TagKey<Biome> DARK_FOREST_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("dark_forest"));
     public static TagKey<Biome> HAS_TUMBLEWEED = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("spawns_tumbleweed"));
     public static TagKey<Biome> SWAMP_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("swamps"));
+    public static TagKey<Biome> BADLANDS_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("badlands"));
+    public static TagKey<Biome> MUSHROOM_FIELD_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("mushroom_fields"));
+    public static TagKey<Biome> BEACH_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("beaches"));
 }

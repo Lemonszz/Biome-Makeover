@@ -82,9 +82,9 @@ public class BMFabric implements ModInitializer
     public void doWorldGen()
     {
         //TODO: use BMWorldGen.getXTags()
-        final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.tag(ConventionalBiomeTags.MUSHROOM);
-        final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.tag(BiomeTags.IS_BADLANDS).or(BiomeSelectors.tag(ConventionalBiomeTags.BADLANDS));
-        final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.tag(ConventionalBiomeTags.SWAMP);
+        final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.tag(BMWorldGen.MUSHROOM_FIELD_BIOMES);
+        final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.tag(BMWorldGen.BADLANDS_BIOMES);
+        final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.tag(BMWorldGen.SWAMP_BIOMES);
         final Predicate<BiomeSelectionContext> DF_BIOMES = BiomeSelectors.tag(BMWorldGen.DARK_FOREST_BIOMES);
 
         BiomeModification gen = BiomeModifications.create(BiomeMakeover.ID("biomemakeover"));
