@@ -16,6 +16,12 @@ public class WeightedList<T>
         totalWeight += weight;
     }
 
+    public void clear()
+    {
+        totalWeight = 0;
+        entries.clear();
+    }
+
     public T sample()
     {
         Collections.shuffle(entries);
@@ -29,6 +35,11 @@ public class WeightedList<T>
         }
 
         throw new RuntimeException("Weighted List Was Empty");
+    }
+
+    public boolean isEmpty()
+    {
+        return entries.isEmpty();
     }
 
 

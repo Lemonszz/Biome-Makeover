@@ -1,0 +1,55 @@
+{
+  "weight": 1,
+  "requests": [
+    {
+      "item": "minecraft:wither_rose",
+      "max_count": 1,
+      "points": 10
+    },
+    {
+      "item": "minecraft:totem_of_undying",
+      "max_count": 1,
+      "points": 15
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull",
+      "max_count": 1,
+      "points": 50
+    },
+    {
+      "item": "minecraft:nether_star",
+      "max_count": 1,
+      "points": 175
+    },
+    {
+      "item": "minecraft:experience_bottle",
+      "max_count": 1,
+      "points": 10
+    },
+    {
+      "item": "minecraft:enchanted_golden_apple",
+      "max_count": 1,
+      "points": 40
+    },
+    {
+      "item": "minecraft:golden_apple",
+      "max_count": 1,
+      "points": 5
+    },
+    {
+      "item": "minecraft:creeper_head",
+      "max_count": 1,
+      "points": 30
+    },
+    {
+      "item": "minecraft:skeleton_head",
+      "max_count": 1,
+      "points": 30
+    },
+    {
+      "item": "minecraft:zombie_head",
+      "max_count": 1,
+      "points": 30
+    }
+  ]
+}

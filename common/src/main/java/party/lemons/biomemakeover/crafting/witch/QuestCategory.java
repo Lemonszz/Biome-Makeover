@@ -1,34 +1,40 @@
 package party.lemons.biomemakeover.crafting.witch;
 
+import com.google.common.collect.Lists;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.behavior.ShufflingList;
 
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public enum QuestCategory
+public class QuestCategory
 {
-    COMMON(10), RARE(1), MUSHROOM(2), FLOWER(5), MESA(4), SWAMP(7), OCEAN(9), JUNGLE(4), NETHER(5), DARK_FOREST(7);
+    private final int weight;
+    private List<QuestItem> requestedItems = Lists.newArrayList();
 
-    public final int weight;
-
-    QuestCategory(int weight)
+    public QuestCategory(int weight)
     {
         this.weight = weight;
     }
 
-    private static final ShufflingList<QuestCategory> CATEGORIES = new ShufflingList<>();
-
-    static
+    public int getWeight()
     {
-        for(QuestCategory category : QuestCategory.values())
-        {
-            CATEGORIES.add(category, category.weight);
-        }
+        return weight;
     }
 
-    public static QuestCategory choose(RandomSource random)
+    public void addItem(QuestItem item)
     {
-        return CATEGORIES.shuffle().stream().toList().get(random.nextInt(values().length));
+        this.requestedItems.add(item);
+    }
+
+    public List<QuestItem> getRequestedItemPool()
+    {
+        return requestedItems;
+    }
+
+    public boolean isEmpty()
+    {
+        return requestedItems.isEmpty();
     }
 }
