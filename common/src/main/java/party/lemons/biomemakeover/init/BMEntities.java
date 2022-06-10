@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.init;
 
 import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.level.biome.BiomeModifications;
@@ -11,23 +10,25 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.IllagerModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Pillager;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -45,18 +46,12 @@ import party.lemons.biomemakeover.entity.*;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorMimicEntity;
 import party.lemons.biomemakeover.entity.render.*;
-import party.lemons.biomemakeover.entity.render.TadpoleModel;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatModel;
 import party.lemons.biomemakeover.entity.render.feature.WitchHatModel;
 import party.lemons.biomemakeover.level.golem.GolemHandler;
 import party.lemons.biomemakeover.mixin.SpawnPlacementsInvoker;
 import party.lemons.biomemakeover.util.access.CarvedPumpkinAccess;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
 import party.lemons.biomemakeover.util.registry.boat.BoatTypes;
-
-import java.util.Random;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class BMEntities
 {
