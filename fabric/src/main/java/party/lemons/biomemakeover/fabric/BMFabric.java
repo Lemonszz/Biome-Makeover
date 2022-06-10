@@ -81,6 +81,7 @@ public class BMFabric implements ModInitializer
 
     public void doWorldGen()
     {
+        //TODO: use BMWorldGen.getXTags()
         final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.tag(ConventionalBiomeTags.MUSHROOM);
         final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.tag(BiomeTags.IS_BADLANDS).or(BiomeSelectors.tag(ConventionalBiomeTags.BADLANDS));
         final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.tag(ConventionalBiomeTags.SWAMP);

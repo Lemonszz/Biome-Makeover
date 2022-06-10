@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Direction;
@@ -528,6 +529,36 @@ public class BMWorldGen
 
     public static Holder<PlacedFeature> place(String string, Holder<? extends ConfiguredFeature<?, ?>> holder, PlacementModifier ... placementModifiers) {
         return place(string, holder, List.of(placementModifiers));
+    }
+
+    @ExpectPlatform
+    public static TagKey<Biome>[] getMushroomTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static TagKey<Biome>[] getBadlandsTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static TagKey<Biome>[] getSwampTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static TagKey<Biome>[] getDarkForestTags()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static TagKey<Biome>[] getBeachTags()
+    {
+        throw new AssertionError();
     }
 
     public static TagKey<Biome> DARK_FOREST_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("dark_forest"));

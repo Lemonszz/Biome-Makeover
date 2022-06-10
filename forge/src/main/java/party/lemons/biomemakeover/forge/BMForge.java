@@ -8,7 +8,9 @@ import dev.architectury.utils.Env;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -57,10 +59,10 @@ public class BMForge
         }
         BMEntities.registerModels();
 
-        addFeatures(MUSHROOM_BIOMES, BMWorldGen.MUSHROOM_GEN);
-        addFeatures(MESA_BIOMES, BMWorldGen.BADLANDS_GEN);
-        addFeatures(SWAMP_BIOMES, BMWorldGen.SWAMP_GEN);
-        addFeatures(DARK_FOREST_BIOMES, BMWorldGen.DF_GEN);
+        addFeatures(BMWorldGen.getMushroomTags(), BMWorldGen.MUSHROOM_GEN);
+        addFeatures(BMWorldGen.getBadlandsTags(), BMWorldGen.BADLANDS_GEN);
+        addFeatures(BMWorldGen.getSwampTags(), BMWorldGen.SWAMP_GEN);
+        addFeatures(BMWorldGen.getDarkForestTags(), BMWorldGen.DF_GEN);
     }
 
     @SubscribeEvent
@@ -111,16 +113,15 @@ public class BMForge
         addBiomeFeatures(event.getName().equals(DARK_FOREST), event.getGeneration(), BMWorldGen.DF_GEN);
     }*/
 
-    public static List<ResourceLocation> MUSHROOM_BIOMES = Lists.newArrayList(new ResourceLocation("minecraft:mushroom_fields"));
-    public static List<ResourceLocation> MESA_BIOMES = Lists.newArrayList(new ResourceLocation("minecraft:badlands"), new ResourceLocation("minecraft:wooded_badlands"), new ResourceLocation("minecraft:eroded_badlands"));
-    public static List<ResourceLocation> SWAMP_BIOMES = Lists.newArrayList(new ResourceLocation("minecraft:swamp"), new ResourceLocation("minecraft:mangrove_swamp"));
-    public static List<ResourceLocation> DARK_FOREST_BIOMES = Lists.newArrayList(new ResourceLocation("minecraft:dark_forest"));
-    public static List<ResourceLocation> BEACH_BIOMES = Lists.newArrayList(new ResourceLocation("minecraft:beach"), new ResourceLocation("minecraft:snowy_beach"), new ResourceLocation("minecraft:stony_shore"));
-
-    //TODO: update this to use tags when arch or forge lets me
-    private static void addFeatures(List<ResourceLocation> validBiomes, Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> features)
+    //TODO: probably doesn't need to be platform specific anymore
+    private static void addFeatures(TagKey<Biome>[] validBiomes, Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> features)
     {
-        BiomeModifications.addProperties(b->validBiomes.contains(b.getKey().get()), (biomeContext, mutable) -> {
+        BiomeModifications.addProperties(b->{
+                for(TagKey<Biome> tag : validBiomes)
+                    if(b.hasTag(tag))
+                        return true;
+                return false;
+        }, (biomeContext, mutable) -> {
 
             for (GenerationStep.Decoration step : features.keySet()) {
                 for (Holder<PlacedFeature> feature : features.get(step))
