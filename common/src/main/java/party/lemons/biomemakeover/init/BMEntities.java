@@ -9,6 +9,8 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.IllagerModel;
@@ -189,37 +191,6 @@ public class BMEntities
     private static boolean checkDFSpawnRules(EntityType<?> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
     {
         return level.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) && level.getRawBrightness(pos, 0) > 2;
-    }
-
-    public static void registerModels()
-    {
-        EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
-
-            EntityRendererRegistry.register(BMEntities.TUMBLEWEED::get, TumbleweedRender::new);
-            EntityRendererRegistry.register(BMEntities.BM_BOAT::get, (c)->new BMBoatRender(c, false));
-            EntityRendererRegistry.register(BMEntities.BM_CHEST_BOAT::get, (c)->new BMBoatRender(c, true));
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE::get, ThrownItemRenderer::new);
-
-            EntityRendererRegistry.register(BMEntities.GLOWFISH::get, GlowfishRender::new);
-            EntityRendererRegistry.register(BMEntities.BLIGHTBAT::get, BlightBatRender::new);
-            EntityRendererRegistry.register(BMEntities.MUSHROOM_TRADER::get, MushroomTraderRender::new);
-            EntityRendererRegistry.register(BMEntities.SCUTTLER::get, ScuttlerRender::new);
-            EntityRendererRegistry.register(BMEntities.GHOST::get, GhostRender::new);
-            EntityRendererRegistry.register(BMEntities.COWBOY::get, CowboyRender::new);
-            EntityRendererRegistry.register(BMEntities.DECAYED::get, DecayedRender::new);
-            EntityRendererRegistry.register(BMEntities.DRAGONFLY::get, DragonflyRender::new);
-            EntityRendererRegistry.register(BMEntities.TOAD::get, ToadRender::new);
-            EntityRendererRegistry.register(BMEntities.TADPOLE::get, TadpoleRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG::get, LightningBugRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG_ALTERNATE::get, LightningBugRender::new);
-            EntityRendererRegistry.register(BMEntities.OWL::get, OwlRender::new);
-            EntityRendererRegistry.register(BMEntities.MOTH::get, MothRender::new);
-            EntityRendererRegistry.register(BMEntities.ROOTLING::get, RootlingRender::new);
-            EntityRendererRegistry.register(BMEntities.ADJUDICATOR::get, AdjudicatorRender::new);
-            EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC::get, AdjudicatorMimicRender::new);
-            EntityRendererRegistry.register(BMEntities.STONE_GOLEM::get, StoneGolemRender::new);
-            EntityRendererRegistry.register(BMEntities.HELMIT_CRAB::get, HelmitCrabRender::new);
-        });
     }
 
     public static void registerModelLayers()

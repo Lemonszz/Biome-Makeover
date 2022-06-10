@@ -8,14 +8,12 @@ import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -44,10 +42,9 @@ public class BMFabric implements ModInitializer
     @Override
     public void onInitialize() {
         BiomeMakeover.init();
-        if (Platform.getEnvironment() == Env.CLIENT)
+        if (Platform.getEnvironment() == Env.CLIENT) {
             BiomeMakeoverClient.init();
-
-        BMEntities.registerModels();
+        }
 
         BMEffects.registerParticleProvider();
 

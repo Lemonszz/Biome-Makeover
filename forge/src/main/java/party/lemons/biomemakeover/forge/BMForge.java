@@ -57,7 +57,6 @@ public class BMForge
         if (Platform.getEnvironment() == Env.CLIENT) {
             BiomeMakeoverClient.init();
         }
-        BMEntities.registerModels();
 
         addFeatures(BMWorldGen.getMushroomTags(), BMWorldGen.MUSHROOM_GEN);
         addFeatures(BMWorldGen.getBadlandsTags(), BMWorldGen.BADLANDS_GEN);
