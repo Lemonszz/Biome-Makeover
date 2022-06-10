@@ -568,9 +568,12 @@ public class BMWorldGen
     }
 
     public static TagKey<Biome> DARK_FOREST_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("dark_forest"));
-    public static TagKey<Biome> HAS_TUMBLEWEED = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("spawns_tumbleweed"));
     public static TagKey<Biome> SWAMP_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("swamps"));
     public static TagKey<Biome> BADLANDS_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("badlands"));
     public static TagKey<Biome> MUSHROOM_FIELD_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("mushroom_fields"));
     public static TagKey<Biome> BEACH_BIOMES = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("beaches"));
+
+    public static TagKey<Biome> HAS_TUMBLEWEED = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("spawns_tumbleweed"));
+    public static TagKey<Biome> SWAMP_BONEMEAL = TagKey.create(Registry.BIOME_REGISTRY, BiomeMakeover.ID("swamp_bonemeal"));
+
 }

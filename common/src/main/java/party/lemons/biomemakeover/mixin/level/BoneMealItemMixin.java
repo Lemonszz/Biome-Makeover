@@ -22,7 +22,7 @@ public class BoneMealItemMixin
     @Inject(at = @At("HEAD"), method = "growWaterPlant", cancellable = true)
     private static void growCrop(ItemStack itemStack, Level level, BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cbi)
     {
-        if(level.getBiome(pos).is(BMWorldGen.SWAMP_BIOMES) && level.getBlockState(pos).is(Blocks.WATER) && level.getFluidState(pos).isSource())
+        if(level.getBiome(pos).is(BMWorldGen.SWAMP_BONEMEAL) && level.getBlockState(pos).is(Blocks.WATER) && level.getFluidState(pos).isSource())
         {
             if(!(level instanceof ServerLevel))
             {
