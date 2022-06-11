@@ -70,7 +70,6 @@ public class BiomeMakeover {
 
         LifecycleEvent.SETUP.register(()->{
             BMWorldGen.init();
-            WitchQuestHandler.init();
             BMEntities.initSpawnsAndAttributes();
 
             //TODO: Find somewhere else for this
