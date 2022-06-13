@@ -76,7 +76,6 @@ public class BMWorldGen
     private static final DeferredRegister<StructureProcessorType<?>> PROCESSOR_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_PROCESSOR_REGISTRY);
     private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_TYPE_REGISTRY);
 
-
     public static class DarkForest
     {
         //Mesmerite Boulder
