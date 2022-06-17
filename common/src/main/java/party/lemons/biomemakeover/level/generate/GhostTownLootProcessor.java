@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -42,6 +43,6 @@ public class GhostTownLootProcessor extends StructureProcessor
 	@Override
 	protected StructureProcessorType<?> getType()
 	{
-		return BMWorldGen.Badlands.GHOST_TOWN_LOOT_PROCESSOR.get();
+		return BMStructures.GHOST_TOWN_LOOT_PROCESSOR.get();
 	}
 }

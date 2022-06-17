@@ -73,9 +73,6 @@ import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_TH
 
 public class BMWorldGen
 {
-    private static final DeferredRegister<StructureProcessorType<?>> PROCESSOR_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_PROCESSOR_REGISTRY);
-    private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.STRUCTURE_TYPE_REGISTRY);
-
     public static class DarkForest
     {
         //Mesmerite Boulder
@@ -152,9 +149,6 @@ public class BMWorldGen
         public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> DF_TREES = configure("df_trees", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ANCIENT_OAK_SMALL_CHECKED, 0.1f), new WeightedPlacedFeature(DARK_OAK_SMALL_CHECKED, 0.2F), new WeightedPlacedFeature(ANCIENT_OAK_CHECKED, 0.05F)), TreePlacements.DARK_OAK_CHECKED));
         public static final Holder<PlacedFeature> DF_TREES_PLACED = place("df_trees", DF_TREES, CountPlacement.of(3), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome());
 
-        public static RegistrySupplier<StructureType<MansionFeature>> MANSION = STRUCTURE_TYPES.register(BiomeMakeover.ID("mansion"), ()->()->MansionFeature.CODEC);
-        public static final StructurePieceType MANSION_PIECE = MansionFeature.Piece::new;
-
         public static void setFeatures()
         {
             DF_GEN.put(GenerationStep.Decoration.VEGETAL_DECORATION, Lists.newArrayList(
@@ -193,7 +187,6 @@ public class BMWorldGen
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, DarkForest.class, PL_FEATURES);
             setFeatures();
 
-            Registry.register(Registry.STRUCTURE_PIECE, BiomeMakeover.ID("mansion"), MANSION_PIECE);
         //    Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, BiomeMakeover.ID("mansion"), MANSION_CONFIGURED);
         }
     }
@@ -262,9 +255,6 @@ public class BMWorldGen
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SMALL_AND_FLOWERED_PADS = configure("small_and_flowered_pads", Feature.RANDOM_PATCH, new RandomPatchConfiguration(10, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(PADS))));
         public static final Holder<PlacedFeature> LILY_PAD_PATCH_PLACED = place("small_and_flowered_pads", SMALL_AND_FLOWERED_PADS, VegetationPlacements.worldSurfaceSquaredWithCount(1));
 
-        //Sunken Ruin
-        public static RegistrySupplier<StructureType<SunkenRuinFeature>> SUNKEN_RUIN = STRUCTURE_TYPES.register(BiomeMakeover.ID("sunken_ruin"), ()->()->SunkenRuinFeature.CODEC);
-        public static final StructurePieceType SUNKEN_RUIN_PIECE = SunkenRuinFeature.SunkenRuinPiece::new;
 
         public static void init()
         {
@@ -273,7 +263,6 @@ public class BMWorldGen
             RegistryHelper.gatherFields(Constants.MOD_ID, ConfiguredFeature.class, Swamp.class, CFG_FEATURES);
             RegistryHelper.gatherFields(Constants.MOD_ID, PlacedFeature.class, Swamp.class, PL_FEATURES);
 
-            Registry.register(Registry.STRUCTURE_PIECE, BiomeMakeover.ID("sunken_ruin"), SUNKEN_RUIN_PIECE);
             setFeatures();
         }
 
@@ -311,9 +300,6 @@ public class BMWorldGen
         //Surface Fossils
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> SURFACE_FOSSIL = configure("surface_fossil", BMFeatures.SURFACE_FOSSIL_FEATURE.get());
         public static final Holder<PlacedFeature> SURFACE_FOSSIL_PLACED = place("surface_fossil", SURFACE_FOSSIL, RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE,  BiomeFilter.biome());
-
-        //Ghost Town
-        public static final RegistrySupplier<StructureProcessorType<GhostTownLootProcessor>> GHOST_TOWN_LOOT_PROCESSOR = PROCESSOR_TYPES.register(BiomeMakeover.ID("ghost_town_loot"), ()->()->GhostTownLootProcessor.CODEC);
 
         public static void init()
         {
@@ -484,9 +470,6 @@ public class BMWorldGen
         Badlands.init();
         Swamp.init();
         DarkForest.init();
-
-        PROCESSOR_TYPES.register();
-        STRUCTURE_TYPES.register();
 
         registerStuff();
     }

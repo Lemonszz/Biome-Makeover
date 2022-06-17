@@ -35,6 +35,7 @@ import net.minecraft.world.level.levelgen.structure.structures.OceanRuinStructur
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.material.FluidState;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
@@ -90,7 +91,7 @@ public class SunkenRuinFeature extends Structure
     @Override
     public StructureType<?> type()
     {
-        return BMWorldGen.Swamp.SUNKEN_RUIN.get();
+        return BMStructures.SUNKEN_RUIN.get();
     }
 
 
@@ -147,20 +148,20 @@ public class SunkenRuinFeature extends Structure
         private final boolean isLarge;
 
         public SunkenRuinPiece(StructureTemplateManager structureManager, ResourceLocation resourceLocation, BlockPos blockPos, Rotation rotation, float f, boolean bl) {
-            super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, 0, structureManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation), blockPos);
+            super(BMStructures.SUNKEN_RUIN_PIECE.get(), 0, structureManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation), blockPos);
             this.integrity = f;
             this.isLarge = bl;
         }
 
         public SunkenRuinPiece(StructureTemplateManager structureManager, CompoundTag compoundTag) {
-            super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, compoundTag, structureManager, resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
+            super(BMStructures.SUNKEN_RUIN_PIECE.get(), compoundTag, structureManager, resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
             this.integrity = compoundTag.getFloat("Integrity");
             this.isLarge = compoundTag.getBoolean("IsLarge");
         }
 
         public SunkenRuinPiece(StructurePieceSerializationContext structurePieceSerializationContext, CompoundTag compoundTag)
         {
-            super(BMWorldGen.Swamp.SUNKEN_RUIN_PIECE, compoundTag, structurePieceSerializationContext.structureTemplateManager(), resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
+            super(BMStructures.SUNKEN_RUIN_PIECE.get(), compoundTag, structurePieceSerializationContext.structureTemplateManager(), resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
             this.integrity = compoundTag.getFloat("Integrity");
             this.isLarge = compoundTag.getBoolean("IsLarge");
         }

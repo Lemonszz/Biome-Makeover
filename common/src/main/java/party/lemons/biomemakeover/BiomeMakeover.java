@@ -44,6 +44,7 @@ public class BiomeMakeover {
         BMNetwork.init();
         BMPotions.init();
         BMFeatures.init();
+        BMStructures.init();
         BMScreens.init();
         BMAdvancements.init();
         BMEnchantments.init();

@@ -49,6 +49,7 @@ import party.lemons.biomemakeover.entity.OwlEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.level.feature.SunkenRuinFeature;
 import party.lemons.biomemakeover.level.feature.mansion.room.MansionRoom;
@@ -131,7 +132,7 @@ public class MansionFeature extends Structure
     @Override
     public StructureType<?> type()
     {
-        return BMWorldGen.DarkForest.MANSION.get();
+        return BMStructures.MANSION.get();
     }
 
     public static class Piece extends TemplateStructurePiece implements DirectionalDataHandler
@@ -140,14 +141,14 @@ public class MansionFeature extends Structure
         private final boolean isWall;
 
         public Piece(StructureTemplateManager structureManager, String string, BlockPos blockPos, Rotation rotation, boolean needsGroundAdjustment, boolean isWall) {
-            super(BMWorldGen.DarkForest.MANSION_PIECE, 0, structureManager, new ResourceLocation(string), string, makeSettings(rotation, isWall), blockPos);
+            super(BMStructures.MANSION_PIECE.get(), 0, structureManager, new ResourceLocation(string), string, makeSettings(rotation, isWall), blockPos);
             this.ground = needsGroundAdjustment;
             this.isWall = isWall;
         }
 
 
         public Piece(StructureTemplateManager structureManager, CompoundTag compoundTag) {
-            super(BMWorldGen.DarkForest.MANSION_PIECE, compoundTag, structureManager, (ResourceLocation resourceLocation) -> makeSettings(Rotation.valueOf(compoundTag.getString("Rotation")), compoundTag.getBoolean("IsWall")));
+            super(BMStructures.MANSION_PIECE.get(), compoundTag, structureManager, (ResourceLocation resourceLocation) -> makeSettings(Rotation.valueOf(compoundTag.getString("Rotation")), compoundTag.getBoolean("IsWall")));
 
             this.ground = compoundTag.getBoolean("Ground");
             this.isWall = compoundTag.getBoolean("IsWall");
