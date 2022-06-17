@@ -33,7 +33,7 @@ public interface WoodTypeHelper
             WoodType type = constructor.newInstance(name);
 
             if (Platform.getEnvironment() == Env.CLIENT)
-                Sheets.SIGN_MATERIALS.put(type, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/bm_" + type.name())));
+                Sheets.SIGN_MATERIALS.put(type, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + type.name())));
 
             return type;
         }

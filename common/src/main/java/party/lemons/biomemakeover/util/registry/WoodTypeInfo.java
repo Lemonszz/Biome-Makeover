@@ -57,7 +57,7 @@ public class WoodTypeInfo
         this.callback = callback;
         this.tab = group;
 
-        woodType = WoodTypeHelper.register(name);
+        woodType = WoodTypeHelper.register("bm_" + name);
         types.add(Type.LOG);
         types.add(Type.STRIPPED_LOG);
         types.add(Type.PLANK);

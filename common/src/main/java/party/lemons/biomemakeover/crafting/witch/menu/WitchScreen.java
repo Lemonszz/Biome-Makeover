@@ -92,12 +92,6 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
         int k = (this.width - this.imageWidth) / 2;
         int l = (this.height - this.imageHeight) / 2;
         MerchantScreen.blit(matrices, k, l, this.getBlitOffset(), 0.0f, 0.0f, this.imageWidth, this.imageHeight, 512, 256);
-        WitchQuestList tradeOfferList = this.getMenu().getQuests();
-        if(!tradeOfferList.isEmpty())
-        {
-
-        }
-
     }
 
     @Override
