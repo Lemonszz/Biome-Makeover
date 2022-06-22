@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.level;
 
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 public class WindSystem
@@ -11,24 +12,24 @@ public class WindSystem
     private static float directionX = RandomUtil.randomDirection(1);
     private static float directionZ = RandomUtil.randomDirection(1);
 
-    public static void update()
+    public static void update(RandomSource random)
     {
-        if(RandomUtil.RANDOM.nextInt(100) == 0)
+        if(random.nextInt(100) == 0)
         {
             directionX = directionX * -1;
-            windX += directionX * (RandomUtil.RANDOM.nextFloat() / 25F);
+            windX += directionX * (random.nextFloat() / 25F);
         }
 
-        if(RandomUtil.RANDOM.nextInt(100) == 0)
+        if(random.nextInt(100) == 0)
         {
             directionZ = directionZ * -1;
-            windZ += directionZ * (RandomUtil.RANDOM.nextFloat() / 25F);
+            windZ += directionZ * (random.nextFloat() / 25F);
         }
 
-        if(RandomUtil.RANDOM.nextInt(20) == 0)
+        if(random.nextInt(20) == 0)
         {
-            windX += directionX * (RandomUtil.RANDOM.nextFloat() / 30F);
-            windZ += directionZ * (RandomUtil.RANDOM.nextFloat() / 30F);
+            windX += directionX * (random.nextFloat() / 30F);
+            windZ += directionZ * (random.nextFloat() / 30F);
 
             windX = Mth.clamp(windX, -0.7F, 0.7F);
             windZ = Mth.clamp(windZ, -0.7F, 0.7F);
