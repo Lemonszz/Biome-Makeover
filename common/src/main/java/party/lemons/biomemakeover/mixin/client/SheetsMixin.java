@@ -20,11 +20,9 @@ public class SheetsMixin
 	@Shadow @Final public static ResourceLocation SIGN_SHEET = new ResourceLocation("textures/atlas/signs.png");
 
 	@Inject(at = @At("HEAD"), method = "getSignMaterial")
-	private static Material getSignMaterial(WoodType woodType, CallbackInfoReturnable<Material> cbi)
+	private static void getSignMaterial(WoodType woodType, CallbackInfoReturnable<Material> cbi)
 	{
 		if(!SIGN_MATERIALS.containsKey(woodType))	//In case wood types don't get registered due to mod shenanigans.
 			SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.name())));
-
-		return SIGN_MATERIALS.get(woodType);
 	}
 }
