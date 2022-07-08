@@ -1,7 +1,7 @@
 package party.lemons.biomemakeover.util.registry;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.block.BlockProperties;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -20,10 +20,10 @@ import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.block.modifier.FlammableModifier;
 import party.lemons.biomemakeover.block.modifier.RTypeModifier;
 import party.lemons.biomemakeover.block.modifier.StrippableModifier;
+import party.lemons.biomemakeover.init.BMSigns;
 import party.lemons.biomemakeover.item.BMBoatItem;
 import party.lemons.biomemakeover.util.access.BlockEntityTypeAccess;
 import party.lemons.biomemakeover.util.registry.boat.BoatType;
-import party.lemons.biomemakeover.util.registry.sign.WoodTypeHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -58,7 +58,7 @@ public class WoodTypeInfo
         this.callback = callback;
         this.tab = group;
 
-        woodType = WoodTypeHelper.register(name);
+        woodType = BMSigns.getSignType("bm_" + name);
         types.add(Type.LOG);
         types.add(Type.STRIPPED_LOG);
         types.add(Type.PLANK);
