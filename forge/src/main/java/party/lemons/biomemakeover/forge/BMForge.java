@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.forge;
 
-import com.google.common.collect.Lists;
 import dev.architectury.platform.Platform;
 import dev.architectury.platform.forge.EventBuses;
 import dev.architectury.registry.level.biome.BiomeModifications;
@@ -10,7 +9,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -18,8 +16,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,7 +27,6 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.level.particle.BlossomParticle;
 import party.lemons.biomemakeover.level.particle.LightningSparkParticle;
@@ -91,7 +87,7 @@ public class BMForge
         }
     }
 
-    public static void particleSetup(ParticleFactoryRegisterEvent event)
+    public static void particleSetup(RegisterParticleProvidersEvent event)
     {
         Minecraft.getInstance().particleEngine.register(BMEffects.LIGHTNING_SPARK.get(), LightningSparkParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(BMEffects.POLTERGEIST.get(), PoltergeistParticle.Provider::new);

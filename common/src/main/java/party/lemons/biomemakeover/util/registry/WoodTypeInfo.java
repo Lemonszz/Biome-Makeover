@@ -19,6 +19,7 @@ import party.lemons.biomemakeover.block.*;
 import party.lemons.biomemakeover.block.modifier.FlammableModifier;
 import party.lemons.biomemakeover.block.modifier.RTypeModifier;
 import party.lemons.biomemakeover.block.modifier.StrippableModifier;
+import party.lemons.biomemakeover.init.BMSigns;
 import party.lemons.biomemakeover.item.BMBoatItem;
 import party.lemons.biomemakeover.util.access.BlockEntityTypeAccess;
 import party.lemons.biomemakeover.util.registry.boat.BoatType;
@@ -57,7 +58,7 @@ public class WoodTypeInfo
         this.callback = callback;
         this.tab = group;
 
-        woodType = WoodTypeHelper.register("bm_" + name);
+        woodType = BMSigns.getSignType("bm_" + name);
         types.add(Type.LOG);
         types.add(Type.STRIPPED_LOG);
         types.add(Type.PLANK);
