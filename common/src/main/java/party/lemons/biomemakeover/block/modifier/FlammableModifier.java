@@ -3,7 +3,7 @@ package party.lemons.biomemakeover.block.modifier;
 import com.google.common.collect.Maps;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import party.lemons.biomemakeover.mixin.FireBlockInvoker;
+import party.lemons.biomemakeover.util.FlammabilityRegistry;
 
 import java.util.Map;
 
@@ -20,10 +20,11 @@ public record FlammableModifier(int catchOdds, int burnOdds) implements BlockMod
 
     @Override
     public void accept(Block block) {
-        ((FireBlockInvoker) Blocks.FIRE).callSetFlammable(block, catchOdds, burnOdds);
 
-        CATCH_ODDS.put(block, catchOdds);
-        BURN_ODDS.put(block, burnOdds);
+        FlammabilityRegistry.setBlockFlammable(block, catchOdds, burnOdds);
+
+        //CATCH_ODDS.put(block, catchOdds);
+        //BURN_ODDS.put(block, burnOdds);
     }
 
     public static Map<Block, Integer> CATCH_ODDS = Maps.newHashMap();

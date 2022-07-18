@@ -28,7 +28,7 @@
     "FoliagePlacerTypeInvoker",
     "TreeDecoratorTypeInvoker",
     "InputContainerMixin_EctoCompost",
-    "FireBlockInvoker",
+    "FireBlockMixin",
     "WaterlilyBlockMixin",
     "WitchMixin_Quests",
     "WitchMixin_Antidote",
