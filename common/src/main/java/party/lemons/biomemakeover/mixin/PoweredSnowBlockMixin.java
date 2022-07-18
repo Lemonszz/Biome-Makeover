@@ -15,7 +15,8 @@ public class PoweredSnowBlockMixin {
     @Inject(at = @At("RETURN"), method = "canEntityWalkOnPowderSnow", cancellable = true)
     private static void canEntityWalkOnPowderSnow(Entity entity, CallbackInfoReturnable<Boolean> cbi) {
         if (entity instanceof LivingEntity living) {
-            cbi.setReturnValue(living.getItemBySlot(EquipmentSlot.FEET).is(BMItems.CLADDED_BOOTS.get()));
+            if(living.getItemBySlot(EquipmentSlot.FEET).is(BMItems.CLADDED_BOOTS.get()))    //TODO: use a tag or something
+                cbi.setReturnValue(true);
         }
     }
 }
