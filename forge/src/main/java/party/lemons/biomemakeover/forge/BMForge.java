@@ -46,11 +46,11 @@ public class BMForge
         EventBuses.registerModEventBus(Constants.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::particleSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::commonSetup);
 
         BiomeMakeover.init();
         if (Platform.getEnvironment() == Env.CLIENT) {
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::particleSetup);
             BiomeMakeoverClient.init();
         }
 
