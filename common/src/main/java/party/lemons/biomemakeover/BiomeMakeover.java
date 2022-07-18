@@ -18,7 +18,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
-import party.lemons.biomemakeover.crafting.witch.WitchQuestHandler;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
@@ -26,7 +25,6 @@ import party.lemons.biomemakeover.level.BMWorldEvents;
 import party.lemons.biomemakeover.mixin.PatrolSpawnerInvoker;
 import party.lemons.biomemakeover.util.data.wiki.WikiGenerator;
 import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
-import party.lemons.biomemakeover.util.task.TaskManager;
 
 public class BiomeMakeover {
 
@@ -51,7 +49,6 @@ public class BiomeMakeover {
 
         AdjudicatorRoomListener.init();
         BMWorldEvents.init();
-        TaskManager.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new QuestCategoryReloadListener());
 
