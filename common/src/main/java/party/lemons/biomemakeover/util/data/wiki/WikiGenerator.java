@@ -467,11 +467,11 @@ public final class WikiGenerator
                     compostChance = compostValue.chance();
                 }
 
-            if(FlammableModifier.CATCH_ODDS.containsKey(block))
+/*            if(FlammableModifier.CATCH_ODDS.containsKey(block))
             {
                 flameCatchChance = FlammableModifier.CATCH_ODDS.get(block);
                 flameBurnChance = FlammableModifier.BURN_ODDS.get(block);
-            }
+            }*/
         }
 
         @Override

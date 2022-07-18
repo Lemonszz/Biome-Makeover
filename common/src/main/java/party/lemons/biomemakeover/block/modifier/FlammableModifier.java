@@ -1,11 +1,7 @@
 package party.lemons.biomemakeover.block.modifier;
 
-import com.google.common.collect.Maps;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import party.lemons.biomemakeover.mixin.FireBlockInvoker;
-
-import java.util.Map;
+import party.lemons.biomemakeover.util.FlammabilityRegistry;
 
 public record FlammableModifier(int catchOdds, int burnOdds) implements BlockModifier
 {
@@ -20,12 +16,14 @@ public record FlammableModifier(int catchOdds, int burnOdds) implements BlockMod
 
     @Override
     public void accept(Block block) {
-        ((FireBlockInvoker) Blocks.FIRE).callSetFlammable(block, catchOdds, burnOdds);
+        FlammabilityRegistry.setBlockFlammable(block, catchOdds, burnOdds);
 
-        CATCH_ODDS.put(block, catchOdds);
-        BURN_ODDS.put(block, burnOdds);
+        //CATCH_ODDS.put(block, catchOdds);
+        //BURN_ODDS.put(block, burnOdds);
     }
 
-    public static Map<Block, Integer> CATCH_ODDS = Maps.newHashMap();
-    public static Map<Block, Integer> BURN_ODDS = Maps.newHashMap();
+    //Used in wiki generation which is broken so may as well remove these lmao
+    //Also why didn't i just query the normal way instead of caching it here idiot
+    //public static Map<Block, Integer> CATCH_ODDS = Maps.newHashMap();
+    //public static Map<Block, Integer> BURN_ODDS = Maps.newHashMap();
 }
