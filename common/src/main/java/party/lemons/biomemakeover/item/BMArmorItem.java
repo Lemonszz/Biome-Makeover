@@ -3,6 +3,9 @@ package party.lemons.biomemakeover.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
+import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -10,28 +13,41 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
 public class BMArmorItem extends ArmorItem
 {
-    private final Multimap<Attribute, AttributeModifier> attributes;
+    final LinkedListMultimap<ResourceLocation, AttributeHolder> suppliedAttributes;
+    private Multimap<Attribute, AttributeModifier> attributes;
     private final int protection;
     private final float toughness;
 
-    public BMArmorItem(ArmorMaterial material, Multimap<Attribute, AttributeModifier> attributes, int protection, float toughness, EquipmentSlot slot, Properties properties)
+    public BMArmorItem(ArmorMaterial material,LinkedListMultimap<ResourceLocation, AttributeHolder> attributes, int protection, float toughness, EquipmentSlot slot, Properties properties)
     {
         super(material, slot, properties);
 
-        this.attributes = attributes;
+        this.suppliedAttributes = attributes;
         this.protection = protection;
         this.toughness = toughness;
     }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+        if(attributes == null)
+            initAttributes();
+
         return equipmentSlot == this.slot ? attributes : ImmutableMultimap.of();
+    }
+
+    private void initAttributes()
+    {
+        attributes = LinkedListMultimap.create();
+        suppliedAttributes.forEach((l, holder)->{
+            attributes.put(holder.supplier.get(), holder.modifier);
+        });
     }
 
     @Override
@@ -49,7 +65,7 @@ public class BMArmorItem extends ArmorItem
         private static final UUID DUMMY_UUID = UUID.randomUUID();
         private static final UUID[] MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 
-        private final LinkedListMultimap<Attribute, AttributeModifier> attributes = LinkedListMultimap.create();
+        private final LinkedListMultimap<ResourceLocation, AttributeHolder> suppliedAttributes = LinkedListMultimap.create();
         private final ArmorMaterial material;
         private int protection;
         private boolean overrideProtection = false;
@@ -80,9 +96,15 @@ public class BMArmorItem extends ArmorItem
             return this;
         }
 
+        public Builder attribute(String name, RegistrySupplier<Attribute> attribute, double value, AttributeModifier.Operation operation)
+        {
+            suppliedAttributes.put(attribute.getId(), new AttributeHolder(attribute, new AttributeModifier(DUMMY_UUID, name, value, operation)));
+            return this;
+        }
+
         public Builder attribute(String name, Attribute attribute, double value, AttributeModifier.Operation operation)
         {
-            attributes.put(attribute, new AttributeModifier(DUMMY_UUID, name, value, operation));
+            suppliedAttributes.put(Registry.ATTRIBUTE.getKey(attribute),new AttributeHolder(()->attribute, new AttributeModifier(DUMMY_UUID, name, value, operation)));
             return this;
         }
 
@@ -91,31 +113,29 @@ public class BMArmorItem extends ArmorItem
             if(!overrideProtection)
                 protection = material.getDefenseForSlot(slot);
 
-            attributes.removeAll(Attributes.ARMOR);
-            attributes.removeAll(Attributes.ARMOR_TOUGHNESS);
-            attributes.removeAll(Attributes.KNOCKBACK_RESISTANCE);
+            suppliedAttributes.removeAll(Registry.ATTRIBUTE.getKey(Attributes.ARMOR));
+            suppliedAttributes.removeAll(Registry.ATTRIBUTE.getKey(Attributes.ARMOR_TOUGHNESS));
+            suppliedAttributes.removeAll(Registry.ATTRIBUTE.getKey(Attributes.KNOCKBACK_RESISTANCE));
 
-            attributes.put(Attributes.ARMOR, new AttributeModifier(DUMMY_UUID, "Armor modifier", this.protection, AttributeModifier.Operation.ADDITION));
-            attributes.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DUMMY_UUID, "Armor toughness", this.toughness, AttributeModifier.Operation.ADDITION));
+            suppliedAttributes.put(Registry.ATTRIBUTE.getKey(Attributes.ARMOR), new AttributeHolder(()->Attributes.ARMOR, new AttributeModifier(DUMMY_UUID, "Armor modifier", this.protection, AttributeModifier.Operation.ADDITION)));
+            suppliedAttributes.put(Registry.ATTRIBUTE.getKey(Attributes.ARMOR_TOUGHNESS), new AttributeHolder(()->Attributes.ARMOR_TOUGHNESS, new AttributeModifier(DUMMY_UUID, "Armor toughness", this.toughness, AttributeModifier.Operation.ADDITION)));
             if (this.knockbackResistance != 0.0F)
             {
-                attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DUMMY_UUID, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION));
+                suppliedAttributes.put(Registry.ATTRIBUTE.getKey(Attributes.KNOCKBACK_RESISTANCE), new AttributeHolder(()->Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(DUMMY_UUID, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION)));
             }
 
-            LinkedListMultimap<Attribute, AttributeModifier> builtAttributes = buildAttributes(slot);
+            final LinkedListMultimap<ResourceLocation, AttributeHolder> builtAttributes = buildAttributes(slot);
             return ()->new BMArmorItem(material, builtAttributes, protection, toughness, slot, properties);
         }
 
-        public LinkedListMultimap<Attribute, AttributeModifier> buildAttributes(EquipmentSlot slot)
+        private LinkedListMultimap<ResourceLocation, AttributeHolder> buildAttributes(EquipmentSlot slot)
         {
-            LinkedListMultimap<Attribute, AttributeModifier> atts = LinkedListMultimap.create();
-            for(Attribute attribute : attributes.keys())
-            {
-                for(AttributeModifier modifier : attributes.get(attribute))
-                {
-                    atts.put(attribute, new AttributeModifier(MODIFIERS[slot.getIndex()], modifier.getName(), modifier.getAmount(), modifier.getOperation()));
-                }
-            }
+            LinkedListMultimap<ResourceLocation, AttributeHolder> atts = LinkedListMultimap.create();
+
+            suppliedAttributes.forEach(((location, attributeHolder) -> {
+                AttributeModifier modifier = attributeHolder.modifier();
+                atts.put(location, new AttributeHolder(attributeHolder.supplier(), new AttributeModifier(MODIFIERS[slot.getIndex()], modifier.getName(), modifier.getAmount(), modifier.getOperation())));
+            }));
             return atts;
         }
 
@@ -125,5 +145,10 @@ public class BMArmorItem extends ArmorItem
             this.toughness = material.getToughness();
             this.knockbackResistance = material.getKnockbackResistance();
         }
+    }
+
+    private record AttributeHolder(Supplier<Attribute> supplier, AttributeModifier modifier)
+    {
+
     }
 }

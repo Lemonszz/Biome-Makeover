@@ -56,6 +56,7 @@ public class BMBlocks
 
     public static final Multimap<Block, BlockModifier> MODIFIERS = ArrayListMultimap.create();
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_REGISTRY);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registry.ITEM_REGISTRY);
 
     public static final Material POLTERGEIST_MATERIAL = new Material(MaterialColor.COLOR_GRAY, false, true, true, false, true, false, PushReaction.BLOCK);
     public static final SoundType BM_LILY_PAD_SOUND = new SoundType(1.0F, 1.0F, SoundEvents.WET_GRASS_BREAK, SoundEvents.WET_GRASS_STEP, SoundEvents.LILY_PAD_PLACE, SoundEvents.WET_GRASS_HIT, SoundEvents.WET_GRASS_FALL);
@@ -189,12 +190,13 @@ public class BMBlocks
     public static final List<CompostModifier.CompostValue> COMPOSTABLES = Lists.newArrayList();
 
     public static void init() {
-        FieldConsumer.run(BMBlocks.class, WoodTypeInfo.class, w->w.register(BLOCKS, BMItems.ITEMS));
-        FieldConsumer.run(BMBlocks.class, DecorationBlockInfo.class, d->d.register(BLOCKS, BMItems.ITEMS));
+        FieldConsumer.run(BMBlocks.class, WoodTypeInfo.class, w->w.register(BLOCKS, ITEMS));
+        FieldConsumer.run(BMBlocks.class, DecorationBlockInfo.class, d->d.register(BLOCKS, ITEMS));
 
         createTerracottaBricks();
         createTapestries();
         BLOCKS.register();
+        ITEMS.register();
 
         postRegister();
     }
@@ -243,18 +245,18 @@ public class BMBlocks
         vanillaTerracotta.put(DyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
 
         RegistrySupplier<Block> tBlock = BLOCKS.register(BiomeMakeover.ID("terracotta_bricks"), ()->new BMBlock(properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
-        BMItems.ITEMS.register(BiomeMakeover.ID("terracotta_bricks"), ()->new BlockItem(tBlock.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+        ITEMS.register(BiomeMakeover.ID("terracotta_bricks"), ()->new BlockItem(tBlock.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
         DecorationBlockInfo terracottaBrick = new DecorationBlockInfo(Constants.MOD_ID, BiomeMakeover.TAB, "terracotta_brick", tBlock, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
-        terracottaBrick.register(BLOCKS, BMItems.ITEMS);
+        terracottaBrick.register(BLOCKS, ITEMS);
 
         for(DyeColor dye : DyeColor.values())
         {
             ResourceLocation id = BiomeMakeover.ID(dye.getName() + "_terracotta_bricks");
             RegistrySupplier<Block> bl = BLOCKS.register(id, ()->new BMBlock(properties(Material.STONE, 2F).color(dye.getMaterialColor()).requiresCorrectToolForDrops().sound(SoundType.STONE)));
-            BMItems.ITEMS.register(id, ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+            ITEMS.register(id, ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
 
             DecorationBlockInfo dec = new DecorationBlockInfo(Constants.MOD_ID, BiomeMakeover.TAB, dye.getName() + "_terracotta_brick", bl, properties(Material.STONE, 2F).color(dye.getMaterialColor()).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
-            dec.register(BLOCKS, BMItems.ITEMS);
+            dec.register(BLOCKS, ITEMS);
 
             BRICK_TO_TERRACOTTA.put(bl, vanillaTerracotta.get(dye));
         }
@@ -267,7 +269,7 @@ public class BMBlocks
             Supplier<Block> tap = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_tapestry"), DYE_TO_TAPESTRY.get(dye));
 
             Supplier<Block> wallBlock = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_wall_tapestry"), ()->new ColorTapestryWallBlock(dye, properties(Material.WOOD, 1F).noCollission().sound(SoundType.WOOD).dropsLike(tap.get())));
-            BMItems.ITEMS.register(BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new StandingAndWallBlockItem(tap.get(), wallBlock.get(), BMItems.properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
+            ITEMS.register(BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new StandingAndWallBlockItem(tap.get(), wallBlock.get(), new Item.Properties().tab(BiomeMakeover.TAB).stacksTo(16).rarity(Rarity.UNCOMMON)));
 
             TAPESTRY_BLOCKS.add(tap);
             TAPESTRY_BLOCKS.add(wallBlock);
@@ -278,7 +280,7 @@ public class BMBlocks
 
         Supplier<Block> adjWall = BLOCKS.register(BiomeMakeover.ID("adjudicator_wall_tapestry"), ()->new AdjudicatorTapestryWallBlock(properties(Material.WOOD, 1F).noCollission().sound(SoundType.WOOD).dropsLike(ADJUDICATOR_TAPESTRY.get())));
 
-        BMItems.ITEMS.register(BiomeMakeover.ID("adjudicator_tapestry"), ()->new StandingAndWallBlockItem(ADJUDICATOR_TAPESTRY.get(), adjWall.get(),  BMItems.properties().stacksTo(16).rarity(Rarity.EPIC)));
+        ITEMS.register(BiomeMakeover.ID("adjudicator_tapestry"), ()->new StandingAndWallBlockItem(ADJUDICATOR_TAPESTRY.get(), adjWall.get(),  new Item.Properties().tab(BiomeMakeover.TAB).stacksTo(16).rarity(Rarity.EPIC)));
 
         TAPESTRY_BLOCKS.add(ADJUDICATOR_TAPESTRY);
         TAPESTRY_BLOCKS.add(adjWall);
@@ -303,7 +305,7 @@ public class BMBlocks
     {
         ResourceLocation loc = BiomeMakeover.ID(id);
         RegistrySupplier<Block> bl = BLOCKS.register(loc, block);
-        RegistrySupplier<Item> it = BMItems.ITEMS.register(loc, ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+        RegistrySupplier<Item> it = ITEMS.register(loc, ()->new BlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
 
         BLOCK_ITEMS.put(loc, it);
 
@@ -313,7 +315,7 @@ public class BMBlocks
     public static Supplier<Block> registerLilyPad(String id, Supplier<Block> block)
     {
         RegistrySupplier<Block> bl = BLOCKS.register(BiomeMakeover.ID(id), block);
-        BMItems.ITEMS.register(BiomeMakeover.ID(id), ()->new WaterLilyBlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
+        ITEMS.register(BiomeMakeover.ID(id), ()->new WaterLilyBlockItem(bl.get(), new Item.Properties().tab(BiomeMakeover.TAB)));
 
         return bl;
     }

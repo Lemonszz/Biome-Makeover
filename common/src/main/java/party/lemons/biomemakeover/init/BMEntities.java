@@ -61,6 +61,7 @@ public class BMEntities
     static boolean dfCache = SharedConstants.CHECK_DATA_FIXER_SCHEMA;
     static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;}
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registry.ENTITY_TYPE_REGISTRY);
+    public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(Constants.MOD_ID, Registry.ATTRIBUTE_REGISTRY);
 
     public static final RegistrySupplier<EntityType<TumbleweedEntity>> TUMBLEWEED = ENTITIES.register(BiomeMakeover.ID("tumbleweed"), ()->EntityType.Builder.of(TumbleweedEntity::new, MobCategory.MISC).sized(0.7F, 0.7F).clientTrackingRange(12).build("tumbleweed"));
     public static final RegistrySupplier<EntityType<BMBoatEntity>> BM_BOAT = ENTITIES.register(BiomeMakeover.ID("bm_boat"), ()->EntityType.Builder.of( (EntityType.EntityFactory<BMBoatEntity>)BMBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(128).updateInterval(3).build("bm_boat"));
@@ -87,14 +88,14 @@ public class BMEntities
 
     static {SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;}
 
-    public static final Attribute ATT_PROJECTILE_RESISTANCE = new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D);
-
+    public static final RegistrySupplier<Attribute> ATT_PROJECTILE_RESISTANCE = ATTRIBUTES.register(BiomeMakeover.ID("projectile_resistance"), ()->new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D));
     public static void init()
     {
         boolean dfCache = SharedConstants.CHECK_DATA_FIXER_SCHEMA;
         SharedConstants.CHECK_DATA_FIXER_SCHEMA = false;
         ENTITIES.register();
         SharedConstants.CHECK_DATA_FIXER_SCHEMA = dfCache;
+        ATTRIBUTES.register();
 
         LifecycleEvent.SETUP.register(()->{
             GolemHandler.addPattern(
