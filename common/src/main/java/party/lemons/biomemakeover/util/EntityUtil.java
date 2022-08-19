@@ -22,9 +22,9 @@ public final class EntityUtil
             if(!e.isEmpty())
             {
                 EquipmentSlot slot = EquipmentSlot.values()[2 + slotIndex.getValue()];
-                if(e.getAttributeModifiers(slot).containsKey(BMEntities.ATT_PROJECTILE_RESISTANCE))
+                if(e.getAttributeModifiers(slot).containsKey(BMEntities.ATT_PROJECTILE_RESISTANCE.get()))
                 {
-                    Collection<AttributeModifier> modifiers = e.getAttributeModifiers(slot).get(BMEntities.ATT_PROJECTILE_RESISTANCE);
+                    Collection<AttributeModifier> modifiers = e.getAttributeModifiers(slot).get(BMEntities.ATT_PROJECTILE_RESISTANCE.get());
                     for(AttributeModifier mod : modifiers)
                     {
                         resistance.add(mod.getAmount());
@@ -41,9 +41,9 @@ public final class EntityUtil
         for(EquipmentSlot slot : EquipmentSlot.values())
         {
             ItemStack st = e.getItemBySlot(slot);
-            if(!st.isEmpty() && st.getAttributeModifiers(slot).containsKey(BMEntities.ATT_PROJECTILE_RESISTANCE))
+            if(!st.isEmpty() && st.getAttributeModifiers(slot).containsKey(BMEntities.ATT_PROJECTILE_RESISTANCE.get()))
             {
-                Collection<AttributeModifier> modifiers = st.getAttributeModifiers(slot).get(BMEntities.ATT_PROJECTILE_RESISTANCE);
+                Collection<AttributeModifier> modifiers = st.getAttributeModifiers(slot).get(BMEntities.ATT_PROJECTILE_RESISTANCE.get());
                 for(AttributeModifier mod : modifiers)
                 {
                     res += mod.getAmount();
