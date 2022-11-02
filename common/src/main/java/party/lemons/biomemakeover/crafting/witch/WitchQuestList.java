@@ -3,7 +3,9 @@ package party.lemons.biomemakeover.crafting.witch;
 import dev.architectury.utils.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +18,7 @@ public class WitchQuestList extends ArrayList<WitchQuest>
 
     public WitchQuestList(CompoundTag tags)
     {
-        ListTag questsTag = tags.getList("Quests", NbtType.COMPOUND);
+        ListTag questsTag = tags.getList("Quests", Tag.TAG_COMPOUND);
         for(int i = 0; i < questsTag.size(); i++)
             add(new WitchQuest(questsTag.getCompound(i)));
     }
@@ -33,6 +35,9 @@ public class WitchQuestList extends ArrayList<WitchQuest>
     public void populate(Random random)
     {
         clear();
+        if(!QuestCategories.hasQuests())
+            return;
+
         for(int i = 0; i < 3; i++)
         {
             add(WitchQuestHandler.createQuest(random));

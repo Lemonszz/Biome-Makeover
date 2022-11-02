@@ -1,0 +1,80 @@
+{
+  "weight": 5,
+  "requests": [
+    {
+      "item": "minecraft:dandelion",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:poppy",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:blue_orchid",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:allium",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:azure_bluet",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:orange_tulip",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:red_tulip",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:pink_tulip",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:white_tulip",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:oxeye_daisy",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:cornflower",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:lily_of_the_valley",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:lilac",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:rose_bush",
+      "max_count": 4,
+      "points": 1.0
+    },
+    {
+      "item": "minecraft:peony",
+      "max_count": 4,
+      "points": 1.0
+    }
+  ]
+}

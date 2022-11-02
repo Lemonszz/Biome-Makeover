@@ -1,0 +1,70 @@
+{
+  "weight": 2,
+  "requests": [
+    {
+      "item": "biomemakeover:glowfish",
+      "max_count": 3,
+      "points": 10.0
+    },
+    {
+      "item": "biomemakeover:glowshroom_stem",
+      "max_count": 3,
+      "points": 10.0
+    },
+    {
+      "item": "biomemakeover:green_glowshroom_block",
+      "max_count": 3,
+      "points": 10.0
+    },
+    {
+      "item": "biomemakeover:green_glowshroom_block",
+      "max_count": 3,
+      "points": 13.0
+    },
+    {
+      "item": "biomemakeover:purple_glowshroom_block",
+      "max_count": 3,
+      "points": 10.0
+    },
+    {
+      "item": "biomemakeover:green_glowshroom",
+      "max_count": 1,
+      "points": 5.0
+    },
+    {
+      "item": "biomemakeover:orange_glowshroom",
+      "max_count": 1,
+      "points": 8.0
+    },
+    {
+      "item": "biomemakeover:purple_glowshroom",
+      "max_count": 1,
+      "points": 5.0
+    },
+    {
+      "item": "biomemakeover:mycelium_roots",
+      "max_count": 2,
+      "points": 3.0
+    },
+    {
+      "item": "biomemakeover:mycelium_sprouts",
+      "max_count": 2,
+      "points": 3.0
+    },
+    {
+      "item": "biomemakeover:tall_brown_mushroom",
+      "max_count": 2,
+      "points": 5.0
+    },
+    {
+      "item": "biomemakeover:tall_red_mushroom",
+      "max_count": 2,
+      "points": 5.0
+    },
+    {
+      "item": "minecraft:mycelium",
+      "max_count": 1,
+      "points": 10.0
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "weight": 10,
+  "requests": [
+    {
+      "item": "minecraft:apple",
+      "max_count": 4,
+      "points": 5
+    },
+    {
+      "item": "minecraft:wheat",
+      "max_count": 10,
+      "points": 1
+    },
+    {
+      "item": "minecraft:turtle_egg",
+      "max_count": 1,
+      "points": 10
+    },
+    {
+      "item": "minecraft:tall_grass",
+      "max_count": 4,
+      "points": 2
+    },
+    {
+      "item": "minecraft:sweet_berries",
+      "max_count": 4,
+      "points": 1
+    },
+    {
+      "item": "minecraft:sugar_cane",
+      "max_count": 8,
+      "points": 0.5
+    },
+    {
+      "item": "minecraft:sugar",
+      "max_count": 8,
+      "points": 0.8
+    },
+    {
+      "item": "minecraft:paper",
+      "max_count": 8,
+      "points": 0.8
+    },
+    {
+      "item": "minecraft:redstone",
+      "max_count": 8,
+      "points": 2
+    },
+    {
+      "item": "minecraft:spider_eye",
+      "max_count": 2,
+      "points": 2
+    },
+    {
+      "item": "minecraft:fermented_spider_eye",
+      "max_count": 1,
+      "points": 8
+    },
+    {
+      "item": "minecraft:ender_pearl",
+      "max_count": 5,
+      "points": 5
+    },
+    {
+      "item": "minecraft:scute",
+      "max_count": 1,
+      "points": 8
+    },
+    {
+      "item": "minecraft:rabbit_foot",
+      "max_count": 2,
+      "points": 5
+    },
+    {
+      "item": "minecraft:phantom_membrane",
+      "max_count": 4,
+      "points": 7
+    },
+    {
+      "item": "minecraft:golden_carrot",
+      "max_count": 4,
+      "points": 6
+    },
+    {
+      "item": "minecraft:honey_bottle",
+      "max_count": 1,
+      "points": 7
+    },
+    {
+      "item": "minecraft:honeycomb_block",
+      "max_count": 1,
+      "points": 7
+    },
+    {
+      "item": "minecraft:egg",
+      "max_count": 5,
+      "points": 1.25
+    },
+    {
+      "item": "minecraft:poisonous_potato",
+      "max_count": 5,
+      "points": 3
+    },
+    {
+      "item": "minecraft:bone",
+      "max_count": 10,
+      "points": 0.4
+    },
+    {
+      "item": "minecraft:lapis_lazuli",
+      "max_count": 10,
+      "points": 0.5
+    },
+    {
+      "item": "minecraft:pumpkin",
+      "max_count": 4,
+      "points": 3.5
+    },
+    {
+      "item": "minecraft:large_fern",
+      "max_count": 4,
+      "points": 0.5
+    },
+    {
+      "item": "minecraft:grass",
+      "max_count": 4,
+      "points": 0.5
+    },
+    {
+      "item": "minecraft:cauldron",
+      "max_count": 1,
+      "points": 4
+    }
+  ]
+}

@@ -157,13 +157,13 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
                 this.setBlitOffset(200);
                 itemRenderer.blitOffset = 200.0F;
                 itemRenderer.renderAndDecorateItem(stack, itemXX, y + 5);
-                itemRenderer.renderGuiItemDecorations(minecraft.font, stack, itemXX, y + 5, String.valueOf(stack.getCount()));
+
+                itemRenderer.renderGuiItemDecorations(minecraft.font,stack, itemXX, y + 5, String.valueOf(stack.getCount()));
+                this.setBlitOffset(0);
+                itemRenderer.blitOffset = 0.0f;
 
                 itemXX += 18;
             }
-
-            this.setBlitOffset(0);
-            itemRenderer.blitOffset = 0.0F;
         }
 
         @Override
@@ -177,6 +177,8 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
 
                 if(xx > 11)
                 {
+                    matrices.translate(0.0, 0.0, this.getBlitOffset() + 400.0f);
+
                     xx -= 11;
                     int index = xx / 18;
                     if(index < quest.getRequiredItems().length)
@@ -189,6 +191,7 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
                         RenderSystem.colorMask(true, true, true, true);
 
                         renderTooltip(matrices, quest.getRequiredItems()[index], mouseX, mouseY);
+                        matrices.translate(0.0, 0.0, this.getBlitOffset() - 400.0f);
                     }
                 }
             }
