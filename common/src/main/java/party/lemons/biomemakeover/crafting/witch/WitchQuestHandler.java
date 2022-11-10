@@ -7,6 +7,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.ai.behavior.ShufflingList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +17,7 @@ import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.network.S2C_HandleWitchQuests;
+import party.lemons.biomemakeover.util.WeightedList;
 
 import java.util.List;
 import java.util.Map;
@@ -32,9 +34,10 @@ public class WitchQuestHandler
 
     public static WitchQuest createQuest(RandomSource random)
     {
-        List<Integer> counts = ITEM_COUNT_SELECTOR.shuffle().stream().toList();
+      //  List<Integer> counts = ITEM_COUNT_SELECTOR.shuffle().stream().toList();
 
-        int count = counts.get(random.nextInt(counts.size()));
+       // int count = counts.get(random.nextInt(counts.size()));
+        int count = ITEM_COUNT_SELECTOR.sample();
         List<QuestItem> questItems = Lists.newArrayList();
 
         int safetyCount = count * 2;    //If there's not enough items to select, it infinite loops
@@ -49,9 +52,7 @@ public class WitchQuestHandler
             if(!questItems.contains(item)) questItems.add(item);
         }
 
-        WitchQuest quest = new WitchQuest(random, questItems);
-
-        return quest;
+        return new WitchQuest(random, questItems);
     }
 
     public static void sendQuests(Player player, int index, WitchQuestList quests)
@@ -61,7 +62,7 @@ public class WitchQuestHandler
         new S2C_HandleWitchQuests(index, quests).sendTo((ServerPlayer) player);
     }
 
-    private static final ShufflingList<Integer> ITEM_COUNT_SELECTOR = new ShufflingList<>();
+    private static final WeightedList<Integer> ITEM_COUNT_SELECTOR = new WeightedList<>();
 
     static
     {
