@@ -34,9 +34,6 @@ public class WitchQuestHandler
 
     public static WitchQuest createQuest(RandomSource random)
     {
-      //  List<Integer> counts = ITEM_COUNT_SELECTOR.shuffle().stream().toList();
-
-       // int count = counts.get(random.nextInt(counts.size()));
         int count = ITEM_COUNT_SELECTOR.sample();
         List<QuestItem> questItems = Lists.newArrayList();
 
