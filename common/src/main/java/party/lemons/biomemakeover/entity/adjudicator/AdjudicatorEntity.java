@@ -41,6 +41,9 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -110,7 +113,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        AdjudicatorRoomListener.enableAdjudicator(this);    //Listen for break/place events for this adjudicator
+        AdjudicatorRoomListener.enableAdjudicator(this);    //Listen for break/place events for this adjudicator.json
     }
 
     @Override
@@ -126,7 +129,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         stateTime++;
         if(!level.isClientSide() && firstTick)  //Set up arena
         {
-            homePos = getOnPos();    //Home pos is generally the center of the arena. The position the adjudicator will return to if out of combat.
+            homePos = getOnPos();    //Home pos is generally the center of the arena. The position the adjudicator.json will return to if out of combat.
 
             roomBounds = new AABB(homePos.below(4)).inflate(13,0, 13).expandTowards(0, 13, 0);    //Get the room bounds.
             firstTick = false;
@@ -276,7 +279,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
         //ALSO WTF DOES THIS MEAN??
-        //Bug fix: ensure the adjudicator is in some sort of phase
+        //Bug fix: ensure the adjudicator.json is in some sort of phase
         if(active && phase == null)
         {
             setPhase(TELEPORT);
@@ -296,18 +299,16 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource, int i, boolean bl) {
-        //Drop totem and tapestry
-        //This isn't done via loot table because we want the item to be coveted
-        ItemEntity enchantedTotem = this.spawnAtLocation(BMItems.ENCHANTED_TOTEM.get());
-        if (enchantedTotem != null)
-            enchantedTotem.setExtendedLifetime();
-
-        ItemEntity tapestry = this.spawnAtLocation(BMBlocks.ADJUDICATOR_TAPESTRY.get());
-        if(tapestry != null)
-            tapestry.setExtendedLifetime();
+    protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
+    {
+        LootTable lootTable = level.getServer().getLootTables().get(this.getLootTable());
+        LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
+        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), (it)->{
+            ItemEntity item = spawnAtLocation(it);
+            item.setExtendedLifetime();
+        });
     }
-
+    
     private void setPhase(AdjudicatorPhase phase)
     {
         if(this.phase != null)
