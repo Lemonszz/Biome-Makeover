@@ -10,6 +10,9 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.crafting.witch.QuestCategory;
 import party.lemons.biomemakeover.crafting.witch.QuestItem;
 
@@ -49,6 +52,8 @@ public class QuestCategoryReloadListener extends SimpleJsonResourceReloadListene
 
 					ResourceLocation itemLocation = new ResourceLocation(itemName);
 					Item item = Registry.ITEM.get(itemLocation);
+					if(item == Items.AIR)
+						Constants.LOG.warn("Air or Unknown item found in witch category: " + location + " | " + itemLocation);
 
 					category.addItem(QuestItem.of(item, points, maxCount));
 				});
