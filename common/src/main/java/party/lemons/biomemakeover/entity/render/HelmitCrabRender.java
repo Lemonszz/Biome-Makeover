@@ -5,6 +5,8 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.PlatformOnly;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -20,6 +22,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.AbstractSkullBlock;
@@ -126,7 +130,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			else if(shell.getItem() instanceof HatItem)
 				renderHat(shell, entity, poseStack, multiBufferSource, light);
 			else if(shell.getItem() instanceof ArmorItem)
-				renderHelmet(shell, poseStack, multiBufferSource, light);
+				renderHelmet(entity, shell, poseStack, multiBufferSource, light);
 			else if(shell.getItem() instanceof BlockItem && ((BlockItem)shell.getItem()).getBlock() instanceof AbstractSkullBlock)
 				renderSkull(shell, poseStack, multiBufferSource, light);
 			else
@@ -186,14 +190,14 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 		public EntityModel getHatModel(ItemStack stack)
 		{
 			if(HAT_MODELS.isEmpty()) {  //Doing this here to prevent premature class loading
-				HAT_MODELS.put(BMItems.COWBOY_HAT.get(), new CowboyHatModel(context.getModelSet().bakeLayer(CowboyHatModel.LAYER_LOCATION)));
-				HAT_MODELS.put(BMItems.WITCH_HAT.get(),new WitchHatModel(context.getModelSet().bakeLayer(WitchHatModel.LAYER_LOCATION)));
+				HAT_MODELS.put(BMItems.COWBOY_HAT.get(), new CowboyHatModel<>(context.getModelSet().bakeLayer(CowboyHatModel.LAYER_LOCATION)));
+				HAT_MODELS.put(BMItems.WITCH_HAT.get(),new WitchHatModel<>(context.getModelSet().bakeLayer(WitchHatModel.LAYER_LOCATION)));
 			}
 
 			return HAT_MODELS.get(stack.getItem());
 		}
 
-		private void renderHelmet(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light)
+		private void renderHelmet(HelmitCrabEntity entity, ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light)
 		{
 			BIPED_MODEL.setAllVisible(false);
 			BIPED_MODEL.head.visible = true;
@@ -210,30 +214,35 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 				float r = (float)(color >> 16 & 255) / 255.0F;
 				float g = (float)(color >> 8 & 255) / 255.0F;
 				float b = (float)(color & 255) / 255.0F;
-				this.renderHelmetPart(matrices, vertexConsumers, light, armorItem, hasGlint, r, g, b, null);
-				this.renderHelmetPart(matrices, vertexConsumers, light, armorItem, hasGlint, 1.0F, 1.0F, 1.0F, "overlay");
+				this.renderHelmetPart(matrices, vertexConsumers, light, entity, stack, hasGlint, r, g, b, null);
+				this.renderHelmetPart(matrices, vertexConsumers, light, entity, stack, hasGlint, 1.0F, 1.0F, 1.0F, "overlay");
 			}
 			else
 			{
-				this.renderHelmetPart(matrices, vertexConsumers, light, armorItem, hasGlint, 1.0F, 1.0F, 1.0F, null);
+				this.renderHelmetPart(matrices, vertexConsumers, light, entity, stack, hasGlint, 1.0F, 1.0F, 1.0F, null);
 			}
 
 			matrices.popPose();
 		}
 
-		private void renderHelmetPart(PoseStack ms, MultiBufferSource vcp, int light, ArmorItem armorItem, boolean glint, float r, float g, float b, String extra)
+		private void renderHelmetPart(PoseStack ms, MultiBufferSource vcp, int light, HelmitCrabEntity entity, ItemStack stack, boolean glint, float r, float g, float b, String extra)
 		{
-			VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vcp, RenderType.armorCutoutNoCull(this.getArmorTexture(armorItem, extra)), false, glint);
-			BIPED_MODEL.renderToBuffer(ms, vertexConsumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0f);
+			ResourceLocation texture = getArmorTexture(ARMOR_TEXTURE_CACHE, stack, entity, EquipmentSlot.HEAD, extra);
+
+			if(texture != null) {
+				VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vcp, RenderType.armorCutoutNoCull(texture), false, glint);
+				BIPED_MODEL.renderToBuffer(ms, vertexConsumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0f);
+			}
 
 		}
 
 		private static final Map<String, ResourceLocation> ARMOR_TEXTURE_CACHE = Maps.newHashMap();
-		private ResourceLocation getArmorTexture(ArmorItem armorItem, String extra) {
-			String path = "textures/models/armor/" + armorItem.getMaterial().getName() + "_layer_1" + (extra == null ? "" : "_" + extra) + ".png";
-			return ARMOR_TEXTURE_CACHE.computeIfAbsent(path, ResourceLocation::new);
-		}
 
+		@ExpectPlatform
+		private static ResourceLocation getArmorTexture(Map<String, ResourceLocation> cache, ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+			return null;
+
+		}
 		protected ResourceLocation getHatTexture(HatItem hat)
 		{
 			return hat.getHatTexture();
