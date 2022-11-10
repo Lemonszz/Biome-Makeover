@@ -33,6 +33,8 @@ public class BiomeMakeover {
 
     public static void init()
     {
+        BMConfig.load();
+
         BMEffects.init();
         BMEntities.init();
 

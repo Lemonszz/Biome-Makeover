@@ -22,7 +22,7 @@ public class SheetsMixin
 	@Shadow
 	@Final
 	public static Map<WoodType, Material> SIGN_MATERIALS;
-	@Shadow @Final public static ResourceLocation SIGN_SHEET = new ResourceLocation("textures/atlas/signs.png");
+	@Shadow @Final public static ResourceLocation SIGN_SHEET;
 
 	@Inject(at = @At("HEAD"), method = "getAllMaterials")
 	private static void getAllMaterials(Consumer<Material> consumer, CallbackInfo cbi)

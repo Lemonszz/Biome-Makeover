@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.BMConfig;
 import party.lemons.biomemakeover.block.AltarBlock;
 import party.lemons.biomemakeover.crafting.AltarMenu;
 import party.lemons.biomemakeover.init.BMBlockEntities;
@@ -241,7 +242,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         boolean hasNewCompatibleCurse = false;
         for(Enchantment enchantment : enchantments.keySet())
         {
-            if(enchantment.getMaxLevel() > 1 && !enchantment.isCurse()) return true;
+            if(enchantment.getMaxLevel() > 1 && !enchantment.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(enchantment) < enchantment.getMaxLevel() + 1)) return true;
 
             if(enchantment.isCurse() && enchantment.canEnchant(stack) && !enchantments.containsKey(enchantment))
                 hasNewCompatibleCurse = true;
@@ -266,7 +267,10 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         if(isValidForCurse(stack))
         {
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-            List<Enchantment> validEnchants = enchantments.keySet().stream().filter(e -> e.getMaxLevel() > 1 && !e.isCurse()).toList();
+            List<Enchantment> validEnchants = enchantments.keySet().stream().filter(
+                    e -> e.getMaxLevel() > 1 && !e.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(e) < e.getMaxLevel() + 1)
+            ).toList();
+
             Enchantment toUpgrade = validEnchants.get(random.nextInt(validEnchants.size()));
             enchantments.put(toUpgrade, enchantments.get(toUpgrade) + 1);
 
