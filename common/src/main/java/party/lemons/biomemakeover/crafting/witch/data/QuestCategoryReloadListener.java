@@ -62,5 +62,8 @@ public class QuestCategoryReloadListener extends SimpleJsonResourceReloadListene
 					QuestCategories.addCategory(category);
 			}
 		});
+
+		//If loading failed, add a dunny category.
+		QuestCategories.addSafety();
 	}
 }
