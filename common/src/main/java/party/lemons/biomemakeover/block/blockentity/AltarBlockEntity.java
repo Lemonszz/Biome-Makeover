@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -120,7 +121,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                         Enchantment curse = getRandomCurse(level.random);
                         if(curse == null)
                             return;
-                        newStack.enchant(curse, 1);
+                        EnchantedBookItem.addEnchantment(newStack, new EnchantmentInstance(curse, 1));
                         inventory.set(0, newStack);
                     }else if(!curseItemStack(getItem(0), level.random))
                     {
