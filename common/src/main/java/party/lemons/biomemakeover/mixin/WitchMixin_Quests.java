@@ -48,7 +48,7 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
     {
         quests = new WitchQuestList();
         quests.populate(getRandom());
-        replenishTime = world.random.nextInt(24000);
+        replenishTime = getRandom().nextInt(24000);
     }
 
     @Inject(at = @At("TAIL"), method = "registerGoals")
