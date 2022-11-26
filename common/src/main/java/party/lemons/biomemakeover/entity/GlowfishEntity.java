@@ -21,6 +21,6 @@ public class GlowfishEntity extends Salmon {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return AbstractFish.createMobAttributes();
+        return AbstractFish.createAttributes();
     }
 }
