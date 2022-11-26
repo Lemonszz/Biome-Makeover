@@ -40,4 +40,10 @@ public class BucklingCurseEnchantment extends BMEnchantment
     public boolean isDiscoverable() {
         return false;
     }
+
+    @Override
+    public boolean isTradeable()
+    {
+        return false;
+    }
 }

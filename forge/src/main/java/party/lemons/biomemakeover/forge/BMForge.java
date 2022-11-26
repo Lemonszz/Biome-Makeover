@@ -4,7 +4,6 @@ import dev.architectury.platform.Platform;
 import dev.architectury.platform.forge.EventBuses;
 import dev.architectury.registry.level.biome.BiomeModifications;
 import dev.architectury.utils.Env;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
+
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -89,10 +89,10 @@ public class BMForge
 
     public static void particleSetup(RegisterParticleProvidersEvent event)
     {
-        Minecraft.getInstance().particleEngine.register(BMEffects.LIGHTNING_SPARK.get(), LightningSparkParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(BMEffects.POLTERGEIST.get(), PoltergeistParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(BMEffects.BLOSSOM.get(), BlossomParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(BMEffects.TELEPORT.get(), TeleportParticle.Provider::new);
+        event.register(BMEffects.LIGHTNING_SPARK.get(), LightningSparkParticle.Provider::new);
+        event.register(BMEffects.POLTERGEIST.get(), PoltergeistParticle.Provider::new);
+        event.register(BMEffects.BLOSSOM.get(), BlossomParticle.Provider::new);
+        event.register(BMEffects.TELEPORT.get(), TeleportParticle.Provider::new);
         //TODO: Look into why arch method crashes?
     }
 

@@ -36,6 +36,6 @@ public class ItchingIvyBlock extends IvyBlock implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState blockState) {
-        level.setBlock(pos, ((MothBlossomBlock)BMBlocks.MOTH_BLOSSOM).getGrowState(level, pos), 3);
+        level.setBlock(pos, ((MothBlossomBlock)BMBlocks.MOTH_BLOSSOM.get()).getGrowState(level, pos), 3);
     }
 }

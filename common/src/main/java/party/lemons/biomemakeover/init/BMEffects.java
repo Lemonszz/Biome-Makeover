@@ -111,7 +111,7 @@ public class BMEffects
     {
         SOUNDS.register();
         PARTICLE_TYPES.register();
-        if (Platform.getEnvironment() == Env.CLIENT) {
+        if (Platform.getEnvironment() == Env.CLIENT && !Platform.isForge()) {
             ClientLifecycleEvent.CLIENT_SETUP.register(instance -> {
                 ParticleProviderRegistry.register(LIGHTNING_SPARK.get(), LightningSparkParticle.Provider::new);
                 ParticleProviderRegistry.register(POLTERGEIST.get(), PoltergeistParticle.Provider::new);

@@ -52,4 +52,10 @@ public class UnwieldinessCurseEnchantment extends BMEnchantment {
     public boolean canEnchant(ItemStack stack) {
         return stack.getItem() instanceof AxeItem || super.canEnchant(stack);
     }
+
+    @Override
+    public boolean isTradeable()
+    {
+        return false;
+    }
 }
