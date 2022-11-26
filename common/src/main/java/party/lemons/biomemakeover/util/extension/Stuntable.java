@@ -12,4 +12,9 @@ public interface Stuntable
     {
         ((Stuntable)entity).setStunted(stunted);
     }
+
+	default boolean isAlwaysBaby()
+    {
+        return false;
+    }
 }

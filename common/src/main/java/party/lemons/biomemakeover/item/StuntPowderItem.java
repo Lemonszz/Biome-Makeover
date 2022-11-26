@@ -33,13 +33,14 @@ public class StuntPowderItem extends Item
 
     public InteractionResult stuntEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand)
     {
-        if(entity instanceof Stuntable)
+        if(entity instanceof Stuntable stuntable)
         {
-            if(entity.isBaby() && !((Stuntable)entity).isStunted())
+            System.out.println(stuntable.isAlwaysBaby() + " " + entity.isBaby() + " " + (entity.isBaby() || stuntable.isAlwaysBaby()));
+            if((entity.isBaby() || stuntable.isAlwaysBaby()) && !stuntable.isStunted())
             {
                 if(!entity.level.isClientSide())
                 {
-                    ((Stuntable) entity).setStunted(true);
+                    stuntable.setStunted(true);
                     NetworkUtil.doEntityParticle(user.level, ParticleTypes.WARPED_SPORE, entity, 15, 0.2F);
                     ItemUtil.shrinkStack(stack, user);
                 }

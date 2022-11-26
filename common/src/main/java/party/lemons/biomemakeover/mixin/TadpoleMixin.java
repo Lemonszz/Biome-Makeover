@@ -63,6 +63,12 @@ public abstract class TadpoleMixin extends AbstractFish implements Stuntable
 	}
 
 	@Override
+	public boolean isAlwaysBaby()
+	{
+		return true;
+	}
+
+	@Override
 	public boolean isStunted() {
 		return isStunted;
 	}
