@@ -35,7 +35,6 @@ public class StuntPowderItem extends Item
     {
         if(entity instanceof Stuntable stuntable)
         {
-            System.out.println(stuntable.isAlwaysBaby() + " " + entity.isBaby() + " " + (entity.isBaby() || stuntable.isAlwaysBaby()));
             if((entity.isBaby() || stuntable.isAlwaysBaby()) && !stuntable.isStunted())
             {
                 if(!entity.level.isClientSide())

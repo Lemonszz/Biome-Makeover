@@ -21,7 +21,7 @@ public abstract class BushBlockMixin extends Block
     @Inject(at = @At("HEAD"), method = "mayPlaceOn", cancellable = true)
     private void mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<Boolean> cbi)
     {
-        if(blockState.is(BMBlocks.PEAT_FARMLAND.get()))
+        if(blockState.is(BMBlocks.FARMLAND))
             cbi.setReturnValue(true);
 
     }

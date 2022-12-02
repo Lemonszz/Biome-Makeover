@@ -20,14 +20,16 @@ public class CropBlockMixin
     @Inject(at = @At("HEAD"), method = "mayPlaceOn", cancellable = true)
     private void mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<Boolean> cbi)
     {
-        if(blockState.is(BMBlocks.PEAT_FARMLAND.get()))
+        if(blockState.is(BMBlocks.FARMLAND))
             cbi.setReturnValue(true);
-
     }
 
+    /*
+    Find better way to do this probably?
     @Redirect(at = @At(value = "INVOKE", target = "net/minecraft/world/level/block/state/BlockState.is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0), method = "getGrowthSpeed")
     private static boolean isFarmland(BlockState blockState, Block block)
     {
         return blockState.is(Blocks.FARMLAND) || blockState.is(BMBlocks.PEAT_FARMLAND.get());
     }
+    */
 }

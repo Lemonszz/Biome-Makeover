@@ -19,6 +19,8 @@
     "AxeItemMixin",
     "BeardifierMixin_Mansion",
     "BlockEntityTypeMixin",
+    "BushBlockMixin",
+    "CropBlockMixin",
     "DarkOakTreeGrowerMixin_SingleTree",
     "EnchantmentHelperMixin",
     "FireBlockMixin",

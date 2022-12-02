@@ -237,8 +237,8 @@ public class BMWorldGen
         //FLowers
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SWAMP_AZALEA = configure("swamp_azalea", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.SWAMP_AZALEA.get())), List.of(), 12));
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = configure("marigold", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.MARIGOLD.get())), List.of(), 12));
-        public static final Holder<PlacedFeature> SWAMP_AZALEA_PLACED = place("swamp_azalea", SWAMP_AZALEA);
-        public static final Holder<PlacedFeature> MARIGOLD_PLACED = place("marigold", MARIGOLD);
+        public static final Holder<PlacedFeature> SWAMP_AZALEA_PLACED = place("swamp_azalea", SWAMP_AZALEA, BiomeFilter.biome());
+        public static final Holder<PlacedFeature> MARIGOLD_PLACED = place("marigold", MARIGOLD, BiomeFilter.biome());
 
         public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_FLOWERS = configure("swamp_flowers", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(List.of(SWAMP_AZALEA_PLACED, MARIGOLD_PLACED))));
         public static final Holder<PlacedFeature> SWAMP_FLOWERS_PLACED = place("swamp_flowers", SWAMP_FLOWERS, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, CountPlacement.of(ClampedInt.of(UniformInt.of(-3, 1), 0, 1)), BiomeFilter.biome());
@@ -287,11 +287,11 @@ public class BMWorldGen
     {
         //Barrel Cactus
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BARREL_CACTUS = configure("barrel_cactus", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 5).add(BMBlocks.BARREL_CACTUS_FLOWERED.get().defaultBlockState(), 1))), List.of(), 20));
-        public static final Holder<PlacedFeature> BARREL_CACTUS_PLACED = place("barrel_cactus", BARREL_CACTUS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        public static final Holder<PlacedFeature> BARREL_CACTUS_PLACED = place("barrel_cactus", BARREL_CACTUS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
         //Saguaro Cactus
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> SAGUARO_CACTUS = configure("saguro_cactus", BMFeatures.SAGUARO_CACTUS_FEATURE.get());
-        public static final Holder<PlacedFeature> SAGUARO_CACTUS_PLACED = place("saguaro_cactus", SAGUARO_CACTUS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        public static final Holder<PlacedFeature> SAGUARO_CACTUS_PLACED = place("saguaro_cactus", SAGUARO_CACTUS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
         //Paydirt
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> PAYDIRT = configure("paydirt", BMFeatures.PAYDIRT_FEATURE.get());
@@ -366,37 +366,37 @@ public class BMWorldGen
         public static final Holder<PlacedFeature> ROOTS_PLACED = place("mushroom_roots", MUSHROOM_FIELD_ROOTS, CountPlacement.of(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
         //Underground Huge Shroomies
-        public static final Holder<PlacedFeature> UNDERGROUND_HUGE_BROWN_SHROOM_PLACED = place("ug_huge_brown_shroom", TreeFeatures.HUGE_BROWN_MUSHROOM, CountPlacement.of(10), InSquarePlacement.spread(), UG_HEIGHT);
-        public static final Holder<PlacedFeature> UNDERGROUND_HUGE_RED_SHROOM_PLACED = place("ug_huge_red_shroom", TreeFeatures.HUGE_RED_MUSHROOM, CountPlacement.of(10), InSquarePlacement.spread(), UG_HEIGHT);
+        public static final Holder<PlacedFeature> UNDERGROUND_HUGE_BROWN_SHROOM_PLACED = place("ug_huge_brown_shroom", TreeFeatures.HUGE_BROWN_MUSHROOM, CountPlacement.of(10), InSquarePlacement.spread(), UG_HEIGHT, BiomeFilter.biome());
+        public static final Holder<PlacedFeature> UNDERGROUND_HUGE_RED_SHROOM_PLACED = place("ug_huge_red_shroom", TreeFeatures.HUGE_RED_MUSHROOM, CountPlacement.of(10), InSquarePlacement.spread(), UG_HEIGHT, BiomeFilter.biome());
 
         //Underground Huge Glowshroomies
         public static final Holder<ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_PURPLE_GLOWSHROOM = configure("huge_purple_shroom", BMFeatures.HUGE_PURPLE_GLOWSHROOM_CONFIG.get(), new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.get()), BlockStateProvider.simple(BMBlocks.GLOWSHROOM_STEM.get()), 1));
-        public static final Holder<PlacedFeature> HUGE_PURPLE_GLOWSHROOM_PLACED = place("huge_pruple_shroom", HUGE_PURPLE_GLOWSHROOM);
+        public static final Holder<PlacedFeature> HUGE_PURPLE_GLOWSHROOM_PLACED = place("huge_pruple_shroom", HUGE_PURPLE_GLOWSHROOM, BiomeFilter.biome());
 
         public static final Holder<ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_GREEN_GLOWSHROOM = configure("huge_green_shroom", BMFeatures.HUGE_GREEN_GLOWSHROOM_CONFIG.get(), new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(BMBlocks.GREEN_GLOWSHROOM_BLOCK.get()), BlockStateProvider.simple(BMBlocks.GLOWSHROOM_STEM.get()), 1));
-        public static final Holder<PlacedFeature> HUGE_GREEN_GLOWSHROOM_PLACED = place("huge_green_shroom", HUGE_GREEN_GLOWSHROOM);
+        public static final Holder<PlacedFeature> HUGE_GREEN_GLOWSHROOM_PLACED = place("huge_green_shroom", HUGE_GREEN_GLOWSHROOM, BiomeFilter.biome());
 
         public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> UNDERGROUND_GLOWSHROOMS = configure("underground_glowshrooms", Feature.RANDOM_BOOLEAN_SELECTOR, new RandomBooleanFeatureConfiguration(HUGE_GREEN_GLOWSHROOM_PLACED, HUGE_PURPLE_GLOWSHROOM_PLACED));
-        public static final Holder<PlacedFeature> UNDERGROUND_GLOWSHROOMS_PLACED = place("underground_glowshrooms", UNDERGROUND_GLOWSHROOMS, CountPlacement.of(120), InSquarePlacement.spread(), UG_HEIGHT);
+        public static final Holder<PlacedFeature> UNDERGROUND_GLOWSHROOMS_PLACED = place("underground_glowshrooms", UNDERGROUND_GLOWSHROOMS, CountPlacement.of(120), InSquarePlacement.spread(), UG_HEIGHT, BiomeFilter.biome());
 
         public static final Holder<ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_ORANGE_GLOWSHROOM = configure("huge_orange_shroom", BMFeatures.HUGE_ORANGE_GLOWSHROOM_FEATURE.get(), new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(BMBlocks.ORANGE_GLOWSHROOM_BLOCK.get()), BlockStateProvider.simple(BMBlocks.GLOWSHROOM_STEM.get()), 1));
 
         //Underground small Shroomies
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> GREEN_GLOWSHROOM = configure("green_glowshrooms", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.GREEN_GLOWSHROOM.get()))));
-        public static final Holder<PlacedFeature> GREEN_GLOWSHROOM_PLACED = place("green_glowshroom", GREEN_GLOWSHROOM, CountPlacement.of(2), InSquarePlacement.spread(), UG_HEIGHT);
+        public static final Holder<PlacedFeature> GREEN_GLOWSHROOM_PLACED = place("green_glowshroom", GREEN_GLOWSHROOM, CountPlacement.of(2), InSquarePlacement.spread(), UG_HEIGHT, BiomeFilter.biome());
 
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PURPLE_GLOWSHROOM = configure("purple_glowshroom", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.PURPLE_GLOWSHROOM.get()))));
-        public static final Holder<PlacedFeature> PURPLE_GLOWSHROOM_PLACED = place("purple_glowshroom", PURPLE_GLOWSHROOM, CountPlacement.of(2), InSquarePlacement.spread(), UG_HEIGHT);
+        public static final Holder<PlacedFeature> PURPLE_GLOWSHROOM_PLACED = place("purple_glowshroom", PURPLE_GLOWSHROOM, CountPlacement.of(2), InSquarePlacement.spread(), UG_HEIGHT, BiomeFilter.biome());
 
         //Orange Shroomies
         public static final Holder<ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> ORANGE_GLOWSHROOM = configure("orange_glowshroom", BMFeatures.ORANGE_GLOWSHROOM_FEATURE.get(), new ProbabilityFeatureConfiguration(0.1F));
-        public static final Holder<PlacedFeature> ORANGE_GLOWSHROOM_PLACED = place("orange_glowshroom", ORANGE_GLOWSHROOM, CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR);
+        public static final Holder<PlacedFeature> ORANGE_GLOWSHROOM_PLACED = place("orange_glowshroom", ORANGE_GLOWSHROOM, CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome());
 
         //Tall Shroomies
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_BROWN_MUSHROOMS = configure("tall_brown_mushrooms", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.TALL_BROWN_MUSHROOM.get())), List.of(), 20));
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_RED_MUSHROOMS = configure("tall_red_mushroom", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.TALL_RED_MUSHROOM.get())), List.of(), 20));
-        public static final Holder<PlacedFeature> TALL_BROWN_MUSHROOMS_PLACED = place("tall_brown_mushrooms", TALL_BROWN_MUSHROOMS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        public static final Holder<PlacedFeature> TALL_RED_MUSHROOMS_PLACED = place("tall_red_mushrooms", TALL_RED_MUSHROOMS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        public static final Holder<PlacedFeature> TALL_BROWN_MUSHROOMS_PLACED = place("tall_brown_mushrooms", TALL_BROWN_MUSHROOMS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+        public static final Holder<PlacedFeature> TALL_RED_MUSHROOMS_PLACED = place("tall_red_mushrooms", TALL_RED_MUSHROOMS, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
         //Blighted Balsa
         public static final TrunkPlacerType<BalsaTrunkPlacer> BLIGHTED_BALSA_TRUNK = TrunkPlacerTypeInvoker.callRegister(BiomeMakeover.ID("blighted_balse").toString(), BalsaTrunkPlacer.CODEC);
