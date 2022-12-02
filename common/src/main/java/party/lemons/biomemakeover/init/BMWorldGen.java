@@ -237,8 +237,8 @@ public class BMWorldGen
         //FLowers
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SWAMP_AZALEA = configure("swamp_azalea", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.SWAMP_AZALEA.get())), List.of(), 12));
         public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = configure("marigold", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(BMBlocks.MARIGOLD.get())), List.of(), 12));
-        public static final Holder<PlacedFeature> SWAMP_AZALEA_PLACED = place("swamp_azalea", SWAMP_AZALEA, BiomeFilter.biome());
-        public static final Holder<PlacedFeature> MARIGOLD_PLACED = place("marigold", MARIGOLD, BiomeFilter.biome());
+        public static final Holder<PlacedFeature> SWAMP_AZALEA_PLACED = place("swamp_azalea", SWAMP_AZALEA);
+        public static final Holder<PlacedFeature> MARIGOLD_PLACED = place("marigold", MARIGOLD);
 
         public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_FLOWERS = configure("swamp_flowers", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(List.of(SWAMP_AZALEA_PLACED, MARIGOLD_PLACED))));
         public static final Holder<PlacedFeature> SWAMP_FLOWERS_PLACED = place("swamp_flowers", SWAMP_FLOWERS, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, CountPlacement.of(ClampedInt.of(UniformInt.of(-3, 1), 0, 1)), BiomeFilter.biome());
@@ -371,10 +371,10 @@ public class BMWorldGen
 
         //Underground Huge Glowshroomies
         public static final Holder<ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_PURPLE_GLOWSHROOM = configure("huge_purple_shroom", BMFeatures.HUGE_PURPLE_GLOWSHROOM_CONFIG.get(), new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.get()), BlockStateProvider.simple(BMBlocks.GLOWSHROOM_STEM.get()), 1));
-        public static final Holder<PlacedFeature> HUGE_PURPLE_GLOWSHROOM_PLACED = place("huge_pruple_shroom", HUGE_PURPLE_GLOWSHROOM, BiomeFilter.biome());
+        public static final Holder<PlacedFeature> HUGE_PURPLE_GLOWSHROOM_PLACED = place("huge_pruple_shroom", HUGE_PURPLE_GLOWSHROOM);
 
         public static final Holder<ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_GREEN_GLOWSHROOM = configure("huge_green_shroom", BMFeatures.HUGE_GREEN_GLOWSHROOM_CONFIG.get(), new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(BMBlocks.GREEN_GLOWSHROOM_BLOCK.get()), BlockStateProvider.simple(BMBlocks.GLOWSHROOM_STEM.get()), 1));
-        public static final Holder<PlacedFeature> HUGE_GREEN_GLOWSHROOM_PLACED = place("huge_green_shroom", HUGE_GREEN_GLOWSHROOM, BiomeFilter.biome());
+        public static final Holder<PlacedFeature> HUGE_GREEN_GLOWSHROOM_PLACED = place("huge_green_shroom", HUGE_GREEN_GLOWSHROOM);
 
         public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> UNDERGROUND_GLOWSHROOMS = configure("underground_glowshrooms", Feature.RANDOM_BOOLEAN_SELECTOR, new RandomBooleanFeatureConfiguration(HUGE_GREEN_GLOWSHROOM_PLACED, HUGE_PURPLE_GLOWSHROOM_PLACED));
         public static final Holder<PlacedFeature> UNDERGROUND_GLOWSHROOMS_PLACED = place("underground_glowshrooms", UNDERGROUND_GLOWSHROOMS, CountPlacement.of(120), InSquarePlacement.spread(), UG_HEIGHT, BiomeFilter.biome());
