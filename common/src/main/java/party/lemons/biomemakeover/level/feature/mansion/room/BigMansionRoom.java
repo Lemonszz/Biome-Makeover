@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilde
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
-import party.lemons.biomemakeover.util.Grid;
+import party.lemons.taniwha.util.collections.Grid;
 
 public class BigMansionRoom extends MansionRoom
 {

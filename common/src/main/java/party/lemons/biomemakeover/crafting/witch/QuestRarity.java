@@ -2,7 +2,7 @@ package party.lemons.biomemakeover.crafting.witch;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Rarity;
-import party.lemons.biomemakeover.util.WeightedList;
+import party.lemons.taniwha.util.collections.WeightedList;
 
 import java.util.Locale;
 

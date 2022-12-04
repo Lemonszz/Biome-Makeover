@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
-import party.lemons.biomemakeover.util.Grid;
+import party.lemons.taniwha.util.collections.Grid;
 
 public class DungeonRoom extends MansionRoom
 {

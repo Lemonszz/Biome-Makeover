@@ -15,8 +15,8 @@ import net.minecraft.world.item.alchemy.Potions;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.mobeffect.AntidoteMobEffect;
-import party.lemons.biomemakeover.mobeffect.BMMobEffect;
 import party.lemons.biomemakeover.mobeffect.NocturnalMobEffect;
+import party.lemons.taniwha.entity.effect.TMobEffect;
 import party.lemons.taniwha.mixin.brewing.PotionBrewingInvoker;
 
 import java.util.function.Supplier;
@@ -27,7 +27,7 @@ public class BMPotions
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Constants.MOD_ID, Registries.POTION);
 
 
-    public static final Supplier<MobEffect> SHOCKED = EFFECTS.register(BiomeMakeover.ID("shocked"), ()->new BMMobEffect(MobEffectCategory.HARMFUL, 0x6effff).addAttributeModifier(Attributes.MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D,AttributeModifier.Operation.ADDITION));
+    public static final Supplier<MobEffect> SHOCKED = EFFECTS.register(BiomeMakeover.ID("shocked"), ()->new TMobEffect(MobEffectCategory.HARMFUL, 0x6effff).addAttributeModifier(Attributes.MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D,AttributeModifier.Operation.ADDITION));
     public static final Supplier<MobEffect>  ANTIDOTE = EFFECTS.register(BiomeMakeover.ID("antidote"), AntidoteMobEffect::new);
     public static final Supplier<MobEffect>  NOCTURNAL = EFFECTS.register(BiomeMakeover.ID("nocturnal"), NocturnalMobEffect::new);
 

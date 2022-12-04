@@ -3,9 +3,7 @@ package party.lemons.biomemakeover.level.feature.mansion.processor;
 import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.level.feature.mansion.RoomType;
 import party.lemons.biomemakeover.level.feature.mansion.room.MansionRoom;
-import party.lemons.biomemakeover.util.Grid;
-
-import java.util.Random;
+import party.lemons.taniwha.util.collections.Grid;
 
 public class CorridorReplaceProcessor extends FloorRoomReplaceProcessor
 {

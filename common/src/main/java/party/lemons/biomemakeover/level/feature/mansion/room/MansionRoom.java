@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import party.lemons.biomemakeover.util.BMUtil;
-import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.level.feature.mansion.*;
+import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.List;
 

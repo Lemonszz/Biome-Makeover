@@ -15,8 +15,6 @@
   "mixins": [
     "AgeableMobMixin_Stuntable",
     "BeardifierMixin_Mansion",
-    "BushBlockMixin",
-    "CropBlockMixin",
     "DarkOakTreeGrowerMixin_SingleTree",
     "EnchantmentHelperMixin",
     "GoalSelectorMixin",
@@ -28,7 +26,6 @@
     "PatrolSpawnerInvoker",
     "PatrolSpawnerMixin_Cowboy",
     "PlayerMixin",
-    "PoweredSnowBlockMixin",
     "TadpoleMixin",
     "TemplateStructurePieceMixin_DirectionalData",
     "WaterlilyBlockMixin",

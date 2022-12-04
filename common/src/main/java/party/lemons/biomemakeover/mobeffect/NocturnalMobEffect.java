@@ -1,11 +1,13 @@
 package party.lemons.biomemakeover.mobeffect;
 
 import net.minecraft.stats.Stats;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-public class NocturnalMobEffect extends BMMobEffect {
+public class NocturnalMobEffect extends MobEffect
+{
     public NocturnalMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xba93c7);
     }

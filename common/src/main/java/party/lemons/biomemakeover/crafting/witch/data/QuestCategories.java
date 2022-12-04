@@ -1,9 +1,10 @@
 package party.lemons.biomemakeover.crafting.witch.data;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Items;
 import party.lemons.biomemakeover.crafting.witch.QuestCategory;
 import party.lemons.biomemakeover.crafting.witch.QuestItem;
-import party.lemons.biomemakeover.util.WeightedList;
+import party.lemons.taniwha.util.collections.WeightedList;
 
 public class QuestCategories
 {
@@ -19,9 +20,9 @@ public class QuestCategories
 		CATEGORIES.add(category, category.getWeight());
 	}
 
-	public static QuestCategory choose()
+	public static QuestCategory choose(RandomSource randomSource)
 	{
-		return CATEGORIES.sample();
+		return CATEGORIES.sample(randomSource);
 	}
 
 	public static boolean hasQuests()

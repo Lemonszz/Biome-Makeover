@@ -8,8 +8,13 @@ import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.block.blockentity.render.AltarRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleRenderer;
@@ -22,8 +27,11 @@ import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMScreens;
-import party.lemons.biomemakeover.util.color.*;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
+import party.lemons.taniwha.client.color.ColorProviderHelper;
+import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
+import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
+import party.lemons.taniwha.client.color.StaticBlockColorProvider;
 
 public class BiomeMakeoverClient
 {
@@ -53,54 +61,84 @@ public class BiomeMakeoverClient
     {
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
 
-            EntityRendererRegistry.register(BMEntities.TUMBLEWEED::get, TumbleweedRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE::get, ThrownItemRenderer::new);
+            EntityRendererRegistry.register(BMEntities.TUMBLEWEED, TumbleweedRender::new);
+            EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE, ThrownItemRenderer::new);
 
-            EntityRendererRegistry.register(BMEntities.GLOWFISH::get, GlowfishRender::new);
-            EntityRendererRegistry.register(BMEntities.BLIGHTBAT::get, BlightBatRender::new);
-            EntityRendererRegistry.register(BMEntities.MUSHROOM_TRADER::get, MushroomTraderRender::new);
-            EntityRendererRegistry.register(BMEntities.SCUTTLER::get, ScuttlerRender::new);
-            EntityRendererRegistry.register(BMEntities.GHOST::get, GhostRender::new);
-            EntityRendererRegistry.register(BMEntities.COWBOY::get, CowboyRender::new);
-            EntityRendererRegistry.register(BMEntities.DECAYED::get, DecayedRender::new);
-            EntityRendererRegistry.register(BMEntities.DRAGONFLY::get, DragonflyRender::new);
-            EntityRendererRegistry.register(BMEntities.TOAD::get, ToadRender::new);
-            EntityRendererRegistry.register(BMEntities.TADPOLE::get, TadpoleRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG::get, LightningBugRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG_ALTERNATE::get, LightningBugRender::new);
-            EntityRendererRegistry.register(BMEntities.OWL::get, OwlRender::new);
-            EntityRendererRegistry.register(BMEntities.MOTH::get, MothRender::new);
-            EntityRendererRegistry.register(BMEntities.ROOTLING::get, RootlingRender::new);
-            EntityRendererRegistry.register(BMEntities.ADJUDICATOR::get, AdjudicatorRender::new);
-            EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC::get, AdjudicatorMimicRender::new);
-            EntityRendererRegistry.register(BMEntities.STONE_GOLEM::get, StoneGolemRender::new);
-            EntityRendererRegistry.register(BMEntities.HELMIT_CRAB::get, HelmitCrabRender::new);
+            EntityRendererRegistry.register(BMEntities.GLOWFISH, GlowfishRender::new);
+            EntityRendererRegistry.register(BMEntities.BLIGHTBAT, BlightBatRender::new);
+            EntityRendererRegistry.register(BMEntities.MUSHROOM_TRADER, MushroomTraderRender::new);
+            EntityRendererRegistry.register(BMEntities.SCUTTLER, ScuttlerRender::new);
+            EntityRendererRegistry.register(BMEntities.GHOST, GhostRender::new);
+            EntityRendererRegistry.register(BMEntities.COWBOY, CowboyRender::new);
+            EntityRendererRegistry.register(BMEntities.DECAYED, DecayedRender::new);
+            EntityRendererRegistry.register(BMEntities.DRAGONFLY, DragonflyRender::new);
+            EntityRendererRegistry.register(BMEntities.TOAD, ToadRender::new);
+            EntityRendererRegistry.register(BMEntities.TADPOLE, TadpoleRender::new);
+            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG, LightningBugRender::new);
+            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG_ALTERNATE, LightningBugRender::new);
+            EntityRendererRegistry.register(BMEntities.OWL, OwlRender::new);
+            EntityRendererRegistry.register(BMEntities.MOTH, MothRender::new);
+            EntityRendererRegistry.register(BMEntities.ROOTLING, RootlingRender::new);
+            EntityRendererRegistry.register(BMEntities.ADJUDICATOR, AdjudicatorRender::new);
+            EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC, AdjudicatorMimicRender::new);
+            EntityRendererRegistry.register(BMEntities.STONE_GOLEM, StoneGolemRender::new);
+            EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
         });
     }
 
-    private static void initColors()    //TODO: move these to a block modifier? Need to be careful of sidedness
+    private static void initColors()
     {
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageBlockColorProvider(),
-                BMBlocks.ANCIENT_OAK_LEAVES.get(),
-                BMBlocks.IVY.get()
+                BMBlocks.ANCIENT_OAK_LEAVES,
+                BMBlocks.IVY
         );
         ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
-                BMBlocks.SWAMP_CYPRESS_LEAVES.get()
+                BMBlocks.SWAMP_CYPRESS_LEAVES
         );
 
-        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Lillies(),
-                BMBlocks.SMALL_LILY_PAD.get(),
-                Blocks.LILY_PAD,
-                BMBlocks.WATER_LILY.get()
+        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(0, 0, 0)
+        {
+            @Override
+            protected int[] getColorBoosts(BlockAndTintGetter world, BlockState state, BlockPos pos, int tintIndex)
+            {
+                if(world instanceof ClientLevel && pos != null)
+                {
+                    if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
+                    {
+                        return new int[]{-20, 40, -20};
+                    }
+                }
+
+                return super.getColorBoosts(world, state, pos, tintIndex);
+            }
+        },
+                BMBlocks.SMALL_LILY_PAD,
+                ()->Blocks.LILY_PAD,
+                BMBlocks.WATER_LILY
         );
 
-        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider.Willow(),
-                BMBlocks.WILLOW_LEAVES.get(),
-                BMBlocks.WILLOWING_BRANCHES.get()
+        ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(0, 0, 0)
+        {
+            @Override
+            protected int[] getColorBoosts(BlockAndTintGetter world, BlockState state, BlockPos pos, int tintIndex)
+            {
+                if(world instanceof ClientLevel)
+                {
+                    if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
+                    {
+                        return new int[]{-10, 15, -10};
+                    }
+                }
+
+                return super.getColorBoosts(world, state, pos, tintIndex);
+            }
+        },
+BMBlocks.WILLOW_LEAVES,
+                BMBlocks.WILLOWING_BRANCHES
         );
 
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),
-                BMBlocks.MOTH_BLOSSOM.get(), BMBlocks.ITCHING_IVY.get()
+                BMBlocks.MOTH_BLOSSOM, BMBlocks.ITCHING_IVY
         );
     }
 

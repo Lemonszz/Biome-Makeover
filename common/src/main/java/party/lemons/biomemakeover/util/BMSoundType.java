@@ -16,7 +16,7 @@ public class BMSoundType extends SoundType
 
     public BMSoundType(float volumeIn, float pitchIn, Supplier<SoundEvent> breakSoundIn, Supplier<SoundEvent> stepSoundIn, Supplier<SoundEvent> placeSoundIn, Supplier<SoundEvent> hitSoundIn, Supplier<SoundEvent> fallSoundIn)
     {
-        super(volumeIn, pitchIn, (SoundEvent) null, (SoundEvent) null, (SoundEvent) null, (SoundEvent) null, (SoundEvent) null);
+        super(volumeIn, pitchIn, null, null, null, null, null);
         this.breakSound = breakSoundIn;
         this.stepSound = stepSoundIn;
         this.placeSound = placeSoundIn;

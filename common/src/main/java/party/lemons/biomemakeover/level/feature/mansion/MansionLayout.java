@@ -9,8 +9,8 @@ import party.lemons.biomemakeover.level.feature.mansion.processor.FloorRoomRepla
 import party.lemons.biomemakeover.level.feature.mansion.processor.GardenRoomReplaceProcessor;
 import party.lemons.biomemakeover.level.feature.mansion.room.*;
 import party.lemons.biomemakeover.util.BMUtil;
-import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.*;
 import java.util.stream.Collectors;

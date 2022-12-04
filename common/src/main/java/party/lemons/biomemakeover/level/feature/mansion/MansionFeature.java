@@ -44,10 +44,10 @@ import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMStructures;
 import party.lemons.biomemakeover.level.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.util.DirectionalDataHandler;
-import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.extension.Stuntable;
 import party.lemons.taniwha.block.WoodBlockFactory;
+import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.*;
 import java.util.stream.Collectors;

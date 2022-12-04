@@ -1,27 +1,15 @@
 package party.lemons.biomemakeover.crafting.witch;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import dev.architectury.networking.NetworkManager;
-import io.netty.buffer.Unpooled;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.entity.ai.behavior.ShufflingList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
-import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.network.S2C_HandleWitchQuests;
-import party.lemons.biomemakeover.util.WeightedList;
+import party.lemons.taniwha.util.collections.WeightedList;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 public class WitchQuestHandler
 {
@@ -29,12 +17,12 @@ public class WitchQuestHandler
     {
         QuestRarity rarity = QuestRarity.getRarityFromQuest(quest);
 
-        return rarity.rewards.sample().pickRandom(random);
+        return rarity.rewards.sample(random).pickRandom(random);
     }
 
     public static WitchQuest createQuest(RandomSource random)
     {
-        int count = ITEM_COUNT_SELECTOR.sample();
+        int count = ITEM_COUNT_SELECTOR.sample(random);
         List<QuestItem> questItems = Lists.newArrayList();
 
         int safetyCount = count * 2;    //If there's not enough items to select, it infinite loops
@@ -42,7 +30,7 @@ public class WitchQuestHandler
         while(questItems.size() < count && safetyCount > 0)
         {
             safetyCount--;
-            QuestCategory category = QuestCategories.choose();
+            QuestCategory category = QuestCategories.choose(random);
             List<QuestItem> itemPool = category.getRequestedItemPool();
 
             QuestItem item = itemPool.get(random.nextInt(itemPool.size()));

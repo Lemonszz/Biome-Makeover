@@ -18,7 +18,7 @@ public class BMScreens
 
 
     public static final Supplier<MenuType<WitchMenu>> WITCH = MENUS.register(BiomeMakeover.ID("witch"), ()->new MenuType<>(WitchMenu::new));
-    public static final Supplier<MenuType<AltarMenu>> ALTAR = MENUS.register(BiomeMakeover.ID("altar"), ()->new MenuType(AltarMenu::new));
+    public static final Supplier<MenuType<AltarMenu>> ALTAR = MENUS.register(BiomeMakeover.ID("altar"), ()->new MenuType<>(AltarMenu::new));
     public static final Supplier<MenuType<DirectionalDataMenu>> DIRECTIONAL_DATA = MENUS.register(BiomeMakeover.ID("directional_data"), ()->MenuRegistry.ofExtended((id, inventory, buf) -> new DirectionalDataMenu(id, buf)));
 
     public static void init() {

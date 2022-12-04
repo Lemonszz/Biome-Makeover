@@ -31,19 +31,4 @@ public class BeardifierMixin_Mansion {
             }
         }
     }
-
-    //    @Inject(at = @At("TAIL"), method = "<init>")
-  //  protected void onConstruct(ObjectListIterator<Beardifier.Rigid> objectListIterator, ObjectListIterator<JigsawJunction> objectListIterator2, CallbackInfo cbi) {
-
-        //TODO 1.19: Check mansion generation
-        /*
-        this.rigids.removeIf(p -> {
-            if (p instanceof MansionFeature.Piece mp)
-                return !mp.doesModifyGround();
-            return false;
-        });
-        pieceIterator = rigids.iterator();
-
-         */
- //  }
 }

@@ -14,14 +14,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import party.lemons.biomemakeover.compat.moretags.MoreTagsCompat;
 import party.lemons.biomemakeover.entity.RootlingEntity;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.taniwha.block.modifier.BlockModifier;
-import party.lemons.taniwha.block.modifier.BlockWithModifiers;
 import party.lemons.taniwha.block.types.TCropBlock;
-import party.lemons.taniwha.registry.ModifierContainer;
+import party.lemons.taniwha.util.TaniwhaTags;
 
 public class RootlingCropBlock extends TCropBlock
 {
@@ -90,7 +87,7 @@ public class RootlingCropBlock extends TCropBlock
             {
                 float g = 0.0F;
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
-                if(MoreTagsCompat.CropIsFarmland(blockState))
+                if(blockState.is(TaniwhaTags.FARMLAND))
                 {
                     g = 1.0F;
                     if(blockState.getValue(FarmBlock.MOISTURE) > 0)

@@ -395,5 +395,4 @@ public class BMBlocks
     public static final TagKey<Block> ITCHING_IVY_TAG = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("itching_ivy"));
     public static final TagKey<Block> ORE_REPLACEABLE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("ore_replaceable"));
     public static final TagKey<Block> CRAB_SPAWNABLE_ON = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("crab_spawnable_on"));
-    public static final TagKey<Block> FARMLAND = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "farmland"));
 }
