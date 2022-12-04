@@ -24,25 +24,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.*;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.minecraft.world.level.levelgen.structure.structures.OceanRuinPieces;
-import net.minecraft.world.level.levelgen.structure.structures.OceanRuinStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.material.FluidState;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMStructures;
-import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 public class SunkenRuinFeature extends Structure
 {

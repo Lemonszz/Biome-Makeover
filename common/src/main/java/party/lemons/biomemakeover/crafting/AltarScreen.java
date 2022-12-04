@@ -5,8 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -18,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Matrix4f;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 
@@ -80,24 +80,23 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
 
         int m = (int) this.minecraft.getWindow().getGuiScale();
         RenderSystem.viewport((this.width - 320) / 2 * m, (this.height - 240) / 2 * m, 320 * m, 240 * m);
-        Matrix4f matrix4f = Matrix4f.createTranslateMatrix(-0.34f, 0.23f, 0.0f);
-        matrix4f.multiply(Matrix4f.perspective(90.0, 1.3333334f, 9.0f, 80.0f));
+        Matrix4f matrix4f = new Matrix4f().translation(-0.34F, 0.23F, 0.0F).perspective((float) (Math.PI / 2), 1.3333334F, 9.0F, 80.0F);
+
         RenderSystem.backupProjectionMatrix();
         RenderSystem.setProjectionMatrix(matrix4f);
         poseStack.pushPose();
-        PoseStack.Pose pose = poseStack.last();
-        pose.pose().setIdentity();
-        pose.normal().setIdentity();
+        poseStack.setIdentity();
+
         poseStack.translate(0.0, 2, 1984.0);
         float scale = 5.0f;
         poseStack.scale(scale, scale, scale);
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(180.0f));
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(20.0f));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0f));
+        poseStack.mulPose(Axis.XP.rotationDegrees(20.0f));
         float h = Mth.lerp(delta, this.pageTurningSpeed, this.nextPageTurningSpeed);
         poseStack.translate((1.0f - h) * 0.2f, (1.0f - h) * 0.1f, (1.0f - h) * 0.25f);
         float n = -(1.0f - h) * 90.0f - 90.0f;
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(n));
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0f));
+        poseStack.mulPose(Axis.YP.rotationDegrees(n));
+        poseStack.mulPose(Axis.XP.rotationDegrees(180.0f));
         float o = Mth.lerp(delta, this.pageAngle, this.nextPageAngle) + 0.25f;
         float p = Mth.lerp(delta, this.pageAngle, this.nextPageAngle) + 0.75f;
         o = (o - (float) Mth.fastFloor(o)) * 1.6f - 0.3f;

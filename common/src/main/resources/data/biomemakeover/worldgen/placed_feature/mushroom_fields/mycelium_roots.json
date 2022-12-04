@@ -1,0 +1,19 @@
+{
+  "feature": "biomemakeover:mushroom_fields/mycelium_roots",
+  "placement": [
+    {
+      "count": 7,
+      "type": "minecraft:count"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "heightmap": "WORLD_SURFACE_WG",
+      "type": "minecraft:heightmap"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

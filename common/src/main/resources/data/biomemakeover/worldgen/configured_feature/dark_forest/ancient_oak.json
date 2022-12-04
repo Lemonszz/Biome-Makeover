@@ -1,0 +1,58 @@
+{
+  "config": {
+    "decorators": [
+      {
+        "probability": 0.002,
+        "type": "minecraft:beehive"
+      }
+    ],
+    "ignore_vines": true,
+    "force_dirt": true,
+    "dirt_provider": {
+      "state": {
+        "Name": "minecraft:dirt"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "minimum_size": {
+      "limit": 2,
+      "upper_limit": 3,
+      "lower_limit": 0,
+      "lower_size": 1,
+      "middle_size": 2,
+      "type": "minecraft:three_layers_feature_size"
+    },
+    "trunk_provider": {
+      "state": {
+        "Properties": {
+          "axis": "y"
+        },
+        "Name": "biomemakeover:ancient_oak_log"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "trunk_placer": {
+      "base_height": 10,
+      "height_rand_a": 2,
+      "height_rand_b": 14,
+      "type": "biomemakeover:ancient_oak"
+    },
+    "foliage_provider": {
+      "state": {
+        "Properties": {
+          "persistent": "false",
+          "distance": "7"
+        },
+        "Name": "biomemakeover:ancient_oak_leaves"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "foliage_placer": {
+      "radius": 2,
+      "offset": 0,
+      "height": 3,
+      "type": "minecraft:fancy_foliage_placer"
+    }
+  },
+  "type": "minecraft:tree"
+}

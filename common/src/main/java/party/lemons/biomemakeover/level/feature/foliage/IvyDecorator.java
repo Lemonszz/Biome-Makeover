@@ -4,19 +4,11 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import party.lemons.biomemakeover.block.IvyBlock;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMFeatures;
-import party.lemons.biomemakeover.init.BMWorldGen;
-
-import java.util.List;
-import java.util.Random;
-import java.util.function.BiConsumer;
 
 public class IvyDecorator extends TreeDecorator
 {

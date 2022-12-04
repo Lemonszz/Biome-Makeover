@@ -13,12 +13,13 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.taniwha.block.types.TSaplingBlock;
 
 import java.util.Random;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class WaterSaplingBlock extends BMSaplingBlock implements SimpleWaterloggedBlock {
+public class WaterSaplingBlock extends TSaplingBlock implements SimpleWaterloggedBlock {
     private final int maxDepth;
 
     public WaterSaplingBlock(AbstractTreeGrower abstractTreeGrower, int maxDepth, Properties settings)

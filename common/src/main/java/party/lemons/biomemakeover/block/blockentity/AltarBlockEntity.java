@@ -2,10 +2,8 @@ package party.lemons.biomemakeover.block.blockentity;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -118,12 +116,12 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                     if(getItem(0).getItem() == Items.BOOK)
                     {
                         ItemStack newStack = new ItemStack(Items.ENCHANTED_BOOK);
-                        Enchantment curse = getRandomCurse(level.random);
+                        Enchantment curse = getRandomCurse(level.registryAccess(), level.random);
                         if(curse == null)
                             return;
                         EnchantedBookItem.addEnchantment(newStack, new EnchantmentInstance(curse, 1));
                         inventory.set(0, newStack);
-                    }else if(!curseItemStack(getItem(0), level.random))
+                    }else if(!curseItemStack(level, getItem(0), level.random))
                     {
                         Block.popResource(level, getBlockPos(), getItem(0).copy());
                         getItem(0).shrink(1);
@@ -251,11 +249,11 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         return hasNewCompatibleCurse;
     }
 
-    public static Enchantment getRandomCurse(RandomSource random)
+    public static Enchantment getRandomCurse(RegistryAccess registryAccess, RandomSource random)
     {
         if(curses.isEmpty())
         {
-            curses.addAll(Registry.ENCHANTMENT.stream().filter(Enchantment::isCurse).toList());
+            curses.addAll(registryAccess.registryOrThrow(Registries.ENCHANTMENT).stream().filter(Enchantment::isCurse).toList());
         }
         if(curses.isEmpty())
             return null;
@@ -263,7 +261,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         return curses.get(random.nextInt(curses.size()));
     }
 
-    public static boolean curseItemStack(ItemStack stack, RandomSource random)
+    public static boolean curseItemStack(Level level, ItemStack stack, RandomSource random)
     {
         if(isValidForCurse(stack))
         {
@@ -275,14 +273,14 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
             Enchantment toUpgrade = validEnchants.get(random.nextInt(validEnchants.size()));
             enchantments.put(toUpgrade, enchantments.get(toUpgrade) + 1);
 
-            Enchantment curse = getRandomCurse(random);
+            Enchantment curse = getRandomCurse(level.registryAccess(), random);
             if(curse == null)
                 return false;
 
             int attempts = 0;   //Attempts is to stop a potential infinite loop, if code is up to this point we SHOULD have a curse that's compatible, we gonna brute force it at this point lol
             while(enchantments.containsKey(curse) || !curse.canEnchant(stack))
             {
-                curse = getRandomCurse(random);
+                curse = getRandomCurse(level.registryAccess(), random);
                 if(curse == null)
                     return false;
 
@@ -297,7 +295,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
             //Brute force tactic
             if(curse == null)
             {
-                for(Enchantment enchantment : Registry.ENCHANTMENT.stream().sorted((e, e1)-> RandomUtil.randomRange(-1, 1)).collect(Collectors.toList()))
+                for(Enchantment enchantment : level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).stream().sorted((e, e1)-> RandomUtil.randomRange(-1, 1)).collect(Collectors.toList()))
                 {
                     if(enchantment.isCurse() && enchantment.canEnchant(stack) && !enchantments.containsKey(enchantment))
                         curse = enchantment;

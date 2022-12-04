@@ -1,0 +1,20 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": "biomemakeover:dark_forest/ancient_oak_small_checked",
+        "chance": 0.1
+      },
+      {
+        "feature": "biomemakeover:dark_forest/dark_oak_small_checked",
+        "chance": 0.2
+      },
+      {
+        "feature": "biomemakeover:dark_forest/ancient_oak_checked",
+        "chance": 0.05
+      }
+    ],
+    "default": "minecraft:dark_oak_checked"
+  },
+  "type": "minecraft:random_selector"
+}

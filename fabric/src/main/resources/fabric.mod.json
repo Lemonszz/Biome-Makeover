@@ -24,7 +24,7 @@
   "mixins": ["biomemakeover.mixins.json", "biomemakeover-common.mixins.json"],
   "depends": {
     "fabric": "*",
-    "minecraft": "1.19.x",
+    "minecraft": ">=1.19.3-rc.1",
     "architectury": ">=5.8.29"
   }
 }

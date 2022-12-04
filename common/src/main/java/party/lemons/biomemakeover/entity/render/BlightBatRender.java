@@ -1,12 +1,10 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.BatModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -152,7 +150,7 @@ public class BlightBatRender extends MobRenderer<BlightBatEntity, BlightBatRende
                 pose.pushPose();
                 getParentModel().root().getChild("head").translateAndRotate(pose);
                 pose.translate(0.0D, -0.7, 0);
-                pose.mulPose(Vector3f.YP.rotationDegrees(-78.0F));
+                pose.mulPose(Axis.YP.rotationDegrees(-78.0F));
                 pose.scale(-1.0F, -1.0F, 1.0F);
                 pose.translate(-0.5D, -0.5D, -0.5D);
                 blockRenderManager.renderSingleBlock(shroom, pose, multiBufferSource, i, m);

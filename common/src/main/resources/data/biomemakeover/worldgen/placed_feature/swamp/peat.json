@@ -1,0 +1,15 @@
+{
+  "feature": "biomemakeover:swamp/peat",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "heightmap": "OCEAN_FLOOR",
+      "type": "minecraft:heightmap"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

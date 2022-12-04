@@ -2,7 +2,7 @@ package party.lemons.biomemakeover.block.blockentity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -38,8 +38,8 @@ public class AltarRenderer implements BlockEntityRenderer<AltarBlockEntity>
             h += (float)Math.PI * 2;
         }
         float k = blockEntity.lastAngle + h * delta;
-        poseStack.mulPose(Vector3f.YP.rotation(-k));
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(80.0f));
+        poseStack.mulPose(Axis.YP.rotation(-k));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(80.0f));
         float l = Mth.lerp(delta, blockEntity.pageAngle, blockEntity.nextPageAngle);
         float m = Mth.frac(l + 0.25f) * 1.6f - 0.3f;
         float n = Mth.frac(l + 0.75f) * 1.6f - 0.3f;

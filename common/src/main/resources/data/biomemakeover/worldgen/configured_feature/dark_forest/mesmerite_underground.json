@@ -1,0 +1,18 @@
+{
+  "type": "biomemakeover:mesmerite_underground",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "tag": "minecraft:stone_ore_replaceables",
+          "predicate_type": "minecraft:tag_match"
+        },
+        "state": {
+          "Name": "biomemakeover:mesmerite"
+        }
+      }
+    ],
+    "size": 64,
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

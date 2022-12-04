@@ -1,8 +1,10 @@
 package party.lemons.biomemakeover.entity.mutipart;
 
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -109,7 +111,8 @@ public class EntityPart<T extends LivingEntity & MultiPartEntity> extends Entity
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
-        throw new UnsupportedOperationException();
+    public Packet<ClientGamePacketListener> getAddEntityPacket()
+    {
+        return NetworkManager.createAddEntityPacket(this);
     }
 }

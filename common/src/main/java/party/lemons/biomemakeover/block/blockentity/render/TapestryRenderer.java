@@ -2,9 +2,8 @@ package party.lemons.biomemakeover.block.blockentity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -80,13 +79,13 @@ public class TapestryRenderer implements BlockEntityRenderer<TapestryBlockEntity
             {
                 poseStack.translate(0.5, 0.5, 0.5);
                 rotation = (float)(-blockState.getValue(AbstractTapestryBlock.ROTATION) * 360) / 16.0f;
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation));
+                poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
                 this.pole.visible = true;
             }
             else {
                 poseStack.translate(0.5, -0.1666666716337204, 0.5);
                 rotation = -blockState.getValue(AbstractTapestryWallBlock.FACING).toYRot();
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation));
+                poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
                 poseStack.translate(0.0, -0.3125, -0.4375);
                 this.pole.visible = false;
             }

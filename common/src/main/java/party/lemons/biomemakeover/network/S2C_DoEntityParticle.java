@@ -6,6 +6,7 @@ import dev.architectury.networking.simple.MessageType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -36,7 +37,7 @@ public class S2C_DoEntityParticle extends BaseS2CMessage
         entityID = buf.readInt();
 
         ResourceLocation particleID = buf.readResourceLocation();
-        effect = (ParticleOptions) Registry.PARTICLE_TYPE.get(particleID);
+        effect = (ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(particleID);
 
         count = buf.readInt();
         offset = buf.readFloat();
@@ -53,7 +54,7 @@ public class S2C_DoEntityParticle extends BaseS2CMessage
     @Override
     public void write(FriendlyByteBuf buf) {
         buf.writeInt(entityID);
-        buf.writeResourceLocation(Registry.PARTICLE_TYPE.getKey((ParticleType<?>)effect));
+        buf.writeResourceLocation(BuiltInRegistries.PARTICLE_TYPE.getKey((ParticleType<?>)effect));
         buf.writeInt(count);
         buf.writeFloat(offset);
 

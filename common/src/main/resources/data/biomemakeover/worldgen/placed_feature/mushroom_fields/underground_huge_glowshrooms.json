@@ -1,0 +1,27 @@
+{
+  "feature": "biomemakeover:mushroom_fields/underground_huge_glowshrooms",
+  "placement": [
+    {
+      "count": 120,
+      "type": "minecraft:count"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "height": {
+        "min_inclusive": {
+          "absolute": -30
+        },
+        "max_inclusive": {
+          "absolute": 60
+        },
+        "type": "minecraft:uniform"
+      },
+      "type": "minecraft:height_range"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

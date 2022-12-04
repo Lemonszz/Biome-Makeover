@@ -1,7 +1,7 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SalmonModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -56,7 +56,7 @@ public class GlowfishRender extends SalmonRenderer {
                 getParentModel().root().getChild("body_back").getChild("top_back_fin").visible = false;
 
                 pose.translate(0.0D, 0, 0.5F);
-                pose.mulPose(Vector3f.XP.rotationDegrees(-90));
+                pose.mulPose(Axis.XP.rotationDegrees(-90));
                 pose.scale(-1.0F, -1.0F, 1.0F);
                 pose.translate(-0.5D, 0.0D, -0.5D);
                 blockRenderManager.renderSingleBlock(shroom, pose, multiBufferSource, i, m);

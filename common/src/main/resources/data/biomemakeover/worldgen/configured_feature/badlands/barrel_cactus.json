@@ -1,0 +1,49 @@
+{
+  "config": {
+    "tries": 20,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "config": {
+          "to_place": {
+            "entries": [
+              {
+                "data": {
+                  "Properties": {
+                    "pads": "0"
+                  },
+                  "Name": "biomemakeover:barrel_cactus"
+                },
+                "weight": 5
+              },
+              {
+                "data": {
+                  "Properties": {
+                    "pads": "1"
+                  },
+                  "Name": "biomemakeover:barrel_cactus_flowered"
+                },
+                "weight": 1
+              }
+            ],
+            "type": "minecraft:weighted_state_provider"
+          }
+        },
+        "type": "minecraft:simple_block"
+      },
+      "placement": [
+        {
+          "predicate": {
+            "blocks": [
+              "minecraft:air"
+            ],
+            "type": "minecraft:matching_blocks"
+          },
+          "type": "minecraft:block_predicate_filter"
+        }
+      ]
+    }
+  },
+  "type": "minecraft:random_patch"
+}

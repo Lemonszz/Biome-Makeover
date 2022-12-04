@@ -17,11 +17,9 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
 
-public abstract class AbstractTapestryBlock extends BaseEntityBlock implements BlockWithItem
+public abstract class AbstractTapestryBlock extends BaseEntityBlock
 {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     private static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);;

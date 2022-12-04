@@ -2,7 +2,6 @@ package party.lemons.biomemakeover.init;
 
 import dev.architectury.networking.simple.MessageType;
 import dev.architectury.networking.simple.SimpleNetworkManager;
-import net.minecraft.resources.ResourceLocation;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.network.*;
 

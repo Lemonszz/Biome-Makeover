@@ -46,6 +46,8 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
     protected void init() {
         super.init();
 
+        /*
+        //TODO: fix at some point.
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
         this.buttonDone = this.addRenderableWidget(new Button(this.width / 2 - 4 - 150, 210, 150, 20, CommonComponents.GUI_DONE, (buttonWidget) -> {
             this.done();
@@ -53,6 +55,8 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
         this.buttonCancel = this.addRenderableWidget(new Button(this.width / 2 + 4, 210, 150, 20, CommonComponents.GUI_CANCEL, (buttonWidget) -> {
             this.cancel();
         }));
+
+         */
 
         this.inputMetadata = new EditBox(font, this.width / 2 - 152, 120, 308, 20, Component.translatable("structure_block.custom_data"));
         this.inputMetadata.setMaxLength(128);
@@ -76,7 +80,7 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
 
     @Override
     public void removed() {
-        this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
+      //  this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
     }
 
     @Override

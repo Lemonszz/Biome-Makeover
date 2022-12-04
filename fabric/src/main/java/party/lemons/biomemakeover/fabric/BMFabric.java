@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.core.Holder;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -28,8 +27,6 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
 
 import java.util.List;
@@ -48,10 +45,6 @@ public class BMFabric implements ModInitializer
 
         BMEffects.registerParticleProvider();
 
-        LifecycleEvent.SETUP.register(()->{
-            doWorldGen();
-        });
-
         injectLootTables();
     }
 
@@ -62,10 +55,8 @@ public class BMFabric implements ModInitializer
             @Override
             public void modifyLootTable(ResourceManager resourceManager, LootTables lootManager, ResourceLocation id, LootTable.Builder tableBuilder, LootTableSource source)
             {
-                for(BMLootTableInjection.InjectedItem item : BMLootTableInjection.getInsertedEntries())
-                {
-                    if(id.equals(item.table()))
-                    {
+                for (BMLootTableInjection.InjectedItem item : BMLootTableInjection.getInsertedEntries()) {
+                    if (id.equals(item.table())) {
                         tableBuilder.withPool(
                                 LootPool.lootPool().setRolls(item.rolls())
                                         .add(LootItem.lootTableItem(item.itemLike())
@@ -75,71 +66,4 @@ public class BMFabric implements ModInitializer
             }
         });
     }
-
-    public void doWorldGen()
-    {
-        //TODO: use BMWorldGen.getXTags()
-        final Predicate<BiomeSelectionContext> MUSHROOM_BIOMES = BiomeSelectors.tag(BMWorldGen.MUSHROOM_FIELD_BIOMES);
-        final Predicate<BiomeSelectionContext> BADLANDS_BIOMES = BiomeSelectors.tag(BMWorldGen.BADLANDS_BIOMES);
-        final Predicate<BiomeSelectionContext> SWAMP_BIOMES = BiomeSelectors.tag(BMWorldGen.SWAMP_BIOMES);
-        final Predicate<BiomeSelectionContext> DF_BIOMES = BiomeSelectors.tag(BMWorldGen.DARK_FOREST_BIOMES);
-
-        BiomeModification gen = BiomeModifications.create(BiomeMakeover.ID("biomemakeover"));
-
-        addBiomeFeatures(gen, BADLANDS_BIOMES, BMWorldGen.BADLANDS_GEN);
-
-        addBiomeFeatures(gen, MUSHROOM_BIOMES, BMWorldGen.MUSHROOM_GEN);
-        addBiomeCarvers(gen, MUSHROOM_BIOMES, BMWorldGen.MUSHROOM_CARVERS);
-
-        addBiomeFeatures(gen, SWAMP_BIOMES, BMWorldGen.SWAMP_GEN);
-
-        addBiomeFeatures(gen, DF_BIOMES, BMWorldGen.DF_GEN);
-
-        //TODO: Some sort of removal system that works together with forge?
-        gen.add(ModificationPhase.REMOVALS, SWAMP_BIOMES, (biomeSelectionContext, ctx) -> {
-            ctx.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
-        });
-    }
-
-    private void addBiomeCarvers(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, List<ConfiguredWorldCarver> carvers)
-    {
-        for(ConfiguredWorldCarver<?> carer : carvers)
-        {
-            gen.add(ModificationPhase.ADDITIONS, biomes, ctx->{
-                Optional<ResourceKey<ConfiguredWorldCarver<?>>> k =  BuiltinRegistries.CONFIGURED_CARVER.getResourceKey(carer);
-
-                ctx.getGenerationSettings().addCarver(GenerationStep.Carving.AIR, k.get());
-            });
-        }
-    }
-
-
-    private void addBiomeFeatures(BiomeModification gen, Predicate<BiomeSelectionContext> biomes, Map<GenerationStep.Decoration, List<Holder<PlacedFeature>>> features)
-    {
-        for(GenerationStep.Decoration step : features.keySet())
-        {
-            for(Holder<PlacedFeature> feature : features.get(step))
-                gen.add(ModificationPhase.ADDITIONS, biomes,
-                        ctx -> ctx.getGenerationSettings().addBuiltInFeature(step, feature.value())
-                );
-        }
-    }
-
-
-    public static ResourceKey<ConfiguredWorldCarver<?>> rk(ConfiguredWorldCarver carver)
-    {
-        return BuiltinRegistries.CONFIGURED_CARVER.getResourceKey(carver).get();
-    }
-
-    public static ResourceKey<ConfiguredFeature<?, ?>> rk(ConfiguredFeature carver)
-    {
-        return BuiltinRegistries.CONFIGURED_FEATURE.getResourceKey(carver).get();
-    }
-
-    //public static ResourceKey<PlacedFeature> rk(PlacedFeature carver)
-    //{
-        //Optional<ResourceKey<PlacedFeature>> k =  BuiltinRegistries.PLACED_FEATURE.getResourceKey(carver);
-
-      //  return k.get();
-    //}
 }

@@ -4,27 +4,16 @@ import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import party.lemons.biomemakeover.block.WillowingBranchesBlock;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMFeatures;
-import party.lemons.biomemakeover.init.BMWorldGen;
-import party.lemons.biomemakeover.util.RandomUtil;
 
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class WillowFoliagePlacer extends FoliagePlacer

@@ -1,7 +1,7 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.VillagerModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -115,7 +115,7 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
                 pose.pushPose();
                 this.getParentModel().getHead().translateAndRotate(pose);
                 pose.translate(0.0D, -1, 0);
-                pose.mulPose(Vector3f.YP.rotationDegrees(-78.0F));
+                pose.mulPose(Axis.YP.rotationDegrees(-78.0F));
                 pose.scale(-1.0F, -1.0F, 1.0F);
                 pose.translate(-0.5D, -0.5D, -0.5D);
                 blockRenderManager.renderSingleBlock(shroom, pose, mbs, i, m);
@@ -124,8 +124,8 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
                 pose.pushPose();
                 this.getParentModel().getHead().translateAndRotate(pose);
                 pose.translate(-0.4D, -0.5, -0.5);
-                pose.mulPose(Vector3f.XP.rotationDegrees(75));
-                pose.mulPose(Vector3f.ZN.rotationDegrees(30));
+                pose.mulPose(Axis.XP.rotationDegrees(75));
+                pose.mulPose(Axis.ZN.rotationDegrees(30));
                 pose.scale(-1.0F, -1.0F, 1.0F);
                 pose.translate(-0.5D, -0.5D, -0.5D);
                 blockRenderManager.renderSingleBlock(shroom, pose, mbs, i, m);

@@ -1,0 +1,70 @@
+{
+  "config": {
+    "decorators": [
+      {
+        "provider":  {
+          "state": {
+            "Name": "biomemakeover:willow_leaves"
+          },
+          "type": "minecraft:simple_state_provider"
+        },
+        "type": "biomemakeover:hanging_leaves_decorator"
+      },
+      {
+        "type": "biomemakeover:willowing_branch_decorator"
+      },
+      {
+        "probability": 0.02,
+        "type": "minecraft:beehive"
+      }
+    ],
+    "ignore_vines": true,
+    "force_dirt": true,
+    "dirt_provider": {
+      "state": {
+        "Name": "minecraft:dirt"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "minimum_size": {
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1,
+      "min_clipped_height": 3,
+      "type": "minecraft:two_layers_feature_size"
+    },
+    "trunk_provider": {
+      "state": {
+        "Properties": {
+          "axis": "y"
+        },
+        "Name": "biomemakeover:willow_log"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "trunk_placer": {
+      "base_height": 6,
+      "height_rand_a": 3,
+      "height_rand_b": 2,
+      "type": "biomemakeover:willow"
+    },
+    "foliage_provider": {
+      "state": {
+        "Properties": {
+          "persistent": "false",
+          "distance": "7"
+        },
+        "Name": "biomemakeover:willow_leaves"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "foliage_placer": {
+      "radius": 1,
+      "offset": 1,
+      "height": 3,
+      "doWillows": false,
+      "type": "biomemakeover:willow_foliage"
+    }
+  },
+  "type": "minecraft:tree"
+}

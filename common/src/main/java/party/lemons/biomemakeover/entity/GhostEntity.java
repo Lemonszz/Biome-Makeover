@@ -237,7 +237,7 @@ public class GhostEntity extends Monster implements NeutralMob
     @Override
     public boolean isInvulnerableTo(DamageSource damageSource)
     {
-        if(damageSource == DamageSource.LAVA || damageSource == DamageSource.IN_WALL || damageSource == DamageSource.CACTUS || damageSource == DamageSource.DROWN || damageSource == DamageSource.SWEET_BERRY_BUSH || damageSource == DamageSource.HOT_FLOOR || damageSource == DamageSource.FLY_INTO_WALL || damageSource == DamageSource.FALLING_BLOCK || damageSource == DamageSource.FALL || damageSource == DamageSource.ANVIL)
+        if(damageSource == DamageSource.LAVA || damageSource == DamageSource.IN_WALL || damageSource == DamageSource.CACTUS || damageSource == DamageSource.DROWN || damageSource == DamageSource.SWEET_BERRY_BUSH || damageSource == DamageSource.HOT_FLOOR || damageSource == DamageSource.FLY_INTO_WALL || damageSource == DamageSource.FALL)
             return true;
 
         return super.isInvulnerableTo(damageSource);

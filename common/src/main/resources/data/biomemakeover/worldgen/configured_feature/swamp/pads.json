@@ -1,0 +1,82 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Properties": {
+                    "pads": "0"
+                  },
+                  "Name": "biomemakeover:small_lily_pad"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Properties": {
+                    "pads": "1"
+                  },
+                  "Name": "biomemakeover:small_lily_pad"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Properties": {
+                    "pads": "2"
+                  },
+                  "Name": "biomemakeover:small_lily_pad"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Properties": {
+                    "pads": "3"
+                  },
+                  "Name": "biomemakeover:small_lily_pad"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "biomemakeover:water_lily"
+                },
+                "weight": 1
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "minecraft:lily_pad"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 10,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

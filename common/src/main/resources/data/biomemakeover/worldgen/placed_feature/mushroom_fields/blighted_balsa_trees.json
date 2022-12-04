@@ -1,0 +1,23 @@
+{
+  "feature": "biomemakeover:mushroom_fields/blighted_balsa_trees",
+  "placement": [
+    {
+      "chance": 12,
+      "type": "minecraft:rarity_filter"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "max_water_depth": 0,
+      "type": "minecraft:surface_water_depth_filter"
+    },
+    {
+      "heightmap": "OCEAN_FLOOR",
+      "type": "minecraft:heightmap"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

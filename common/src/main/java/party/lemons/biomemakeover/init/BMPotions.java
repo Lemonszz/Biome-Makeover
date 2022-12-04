@@ -2,32 +2,29 @@ package party.lemons.biomemakeover.init;
 
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.registries.DeferredRegister;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.mixin.PotionBrewingInvoker;
 import party.lemons.biomemakeover.mobeffect.AntidoteMobEffect;
 import party.lemons.biomemakeover.mobeffect.BMMobEffect;
 import party.lemons.biomemakeover.mobeffect.NocturnalMobEffect;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
+import party.lemons.taniwha.mixin.brewing.PotionBrewingInvoker;
 
 import java.util.function.Supplier;
 
 public class BMPotions
 {
-    private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Constants.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
-    private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Constants.MOD_ID, Registry.POTION_REGISTRY);
+    private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Constants.MOD_ID, Registries.MOB_EFFECT);
+    private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Constants.MOD_ID, Registries.POTION);
 
 
     public static final Supplier<MobEffect> SHOCKED = EFFECTS.register(BiomeMakeover.ID("shocked"), ()->new BMMobEffect(MobEffectCategory.HARMFUL, 0x6effff).addAttributeModifier(Attributes.MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D,AttributeModifier.Operation.ADDITION));

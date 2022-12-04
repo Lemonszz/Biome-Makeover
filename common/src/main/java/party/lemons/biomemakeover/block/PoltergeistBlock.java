@@ -22,10 +22,11 @@ import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.PoltergeistBlockEntity;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.level.PoltergeistHandler;
+import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.Random;
 
-public class PoltergeistBlock extends BMBlock implements EntityBlock
+public class PoltergeistBlock extends TBlock implements EntityBlock
 {
     public static BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 

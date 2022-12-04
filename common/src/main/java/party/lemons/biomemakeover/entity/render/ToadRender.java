@@ -2,22 +2,16 @@ package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.ToadEntity;
-import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,17 +51,17 @@ public class ToadRender extends MobRenderer<ToadEntity, ToadModel>
             poseStack.translate(0, 1.5, 0);
             if(tounge.zRot != 0.0F)
             {
-                poseStack.mulPose(Vector3f.ZP.rotationDegrees(tounge.zRot));
+                poseStack.mulPose(Axis.ZP.rotationDegrees(tounge.zRot));
             }
 
             if(tounge.yRot != 0.0F)
             {
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(tounge.yRot));
+                poseStack.mulPose(Axis.YP.rotationDegrees(tounge.yRot));
             }
 
             if(tounge.xRot != 0.0F)
             {
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(tounge.xRot));
+                poseStack.mulPose(Axis.XP.rotationDegrees(tounge.xRot));
             }
             drawBox(poseStack, multiBufferSource.getBuffer(getModel().renderType(TEXTURE)), cube.minX, cube.minY, cube.minZ, cube.maxX, cube.maxY, cube.minZ - entity.tongueDistance, i, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();

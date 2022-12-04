@@ -1,7 +1,7 @@
 package party.lemons.biomemakeover.entity.render.feature;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -30,6 +30,6 @@ public class HorseHatRenderLayer extends HatLayer<Horse, HorseModel<Horse>> {
 
         getParentModel().headParts().iterator().next().translateAndRotate(poseStack);
         poseStack.translate(0F, -0.4F, 0);
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-25F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
     }
 }

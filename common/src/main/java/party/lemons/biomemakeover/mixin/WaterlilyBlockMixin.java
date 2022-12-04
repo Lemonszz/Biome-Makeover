@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMWorldGen;
 
 @Mixin(WaterlilyBlock.class)
 public class WaterlilyBlockMixin extends Block

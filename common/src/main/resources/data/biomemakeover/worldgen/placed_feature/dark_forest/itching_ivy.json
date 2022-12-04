@@ -1,0 +1,15 @@
+{
+  "feature": "biomemakeover:dark_forest/itching_ivy",
+  "placement": [
+    {
+      "chance": 4,
+      "type": "minecraft:rarity_filter"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

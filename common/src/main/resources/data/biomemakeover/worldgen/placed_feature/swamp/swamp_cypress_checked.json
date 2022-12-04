@@ -1,0 +1,17 @@
+{
+  "feature": "biomemakeover:swamp/swamp_cypress",
+  "placement": [
+    {
+      "predicate": {
+        "state": {
+          "Properties": {
+            "stage": "0"
+          },
+          "Name": "biomemakeover:swamp_cypress_sapling"
+        },
+        "type": "minecraft:would_survive"
+      },
+      "type": "minecraft:block_predicate_filter"
+    }
+  ]
+}

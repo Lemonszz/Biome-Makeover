@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.util;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.particles.ParticleOptions;

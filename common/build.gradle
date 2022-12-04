@@ -4,7 +4,13 @@ dependencies {
 }
 
 architectury {
-    common(true)
+    common(false)
+}
+
+dependencies {
+    modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
+        transitive = false
+    }
 }
 
 loom {

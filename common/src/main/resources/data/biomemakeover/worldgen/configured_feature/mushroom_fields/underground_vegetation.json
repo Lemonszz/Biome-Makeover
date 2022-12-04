@@ -1,0 +1,64 @@
+{
+  "config": {
+    "to_place": {
+      "entries": [
+        {
+          "data": {
+            "Name": "biomemakeover:mycelium_sprouts"
+          },
+          "weight": 50
+        },
+        {
+          "data": {
+            "Name": "biomemakeover:mycelium_roots"
+          },
+          "weight": 30
+        },
+        {
+          "data": {
+            "Name": "minecraft:red_mushroom"
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "minecraft:brown_mushroom"
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "biomemakeover:green_glowshroom"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "biomemakeover:purple_glowshroom"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Properties": {
+              "half": "lower"
+            },
+            "Name": "biomemakeover:tall_brown_mushroom"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Properties": {
+              "half": "lower"
+            },
+            "Name": "biomemakeover:tall_red_mushroom"
+          },
+          "weight": 3
+        }
+      ],
+      "type": "minecraft:weighted_state_provider"
+    }
+  },
+  "type": "minecraft:simple_block"
+}

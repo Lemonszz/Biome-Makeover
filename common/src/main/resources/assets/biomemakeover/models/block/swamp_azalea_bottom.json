@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "biomemakeover:block/swamp_azalea_bottom"
-  }
-}

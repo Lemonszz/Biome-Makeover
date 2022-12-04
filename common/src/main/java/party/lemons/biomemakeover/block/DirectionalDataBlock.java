@@ -7,8 +7,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -18,9 +16,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.DirectionalDataBlockEntity;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
 
-public class DirectionalDataBlock extends DirectionalBlock implements BlockWithItem, EntityBlock
+public class DirectionalDataBlock extends DirectionalBlock implements EntityBlock
 {
     public DirectionalDataBlock(Properties properties) {
         super(properties);
@@ -73,12 +70,6 @@ public class DirectionalDataBlock extends DirectionalBlock implements BlockWithI
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-
-    @Override
-    public Item.Properties makeItemSettings(CreativeModeTab tab)
-    {
-        return new Item.Properties();
     }
 
     @Override

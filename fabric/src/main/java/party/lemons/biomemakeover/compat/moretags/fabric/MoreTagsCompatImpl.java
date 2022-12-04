@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.compat.moretags.fabric;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +23,7 @@ public class MoreTagsCompatImpl {
         if(FARMLAND != null)
             return FARMLAND;
 
-        FARMLAND = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "farmland"));
+        FARMLAND = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "farmland"));
         return FARMLAND;
     }
 }

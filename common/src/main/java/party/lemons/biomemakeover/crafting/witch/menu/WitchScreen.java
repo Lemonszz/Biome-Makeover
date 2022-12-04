@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -14,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.crafting.witch.QuestRarity;
 import party.lemons.biomemakeover.crafting.witch.WitchQuest;
@@ -104,7 +106,8 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
         {
             if(questButton != null && questButton.isHoveredOrFocused())
             {
-                questButton.renderToolTip(matrices, mouseX, mouseY);
+                //TODO:PORT
+            //    questButton.renderToolTip(matrices, mouseX, mouseY);
             }
         }
     }
@@ -116,7 +119,7 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
 
         public QuestButton(int x, int y, WitchQuest quest, OnPress action)
         {
-            super(x, y, 104, 26, Component.empty(), action);
+            super(x, y, 104, 26, Component.empty(), action, Button.DEFAULT_NARRATION);
             this.quest = quest;
             this.questRarity = QuestRarity.getRarityFromQuest(quest);
         }
@@ -137,24 +140,27 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.enableDepthTest();
-            blit(matrices, this.x, this.y, 174, drawTextureIndex * 26, this.width, this.height, 512, 256);
+            blit(matrices, this.getX(), this.getY(), 174, drawTextureIndex * 26, this.width, this.height, 512, 256);
 
             int rarityY = 7 + (questRarity.ordinal() * 5);
-            blit(matrices, x + 4, y + 11, 278, rarityY, 5, 5, 512, 256);
+            blit(matrices, getX() + 4, getY() + 11, 278, rarityY, 5, 5, 512, 256);
 
-            int itemXX = x + 11;
+            int itemXX = getX() + 11;
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             for(ItemStack stack : quest.getRequiredItems())
             {
                 this.setBlitOffset(200);
                 itemRenderer.blitOffset = 200.0f;
-                itemRenderer.renderAndDecorateItem(stack, itemXX, y + 5);
-                itemRenderer.renderGuiItemDecorations(minecraft.font,stack, itemXX, y + 5, String.valueOf(stack.getCount()));
+                itemRenderer.renderAndDecorateItem(stack, itemXX, getY() + 5);
+                itemRenderer.renderGuiItemDecorations(minecraft.font,stack, itemXX, getY() + 5, String.valueOf(stack.getCount()));
                 this.setBlitOffset(0);
                 itemRenderer.blitOffset = 0.0f;
                 itemXX += 18;
             }
         }
+
+        //TODO:PORT
+        /*
 
         @Override
         public void renderToolTip(PoseStack matrices, int mouseX, int mouseY) {
@@ -187,6 +193,8 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
                 }
             }
         }
+
+         */
 
     }
 }

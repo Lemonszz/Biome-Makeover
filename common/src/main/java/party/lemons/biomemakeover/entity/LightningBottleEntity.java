@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.entity;
 
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -118,7 +119,8 @@ public class LightningBottleEntity extends ThrowableItemProjectile
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket()
+    {
         return NetworkManager.createAddEntityPacket(this);
     }
 }

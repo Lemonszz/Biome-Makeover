@@ -12,12 +12,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import party.lemons.biomemakeover.init.BMWorldGen;
-import party.lemons.biomemakeover.util.HorizontalDirection;
+import party.lemons.biomemakeover.init.BMFeatures;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.HorizontalDirection;
 
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class AncientOakTrunkPlacer extends TrunkPlacer
@@ -29,7 +28,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
 
     @Override
     protected TrunkPlacerType<?> type() {
-        return BMWorldGen.DarkForest.ANCIENT_OAK_TRUNK;
+        return BMFeatures.ANCIENT_OAK_TRUNK.get();
     }
 
     @Override

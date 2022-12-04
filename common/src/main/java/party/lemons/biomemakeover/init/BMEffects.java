@@ -6,9 +6,9 @@ import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -17,13 +17,12 @@ import party.lemons.biomemakeover.level.particle.BlossomParticle;
 import party.lemons.biomemakeover.level.particle.LightningSparkParticle;
 import party.lemons.biomemakeover.level.particle.PoltergeistParticle;
 import party.lemons.biomemakeover.level.particle.TeleportParticle;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
 import java.util.function.Supplier;
 
 public class BMEffects
 {
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Constants.MOD_ID, Registry.SOUND_EVENT_REGISTRY);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Constants.MOD_ID, Registries.SOUND_EVENT);
 
     public static final RegistrySupplier<SoundEvent> BUTTON_MUSHROOMS = registerSound(BiomeMakeover.ID("button_mushrooms"));
     public static final RegistrySupplier<SoundEvent> GHOST_TOWN = registerSound(BiomeMakeover.ID("ghost_town"));
@@ -101,7 +100,7 @@ public class BMEffects
     public static final Supplier<SoundEvent> CRAB_SCUTTLE = registerSound(BiomeMakeover.ID("crab_scuttle"));
     public static final Supplier<SoundEvent> CRAB_SNIP = registerSound(BiomeMakeover.ID("crab_snip"));
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registry.PARTICLE_TYPE_REGISTRY);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registries.PARTICLE_TYPE);
     public static final RegistrySupplier<SimpleParticleType> LIGHTNING_SPARK = PARTICLE_TYPES.register("lightning_spark", () -> new SimpleParticleType(true));
     public static final RegistrySupplier<SimpleParticleType> POLTERGEIST = PARTICLE_TYPES.register("poltergeist", () -> new SimpleParticleType(true));
     public static final RegistrySupplier<SimpleParticleType> BLOSSOM = PARTICLE_TYPES.register("blossom", () -> new SimpleParticleType(true));
@@ -130,6 +129,6 @@ public class BMEffects
 
     private static RegistrySupplier<SoundEvent> registerSound(ResourceLocation sound)
     {
-        return SOUNDS.register(sound, ()->new SoundEvent(sound));
+        return SOUNDS.register(sound, ()->SoundEvent.createVariableRangeEvent(sound));
     }
 }

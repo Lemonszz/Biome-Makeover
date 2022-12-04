@@ -3,7 +3,7 @@ package party.lemons.biomemakeover.entity.render;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -111,8 +111,8 @@ public class StoneGolemRender extends MobRenderer<StoneGolemEntity, StoneGolemMo
             if (!stack.isEmpty()) {
                 poseStack.pushPose();
                 ((ArmedModel)this.getParentModel()).translateToHand(arm, poseStack);
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+                poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
                 boolean isLeft = arm == HumanoidArm.LEFT;
                 poseStack.translate((isLeft ? -0.7F : 0.7F) / 16.0F, 0.125D, -1.75);
                 itemInHandRenderer.renderItem(entity, stack, transformationMode, isLeft, poseStack, multiBufferSource, light);

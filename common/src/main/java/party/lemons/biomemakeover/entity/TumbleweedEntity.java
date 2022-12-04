@@ -1,26 +1,28 @@
 package party.lemons.biomemakeover.entity;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3d;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Level;
+import org.joml.Quaternionf;
+import org.joml.Vector3d;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.level.WindSystem;
+import party.lemons.biomemakeover.util.OldQuat;
 
 public class TumbleweedEntity extends Entity
 {
-    public Quaternion quaternion = new Quaternion(0, 0, 0, 1);
-    public Quaternion prevQuaternion = new Quaternion(0, 0, 0, 1);
+    public Quaternionf quaternion = new Quaternionf(0, 0, 0, 1);
+    public Quaternionf prevQuaternion = new Quaternionf(0, 0, 0, 1);
     private Vector3d prevVelocity;
     private float xRot = 0;
     private float zRot = 0;
@@ -47,7 +49,7 @@ public class TumbleweedEntity extends Entity
 
         super.tick();
 
-        prevQuaternion = new Quaternion(quaternion);
+        prevQuaternion = new Quaternionf(quaternion);
         prevVelocity = new Vector3d(getDeltaMovement().x, getDeltaMovement().y, getDeltaMovement().z);
 
         double pX = getX();
@@ -93,9 +95,9 @@ public class TumbleweedEntity extends Entity
                 zRot = (float) (disZ / 0.6D);
             }
 
-            Quaternion rot = new Quaternion(zRot, 0F, xRot, false);
-            rot.mul(quaternion);
-            quaternion = rot;
+            OldQuat rot = new OldQuat(zRot, 0F, xRot, false);
+            rot.mul(new OldQuat(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+            quaternion = new Quaternionf(rot.i(), rot.j(), rot.k(), rot.r());;
         }
 
         if(!level.isClientSide())
@@ -178,7 +180,8 @@ public class TumbleweedEntity extends Entity
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket()
+    {
         return NetworkManager.createAddEntityPacket(this);
     }
 

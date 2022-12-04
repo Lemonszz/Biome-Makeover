@@ -1,7 +1,7 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -22,11 +22,11 @@ public class TadpoleRender extends MobRenderer<TadpoleEntity, TadpoleModel>
         super.setupRotations(tadpole, poseStack, f, g, h);
 
         float i = 4.3F * Mth.sin(0.6F * f);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(i));
+        poseStack.mulPose(Axis.YP.rotationDegrees(i));
         if(!tadpole.isInWater())
         {
             poseStack.translate(0.10000000149011612D, 0.10000000149011612D, -0.10000000149011612D);
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
         }
     }
 

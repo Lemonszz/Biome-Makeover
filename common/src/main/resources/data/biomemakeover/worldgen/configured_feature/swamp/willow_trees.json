@@ -1,0 +1,8 @@
+{
+  "config": {
+    "features": [
+    ],
+    "default": "biomemakeover:swamp/willow_checked"
+  },
+  "type": "minecraft:random_selector"
+}

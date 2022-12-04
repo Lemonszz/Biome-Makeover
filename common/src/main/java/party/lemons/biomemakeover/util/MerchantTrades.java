@@ -1,6 +1,6 @@
 package party.lemons.biomemakeover.util;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-import java.util.Random;
 
 public class MerchantTrades
 {
@@ -181,8 +180,8 @@ public class MerchantTrades
         private final int villagerXp;
 
         public EmeraldsForVillagerTypeItem(int i, int j, int k, Map<VillagerType, Item> map) {
-            Registry.VILLAGER_TYPE.stream().filter(villagerType -> !map.containsKey(villagerType)).findAny().ifPresent(villagerType -> {
-                throw new IllegalStateException("Missing trade for villager type: " + Registry.VILLAGER_TYPE.getKey((VillagerType)villagerType));
+            BuiltInRegistries.VILLAGER_TYPE.stream().filter(villagerType -> !map.containsKey(villagerType)).findAny().ifPresent(villagerType -> {
+                throw new IllegalStateException("Missing trade for villager type: " + BuiltInRegistries.VILLAGER_TYPE.getKey(villagerType));
             });
             this.trades = map;
             this.cost = i;
@@ -196,7 +195,7 @@ public class MerchantTrades
         public MerchantOffer getOffer(Entity entity, RandomSource randomSource)
         {
             if (entity instanceof VillagerDataHolder) {
-                ItemStack itemStack = new ItemStack(this.trades.get(((VillagerDataHolder)((Object)entity)).getVillagerData().getType()), this.cost);
+                ItemStack itemStack = new ItemStack(this.trades.get(((VillagerDataHolder) entity).getVillagerData().getType()), this.cost);
                 return new MerchantOffer(itemStack, new ItemStack(Items.EMERALD), this.maxUses, this.villagerXp, 0.05f);
             }
             return null;

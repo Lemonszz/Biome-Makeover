@@ -1,19 +1,17 @@
 package party.lemons.biomemakeover.init;
 
 import dev.architectury.registry.registries.DeferredRegister;
-import net.minecraft.core.Registry;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.Enchantment;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.item.enchantment.*;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
 import java.util.function.Supplier;
 
 public class BMEnchantments {
 
-    public static final DeferredRegister<Enchantment> ENCHANTS = DeferredRegister.create(Constants.MOD_ID, Registry.ENCHANTMENT_REGISTRY);
+    public static final DeferredRegister<Enchantment> ENCHANTS = DeferredRegister.create(Constants.MOD_ID, Registries.ENCHANTMENT);
 
     //TODO: Some of these don't really need their own class.
 

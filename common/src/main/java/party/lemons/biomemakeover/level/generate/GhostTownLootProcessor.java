@@ -14,7 +14,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMStructures;
-import party.lemons.biomemakeover.init.BMWorldGen;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 public class GhostTownLootProcessor extends StructureProcessor

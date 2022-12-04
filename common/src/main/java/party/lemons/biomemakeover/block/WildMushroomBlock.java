@@ -7,8 +7,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import party.lemons.taniwha.block.types.TMushroomPlantBlock;
 
-public class WildMushroomBlock extends OffsetMushroomPlantBlock
+public class WildMushroomBlock extends TMushroomPlantBlock
 {
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 9.0D, 14.0D);
 

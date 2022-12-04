@@ -13,12 +13,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
 
 import java.util.Iterator;
-import java.util.Random;
 
-public class PeatFarmlandBlock extends FarmBlock implements BlockWithItem
+public class PeatFarmlandBlock extends FarmBlock
 {
     public  PeatFarmlandBlock(Properties properties) {
         super(properties);

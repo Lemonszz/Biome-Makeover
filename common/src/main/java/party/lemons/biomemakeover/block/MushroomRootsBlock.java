@@ -2,14 +2,18 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RootsBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
-import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
+import party.lemons.taniwha.block.modifier.BlockModifier;
+import party.lemons.taniwha.block.modifier.BlockWithModifiers;
+import party.lemons.taniwha.registry.ModifierContainer;
 
-public class MushroomRootsBlock extends RootsBlock implements BlockWithItem, BlockWithModifiers<MushroomRootsBlock> {
+public class MushroomRootsBlock extends RootsBlock implements BlockWithModifiers<MushroomRootsBlock>
+{
+    private ModifierContainer<Block> modifierContainer;
+
     public MushroomRootsBlock(Properties properties) {
         super(properties);
     }
@@ -21,8 +25,12 @@ public class MushroomRootsBlock extends RootsBlock implements BlockWithItem, Blo
 
     @Override
     public MushroomRootsBlock modifiers(BlockModifier... modifiers) {
-        BlockWithModifiers.init(this, modifiers);
-
+        modifierContainer = new ModifierContainer<>(this, modifiers);
         return this;
+    }
+
+    @Override
+    public ModifierContainer<Block> getModifierContainer() {
+        return modifierContainer;
     }
 }

@@ -7,8 +7,10 @@ import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.taniwha.item.types.TItem;
 
-public class EctoplasmItem extends BMItem{
+public class EctoplasmItem extends TItem
+{
     public EctoplasmItem(Properties properties) {
         super(properties);
     }

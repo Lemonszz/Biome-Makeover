@@ -3,14 +3,11 @@ package party.lemons.biomemakeover.level.feature.mansion;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Either;
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -27,11 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -50,14 +42,12 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMStructures;
-import party.lemons.biomemakeover.init.BMWorldGen;
-import party.lemons.biomemakeover.level.feature.SunkenRuinFeature;
 import party.lemons.biomemakeover.level.feature.mansion.room.MansionRoom;
 import party.lemons.biomemakeover.util.DirectionalDataHandler;
 import party.lemons.biomemakeover.util.Grid;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.extension.Stuntable;
-import party.lemons.biomemakeover.util.registry.WoodTypeInfo;
+import party.lemons.taniwha.block.WoodBlockFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -220,7 +210,7 @@ public class MansionFeature extends Structure
                         BlockEntity be = world.getBlockEntity(offsetPos);
                         if(be instanceof SpawnerBlockEntity spawner)
                         {
-                           spawner.getSpawner().setEntityId(RandomUtil.<EntityType<?>>choose(EntityType.CAVE_SPIDER, EntityType.SPIDER));
+                            spawner.setEntityId(RandomUtil.<EntityType<?>>choose(EntityType.CAVE_SPIDER, EntityType.SPIDER), random);
                             be.setChanged();
                         }
                     }
@@ -257,7 +247,7 @@ public class MansionFeature extends Structure
                     StringBuilder name = new StringBuilder();
                     for(int i = 3; i < splits.length; i++)
                         name.append(splits[i]).append("_");
-                    setState = Registry.BLOCK.get(new ResourceLocation(name.substring(0, name.length() - 1))).defaultBlockState();
+                    setState = world.registryAccess().registry(Registries.BLOCK).get().get(new ResourceLocation(name.substring(0, name.length() - 1))).defaultBlockState();
                 }
 
                 if(random.nextInt(100) <= chance)
@@ -370,44 +360,7 @@ public class MansionFeature extends Structure
             BlockPos blockPos = pos.above();
             BlockState blockState = Blocks.GRASS.defaultBlockState();
 
-            for(int i = 0; i < 128; ++i)
-            {
-                BlockPos placePos = blockPos;
-
-                for(int j = 0; j < i / 16; ++j)
-                {
-                    placePos = placePos.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-                    if(!level.getBlockState(placePos.below()).is(Blocks.GRASS_BLOCK) || level.getBlockState(placePos).isCollisionShapeFullBlock(level, placePos))
-                    {
-                        continue;
-                    }
-                }
-
-                //TODO: CLEANUP Copied from grass block
-                //ALso it's broken
-                BlockPos blockPos2 = blockPos.above();
-                BlockState blockState2 = Blocks.GRASS.defaultBlockState();
-                block0: for (int l = 0; l < 128; ++l) {
-                    Holder<PlacedFeature> holder;
-                    BlockPos blockPos3 = blockPos2;
-                    for (int j = 0; j < l / 16; ++j) {
-                        if (!level.getBlockState((blockPos3 = blockPos3.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1)).below()).is(Blocks.GRASS_BLOCK) || level.getBlockState(blockPos3).isCollisionShapeFullBlock(level, blockPos3)) continue block0;
-                    }
-                    BlockState blockState3 = level.getBlockState(blockPos3);
-                    if (blockState3.is(blockState2.getBlock()) && random.nextInt(10) == 0) {
-                     //   ((BonemealableBlock)((Object)blockState2.getBlock())).performBonemeal(level, random, blockPos3, blockState3);
-                    }
-                    if (!blockState3.isAir()) continue;
-                    if (random.nextInt(8) == 0) {
-                        List<ConfiguredFeature<?, ?>> list = level.getBiome(blockPos3).value().getGenerationSettings().getFlowerFeatures();
-                        if (list.isEmpty()) continue;
-                        holder = ((RandomPatchConfiguration)list.get(0).config()).feature();
-                    } else {
-                        holder = VegetationPlacements.GRASS_BONEMEAL;
-                    }
-                    //holder.value().place(level, chunk, random, blockPos3);
-                }
-            }
+                ///this broke at some point, so we just dont :^)
         }
 
         private void generateTapestry(Direction dir, BlockPos pos, WorldGenLevel world, RandomSource random)
@@ -432,7 +385,7 @@ public class MansionFeature extends Structure
             //Attempt to not generate if there's a roof lol
             BlockPos topPos = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos.relative(dir.getOpposite(), 2)).below();
             BlockState topState = world.getBlockState(topPos);
-            if(topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.SLAB).get()) || topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodTypeInfo.Type.STAIR).get())) return;
+            if(topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodBlockFactory.Type.SLAB).get()) || topState.is(BMBlocks.ANCIENT_OAK_WOOD_INFO.getBlock(WoodBlockFactory.Type.STAIR).get())) return;
 
             int size = 3;
             BlockPos startPos, endPos;

@@ -4,10 +4,11 @@ import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import dev.architectury.injectables.annotations.PlatformOnly;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -24,7 +25,6 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
@@ -177,7 +177,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 		private void renderHat(ItemStack shell, HelmitCrabEntity crab, PoseStack poseStack, MultiBufferSource mbSource, int light)
 		{
 			poseStack.pushPose();
-			poseStack.mulPose(Vector3f.XN.rotationDegrees(10F));
+			poseStack.mulPose(Axis.XN.rotationDegrees(10F));
 			poseStack.translate(0, 1.35F, 0.3);
 
 			EntityModel hatModel = getHatModel(shell);

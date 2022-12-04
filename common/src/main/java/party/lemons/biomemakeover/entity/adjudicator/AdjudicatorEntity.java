@@ -48,16 +48,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.entity.PlayerCreatable;
-import party.lemons.biomemakeover.entity.StoneGolemEntity;
 import party.lemons.biomemakeover.entity.adjudicator.phase.*;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.NBTUtil;
 import party.lemons.biomemakeover.util.extension.GoalSelectorExtension;
+import party.lemons.taniwha.entity.golem.PlayerCreatable;
 
 import java.util.List;
 import java.util.Map;

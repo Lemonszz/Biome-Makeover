@@ -2,18 +2,21 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import party.lemons.taniwha.block.types.TMushroomPlantBlock;
 
 import java.util.function.Supplier;
 
-public class GlowshroomPlantBlock extends BMMushroomPlantBlock {
+public class GlowshroomPlantBlock extends TMushroomPlantBlock
+{
 
-    public GlowshroomPlantBlock(Supplier<Holder<? extends ConfiguredFeature<?, ?>>>  giantShroomFeature, Properties properties) {
-        super(giantShroomFeature, properties);
+    public GlowshroomPlantBlock(ResourceKey<ConfiguredFeature<?, ?>> feature, Properties properties) {
+        super(feature, properties);
     }
 
     @Override

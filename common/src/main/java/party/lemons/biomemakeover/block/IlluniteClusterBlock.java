@@ -3,7 +3,6 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -12,21 +11,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
-import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.registry.BlockWithItem;
+import party.lemons.taniwha.block.modifier.BlockModifier;
+import party.lemons.taniwha.block.modifier.BlockWithModifiers;
+import party.lemons.taniwha.registry.ModifierContainer;
 
 import java.util.Locale;
-import java.util.Random;
 
-public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockWithItem, BlockWithModifiers<IlluniteClusterBlock> {
+public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockWithModifiers<IlluniteClusterBlock>
+{
 
     public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
 
@@ -100,12 +97,6 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
     }
 
     @Override
-    public IlluniteClusterBlock modifiers(BlockModifier... modifiers) {
-        BlockWithModifiers.init(this, modifiers);
-        return this;
-    }
-
-    @Override
     public void updateIndirectNeighbourShapes(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, int i, int j) {
         super.updateIndirectNeighbourShapes(blockState, levelAccessor, blockPos, i, j);
         scheduleUpdates(levelAccessor, blockPos, levelAccessor.getRandom());
@@ -118,6 +109,19 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
             level.playSound(null, blockPos, BMEffects.ILLUNITE_HIT.get(), SoundSource.BLOCKS, 1.0f, 0.5f + level.random.nextFloat() * 1.2f);
             level.playSound(null, blockPos, BMEffects.ILLUNITE_STEP.get(), SoundSource.BLOCKS, 1.0f, 0.5f + level.random.nextFloat() * 1.2f);
         }
+    }
+
+    private ModifierContainer<Block> modifierContainer;
+    @Override
+    public ModifierContainer<Block> getModifierContainer() {
+        return modifierContainer;
+    }
+
+    @Override
+    public IlluniteClusterBlock modifiers(BlockModifier... modifiers)
+    {
+        modifierContainer = new ModifierContainer<>(this, modifiers);
+        return this;
     }
 
     public enum Type implements StringRepresentable

@@ -1,0 +1,19 @@
+{
+  "feature": "biomemakeover:mushroom_fields/mycelium_sprouts",
+  "placement": [
+    {
+      "count": 10,
+      "type": "minecraft:count"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "heightmap": "WORLD_SURFACE_WG",
+      "type": "minecraft:heightmap"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

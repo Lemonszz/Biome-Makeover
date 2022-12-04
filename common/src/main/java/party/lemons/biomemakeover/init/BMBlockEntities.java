@@ -1,21 +1,18 @@
 package party.lemons.biomemakeover.init;
 
 import dev.architectury.registry.registries.DeferredRegister;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.block.AltarBlock;
-import party.lemons.biomemakeover.block.BMBlock;
 import party.lemons.biomemakeover.block.blockentity.*;
-import party.lemons.biomemakeover.util.registry.RegistryHelper;
 
 import java.util.function.Supplier;
 
 public class BMBlockEntities
 {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registry.BLOCK_ENTITY_TYPE_REGISTRY);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Constants.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
 
     public static final Supplier<BlockEntityType<PoltergeistBlockEntity>> POLTERGEIST = BLOCK_ENTITIES.register(BiomeMakeover.ID("poltergeist"), ()->BlockEntityType.Builder.of(PoltergeistBlockEntity::new, BMBlocks.POLTERGEIST.get()).build(null));
     public static final Supplier<BlockEntityType<LightningBugBottleBlockEntity>> LIGHTNING_BUG_BOTTLE = BLOCK_ENTITIES.register(BiomeMakeover.ID("lightning_bug_bottle"), ()->BlockEntityType.Builder.of(LightningBugBottleBlockEntity::new, BMBlocks.LIGHTNING_BUG_BOTTLE.get()).build(null));

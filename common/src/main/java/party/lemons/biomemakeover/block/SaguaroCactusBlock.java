@@ -25,13 +25,14 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class SaguaroCactusBlock extends BMBlock implements BonemealableBlock
+public class SaguaroCactusBlock extends TBlock implements BonemealableBlock
 {
     public static final BooleanProperty HORIZONTAL = BooleanProperty.create("horizontal");
     public static final DirectionProperty HORIZONTAL_DIRECTION = HorizontalDirectionalBlock.FACING;
@@ -188,7 +189,7 @@ public class SaguaroCactusBlock extends BMBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader blockGetter, BlockPos blockPos, BlockState blockState, boolean isClient) {
         return blockState.equals(defaultBlockState()) && isGrowBlock(blockGetter.getBlockState(blockPos.below())) && blockGetter.getBlockState(blockPos.above()).isAir();
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.init.BMBlocks;
@@ -25,7 +26,7 @@ public class ItchingIvyBlock extends IvyBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState state, boolean bl) {
+    public boolean isValidBonemealTarget(LevelReader blockGetter, BlockPos blockPos, BlockState state, boolean bl) {
         return state.getValue(IvyShapedBlock.getPropertyForDirection(Direction.DOWN));
     }
 

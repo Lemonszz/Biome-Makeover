@@ -1,0 +1,17 @@
+{
+  "feature": "biomemakeover:swamp/willow",
+  "placement": [
+    {
+      "predicate": {
+        "state": {
+          "Properties": {
+            "stage": "0"
+          },
+          "Name": "biomemakeover:willow_sapling"
+        },
+        "type": "minecraft:would_survive"
+      },
+      "type": "minecraft:block_predicate_filter"
+    }
+  ]
+}

@@ -1,19 +1,15 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
-import net.minecraft.client.Minecraft;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.DrownedModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.DrownedOuterLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
@@ -46,7 +42,7 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
         float i = decayed.getSwimAmount(h);
         if(i > 0.0F)
         {
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(i, decayed.getXRot(), -10.0F - decayed.getXRot())));
+            poseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(i, decayed.getXRot(), -10.0F - decayed.getXRot())));
         }
     }
 
@@ -95,13 +91,13 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
                 poseStack.pushPose();
 
                 this.getParentModel().translateToHand(humanoidArm, poseStack);
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+                poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
                 boolean isLeft = humanoidArm == HumanoidArm.LEFT;
                 poseStack.translate(2F * (isLeft ? 1F : -1F) / 16.0F, 0.3D, -0.625D);
-                Vector3f dirY = isLeft ? Vector3f.YN : Vector3f.YP;
-                Vector3f dirZ = isLeft ? Vector3f.ZP : Vector3f.ZN;
-                Vector3f dirX = Vector3f.XN;
+                Axis dirY = isLeft ? Axis.YN : Axis.YP;
+                Axis dirZ = isLeft ? Axis.ZP : Axis.ZN;
+                Axis dirX = Axis.XN;
 
                 poseStack.mulPose(dirY.rotationDegrees(60));
                 poseStack.mulPose(dirZ.rotationDegrees(0));
@@ -113,8 +109,8 @@ public class DecayedRender extends AbstractZombieRenderer<DecayedEntity, Decayed
             else {
                 poseStack.pushPose();
                 ((ArmedModel) this.getParentModel()).translateToHand(humanoidArm, poseStack);
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0f));
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f));
+                poseStack.mulPose(Axis.XP.rotationDegrees(-90.0f));
+                poseStack.mulPose(Axis.YP.rotationDegrees(180.0f));
                 boolean isLeft = humanoidArm == HumanoidArm.LEFT;
                 poseStack.translate((float) (isLeft ? -1 : 1) / 16.0f, 0.125, -0.625);
                 itemInHandRenderer.renderItem(livingEntity, itemStack, transformType, isLeft, poseStack, multiBufferSource, i);

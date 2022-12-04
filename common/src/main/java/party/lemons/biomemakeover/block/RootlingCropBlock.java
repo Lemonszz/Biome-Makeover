@@ -2,30 +2,29 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import party.lemons.biomemakeover.block.modifier.BlockModifier;
-import party.lemons.biomemakeover.block.modifier.BlockWithModifiers;
 import party.lemons.biomemakeover.compat.moretags.MoreTagsCompat;
 import party.lemons.biomemakeover.entity.RootlingEntity;
-import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
+import party.lemons.taniwha.block.modifier.BlockModifier;
+import party.lemons.taniwha.block.modifier.BlockWithModifiers;
+import party.lemons.taniwha.block.types.TCropBlock;
+import party.lemons.taniwha.registry.ModifierContainer;
 
-import java.util.Random;
-
-public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<RootlingCropBlock> {
+public class RootlingCropBlock extends TCropBlock
+{
     public static final IntegerProperty AGE_4 = IntegerProperty.create("age", 0, 4);
     private static final VoxelShape[] AGE_TO_SHAPE = new VoxelShape[]{Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
@@ -138,11 +137,5 @@ public class RootlingCropBlock extends CropBlock implements BlockWithModifiers<R
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(getAgeProperty());
-    }
-
-    @Override
-    public RootlingCropBlock modifiers(BlockModifier... modifiers) {
-        BlockWithModifiers.init(this, modifiers);
-        return this;
     }
 }

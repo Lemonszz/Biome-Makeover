@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
-    "biomemakeover:swamp_azalea",
-    "biomemakeover:marigold"
+    "biomemakeover:buttonbush",
+    "biomemakeover:marigold",
+    "biomemakeover:foxglove",
+    "biomemakeover:black_thistle"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:random_boolean_selector",
+  "config": {
+    "feature_false": {
+      "feature": "biomemakeover:mushroom_fields/huge_purple_glowshroom",
+      "placement": []
+    },
+    "feature_true": {
+      "feature": "biomemakeover:mushroom_fields/huge_green_glowshroom",
+      "placement": []
+    }
+  }
+}

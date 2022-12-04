@@ -53,6 +53,7 @@ import party.lemons.biomemakeover.init.BMAdvancements;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.util.sound.StoneGolemTurnSoundInstance;
+import party.lemons.taniwha.entity.golem.PlayerCreatable;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,8 +1,7 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
-import net.minecraft.client.Minecraft;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -44,13 +43,13 @@ public class AdjudicatorRender extends MobRenderer<AdjudicatorEntity, Adjudicato
         switch (entity.getState()) {
             case WAITING -> {
                 float waitAng = Mth.rotLerp(tickDelta, entity.renderRotPrevious, entity.stateTime * 1F);
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(waitAng));
+                poseStack.mulPose(Axis.YP.rotationDegrees(waitAng));
                 poseStack.translate(0, Math.sin(animationProgress / 25F) / 4F, 0);
                 entity.renderRotPrevious = waitAng;
             }
             case TELEPORT -> {
                 float teleAngle = Mth.rotLerp(tickDelta, entity.renderRotPrevious, entity.stateTime * entity.stateTime);
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(teleAngle));
+                poseStack.mulPose(Axis.YP.rotationDegrees(teleAngle));
                 entity.renderRotPrevious = teleAngle;
             }
         }
@@ -89,8 +88,8 @@ public class AdjudicatorRender extends MobRenderer<AdjudicatorEntity, Adjudicato
             if (!stack.isEmpty()) {
                 poseStack.pushPose();
                 this.getParentModel().translateToHand(humanoidArm, poseStack);
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+                poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
                 boolean isLeft = humanoidArm == HumanoidArm.LEFT;
                 poseStack.translate((isLeft ? -0.7F : 0.7F) / 16.0F, 0.125D, -0.625D);
                 itemInHandRenderer.renderItem(livingEntity, stack, transformType, isLeft, poseStack, multiBufferSource, i);

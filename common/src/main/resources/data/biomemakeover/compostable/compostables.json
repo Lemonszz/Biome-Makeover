@@ -1,0 +1,139 @@
+[{
+  "item": "biomemakeover:purple_glowshroom",
+  "chance": 0.7
+},
+  {
+    "item": "biomemakeover:green_glowshroom",
+    "chance": 0.7
+  },
+  {
+    "item": "biomemakeover:orange_glowshroom",
+    "chance": 0.7
+  },
+  {
+    "item": "biomemakeover:purple_glowshroom_block",
+    "chance": 0.9
+  },
+  {
+    "item": "biomemakeover:orange_glowshroom_block",
+    "chance": 0.9
+  },
+  {
+    "item": "biomemakeover:green_glowshroom_block",
+    "chance": 0.9
+  },
+  {
+    "item": "biomemakeover:mycelium_sprouts",
+    "chance": 0.7
+  },
+  {
+    "item": "biomemakeover:mycelium_roots",
+    "chance": 0.7
+  },
+  {
+    "item": "biomemakeover:tall_brown_mushroom",
+    "chance": 0.7
+  },
+  {
+    "item": "biomemakeover:tall_red_mushroom",
+    "chance": 0.7
+  }
+
+,
+  {
+    "item": "biomemakeover:blighted_balsa_leaves",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:blighted_balsa_sapling",
+    "chance": 0.4
+  },
+  {
+    "item": "biomemakeover:glowshroom_stem",
+    "chance": 0.9
+  },
+  {
+    "item": "biomemakeover:saguaro_cactus",
+    "chance": 0.15
+  },
+  {
+    "item": "biomemakeover:barrel_cactus",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:barrel_cactus_flowered",
+    "chance": 0.4
+  },
+  {
+    "item": "biomemakeover:willowing_branches",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:willow_sapling",
+    "chance": 0.4
+  },
+  {
+    "item": "biomemakeover:swamp_cypress_sapling",
+    "chance": 0.4
+  },
+  {
+    "item": "biomemakeover:buttonbush",
+    "chance": 0.65
+  },
+  {
+    "item": "biomemakeover:marigold",
+    "chance": 0.65
+  },
+  {
+    "item": "biomemakeover:black_thistle",
+    "chance": 0.65
+  },
+  {
+    "item": "biomemakeover:cattail",
+    "chance": 0.5
+  },
+  {
+    "item": "biomemakeover:reed",
+    "chance": 0.2
+  },
+  {
+    "item": "biomemakeover:small_lily_pad",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:water_lily",
+    "chance": 0.8
+  },
+  {
+    "item": "biomemakeover:willow_leaves",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:swamp_cypress_leaves",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:ancient_oak_leaves",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:ancient_oak_sapling",
+    "chance": 0.4
+  },
+  {
+    "item": "biomemakeover:wild_mushrooms",
+    "chance": 0.5
+  },
+  {
+    "item": "biomemakeover:moth_blossom",
+    "chance": 0.8
+  },
+  {
+    "item": "biomemakeover:itching_ivy",
+    "chance": 0.3
+  },
+  {
+    "item": "biomemakeover:ivy",
+    "chance": 0.25
+  }
+]

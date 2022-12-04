@@ -5,6 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -51,7 +53,7 @@ public class QuestCategoryReloadListener extends SimpleJsonResourceReloadListene
 					int maxCount = requestObject.get("max_count").getAsInt();
 
 					ResourceLocation itemLocation = new ResourceLocation(itemName);
-					Item item = Registry.ITEM.get(itemLocation);
+					Item item = BuiltInRegistries.ITEM.get(itemLocation);
 					if(item == Items.AIR)
 						Constants.LOG.warn("Air or Unknown item found in witch category: " + location + " | " + itemLocation);
 

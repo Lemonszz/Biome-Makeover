@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
@@ -17,13 +18,14 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.taniwha.block.types.TMushroomPlantBlock;
 
 import java.util.function.Supplier;
 
-public class UnderwaterMushroomPlantBlock extends BMMushroomPlantBlock implements SimpleWaterloggedBlock {
+public class UnderwaterMushroomPlantBlock extends TMushroomPlantBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public UnderwaterMushroomPlantBlock(Supplier<Holder<? extends ConfiguredFeature<?, ?>>>  giantShroomFeature, Properties properties) {
+    public UnderwaterMushroomPlantBlock(ResourceKey<ConfiguredFeature<?, ?>> giantShroomFeature, Properties properties) {
         super(giantShroomFeature, properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false));
     }

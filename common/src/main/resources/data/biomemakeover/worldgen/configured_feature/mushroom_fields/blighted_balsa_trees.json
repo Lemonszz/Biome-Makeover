@@ -1,0 +1,8 @@
+{
+  "config": {
+    "features": [
+    ],
+    "default": "biomemakeover:mushroom_fields/blighted_balsa_checked"
+  },
+  "type": "minecraft:random_selector"
+}

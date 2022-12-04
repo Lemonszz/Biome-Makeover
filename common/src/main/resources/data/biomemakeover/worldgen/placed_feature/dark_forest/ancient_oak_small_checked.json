@@ -1,0 +1,17 @@
+{
+  "feature": "biomemakeover:dark_forest/ancient_oak_small",
+  "placement": [
+    {
+      "predicate": {
+        "state": {
+          "Properties": {
+            "stage": "0"
+          },
+          "Name": "biomemakeover:ancient_oak_sapling"
+        },
+        "type": "minecraft:would_survive"
+      },
+      "type": "minecraft:block_predicate_filter"
+    }
+  ]
+}

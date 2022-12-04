@@ -1,9 +1,8 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,11 +12,8 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Mob;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.OwlEntity;
-import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorState;
-import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorStateProvider;
 
 public class OwlRender extends MobRenderer<OwlEntity, OwlModel>
 {
@@ -61,7 +57,7 @@ public class OwlRender extends MobRenderer<OwlEntity, OwlModel>
         poseStack.translate(0, (i / 7F) / 2F, (i / 7F) / 2F);
         if(i > 0.0F)
         {
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(i, 0, -7.0F)));
+            poseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(i, 0, -7.0F)));
         }
         poseStack.scale(0.75F, 0.75F, 0.75F);
     }

@@ -4,13 +4,11 @@ import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
-import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Blocks;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.block.blockentity.render.AltarRenderer;
@@ -24,7 +22,6 @@ import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMScreens;
-import party.lemons.biomemakeover.item.BMSpawnEggItem;
 import party.lemons.biomemakeover.util.color.*;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 
@@ -57,8 +54,6 @@ public class BiomeMakeoverClient
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
 
             EntityRendererRegistry.register(BMEntities.TUMBLEWEED::get, TumbleweedRender::new);
-            EntityRendererRegistry.register(BMEntities.BM_BOAT::get, (c)->new BMBoatRender(c, false));
-            EntityRendererRegistry.register(BMEntities.BM_CHEST_BOAT::get, (c)->new BMBoatRender(c, true));
             EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE::get, ThrownItemRenderer::new);
 
             EntityRendererRegistry.register(BMEntities.GLOWFISH::get, GlowfishRender::new);
