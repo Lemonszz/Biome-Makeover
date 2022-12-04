@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
+import party.lemons.biomemakeover.block.DirectionalDataBlock;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
@@ -69,7 +70,7 @@ public class BiomeMakeover {
             });
 
             BuiltInRegistries.BLOCK.forEach(it->{
-                if(it.asItem() != Items.AIR && BuiltInRegistries.BLOCK.getKey(it).getNamespace().equals(Constants.MOD_ID))
+                if(it.asItem() != Items.AIR && !(it instanceof DirectionalDataBlock) &&BuiltInRegistries.BLOCK.getKey(it).getNamespace().equals(Constants.MOD_ID))
                     CreativeTabRegistry.append(BiomeMakeover.TAB, it);
             });
 

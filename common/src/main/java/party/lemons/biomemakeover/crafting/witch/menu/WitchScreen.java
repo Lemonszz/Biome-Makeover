@@ -107,7 +107,7 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
             if(questButton != null && questButton.isHoveredOrFocused())
             {
                 //TODO:PORT
-            //    questButton.renderToolTip(matrices, mouseX, mouseY);
+                questButton.renderToolTip(matrices, mouseX, mouseY);
             }
         }
     }
@@ -160,12 +160,9 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
         }
 
         //TODO:PORT
-        /*
-
-        @Override
         public void renderToolTip(PoseStack matrices, int mouseX, int mouseY) {
-            int xx = mouseX - x;
-            int yy = mouseY - y;
+            int xx = mouseX - getX();
+            int yy = mouseY - getY();
 
             if(isHoveredOrFocused() && xx > 5 && yy < 19)
             {
@@ -179,8 +176,8 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
                     int index = xx / 18;
                     if(index < quest.getRequiredItems().length)
                     {
-                        int bgX = x + 11 + (index * 18);
-                        int bgY = y + 5;
+                        int bgX = getX() + 11 + (index * 18);
+                        int bgY = getY() + 5;
 
                         RenderSystem.colorMask(true, true, true, false);
                         this.fillGradient(matrices, bgX, bgY, bgX + 16, bgY + 16, -2130706433, -2130706433);
@@ -193,8 +190,6 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
                 }
             }
         }
-
-         */
 
     }
 }
