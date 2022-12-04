@@ -65,7 +65,7 @@ public class BiomeMakeover {
             });
 
             BuiltInRegistries.ITEM.forEach(it->{
-                if(BuiltInRegistries.ITEM.getKey(it).getNamespace().equals(Constants.MOD_ID))
+                if(it != BMItems.ICON_ITEM.get() && BuiltInRegistries.ITEM.getKey(it).getNamespace().equals(Constants.MOD_ID))
                     CreativeTabRegistry.append(BiomeMakeover.TAB, it);
             });
 
