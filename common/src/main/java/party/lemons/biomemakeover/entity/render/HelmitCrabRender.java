@@ -132,7 +132,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			else if(shell.getItem() instanceof ArmorItem)
 				renderHelmet(entity, shell, poseStack, multiBufferSource, light);
 			else if(shell.getItem() instanceof BlockItem && ((BlockItem)shell.getItem()).getBlock() instanceof AbstractSkullBlock)
-				renderSkull(shell, poseStack, multiBufferSource, light);
+				renderSkull(shell, poseStack, multiBufferSource, light, limbAngle);
 			else
 				renderHeadItem(entity, shell, poseStack, multiBufferSource, light);
 		}
@@ -146,7 +146,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			itemInHandRenderer.renderItem(crab, shell, ItemTransforms.TransformType.HEAD, false, poseStack, mbSource, light);
 		}
 
-		private void renderSkull(ItemStack shell, PoseStack poseStack, MultiBufferSource mbSource, int light)
+		private void renderSkull(ItemStack shell, PoseStack poseStack, MultiBufferSource mbSource, int light, float limbAngle)
 		{
 			float scale = 1;
 			if(shell.getItem() == Items.DRAGON_HEAD) {
@@ -166,7 +166,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			SkullBlock.Type type = ((AbstractSkullBlock)((BlockItem)shell.getItem()).getBlock()).getType();
 			SkullModelBase skullModelBase = this.skullModels.get(type);
 			RenderType renderType = SkullBlockRenderer.getRenderType(type, gameProfile);
-			SkullBlockRenderer.renderSkull(null, 180.0f, 0, poseStack, mbSource, light, skullModelBase, renderType);
+			SkullBlockRenderer.renderSkull(null, 180, limbAngle, poseStack, mbSource, light, skullModelBase, renderType);
 		}
 
 		private void renderSpecialShell(ResourceLocation texture, HelmitCrabEntity crab, PoseStack poseStack, MultiBufferSource mbSource, int light, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch)
