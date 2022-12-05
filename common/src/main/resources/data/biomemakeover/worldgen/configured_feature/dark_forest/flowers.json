@@ -5,8 +5,8 @@
         "feature": {
           "config": {
             "tries": 7,
-            "xz_spread": 7,
-            "y_spread": 3,
+            "xz_spread": 6,
+            "y_spread": 2,
             "feature": {
               "feature": {
                 "config": {
@@ -42,9 +42,9 @@
       {
         "feature": {
           "config": {
-            "tries": 96,
-            "xz_spread": 7,
-            "y_spread": 3,
+            "tries": 7,
+            "xz_spread": 6,
+            "y_spread": 2,
             "feature": {
               "feature": {
                 "config": {
@@ -80,9 +80,9 @@
       {
         "feature": {
           "config": {
-            "tries": 96,
-            "xz_spread": 7,
-            "y_spread": 3,
+            "tries": 7,
+            "xz_spread": 6,
+            "y_spread": 2,
             "feature": {
               "feature": {
                 "config": {
@@ -118,9 +118,9 @@
       {
         "feature": {
           "config": {
-            "tries": 96,
-            "xz_spread": 7,
-            "y_spread": 3,
+            "tries": 7,
+            "xz_spread": 6,
+            "y_spread": 2,
             "feature": {
               "feature": {
                 "config": {
@@ -156,9 +156,9 @@
       {
         "feature": {
           "config": {
-            "tries": 96,
-            "xz_spread": 7,
-            "y_spread": 3,
+            "tries": 7,
+            "xz_spread": 6,
+            "y_spread": 2,
             "feature": {
               "feature": {
                 "config": {

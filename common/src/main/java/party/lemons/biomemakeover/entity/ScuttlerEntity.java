@@ -410,11 +410,12 @@ public class ScuttlerEntity extends Animal {
         {
             BlockPos startPos = getOnPos();
             List<BlockPos> spots = Lists.newArrayList();
+            final int range = 4;
 
             BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos(startPos.getX(), startPos.getY(), startPos.getZ());
-            for(int x = startPos.getX() - 2; x < startPos.getX() + 2; x++)
+            for(int x = startPos.getX() - range; x < startPos.getX() + range; x++)
             {
-                for(int z = startPos.getZ() - 2; z < startPos.getZ() + 2; z++)
+                for(int z = startPos.getZ() - range; z < startPos.getZ() + range; z++)
                 {
                     m.set(x, startPos.getY(), z);
                     BlockState checkState = level.getBlockState(m);
