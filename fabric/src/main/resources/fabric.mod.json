@@ -23,8 +23,8 @@
   "accessWidener": "biomemakeover-common.accessWidener",
   "mixins": ["biomemakeover.mixins.json", "biomemakeover-common.mixins.json"],
   "depends": {
-    "fabric": "*",
-    "minecraft": ">=1.19.3-rc.1",
-    "architectury": ">=5.8.29"
+    "fabric-api": "*",
+    "minecraft": "1.19.3",
+    "architectury": ">=7.0.59"
   }
 }
