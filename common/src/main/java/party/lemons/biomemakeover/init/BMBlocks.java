@@ -82,29 +82,29 @@ public class BMBlocks
     public static final RegistrySupplier<Block> TALL_BROWN_MUSHROOM = registerBlockItem("tall_brown_mushroom", ()->new BMTallMushroomBlock(Blocks.BROWN_MUSHROOM, properties(Material.PLANT, 0).instabreak().noCollission().sound(SoundType.FUNGUS)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> TALL_RED_MUSHROOM = registerBlockItem("tall_red_mushroom", ()->new BMTallMushroomBlock(Blocks.RED_MUSHROOM, properties(Material.PLANT, 0).instabreak().noCollission().sound(SoundType.FUNGUS)).modifiers(RTypeModifier.CUTOUT));
 
-    public static WoodBlockFactory BLIGHTED_BALSA_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "blighted_balsa").all(()-> BMBoats.BLIGHTED_BALSA);
+    public static WoodBlockFactory BLIGHTED_BALSA_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "blighted_balsa").all(()-> BMBoats.BLIGHTED_BALSA).register(BLOCKS, BMItems.ITEMS);
     public static final RegistrySupplier<Block> BLIGHTED_BALSA_LEAVES = registerBlockItem("blighted_balsa_leaves", ()->new TLeavesBlock(properties(Material.LEAVES, 0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating((a, b, c)->false).isViewBlocking((a, b, c)->false)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.LEAVES));
     public static final RegistrySupplier<Block> BLIGHTED_BALSA_SAPLING = sapling("blighted_balsa_sapling", new BalsaSaplingGenerator());
 
     public static final RegistrySupplier<Block> GLOWSHROOM_STEM = registerBlockItem("glowshroom_stem", ()->new BMMushroomBlock(properties(Material.GRASS, 0.2F).lightLevel((s)->7).sound(SoundType.FUNGUS)));
     public static final RegistrySupplier<Block> RED_MUSHROOM_BRICK = registerBlockItem("red_mushroom_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory RED_MUSHROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "red_mushroom_brick", RED_MUSHROOM_BRICK, properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory RED_MUSHROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "red_mushroom_brick", RED_MUSHROOM_BRICK, properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> BROWN_MUSHROOM_BRICK = registerBlockItem("brown_mushroom_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory BROWN_MUSHROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "brown_mushroom_brick", BROWN_MUSHROOM_BRICK, properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory BROWN_MUSHROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "brown_mushroom_brick", BROWN_MUSHROOM_BRICK, properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> PURPLE_GLOWSHROOM_BRICK = registerBlockItem("purple_glowshroom_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory PURPLE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "purple_glowshroom_brick", PURPLE_GLOWSHROOM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory PURPLE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "purple_glowshroom_brick", PURPLE_GLOWSHROOM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> GREEN_GLOWSHROOM_BRICK = registerBlockItem("green_glowshroom_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory GREEN_GLOWSROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "green_glowshroom_brick", GREEN_GLOWSHROOM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory GREEN_GLOWSROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "green_glowshroom_brick", GREEN_GLOWSHROOM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> ORANGE_GLOWSHROOM_BRICK = registerBlockItem("orange_glowshroom_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory ORANGE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "orange_glowshroom_brick", ORANGE_GLOWSHROOM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory ORANGE_GLOWSROOM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "orange_glowshroom_brick", ORANGE_GLOWSHROOM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->13).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> GLOWSHROOM_STEM_BRICK = registerBlockItem("glowshroom_stem_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).lightLevel((s)->7).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->7).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory GLOWSHROOM_STEM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "glowshroom_stem_brick", GLOWSHROOM_STEM_BRICK, properties(Material.GRASS, 0.8F).lightLevel((s)->7).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> MUSHROOM_STEM_BRICK = registerBlockItem("mushroom_stem_brick", ()->new TBlock(properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)));
-    public static final DecorationBlockFactory MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "mushroom_stem_brick", MUSHROOM_STEM_BRICK, properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)).all();
+    public static final DecorationBlockFactory MUSHROOM_STEM_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "mushroom_stem_brick", MUSHROOM_STEM_BRICK, properties(Material.GRASS, 0.8F).sound(SoundType.FUNGUS)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> BLIGHTED_COBBLESTONE = registerBlockItem("blighted_cobblestone", ()->new TBlock(properties(Material.STONE, 2).sound(SoundType.STONE).requiresCorrectToolForDrops()));
-    public static final DecorationBlockFactory BLIGHTED_COBBLESTONE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "blighted_cobblestone", BLIGHTED_COBBLESTONE, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
+    public static final DecorationBlockFactory BLIGHTED_COBBLESTONE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "blighted_cobblestone", BLIGHTED_COBBLESTONE, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> BLIGHTED_STONE_BRICKS = registerBlockItem("blighted_stone_bricks", ()->new TBlock(properties(Material.STONE, 2).sound(SoundType.STONE).requiresCorrectToolForDrops()));
-    public static final DecorationBlockFactory BLIGHTED_STONE_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "blighted_stone_bricks", BLIGHTED_STONE_BRICKS, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
+    public static final DecorationBlockFactory BLIGHTED_STONE_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "blighted_stone_bricks", BLIGHTED_STONE_BRICKS, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> PAYDIRT = registerBlockItem("paydirt", ()->new TBlock(properties(Material.DIRT, 1.4F).requiresCorrectToolForDrops().sound(SoundType.GRAVEL)));
 
     public static final RegistrySupplier<Block> TUMBLEWEED = BLOCKS.register(BiomeMakeover.ID("tumbleweed"), ()->new Block(properties(Material.PLANT, 0)));
@@ -116,8 +116,8 @@ public class BMBlocks
     public static final RegistrySupplier<Block> POLTERGEIST = registerBlockItem("poltergeist", ()->new PoltergeistBlock(properties(POLTERGEIST_MATERIAL, 1.0F).lightLevel((bs)->bs.getValue(PoltergeistBlock.ENABLED) ? 7 : 0).sound(SoundType.LODESTONE)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> ECTOPLASM_COMPOSTER = BLOCKS.register(BiomeMakeover.ID("ectoplasm_composter"), ()->new EctoplasmComposterBlock(properties(Material.WOOD, 0.6F).sound(SoundType.WOOD)));
 
-    public static WoodBlockFactory WILLOW_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "willow").all(()->BMBoats.WILLOW);
-    public static WoodBlockFactory SWAMP_CYPRESS_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "swamp_cypress").all(()->BMBoats.SWAMP_CYPRESS);
+    public static WoodBlockFactory WILLOW_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "willow").all(()->BMBoats.WILLOW).register(BLOCKS, BMItems.ITEMS);;
+    public static WoodBlockFactory SWAMP_CYPRESS_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "swamp_cypress").all(()->BMBoats.SWAMP_CYPRESS).register(BLOCKS, BMItems.ITEMS);;
 
     public static final RegistrySupplier<Block> WILLOWING_BRANCHES = registerBlockItem("willowing_branches", ()->new WillowingBranchesBlock(properties(Material.PLANT, 0.1F).randomTicks().sound(SoundType.VINE).noCollission().noOcclusion()).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), new FlammableModifier(15, 100)));
     public static final RegistrySupplier<Block> WILLOW_SAPLING = registerBlockItem("willow_sapling", ()->new WaterSaplingBlock(new WillowSaplingGenerator(), 1, properties(Material.PLANT, 0).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.CUTOUT));
@@ -127,11 +127,11 @@ public class BMBlocks
     public static final RegistrySupplier<Block> MOSSY_PEAT = registerBlockItem("mossy_peat", ()->new TSpreadableBlock(properties(Material.DIRT, 0.5F).randomTicks().sound(SoundType.WET_GRASS), PEAT));
     public static final RegistrySupplier<Block> PEAT_FARMLAND = registerBlockItem("peat_farmland", ()->new PeatFarmlandBlock(properties(Material.DIRT, 0.5F).sound(SoundType.WET_GRASS).randomTicks().noOcclusion()));
     public static final RegistrySupplier<Block> DRIED_PEAT_BRICKS = registerBlockItem("dried_peat_bricks", ()->new TBlock(properties(Material.STONE, 2).sound(SoundType.STONE).requiresCorrectToolForDrops()));
-    public static final DecorationBlockFactory DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "dried_peat_bricks", DRIED_PEAT_BRICKS, properties(Material.STONE, 2F).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
+    public static final DecorationBlockFactory DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "dried_peat_bricks", DRIED_PEAT_BRICKS, properties(Material.STONE, 2F).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> MOSSY_DRIED_PEAT_BRICKS = registerBlockItem("mossy_dried_peat_bricks", ()->new TBlock(properties(Material.STONE, 2).sound(SoundType.STONE).requiresCorrectToolForDrops()));
-    public static final DecorationBlockFactory MOSSY_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "mossy_dried_peat_brick", MOSSY_DRIED_PEAT_BRICKS, properties(Material.STONE, 2F).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
+    public static final DecorationBlockFactory MOSSY_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "mossy_dried_peat_brick", MOSSY_DRIED_PEAT_BRICKS, properties(Material.STONE, 2F).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> CRACKED_DRIED_PEAT_BRICKS = registerBlockItem("cracked_dried_peat_bricks", ()->new TBlock(properties(Material.STONE, 2).sound(SoundType.STONE).requiresCorrectToolForDrops()));
-    public static final DecorationBlockFactory CRACKED_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "cracked_dried_peat_brick", CRACKED_DRIED_PEAT_BRICKS, properties(Material.STONE, 2F).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
+    public static final DecorationBlockFactory CRACKED_DRIED_PEAT_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "cracked_dried_peat_brick", CRACKED_DRIED_PEAT_BRICKS, properties(Material.STONE, 2F).sound(SoundType.NETHERRACK).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> SWAMP_AZALEA = registerBlockItem("buttonbush", ()->new TTallFlowerBlock(properties(Material.PLANT, 0).noCollission().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.TALL_FLOWER));
     public static final RegistrySupplier<Block> MARIGOLD = registerBlockItem("marigold", ()->new TTallFlowerBlock(properties(Material.PLANT, 0).noCollission().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.TALL_FLOWER));
     public static final RegistrySupplier<Block> BLACK_THISTLE = registerBlockItem("black_thistle", ()->new BlackThistleBlock(properties(Material.PLANT, 0).noCollission().instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.TALL_FLOWER));
@@ -148,10 +148,10 @@ public class BMBlocks
     public static final RegistrySupplier<Block> ILLUNITE_CLUSTER = registerBlockItem("illunite_cluster", ()->new IlluniteClusterBlock(properties(Material.STONE, 0.5F).sound(ILLUNITE_SOUND).noOcclusion().hasPostProcess(BMBlocks::always).emissiveRendering(BMBlocks::always)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> ILLUNITE_BLOCK = registerBlockItem("illunite_block", ()->new TBlock(properties(Material.STONE, 1.5F).requiresCorrectToolForDrops().sound(ILLUNITE_SOUND)));
     public static final RegistrySupplier<Block> MESMERITE = registerBlockItem("mesmerite", ()->new TBlock(properties(Material.STONE, 1.5F)));
-    public static final DecorationBlockFactory MESMERITE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB,  "mesmerite", MESMERITE, properties(Material.STONE, 1.5F)).all();
+    public static final DecorationBlockFactory MESMERITE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "mesmerite", MESMERITE, properties(Material.STONE, 1.5F)).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> POLISHED_MESMERITE = registerBlockItem("polished_mesmerite", ()->new TBlock(properties(Material.STONE, 1.5F)));
-    public static final DecorationBlockFactory POLISHED_MESMERITE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "polished_mesmerite", POLISHED_MESMERITE, properties(Material.STONE, 1.5F)).all();
-    public static WoodBlockFactory ANCIENT_OAK_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "ancient_oak").all(()->BMBoats.ANCIENT_OAK);
+    public static final DecorationBlockFactory POLISHED_MESMERITE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "polished_mesmerite", POLISHED_MESMERITE, properties(Material.STONE, 1.5F)).all().register(BLOCKS, BMItems.ITEMS);;
+    public static WoodBlockFactory ANCIENT_OAK_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "ancient_oak").all(()->BMBoats.ANCIENT_OAK).register(BLOCKS, BMItems.ITEMS);;
 
     public static final RegistrySupplier<Block> ANCIENT_OAK_SAPLING = sapling("ancient_oak_sapling", new AncientOakSaplingGenerator());
     public static final RegistrySupplier<Block> ANCIENT_OAK_LEAVES = registerBlockItem("ancient_oak_leaves", ()->new TLeavesBlock(properties(Material.LEAVES, 0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating((a, b, c)->false).isViewBlocking((a, b, c)->false)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
@@ -196,26 +196,6 @@ public class BMBlocks
 
         createTerracottaBricks();
         createTapestries();
-
-        BLIGHTED_BALSA_WOOD_INFO.register(BLOCKS, BMItems.ITEMS);
-        WILLOW_WOOD_INFO.register(BLOCKS, BMItems.ITEMS);
-        SWAMP_CYPRESS_WOOD_INFO.register(BLOCKS, BMItems.ITEMS);
-        ANCIENT_OAK_WOOD_INFO.register(BLOCKS, BMItems.ITEMS);
-
-        RED_MUSHROOM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        BROWN_MUSHROOM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        PURPLE_GLOWSROOM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        GREEN_GLOWSROOM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        ORANGE_GLOWSROOM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        GLOWSHROOM_STEM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        MUSHROOM_STEM_BRICK_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        BLIGHTED_COBBLESTONE_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        BLIGHTED_STONE_BRICKS_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        DRIED_PEAT_BRICKS_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        MOSSY_DRIED_PEAT_BRICKS_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        CRACKED_DRIED_PEAT_BRICKS_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        MESMERITE_DECORATION.register(BLOCKS, BMItems.ITEMS);
-        POLISHED_MESMERITE_DECORATION.register(BLOCKS, BMItems.ITEMS);
 
         BLOCKS.register();
 
@@ -267,16 +247,13 @@ public class BMBlocks
 
 
         RegistrySupplier<Block> tBlock = registerBlockItem("terracotta_bricks", ()->new TBlock(properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
-        DecorationBlockFactory terracottaBrick = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, "terracotta_brick", tBlock, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
-        terracottaBrick.register(BLOCKS, BMItems.ITEMS);
+        DecorationBlockFactory terracottaBrick = new DecorationBlockFactory(Constants.MOD_ID, "terracotta_brick", tBlock, properties(Material.STONE, 2F).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
 
         for(DyeColor dye : DyeColor.values())
         {
             RegistrySupplier<Block> bl = registerBlockItem(dye.getName() + "_terracotta_bricks", ()->new TBlock(properties(Material.STONE, 2F).color(dye.getMaterialColor()).requiresCorrectToolForDrops().sound(SoundType.STONE)));
 
-            DecorationBlockFactory dec = new DecorationBlockFactory(Constants.MOD_ID, BiomeMakeover.TAB, dye.getName() + "_terracotta_brick", bl, properties(Material.STONE, 2F).color(dye.getMaterialColor()).requiresCorrectToolForDrops().sound(SoundType.STONE)).all();
-            dec.register(BLOCKS, BMItems.ITEMS);
-
+            DecorationBlockFactory dec = new DecorationBlockFactory(Constants.MOD_ID, dye.getName() + "_terracotta_brick", bl, properties(Material.STONE, 2F).color(dye.getMaterialColor()).requiresCorrectToolForDrops().sound(SoundType.STONE)).all().register(BLOCKS, BMItems.ITEMS);;
             BRICK_TO_TERRACOTTA.put(bl, vanillaTerracotta.get(dye));
         }
     }

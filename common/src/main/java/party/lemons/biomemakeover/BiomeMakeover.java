@@ -26,7 +26,7 @@ import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
 
 public class BiomeMakeover {
 
-    public static final CreativeModeTab TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM.get()));
+    public static final CreativeTabRegistry.TabSupplier TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM.get()));
 
     public static void init()
     {
