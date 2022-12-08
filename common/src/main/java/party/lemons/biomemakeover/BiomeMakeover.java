@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import party.lemons.biomemakeover.block.DirectionalDataBlock;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
+import party.lemons.biomemakeover.entity.CowboyEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.level.BMWorldEvents;
@@ -73,6 +74,7 @@ public class BiomeMakeover {
                 if(it.asItem() != Items.AIR && !(it instanceof DirectionalDataBlock) &&BuiltInRegistries.BLOCK.getKey(it).getNamespace().equals(Constants.MOD_ID))
                     CreativeTabRegistry.append(BiomeMakeover.TAB, it);
             });
+            CreativeTabRegistry.appendStack(BiomeMakeover.TAB, CowboyEntity.getOminousBanner());
 
             BMEntities.initSpawnsAndAttributes();
 
