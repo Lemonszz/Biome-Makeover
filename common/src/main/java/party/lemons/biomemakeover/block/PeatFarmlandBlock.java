@@ -13,10 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.taniwha.block.types.TFarmBlock;
 
 import java.util.Iterator;
 
-public class PeatFarmlandBlock extends FarmBlock
+public class PeatFarmlandBlock extends TFarmBlock
 {
     public  PeatFarmlandBlock(Properties properties) {
         super(properties);

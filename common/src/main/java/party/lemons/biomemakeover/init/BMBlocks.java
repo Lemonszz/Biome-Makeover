@@ -199,16 +199,10 @@ public class BMBlocks
 
         BLOCKS.register();
 
-        postRegister();
-
         DIRECTIONAL_DATA.listen((b)->{
             HoeItemHooks.addTillable(PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
             HoeItemHooks.addTillable(MOSSY_PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
         });
-    }
-
-    @ExpectPlatform
-    private static void postRegister() {
     }
 
     public static final Map<Block, RType> RTYPES = Maps.newHashMap();
@@ -280,7 +274,7 @@ public class BMBlocks
 
         RegistrySupplier<Block> adjWall = BLOCKS.register(BiomeMakeover.ID("adjudicator_wall_tapestry"), ()->new AdjudicatorTapestryWallBlock(properties(Material.WOOD, 1F).noCollission().sound(SoundType.WOOD).dropsLike(ADJUDICATOR_TAPESTRY.get())));
 
-        RegistrySupplier<Item> it = BMItems.ITEMS.register(BiomeMakeover.ID("adjudicator_tapestry"), ()->new StandingAndWallBlockItem(ADJUDICATOR_TAPESTRY.get(), adjWall.get(), new Item.Properties().stacksTo(16).rarity(Rarity.EPIC), Direction.DOWN));
+        RegistrySupplier<Item> it = ItemHelper.registerItem(BMItems.ITEMS, BiomeMakeover.ID("adjudicator_tapestry"), ()->new StandingAndWallBlockItem(ADJUDICATOR_TAPESTRY.get(), adjWall.get(), new Item.Properties().stacksTo(16).rarity(Rarity.EPIC), Direction.DOWN));
         initBlockItem(adjWall, it);
         initBlockItem(ADJUDICATOR_TAPESTRY, it);
 

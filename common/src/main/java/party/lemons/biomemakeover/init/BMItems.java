@@ -24,6 +24,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.item.*;
 import party.lemons.taniwha.item.ArmorBuilder;
+import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.item.types.FakeItem;
 import party.lemons.taniwha.item.types.TItem;
 import party.lemons.taniwha.item.types.TItemNameBlockItem;
@@ -48,7 +49,6 @@ public class BMItems
 
 
     public static final ArmorMaterial CLADDED_MATERIAL = new CladdedArmorMaterial();
-    public static final ArmorBuilder CLADDED_ARMOR_BUILDER = ArmorBuilder.create(CLADDED_MATERIAL).attribute("Armor Proj Res", BMEntities.ATT_PROJECTILE_RESISTANCE.get(), 1, AttributeModifier.Operation.ADDITION);
 
     public static final Supplier<Item> GLOWSHROOM_STEW = registerItem("glowshroom_stew", ()->new SuspiciousStewItem(properties().stacksTo(1).craftRemainder(Items.BOWL).food(GLOWSHROOM_SOUP_FOOD)));
     public static final Supplier<Item> GLOWFISH = registerItem("glowfish", ()->new Item(properties().food(GLOWFISH_FOOD)));
@@ -89,11 +89,6 @@ public class BMItems
     public static final Supplier<Item> STUNT_POWDER = registerItem("stunt_powder", ()->new StuntPowderItem(properties()));
     public static final Supplier<Item> CRUDE_CLADDING = registerItem("crude_cladding", ()->new Item(properties()));
 
-    public static final Supplier<Item> CLADDED_HELMET = registerItem("cladded_helmet", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.HEAD, properties()));
-    public static final Supplier<Item> CLADDED_CHESTPLATE = registerItem("cladded_chestplate", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.CHEST, properties()));
-    public static final Supplier<Item> CLADDED_LEGGINGS = registerItem("cladded_leggings",CLADDED_ARMOR_BUILDER.build(EquipmentSlot.LEGS, properties()));
-    public static final Supplier<Item> CLADDED_BOOTS = registerItem("cladded_boots", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.FEET, properties()));
-
     public static final Supplier<Item> ENCHANTED_TOTEM = registerItem("enchanted_totem", ()->new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1)));
 
     public static final Supplier<Item> BUTTON_MUSHROOMS_MUSIC_DISK = registerItem("button_mushrooms_music_disk", ()->new ArchitecturyRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE), 115));
@@ -124,6 +119,14 @@ public class BMItems
 
     public static void init() {
 
+        BMEntities.ATT_PROJECTILE_RESISTANCE.listen(a->{
+            ArmorBuilder CLADDED_ARMOR_BUILDER = ArmorBuilder.create(CLADDED_MATERIAL).attribute("Armor Proj Res", BMEntities.ATT_PROJECTILE_RESISTANCE.get(), 1, AttributeModifier.Operation.ADDITION);
+            Supplier<Item> CLADDED_HELMET = registerItem("cladded_helmet", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.HEAD, properties()));
+            Supplier<Item> CLADDED_CHESTPLATE = registerItem("cladded_chestplate", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.CHEST, properties()));
+            Supplier<Item> CLADDED_LEGGINGS = registerItem("cladded_leggings",CLADDED_ARMOR_BUILDER.build(EquipmentSlot.LEGS, properties()));
+            Supplier<Item> CLADDED_BOOTS = registerItem("cladded_boots", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.FEET, properties()));
+        });
+
         HELMIT_CRAB_SPAWN_EGG.listen((i)->{
             FuelRegistry.register(10000, BMBlocks.DRIED_PEAT.get().asItem());
         });
@@ -132,7 +135,7 @@ public class BMItems
     }
 
     private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item) {
-        return ITEMS.register(BiomeMakeover.ID(id), item);
+        return ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(id), item);
     }
 
 

@@ -5,17 +5,16 @@ import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.ReloadListenerRegistry;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
+import org.spongepowered.include.com.google.common.collect.Lists;
 import party.lemons.biomemakeover.block.DirectionalDataBlock;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
 import party.lemons.biomemakeover.entity.CowboyEntity;
@@ -24,6 +23,10 @@ import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.level.BMWorldEvents;
 import party.lemons.biomemakeover.mixin.PatrolSpawnerInvoker;
 import party.lemons.biomemakeover.util.loot.BMLootTableInjection;
+import party.lemons.taniwha.item.ItemHelper;
+import party.lemons.taniwha.item.types.FakeItem;
+
+import java.util.List;
 
 public class BiomeMakeover {
 
@@ -65,15 +68,13 @@ public class BiomeMakeover {
                 Item.BY_BLOCK.put(block.get(), item.get());
             });
 
-            BuiltInRegistries.ITEM.forEach(it->{
-                if(it != BMItems.ICON_ITEM.get() && BuiltInRegistries.ITEM.getKey(it).getNamespace().equals(Constants.MOD_ID))
-                    CreativeTabRegistry.append(BiomeMakeover.TAB, it);
-            });
+            for(RegistrySupplier<Item> item : ItemHelper.getItems(Constants.MOD_ID))
+            {
+                if(item.get() instanceof FakeItem || (item.get() instanceof BlockItem bi && bi.getBlock() == BMBlocks.DIRECTIONAL_DATA.get()))
+                    continue;
 
-            BuiltInRegistries.BLOCK.forEach(it->{
-                if(it.asItem() != Items.AIR && !(it instanceof DirectionalDataBlock) &&BuiltInRegistries.BLOCK.getKey(it).getNamespace().equals(Constants.MOD_ID))
-                    CreativeTabRegistry.append(BiomeMakeover.TAB, it);
-            });
+                CreativeTabRegistry.append(TAB, item.get());
+            }
             CreativeTabRegistry.appendStack(BiomeMakeover.TAB, CowboyEntity.getOminousBanner());
 
             BMEntities.initSpawnsAndAttributes();
