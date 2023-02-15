@@ -1,5 +1,6 @@
 package party.lemons.biomemakeover.mixin.mushroom;
 
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
@@ -11,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MushroomCow.class)
-public abstract class MushroomCowMixin extends Cow
+public abstract class MushroomCowMixin extends Entity
 {
     public MushroomCowMixin(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
