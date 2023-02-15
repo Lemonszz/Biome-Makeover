@@ -1,8 +1,6 @@
 package party.lemons.biomemakeover.mixin.mushroom;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,12 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MushroomCow.class)
-public abstract class MushroomCowMixin extends Entity
+public abstract class MushroomCowMixin
 {
-    public MushroomCowMixin(EntityType<? extends Cow> entityType, Level level) {
-        super(entityType, level);
-    }
-
     @Shadow public abstract MushroomCow.MushroomType getMushroomType();
 
     @Shadow protected abstract void setMushroomType(MushroomCow.MushroomType mushroomType);
@@ -26,7 +20,7 @@ public abstract class MushroomCowMixin extends Entity
     public void onContruct(EntityType<? extends MushroomCow> type, Level level, CallbackInfo cbi)
     {
         if(getMushroomType() != MushroomCow.MushroomType.BROWN)
-            if(this.random.nextBoolean())
+            if(((MushroomCow)(Object)this).getRandom().nextBoolean())
                 setMushroomType(MushroomCow.MushroomType.BROWN);
     }
 }
