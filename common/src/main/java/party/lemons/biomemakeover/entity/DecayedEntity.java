@@ -143,10 +143,10 @@ public class DecayedEntity extends Zombie
         {
             stopUsingItem();
             setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-            playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level.random.nextFloat() * 0.4F);
+            playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.random.nextFloat() * 0.4F);
         }else
         {
-            this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level.random.nextFloat() * 0.4F);
+            this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
             shieldDisableTime = Math.max((int) (13F + (amount * 3F)), shieldDisableTime);
         }
     }

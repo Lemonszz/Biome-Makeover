@@ -60,7 +60,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.COCOA, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0F);
-        tickCount += level.random.nextInt(10000);
+        tickCount += this.random.nextInt(10000);
     }
 
     public LightningBugEntity(Level level, boolean isAlternate)
@@ -200,7 +200,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
     public void tick()
     {
         super.tick();
-        if(this.hasOthersInGroup() && this.level.random.nextInt(200) == 1)
+        if(this.hasOthersInGroup() && this.random.nextInt(200) == 1)
         {
             List<LightningBugEntity> list = this.level.getEntitiesOfClass(LightningBugEntity.class, this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
             if(list.size() <= 1)
