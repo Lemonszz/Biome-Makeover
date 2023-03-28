@@ -147,7 +147,8 @@ public class ScuttlerEntity extends Animal {
 
     @Override
     public boolean isInvulnerableTo(DamageSource damageSource) {
-        if(damageSource == DamageSource.CACTUS) return true;
+        if(damageSource.is(BMEntities.SCUTTLER_IMMUNE_DAMAGE))
+            return true;
 
         return super.isInvulnerableTo(damageSource);
     }

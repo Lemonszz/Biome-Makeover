@@ -9,12 +9,15 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.ToadEntity;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class ToadRender extends MobRenderer<ToadEntity, ToadModel>
 {
@@ -69,10 +72,11 @@ public class ToadRender extends MobRenderer<ToadEntity, ToadModel>
         }
         public static void drawBox(PoseStack matrices, VertexConsumer vertexConsumer, float x1, float y1, float z1, float x2, float y2, float z2, int light, int overlay)
         {
-            ModelPart part = new ModelPart(List.of(new ModelPart.Cube(0, 30, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, 0, 0, 0, false, 64, 54)), new HashMap<>());
+            ModelPart part = new ModelPart(List.of(new ModelPart.Cube(0, 30, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, 0, 0, 0, false, 64, 54, ALL_VISIBLE)), new HashMap<>());
             part.render(matrices, vertexConsumer, light, overlay);
         }
 
+        private static final Set<Direction> ALL_VISIBLE = EnumSet.allOf(Direction.class);
         private static final ResourceLocation TEXTURE = BiomeMakeover.ID("textures/entity/toad_tounge.png");
     }
 }

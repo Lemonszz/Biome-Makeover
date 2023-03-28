@@ -29,7 +29,6 @@ import net.minecraft.world.entity.ai.util.AirRandomPos;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -43,12 +42,10 @@ import party.lemons.biomemakeover.init.BMEffects;
 
 import java.util.EnumSet;
 import java.util.Optional;
-import java.util.Random;
 
 public class MothEntity extends Monster
 {
     private static final EntityDataAccessor<Boolean> TARGETING = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
-
 
     public boolean hasPlayedLoop = false;
     private float currentPitch;
@@ -293,7 +290,7 @@ public class MothEntity extends Monster
 
         MoveToLightGoal() {
             super();
-            this.ticks = MothEntity.this.level.random.nextInt(10);
+            this.ticks = MothEntity.this.random.nextInt(10);
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 

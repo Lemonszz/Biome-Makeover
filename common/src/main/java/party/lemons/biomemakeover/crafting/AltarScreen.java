@@ -99,8 +99,8 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
         poseStack.mulPose(Axis.XP.rotationDegrees(180.0f));
         float o = Mth.lerp(delta, this.pageAngle, this.nextPageAngle) + 0.25f;
         float p = Mth.lerp(delta, this.pageAngle, this.nextPageAngle) + 0.75f;
-        o = (o - (float) Mth.fastFloor(o)) * 1.6f - 0.3f;
-        p = (p - (float) Mth.fastFloor(p)) * 1.6f - 0.3f;
+        o = (o - (float) Mth.floor(o)) * 1.6f - 0.3f;
+        p = (p - (float) Mth.floor(p)) * 1.6f - 0.3f;
         if (o < 0.0f) {
             o = 0.0f;
         }

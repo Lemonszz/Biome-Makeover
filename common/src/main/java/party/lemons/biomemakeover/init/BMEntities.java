@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
@@ -210,6 +211,10 @@ public class BMEntities
 
     public static final TagKey<EntityType<?>> LIGHTNING_BUG_TAG = TagKey.create(Registries.ENTITY_TYPE, BiomeMakeover.ID("lightning_bugs"));
     public static final TagKey<EntityType<?>> OWL_TARGETS = TagKey.create(Registries.ENTITY_TYPE, BiomeMakeover.ID("owl_targets"));
+
+    public static final TagKey<DamageType> GHOST_IMMUNE_DAMAGE = TagKey.create(Registries.DAMAGE_TYPE, BiomeMakeover.ID("ghost_immune_to"));
+    public static final TagKey<DamageType> SCUTTLER_IMMUNE_DAMAGE = TagKey.create(Registries.DAMAGE_TYPE, BiomeMakeover.ID("scuttler_immune_to"));
+    public static final TagKey<DamageType> TUMBLEWEED_IMMUNE_DAMAGE = TagKey.create(Registries.DAMAGE_TYPE, BiomeMakeover.ID("tumbleweed_immune_to"));
 
 
 }

@@ -27,6 +27,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMEffects;
+import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.level.PoltergeistHandler;
 
 import java.util.EnumSet;
@@ -237,7 +238,7 @@ public class GhostEntity extends Monster implements NeutralMob
     @Override
     public boolean isInvulnerableTo(DamageSource damageSource)
     {
-        if(damageSource == DamageSource.LAVA || damageSource == DamageSource.IN_WALL || damageSource == DamageSource.CACTUS || damageSource == DamageSource.DROWN || damageSource == DamageSource.SWEET_BERRY_BUSH || damageSource == DamageSource.HOT_FLOOR || damageSource == DamageSource.FLY_INTO_WALL || damageSource == DamageSource.FALL)
+        if(damageSource.is(BMEntities.GHOST_IMMUNE_DAMAGE))
             return true;
 
         return super.isInvulnerableTo(damageSource);

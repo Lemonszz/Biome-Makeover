@@ -22,7 +22,7 @@ public class BlackThistleBlock extends TTallFlowerBlock
     @Override
     public void entityInside(BlockState state, Level level, BlockPos blockPos, Entity entity) {
         if (entity instanceof LivingEntity && entity.getType() != BMEntities.ROOTLING && entity.getType() != BMEntities.OWL && entity.getType() != EntityType.BEE) {
-            if (!level.isClientSide() && state.getValue(HALF) == DoubleBlockHalf.UPPER  && !entity.isInvulnerableTo(DamageSource.WITHER)) {
+            if (!level.isClientSide() && state.getValue(HALF) == DoubleBlockHalf.UPPER  && !entity.isInvulnerableTo(level.damageSources().wither())) {
                 ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 110, 0));
             }
         }

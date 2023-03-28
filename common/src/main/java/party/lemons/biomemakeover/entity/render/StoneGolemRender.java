@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.StoneGolemEntity;
@@ -100,13 +101,13 @@ public class StoneGolemRender extends MobRenderer<StoneGolemEntity, StoneGolemMo
             if (!leftHand.isEmpty() || !rightHand.isEmpty()) {
                 poseStack.pushPose();
                 poseStack.translate(0, 0.5F, 0);
-                this.renderItem(entity, rightHand, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, poseStack, multiBufferSource, i);
-                this.renderItem(entity, leftHand, ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, poseStack, multiBufferSource, i);
+                this.renderItem(entity, rightHand, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, poseStack, multiBufferSource, i);
+                this.renderItem(entity, leftHand, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, poseStack, multiBufferSource, i);
                 poseStack.popPose();
             }
         }
 
-        private void renderItem(StoneGolemEntity entity, ItemStack stack, ItemTransforms.TransformType transformationMode, HumanoidArm arm, PoseStack poseStack, MultiBufferSource multiBufferSource, int light)
+        private void renderItem(StoneGolemEntity entity, ItemStack stack, ItemDisplayContext transformationMode, HumanoidArm arm, PoseStack poseStack, MultiBufferSource multiBufferSource, int light)
         {
             if (!stack.isEmpty()) {
                 poseStack.pushPose();

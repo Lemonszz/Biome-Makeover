@@ -92,7 +92,7 @@ public class MushroomVillagerEntity extends AbstractVillager {
     public boolean checkSpawnRules(LevelAccessor level, MobSpawnType mobSpawnType) {
         if(getY() > 56) return false;
 
-        return level.getEntitiesOfClass(MushroomVillagerEntity.class, new AABB(new BlockPos(getX(), getY(), getZ())).inflate(20), (e)->true).isEmpty() && super.checkSpawnRules(level, mobSpawnType);
+        return level.getEntitiesOfClass(MushroomVillagerEntity.class, new AABB(new BlockPos(getBlockX(), getBlockY(), getBlockZ())).inflate(20), (e)->true).isEmpty() && super.checkSpawnRules(level, mobSpawnType);
     }
 
     @Override

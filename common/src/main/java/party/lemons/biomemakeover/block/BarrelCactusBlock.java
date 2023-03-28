@@ -65,7 +65,7 @@ public class BarrelCactusBlock extends TBlock
         {
             if(entity instanceof ItemEntity && entity.tickCount < 30) return;
 
-            entity.hurt(DamageSource.CACTUS, 1.0F);
+            entity.hurt(level.damageSources().cactus(), 1.0F);
         }
         super.entityInside(blockState, level, blockPos, entity);
     }

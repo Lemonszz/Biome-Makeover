@@ -220,7 +220,7 @@ public final class OldQuat {
 	public void normalize() {
 		float f = this.i() * this.i() + this.j() * this.j() + this.k() * this.k() + this.r() * this.r();
 		if (f > 1.0E-6F) {
-			float g = Mth.fastInvSqrt(f);
+			float g = Mth.invSqrt(f);
 			this.i *= g;
 			this.j *= g;
 			this.k *= g;

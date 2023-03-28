@@ -103,7 +103,7 @@ public class LightningBottleEntity extends ThrowableItemProjectile
                         } else {
                             e.addEffect(new MobEffectInstance(BMPotions.SHOCKED.get(), 1000, Math.min(3, e.getEffect(BMPotions.SHOCKED.get()).getAmplifier() + 1)));
                         }
-                        e.hurt(DamageSource.indirectMagic(this, this.getOwner()), 0);
+                        e.hurt(level.damageSources().indirectMagic(this, this.getOwner()), 0);
                         if (getOwner() instanceof LivingEntity) {
                             e.setLastHurtByMob((LivingEntity) getOwner());
                         }

@@ -75,7 +75,7 @@ public class WaterTreeFeature extends Feature<TreeConfiguration> {
         return TreeFeature.isAirOrLeaves(levelSimulatedReader, blockPos) || isReplaceablePlant(levelSimulatedReader, blockPos) || isBlockWater(levelSimulatedReader, blockPos);
     }
 
-    private boolean doPlace(WorldGenLevel worldGenLevel, RandomSource randomSource, BlockPos blockPos, BiConsumer<BlockPos, BlockState> biConsumer, BiConsumer<BlockPos, BlockState> biConsumer2, BiConsumer<BlockPos, BlockState> biConsumer3, TreeConfiguration treeConfiguration) {
+    private boolean doPlace(WorldGenLevel worldGenLevel, RandomSource randomSource, BlockPos blockPos, BiConsumer<BlockPos, BlockState> biConsumer, BiConsumer<BlockPos, BlockState> biConsumer2, FoliagePlacer.FoliageSetter foliageSetter, TreeConfiguration treeConfiguration) {
         int i = treeConfiguration.trunkPlacer.getTreeHeight(randomSource);
         int j = treeConfiguration.foliagePlacer.foliageHeight(randomSource, i, treeConfiguration);
         int k = i - j;
@@ -95,9 +95,11 @@ public class WaterTreeFeature extends Feature<TreeConfiguration> {
             return false;
         }
         List<FoliagePlacer.FoliageAttachment> list = treeConfiguration.trunkPlacer.placeTrunk(worldGenLevel, biConsumer2, randomSource, o, blockPos2, treeConfiguration);
-        list.forEach(foliageAttachment -> treeConfiguration.foliagePlacer.createFoliage(worldGenLevel, biConsumer3, randomSource, treeConfiguration, o, foliageAttachment, j, l));
-        return true;
+        list.forEach((foliageAttachment) -> {
+            treeConfiguration.foliagePlacer.createFoliage(worldGenLevel, foliageSetter, randomSource, treeConfiguration, o, foliageAttachment, j, l);
+        });        return true;
     }
+
     private int getMaxFreeTreeHeight(LevelSimulatedReader levelSimulatedReader, int i, BlockPos blockPos, TreeConfiguration treeConfiguration) {
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (int j = 0; j <= i + 1; ++j) {
@@ -140,15 +142,21 @@ public class WaterTreeFeature extends Feature<TreeConfiguration> {
             set2.add(blockPos.immutable());
             worldGenLevel.setBlock(blockPos, blockState, 19);
         };
-        BiConsumer<BlockPos, BlockState> biConsumer3 = (blockPos, blockState) -> {
-            set3.add(blockPos.immutable());
-            worldGenLevel.setBlock(blockPos, blockState, 19);
+        FoliagePlacer.FoliageSetter foliageSetter = new FoliagePlacer.FoliageSetter() {
+            public void set(BlockPos blockPos, BlockState blockState) {
+                set3.add(blockPos.immutable());
+                worldGenLevel.setBlock(blockPos, blockState, 19);
+            }
+
+            public boolean isSet(BlockPos blockPos) {
+                return set3.contains(blockPos);
+            }
         };
         BiConsumer<BlockPos, BlockState> biConsumer4 = (blockPos, blockState) -> {
             set4.add(blockPos.immutable());
             worldGenLevel.setBlock(blockPos, blockState, 19);
         };
-        boolean bl = this.doPlace(worldGenLevel, randomSource, blockPos2, biConsumer, biConsumer2, biConsumer3, treeConfiguration);
+        boolean bl = this.doPlace(worldGenLevel, randomSource, blockPos2, biConsumer, biConsumer2, foliageSetter, treeConfiguration);
         if (!bl || set2.isEmpty() && set3.isEmpty()) {
             return false;
         }

@@ -22,7 +22,7 @@ public class TumbleweedSpawner
         groups.clear();
 
         for(ServerPlayer pl : level.getPlayers((p)->{
-            BlockPos pos = new BlockPos(p.position());
+            BlockPos pos = BlockPos.containing(p.position());
             return level.isLoaded(pos) && level.getBiome(pos).is(BMFeatures.HAS_TUMBLEWEED);
         }))
         {

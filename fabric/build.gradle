@@ -16,7 +16,7 @@ configurations {
 }
 
 loom {
-    accessWidenerPath.set(file("../common/src/main/resources/biomemakeover-common.accesswidener"))
+    accessWidenerPath.set(file("../common/src/main/resources/biomemakeover-common.accessWidener"))
 }
 
 repositories {

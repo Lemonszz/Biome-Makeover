@@ -19,6 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
@@ -77,14 +78,14 @@ public class AdjudicatorRender extends MobRenderer<AdjudicatorEntity, Adjudicato
             if (!leftHand.isEmpty() || !rightHand.isEmpty()) {
                 poseStack.pushPose();
                 poseStack.translate(0, 0.75F, 0);
-                this.renderArmWithItem(boss, rightHand, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, poseStack, multiBufferSource, i);
-                this.renderArmWithItem(boss, leftHand, ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, poseStack, multiBufferSource, i);
+                this.renderArmWithItem(boss, rightHand, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, HumanoidArm.RIGHT, poseStack, multiBufferSource, i);
+                this.renderArmWithItem(boss, leftHand, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, HumanoidArm.LEFT, poseStack, multiBufferSource, i);
                 poseStack.popPose();
             }
         }
 
         @Override
-        protected void renderArmWithItem(LivingEntity livingEntity, ItemStack stack, ItemTransforms.TransformType transformType, HumanoidArm humanoidArm, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
+        protected void renderArmWithItem(LivingEntity livingEntity, ItemStack stack, ItemDisplayContext transformType, HumanoidArm humanoidArm, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
             if (!stack.isEmpty()) {
                 poseStack.pushPose();
                 this.getParentModel().translateToHand(humanoidArm, poseStack);

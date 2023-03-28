@@ -143,7 +143,7 @@ public class HelmitCrabRender extends MobRenderer<HelmitCrabEntity, HelmitCrabMo
 			poseStack.translate(0, 1.15F, 0.1F);
 			poseStack.scale(scale, -scale, -scale);
 
-			itemInHandRenderer.renderItem(crab, shell, ItemTransforms.TransformType.HEAD, false, poseStack, mbSource, light);
+			itemInHandRenderer.renderItem(crab, shell, ItemDisplayContext.HEAD, false, poseStack, mbSource, light);
 		}
 
 		private void renderSkull(ItemStack shell, PoseStack poseStack, MultiBufferSource mbSource, int light, float limbAngle)

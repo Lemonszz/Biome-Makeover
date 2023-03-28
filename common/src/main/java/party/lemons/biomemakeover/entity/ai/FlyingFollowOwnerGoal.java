@@ -17,7 +17,7 @@ public class FlyingFollowOwnerGoal extends BetterFollowOwnerGoal {
 
     @Override
     protected void startFollowing() {
-        this.navigation.moveTo(this.owner, owner.isFallFlying() ? owner.flyingSpeed : speed);
+        this.navigation.moveTo(this.owner, owner.isFallFlying() ? 1.2F : speed);
     }
 
     @Override

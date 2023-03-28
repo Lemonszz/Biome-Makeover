@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import org.spongepowered.asm.mixin.Final;
@@ -26,7 +27,7 @@ public class BlockEntityWithoutLevelRendererMixin {
 
 
     @Inject(at = @At("HEAD"), method = "renderByItem", cancellable = true)
-    public void renderByItem(ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo cbi) {
+    public void renderByItem(ItemStack stack, ItemDisplayContext transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo cbi) {
         if(TAPESTRY == null)
             TAPESTRY = new TapestryBlockEntity(BlockPos.ZERO, BMBlocks.TAPESTRY_FLOOR_BLOCKS.get(0).get().defaultBlockState());
 

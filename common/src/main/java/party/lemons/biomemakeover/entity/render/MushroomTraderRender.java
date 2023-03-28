@@ -75,7 +75,7 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
         }
 
         public final int getPackedLightCoords(MushroomVillagerEntity entity, float f) {
-            BlockPos blockPos = new BlockPos(((Entity)entity).getLightProbePosition(f));
+            BlockPos blockPos = BlockPos.containing(entity.getLightProbePosition(f));
             return LightTexture.pack(this.getBlockLightLevel(entity, blockPos), this.getSkyLightLevel(entity, blockPos));
         }
 

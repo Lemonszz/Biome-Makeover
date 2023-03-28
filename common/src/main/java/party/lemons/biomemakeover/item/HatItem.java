@@ -17,7 +17,7 @@ public class HatItem extends ArmorItem
 
     public HatItem(ResourceLocation hatTexture, Properties properties)
     {
-        super(MATERIAL, EquipmentSlot.HEAD, properties);
+        super(MATERIAL, Type.HELMET, properties);
         this.hatTexture = hatTexture;
     }
 
@@ -29,12 +29,14 @@ public class HatItem extends ArmorItem
     public static class HatArmorMaterial implements ArmorMaterial
     {
         @Override
-        public int getDurabilityForSlot(EquipmentSlot equipmentSlot) {
-            return 300;
+        public int getDurabilityForType(Type type)
+        {
+            return 500;
         }
 
         @Override
-        public int getDefenseForSlot(EquipmentSlot equipmentSlot) {
+        public int getDefenseForType(Type type)
+        {
             return 2;
         }
 

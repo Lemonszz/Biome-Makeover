@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:lava",
+    "minecraft:in_wall",
+    "minecraft:cactus",
+    "minecraft:drown",
+    "minecraft:sweet_berry_bush",
+    "minecraft:hot_floor",
+    "minecraft:fly_into_wall",
+    "minecraft:fall"
+  ]
+}

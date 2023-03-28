@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -288,7 +289,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
             return true;
 
         //Don't hurt if phase is invulnerable phase
-        if(phase.isInvulnerable() && !damageSource.isBypassInvul())
+        if(phase.isInvulnerable() && !damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY))
             return true;
 
 

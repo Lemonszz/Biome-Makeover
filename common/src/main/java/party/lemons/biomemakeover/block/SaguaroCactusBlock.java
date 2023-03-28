@@ -180,7 +180,7 @@ public class SaguaroCactusBlock extends TBlock implements BonemealableBlock
 
     @Override
     public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity) {
-        entity.hurt(DamageSource.CACTUS, 1.0f);
+        entity.hurt(level.damageSources().cactus(), 1.0f);
     }
 
     @Override

@@ -33,29 +33,32 @@ public class WillowFoliagePlacer extends FoliagePlacer
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, TreeConfiguration treeConfiguration, int trunkHeight, FoliageAttachment attachment, int foliageHeight, int radius, int offset) {
+    protected void createFoliage(LevelSimulatedReader level, FoliageSetter foligateSetter, RandomSource random, TreeConfiguration treeConfiguration, int trunkHeight, FoliageAttachment attachment, int foliageHeight, int radius, int offset)
+    {
         BoundingBox box = new BoundingBox(attachment.pos());
+        int offsetValue = this.offset.sample(random);
+        int radiusValue = this.radius.sample(random);
 
-
-        for(int placeOffset = offset; placeOffset >= offset - foliageHeight; --placeOffset)
+        for(int placeOffset = offsetValue; placeOffset >= offsetValue - foliageHeight; --placeOffset)
         {
             int baseHeight;
             if(attachment.radiusOffset() > 0)
-                baseHeight = Math.max(radius + attachment.radiusOffset() - 1 - placeOffset / 2, 0);
-            else baseHeight = Math.max(radius + attachment.radiusOffset() - placeOffset / 2, 0);
+                baseHeight = Math.max(radiusValue + attachment.radiusOffset() - 1 - placeOffset / 2, 0);
+            else baseHeight = Math.max(radiusValue + attachment.radiusOffset() - placeOffset / 2, 0);
 
-            this.placeLeavesRow(level, biConsumer, random, treeConfiguration, attachment.pos(), baseHeight, placeOffset, attachment.doubleTrunk(), box);
+            this.placeLeavesRow(level, foligateSetter, random, treeConfiguration, attachment.pos(), baseHeight, placeOffset, attachment.doubleTrunk(), box);
         }
     }
 
-    protected void placeLeavesRow(LevelSimulatedReader levelSimulatedReader, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, TreeConfiguration treeConfiguration, BlockPos blockPos, int i, int j, boolean bl, BoundingBox box) {
+
+    protected void placeLeavesRow(LevelSimulatedReader levelSimulatedReader, FoliageSetter foliageSetter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos blockPos, int i, int j, boolean bl, BoundingBox box) {
         int k = bl ? 1 : 0;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (int l = -i; l <= i + k; ++l) {
             for (int m = -i; m <= i + k; ++m) {
                 if (this.shouldSkipLocationSigned(random, l, j, m, i, bl)) continue;
                 mutableBlockPos.setWithOffset(blockPos, l, j, m);
-                FoliagePlacer.tryPlaceLeaf(levelSimulatedReader, biConsumer, random, treeConfiguration, mutableBlockPos);
+                FoliagePlacer.tryPlaceLeaf(levelSimulatedReader, foliageSetter, random, treeConfiguration, mutableBlockPos);
 
                 box.encapsulate(new BlockPos(mutableBlockPos));
             }

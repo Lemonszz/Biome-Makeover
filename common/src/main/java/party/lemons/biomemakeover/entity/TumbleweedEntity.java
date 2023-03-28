@@ -16,6 +16,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
+import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.level.WindSystem;
 import party.lemons.biomemakeover.util.OldQuat;
 
@@ -136,7 +137,7 @@ public class TumbleweedEntity extends Entity
 
     @Override
     public boolean hurt(DamageSource damageSource, float f) {
-        if(damageSource != DamageSource.CACTUS)
+        if(!damageSource.is(BMEntities.TUMBLEWEED_IMMUNE_DAMAGE))
         {
             this.playSound(BMEffects.TUMBLEWEED_BREAK.get(), 0.25F, 1.0F);
             kill();

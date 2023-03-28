@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.entity.ai;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
@@ -31,10 +32,10 @@ public class FlyWanderGoal extends Goal
 
     public void start()
     {
-        Vec3 vec3d = this.getRandomLocation();
-        if(vec3d != null)
+        Vec3 location = this.getRandomLocation();
+        if(location != null)
         {
-            entity.getNavigation().moveTo(entity.getNavigation().createPath(new BlockPos(vec3d), 1), 1.0D);
+            entity.getNavigation().moveTo(entity.getNavigation().createPath(new BlockPos((int)location.x, (int)location.y, (int)location.z), 1), 1.0D);
         }
 
     }

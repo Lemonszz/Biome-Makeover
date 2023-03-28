@@ -121,10 +121,10 @@ public class BMItems
 
         BMEntities.ATT_PROJECTILE_RESISTANCE.listen(a->{
             ArmorBuilder CLADDED_ARMOR_BUILDER = ArmorBuilder.create(CLADDED_MATERIAL).attribute("Armor Proj Res", BMEntities.ATT_PROJECTILE_RESISTANCE.get(), 1, AttributeModifier.Operation.ADDITION);
-            Supplier<Item> CLADDED_HELMET = registerItem("cladded_helmet", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.HEAD, properties()));
-            Supplier<Item> CLADDED_CHESTPLATE = registerItem("cladded_chestplate", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.CHEST, properties()));
-            Supplier<Item> CLADDED_LEGGINGS = registerItem("cladded_leggings",CLADDED_ARMOR_BUILDER.build(EquipmentSlot.LEGS, properties()));
-            Supplier<Item> CLADDED_BOOTS = registerItem("cladded_boots", CLADDED_ARMOR_BUILDER.build(EquipmentSlot.FEET, properties()));
+            Supplier<Item> CLADDED_HELMET = registerItem("cladded_helmet", CLADDED_ARMOR_BUILDER.build(ArmorItem.Type.HELMET, properties()));
+            Supplier<Item> CLADDED_CHESTPLATE = registerItem("cladded_chestplate", CLADDED_ARMOR_BUILDER.build(ArmorItem.Type.CHESTPLATE, properties()));
+            Supplier<Item> CLADDED_LEGGINGS = registerItem("cladded_leggings",CLADDED_ARMOR_BUILDER.build(ArmorItem.Type.LEGGINGS, properties()));
+            Supplier<Item> CLADDED_BOOTS = registerItem("cladded_boots", CLADDED_ARMOR_BUILDER.build(ArmorItem.Type.BOOTS, properties()));
         });
 
         HELMIT_CRAB_SPAWN_EGG.listen((i)->{
@@ -147,14 +147,17 @@ public class BMItems
 
     private static class CladdedArmorMaterial implements ArmorMaterial
     {
+
         @Override
-        public int getDurabilityForSlot(EquipmentSlot equipmentSlot) {
-            return ArmorMaterials.IRON.getDurabilityForSlot(equipmentSlot);
+        public int getDurabilityForType(ArmorItem.Type type)
+        {
+            return ArmorMaterials.IRON.getDurabilityForType(type);
         }
 
         @Override
-        public int getDefenseForSlot(EquipmentSlot equipmentSlot) {
-            return ArmorMaterials.CHAIN.getDefenseForSlot(equipmentSlot);
+        public int getDefenseForType(ArmorItem.Type type)
+        {
+            return ArmorMaterials.CHAIN.getDefenseForType(type);
         }
 
         @Override

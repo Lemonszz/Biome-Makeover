@@ -13,7 +13,7 @@ import java.nio.file.Path;
 
 public class BMConfig
 {
-	public String info = "You've found the config file for Biome Makeover!. This mod is made to be customised via datapack, so options in here may be limited. We have added additional functionality to datapacks, so you may find what you're looking for in our docs.";
+	public String info = "You have found the config file for Biome Makeover!. This mod is made to be customised via datapack, so options in here may be limited. We have added additional functionality to datapacks, so you may find what you're looking for in our docs.";
 
 	public boolean strictAltarCursing = false;
 

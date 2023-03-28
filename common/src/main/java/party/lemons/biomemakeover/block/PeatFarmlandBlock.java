@@ -61,7 +61,7 @@ public class PeatFarmlandBlock extends TFarmBlock
         {
             setToPeat(level.getBlockState(pos), level, pos);
         }
-        entity.causeFallDamage(distance, 1.0F, DamageSource.FALL);
+        entity.causeFallDamage(distance, 1.0F, level.damageSources().fall());
     }
 
     public static void setToPeat(BlockState state, Level world, BlockPos pos)

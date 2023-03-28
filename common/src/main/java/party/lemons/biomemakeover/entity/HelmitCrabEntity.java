@@ -215,7 +215,7 @@ public class HelmitCrabEntity extends Animal
 			return true;
 		else if(currentShell.getItem() != Items.SHULKER_SHELL && itemStack.getItem() == Items.SHULKER_SHELL) //Take shulker shells as well
 			return true;
-		else if (itemStack.getItem() instanceof ArmorItem && ((ArmorItem) itemStack.getItem()).getSlot() == EquipmentSlot.HEAD) {
+		else if (itemStack.getItem() instanceof ArmorItem && ((ArmorItem) itemStack.getItem()).getType() == ArmorItem.Type.HELMET) {
 			if(currentShell.getItem() instanceof HatItem)  //If the current item is a hat, only swap if it's another hat
 			{
 				if(itemStack.getItem() instanceof HatItem)
@@ -295,7 +295,7 @@ public class HelmitCrabEntity extends Animal
 		if(isBaby())
 			return false;
 
-		if(item instanceof ArmorItem && ((ArmorItem)item).getSlot() == EquipmentSlot.HEAD)
+		if(item instanceof ArmorItem && ((ArmorItem)item).getType() == ArmorItem.Type.HELMET)
 			return true;
 
 		return item == Items.NAUTILUS_SHELL || item == Items.SHULKER_SHELL || (item instanceof BlockItem && ((BlockItem)item).getBlock() instanceof AbstractSkullBlock) || item == Blocks.CARVED_PUMPKIN.asItem();
@@ -493,7 +493,7 @@ public class HelmitCrabEntity extends Animal
 				this.move(MoverType.SELF, this.getDeltaMovement());
 				if (this.horizontalCollision && !this.level.isClientSide && (o = (float)((n = j - (m = this.getDeltaMovement().horizontalDistance())) * 10.0 - 3.0)) > 0.0f) {
 					this.playSound(o > 4 ? this.getFallSounds().big() : this.getFallSounds().small(), 1.0f, 1.0f);
-					this.hurt(DamageSource.FLY_INTO_WALL, o);
+					this.hurt(level.damageSources().flyIntoWall(), o);
 				}
 				if (this.onGround && !this.level.isClientSide) {
 					this.setSharedFlag(7, false);
@@ -521,7 +521,7 @@ public class HelmitCrabEntity extends Animal
 				}
 			}
 		}
-		this.calculateEntityAnimation(this, this instanceof FlyingAnimal);
+		this.calculateEntityAnimation(this instanceof FlyingAnimal);
 	}
 
 	@Override

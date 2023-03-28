@@ -308,9 +308,9 @@ public class DecayedEntity extends Zombie
         if (!this.level.isClientSide)
         {
             if(isInWater())
-                maxUpStep = 1;
+                setMaxUpStep(1);
             else
-                maxUpStep = 0.5F;
+                setMaxUpStep(0.5F);
 
             if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
                 this.navigation = this.waterNavigation;
