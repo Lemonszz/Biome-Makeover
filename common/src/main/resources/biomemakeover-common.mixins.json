@@ -15,6 +15,7 @@
   "mixins": [
     "AgeableMobMixin_Stuntable",
     "BeardifierMixin_Mansion",
+    "CamelMixin",
     "DarkOakTreeGrowerMixin_SingleTree",
     "EnchantmentHelperMixin",
     "GoalSelectorMixin",

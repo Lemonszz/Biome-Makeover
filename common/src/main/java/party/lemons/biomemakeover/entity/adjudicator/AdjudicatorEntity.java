@@ -303,7 +303,8 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
         lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), (it)->{
             ItemEntity item = spawnAtLocation(it);
-            item.setExtendedLifetime();
+            if(item != null)
+                item.setExtendedLifetime();
         });
     }
     

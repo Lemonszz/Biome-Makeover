@@ -1,6 +1,7 @@
 package party.lemons.biomemakeover.entity;
 
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
@@ -15,7 +16,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightningRodBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
@@ -111,6 +116,16 @@ public class LightningBottleEntity extends ThrowableItemProjectile
                         if (e.getHealth() > e.getMaxHealth()) e.setHealth(e.getMaxHealth());
                     }
                 }
+            }
+
+            if(hitResult instanceof BlockHitResult blockHitResult) {
+                BlockPos hitPos = blockPosition().relative(blockHitResult.getDirection().getOpposite());
+
+                BlockState blockState = this.level.getBlockState(hitPos);
+                if (blockState.is(Blocks.LIGHTNING_ROD)) {
+                    ((LightningRodBlock)blockState.getBlock()).onLightningStrike(blockState, this.level, hitPos);
+                }
+                LightningBolt.clearCopperOnLightningStrike(level, hitPos);
             }
             this.remove(RemovalReason.DISCARDED);
 

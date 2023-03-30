@@ -19,6 +19,9 @@ public class TumbleweedSpawner
 
     public static void update(ServerLevel level)
     {
+        if(!level.getGameRules().getBoolean(BMWorldEvents.RULE_TUMBLEWEED_SPAWNING))
+            return;
+
         groups.clear();
 
         for(ServerPlayer pl : level.getPlayers((p)->{
