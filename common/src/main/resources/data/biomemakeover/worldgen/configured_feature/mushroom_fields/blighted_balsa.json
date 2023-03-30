@@ -44,9 +44,14 @@
       "type": "minecraft:simple_state_provider"
     },
     "foliage_placer": {
-      "radius": 1,
+      "type": "minecraft:cherry_foliage_placer",
+      "corner_hole_chance": 1.0,
+      "hanging_leaves_chance": 0.3,
+      "hanging_leaves_extension_chance": 0.4,
+      "height": 4,
       "offset": 0,
-      "type": "minecraft:acacia_foliage_placer"
+      "radius": 2,
+      "wide_bottom_layer_hole_chance": 0.25
     }
   },
   "type": "minecraft:tree"

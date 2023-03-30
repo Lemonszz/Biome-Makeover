@@ -35,7 +35,7 @@ import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
 import party.lemons.biomemakeover.init.BMItems;
 
 @Mixin(Witch.class)
-public class WitchMixin_Quests extends Raider implements WitchQuestEntity
+public abstract class WitchMixin_Quests extends Raider implements WitchQuestEntity
 {
     @Shadow private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
     private Player customer;
@@ -215,11 +215,6 @@ public class WitchMixin_Quests extends Raider implements WitchQuestEntity
     @Override
     public void applyRaidBuffs(int i, boolean bl) {
 
-    }
-
-    @Override
-    public SoundEvent getCelebrateSound() {
-        return null;
     }
 
     protected WitchMixin_Quests(EntityType<? extends Raider> entityType, Level level) {
