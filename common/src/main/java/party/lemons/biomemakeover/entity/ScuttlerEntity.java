@@ -398,7 +398,7 @@ public class ScuttlerEntity extends Animal {
         public void start()
         {
             getEntityData().set(EATING, true);
-            eatTime = 20 + random.nextInt(40);
+            eatTime = 20;
         }
 
         @Override
