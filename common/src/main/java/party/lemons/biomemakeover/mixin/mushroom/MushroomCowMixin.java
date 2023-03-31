@@ -20,7 +20,7 @@ public abstract class MushroomCowMixin
     public void onContruct(EntityType<? extends MushroomCow> type, Level level, CallbackInfo cbi)
     {
         if(getMushroomType() != MushroomCow.MushroomType.BROWN)
-            if(level.random.nextBoolean())
+            if(((MushroomCow)(Object)this).getRandom().nextBoolean())
                 setMushroomType(MushroomCow.MushroomType.BROWN);
     }
 }
