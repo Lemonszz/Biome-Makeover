@@ -464,7 +464,7 @@ public class ScuttlerEntity extends Animal {
                 }
             }
             if(spots.isEmpty()) return null;
-            return spots.get(level.random.nextInt(spots.size()));
+            return spots.get(random.nextInt(spots.size()));
         }
     }
 }
