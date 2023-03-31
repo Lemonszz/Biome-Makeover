@@ -350,7 +350,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
             }
             if(spots.isEmpty()) return null;
 
-            BlockPos pos = spots.get(level.random.nextInt(spots.size()));
+            BlockPos pos = spots.get(random.nextInt(spots.size()));
             if(pos != null) targetState = level.getBlockState(pos);
 
             return pos;
