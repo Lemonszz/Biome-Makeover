@@ -373,4 +373,6 @@ public class BMBlocks
     public static final TagKey<Block> ORE_REPLACEABLE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("ore_replaceable"));
     public static final TagKey<Block> CRAB_SPAWNABLE_ON = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("crab_spawnable_on"));
     public static final TagKey<Block> FISSURE_NO_REPLACE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("fissure_no_replace"));
+    public static final TagKey<Block> BARREL_CACTUS_PLANTABLE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("barrel_cactus_plantable_on"));
+    public static final TagKey<Block> SAGUARO_CACTUS_PLANTABLE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("saguaro_cactus_plantable_on"));
 }

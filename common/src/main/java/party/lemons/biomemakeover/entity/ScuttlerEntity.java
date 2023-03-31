@@ -390,6 +390,7 @@ public class ScuttlerEntity extends Animal {
                 BlockState st = level.getBlockState(eatTarget);
                 if(st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                 {
+                    level.blockEvent(eatTarget, BMBlocks.BARREL_CACTUS.get(), 1, 0);
                     level.setBlock(eatTarget, BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 2);
                     Containers.dropItemStack(level, eatTarget.getX(), eatTarget.getY(), eatTarget.getZ(), new ItemStack(BMItems.PINK_PETALS.get()));
                 }

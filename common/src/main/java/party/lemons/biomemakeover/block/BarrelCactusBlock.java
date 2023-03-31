@@ -2,6 +2,8 @@ package party.lemons.biomemakeover.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import party.lemons.biomemakeover.init.BMBlocks;
@@ -39,7 +42,22 @@ public class BarrelCactusBlock extends TBlock
     @Override
     public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
         BlockState checkState = levelReader.getBlockState(blockPos.below());
-        return checkState.is(Blocks.SAND) || checkState.is(Blocks.RED_SAND) || checkState.is(Blocks.CACTUS) || checkState.is(BMBlocks.SAGUARO_CACTUS.get());
+        return checkState.is(BMBlocks.BARREL_CACTUS_PLANTABLE);
+    }
+
+    @Override
+    public boolean triggerEvent(BlockState blockState, Level level, BlockPos blockPos, int i, int j)
+    {
+        for(int m = 0; m < 15; m++)
+        {
+            int dirX = level.getRandom().nextInt(2) * 2 - 1;
+            int dirY = level.getRandom().nextInt(2) * 2 - 1;
+            int dirZ = level.getRandom().nextInt(2) * 2 - 1;
+
+            Vec3 pos = blockPos.getCenter();
+            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), pos.x + (dirX * 0.1F), (pos.y - 0.15F) + (dirY * 0.1F), pos.z + (dirZ * 0.1F), 0.0D, 0.0D, 0.0D);
+        }
+        return true;
     }
 
     @Override

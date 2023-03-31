@@ -25,6 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.taniwha.block.types.TBlock;
 
@@ -103,7 +104,7 @@ public class SaguaroCactusBlock extends TBlock implements BonemealableBlock
         }else
         {
             BlockState checkState = levelReader.getBlockState(blockPos.below());
-            return (checkState.is(this) || checkState.is(Blocks.SAND) || checkState.is(Blocks.RED_SAND)) && !levelReader.getBlockState(blockPos.above()).getMaterial().isLiquid();
+            return checkState.is(BMBlocks.SAGUARO_CACTUS_PLANTABLE) && !levelReader.getBlockState(blockPos.above()).getMaterial().isLiquid();
         }
 
         return super.canSurvive(state, levelReader, blockPos);
