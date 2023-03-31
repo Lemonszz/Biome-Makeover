@@ -293,7 +293,7 @@ public class MothEntity extends Monster
 
         MoveToLightGoal() {
             super();
-            this.ticks = MothEntity.this.level.random.nextInt(10);
+            this.ticks = MothEntity.this.random.nextInt(10);
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 

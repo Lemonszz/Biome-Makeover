@@ -9,6 +9,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -23,6 +24,8 @@ import party.lemons.biomemakeover.init.BMBlocks;
 import java.util.List;
 
 public final class BMWorldEvents {
+
+    public static final GameRules.Key<GameRules.BooleanValue> RULE_TUMBLEWEED_SPAWNING = GameRules.register("BMdoTumbleweedSpawning", GameRules.Category.SPAWNING, GameRules.BooleanValue.create(true));
 
     public static void init()
     {
