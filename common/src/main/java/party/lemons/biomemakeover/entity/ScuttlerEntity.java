@@ -378,7 +378,7 @@ public class ScuttlerEntity extends Animal {
                 {
                     level.setBlock(targetPos, BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 2);
                     Containers.dropItemStack(level, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETALS.get()));
-                    eatCooldown = 100 + random.nextInt(200);
+                    eatCooldown = 10 + random.nextInt(200);
                 }
             }
         }
@@ -391,7 +391,7 @@ public class ScuttlerEntity extends Animal {
             BlockState st = level.getBlockState(targetPos);
             if(!st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get())) return false;
 
-            return distanceToSqr(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 2;
+            return distanceToSqr(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 3;
         }
 
         @Override
