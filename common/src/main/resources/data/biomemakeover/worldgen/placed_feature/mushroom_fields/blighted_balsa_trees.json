@@ -6,6 +6,34 @@
       "type": "minecraft:rarity_filter"
     },
     {
+      "count": {
+        "distribution": [
+          {
+            "data": 1,
+            "weight": 1
+          },
+          {
+            "data": 2,
+            "weight": 3
+          },
+          {
+            "data": 3,
+            "weight": 3
+          },
+          {
+            "data": 4,
+            "weight": 3
+          },
+          {
+            "data": 5,
+            "weight": 2
+          }
+        ],
+        "type": "minecraft:weighted_list"
+      },
+      "type": "minecraft:count"
+    },
+    {
       "type": "minecraft:in_square"
     },
     {
