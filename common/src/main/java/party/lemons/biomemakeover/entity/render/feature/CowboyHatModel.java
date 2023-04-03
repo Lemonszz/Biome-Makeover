@@ -22,16 +22,15 @@ public class CowboyHatModel<T extends Entity> extends EntityModel<T> {
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(32, 32).mirror().addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 2.0F, 0.0F));
 
-        PartDefinition left = head.addOrReplaceChild("left", CubeListBuilder.create().texOffs(32, 46).addBox(0.0F, -2.0F, -8.0F, 0.12F, 2.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(6.0F, -6.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
+        PartDefinition left = head.addOrReplaceChild("left", CubeListBuilder.create().texOffs(32, 46).addBox(0.0F, -2.0F, -8.0F, 0.0F, 2.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(6.0F, -6.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
 
         PartDefinition main = head.addOrReplaceChild("main", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, 0.0F));
 
-        PartDefinition right = head.addOrReplaceChild("right", CubeListBuilder.create().texOffs(0, 46).addBox(0.0F, -2.0F, -8.0F, 0.12F, 2.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, -6.0F, 0.0F, 0.0F, 0.0F, -0.2618F));
+        PartDefinition right = head.addOrReplaceChild("right", CubeListBuilder.create().texOffs(0, 46).addBox(0.0F, -2.0F, -8.0F, 0.0F, 2.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, -6.0F, 0.0F, 0.0F, 0.0F, -0.2618F));
 
-        PartDefinition bone = head.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(0, 12).addBox(-8.0F, -30.0F, -8.0F, 16.0F, 0.12F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition bone = head.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(0, 12).addBox(-8.0F, -30.0F, -8.0F, 16.0F, 0.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
