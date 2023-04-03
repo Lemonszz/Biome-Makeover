@@ -29,6 +29,7 @@ public class BMTallMushroomBlock extends TTallFlowerBlock
 		this.dropBlock = dropBlock;
 	}
 
+	/*
 	@Override
 	public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
 		if(dropBlock != null && !level.isClientSide() && !player.getItemInHand(interactionHand).isEmpty() && player.getItemInHand(interactionHand).getItem() == Items.SHEARS)
@@ -57,6 +58,7 @@ public class BMTallMushroomBlock extends TTallFlowerBlock
 
 		return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
 	}
+	*/
 
 	@Override
 	protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
