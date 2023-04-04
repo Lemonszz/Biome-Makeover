@@ -3,164 +3,198 @@
   "pools": [
     {
       "rolls": {
-        "min": 1.0,
-        "max": 5.0,
-        "type": "minecraft:uniform"
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 6
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat"
+          "name": "minecraft:wheat",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 6,
+          "name": "minecraft:rotten_flesh",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
+                "min": 1,
+                "max": 3
               }
             }
-          ],
-          "name": "minecraft:rotten_flesh"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 6,
+          "name": "minecraft:paper",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
+                "min": 1,
+                "max": 4
               }
             }
-          ],
-          "name": "minecraft:paper"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 6,
+          "name": "minecraft:stick",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
               }
             }
-          ],
-          "name": "minecraft:stick"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 6,
+          "name": "minecraft:glass_bottle",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
+                "min": 1,
+                "max": 3
               }
             }
-          ],
-          "name": "minecraft:glass_bottle"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "minecraft:string",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
               }
             }
-          ],
-          "name": "minecraft:string"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "minecraft:cobweb",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
+                "min": 1,
+                "max": 3
               }
             }
-          ],
-          "name": "minecraft:cobweb"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "minecraft:wooden_shovel",
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1
               }
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 10,
+              "treasure": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.5
+                }
+              ]
             }
-          ],
-          "name": "minecraft:wooden_shovel"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "minecraft:stone_shovel",
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1
               }
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 10,
+              "treasure": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.5
+                }
+              ]
             }
-          ],
-          "name": "minecraft:stone_shovel"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "minecraft:iron_shovel",
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0,
+                "max": 1
               }
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 10,
+              "treasure": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.5
+                }
+              ]
             }
-          ],
-          "name": "minecraft:iron_shovel"
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 6,
+          "name": "minecraft:poisonous_potato",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
+                "min": 1,
+                "max": 4
               }
             }
-          ],
-          "name": "minecraft:poisonous_potato"
+          ]
         }
       ]
     }

@@ -140,6 +140,7 @@ public class BMEntities
 
         registerSpawn(BMFeatures.BADLANDS_BIOMES, SCUTTLER.get(), MobCategory.CREATURE, 4, 1, 2);
         SpawnPlacementsInvoker.callRegister(SCUTTLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttlerEntity::checkSpawnRules);
+        SpawnPlacementsInvoker.callRegister(GHOST.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostEntity::checkGhostSpawnRules);
 
         registerSpawn(BMFeatures.SWAMP_BIOMES, DECAYED.get(), MobCategory.MONSTER, 60, 1, 1);
         SpawnPlacementsInvoker.callRegister(DECAYED.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DecayedEntity::checkSpawnRules);

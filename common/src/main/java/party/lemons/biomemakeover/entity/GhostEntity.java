@@ -8,8 +8,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,6 +25,9 @@ import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -269,6 +274,30 @@ public class GhostEntity extends Monster implements NeutralMob
     {
         return getEntityData().get(IsCharging);
     }
+
+    public static boolean checkGhostSpawnRules(EntityType<GhostEntity> entityType, ServerLevelAccessor serverLevelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        return serverLevelAccessor.getDifficulty() != Difficulty.PEACEFUL
+                && isDarkEnoughToSpawnGhost(serverLevelAccessor, blockPos, randomSource)
+                && checkMobSpawnRules(entityType, serverLevelAccessor, mobSpawnType, blockPos, randomSource);
+    }
+
+    public static boolean isDarkEnoughToSpawnGhost(ServerLevelAccessor serverLevelAccessor, BlockPos blockPos, RandomSource randomSource) {
+        if (serverLevelAccessor.getBrightness(LightLayer.SKY, blockPos) > randomSource.nextInt(32)) {
+            return false;
+        } else {
+            DimensionType dimensionType = serverLevelAccessor.dimensionType();
+            int i = dimensionType.monsterSpawnBlockLightLimit();
+            if (i < 15 && serverLevelAccessor.getBrightness(LightLayer.BLOCK, blockPos) - 5F > i) {
+                return false;
+            } else {
+                int j = serverLevelAccessor.getLevel().isThundering()
+                        ? serverLevelAccessor.getMaxLocalRawBrightness(blockPos, 10)
+                        : serverLevelAccessor.getMaxLocalRawBrightness(blockPos);
+                return j <= dimensionType.monsterSpawnLightTest().sample(randomSource);
+            }
+        }
+    }
+
 
     class GhostMoveControl extends MoveControl
     {

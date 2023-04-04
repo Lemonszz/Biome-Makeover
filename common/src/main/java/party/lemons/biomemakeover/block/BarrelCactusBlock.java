@@ -19,6 +19,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.taniwha.block.types.TBlock;
 
 import java.util.Random;
@@ -63,7 +64,9 @@ public class BarrelCactusBlock extends TBlock
     public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity) {
         if(!entity.isSteppingCarefully())
         {
-            if(entity instanceof ItemEntity && entity.tickCount < 30) return;
+            if(entity instanceof ItemEntity itemEntity)
+                if(entity.tickCount < 120 || itemEntity.getItem().is(BMItems.BARREL_CACTUS_IMMUNE))
+                    return;
 
             entity.hurt(level.damageSources().cactus(), 1.0F);
         }

@@ -221,7 +221,7 @@
     {
       "weight": 15,
       "element": {
-        "location": "biomemakeover:ghosttown/decoration/water_tower_1",
+        "location": "biomemakeover:ghosttown/decoration/water_tower_2",
         "processors": "biomemakeover:ghosttown_building",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
