@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:mesmerite",
+    "minecraft:budding_illunite",
+    "minecraft:illunite_block",
+    "minecraft:air"
+  ]
+}

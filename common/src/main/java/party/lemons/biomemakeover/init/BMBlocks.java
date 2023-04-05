@@ -145,8 +145,13 @@ public class BMBlocks
     public static final RegistrySupplier<Block> SWAMP_CYPRESS_LEAVES = registerBlockItem("swamp_cypress_leaves", ()->new TLeavesBlock(properties(Material.LEAVES, 0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating((a, b, c)->false).isViewBlocking((a, b, c)->false)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
     public static final RegistrySupplier<Block> LIGHTNING_BUG_BOTTLE = registerBlockItem("lightning_bug_bottle", ()->new LightningBugBottleBlock(properties(Material.STONE, 0.5F).lightLevel((b)->15).noOcclusion()).modifiers(RTypeModifier.CUTOUT));
 
-    public static final RegistrySupplier<Block> ILLUNITE_CLUSTER = registerBlockItem("illunite_cluster", ()->new IlluniteClusterBlock(properties(Material.STONE, 0.5F).sound(ILLUNITE_SOUND).noOcclusion().hasPostProcess(BMBlocks::always).emissiveRendering(BMBlocks::always)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> ILLUNITE_CLUSTER = registerBlockItem("illunite_cluster", ()->new IlluniteClusterBlock(7, 3, properties(Material.STONE, 0.5F).sound(ILLUNITE_SOUND).noOcclusion().hasPostProcess(BMBlocks::always).emissiveRendering(BMBlocks::always)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> LARGE_ILLUNITE_BUD = registerBlockItem("large_illunite_bud", ()->new IlluniteClusterBlock(5, 3, properties(Material.STONE, 0.5F).sound(ILLUNITE_SOUND).noOcclusion().hasPostProcess(BMBlocks::always).emissiveRendering(BMBlocks::always)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> MEDIUM_ILLUNITE_BUD = registerBlockItem("medium_illunite_bud", ()->new IlluniteClusterBlock(4, 3, properties(Material.STONE, 0.5F).sound(ILLUNITE_SOUND).noOcclusion().hasPostProcess(BMBlocks::always).emissiveRendering(BMBlocks::always)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> SMALL_ILLUNITE_BUD = registerBlockItem("small_illunite_bud", ()->new IlluniteClusterBlock(3, 4, properties(Material.STONE, 0.5F).sound(ILLUNITE_SOUND).noOcclusion().hasPostProcess(BMBlocks::always).emissiveRendering(BMBlocks::always)).modifiers(RTypeModifier.CUTOUT));
+
     public static final RegistrySupplier<Block> ILLUNITE_BLOCK = registerBlockItem("illunite_block", ()->new TBlock(properties(Material.STONE, 1.5F).requiresCorrectToolForDrops().sound(ILLUNITE_SOUND)));
+    public static final RegistrySupplier<Block> BUDDING_ILLUNITE = registerBlockItem("budding_illunite", ()->new BuddingIlluniteBlock(properties(Material.STONE, 1.5F).noLootTable().randomTicks().sound(ILLUNITE_SOUND)));
     public static final RegistrySupplier<Block> MESMERITE = registerBlockItem("mesmerite", ()->new TBlock(properties(Material.STONE, 1.5F)));
     public static final DecorationBlockFactory MESMERITE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "mesmerite", MESMERITE, properties(Material.STONE, 1.5F), BiomeMakeover.TAB).all().register(BLOCKS, BMItems.ITEMS);;
     public static final RegistrySupplier<Block> POLISHED_MESMERITE = registerBlockItem("polished_mesmerite", ()->new TBlock(properties(Material.STONE, 1.5F)));
@@ -366,4 +371,5 @@ public class BMBlocks
     public static final TagKey<Block> ITCHING_IVY_TAG = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("itching_ivy"));
     public static final TagKey<Block> ORE_REPLACEABLE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("ore_replaceable"));
     public static final TagKey<Block> CRAB_SPAWNABLE_ON = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("crab_spawnable_on"));
+    public static final TagKey<Block> FISSURE_NO_REPLACE = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("fissure_no_replace"));
 }

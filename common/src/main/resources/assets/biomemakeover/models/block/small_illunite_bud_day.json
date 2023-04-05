@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "biomemakeover:block/small_illunite_bud_day"
+  }
+}
