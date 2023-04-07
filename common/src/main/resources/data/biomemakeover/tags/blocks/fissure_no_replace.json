@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "minecraft:mesmerite",
-    "minecraft:budding_illunite",
-    "minecraft:illunite_block",
+    "biomemakeover:mesmerite",
+    "biomemakeover:budding_illunite",
+    "biomemakeover:illunite_block",
     "minecraft:air"
   ]
 }
