@@ -18,6 +18,8 @@ import net.minecraft.world.level.storage.loot.providers.number.BinomialDistribut
 import org.spongepowered.include.com.google.common.collect.Lists;
 import party.lemons.biomemakeover.block.DirectionalDataBlock;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
+import party.lemons.biomemakeover.crafting.witch.data.reward.QuestRewardItem;
+import party.lemons.biomemakeover.crafting.witch.data.reward.RewardTableReloadListener;
 import party.lemons.biomemakeover.entity.CowboyEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
@@ -51,11 +53,13 @@ public class BiomeMakeover {
         BMAdvancements.init();
         BMEnchantments.init();
         BMBoats.init();
+        QuestRewardItem.init();
 
         AdjudicatorRoomListener.init();
         BMWorldEvents.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new QuestCategoryReloadListener());
+        ReloadListenerRegistry.register(PackType.SERVER_DATA, new RewardTableReloadListener());
 
         //TODO: Find somewhere else for this
         CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> dispatcher.register(Commands.literal("pillager").requires((serverCommandSource)->serverCommandSource.hasPermission(2)).then(Commands.argument("pos", BlockPosArgument.blockPos()).then(Commands.argument("leader", BoolArgumentType.bool()).executes(c->

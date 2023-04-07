@@ -1,0 +1,42 @@
+{
+  "weights": {
+    "common": 1,
+    "uncommon": 10,
+    "rare": 50,
+    "epic": 100
+  },
+  "rewards": [
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:adrenaline"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:assassin"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:darkness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:dolphin_master"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:liquid_bread"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:phantom_spirit"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:light_footed"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:miner"
+    }
+  ]
+}

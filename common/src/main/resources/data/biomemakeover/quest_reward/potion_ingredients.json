@@ -1,0 +1,64 @@
+{
+  "weights": {
+    "common": 150,
+    "uncommon": 120,
+    "rare": 0,
+    "epic": 0
+  },
+  "rewards": [
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:fermented_spider_eye",
+      "min": 6,
+      "max": 20
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:redstone",
+      "min": 12,
+      "max": 32
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:glowstone_dust",
+      "min": 5,
+      "max": 25
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:gunpowder",
+      "min": 5,
+      "max": 25
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:spider_eye",
+      "min": 5,
+      "max": 32
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:glistering_melon_slice",
+      "min": 5,
+      "max": 15
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "biomemakeover:soul_embers",
+      "min": 3,
+      "max": 5
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:ghast_tear",
+      "min": 1,
+      "max": 10
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:rabbit_foot",
+      "min": 1,
+      "max": 20
+    }
+  ]
+}

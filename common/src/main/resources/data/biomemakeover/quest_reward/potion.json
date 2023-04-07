@@ -1,0 +1,180 @@
+{
+  "weights": {
+    "common": 10,
+    "uncommon": 75,
+    "rare": 100,
+    "epic": 0
+  },
+  "rewards": [
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:night_vision"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_night_vision"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:invisibility"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_invisibility"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:leaping"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_leaping"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_leaping"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:fire_resistance"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_fire_resistance"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:swiftness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_swiftness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_swiftness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:slowness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_slowness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_slowness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:turtle_master"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_turtle_master"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_turtle_master"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:water_breathing"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_water_breathing"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:healing"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_healing"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:harming"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_harming"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:poison"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_poison"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_poison"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:regeneration"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_regeneration"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_regeneration"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strength"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_strength"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:strong_strength"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:weakness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_weakness"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:luck"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:slow_falling"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "minecraft:long_slow_falling"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:actidote_pot"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:nocturnal_pot"
+    },
+    {
+      "type": "biomemakeover:potion",
+      "potion": "biomemakeover:long_nocturnal_pot"
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "biomemakeover:swamp_jives_music_disk",
+      "min": 1,
+      "max": 1
+    }
+  ]
+}

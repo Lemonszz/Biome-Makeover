@@ -6,6 +6,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
+import party.lemons.biomemakeover.crafting.witch.data.reward.RewardTables;
 import party.lemons.biomemakeover.network.S2C_HandleWitchQuests;
 import party.lemons.taniwha.util.collections.WeightedList;
 
@@ -17,7 +18,7 @@ public class WitchQuestHandler
     {
         QuestRarity rarity = QuestRarity.getRarityFromQuest(quest);
 
-        return rarity.rewards.sample(random).pickRandom(random);
+        return RewardTables.getTable(rarity, random).getReward(random).getReward(random);
     }
 
     public static WitchQuest createQuest(RandomSource random)
