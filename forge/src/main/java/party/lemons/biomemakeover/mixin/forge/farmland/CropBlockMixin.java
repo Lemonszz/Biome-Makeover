@@ -24,9 +24,10 @@ public class CropBlockMixin
 
     }
 
+    /*
     @Redirect(at = @At(value = "INVOKE", target = "net/minecraft/world/level/block/state/BlockState.is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0), method = "getGrowthSpeed")
     private static boolean isFarmland(BlockState blockState, Block block)
     {
         return blockState.is(Blocks.FARMLAND) || blockState.is(BMBlocks.PEAT_FARMLAND.get());
-    }
+    }*/
 }

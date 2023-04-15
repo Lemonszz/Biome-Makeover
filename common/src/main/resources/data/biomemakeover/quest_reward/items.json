@@ -20,7 +20,7 @@
     },
     {
       "type": "biomemakeover:item",
-      "item": "minecraft:gunpowser",
+      "item": "minecraft:gunpowder",
       "min": 2,
       "max": 10
     },

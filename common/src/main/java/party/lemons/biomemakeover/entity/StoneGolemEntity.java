@@ -333,6 +333,12 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     }
 
     @Override
+    public void onClientRemoval()
+    {
+        removeParts();
+    }
+
+    @Override
     public void knockback(double d, double e, double f) {
 
     }

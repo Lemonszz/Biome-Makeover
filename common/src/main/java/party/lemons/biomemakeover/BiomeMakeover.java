@@ -75,7 +75,7 @@ public class BiomeMakeover {
 
             for(RegistrySupplier<Item> item : ItemHelper.getItems(Constants.MOD_ID))
             {
-                if(item.get() instanceof FakeItem || (item.get() instanceof BlockItem bi && bi.getBlock() == BMBlocks.DIRECTIONAL_DATA.get()))
+                if(item.get() instanceof FakeItem || (item.get() instanceof BlockItem bi && bi.getBlock() == BMBlocks.DIRECTIONAL_DATA.get()) || BMItems.HIDDEN_ITEMS.contains(item))
                     continue;
 
                 CreativeTabRegistry.append(TAB, item.get());

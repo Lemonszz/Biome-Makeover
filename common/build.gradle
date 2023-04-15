@@ -9,7 +9,7 @@ architectury {
 
 dependencies {
     modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
-        transitive = false
+        transitive = true
     }
 }
 

@@ -32,6 +32,12 @@ public class PeatFarmlandBlock extends TFarmBlock
     }
 
     @Override
+    public boolean isFarmlandMoist(BlockState state)
+    {
+        return super.isFarmlandMoist(state);
+    }
+
+    @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int i = state.getValue(MOISTURE);
         if(!isWaterNearby(level, pos) && !level.isRainingAt(pos.above()))

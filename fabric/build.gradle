@@ -35,10 +35,10 @@ dependencies {
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
     include("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
     modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
 
 

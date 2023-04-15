@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "biomemakeover:block/ferrous_paydirt_flecks"
-  }
-}

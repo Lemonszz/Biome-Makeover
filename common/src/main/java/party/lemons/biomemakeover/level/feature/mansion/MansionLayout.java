@@ -261,7 +261,7 @@ public class MansionLayout
         MansionRoom dungeonStairs;
         do{
             dungeonStairs = allRooms.get(random.nextInt(allRooms.size()));
-        }while(dungeonStairs.getPosition().getY() != 0 || !dungeonStairs.getRoomType().isReplaceable());
+        }while(dungeonStairs.getPosition().getY() != 0 || !dungeonStairs.getRoomType().isReplaceable()); //TODO: there's a lot of references to y == 0 in this class. Could this be the old 1.16 world limit? Change to Level.MIN_HEIGHT or w/e
         dungeonStairs.setRoomType(RoomType.DUNGEON_STAIRS_TOP);
 
         //See how many stairs down we need until we get to a reasonable level.

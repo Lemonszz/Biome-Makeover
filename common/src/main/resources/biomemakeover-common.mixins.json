@@ -32,6 +32,7 @@
     "WaterlilyBlockMixin",
     "WitchMixin_Antidote",
     "WitchMixin_Quests",
+    "additional_loot.PillagerMixin",
     "badlands.HorseMixin",
     "enchantment.BowItemMixin",
     "enchantment.EntityMixin",

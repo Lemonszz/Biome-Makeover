@@ -50,7 +50,6 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     public static final EntityDataAccessor<Boolean> HAS_FLOWER = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FLOWER_TYPE = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.INT);
-    public static final Supplier<Item>[] PETAL_ITEMS = new Supplier[]{BMItems.BLUE_PETALS, BMItems.BROWN_PETALS, BMItems.CYAN_PETALS, BMItems.GRAY_PETALS, BMItems.LIGHT_BLUE_PETALS, BMItems.PURPLE_PETALS,};
 
     private boolean hasAction = false;
     public RootlingEntity forcedDancePartner = null;
@@ -97,7 +96,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
             if(growTime > 0)
             {
                 growTime--;
-                if(isInWater() && random.nextInt(5) == 0)
+                if(isInWaterOrRain() && random.nextInt(5) == 0)
                     growTime--;
                 if(growTime <= 0 && !hasFlower())
                     setFlowered(true);
@@ -201,7 +200,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
                 randomizeFlower();
             }else
             {
-                EntityUtil.scatterItemStack(this, new ItemStack(PETAL_ITEMS[getEntityData().get(FLOWER_TYPE)].get(), RandomUtil.randomRange(1, 4)));
+                EntityUtil.scatterItemStack(this, new ItemStack(BMItems.ROOTLING_PETALS.get(getEntityData().get(FLOWER_TYPE)).get(), RandomUtil.randomRange(1, 4)));
             }
         }
     }
@@ -248,7 +247,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     public void randomizeFlower()
     {
-        getEntityData().set(FLOWER_TYPE, random.nextInt(PETAL_ITEMS.length));
+        getEntityData().set(FLOWER_TYPE, random.nextInt(BMItems.ROOTLING_PETALS.size()));
     }
 
     @Override

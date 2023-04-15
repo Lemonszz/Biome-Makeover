@@ -28,10 +28,10 @@ dependencies {
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
     modApi("party.lemons:taniwha-forge:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
     include("party.lemons:taniwha-forge:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
