@@ -84,7 +84,7 @@ public class BMFeatures {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("mushroom_fields/underground_huge_glowshrooms"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("mushroom_fields/tall_brown_mushrooms"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("mushroom_fields/tall_red_mushrooms"));
-            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("dark_forest/wild_mushrooms"));
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("mushroom_fields/wild_mushrooms"));
         });
 
         BiomeModifications.addProperties(biomeContext -> biomeContext.hasTag(BADLANDS_BIOMES), (biomeContext, mutable) -> {
@@ -109,13 +109,14 @@ public class BMFeatures {
         });
 
         BiomeModifications.addProperties(biomeContext -> biomeContext.hasTag(DARK_FOREST_BIOMES), (biomeContext, mutable) -> {
-            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("dark_forest/wild_mushrooms"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("dark_forest/grass"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("dark_forest/tall_grass"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("dark_forest/flowers"));
 
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, key("dark_forest/itching_ivy"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, key("dark_forest/trees"));
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, key("dark_forest/wild_mushrooms"));
+
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, key("dark_forest/mesmerite_fissure"));
         });
     }

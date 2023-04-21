@@ -1,14 +1,14 @@
 {
   "config": {
-    "tries": 12,
-    "xz_spread": 7,
+    "tries": 8,
+    "xz_spread": 6,
     "y_spread": 3,
     "feature": {
       "feature": {
         "config": {
           "to_place": {
             "state": {
-              "Name": "biomemakover:wild_mushrooms"
+              "Name": "biomemakeover:wild_mushrooms"
             },
             "type": "minecraft:simple_state_provider"
           }

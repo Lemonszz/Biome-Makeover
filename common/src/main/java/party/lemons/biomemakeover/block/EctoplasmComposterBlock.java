@@ -11,6 +11,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -58,7 +59,7 @@ public class EctoplasmComposterBlock extends ComposterBlock
             return InteractionResult.sidedSuccess(level.isClientSide());
         }else if(currentLevel == 8)
         {
-            emptyFullComposter(level, pos);
+            emptyFullComposter(level, pos, new ItemStack(Blocks.SOUL_SOIL));
             if(!level.isClientSide())
                 BMAdvancements.ECTOPLASM_COMPOST.trigger((ServerPlayer) player);
 
@@ -69,7 +70,7 @@ public class EctoplasmComposterBlock extends ComposterBlock
         }
     }
 
-    public static void emptyFullComposter(Level level, BlockPos pos)
+    public static void emptyFullComposter(Level level, BlockPos pos, ItemStack stack)
     {
         if(!level.isClientSide())
         {
@@ -77,7 +78,7 @@ public class EctoplasmComposterBlock extends ComposterBlock
             double offsetX = (double) (level.random.nextFloat() * offset) + 0.15D;
             double offsetY = (double) (level.random.nextFloat() * offset) + 0.06D + 0.6D;
             double offsetZ = (double) (level.random.nextFloat() * offset) + 0.15D;
-            ItemEntity itemEntity = new ItemEntity(level, (double) pos.getX() + offsetX, (double) pos.getY() + offsetY, (double) pos.getZ() + offsetZ, new ItemStack(Blocks.SOUL_SOIL));
+            ItemEntity itemEntity = new ItemEntity(level, (double) pos.getX() + offsetX, (double) pos.getY() + offsetY, (double) pos.getZ() + offsetZ, stack);
             itemEntity.setDefaultPickUpDelay();
             level.addFreshEntity(itemEntity);
         }
@@ -110,6 +111,7 @@ public class EctoplasmComposterBlock extends ComposterBlock
         private boolean dirty = false;
         private LevelAccessor level;
         private BlockPos pos;
+        private final Item item;
 
         public FullComposterContainer(LevelAccessor level, BlockPos pos, ItemStack stack)
         {
@@ -117,6 +119,7 @@ public class EctoplasmComposterBlock extends ComposterBlock
 
             this.level = level;
             this.pos = pos;
+            this.item = stack.getItem();
         }
 
         @Override
@@ -136,7 +139,7 @@ public class EctoplasmComposterBlock extends ComposterBlock
 
         @Override
         public boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction dir) {
-            return !dirty && dir == Direction.DOWN && itemStack.getItem() == Items.SOUL_SOIL;
+            return !dirty && dir == Direction.DOWN && itemStack.getItem() == item;
         }
 
         @Override

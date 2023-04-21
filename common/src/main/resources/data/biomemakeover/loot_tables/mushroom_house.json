@@ -1,0 +1,92 @@
+{
+  "pools": [
+    {
+      "rolls": 8,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brown_mushroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_mushroom"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:button_mushrooms_music_disk"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 5,
+        "max": 9
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:glowshroom_stew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:glowfish",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:cooked_glowfish",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:green_glowshroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:purple_glowshroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:orange_glowshroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:tall_brown_mushroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:tall_red_mushroom"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "biomemakeover:blighted_balsa_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:mushroom_stew"
+        }
+      ]
+    }
+  ]
+}

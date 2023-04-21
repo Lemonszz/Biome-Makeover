@@ -111,6 +111,7 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> POLTERGEIST = registerBlockItem("poltergeist", ()->new PoltergeistBlock(properties(POLTERGEIST_MATERIAL, 1.0F).lightLevel((bs)->bs.getValue(PoltergeistBlock.ENABLED) ? 7 : 0).sound(SoundType.LODESTONE)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> ECTOPLASM_COMPOSTER = BLOCKS.register(BiomeMakeover.ID("ectoplasm_composter"), ()->new EctoplasmComposterBlock(properties(Material.WOOD, 0.6F).sound(SoundType.WOOD)));
+    public static final RegistrySupplier<Block> PEAT_COMPOSTER = BLOCKS.register(BiomeMakeover.ID("peat_composter"), ()->new PeatComposterBlock(properties(Material.WOOD, 0.6F).sound(SoundType.WOOD)));
 
     public static WoodBlockFactory WILLOW_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "willow", BiomeMakeover.TAB).all(()->BMBoats.WILLOW).register(BLOCKS, ITEMS);;
     public static WoodBlockFactory SWAMP_CYPRESS_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "swamp_cypress", BiomeMakeover.TAB).all(()->BMBoats.SWAMP_CYPRESS).register(BLOCKS, ITEMS);;
@@ -166,9 +167,9 @@ public class BMBlocks
     public static final RegistrySupplier<Block> WILD_MUSHROOMS = registerBlockItem("wild_mushrooms", ()->new WildMushroomBlock(properties(Material.PLANT, 0F).noCollission().randomTicks().noOcclusion().sound(SoundType.FUNGUS)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.IVY));
 
     public static final RegistrySupplier<Block> POTTED_MYCELIUM_ROOTS = pottedPlant("mycelium_roots",MYCELIUM_ROOTS);
-    public static final RegistrySupplier<Block> POTTED_PURPLE_GLOWSHROOM =  pottedPlant("purple_glowshroom", PURPLE_GLOWSHROOM);
-    public static final RegistrySupplier<Block> POTTED_GREEN_GLOWSHROOM =  pottedPlant("green_glowshroom", GREEN_GLOWSHROOM);
-    public static final RegistrySupplier<Block> POTTED_ORANGE_GLOWSHROOM =  pottedPlant("orange_glowshroom", ORANGE_GLOWSHROOM);
+    public static final RegistrySupplier<Block> POTTED_PURPLE_GLOWSHROOM =  litPottedPlant("purple_glowshroom", PURPLE_GLOWSHROOM, 13);
+    public static final RegistrySupplier<Block> POTTED_GREEN_GLOWSHROOM =  litPottedPlant("green_glowshroom", GREEN_GLOWSHROOM, 13);
+    public static final RegistrySupplier<Block> POTTED_ORANGE_GLOWSHROOM =  litPottedPlant("orange_glowshroom", ORANGE_GLOWSHROOM, 13);
     public static final RegistrySupplier<Block> POTTED_SAGUARO_CACTUS =  pottedPlant("saguaro_cactus", SAGUARO_CACTUS);
     public static final RegistrySupplier<Block> POTTED_BARREL_CACTUS =  pottedPlant("barrel_cactus", BARREL_CACTUS);
     public static final RegistrySupplier<Block> POTTED_FLOWERED_BARREL_CACTUS =  pottedPlant("flowered_barrel_cactus", BARREL_CACTUS_FLOWERED);
@@ -303,10 +304,7 @@ public class BMBlocks
 
     public static RegistrySupplier<Block> registerBlock(DeferredRegister<Block> register, ResourceLocation location, Supplier<Block> blockSupplier)
     {
-        RegistrySupplier<Block> registered = register.register(location, blockSupplier);
-        register.getRegistrar().listen(location, BlockHelper.MODIFIER_CONSUMER);
-
-        return registered;
+        return BlockHelper.registerBlock(register, location, blockSupplier);
     }
 
     public static RegistrySupplier<Block> register(String id, Supplier<Block> block)
@@ -318,6 +316,12 @@ public class BMBlocks
     private static RegistrySupplier<Block> pottedPlant(String base_name, RegistrySupplier<Block> baseBlock)
     {
         RegistrySupplier<Block> pottedPlant = register("potted_" + base_name, ()->new TFlowerPotBlock(baseBlock.get(), properties(Material.DECORATION, 0).instabreak().noCollission().sound(SoundType.NETHER_SPROUTS)).modifiers(party.lemons.taniwha.block.modifier.RTypeModifier.CUTOUT));
+        return pottedPlant;
+    }
+
+    private static RegistrySupplier<Block> litPottedPlant(String base_name, RegistrySupplier<Block> baseBlock, int light)
+    {
+        RegistrySupplier<Block> pottedPlant = register("potted_" + base_name, ()->new TFlowerPotBlock(baseBlock.get(), properties(Material.DECORATION, 0).lightLevel(s->light).instabreak().noCollission().sound(SoundType.NETHER_SPROUTS)).modifiers(party.lemons.taniwha.block.modifier.RTypeModifier.CUTOUT));
         return pottedPlant;
     }
 

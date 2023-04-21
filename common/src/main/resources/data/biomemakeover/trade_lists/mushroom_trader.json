@@ -1,0 +1,293 @@
+{
+  "trades": [
+    [{
+      "type": "taniwha:standard",
+      "item1": {
+        "id": "minecraft:emerald",
+        "Count": 1
+      },
+      "result": {
+        "id": "minecraft:brown_mushroom",
+        "Count": 3
+      },
+      "max_uses": 12
+    },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "minecraft:red_mushroom",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:purple_glowshroom",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:orange_glowshroom",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:green_glowshroom",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:green_glowshroom_block",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:purple_glowshroom_block",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:orange_glowshroom_block",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:tall_brown_mushroom",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:tall_red_mushroom",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:glowshroom_stem",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "minecraft:mushroom_stem",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "minecraft:red_mushroom_block",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "minecraft:brown_mushroom_block",
+          "Count": 2
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "minecraft:glow_lichen",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:glowfish",
+          "Count": 4
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:cooked_glowfish",
+          "Count": 4
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 3
+        },
+        "result": {
+          "id": "biomemakeover:glowfish_bucket",
+          "Count": 1
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:blighted_balsa_sapling",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:mycelium_sprouts",
+          "Count": 5
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:mycelium_roots",
+          "Count": 5
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 1
+        },
+        "result": {
+          "id": "biomemakeover:wild_mushrooms",
+          "Count": 3
+        },
+        "max_uses": 12
+      },
+      {
+        "type": "taniwha:standard",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "result": {
+          "id": "biomemakeover:glowshroom_stem",
+          "Count": 2
+        },
+        "max_uses": 12
+      }
+    ],
+    [{
+      "type": "taniwha:standard",
+      "item1": {
+        "id": "minecraft:emerald",
+        "Count": 8
+      },
+      "result": {
+        "id": "biomemakeover:button_mushrooms_music_disk",
+        "Count": 1
+      },
+      "max_uses": 4
+    }]
+  ]
+}

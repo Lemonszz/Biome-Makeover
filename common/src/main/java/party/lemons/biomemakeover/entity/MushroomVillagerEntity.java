@@ -1,8 +1,5 @@
 package party.lemons.biomemakeover.entity;
 
-import com.google.common.collect.ImmutableMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -24,12 +21,14 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.util.MerchantTrades;
+import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.taniwha.data.trade.TradeList;
+import party.lemons.taniwha.data.trade.TradeLists;
+import party.lemons.taniwha.data.trade.listing.TItemListing;
+
+import java.util.List;
 
 public class MushroomVillagerEntity extends AbstractVillager {
 
@@ -111,20 +110,21 @@ public class MushroomVillagerEntity extends AbstractVillager {
 
     @Override
     protected void updateTrades() {
-        VillagerTrades.ItemListing[] tradesCommon = TRADES.get(1);
-        VillagerTrades.ItemListing[] tradesRare = TRADES.get(2);
+        TradeList trades = TradeLists.get(BiomeMakeover.ID("mushroom_trader"));
+
+        List<TItemListing> tradesCommon = trades.getListingsForLevel(1);
+        List<TItemListing> tradesRare = trades.getListingsForLevel(2);
         if(tradesCommon != null && tradesRare != null)
         {
             MerchantOffers traderOfferList = this.getOffers();
-            this.addOffersFromItemListings(traderOfferList, tradesCommon, 5);
-            int i = this.random.nextInt(tradesRare.length);
-            VillagerTrades.ItemListing factory = tradesRare[i];
+            this.addOffersFromItemListings(traderOfferList, tradesCommon.toArray(new TItemListing[0]), 5);
+            int i = this.random.nextInt(tradesRare.size());
+            VillagerTrades.ItemListing factory = tradesRare.get(i);
             MerchantOffer tradeOffer = factory.getOffer(this, this.random);
             if(tradeOffer != null)
             {
                 traderOfferList.add(tradeOffer);
             }
-
         }
     }
 
@@ -136,6 +136,11 @@ public class MushroomVillagerEntity extends AbstractVillager {
 
     @Override
     public boolean showProgressBar() {
+        return false;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double d) {
         return false;
     }
 
@@ -166,7 +171,4 @@ public class MushroomVillagerEntity extends AbstractVillager {
     protected SoundEvent getDeathSound() {
         return SoundEvents.WANDERING_TRADER_DEATH;
     }
-
-    public static final Int2ObjectMap<VillagerTrades.ItemListing[]> TRADES = new Int2ObjectOpenHashMap<>(ImmutableMap.of(1, new VillagerTrades.ItemListing[]{new MerchantTrades.ItemsForEmeralds(Items.BROWN_MUSHROOM, 1, 3, 12, 1), new MerchantTrades.ItemsForEmeralds(Items.RED_MUSHROOM, 1, 3, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.PURPLE_GLOWSHROOM.get(), 2, 3, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.ORANGE_GLOWSHROOM.get(), 2, 3, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.GREEN_GLOWSHROOM.get(), 2, 3, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.GREEN_GLOWSHROOM_BLOCK.get(), 2, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.ORANGE_GLOWSHROOM_BLOCK.get(), 2, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.PURPLE_GLOWSHROOM_BLOCK.get(), 2, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.TALL_BROWN_MUSHROOM.get(), 1, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.TALL_RED_MUSHROOM.get(), 1, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.GLOWSHROOM_STEM.get(), 2, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(Blocks.MUSHROOM_STEM, 1, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(Blocks.RED_MUSHROOM_BLOCK, 1, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(Blocks.BROWN_MUSHROOM_BLOCK, 1, 2, 12, 1), new MerchantTrades.ItemsForEmeralds(BMBlocks.MYCELIUM_ROOTS.get(), 1, 4, 12, 1)}, 2, new VillagerTrades.ItemListing[]{new MerchantTrades.ItemsForEmeralds(BMItems.BUTTON_MUSHROOMS_MUSIC_DISK.get(), 8, 1, 4, 1), new MerchantTrades.ItemsForEmeralds(BMItems.GLOWSHROOM_STEW.get(), 1, 1, 4, 1)}));
-
 }

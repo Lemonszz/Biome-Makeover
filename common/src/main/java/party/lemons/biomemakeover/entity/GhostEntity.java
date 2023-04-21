@@ -249,11 +249,6 @@ public class GhostEntity extends Monster implements NeutralMob
         return super.isInvulnerableTo(damageSource);
     }
 
-    @Override
-    public int getMaxSpawnClusterSize() {
-        return 1;
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -286,8 +281,8 @@ public class GhostEntity extends Monster implements NeutralMob
             return false;
         } else {
             DimensionType dimensionType = serverLevelAccessor.dimensionType();
-            int i = dimensionType.monsterSpawnBlockLightLimit();
-            if (i < 15 && serverLevelAccessor.getBrightness(LightLayer.BLOCK, blockPos) - 5F > i) {
+            int i = 5;
+            if (i < 15 && serverLevelAccessor.getBrightness(LightLayer.BLOCK, blockPos) > i) {
                 return false;
             } else {
                 int j = serverLevelAccessor.getLevel().isThundering()

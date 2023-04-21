@@ -10,11 +10,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -25,10 +25,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
@@ -46,13 +46,20 @@ public class ScuttlerEntity extends Animal {
     public static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(ScuttlerEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(ScuttlerEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private static final int FIND_EAT_TARGET_COOLDOWN_MAX = 300;
+
     public Ingredient TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS.get());
     public float rattleTime = 0;
     private int eatCooldown = 100;
     public int eatTime = 0;
+    private BlockPos eatTarget = null;
+    private int findEatTargetCooldown = -69;
 
     public ScuttlerEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+
+        if(findEatTargetCooldown == -69)
+            findEatTargetCooldown = this.getRandom().nextInt(0, FIND_EAT_TARGET_COOLDOWN_MAX);
     }
 
     @Override
@@ -65,12 +72,13 @@ public class ScuttlerEntity extends Animal {
         this.goalSelector.addGoal(3, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (livingEntity)->!isPassive()));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(7, new EatFlowerGoal());
-        this.goalSelector.addGoal(8, new AvoidDaylightGoal(1.0D));
-        this.goalSelector.addGoal(9, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new EatFlowerGoal());
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.1D));
+        this.goalSelector.addGoal(8, new FindFlowerGoal());
+        this.goalSelector.addGoal(9, new AvoidDaylightGoal(1.0D));
+        this.goalSelector.addGoal(10, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -90,8 +98,13 @@ public class ScuttlerEntity extends Animal {
     public void tick() {
         super.tick();
 
+        if(findEatTargetCooldown > 0)
+            findEatTargetCooldown--;
+
         eatCooldown--;
-        if(entityData.get(EATING)) eatTime--;
+        if(getEntityData().get(EATING))
+            eatTime--;
+
         if(entityData.get(RATTLING))
         {
             double dir = Math.signum(Math.sin(rattleTime));
@@ -192,6 +205,7 @@ public class ScuttlerEntity extends Animal {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Passive", isPassive());
         tag.putInt("EatCooldown", eatCooldown);
+        tag.putInt("EatTargetCooldown", findEatTargetCooldown);
     }
 
     @Override
@@ -199,6 +213,7 @@ public class ScuttlerEntity extends Animal {
         super.readAdditionalSaveData(tag);
         setPassive(tag.getBoolean("Passive"));
         eatCooldown = tag.getInt("EatCooldown");
+        findEatTargetCooldown = tag.getInt("EatTargetCooldown");
     }
 
     @Override
@@ -330,7 +345,7 @@ public class ScuttlerEntity extends Animal {
                 }else
                 {
                     this.timer = 100;
-                    BlockPos pos = this.mob.getOnPos();
+                    BlockPos pos = this.mob.blockPosition();
                     return ScuttlerEntity.this.level.isDay() && ScuttlerEntity.this.level.canSeeSky(pos) && this.setWantedPos();
                 }
             }else
@@ -342,8 +357,6 @@ public class ScuttlerEntity extends Animal {
 
     public class EatFlowerGoal extends Goal
     {
-        private BlockPos targetPos;
-
         public EatFlowerGoal()
         {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Flag.LOOK));
@@ -352,64 +365,88 @@ public class ScuttlerEntity extends Animal {
         @Override
         public boolean canUse()
         {
-            if(eatCooldown > 0) return false;
-
-            BlockPos eatPos = findCactus();
-            if(eatPos != null)
-            {
-                targetPos = eatPos;
-                return true;
-            }
-            return false;
+            return eatTarget != null;
         }
 
         @Override
         public void tick()
         {
-            if(distanceToSqr(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) > 2F)
-            {
-                getMoveControl().setWantedPosition(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F, 0.6F);
+            if(eatTarget == null)
+                return;
+
+            Vec3 targetPosition = eatTarget.getCenter();
+
+            double dist = distanceToSqr(targetPosition);
+            if(!blockPosition().equals(eatTarget) && dist > 0.25F) {
+                getNavigation().moveTo(targetPosition.x, targetPosition.y, targetPosition.z, 0.6F);
             }
-            getLookControl().setLookAt(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F);
+            else
+                getNavigation().stop();
+
+            getLookControl().setLookAt(targetPosition.x, targetPosition.y - 0.25F, targetPosition.z);
+
             if(eatTime <= 1)
             {
-                BlockState st = level.getBlockState(targetPos);
+                BlockState st = level.getBlockState(eatTarget);
                 if(st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                 {
-                    level.setBlock(targetPos, BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 2);
-                    Containers.dropItemStack(level, targetPos.getX(), targetPos.getY(), targetPos.getZ(), new ItemStack(BMItems.PINK_PETALS.get()));
-                    eatCooldown = 10 + random.nextInt(200);
+                    level.setBlock(eatTarget, BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 2);
+                    Containers.dropItemStack(level, eatTarget.getX(), eatTarget.getY(), eatTarget.getZ(), new ItemStack(BMItems.PINK_PETALS.get()));
                 }
+                eatTarget = null;
             }
         }
 
         @Override
         public boolean canContinueToUse()
         {
-            if(eatTime <= 0 || eatCooldown > 0) return false;
+            if(!canUse())
+                return false;
 
-            BlockState st = level.getBlockState(targetPos);
-            if(!st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get())) return false;
-
-            return distanceToSqr(targetPos.getX() + 0.5F, targetPos.getY() + 0.5F, targetPos.getZ() + 0.5F) <= 3;
+            BlockState st = level.getBlockState(eatTarget);
+            return st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get());
         }
 
         @Override
         public void start()
         {
             getEntityData().set(EATING, true);
-            eatTime = 20;
+            eatTime = 40;
         }
 
         @Override
         public void stop()
         {
+            getNavigation().stop();
             getEntityData().set(EATING, false);
+        }
+    }
+
+    private class FindFlowerGoal extends Goal
+    {
+        @Override
+        public boolean canUse()
+        {
+            return findEatTargetCooldown <= 0;
+        }
+
+        @Override
+        public boolean canContinueToUse()
+        {
+            return false;
+        }
+
+        @Override
+        public void start()
+        {
+            super.start();
+            eatTarget = findCactus();
+            findEatTargetCooldown = FIND_EAT_TARGET_COOLDOWN_MAX;
         }
 
         private BlockPos findCactus()
         {
-            BlockPos startPos = getOnPos();
+            BlockPos startPos = blockPosition();
             List<BlockPos> spots = Lists.newArrayList();
             final int range = 4;
 
@@ -429,10 +466,5 @@ public class ScuttlerEntity extends Animal {
             if(spots.isEmpty()) return null;
             return spots.get(level.random.nextInt(spots.size()));
         }
-    }
-
-    public static boolean checkSpawnRules(EntityType<ScuttlerEntity> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
-    {
-        return level.getBlockState(blockPos.below()).canOcclude();
     }
 }

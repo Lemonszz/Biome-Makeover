@@ -10,7 +10,7 @@
   "contact": {
     "issues": "https://github.com/Lemonszz/Biome-Makeover/issues",
     "sources": "https://github.com/Lemonszz/Biome-Makeover/",
-    "homepage": "httpsL//youtube.com/LASERKNIGHTS"
+    "homepage": "https://biomemakeover.laserknights.com"
   },
   "license": "CUSTOM",
   "icon": "bm-logo.png",
@@ -20,7 +20,6 @@
       "party.lemons.biomemakeover.fabric.BMFabric"
     ]
   },
-  "accessWidener": "biomemakeover-common.accessWidener",
   "mixins": ["biomemakeover.mixins.json", "biomemakeover-common.mixins.json"],
   "depends": {
     "fabric-api": "*",

@@ -52,11 +52,11 @@ public class TumbleweedSpawner
             if(level.random.nextInt(200) == 0)
             {
                 BlockPos pos = group.getSpawnPos();
-                if(pos != null) {
-                    pos = new BlockPos(pos.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING, pos.getX(), pos.getZ()), pos.getZ());
-                    //if(pos != null && level.hasChunk(pos.getX(), pos.getZ()) && level.isEmptyBlock(pos) && level.getBiome(pos).is(BiomeTags.IS_BADLANDS))
-                    //TODO: hasChunk was removed to fix potential crash
-                    if (pos != null && level.getBiome(pos).is(BiomeTags.IS_BADLANDS)) {
+                if(pos != null  && level.isLoaded(pos)) {
+                    int yHeight = level.getHeight(Heightmap.Types.MOTION_BLOCKING, pos.getX(), pos.getZ());
+                    pos = new BlockPos(pos.getX(), yHeight, pos.getZ());
+
+                    if (level.getBiome(pos).is(BiomeTags.IS_BADLANDS)) {
                         TumbleweedEntity tumble = BMEntities.TUMBLEWEED.get().create(level);
                         tumble.moveTo(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
                         level.addFreshEntity(tumble);

@@ -54,8 +54,11 @@ import java.util.stream.Collectors;
 
 public class MansionFeature extends Structure
 {
-    public static final Codec<MansionFeature> CODEC = RecordCodecBuilder.create(i->{
-        return  i.group(settingsCodec(i)
+    public static final Codec<MansionFeature> CODEC = RecordCodecBuilder.create(i->
+    {
+        return  i.group(
+                settingsCodec(i)//,
+              //  ResourceLocation.CODEC.listOf().fieldOf("corridor_straight").forGetter(s->s.T_CORRIDOR_STRAIGHT)
         ).apply(i, MansionFeature::new);
     });
 
@@ -439,6 +442,7 @@ public class MansionFeature extends Structure
     private static final ResourceLocation LOOT_JUNK = BiomeMakeover.ID("mansion/junk");
     private static final ResourceLocation LOOT_STANDARD = BiomeMakeover.ID("mansion/standard");
     private static final ResourceLocation LOOT_GOOD = BiomeMakeover.ID("mansion/good");
+
 
     public static List<ResourceLocation> CORRIDOR_STRAIGHT = Lists.newArrayList(BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_1"),
             BiomeMakeover.ID("mansion/corridor/straight/corridor_straight_2"),
