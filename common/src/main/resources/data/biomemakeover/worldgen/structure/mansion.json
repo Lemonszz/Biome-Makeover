@@ -1,10 +1,10 @@
 {
   "type": "biomemakeover:mansion",
   "biomes": "#biomemakeover:has_structure/reworked_mansion",
-  "spawn_overrides": {},
+  "spawn_overrides": {
+  },
   "terrain_adaptation": "beard_box",
   "step": "surface_structures",
-
   "templates": {
     "base": {
       "corridor_straight": [
@@ -179,7 +179,6 @@
         "biomemakeover:mansion/roof/roof_3_3"
       ],
       "roof_4": [
-
         "biomemakeover:mansion/roof/roof_4_1",
         "biomemakeover:mansion/roof/roof_4_2",
         "biomemakeover:mansion/roof/roof_4_3",
@@ -225,18 +224,15 @@
         "biomemakeover:mansion/dungeon/room_16",
         "biomemakeover:mansion/dungeon/room_17",
         "biomemakeover:mansion/dungeon/room_18"
-
       ],
       "dungeon_stair_bottom": [
         "biomemakeover:mansion/dungeon/stair_bottom"
-
       ],
       "dungeon_stair_mid": [
         "biomemakeover:mansion/dungeon/stair_mid_1",
         "biomemakeover:mansion/dungeon/stair_mid_2"
       ],
       "dungeon_stair_top": [
-
         "biomemakeover:mansion/dungeon/stair_top"
       ],
       "boss_room": [
@@ -253,7 +249,9 @@
     }
   },
   "details": {
-    "mobs": {},
-    "loot": {}
+    "mobs": {
+    },
+    "loot": {
+    }
   }
 }

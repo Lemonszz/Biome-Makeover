@@ -196,7 +196,6 @@ public class MansionFeature extends Structure
             {
                 level.setBlock(pos, Blocks.SMOOTH_QUARTZ.defaultBlockState(), 2);
             }
-
         }
 
         private void spawnBoss(ServerLevelAccessor level, BlockPos pos)
