@@ -3,5 +3,257 @@
   "biomes": "#biomemakeover:has_structure/reworked_mansion",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_box",
-  "step": "surface_structures"
+  "step": "surface_structures",
+
+  "templates": {
+    "base": {
+      "corridor_straight": [
+        "biomemakeover:mansion/corridor/straight/corridor_straight_1",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_2",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_3",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_4",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_5",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_6",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_7",
+        "biomemakeover:mansion/corridor/straight/corridor_straight_8"
+      ],
+      "corridor_corner": [
+        "biomemakeover:mansion/corridor/corner/corridor_corner_1",
+        "biomemakeover:mansion/corridor/corner/corridor_corner_2",
+        "biomemakeover:mansion/corridor/corner/corridor_corner_3"
+      ],
+      "corridor_t": [
+        "biomemakeover:mansion/corridor/t/corridor_t_1",
+        "biomemakeover:mansion/corridor/t/corridor_t_2",
+        "biomemakeover:mansion/corridor/t/corridor_t_3"
+      ],
+      "corridor_cross": [
+        "biomemakeover:mansion/corridor/cross/corridor_cross_1",
+        "biomemakeover:mansion/corridor/cross/corridor_cross_2",
+        "biomemakeover:mansion/corridor/cross/corridor_cross_3",
+        "biomemakeover:mansion/corridor/cross/corridor_cross_4"
+      ],
+      "rooms": [
+        "biomemakeover:mansion/room/room_1",
+        "biomemakeover:mansion/room/room_2",
+        "biomemakeover:mansion/room/room_3",
+        "biomemakeover:mansion/room/room_4",
+        "biomemakeover:mansion/room/room_5",
+        "biomemakeover:mansion/room/room_6",
+        "biomemakeover:mansion/room/room_7",
+        "biomemakeover:mansion/room/room_8",
+        "biomemakeover:mansion/room/room_9",
+        "biomemakeover:mansion/room/room_10",
+        "biomemakeover:mansion/room/room_11",
+        "biomemakeover:mansion/room/room_12",
+        "biomemakeover:mansion/room/room_13",
+        "biomemakeover:mansion/room/room_14",
+        "biomemakeover:mansion/room/room_15",
+        "biomemakeover:mansion/room/room_16",
+        "biomemakeover:mansion/room/room_17",
+        "biomemakeover:mansion/room/room_18",
+        "biomemakeover:mansion/room/room_19",
+        "biomemakeover:mansion/room/room_20",
+        "biomemakeover:mansion/room/room_21",
+        "biomemakeover:mansion/room/room_22",
+        "biomemakeover:mansion/room/room_23",
+        "biomemakeover:mansion/room/room_24",
+        "biomemakeover:mansion/room/room_25",
+        "biomemakeover:mansion/room/room_26",
+        "biomemakeover:mansion/room/room_27",
+        "biomemakeover:mansion/room/room_28",
+        "biomemakeover:mansion/room/room_29",
+        "biomemakeover:mansion/room/room_30",
+        "biomemakeover:mansion/room/room_31",
+        "biomemakeover:mansion/room/room_32",
+        "biomemakeover:mansion/room/room_33",
+        "biomemakeover:mansion/room/room_34"
+      ],
+      "rooms_big": [
+        "biomemakeover:mansion/room/big/room_big_1",
+        "biomemakeover:mansion/room/big/room_big_2",
+        "biomemakeover:mansion/room/big/room_big_3",
+        "biomemakeover:mansion/room/big/room_big_4",
+        "biomemakeover:mansion/room/big/room_big_5",
+        "biomemakeover:mansion/room/big/room_big_6",
+        "biomemakeover:mansion/room/big/room_big_7",
+        "biomemakeover:mansion/room/big/room_big_8",
+        "biomemakeover:mansion/room/big/room_big_9",
+        "biomemakeover:mansion/room/big/room_big_10",
+        "biomemakeover:mansion/room/big/room_big_11"
+      ],
+      "stair_up": [
+        "biomemakeover:mansion/stairs/up/stairs_up_1",
+        "biomemakeover:mansion/stairs/up/stairs_up_2"
+      ],
+      "stair_down": [
+        "biomemakeover:mansion/stairs/down/stairs_down_1",
+        "biomemakeover:mansion/stairs/down/stairs_down_2"
+      ],
+      "inner_wall": [
+        "biomemakeover:mansion/wall/inner/wall_1",
+        "biomemakeover:mansion/wall/inner/wall_2",
+        "biomemakeover:mansion/wall/inner/wall_3",
+        "biomemakeover:mansion/wall/inner/wall_4",
+        "biomemakeover:mansion/wall/inner/wall_5",
+        "biomemakeover:mansion/wall/inner/wall_6",
+        "biomemakeover:mansion/wall/inner/wall_7",
+        "biomemakeover:mansion/wall/inner/wall_8",
+        "biomemakeover:mansion/wall/inner/wall_9"
+      ],
+      "flat_wall": [
+        "biomemakeover:mansion/wall/flat/wall_flat_1"
+      ],
+      "outer_wall_base": [
+        "biomemakeover:mansion/wall/outer/base/wall_outer_base_2",
+        "biomemakeover:mansion/wall/outer/base/wall_outer_base_3",
+        "biomemakeover:mansion/wall/outer/base/wall_outer_base_4",
+        "biomemakeover:mansion/wall/outer/base/wall_outer_base_5",
+        "biomemakeover:mansion/wall/outer/base/wall_outer_base_6",
+        "biomemakeover:mansion/wall/outer/base/wall_outer_base_7"
+      ],
+      "outer_wall": [
+        "biomemakeover:mansion/wall/outer/wall_outer_2",
+        "biomemakeover:mansion/wall/outer/wall_outer_3",
+        "biomemakeover:mansion/wall/outer/wall_outer_4",
+        "biomemakeover:mansion/wall/outer/wall_outer_5",
+        "biomemakeover:mansion/wall/outer/wall_outer_6"
+      ],
+      "outer_window": [
+        "biomemakeover:mansion/wall/outer/window/wall_window_1",
+        "biomemakeover:mansion/wall/outer/window/wall_window_2",
+        "biomemakeover:mansion/wall/outer/window/wall_window_3",
+        "biomemakeover:mansion/wall/outer/window/wall_window_4",
+        "biomemakeover:mansion/wall/outer/window/wall_window_5",
+        "biomemakeover:mansion/wall/outer/window/wall_window_6",
+        "biomemakeover:mansion/wall/outer/window/wall_window_7",
+        "biomemakeover:mansion/wall/outer/window/wall_window_8",
+        "biomemakeover:mansion/wall/outer/window/wall_window_9",
+        "biomemakeover:mansion/wall/outer/window/wall_window_10"
+      ],
+      "garden": [
+        "biomemakeover:mansion/garden/garden_1",
+        "biomemakeover:mansion/garden/garden_2",
+        "biomemakeover:mansion/garden/garden_3",
+        "biomemakeover:mansion/garden/garden_4",
+        "biomemakeover:mansion/garden/garden_5",
+        "biomemakeover:mansion/garden/garden_6",
+        "biomemakeover:mansion/garden/garden_7"
+      ],
+      "entrance": [
+        "biomemakeover:mansion/entrance/entrance_1"
+      ]
+    },
+    "tower_roof": {
+      "tower_base": [
+        "biomemakeover:mansion/tower/base/tower_base_1"
+      ],
+      "tower_mid": [
+        "biomemakeover:mansion/tower/mid/tower_middle_1"
+      ],
+      "tower_top": [
+        "biomemakeover:mansion/tower/top/tower_top_1"
+      ],
+      "roof_0": [
+        "biomemakeover:mansion/roof/roof_0_1",
+        "biomemakeover:mansion/roof/roof_0_2",
+        "biomemakeover:mansion/roof/roof_0_3",
+        "biomemakeover:mansion/roof/roof_0_4"
+      ],
+      "roof_1": [
+        "biomemakeover:mansion/roof/roof_1_1",
+        "biomemakeover:mansion/roof/roof_1_2",
+        "biomemakeover:mansion/roof/roof_1_3"
+      ],
+      "roof_2": [
+        "biomemakeover:mansion/roof/roof_2_1",
+        "biomemakeover:mansion/roof/roof_2_2"
+      ],
+      "roof_2_straight": [
+        "biomemakeover:mansion/roof/roof_2_straight_1",
+        "biomemakeover:mansion/roof/roof_2_straight_2"
+      ],
+      "roof_3": [
+        "biomemakeover:mansion/roof/roof_3_1",
+        "biomemakeover:mansion/roof/roof_3_2",
+        "biomemakeover:mansion/roof/roof_3_3"
+      ],
+      "roof_4": [
+
+        "biomemakeover:mansion/roof/roof_4_1",
+        "biomemakeover:mansion/roof/roof_4_2",
+        "biomemakeover:mansion/roof/roof_4_3",
+        "biomemakeover:mansion/roof/roof_4_4"
+      ],
+      "roof_split": [
+        "biomemakeover:mansion/roof/roof_split_1",
+        "biomemakeover:mansion/roof/roof_split_2",
+        "biomemakeover:mansion/roof/roof_split_3",
+        "biomemakeover:mansion/roof/roof_split_4",
+        "biomemakeover:mansion/roof/roof_split_5"
+      ]
+    },
+    "dungeon": {
+      "dungeon_door": [
+        "biomemakeover:mansion/dungeon/door_1",
+        "biomemakeover:mansion/dungeon/door_2",
+        "biomemakeover:mansion/dungeon/door_3",
+        "biomemakeover:mansion/dungeon/door_4",
+        "biomemakeover:mansion/dungeon/door_5",
+        "biomemakeover:mansion/dungeon/door_6",
+        "biomemakeover:mansion/dungeon/door_7"
+      ],
+      "dungeon_wall": [
+        "biomemakeover:mansion/dungeon/wall_1"
+      ],
+      "dungeon_room": [
+        "biomemakeover:mansion/dungeon/room_1",
+        "biomemakeover:mansion/dungeon/room_2",
+        "biomemakeover:mansion/dungeon/room_3",
+        "biomemakeover:mansion/dungeon/room_4",
+        "biomemakeover:mansion/dungeon/room_5",
+        "biomemakeover:mansion/dungeon/room_6",
+        "biomemakeover:mansion/dungeon/room_7",
+        "biomemakeover:mansion/dungeon/room_8",
+        "biomemakeover:mansion/dungeon/room_9",
+        "biomemakeover:mansion/dungeon/room_10",
+        "biomemakeover:mansion/dungeon/room_11",
+        "biomemakeover:mansion/dungeon/room_12",
+        "biomemakeover:mansion/dungeon/room_13",
+        "biomemakeover:mansion/dungeon/room_14",
+        "biomemakeover:mansion/dungeon/room_15",
+        "biomemakeover:mansion/dungeon/room_16",
+        "biomemakeover:mansion/dungeon/room_17",
+        "biomemakeover:mansion/dungeon/room_18"
+
+      ],
+      "dungeon_stair_bottom": [
+        "biomemakeover:mansion/dungeon/stair_bottom"
+
+      ],
+      "dungeon_stair_mid": [
+        "biomemakeover:mansion/dungeon/stair_mid_1",
+        "biomemakeover:mansion/dungeon/stair_mid_2"
+      ],
+      "dungeon_stair_top": [
+
+        "biomemakeover:mansion/dungeon/stair_top"
+      ],
+      "boss_room": [
+        "biomemakeover:mansion/boss_room"
+      ]
+    },
+    "other": {
+      "corner_fillers": [
+        "biomemakeover:mansion/corner_filler"
+      ],
+      "empties": [
+        "biomemakeover:mansion/empty"
+      ]
+    }
+  },
+  "details": {
+    "mobs": {},
+    "loot": {}
+  }
 }

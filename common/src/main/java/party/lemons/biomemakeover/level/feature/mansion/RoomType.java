@@ -10,45 +10,46 @@ import java.util.Random;
 public enum RoomType
 {
     CORRIDOR(true, true, true, false, null),
-    ROOM(false, true, true, false, MansionFeature.ROOMS),
-    ROOM_BIG(false, false, true, false, MansionFeature.ROOMS),
-    ROOM_BIG_DUMMY(false, false, true, false, MansionFeature.ROOMS),
-    STAIRS_UP(false, false, true, true, MansionFeature.STAIR_UP),
-    STAIRS_DOWN(false, false, true, true, MansionFeature.STAIR_DOWN),
+    ROOM(false, true, true, false, MansionTemplateType.ROOMS),
+    ROOM_BIG(false, false, true, false, MansionTemplateType.ROOMS_BIG),
+    ROOM_BIG_DUMMY(false, false, true, false,  MansionTemplateType.ROOMS_BIG),
+    STAIRS_UP(false, false, true, true,  MansionTemplateType.STAIR_UP),
+    STAIRS_DOWN(false, false, true, true,  MansionTemplateType.STAIR_DOWN),
     ROOF(false, false, false, false, null),
-    GARDEN(true, true, true, false, MansionFeature.GARDEN),
-    TOWER_BASE(false, false, true, true, MansionFeature.TOWER_BASE),
-    TOWER_MID(false, false, false, true, MansionFeature.TOWER_MID),
-    TOWER_TOP(false, false, false, true, MansionFeature.TOWER_TOP),
-    DUNGEON_STAIRS_TOP(false, false, true, true, MansionFeature.DUNGEON_STAIR_TOP),
-    DUNGEON_STAIRS_MID(false, false, false, true, MansionFeature.DUNGEON_STAIR_MID),
-    DUNGEON_STAIRS_BOTTOM(false, false, true, true, MansionFeature.DUNGEON_STAIR_BOTTOM),
-    DUNGEON_ROOM(false, true, true, true, MansionFeature.DUNGEON_ROOM),
-    BOSS(true, false, false, false, MansionFeature.BOSS_ROOM),
-    ENTRANCE(true, false, true, false, MansionFeature.ENTRANCE);
+    GARDEN(true, true, true, false,  MansionTemplateType.GARDEN),
+    TOWER_BASE(false, false, true, true,  MansionTemplateType.TOWER_BASE),
+    TOWER_MID(false, false, false, true,  MansionTemplateType.TOWER_MID),
+    TOWER_TOP(false, false, false, true,  MansionTemplateType.TOWER_TOP),
+    DUNGEON_STAIRS_TOP(false, false, true, true,  MansionTemplateType.DUNGEON_STAIR_TOP),
+    DUNGEON_STAIRS_MID(false, false, false, true,  MansionTemplateType.DUNGEON_STAIR_MID),
+    DUNGEON_STAIRS_BOTTOM(false, false, true, true,  MansionTemplateType.DUNGEON_STAIR_BOTTOM),
+    DUNGEON_ROOM(false, true, true, true,  MansionTemplateType.DUNGEON_ROOM),
+    BOSS(true, false, false, false,  MansionTemplateType.BOSS_ROOM),
+    ENTRANCE(true, false, true, false,  MansionTemplateType.ENTRANCE);
 
     public final boolean doorRequired;
     private final boolean isReplaceable, hasWalls, columnRotation;
-    private final List<ResourceLocation> templates;
+    private final MansionTemplateType templateType;
 
-    RoomType(boolean doorRequired, boolean isReplaceable, boolean hasWalls, boolean columnRotation, List<ResourceLocation> templates)
+    RoomType(boolean doorRequired, boolean isReplaceable, boolean hasWalls, boolean columnRotation, MansionTemplateType templateType)
     {
         this.doorRequired = doorRequired;
         this.isReplaceable = isReplaceable;
         this.hasWalls = hasWalls;
         this.columnRotation = columnRotation;
-        this.templates = templates;
+        this.templateType = templateType;
     }
 
-    public ResourceLocation getRandomTemplate(BlockPos pos, RandomSource random)
+    public ResourceLocation getRandomTemplate(MansionTemplates templates, BlockPos pos, RandomSource random)
     {
         if(columnRotation)
         {
-            int index = Math.abs((pos.getX() + pos.getZ()) % templates.size());
-            return templates.get(index);
+            List<ResourceLocation> templateList = templateType.getTemplates(templates);
+            int index = Math.abs((pos.getX() + pos.getZ()) % templateList.size());
+            return templateList.get(index);
         }
 
-        return templates.get(random.nextInt(templates.size()));
+        return templateType.getRandomTemplate(templates, random);
     }
 
     public boolean isReplaceable()

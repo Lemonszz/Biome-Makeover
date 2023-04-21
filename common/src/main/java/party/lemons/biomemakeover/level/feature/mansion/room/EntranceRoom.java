@@ -6,8 +6,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
-import party.lemons.biomemakeover.level.feature.mansion.RoomType;
+import party.lemons.biomemakeover.level.feature.mansion.*;
 
 import party.lemons.taniwha.util.collections.Grid;
 
@@ -20,20 +19,20 @@ public class EntranceRoom extends MansionRoom
     }
 
     @Override
-    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
+    public void addWalls(MansionDetails details, MansionTemplates templates, RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
         boolean ground = getPosition().getY() == 0;
 
         if(getRoomType().hasWalls())
         {
             if(isConnected(Direction.NORTH))
-                children.addPiece(new MansionFeature.Piece(manager, getInnerWall(random), wallPos.relative(Direction.NORTH, 2), Rotation.NONE, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, getInnerWall(templates, random), wallPos.relative(Direction.NORTH, 2), Rotation.NONE, ground, false));
 
             if(isConnected(Direction.WEST))
-                children.addPiece(new MansionFeature.Piece(manager, getInnerWall(random), wallPos, Rotation.CLOCKWISE_90, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, getInnerWall(templates, random), wallPos, Rotation.CLOCKWISE_90, ground, false));
 
             BlockPos cornerPos1 = getPosition().relative(Direction.NORTH).relative(Direction.WEST);
             if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, MansionFeature.CORNER_FILLER.toString(), wallPos.relative(Direction.WEST).relative(Direction.NORTH).offset(0, 0, 0), Rotation.NONE, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, MansionTemplateType.CORNER_FILLERS.getRandomTemplate(templates, random).toString(), wallPos.relative(Direction.WEST).relative(Direction.NORTH).offset(0, 0, 0), Rotation.NONE, ground, false));
         }
     }
     public Rotation getRotation(RandomSource random)

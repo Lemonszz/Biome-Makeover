@@ -7,9 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
-import party.lemons.biomemakeover.level.feature.mansion.MansionLayout;
-import party.lemons.biomemakeover.level.feature.mansion.RoomType;
+import party.lemons.biomemakeover.level.feature.mansion.*;
 import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.List;
@@ -28,16 +26,16 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
     }
 
     @Override
-    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
+    public void addWalls(MansionDetails details, MansionTemplates templates, RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children) {
         if(isRoofConnected(Direction.NORTH, roomGrid))
-            children.addPiece(new MansionFeature.Piece(manager, getRoofSplit(random).toString(), wallPos.relative(Direction.NORTH).offset(-2, 0, 0), Rotation.NONE, getPosition().getY() == 0, true));
+            children.addPiece(new MansionFeature.Piece(details, manager, getRoofSplit(templates, random).toString(), wallPos.relative(Direction.NORTH).offset(-2, 0, 0), Rotation.NONE, getPosition().getY() == 0, true));
         if(isRoofConnected(Direction.WEST, roomGrid))
-            children.addPiece(new MansionFeature.Piece(manager, getRoofSplit(random).toString(), wallPos.relative(Direction.WEST).offset(0, 0, -2), Rotation.CLOCKWISE_90, getPosition().getY() == 0, true));
+            children.addPiece(new MansionFeature.Piece(details, manager, getRoofSplit(templates, random).toString(), wallPos.relative(Direction.WEST).offset(0, 0, -2), Rotation.CLOCKWISE_90, getPosition().getY() == 0, true));
     }
 
-    private ResourceLocation getRoofSplit(RandomSource random)
+    private ResourceLocation getRoofSplit(MansionTemplates templates, RandomSource random)
     {
-        return MansionFeature.ROOF_SPLIT.get(random.nextInt(MansionFeature.ROOF_SPLIT.size()));
+        return MansionTemplateType.ROOF_SPLIT.getRandomTemplate(templates, random);
     }
 
     public BlockPos getOffsetForRotation(BlockPos offsetPos, Rotation rotation)
@@ -76,30 +74,30 @@ public class RoofMansionRoom extends NonRoofedMansionRoom
         return offsetPos;
     }
 
-    public ResourceLocation getTemplate(RandomSource random)
+    public ResourceLocation getTemplate(MansionTemplates templates, RandomSource random)
     {
         List<ResourceLocation> ids;
         switch(layout.doorCount())
         {
             case 0:
-                ids = MansionFeature.ROOF_0;
+                ids = MansionTemplateType.ROOF_0.getTemplates(templates);
                 break;
             case 1:
-                ids = MansionFeature.ROOF_1;
+                ids = MansionTemplateType.ROOF_1.getTemplates(templates);
                 break;
             case 2:
                 if((layout.get(Direction.NORTH) && layout.get(Direction.SOUTH)) || (layout.get(Direction.EAST) && layout.get(Direction.WEST)))
-                    ids = MansionFeature.ROOF_2_STRAIGHT;
-                else ids = MansionFeature.ROOF_2;
+                    ids = MansionTemplateType.ROOF_2_STRAIGHT.getTemplates(templates);
+                else ids = MansionTemplateType.ROOF_2.getTemplates(templates);;
                 break;
             case 3:
-                ids = MansionFeature.ROOF_3;
+                ids = MansionTemplateType.ROOF_3.getTemplates(templates);
                 break;
             case 4:
-                ids = MansionFeature.ROOF_4;
+                ids = MansionTemplateType.ROOF_4.getTemplates(templates);
                 break;
             default:
-                ids = MansionFeature.INNER_WALL;
+                ids = MansionTemplateType.INNER_WALL.getTemplates(templates);
                 break;
         }
         return ids.get(random.nextInt(ids.size()));
