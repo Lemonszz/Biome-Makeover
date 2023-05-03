@@ -41,6 +41,7 @@ import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.item.HatItem;
 
 import java.util.EnumSet;
@@ -196,7 +197,7 @@ public class HelmitCrabEntity extends Animal
 
 	public boolean prefersShell(ItemStack itemStack) {
 		//Check if it's a valid shell
-		if (itemStack.isEmpty() || !isValidShellItem(itemStack.getItem()))
+		if (itemStack.isEmpty() || !isValidShellItem(itemStack))
 			return false;
 
 		ItemStack currentShell = getShellItemStack();
@@ -290,10 +291,12 @@ public class HelmitCrabEntity extends Animal
 	}
 
 
-	public boolean isValidShellItem(Item item)
+	public boolean isValidShellItem(ItemStack itemstack)
 	{
-		if(isBaby())
+		if(isBaby() || itemstack.is(BMItems.HELMIT_CRAB_EXCEPTION))
 			return false;
+
+		Item item = itemstack.getItem();
 
 		if(item instanceof ArmorItem && ((ArmorItem)item).getType() == ArmorItem.Type.HELMET)
 			return true;

@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.level.feature.mansion;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -37,7 +36,6 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilde
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.block.AbstractTapestryBlock;
 import party.lemons.biomemakeover.block.AbstractTapestryWallBlock;
 import party.lemons.biomemakeover.block.IvyBlock;
@@ -379,12 +377,12 @@ public class MansionFeature extends Structure
             Block tapestryBlock;
             if(dir == Direction.DOWN || dir == Direction.UP)
             {
-                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_FLOOR_BLOCKS).get();
+                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRIES.getFloorBlocks()).get();
                 world.setBlock(pos, tapestryBlock.defaultBlockState().setValue(AbstractTapestryBlock.ROTATION, Rotation.getRandom(random).ordinal()), 3);
             }
             else
             {
-                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRY_WALL_BLOCKS).get();
+                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRIES.getWallBlocks()).get();
                 world.setBlock(pos, tapestryBlock.defaultBlockState().setValue(AbstractTapestryWallBlock.FACING, dir.getOpposite()), 3);
             }
         }

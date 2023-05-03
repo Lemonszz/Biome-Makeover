@@ -21,4 +21,10 @@ public class NocturnalMobEffect extends MobEffect
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
         }
     }
+
+    @Override
+    public boolean isDurationEffectTick(int i, int j)
+    {
+        return i % 20 == 0;
+    }
 }

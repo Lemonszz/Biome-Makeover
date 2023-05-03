@@ -21,7 +21,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
+import party.lemons.biomemakeover.crafting.SuspiciousStewListing;
 import party.lemons.biomemakeover.item.*;
+import party.lemons.taniwha.data.trade.listing.TradeTypes;
 import party.lemons.taniwha.item.ArmorBuilder;
 import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.item.types.FakeItem;
@@ -38,9 +40,12 @@ public class BMItems
     public static final List<Supplier<Item>> ROOTLING_PETALS = Lists.newArrayList();
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registries.ITEM);
+    public static final DeferredRegister<TradeTypes.TradeType<?>> TRADE_TYPES = DeferredRegister.create(Constants.MOD_ID, TradeTypes.KEY);
+
     public static final TagKey<Item> CURSE_FUEL = TagKey.create(Registries.ITEM, BiomeMakeover.ID("curse_fuel"));
     public static final TagKey<Item> ADDITIONAL_CAMEL_FOOD = TagKey.create(Registries.ITEM, BiomeMakeover.ID("additional_camel_food"));
     public static final TagKey<Item> BARREL_CACTUS_IMMUNE = TagKey.create(Registries.ITEM, BiomeMakeover.ID("barrel_cactus_immune"));
+    public static final TagKey<Item> HELMIT_CRAB_EXCEPTION = TagKey.create(Registries.ITEM, BiomeMakeover.ID("helmit_crab_exception"));
 
     public static final FoodProperties GLOWSHROOM_SOUP_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.6F).nutrition(5).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0), 1).effect(new MobEffectInstance(MobEffects.GLOWING, 1200, 0), 1).build();
     public static final FoodProperties GLOWFISH_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.1F).nutrition(1).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200, 0), 0.5F).effect(new MobEffectInstance(MobEffects.GLOWING, 200, 0), 0.5F).build();
@@ -125,6 +130,8 @@ public class BMItems
 
     public static final Supplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
 
+    public static final RegistrySupplier<TradeTypes.TradeType<?>> SUSPICIOUS_STEW_TRADE = TRADE_TYPES.register(BiomeMakeover.ID("sussy_stew"), ()->new TradeTypes.TradeType<>(SuspiciousStewListing.CODEC));
+
     public static void init() {
 
         BMEntities.ATT_PROJECTILE_RESISTANCE.listen(a->{
@@ -140,6 +147,7 @@ public class BMItems
         });
 
         ITEMS.register();
+        TRADE_TYPES.register();
     }
 
     private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item) {

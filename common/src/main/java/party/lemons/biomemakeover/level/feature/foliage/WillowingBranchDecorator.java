@@ -34,7 +34,7 @@ public class WillowingBranchDecorator extends TreeDecorator {
             BlockPos.MutableBlockPos pos = context.leaves().get(random.nextInt(context.leaves().size())).below().mutable();
             for(int j = 0; j < 3; j++)
             {
-                if((level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir) || level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState())) && level.isStateAtPosition(pos.above(), (s)->s.is(BlockTags.LEAVES) || (s.is(BMBlocks.WILLOWING_BRANCHES.get()) && s.getValue(WillowingBranchesBlock.STAGE) < WillowingBranchesBlock.MAX_STAGE)))
+                if((level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir) || level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState())) && level.isStateAtPosition(pos.above(), (s)->s.is(BlockTags.LEAVES) || (s.is(BMBlocks.WILLOWING_BRANCHES.get()) && s.getValue(WillowingBranchesBlock.STAGE) < WillowingBranchesBlock.MAX_GROWTH_STAGES)))
                 {
                     boolean water = level.isStateAtPosition(pos, (s)->s == Blocks.WATER.defaultBlockState());
                     if(water || level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir))

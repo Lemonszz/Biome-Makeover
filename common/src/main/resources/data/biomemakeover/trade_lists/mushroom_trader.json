@@ -1,6 +1,7 @@
 {
   "trades": [
-    [{
+    [
+      {
       "type": "taniwha:standard",
       "item1": {
         "id": "minecraft:emerald",
@@ -275,6 +276,46 @@
           "Count": 2
         },
         "max_uses": 12
+      }
+    ],
+    [
+      {
+        "type": "biomemakeover:sussy_stew",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 2
+        },
+        "effects": [
+          {"effect": "minecraft:fire_resistance", "duration": 160},
+          {"effect": "minecraft:blindness", "duration": 320},
+          {"effect": "minecraft:saturation", "duration": 24},
+          {"effect": "minecraft:jump_boost", "duration": 160},
+          {"effect": "minecraft:regeneration", "duration": 320},
+          {"effect": "minecraft:poison", "duration": 480},
+          {"effect": "minecraft:night_vision", "duration": 200},
+          {"effect": "minecraft:weakness", "duration": 360},
+          {"effect": "minecraft:wither", "duration": 320}
+        ],
+        "max_uses": 4
+      },
+      {
+        "type": "biomemakeover:sussy_stew",
+        "item1": {
+          "id": "minecraft:emerald",
+          "Count": 4
+        },
+        "effects": [
+          {"effect": "minecraft:speed", "duration": 320},
+          {"effect": "minecraft:slowness", "duration": 320},
+          {"effect": "minecraft:haste", "duration": 320},
+          {"effect": "minecraft:mining_fatigue", "duration": 160},
+          {"effect": "minecraft:strength", "duration": 320},
+          {"effect": "minecraft:resistance", "duration": 480},
+          {"effect": "minecraft:levitation", "duration": 200},
+          {"effect": "minecraft:weakness", "duration": 360},
+          {"effect": "minecraft:nocturnal", "duration": 320}
+        ],
+        "max_uses": 4
       }
     ],
     [{

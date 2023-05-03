@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -33,12 +34,14 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.event.EntityEvent;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.item.types.TItem;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -50,6 +53,14 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     public static final EntityDataAccessor<Boolean> HAS_FLOWER = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FLOWER_TYPE = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.INT);
+    private static final ResourceLocation[] PETAL_LOOT_TABLES = new ResourceLocation[]{
+            BiomeMakeover.ID("gameplay/rootling/blue"),
+            BiomeMakeover.ID("gameplay/rootling/brown"),
+            BiomeMakeover.ID("gameplay/rootling/cyan"),
+            BiomeMakeover.ID("gameplay/rootling/gray"),
+            BiomeMakeover.ID("gameplay/rootling/light_blue"),
+            BiomeMakeover.ID("gameplay/rootling/purple"),
+    };
 
     private boolean hasAction = false;
     public RootlingEntity forcedDancePartner = null;
@@ -200,7 +211,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
                 randomizeFlower();
             }else
             {
-                EntityUtil.scatterItemStack(this, new ItemStack(BMItems.ROOTLING_PETALS.get(getEntityData().get(FLOWER_TYPE)).get(), RandomUtil.randomRange(1, 4)));
+                EntityUtil.dropFromLootTable(this, PETAL_LOOT_TABLES[getEntityData().get(FLOWER_TYPE)]);
             }
         }
     }

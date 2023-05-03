@@ -113,18 +113,20 @@ public class MushroomVillagerEntity extends AbstractVillager {
         TradeList trades = TradeLists.get(BiomeMakeover.ID("mushroom_trader"));
 
         List<TItemListing> tradesCommon = trades.getListingsForLevel(1);
-        List<TItemListing> tradesRare = trades.getListingsForLevel(2);
-        if(tradesCommon != null && tradesRare != null)
+        List<TItemListing> tradesStew = trades.getListingsForLevel(2);
+        List<TItemListing> tradesRare = trades.getListingsForLevel(3);
+        if(tradesCommon != null && tradesRare != null && tradesStew != null)
         {
             MerchantOffers traderOfferList = this.getOffers();
             this.addOffersFromItemListings(traderOfferList, tradesCommon.toArray(new TItemListing[0]), 5);
-            int i = this.random.nextInt(tradesRare.size());
-            VillagerTrades.ItemListing factory = tradesRare.get(i);
-            MerchantOffer tradeOffer = factory.getOffer(this, this.random);
-            if(tradeOffer != null)
-            {
-                traderOfferList.add(tradeOffer);
-            }
+
+            MerchantOffer stewTrade = tradesStew.get(this.random.nextInt(tradesStew.size())).getOffer(this, this.random);
+            if(stewTrade != null)
+                traderOfferList.add(stewTrade);
+
+            MerchantOffer rareTrade = tradesRare.get(this.random.nextInt(tradesRare.size())).getOffer(this, this.random);
+            if(rareTrade != null)
+                traderOfferList.add(rareTrade);
         }
     }
 
