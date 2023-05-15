@@ -60,4 +60,10 @@ public interface MultiPartEntity<T extends EntityPart<?>>
             p.zOld = p.getZ();
         });
     }
+    default void removeParts()
+    {
+        getParts().forEach(p->{
+            p.remove(Entity.RemovalReason.KILLED);
+        });
+    }
 }

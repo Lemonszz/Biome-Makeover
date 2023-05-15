@@ -12,7 +12,7 @@
           "type": "biomemakeover:ghost",
           "weight": 8,
           "minCount": 1,
-          "maxCount": 1
+          "maxCount": 3
         }
       ]
     }

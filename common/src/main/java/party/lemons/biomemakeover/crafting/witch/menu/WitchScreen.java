@@ -35,7 +35,7 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
     {
         super(handler, inventory, title);
         this.imageWidth = 174;
-        this.imageHeight = 181;
+        this.imageHeight = 182;
         this.inventoryLabelX = 110;
         this.inventoryLabelY = this.imageHeight - 92;
         this.inventory = inventory;

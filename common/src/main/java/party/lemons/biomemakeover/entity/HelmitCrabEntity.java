@@ -33,6 +33,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -41,6 +42,7 @@ import party.lemons.biomemakeover.entity.ai.PredicateTemptGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.item.HatItem;
 
 import java.util.EnumSet;
@@ -196,7 +198,7 @@ public class HelmitCrabEntity extends Animal
 
 	public boolean prefersShell(ItemStack itemStack) {
 		//Check if it's a valid shell
-		if (itemStack.isEmpty() || !isValidShellItem(itemStack.getItem()))
+		if (itemStack.isEmpty() || !isValidShellItem(itemStack))
 			return false;
 
 		ItemStack currentShell = getShellItemStack();
@@ -290,10 +292,12 @@ public class HelmitCrabEntity extends Animal
 	}
 
 
-	public boolean isValidShellItem(Item item)
+	public boolean isValidShellItem(ItemStack itemstack)
 	{
-		if(isBaby())
+		if(isBaby() || itemstack.is(BMItems.HELMIT_CRAB_EXCEPTION))
 			return false;
+
+		Item item = itemstack.getItem();
 
 		if(item instanceof ArmorItem && ((ArmorItem)item).getType() == ArmorItem.Type.HELMET)
 			return true;
@@ -303,8 +307,11 @@ public class HelmitCrabEntity extends Animal
 
 	public void setShellItem(ItemStack stack)
 	{
+		ItemStack old = getShellItemStack();
 		getEntityData().set(SHELL_ITEM, stack);
+		onEquipItem(EquipmentSlot.HEAD, old, stack);
 
+		/*
 		if (!stack.isEmpty()) {
 			SoundEvent soundEvent = SoundEvents.ARMOR_EQUIP_GENERIC;
 			Item item = stack.getItem();
@@ -314,7 +321,7 @@ public class HelmitCrabEntity extends Animal
 				soundEvent = SoundEvents.ARMOR_EQUIP_ELYTRA;
 			}
 			this.playSound(soundEvent, 1.0F, 1.0F);
-		}
+		}*/
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -703,6 +710,7 @@ public class HelmitCrabEntity extends Animal
 					if(!getShellItemStack().isEmpty())
 						spawnAtLocation(getShellItemStack());
 					setShellItem(itemEntity.getItem());
+
 					shellChangeCooldown = 500 + random.nextInt(300);
 				}
 			}

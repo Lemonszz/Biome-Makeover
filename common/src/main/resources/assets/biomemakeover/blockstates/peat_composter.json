@@ -1,0 +1,14 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "minecraft:block/composter"
+      }
+    },
+    {
+      "apply": {
+        "model": "biomemakeover:block/peat_composter"
+      }
+    }
+  ]
+}

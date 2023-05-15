@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(BiomeDefaultFeatures.class)
 public abstract class DefaultBiomesMixin_RemoveSwampTrees
 {
+    //NOTE: 15/05/23 Does this actually do anything anymore?
+
     /*
             I hate this
             forge gib api

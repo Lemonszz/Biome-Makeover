@@ -1,11 +1,16 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.0"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
+
 loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
     forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
         mixinConfig "biomemakeover-common.mixins.json"
         mixinConfig "biomemakeover-forge.mixins.json"
-        accessTransformer file("src/main/resources/META-INF/accesstransformer.cfg")
     }
 }
 
@@ -28,10 +33,10 @@ dependencies {
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
     modApi("party.lemons:taniwha-forge:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
     include("party.lemons:taniwha-forge:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
@@ -48,6 +53,7 @@ processResources {
 
 shadowJar {
     exclude "fabric.mod.json"
+    exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"

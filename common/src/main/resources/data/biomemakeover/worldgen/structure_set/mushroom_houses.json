@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "biomemakeover:mushroom_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "separation": 6,
+    "spacing": 12,
+    "spread_type": "linear",
+    "salt": 6942069,
+    "type": "minecraft:random_spread"
+  }
+}

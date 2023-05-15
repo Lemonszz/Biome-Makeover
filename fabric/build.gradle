@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.0"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 architectury {
@@ -16,17 +16,10 @@ configurations {
 }
 
 loom {
-    accessWidenerPath.set(file("../common/src/main/resources/biomemakeover-common.accessWidener"))
+    accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 repositories {
-    maven {
-        name = 'gudenau\'s maven'
-        url = 'https://maven.gudenau.net'
-        content {
-            includeGroup 'net.gudenau.minecraft'
-        }
-    }
 }
 
 dependencies {
@@ -35,19 +28,14 @@ dependencies {
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
     include("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
     modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
-        transitive = false;
+        transitive = true;
     }
-
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-
-  /*  modImplementation include("net.gudenau.minecraft:MoreTags:${rootProject.moreTagsVersion}"){
-        transitive = false
-    }*/
 }
 
 processResources {
@@ -64,6 +52,7 @@ shadowJar {
 }
 
 remapJar {
+    injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null
@@ -79,7 +68,6 @@ sourcesJar {
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
     duplicatesStrategy 'exclude'
-
 }
 
 components.java {

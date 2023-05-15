@@ -1,0 +1,15 @@
+{
+  "name": "biomemakeover:mushroom_house/house",
+  "fallback": "minecraft:village/plains/terminators",
+  "elements": [
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:mushroom_house/house/house_1",
+        "processors": "biomemakeover:mushroom_house",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

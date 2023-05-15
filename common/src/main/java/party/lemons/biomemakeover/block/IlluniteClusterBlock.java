@@ -27,15 +27,15 @@ public class IlluniteClusterBlock extends AmethystClusterBlock implements BlockW
 
     public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
 
-    public IlluniteClusterBlock(Properties properties)
+    public IlluniteClusterBlock(int xzSize, int ySize, int light, Properties properties)
     {
-        super(7, 3, properties.randomTicks().lightLevel((v)->{
+        super(xzSize, ySize, properties.randomTicks().lightLevel((v)->{
             switch(v.getValue(TYPE))
             {
                 case DAY:
                     return 2;
                 case NIGHT:
-                    return 15;
+                    return light;
                 case UNKNOWN:
                     return 2;
             }

@@ -3,7 +3,7 @@ package party.lemons.biomemakeover.util;
 import net.minecraft.util.RandomSource;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 public final class RandomUtil
 {
@@ -42,6 +42,11 @@ public final class RandomUtil
     public static <T> T choose(List<T> values)
     {
         return values.get(RANDOM.nextInt(values.size()));
+    }
+
+    public static <T> T choose(Set<T> values)
+    {
+        return values.stream().skip(RANDOM.nextInt(values.size())).findFirst().orElse(null);
     }
 
     public static int randomBias(int min, int max)

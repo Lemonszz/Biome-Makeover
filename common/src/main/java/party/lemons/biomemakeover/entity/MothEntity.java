@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.util.AirRandomPos;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -36,12 +35,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.ai.FlyWanderGoal;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 
 import java.util.EnumSet;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class MothEntity extends Monster
 {
@@ -50,9 +51,10 @@ public class MothEntity extends Monster
     public boolean hasPlayedLoop = false;
     private float currentPitch;
     private float lastPitch;
-    private AttractLightGoal attractLightGoal;
-    private MoveToLightGoal moveToLightGoal;
-    private BlockPos attactPos;
+
+    private int findAttractionCooldown = Mth.nextInt(this.random, 20, 60);
+    private BlockPos savedAttractionPos;
+    private HugAttractionGoal hugAttractionGoal;
 
     public MothEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -67,14 +69,12 @@ public class MothEntity extends Monster
 
     @Override
     protected void registerGoals() {
-        this.attractLightGoal = new AttractLightGoal();
-        this.moveToLightGoal = new MoveToLightGoal();
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, OwlEntity.class, 6.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(3, this.attractLightGoal);
-        this.goalSelector.addGoal(4, this.moveToLightGoal);
+        this.hugAttractionGoal = new HugAttractionGoal();
+        this.goalSelector.addGoal(1, this.hugAttractionGoal);
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, OwlEntity.class, 6.0F, 1.0D, 1.2D));
         this.goalSelector.addGoal(5, new FlyWanderGoal(this));
 
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -113,13 +113,17 @@ public class MothEntity extends Monster
 
     private void updateBodyPitch() {
         this.lastPitch = this.currentPitch;
-        if (this.isNearTarget())
-        {
-            this.currentPitch = Math.min(1.0F, this.currentPitch + 0.2F);
-        }
-        else
-        {
-            this.currentPitch = Math.max((float)Math.sin(tickCount / 10F) / 10F, this.currentPitch - 0.24F);
+        this.currentPitch = Math.max((float)Math.sin(tickCount / 10F) / 10F, this.currentPitch - 0.24F);
+
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (!this.level.isClientSide) {
+            if (this.findAttractionCooldown > 0) {
+                --this.findAttractionCooldown;
+            }
         }
     }
 
@@ -136,8 +140,9 @@ public class MothEntity extends Monster
                 return !this.level.getBlockState(blockPos.below()).isAir();
             }
 
+            @Override
             public void tick() {
-                if (!MothEntity.this.attractLightGoal.isRunning()) {
+                if (!MothEntity.this.hugAttractionGoal.isHugging()) {
                     super.tick();
                 }
             }
@@ -148,8 +153,21 @@ public class MothEntity extends Monster
         return birdNavigation;
     }
 
-    private boolean isAttractive(BlockPos pos) {
-        return this.level.isLoaded(pos) && ((level.getBlockState(pos).getLightEmission()) > 10) || this.level.getBlockState(pos).is(BMBlocks.MOTH_ATTRACTIVE);
+    @Override
+    public boolean hurt(DamageSource damageSource, float f) {
+        if (this.isInvulnerableTo(damageSource)) {
+            return false;
+        } else {
+            if (!this.level.isClientSide) {
+                this.hugAttractionGoal.stopHugging();
+            }
+
+            return super.hurt(damageSource, f);
+        }
+    }
+
+    private boolean isAttractive(BlockState state) {
+        return state.getLightEmission() > 10 || state.is(BMBlocks.MOTH_ATTRACTIVE);
     }
 
     @Override
@@ -219,48 +237,9 @@ public class MothEntity extends Monster
         this.updateBodyPitch();
     }
 
-    private boolean isNearTarget()
-    {
-        //TODO: work out wtf this was?
-        return false;
-    }
-
     public boolean isTargeting()
     {
         return getEntityData().get(TARGETING);
-    }
-
-    private boolean closerThan(BlockPos pos, int distance) {
-        return pos.closerThan(this.getOnPos(), distance);
-    }
-
-    private boolean isTooFar(BlockPos pos) {
-        return !this.closerThan(pos, 32);
-    }
-
-    private void startMovingTo(BlockPos pos) {
-        Vec3 vec32;
-        Vec3 vec3 = Vec3.atBottomCenterOf(getOnPos());
-        int i = 0;
-        BlockPos blockPos2 = this.blockPosition();
-        int j = (int)vec3.y - blockPos2.getY();
-        if (j > 2) {
-            i = 4;
-        } else if (j < -2) {
-            i = -4;
-        }
-        int k = 6;
-        int l = 8;
-        int m = blockPos2.distManhattan(getOnPos());
-        if (m < 15) {
-            k = m / 2;
-            l = m / 2;
-        }
-        if ((vec32 = AirRandomPos.getPosTowards(this, k, l, i, vec3, 0.3141592741012573)) == null) {
-            return;
-        }
-        this.navigation.setMaxVisitedNodesMultiplier(0.5f);
-        this.navigation.moveTo(vec32.x, vec32.y, vec32.z, 1.0);
     }
 
     @Override
@@ -285,225 +264,180 @@ public class MothEntity extends Monster
         return attacked;
     }
 
-    public class MoveToLightGoal extends NotAttackingGoal {
-        private int ticks;
-
-        MoveToLightGoal() {
-            super();
-            this.ticks = MothEntity.this.random.nextInt(10);
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        public boolean canMothContinue() {
-            return MothEntity.this.attactPos != null && !MothEntity.this.hasRestriction() && MothEntity.this.isAttractive(MothEntity.this.attactPos) && !MothEntity.this.closerThan(MothEntity.this.attactPos, 2);
-        }
-
-        public boolean canMothStart() {
-            return this.canMothContinue();
-        }
-
-        public void start() {
-            this.ticks = 0;
-            super.start();
-        }
-
-        public void stop() {
-            this.ticks = 0;
-            MothEntity.this.navigation.stop();
-            MothEntity.this.navigation.resetMaxVisitedNodesMultiplier();
-        }
-
-        public void tick() {
-            if (MothEntity.this.attactPos != null) {
-                ++this.ticks;
-                if (this.ticks > 600) {
-                    MothEntity.this.attactPos = null;
-                } else if (!MothEntity.this.navigation.isInProgress()) {
-                    if (MothEntity.this.isTooFar(MothEntity.this.attactPos)) {
-                        MothEntity.this.attactPos = null;
-                    } else {
-                        MothEntity.this.startMovingTo(MothEntity.this.attactPos);
-                    }
-                }
-            }
-        }
+    public boolean hasSavedAttractionPos() {
+        return this.savedAttractionPos != null;
     }
 
-    private abstract class NotAttackingGoal extends Goal
+    public boolean isValidAttraction(BlockPos pos)
     {
-        private NotAttackingGoal() {
-        }
+        return this.level.isLoaded(pos) && isAttractive(level.getBlockState(pos));
+    }
 
-        public abstract boolean canMothContinue();
+    abstract class BaseAttractionGoal extends Goal {
+        public abstract boolean canMothUse();
 
-        public abstract boolean canMothStart();
+        public abstract boolean canMothContinueToUse();
 
+        @Override
         public boolean canUse() {
-            return this.canMothStart() && !MothEntity.this.isTargeting();
+            return this.canMothUse() && MothEntity.this.getLastAttacker() != null;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return this.canMothContinue() && !MothEntity.this.isTargeting();
+            return this.canMothContinueToUse() && MothEntity.this.getLastAttacker() != null;
         }
     }
 
-    private class AttractLightGoal extends NotAttackingGoal
-    {
-        private int attractTicks = 0;
-        private int lastAttractTick = 0;
-        private boolean running;
-        private Vec3 nextTarget;
-        private int ticks = 0;
 
-        AttractLightGoal() {
-            super();
+    private class HugAttractionGoal extends BaseAttractionGoal {
+        private int successfulPollinatingTicks;
+        private boolean hugging;
+        @Nullable
+        private Vec3 hoverPos;
+        private int huggingTicks;
+
+        private HugAttractionGoal() {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
-        public boolean canMothStart() {
-            if (MothEntity.this.level.isRaining()) {
+        @Override
+        public boolean canMothUse() {
+            if (MothEntity.this.findAttractionCooldown > 0) {
                 return false;
-            } else if (MothEntity.this.random.nextFloat() < 0.7F) {
-                return false;
-            } else {
-                Optional<BlockPos> optional = this.findLight();
-                if (optional.isPresent())
-                {
-                    MothEntity.this.attactPos = optional.get();
-                    MothEntity.this.navigation.moveTo((double)MothEntity.this.attactPos.getX() + 0.5D, (double)MothEntity.this.attactPos
-                            .getY() + 1.25F, (double)MothEntity.this.attactPos.getZ() + 0.5D, 1.2F);
+            }
+            else
+            {
+                Optional<BlockPos> nearbyAttraction = this.findNearbyAttraction();
+                if (nearbyAttraction.isPresent()) {
+                    MothEntity.this.savedAttractionPos = nearbyAttraction.get();
+                    Vec3 targetPosition = MothEntity.this.savedAttractionPos.getCenter();
+                    MothEntity.this.navigation.moveTo(targetPosition.x, targetPosition.y, targetPosition.z, 1.2F);
                     return true;
                 } else {
+                    MothEntity.this.findAttractionCooldown = Mth.nextInt(MothEntity.this.random, 20, 60);
                     return false;
                 }
             }
         }
 
-        public boolean canMothContinue() {
-            if (!this.running) {
+        @Override
+        public boolean canMothContinueToUse() {
+            if (!this.hugging) {
                 return false;
-            } else if (MothEntity.this.attactPos == null) {
+            }
+            else if (!MothEntity.this.hasSavedAttractionPos()) {
                 return false;
-            } else if (MothEntity.this.level.isRaining()) {
-                return false;
-            } else if (this.completedAttract()) {
+            }
+            else if (this.hasHuggedLongEnough())
+            {
                 return MothEntity.this.random.nextFloat() < 0.2F;
-            } else if (MothEntity.this.tickCount % 20 == 0 && !MothEntity.this.isAttractive(MothEntity.this.attactPos)) {
-                MothEntity.this.attactPos = null;
-                return false;
             }
-            else if(attactPos != null && attactPos.getY() < getY() && !MothEntity.this.closerThan(attactPos, 1) && level.getBlockState(MothEntity.this.getOnPos().below()).canOcclude()){
-                MothEntity.this.attactPos = null;
-
+            else if (MothEntity.this.tickCount % 20 == 0 && !MothEntity.this.isValidAttraction(MothEntity.this.savedAttractionPos)) {
+                MothEntity.this.savedAttractionPos = null;
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
 
-        private boolean completedAttract() {
-            return this.attractTicks > 400;
+        private boolean hasHuggedLongEnough() {
+            return this.successfulPollinatingTicks > 400;
         }
 
-        private boolean isRunning() {
-            return this.running;
+        boolean isHugging() {
+            return this.hugging;
         }
 
-        private void cancel() {
-            this.running = false;
+        void stopHugging() {
+            this.hugging = false;
         }
 
+        @Override
         public void start() {
-            this.attractTicks = 0;
-            this.ticks = 0;
-            this.lastAttractTick = 0;
-            this.running = true;
+            this.successfulPollinatingTicks = 0;
+            this.huggingTicks = 0;
+            this.hugging = true;
         }
 
+        @Override
         public void stop() {
-            this.running = false;
+            this.hugging = false;
             MothEntity.this.navigation.stop();
+            MothEntity.this.findAttractionCooldown = 200;
         }
 
-        public void tick()
-        {
-            ++this.ticks;
-            if (this.ticks > 600) {
-                MothEntity.this.attactPos = null;
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            ++this.huggingTicks;
+            if (this.huggingTicks > 600) {
+                MothEntity.this.savedAttractionPos = null;
             } else {
-
-                Vec3 centerTarget = Vec3.atBottomCenterOf(attactPos);
-                if(MothEntity.this.getY() < centerTarget.y)
-                    centerTarget = centerTarget.add(0, -1.25F, 0);
-                else centerTarget = centerTarget.add(0, 1.25F, 0);
-
-                BlockPos pos = MothEntity.this.getOnPos();
-                Vec3 onVec = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-                if (centerTarget.distanceTo(onVec) > 1.0D) {
-                    this.nextTarget = centerTarget;
-                    this.moveToNextTarget();
+                Vec3 vec3 = Vec3.atBottomCenterOf(MothEntity.this.savedAttractionPos).add(0.0, 0.6F, 0.0);
+                if (vec3.distanceTo(MothEntity.this.position()) > 1.0) {
+                    this.hoverPos = vec3;
+                    this.setWantedPos();
                 } else {
-                    if (this.nextTarget == null) {
-                        this.nextTarget = centerTarget;
+                    if (this.hoverPos == null) {
+                        this.hoverPos = vec3;
                     }
 
-                    boolean isClose = onVec.distanceTo(this.nextTarget) <= 0.1D;
-                    boolean hasFinished = true;
-                    if (!isClose && this.ticks > 600) {
-                        MothEntity.this.attactPos = null;
+                    boolean bl = MothEntity.this.position().distanceTo(this.hoverPos) <= 0.1;
+                    boolean bl2 = true;
+                    if (!bl && this.huggingTicks > 600) {
+                        MothEntity.this.savedAttractionPos = null;
                     } else {
-                        if (isClose) {
-                            boolean getNewTarget = MothEntity.this.random.nextInt(25) == 0;
-                            if (getNewTarget) {
-                                this.nextTarget = new Vec3(centerTarget.x() + (double)this.getRandomOffset(), centerTarget.y(), centerTarget.z() + (double)this.getRandomOffset());
+                        if (bl) {
+                            boolean bl3 = MothEntity.this.random.nextInt(25) == 0;
+                            if (bl3) {
+                                this.hoverPos = new Vec3(vec3.x() + (double)this.getOffset(), vec3.y(), vec3.z() + (double)this.getOffset());
                                 MothEntity.this.navigation.stop();
                             } else {
-                                hasFinished = false;
+                                bl2 = false;
                             }
 
-                            MothEntity.this.getLookControl().setLookAt(centerTarget.x(), centerTarget.y(), centerTarget.z());
+                            MothEntity.this.getLookControl().setLookAt(vec3.x(), vec3.y(), vec3.z());
                         }
 
-                        if (hasFinished) {
-                            this.moveToNextTarget();
+                        if (bl2) {
+                            this.setWantedPos();
                         }
 
-                        ++this.attractTicks;
-                        if (MothEntity.this.random.nextFloat() < 0.05F && this.attractTicks > this.lastAttractTick + 60) {
-                            this.lastAttractTick = this.attractTicks;
-                        }
-
+                        ++this.successfulPollinatingTicks;
                     }
                 }
             }
         }
 
-        private void moveToNextTarget() {
-            MothEntity.this.getMoveControl().setWantedPosition(this.nextTarget.x(), this.nextTarget.y(), this.nextTarget.z(), 0.35F);
+        private void setWantedPos() {
+            MothEntity.this.getMoveControl().setWantedPosition(this.hoverPos.x(), this.hoverPos.y(), this.hoverPos.z(), 0.35F);
         }
 
-        private float getRandomOffset() {
-            return (MothEntity.this.random.nextFloat() * 2.0F - 1.0F) * 0.33333334F;
+        private float getOffset() {
+            return (MothEntity.this.random.nextFloat() * 2.0F - 1.0F) * 0.33F;
         }
 
-        private Optional<BlockPos> findLight() {
-            return this.findLight(5.0D);
+        private Optional<BlockPos> findNearbyAttraction()
+        {
+            return this.findNearestBlock(MothEntity.this::isAttractive, 5.0);
         }
 
-        private Optional<BlockPos> findLight(double searchDistance) {
-            BlockPos blockPos = MothEntity.this.getOnPos();
-            BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+        private Optional<BlockPos> findNearestBlock(Predicate<BlockState> predicate, double d) {
+            BlockPos mothPos = MothEntity.this.blockPosition();
+            BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-            for(int y = 0; (double)y <= searchDistance; y = y > 0 ? -y : 1 - y) {
-                for(int j = 0; (double)j < searchDistance; ++j) {
+            for(int y = 0; (double)y <= d; y = y > 0 ? -y : 1 - y) {
+                for(int j = 0; (double)j < d; ++j) {
                     for(int x = 0; x <= j; x = x > 0 ? -x : 1 - x) {
                         for(int z = x < j && x > -j ? j : 0; z <= j; z = z > 0 ? -z : 1 - z) {
-                            mutable.setWithOffset(blockPos, x, y - 1, z);
-                            if (blockPos.closerThan(mutable, searchDistance) && MothEntity.this.isAttractive(mutable))
-                            {
-                                return Optional.of(mutable);
+                            pos.setWithOffset(mothPos, x, y - 1, z);
+                            if (mothPos.closerThan(pos, d) && predicate.test(MothEntity.this.level.getBlockState(pos))) {
+                                return Optional.of(pos);
                             }
                         }
                     }

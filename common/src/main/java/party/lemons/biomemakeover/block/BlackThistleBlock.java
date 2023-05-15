@@ -10,10 +10,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.taniwha.block.TBlockExtension;
 import party.lemons.taniwha.block.types.TTallFlowerBlock;
 
-public class BlackThistleBlock extends TTallFlowerBlock
+public class BlackThistleBlock extends TTallFlowerBlock implements TBlockExtension
 {
     public BlackThistleBlock(Properties properties) {
         super(properties);
@@ -26,5 +28,11 @@ public class BlackThistleBlock extends TTallFlowerBlock
                 ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 110, 0));
             }
         }
+    }
+
+    @Override
+    public BlockPathTypes getNodePathType()
+    {
+        return BlockPathTypes.DANGER_OTHER;
     }
 }

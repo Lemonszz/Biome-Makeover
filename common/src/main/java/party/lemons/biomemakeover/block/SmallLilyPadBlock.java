@@ -13,14 +13,16 @@ import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.taniwha.block.TBlockExtension;
 import party.lemons.taniwha.block.modifier.BlockModifier;
 import party.lemons.taniwha.block.modifier.BlockWithModifiers;
 import party.lemons.taniwha.registry.ModifierContainer;
 
-public class SmallLilyPadBlock extends WaterlilyBlock implements BlockWithModifiers<SmallLilyPadBlock>
+public class SmallLilyPadBlock extends WaterlilyBlock implements BlockWithModifiers<SmallLilyPadBlock>, TBlockExtension
 {
     public static final IntegerProperty PADS = IntegerProperty.create("pads", 0, 3);
 
@@ -68,5 +70,11 @@ public class SmallLilyPadBlock extends WaterlilyBlock implements BlockWithModifi
     {
         modifierContainer = new ModifierContainer<>(this, modifiers);
         return this;
+    }
+
+    @Override
+    public BlockPathTypes getNodePathType()
+    {
+        return BlockPathTypes.DANGER_OTHER;
     }
 }

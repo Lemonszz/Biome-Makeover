@@ -35,6 +35,16 @@
       "item": "biomemakeover:magenta_petals",
       "max_count": 4,
       "points": 3
+    },
+    {
+      "item": "biomemakeover:tadpole_bucket",
+      "max_count": 1,
+      "points": 5
+    },
+    {
+      "item": "minecraft:mangrove_propagule",
+      "max_count": 5,
+      "points": 0.5
     }
   ]
 }

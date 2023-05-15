@@ -37,8 +37,8 @@ import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.util.MathUtils;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.MathUtils;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -140,7 +140,7 @@ public class ToadEntity extends Animal {
                 if(tongueDistance > targetTongueDistance) speed *= 2;
 
                 tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);
-            }else//TODO: clean this
+            }else
             {
                 targetTongueDistance = 0;
                 tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);

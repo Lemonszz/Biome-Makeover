@@ -165,14 +165,15 @@ public class OwlEntity extends ShoulderRidingEntity
         if(tamed)
         {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
             this.setHealth(20.0F);
         }
         else
         {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(6.0D);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0D);
         }
 
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
     }
 
     @Override

@@ -133,13 +133,14 @@ public class BMEntities
         registerSpawn(BMFeatures.MUSHROOM_FIELD_BIOMES, GLOWFISH.get(), MobCategory.WATER_AMBIENT, 7, 2, 7);
         SpawnPlacementsInvoker.callRegister(GLOWFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 
-        registerSpawn(BMFeatures.MUSHROOM_FIELD_BIOMES, BLIGHTBAT.get(), MobCategory.AMBIENT, 5, 1, 1);
-        SpawnPlacementsInvoker.callRegister(BLIGHTBAT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlightBatEntity::checkSpawnRules);
+        //registerSpawn(BMFeatures.MUSHROOM_FIELD_BIOMES, BLIGHTBAT.get(), MobCategory.AMBIENT, 5, 1, 1);
+        //SpawnPlacementsInvoker.callRegister(BLIGHTBAT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlightBatEntity::checkSpawnRules);
 
-        registerSpawn(BMFeatures.MUSHROOM_FIELD_BIOMES, MUSHROOM_TRADER.get(), MobCategory.AMBIENT, 1, 1, 1);
+        //registerSpawn(BMFeatures.MUSHROOM_FIELD_BIOMES, MUSHROOM_TRADER.get(), MobCategory.AMBIENT, 1, 1, 1);
 
         registerSpawn(BMFeatures.BADLANDS_BIOMES, SCUTTLER.get(), MobCategory.CREATURE, 4, 1, 2);
         SpawnPlacementsInvoker.callRegister(SCUTTLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttlerEntity::checkSpawnRules);
+        SpawnPlacementsInvoker.callRegister(GHOST.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostEntity::checkGhostSpawnRules);
 
         registerSpawn(BMFeatures.SWAMP_BIOMES, DECAYED.get(), MobCategory.MONSTER, 60, 1, 1);
         SpawnPlacementsInvoker.callRegister(DECAYED.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DecayedEntity::checkSpawnRules);

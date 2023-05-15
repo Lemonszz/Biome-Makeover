@@ -7,8 +7,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.level.feature.mansion.*;
+import party.lemons.taniwha.util.MathUtils;
 import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.List;
@@ -75,30 +75,30 @@ public class MansionRoom
         return position;
     }
 
-    public ResourceLocation getTemplate(RandomSource random)
+    public ResourceLocation getTemplate(MansionTemplates templates, RandomSource random)
     {
-        if(type != RoomType.CORRIDOR) return type.getRandomTemplate(position, random);
+        if(type != RoomType.CORRIDOR) return type.getRandomTemplate(templates, position, random);
         else
         {
             List<ResourceLocation> ids;
             switch(layout.doorCount())
             {
                 case 1:
-                    ids = MansionFeature.CORRIDOR_STRAIGHT;
+                    ids = MansionTemplateType.CORRIDOR_STRAIGHT.getTemplates(templates);
                     break;
                 case 2:
                     if((layout.get(Direction.NORTH) && layout.get(Direction.SOUTH)) || (layout.get(Direction.EAST) && layout.get(Direction.WEST)))
-                        ids = MansionFeature.CORRIDOR_STRAIGHT;
-                    else ids = MansionFeature.CORRIDOR_CORNER;
+                        ids = MansionTemplateType.CORRIDOR_STRAIGHT.getTemplates(templates);
+                    else ids = MansionTemplateType.CORRIDOR_CORNER.getTemplates(templates);
                     break;
                 case 3:
-                    ids = MansionFeature.CORRIDOR_T;
+                    ids = MansionTemplateType.CORRIDOR_T.getTemplates(templates);
                     break;
                 case 4:
-                    ids = MansionFeature.CORRIDOR_CROSS;
+                    ids = MansionTemplateType.CORRIDOR_CROSS.getTemplates(templates);
                     break;
                 default:
-                    ids = MansionFeature.STAIR_DOWN;
+                    ids = MansionTemplateType.STAIR_DOWN.getTemplates(templates);
                     break;
             }
             return ids.get(random.nextInt(ids.size()));
@@ -192,65 +192,65 @@ public class MansionRoom
         return getPosition().getY() == 0;
     }
 
-    public void addWalls(RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children)
+    public void addWalls(MansionDetails details, MansionTemplates templates, RandomSource random, BlockPos wallPos, StructureTemplateManager manager, Grid<MansionRoom> roomGrid, StructurePiecesBuilder children)
     {
         boolean ground = hasGroundModifications();
 
         if(getRoomType().hasWalls())
         {
             if(isConnected(Direction.NORTH))
-                children.addPiece(new MansionFeature.Piece(manager, getInnerWall(random), wallPos.relative(Direction.NORTH, 2), Rotation.NONE, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, getInnerWall(templates, random), wallPos.relative(Direction.NORTH, 2), Rotation.NONE, ground, false));
             else if(!roomGrid.contains(getPosition().north()) || !roomGrid.get(getPosition().north()).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.NORTH, roomGrid, random), wallPos.relative(Direction.EAST, 11), Rotation.CLOCKWISE_180, ground, true));
+                children.addPiece(new MansionFeature.Piece(details, manager, getOuterWall(templates, Direction.NORTH, roomGrid, random), wallPos.relative(Direction.EAST, 11), Rotation.CLOCKWISE_180, ground, true));
             else if(roomGrid.contains(getPosition().north()))
-                children.addPiece(new MansionFeature.Piece(manager, getFlatWall(random), wallPos.relative(Direction.NORTH, 2), Rotation.NONE, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, getFlatWall(templates, random), wallPos.relative(Direction.NORTH, 2), Rotation.NONE, ground, false));
 
             if(isConnected(Direction.WEST))
-                children.addPiece(new MansionFeature.Piece(manager, getInnerWall(random), wallPos, Rotation.CLOCKWISE_90, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, getInnerWall(templates, random), wallPos, Rotation.CLOCKWISE_90, ground, false));
             else if(!roomGrid.contains(getPosition().west()) || !roomGrid.get(getPosition().west()).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.WEST, roomGrid, random), wallPos.north(), Rotation.CLOCKWISE_90, ground, true));
+                children.addPiece(new MansionFeature.Piece(details, manager, getOuterWall(templates, Direction.WEST, roomGrid, random), wallPos.north(), Rotation.CLOCKWISE_90, ground, true));
             else if(roomGrid.contains(getPosition().west()))
-                children.addPiece(new MansionFeature.Piece(manager, getFlatWall(random), wallPos, Rotation.CLOCKWISE_90, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, getFlatWall(templates, random), wallPos, Rotation.CLOCKWISE_90, ground, false));
 
             if(!roomGrid.contains(getPosition().east()) || !roomGrid.get(getPosition().east()).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.EAST, roomGrid, random), wallPos.relative(Direction.EAST, 11).west().south(11), Rotation.COUNTERCLOCKWISE_90, ground, true));
+                children.addPiece(new MansionFeature.Piece(details, manager, getOuterWall(templates, Direction.EAST, roomGrid, random), wallPos.relative(Direction.EAST, 11).west().south(11), Rotation.COUNTERCLOCKWISE_90, ground, true));
             if(!roomGrid.contains(getPosition().south()) || !roomGrid.get(getPosition().south()).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, getOuterWall(Direction.SOUTH, roomGrid, random), wallPos.relative(Direction.SOUTH, 10).west(), Rotation.NONE, ground, true));
+                children.addPiece(new MansionFeature.Piece(details, manager, getOuterWall(templates, Direction.SOUTH, roomGrid, random), wallPos.relative(Direction.SOUTH, 10).west(), Rotation.NONE, ground, true));
 
             BlockPos cornerPos1 = getPosition().relative(Direction.NORTH).relative(Direction.WEST);
             if(roomGrid.contains(cornerPos1) && roomGrid.get(cornerPos1).getRoomType().hasWalls())
-                children.addPiece(new MansionFeature.Piece(manager, MansionFeature.CORNER_FILLER.toString(), wallPos.relative(Direction.WEST).relative(Direction.NORTH).offset(0, 0, 0), Rotation.NONE, ground, false));
+                children.addPiece(new MansionFeature.Piece(details, manager, MansionTemplateType.CORNER_FILLERS.getRandomTemplate(templates, random).toString(), wallPos.relative(Direction.WEST).relative(Direction.NORTH).offset(0, 0, 0), Rotation.NONE, ground, false));
         }
     }
 
-    public String getInnerWall(RandomSource random)
+    public String getInnerWall(MansionTemplates templates, RandomSource random)
     {
-        return MansionFeature.INNER_WALL.get(random.nextInt(MansionFeature.INNER_WALL.size())).toString();
+        return MansionTemplateType.INNER_WALL.getRandomTemplate(templates, random).toString();
     }
 
-    public String getFlatWall(RandomSource random)
+    public String getFlatWall(MansionTemplates templates, RandomSource random)
     {
-        return MansionFeature.FLAT_WALL.get(random.nextInt(MansionFeature.FLAT_WALL.size())).toString();
+        return MansionTemplateType.FLAT_WALL.getRandomTemplate(templates, random).toString();
     }
 
-    public String getOuterWall(Direction dir, Grid<MansionRoom> roomGrid, RandomSource random)
+    public String getOuterWall(MansionTemplates templates, Direction dir, Grid<MansionRoom> roomGrid, RandomSource random)
     {
         if(getPosition().getY() > 0)
         {
             if(getRoomType().hasWindows() && random.nextFloat() < 0.95F && !roomGrid.contains(getPosition().relative(dir)))
-                return MansionFeature.OUTER_WINDOW.get(random.nextInt(MansionFeature.OUTER_WINDOW.size())).toString();
+                return MansionTemplateType.OUTER_WINDOW.getRandomTemplate(templates, random).toString();
 
-            return MansionFeature.OUTER_WALL.get(random.nextInt(MansionFeature.OUTER_WALL.size())).toString();
+            return MansionTemplateType.OUTER_WALL.getRandomTemplate(templates, random).toString();
         }
         else
         {
-            return MansionFeature.OUTER_WALL_BASE.get(random.nextInt(MansionFeature.OUTER_WALL_BASE.size())).toString();
+            return MansionTemplateType.OUTER_WALL_BASE.getRandomTemplate(templates, random).toString();
         }
     }
 
     public void setLayout(MansionRoom currentRoom)
     {
-        for(Direction direction : BMUtil.HORIZONTALS)
+        for(Direction direction : MathUtils.HORIZONTALS)
         {
             getLayout().put(direction, currentRoom.getLayout().get(direction));
         }

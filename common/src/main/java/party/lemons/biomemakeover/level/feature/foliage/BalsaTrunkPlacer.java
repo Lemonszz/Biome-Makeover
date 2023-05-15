@@ -43,6 +43,8 @@ public class BalsaTrunkPlacer extends TrunkPlacer
         int zz = pos.getZ();
         int yy = 0;
 
+        int possibleBranches = random.nextInt(2);
+
         int yPosition;
         for(int n = 0; n < trunkHeight; ++n)
         {
@@ -53,6 +55,23 @@ public class BalsaTrunkPlacer extends TrunkPlacer
                 zz += direction.getStepZ();
                 --j;
             }
+            else if(yPosition > pos.getY() + 4 && possibleBranches > 0 && random.nextInt(4) == 0)
+            {
+                BlockPos.MutableBlockPos branchPos = new BlockPos.MutableBlockPos(xx, yPosition, zz);
+                possibleBranches--;
+                Direction branchDir;
+                do{
+                    branchDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+                }while(branchDir == direction);
+
+                int branchLength = random.nextInt(2, 4);
+                for(int b = 0; b < branchLength; b++)
+                {
+                    branchPos.move(branchDir);
+                    placeLog(level, biConsumer, random, branchPos, treeConfiguration);
+                }
+                list.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), 1, false));
+            }
 
             //Set Tree block?
             if(placeLog(level, biConsumer, random, mpos.set(xx, yPosition, zz), treeConfiguration))
@@ -60,7 +79,7 @@ public class BalsaTrunkPlacer extends TrunkPlacer
                 yy = yPosition + 1;
             }
         }
-        list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(xx, yy, zz), 1, false));
+        list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(xx, yy, zz), 2, false));
 
         return list;
     }

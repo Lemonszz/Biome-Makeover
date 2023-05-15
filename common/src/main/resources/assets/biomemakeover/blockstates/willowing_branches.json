@@ -8,6 +8,9 @@
     },
     "stage=2": {
       "model": "biomemakeover:block/willow_vine_2"
+    },
+    "stage=3": {
+      "model": "biomemakeover:block/willow_vine_2"
     }
   }
 }

@@ -135,7 +135,7 @@ public class DecayedEntity extends Zombie
     }
 
     @Override
-    protected void hurtCurrentlyUsedShield(float amount) {
+    public void hurtCurrentlyUsedShield(float amount) {
         if(level.isClientSide() || !(this.useItem.getItem() instanceof ShieldItem)) return;
 
         shieldHealth -= amount;

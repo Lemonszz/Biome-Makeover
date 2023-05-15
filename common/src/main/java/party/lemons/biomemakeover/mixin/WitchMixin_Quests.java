@@ -33,11 +33,14 @@ import party.lemons.biomemakeover.crafting.witch.data.QuestCategories;
 import party.lemons.biomemakeover.entity.ai.WitchLookAtCustomerGoal;
 import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
 import party.lemons.biomemakeover.init.BMItems;
+import party.lemons.biomemakeover.util.extension.LootBlocker;
 
 @Mixin(Witch.class)
 public abstract class WitchMixin_Quests extends Raider implements WitchQuestEntity
 {
     @Shadow private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
+    private static ResourceLocation WITCH_HAT_TABLE;
+
     private Player customer;
     private WitchQuestList quests;
     private int replenishTime;
@@ -79,16 +82,20 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
         }
     }
 
-    private static final ResourceLocation WITCH_HAT_TABLE = BiomeMakeover.ID("entities/witch_hat");
 
     @Override
     protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
     {
-        LootTable lootTable = level.getServer().getLootTables().get(WITCH_HAT_TABLE);
-        LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
-        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
-
         super.dropFromLootTable(damageSource, causedByPlayer);
+
+        if(!LootBlocker.isBlocked(this)) {
+            if(WITCH_HAT_TABLE == null)
+                WITCH_HAT_TABLE = BiomeMakeover.ID("entities/witch_hat");
+
+            LootTable lootTable = level.getServer().getLootTables().get(WITCH_HAT_TABLE);
+            LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
+            lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+        }
     }
 
     @Override
@@ -105,7 +112,7 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
                 {
                     quests.add(WitchQuestHandler.createQuest(random));
                 }
-                replenishTime = 3000 + random.nextInt(21000);
+                replenishTime = 21000 + random.nextInt(3000);
             }
         }
     }
@@ -126,7 +133,7 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
 
     public boolean playerHasHat(Player player)
     {
-        return player.getItemBySlot(EquipmentSlot.HEAD).getItem() == BMItems.WITCH_HAT.get();
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(BMItems.WITCH_HATS);
     }
 
     @Override

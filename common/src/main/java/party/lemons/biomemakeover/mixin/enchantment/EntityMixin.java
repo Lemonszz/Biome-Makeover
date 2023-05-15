@@ -42,7 +42,7 @@ public abstract class EntityMixin {
     @Inject(at = @At("HEAD"), method = "updateSwimming", cancellable = true)
     public void updateSwimming(CallbackInfo cbi)
     {
-        if((Entity) ((Object)this) instanceof LivingEntity living)
+        if((Entity) ((Object)this) instanceof LivingEntity living && living.isSwimming())
         {
             if(EnchantmentHelper.getEnchantmentLevel(BMEnchantments.DEPTH_CURSE.get(),living) > 0)
             {

@@ -20,8 +20,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.taniwha.block.types.TBlock;
+import party.lemons.taniwha.util.MathUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -114,7 +114,7 @@ public class IvyShapedBlock extends TBlock
     {
         for(Direction d : Direction.values())
         {
-            if(BMUtil.isAdjacentDirection(d, direction) && hasDirection(state, d)) return true;
+            if(MathUtils.isAdjacentDirection(d, direction) && hasDirection(state, d)) return true;
         }
 
         return false;

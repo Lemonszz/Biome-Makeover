@@ -1,0 +1,149 @@
+{
+  "type": "biomemakeover:fissure",
+  "config": {
+    "height": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 8,
+        "max_inclusive": 15
+      }
+    },
+    "height_offset": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": -8,
+        "max_inclusive": 3
+      }
+    },
+    "spread_offset": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 1,
+        "max_inclusive": 3
+      }
+    },
+    "count": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 8,
+        "max_inclusive": 16
+      }
+    },
+    "base_block": {
+      "type": "minecraft:dual_noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": -3
+      },
+      "scale": 0.5,
+      "seed": 2345,
+      "slow_noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": -10
+      },
+      "slow_scale": 1.0,
+      "states": [
+        {
+          "Name": "biomemakeover:mesmerite"
+        },
+        {
+          "Name": "biomemakeover:illunite_block"
+        },
+        {
+          "Name": "biomemakeover:illunite_block"
+        }
+      ],
+      "variety": [
+        1,
+        3
+      ]
+    },
+    "depth_block": {
+      "state": {
+        "Name": "biomemakeover:mesmerite"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "fill_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:air"
+      }
+    },
+    "alternate_chance": 0.1,
+    "inner_placement_chance": 0.3,
+    "alternate_base_block": {
+      "type": "minecraft:dual_noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": -3
+      },
+      "scale": 0.5,
+      "seed": 2345,
+      "slow_noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": -10
+      },
+      "slow_scale": 1.0,
+      "states": [
+        {
+          "Name": "biomemakeover:mesmerite"
+        },
+        {
+          "Name": "biomemakeover:budding_illunite"
+        },
+        {
+          "Name": "biomemakeover:budding_illunite"
+        }
+      ],
+      "variety": [
+        1,
+        3
+      ]
+    },
+    "inner_target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": [
+        "biomemakeover:budding_illunite"
+      ]
+    },
+    "inner_placements": [
+      {
+        "Name": "biomemakeover:small_illunite_bud",
+        "Properties": {
+          "facing": "up",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "biomemakeover:medium_illunite_bud",
+        "Properties": {
+          "facing": "up",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "biomemakeover:large_illunite_bud",
+        "Properties": {
+          "facing": "up",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "biomemakeover:illunite_cluster",
+        "Properties": {
+          "facing": "up",
+          "waterlogged": "false"
+        }
+      }
+    ]
+  }
+}

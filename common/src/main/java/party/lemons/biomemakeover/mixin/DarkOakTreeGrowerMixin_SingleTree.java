@@ -10,14 +10,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.init.BMFeatures;
 
 @Mixin(DarkOakTreeGrower.class)
 public class DarkOakTreeGrowerMixin_SingleTree {
-    private static final ResourceKey<ConfiguredFeature<?,?>> SMALL = ResourceKey.create(Registries.CONFIGURED_FEATURE, BiomeMakeover.ID("dark_forest/dark_oak_small"));
-
-
     @Inject(at = @At("HEAD"), method = "getConfiguredFeature", cancellable = true)
     protected void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> cbi) {
-        cbi.setReturnValue(SMALL);
+        cbi.setReturnValue(BMFeatures.SINGLE_DARK_OAK_KEY);
     }
 }

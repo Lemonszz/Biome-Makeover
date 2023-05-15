@@ -41,9 +41,9 @@ public class MesmermiteUndergroundFeature extends OreFeature
         double[] ds = new double[p * 4];
         for (q = 0; q < p; ++q) {
             float r = (float)q / (float)p;
-            s = Mth.lerp((double)r, d, e);
-            t = Mth.lerp((double)r, h, i);
-            u = Mth.lerp((double)r, f, g);
+            s = Mth.lerp(r, d, e);
+            t = Mth.lerp(r, h, i);
+            u = Mth.lerp(r, f, g);
             v = random.nextDouble() * (double)p / 16.0;
             double w = ((double)(Mth.sin((float)Math.PI * r) + 1.0f) * v + 1.0) / 2.0;
             ds[q * 4 + 0] = s;

@@ -19,11 +19,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.taniwha.block.types.TBlock;
 
@@ -102,7 +104,7 @@ public class SaguaroCactusBlock extends TBlock implements BonemealableBlock
         }else
         {
             BlockState checkState = levelReader.getBlockState(blockPos.below());
-            return (checkState.is(this) || checkState.is(Blocks.SAND) || checkState.is(Blocks.RED_SAND)) && !levelReader.getBlockState(blockPos.above()).getMaterial().isLiquid();
+            return checkState.is(BMBlocks.SAGUARO_CACTUS_PLANTABLE) && !levelReader.getBlockState(blockPos.above()).getMaterial().isLiquid();
         }
 
         return super.canSurvive(state, levelReader, blockPos);
@@ -203,6 +205,11 @@ public class SaguaroCactusBlock extends TBlock implements BonemealableBlock
         generateCactus(this, serverLevel, random.nextBoolean(), blockPos, random, false);
     }
 
+    @Override
+    public BlockPathTypes getNodePathType()
+    {
+        return BlockPathTypes.DAMAGE_OTHER;
+    }
 
     private final static Direction[] NORTH_SOUTH = {Direction.NORTH, Direction.SOUTH};
     private final static Direction[] EAST_WEST = {Direction.EAST, Direction.WEST};

@@ -2,6 +2,8 @@ package party.lemons.biomemakeover.init;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
@@ -12,6 +14,8 @@ import java.util.function.Supplier;
 public class BMEnchantments {
 
     public static final DeferredRegister<Enchantment> ENCHANTS = DeferredRegister.create(Constants.MOD_ID, Registries.ENCHANTMENT);
+    public static final TagKey<Enchantment> ALTAR_CURSE_EXCLUDED = TagKey.create(Registries.ENCHANTMENT, BiomeMakeover.ID("altar_curse_excluded"));
+    public static final TagKey<Enchantment> ALTAR_CANT_UPGRADE = TagKey.create(Registries.ENCHANTMENT, BiomeMakeover.ID("altar_cant_upgrade"));
 
     //TODO: Some of these don't really need their own class.
 

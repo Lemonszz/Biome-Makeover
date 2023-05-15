@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.entity.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,7 +13,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.HelmitCrabEntity;
 import party.lemons.biomemakeover.util.AnimationHelper;
 
-public class HelmitCrabModel extends EntityModel<HelmitCrabEntity>
+public class HelmitCrabModel extends EntityModel<HelmitCrabEntity> implements HeadedModel
 {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(BiomeMakeover.ID("helmit_crab"), "main");
 	public final ModelPart body, head, shell, hide_head, leg_front_right, leg_front_left, leg_back_right, leg_back_left, claw_right, claw_bottom_right,
@@ -161,5 +162,11 @@ public class HelmitCrabModel extends EntityModel<HelmitCrabEntity>
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public ModelPart getHead()
+	{
+		return body;
 	}
 }

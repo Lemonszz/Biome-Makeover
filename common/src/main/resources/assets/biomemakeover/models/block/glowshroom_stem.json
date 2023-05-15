@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/template_single_face",
   "textures": {
-    "all": "biomemakeover:block/glowshroom_stem"
+    "texture": "biomemakeover:block/glowshroom_stem"
   }
 }

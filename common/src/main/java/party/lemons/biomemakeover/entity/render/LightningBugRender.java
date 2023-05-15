@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.LightningBugEntity;
-import party.lemons.biomemakeover.util.MathUtils;
+import party.lemons.taniwha.util.MathUtils;
 
 public class LightningBugRender extends MobRenderer<LightningBugEntity, LightningBugModel> {
 

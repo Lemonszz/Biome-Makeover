@@ -4,15 +4,16 @@ dependencies {
 }
 
 architectury {
-    common(true)
-}
-
-dependencies {
-    modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
-        transitive = false
-    }
+    common(rootProject.enabled_platforms.split(","))
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/biomemakeover-common.accessWidener")
+    accessWidenerPath = file("src/main/resources/biomemakeover.accesswidener")
+}
+
+
+dependencies {
+    modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
+        transitive = true
+    }
 }

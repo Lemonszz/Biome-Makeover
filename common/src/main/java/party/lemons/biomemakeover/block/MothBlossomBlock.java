@@ -20,11 +20,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.MathUtils;
 
 import java.util.List;
-import java.util.Random;
 
 public class MothBlossomBlock extends IvyShapedBlock{
 
@@ -86,7 +85,7 @@ public class MothBlossomBlock extends IvyShapedBlock{
 
     private boolean attemptSpread(Level level, BlockPos pos, RandomSource random)
     {
-        for(Direction direction : BMUtil.randomOrderedHorizontals())
+        for(Direction direction : MathUtils.randomOrderedHorizontals())
         {
             BlockPos offsetPos = pos.relative(direction);
             BlockState placePosState = level.getBlockState(offsetPos);
@@ -113,62 +112,55 @@ public class MothBlossomBlock extends IvyShapedBlock{
             double xx = 0, yy = 0, zz = 0, vx = 0, vy = 0, vz = 0;
 
             //TODO: could probably use a cleanup but honestly who cares.
-            switch(state.getValue(BLOSSOM_DIRECTION))
-            {
-                case DOWN:
+            switch (state.getValue(BLOSSOM_DIRECTION)) {
+                case DOWN -> {
                     xx = (pos.getX() + 0.5F) + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     yy = pos.getY() + 0.1F;
-
                     vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vy = random.nextFloat() / 10F;
-                    break;
-                case UP:
+                }
+                case UP -> {
                     xx = (pos.getX() + 0.5F) + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     yy = pos.getY() + 0.9F;
-
                     vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vy = (random.nextFloat() / 10F) * -1;
-                    break;
-                case NORTH:
+                }
+                case NORTH -> {
                     xx = pos.getX() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     zz = pos.getZ() + 0.1F;
                     yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
-
                     vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vz = random.nextFloat() / 10F;
                     vy = random.nextFloat() / 20F;
-                    break;
-                case SOUTH:
+                }
+                case SOUTH -> {
                     xx = pos.getX() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     zz = pos.getZ() + 0.9F;
                     yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
-
                     vx = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vz = (random.nextFloat() / 10F) * -1F;
                     vy = random.nextFloat() / 20F;
-                    break;
-                case WEST:
+                }
+                case WEST -> {
                     xx = (pos.getX() + 0.1);
                     zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
-
                     vx = random.nextFloat() / 10F;
                     vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vy = random.nextFloat() / 20F;
-                    break;
-                case EAST:
+                }
+                case EAST -> {
                     xx = (pos.getX() + 0.9);
                     zz = pos.getZ() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
                     yy = pos.getY() + 0.5F + RandomUtil.randomDirection(random.nextFloat() / 4F);
-
                     vx = (random.nextFloat() / 10F) * -1;
                     vz = RandomUtil.randomDirection(random.nextFloat() / 20F);
                     vy = random.nextFloat() / 20F;
-                    break;
+                }
             }
 
             level.addParticle(BMEffects.BLOSSOM.get(), xx, yy, zz, vx, vy, vz);

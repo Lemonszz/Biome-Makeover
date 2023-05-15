@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.gameevent.GameEvent;
 import party.lemons.biomemakeover.util.NetworkUtil;
 import party.lemons.biomemakeover.util.extension.Stuntable;
 import party.lemons.taniwha.util.ItemUtil;
@@ -23,8 +24,10 @@ public class StuntPowderItem extends Item
             ItemStack stack = player.getItemInHand(hand);
             if(!stack.isEmpty() && stack.getItem() == this && entity instanceof LivingEntity) {
 
-                if(stuntEntity(stack, player, (LivingEntity) entity, hand).consumesAction())
+                if(stuntEntity(stack, player, (LivingEntity) entity, hand).consumesAction()) {
+                    player.level.gameEvent(entity, GameEvent.ENTITY_INTERACT, entity.position());
                     return EventResult.interruptTrue();
+                }
             }
             return EventResult.pass();
         }));

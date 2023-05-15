@@ -7,17 +7,23 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
+import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.network.S2C_DoPoltergeistParticle;
+import party.lemons.taniwha.block.BlockSetHolder;
+import party.lemons.taniwha.block.WoodTypeHolder;
 
 import java.util.Map;
-import java.util.Random;
 
 public class PoltergeistHandler {
     private static final Map<TagKey<Block>, PoltergeistBehaviour> BEHAVIOUR_TAG = Maps.newHashMap();
@@ -25,94 +31,119 @@ public class PoltergeistHandler {
 
     static
     {
-        registerBehaviour(BlockTags.DOORS, (w, p, st)->
+        registerBehaviour(BlockTags.DOORS, ((level, poltergeist, pos, state)->
         {
-            if(st.getValue(DoorBlock.HALF) != DoubleBlockHalf.LOWER || st.getMaterial() == Material.METAL) return false;
+            if(state.getValue(DoorBlock.HALF) != DoubleBlockHalf.LOWER || state.getMaterial() == Material.METAL) return false;
 
-            w.setBlock(p, st.cycle(DoorBlock.OPEN), 10);
-            int sound = st.getValue(DoorBlock.OPEN) ? 1012 : 1006;
-            w.levelEvent(null, sound, p, 0);
+            BlockState newState = state.cycle(DoorBlock.OPEN);
+            level.setBlock(pos, newState, 10);
 
-            return true;
-        });
-
-        registerBehaviour(BlockTags.BUTTONS, (w, p, st)->
-        {
-            if(st.getValue(ButtonBlock.POWERED)) return false;
-
-            ((ButtonBlock) st.getBlock()).press(st, w, p);
-            w.playSound(null, p, SoundEvents.WOODEN_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
-            return true;
-        });
-
-        registerBehaviour(BlockTags.TRAPDOORS, (w, p, st)->
-        {
-            if(st.getMaterial() == Material.METAL) return false;
-
-            BlockState newState = st.cycle(TrapDoorBlock.OPEN);
-            w.setBlock(p, newState, 2);
-
-            if(newState.getValue(TrapDoorBlock.WATERLOGGED))
-                w.scheduleTick(p, Fluids.WATER, Fluids.WATER.getTickDelay(w));
-
-            w.levelEvent(null, st.getValue(TrapDoorBlock.OPEN) ? 1007 : 1013, p, 0);
-            return true;
-        });
-
-        registerBehaviour(Blocks.LEVER, ((w, p, st)->
-        {
-
-            ((LeverBlock) st.getBlock()).pull(st, w, p);
-            float pitch = st.getValue(LeverBlock.POWERED) ? 0.6F : 0.5F;
-            w.playSound(null, p, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, pitch);
+            BlockSetType type = BlockSetHolder.get(state.getBlock());
+            if(type != null)
+                level.playSound(null, pos,  state.getValue(DoorBlock.OPEN) ? type.doorOpen() : type.doorClose(), SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+            else
+            {
+                int sound = state.getValue(DoorBlock.OPEN) ? 1012 : 1006;
+                level.levelEvent(null, sound, pos, 0);
+            }
+            level.gameEvent(poltergeist, state.getValue(DoorBlock.OPEN) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
 
             return true;
         }));
 
-        registerBehaviour(Blocks.NOTE_BLOCK, ((w, p, st)->
+        registerBehaviour(BlockTags.BUTTONS, ((level, poltergeist, pos, state)->
         {
-            if(w.getBlockState(p.above()).isAir())
+            if(state.getValue(ButtonBlock.POWERED)) return false;
+
+            ((ButtonBlock) state.getBlock()).press(state, level, pos);
+            level.playSound(null, pos, SoundEvents.WOODEN_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
+            level.gameEvent(poltergeist, GameEvent.BLOCK_ACTIVATE, pos);
+
+            return true;
+        }));
+
+        registerBehaviour(BlockTags.TRAPDOORS, ((level, poltergeist, pos, state)->
+        {
+            if(state.getMaterial() == Material.METAL) return false;
+
+            BlockState newState = state.cycle(TrapDoorBlock.OPEN);
+            level.setBlock(pos, newState, 2);
+
+            if(newState.getValue(TrapDoorBlock.WATERLOGGED))
+                level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+
+            BlockSetType type = BlockSetHolder.get(state.getBlock());
+
+            if(type != null)
             {
-                w.blockEvent(p, st.getBlock(), 0, 0);
+                level.playSound(poltergeist, pos, newState.getValue(TrapDoorBlock.OPEN) ? type.trapdoorOpen() : type.trapdoorClose(), SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+            }
+            else
+            {
+                level.levelEvent(null, newState.getValue(TrapDoorBlock.OPEN) ? 1007 : 1013, pos, 0);
+            }
+            level.gameEvent(poltergeist, newState.getValue(TrapDoorBlock.OPEN) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+
+            return true;
+        }));
+
+        registerBehaviour(Blocks.LEVER, ((level, poltergeist, pos, state)->
+        {
+
+            state = ((LeverBlock) state.getBlock()).pull(state, level, pos);
+            float pitch = state.getValue(LeverBlock.POWERED) ? 0.6F : 0.5F;
+            level.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, pitch);
+            level.gameEvent(poltergeist, state.getValue(LeverBlock.POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pos);
+
+            return true;
+        }));
+
+        registerBehaviour(Blocks.NOTE_BLOCK, ((level, poltergeist, pos, state)->
+        {
+            if (!state.getValue(NoteBlock.INSTRUMENT).requiresAirAbove() || level.getBlockState(pos.above()).isAir())
+            {
+                level.blockEvent(pos, state.getBlock(), 0, 0);
+                level.gameEvent(poltergeist, GameEvent.NOTE_BLOCK_PLAY, pos);
                 return true;
             }
             return false;
         }));
 
-        registerBehaviour(BlockTags.FENCE_GATES, ((w, p, st)->
+        registerBehaviour(BlockTags.FENCE_GATES, ((level, poltergeist, pos, state)->
         {
 
-            st = st.cycle(FenceGateBlock.OPEN);
-            w.setBlock(p, st, 10);
-            w.levelEvent(null, st.getValue(FenceGateBlock.OPEN) ? 1008 : 1014, p, 0);
+            state = state.cycle(FenceGateBlock.OPEN);
+            level.setBlock(pos, state, 10);
+
+            WoodType type = WoodTypeHolder.get(state.getBlock());
+            if(type != null)
+                level.playSound(null, pos, state.getValue(FenceGateBlock.OPEN) ? type.fenceGateOpen() : type.fenceGateClose(), SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+
+            level.gameEvent(poltergeist, state.getValue(FenceGateBlock.OPEN) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
 
             return true;
         }));
 
-        /*
-        TODO: LOOK INTO UPDATING SIGNAL STRENGTH
-         */
-        /*
-        registerBehaviour(Blocks.DAYLIGHT_DETECTOR, ((w, p, st)->
+        registerBehaviour(Blocks.DAYLIGHT_DETECTOR, ((level, poltergeist, pos, state)->
         {
-            BlockState blockState = st.cycle(DaylightDetectorBlock.INVERTED);
-            w.setBlock(p, st, 4);
-            DaylightDetectorBlock.updateState(blockState, w, p);
+            BlockState blockState = state.cycle(DaylightDetectorBlock.INVERTED);
+            level.setBlock(pos, blockState, Block.UPDATE_NONE);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(poltergeist, blockState));
+            DaylightDetectorBlock.updateSignalStrength(blockState, level, pos);
 
             return true;
         }));
 
-*/
 
-        registerBehaviour(Blocks.BELL, ((w, p, st)->
+        registerBehaviour(Blocks.BELL, ((level, poltergeist, pos, state)->
         {
-            ((BellBlock) st.getBlock()).attemptToRing(w, p, null);
+            ((BellBlock) state.getBlock()).attemptToRing(level, pos, null);
 
             return true;
         }));
     }
 
-    public static void doPoltergeist(Level level, BlockPos pos, int range)
+    public static void doPoltergeist(Level level, @Nullable Entity poltergeist, BlockPos pos, int range)
     {
         int volume = range * range * range;
         int geistIndex = level.random.nextInt(volume);
@@ -126,7 +157,7 @@ public class PoltergeistHandler {
         pZ += pos.getZ();
 
         BlockPos checkPos = new BlockPos(pX - half, pY - half, pZ - half);
-        if(PoltergeistHandler.doBehaviour(level, checkPos))
+        if(PoltergeistHandler.doBehaviour(level, poltergeist, checkPos))
         {
             RandomSource random = level.random;
 
@@ -142,7 +173,7 @@ public class PoltergeistHandler {
         new S2C_DoPoltergeistParticle(pos).sendToChunkListeners(world.getChunkAt(pos));
     }
 
-    public static boolean doBehaviour(Level level, BlockPos pos)
+    public static boolean doBehaviour(Level level, @Nullable Entity poltergeist, BlockPos pos)
     {
         //TODO: some sort of fail cache for common blocks? Would it be faster?
 
@@ -153,12 +184,12 @@ public class PoltergeistHandler {
 
         if(BEHAVIOUR_BLOCK.containsKey(bl))
         {
-            return BEHAVIOUR_BLOCK.get(bl).handle(level, pos, state);
+            return BEHAVIOUR_BLOCK.get(bl).handle(level, poltergeist, pos, state);
         }
 
         for(TagKey<Block> tag : BEHAVIOUR_TAG.keySet())
         {
-            if(state.is(tag)) return BEHAVIOUR_TAG.get(tag).handle(level, pos, state);
+            if(state.is(tag)) return BEHAVIOUR_TAG.get(tag).handle(level, poltergeist, pos, state);
         }
 
         return false;
@@ -166,7 +197,7 @@ public class PoltergeistHandler {
 
     public interface PoltergeistBehaviour
     {
-        boolean handle(Level world, BlockPos pos, BlockState state);
+        boolean handle(Level level, Entity poltergeist, BlockPos pos, BlockState state);
     }
 
     public static void registerBehaviour(TagKey<Block> blockTag, PoltergeistBehaviour behaviour)

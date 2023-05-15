@@ -7,10 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.MyceliumBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
@@ -49,6 +46,8 @@ public abstract class MyceliumBlockMixin extends Block implements BonemealableBl
         BlockState orange_shroom = BMBlocks.ORANGE_GLOWSHROOM.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
         BlockState red_shroom = Blocks.RED_MUSHROOM.defaultBlockState();
         BlockState brown_shroom = Blocks.BROWN_MUSHROOM.defaultBlockState();
+        BlockState tall_red_mushroom = BMBlocks.TALL_RED_MUSHROOM.get().defaultBlockState();
+        BlockState tall_brown_mushroom = BMBlocks.TALL_BROWN_MUSHROOM.get().defaultBlockState();
 
         next:
         //From vanilla, 128 / 16 = 8 block range
@@ -84,9 +83,17 @@ public abstract class MyceliumBlockMixin extends Block implements BonemealableBl
                             placeState = orange_shroom;
                             placeInWater = true;
                         }
-                    }else
+                    }
+                    else
                     {
-                        placeState = random.nextBoolean() ? red_shroom : brown_shroom;
+                        if(random.nextInt(4) == 0)
+                        {
+                            placeState = random.nextBoolean() ? tall_red_mushroom : tall_brown_mushroom;
+
+                        }
+                        else {
+                            placeState = random.nextBoolean() ? red_shroom : brown_shroom;
+                        }
                     }
                 }else
                 {
@@ -103,7 +110,16 @@ public abstract class MyceliumBlockMixin extends Block implements BonemealableBl
                 {
                     if(isWater && !placeInWater) continue;
 
-                    level.setBlock(checkPos, placeState, 3);
+                    if (placeState.getBlock() instanceof DoublePlantBlock) {
+                        if (!level.isEmptyBlock(checkPos.above())) {
+                            continue;
+                        }
+
+                        DoublePlantBlock.placeAt(level, placeState, checkPos, 2);
+                    }
+                    else {
+                        level.setBlock(checkPos, placeState, 3);
+                    }
                 }
             }
         }

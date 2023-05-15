@@ -1,0 +1,111 @@
+{
+  "weights": {
+    "common": 110,
+    "uncommon": 90,
+    "rare": 0,
+    "epic": 0
+  },
+  "rewards": [
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:glass_bottle",
+      "min": 1,
+      "max": 10
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:glowstone_dust",
+      "min": 4,
+      "max": 8
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:gunpowder",
+      "min": 2,
+      "max": 10
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:redstone",
+      "min": 7,
+      "max": 15
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:spider_eye",
+      "min": 5,
+      "max": 10
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:sugar",
+      "min": 8,
+      "max": 10
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:stick",
+      "min": 10,
+      "max": 20
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:emerald",
+      "min": 1,
+      "max": 4
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:lapis_lazuli",
+      "min": 1,
+      "max": 10
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:brown_mushroom",
+      "min": 3,
+      "max": 5
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:red_mushroom",
+      "min": 4,
+      "max": 5
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:cauldron",
+      "min": 1,
+      "max": 5
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "biomemakeover:illunite_shard",
+      "min": 7,
+      "max": 15
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "biomemakeover:swamp_jives_music_disk",
+      "min": 1,
+      "max": 1
+    },    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:pearlescent_froglight",
+      "min": 5,
+      "max": 15
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:ochre_froglight",
+      "min": 1,
+      "max": 15
+    },
+    {
+      "type": "biomemakeover:item",
+      "item": "minecraft:verdant_froglight",
+      "min": 1,
+      "max": 15
+    }
+  ]
+}

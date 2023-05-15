@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.level.generate;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
@@ -28,12 +29,19 @@ public class GhostTownLootProcessor extends StructureProcessor
 		BlockState blockState = info2.state;
 		if(blockState.getBlock() == Blocks.BARREL)
 		{
+			if(info2.nbt == null)
+				info2 = new StructureTemplate.StructureBlockInfo(blockPos, info2.state, new CompoundTag());
+
+			if(!info2.nbt.contains("LootTable"))
+				info2.nbt.putString("LootTable", BiomeMakeover.ID("ghost_town/loot_" + RandomUtil.RANDOM.nextInt(3)).toString());
+
+			/*
 			BlockEntity be = worldView.getBlockEntity(pos);
 			if(be instanceof BarrelBlockEntity)
 			{
 				BarrelBlockEntity barrel = (BarrelBlockEntity) be;
-				barrel.setLootTable(BiomeMakeover.ID("ghost_town/loot_" + RandomUtil.RANDOM.nextInt(3)), RandomUtil.RANDOM.nextLong());
-			}
+				barrel.setLootTable(, RandomUtil.RANDOM.nextLong());
+			}*/
 		}
 
 		return info2;

@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -24,7 +25,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -33,12 +33,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.event.EntityEvent;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.EntityUtil;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -50,7 +51,14 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     public static final EntityDataAccessor<Boolean> HAS_FLOWER = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FLOWER_TYPE = SynchedEntityData.defineId(RootlingEntity.class, EntityDataSerializers.INT);
-    public static final Supplier<Item>[] PETAL_ITEMS = new Supplier[]{BMItems.BLUE_PETALS, BMItems.BROWN_PETALS, BMItems.CYAN_PETALS, BMItems.GRAY_PETALS, BMItems.LIGHT_BLUE_PETALS, BMItems.PURPLE_PETALS,};
+    private static final ResourceLocation[] PETAL_LOOT_TABLES = new ResourceLocation[]{
+            BiomeMakeover.ID("gameplay/rootling/blue"),
+            BiomeMakeover.ID("gameplay/rootling/brown"),
+            BiomeMakeover.ID("gameplay/rootling/cyan"),
+            BiomeMakeover.ID("gameplay/rootling/gray"),
+            BiomeMakeover.ID("gameplay/rootling/light_blue"),
+            BiomeMakeover.ID("gameplay/rootling/purple"),
+    };
 
     private boolean hasAction = false;
     public RootlingEntity forcedDancePartner = null;
@@ -97,7 +105,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
             if(growTime > 0)
             {
                 growTime--;
-                if(isInWater() && random.nextInt(5) == 0)
+                if(isInWaterOrRain() && random.nextInt(5) == 0)
                     growTime--;
                 if(growTime <= 0 && !hasFlower())
                     setFlowered(true);
@@ -201,7 +209,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
                 randomizeFlower();
             }else
             {
-                EntityUtil.scatterItemStack(this, new ItemStack(PETAL_ITEMS[getEntityData().get(FLOWER_TYPE)].get(), RandomUtil.randomRange(1, 4)));
+                EntityUtil.dropFromLootTable(this, PETAL_LOOT_TABLES[getEntityData().get(FLOWER_TYPE)]);
             }
         }
     }
@@ -248,7 +256,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     public void randomizeFlower()
     {
-        getEntityData().set(FLOWER_TYPE, random.nextInt(PETAL_ITEMS.length));
+        getEntityData().set(FLOWER_TYPE, random.nextInt(BMItems.ROOTLING_PETALS.size()));
     }
 
     @Override
