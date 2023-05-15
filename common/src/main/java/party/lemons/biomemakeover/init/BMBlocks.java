@@ -46,7 +46,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
 public class BMBlocks
 {
     public static final TagKey<Block> LILY_PADS = blockTag("lily_pads");

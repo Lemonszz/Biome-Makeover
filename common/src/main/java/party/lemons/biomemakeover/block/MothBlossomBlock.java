@@ -20,11 +20,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.MathUtils;
 
 import java.util.List;
-import java.util.Random;
 
 public class MothBlossomBlock extends IvyShapedBlock{
 
@@ -86,7 +85,7 @@ public class MothBlossomBlock extends IvyShapedBlock{
 
     private boolean attemptSpread(Level level, BlockPos pos, RandomSource random)
     {
-        for(Direction direction : BMUtil.randomOrderedHorizontals())
+        for(Direction direction : MathUtils.randomOrderedHorizontals())
         {
             BlockPos offsetPos = pos.relative(direction);
             BlockState placePosState = level.getBlockState(offsetPos);

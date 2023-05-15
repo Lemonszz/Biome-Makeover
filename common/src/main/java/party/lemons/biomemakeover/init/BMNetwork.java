@@ -16,7 +16,6 @@ public class BMNetwork
     public static final MessageType WITCH_QUESTS = NET.registerS2C("witch_quests", S2C_HandleWitchQuests::new);
     public static final MessageType BM_EFFECT = NET.registerS2C("bm_effect", S2C_BMEffect::new);
     public static final MessageType ENTITY_EVENT = NET.registerS2C("entity_event", S2C_EntityEvent::new);
-    public static final MessageType SET_SLIDE_TIME = NET.registerS2C("slide_time", S2C_SyncSlide::new);
 
     public static final MessageType CL_COMPLETE_QUEST = NET.registerC2S("cl_complete_quest", C2S_HandleCompleteQuest::new);
     public static final MessageType CL_UPDATE_DIR_DATA = NET.registerC2S("update_dir_data", C2S_UpdateDirectionalData::new);

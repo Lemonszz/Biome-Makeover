@@ -6,6 +6,8 @@ import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
@@ -101,30 +103,35 @@ public class BMEffects
     public static final Supplier<SoundEvent> CRAB_SNIP = registerSound(BiomeMakeover.ID("crab_snip"));
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registries.PARTICLE_TYPE);
-    public static final RegistrySupplier<SimpleParticleType> LIGHTNING_SPARK = PARTICLE_TYPES.register("lightning_spark", () -> new SimpleParticleType(true));
-    public static final RegistrySupplier<SimpleParticleType> POLTERGEIST = PARTICLE_TYPES.register("poltergeist", () -> new SimpleParticleType(true));
-    public static final RegistrySupplier<SimpleParticleType> BLOSSOM = PARTICLE_TYPES.register("blossom", () -> new SimpleParticleType(true));
-    public static final RegistrySupplier<SimpleParticleType> TELEPORT = PARTICLE_TYPES.register("teleport", () -> new SimpleParticleType(true));
+    public static final RegistrySupplier<SimpleParticleType> LIGHTNING_SPARK = register("lightning_spark", () -> new SimpleParticleType(true));
+    public static final RegistrySupplier<SimpleParticleType> POLTERGEIST = register("poltergeist", () -> new SimpleParticleType(true));
+    public static final RegistrySupplier<SimpleParticleType> BLOSSOM = register("blossom", () -> new SimpleParticleType(true));
+    public static final RegistrySupplier<SimpleParticleType> TELEPORT = register("teleport", () -> new SimpleParticleType(true));
 
     public static void init()
     {
         SOUNDS.register();
         PARTICLE_TYPES.register();
-        if (Platform.getEnvironment() == Env.CLIENT && !Platform.isForge()) {
+
+        if (Platform.getEnvironment() == Env.CLIENT)
+        {
+            ParticleProviderRegistry.register(LIGHTNING_SPARK, LightningSparkParticle.Provider::new);
+            ParticleProviderRegistry.register(POLTERGEIST, PoltergeistParticle.Provider::new);
+            ParticleProviderRegistry.register(BLOSSOM, BlossomParticle.Provider::new);
+            ParticleProviderRegistry.register(TELEPORT, TeleportParticle.Provider::new);
             ClientLifecycleEvent.CLIENT_SETUP.register(instance -> {
-                ParticleProviderRegistry.register(LIGHTNING_SPARK.get(), LightningSparkParticle.Provider::new);
-                ParticleProviderRegistry.register(POLTERGEIST.get(), PoltergeistParticle.Provider::new);
-                ParticleProviderRegistry.register(BLOSSOM.get(), BlossomParticle.Provider::new);
-                ParticleProviderRegistry.register(TELEPORT.get(), TeleportParticle.Provider::new);
-            });
+        });
         }
     }
 
-    public static void registerParticleProvider()
+    private static <T extends ParticleType<?>> RegistrySupplier<T> register(String name, Supplier<T> type)
     {
-        if (Platform.getEnvironment() == Env.CLIENT) {
-            ParticleProviderRegistry.register(LIGHTNING_SPARK.get(), LightningSparkParticle.Provider::new);
-       }
+        return register(BiomeMakeover.ID(name), type);
+    }
+
+    private static <T extends ParticleType<?>> RegistrySupplier<T> register(ResourceLocation location, Supplier<T> type)
+    {
+        return PARTICLE_TYPES.register(location, type);
     }
 
     private static RegistrySupplier<SoundEvent> registerSound(ResourceLocation sound)

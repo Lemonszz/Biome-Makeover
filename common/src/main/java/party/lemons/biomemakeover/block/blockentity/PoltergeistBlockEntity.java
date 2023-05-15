@@ -18,7 +18,7 @@ public class PoltergeistBlockEntity extends BlockEntity
     public static <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState) {
         return (level1, blockPos, blockState1, blockEntity) -> {
             if (level1 != null && !level1.isClientSide() && blockState1.getValue(PoltergeistBlock.ENABLED))
-                PoltergeistHandler.doPoltergeist(level1, blockPos, 5);
+                PoltergeistHandler.doPoltergeist(level1, null, blockPos, 5);
         };
     }
 }

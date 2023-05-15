@@ -52,10 +52,10 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.phase.*;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
 import party.lemons.biomemakeover.init.BMEffects;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.NBTUtil;
 import party.lemons.biomemakeover.util.extension.GoalSelectorExtension;
 import party.lemons.taniwha.entity.golem.PlayerCreatable;
+import party.lemons.taniwha.util.ItemUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -675,7 +675,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         }
         else    //Handle bow shoot
         {
-            ItemStack arrowTypeStack = this.getProjectile(this.getItemInHand(BMUtil.getHandPossiblyHolding(this, (i)->i.getItem() instanceof BowItem)));
+            ItemStack arrowTypeStack = this.getProjectile(this.getItemInHand(ItemUtil.getHandPossiblyHolding(this, (i)->i.getItem() instanceof BowItem)));
             AbstractArrow arrow = ProjectileUtil.getMobArrow(this, arrowTypeStack, pullProgress);
 
             double distanceX = target.getX() - this.getX();

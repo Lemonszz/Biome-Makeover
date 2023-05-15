@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -65,6 +66,8 @@ public class BMFeatures {
 
     public static TagKey<Biome> HAS_TUMBLEWEED = TagKey.create(Registries.BIOME, BiomeMakeover.ID("spawns_tumbleweed"));
     public static TagKey<Biome> SWAMP_BONEMEAL = TagKey.create(Registries.BIOME, BiomeMakeover.ID("swamp_bonemeal"));
+
+    public static final ResourceKey<ConfiguredFeature<?,?>> SINGLE_DARK_OAK_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, BiomeMakeover.ID("dark_forest/dark_oak_small"));
 
     public static void init()
     {

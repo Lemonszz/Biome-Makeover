@@ -16,13 +16,19 @@ import party.lemons.biomemakeover.util.extension.LootBlocker;
 @Mixin(Pillager.class)
 public abstract class PillagerMixin extends AbstractIllager
 {
-	private static final ResourceLocation ADDITIONAL_LOOT_LEADER = BiomeMakeover.ID("entities/pillager_leader_additional");
-	private static final ResourceLocation ADDITIONAL_LOOT = BiomeMakeover.ID("entities/pillager_additional");
+	private static ResourceLocation ADDITIONAL_LOOT_LEADER = null;
+	private static ResourceLocation ADDITIONAL_LOOT = null;
 
 
 	@Override
 	protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
 	{
+		if(ADDITIONAL_LOOT_LEADER == null)	//These are set here to prevent early loading of BiomeMakeover class
+		{
+			ADDITIONAL_LOOT_LEADER = BiomeMakeover.ID("entities/pillager_leader_additional");
+			ADDITIONAL_LOOT = BiomeMakeover.ID("entities/pillager_additional");
+		}
+
 		super.dropFromLootTable(damageSource, causedByPlayer);
 
 		if(!causedByPlayer || LootBlocker.isBlocked(this))

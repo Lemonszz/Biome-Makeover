@@ -6,11 +6,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,21 +22,24 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
+import party.lemons.taniwha.entity.ai.TagTemptGoal;
+import party.lemons.taniwha.util.ItemUtil;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class ScuttlerEntity extends Animal {
@@ -46,9 +48,10 @@ public class ScuttlerEntity extends Animal {
     public static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(ScuttlerEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(ScuttlerEntity.class, EntityDataSerializers.BOOLEAN);
 
+    public static final ResourceLocation EAT_LOOT_TABLE = BiomeMakeover.ID("gameplay/scuttler_eating");
+
     private static final int FIND_EAT_TARGET_COOLDOWN_MAX = 300;
 
-    public Ingredient TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS.get());
     public float rattleTime = 0;
     private int eatCooldown = 100;
     public int eatTime = 0;
@@ -64,10 +67,9 @@ public class ScuttlerEntity extends Animal {
 
     @Override
     protected void registerGoals() {
-        TEMPT_ITEM = Ingredient.of(BMItems.PINK_PETALS.get());
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 0.7D, TEMPT_ITEM, false));
+        this.goalSelector.addGoal(1, new TagTemptGoal(this, BMItems.SCUTTLER_FOOD, 0.7D, false));
         this.goalSelector.addGoal(2, new RattleGoal<>(this, 20.0F, Player.class));
         this.goalSelector.addGoal(3, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
@@ -168,7 +170,7 @@ public class ScuttlerEntity extends Animal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return TEMPT_ITEM.test(itemStack);
+        return itemStack.is(BMItems.SCUTTLER_FOOD);
     }
 
     @Override
@@ -289,14 +291,14 @@ public class ScuttlerEntity extends Animal {
                 return false;
             }else
             {
-                return !targetEntity.isHolding(BMItems.PINK_PETALS.get()) && scuttler.distanceTo(targetEntity) >= distance / 2;
+                return !targetEntity.isHolding(i->i.is(BMItems.SCUTTLER_FOOD)) && scuttler.distanceTo(targetEntity) >= distance / 2;
             }
         }
 
         @Override
         public boolean canContinueToUse()
         {
-            if(targetEntity.isHolding(BMItems.PINK_PETALS.get())) return false;
+            if(targetEntity.isHolding(i->i.is(BMItems.SCUTTLER_FOOD))) return false;
 
             double d = scuttler.distanceTo(targetEntity);
             return d > distance / 2 && d < distance && scuttler.hasLineOfSight(targetEntity) && targetEntity.hasLineOfSight(scuttler);
@@ -390,9 +392,11 @@ public class ScuttlerEntity extends Animal {
                 BlockState st = level.getBlockState(eatTarget);
                 if(st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                 {
+                    BlockState setState = BMBlocks.BARREL_CACTUS.get().defaultBlockState();
                     level.blockEvent(eatTarget, BMBlocks.BARREL_CACTUS.get(), 1, 0);
-                    level.setBlock(eatTarget, BMBlocks.BARREL_CACTUS.get().defaultBlockState(), 2);
-                    Containers.dropItemStack(level, eatTarget.getX(), eatTarget.getY(), eatTarget.getZ(), new ItemStack(BMItems.PINK_PETALS.get()));
+                    level.setBlock(eatTarget, setState, Block.UPDATE_CLIENTS);
+                    level.gameEvent(GameEvent.BLOCK_CHANGE, eatTarget, GameEvent.Context.of(setState));
+                    ItemUtil.dropLootTable(level, eatTarget.getX(), eatTarget.getY(), eatTarget.getZ(), EAT_LOOT_TABLE);
                 }
                 eatTarget = null;
             }

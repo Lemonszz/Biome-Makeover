@@ -7,8 +7,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.level.feature.mansion.*;
+import party.lemons.taniwha.util.MathUtils;
 import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.List;
@@ -250,7 +250,7 @@ public class MansionRoom
 
     public void setLayout(MansionRoom currentRoom)
     {
-        for(Direction direction : BMUtil.HORIZONTALS)
+        for(Direction direction : MathUtils.HORIZONTALS)
         {
             getLayout().put(direction, currentRoom.getLayout().get(direction));
         }

@@ -39,6 +39,8 @@ import party.lemons.biomemakeover.util.extension.LootBlocker;
 public abstract class WitchMixin_Quests extends Raider implements WitchQuestEntity
 {
     @Shadow private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
+    private static ResourceLocation WITCH_HAT_TABLE;
+
     private Player customer;
     private WitchQuestList quests;
     private int replenishTime;
@@ -80,7 +82,6 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
         }
     }
 
-    private static final ResourceLocation WITCH_HAT_TABLE = BiomeMakeover.ID("entities/witch_hat");
 
     @Override
     protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
@@ -88,6 +89,9 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
         super.dropFromLootTable(damageSource, causedByPlayer);
 
         if(!LootBlocker.isBlocked(this)) {
+            if(WITCH_HAT_TABLE == null)
+                WITCH_HAT_TABLE = BiomeMakeover.ID("entities/witch_hat");
+
             LootTable lootTable = level.getServer().getLootTables().get(WITCH_HAT_TABLE);
             LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
             lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
@@ -129,7 +133,7 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
 
     public boolean playerHasHat(Player player)
     {
-        return player.getItemBySlot(EquipmentSlot.HEAD).getItem() == BMItems.WITCH_HAT.get();
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(BMItems.WITCH_HATS);
     }
 
     @Override

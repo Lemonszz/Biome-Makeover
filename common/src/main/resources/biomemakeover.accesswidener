@@ -7,3 +7,5 @@ accessible class net/minecraft/world/entity/monster/Evoker$EvokerSummonSpellGoal
 accessible class net/minecraft/server/level/ServerLevel$EntityCallbacks
 accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/entity/LightningBolt clearCopperOnLightningStrike (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+accessible method net/minecraft/world/level/storage/loot/parameters/LootContextParamSets register (Ljava/lang/String;Ljava/util/function/Consumer;)Lnet/minecraft/world/level/storage/loot/parameters/LootContextParamSet;
+accessible method net/minecraft/world/level/block/DaylightDetectorBlock updateSignalStrength (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V

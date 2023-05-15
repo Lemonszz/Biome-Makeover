@@ -1,18 +1,17 @@
 {
-  "type": "taniwha:generic_entity",
   "pools": [
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "biomemakeover:light_blue_petals",
+          "name": "biomemakeover:pink_petals",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 4
+                "min": 1,
+                "max": 2
               }
             }
           ]

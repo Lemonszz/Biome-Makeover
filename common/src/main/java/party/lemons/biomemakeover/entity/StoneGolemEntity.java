@@ -52,6 +52,7 @@ import party.lemons.biomemakeover.entity.mutipart.MultiPartEntity;
 import party.lemons.biomemakeover.init.BMAdvancements;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEffects;
+import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.sound.StoneGolemTurnSoundInstance;
 import party.lemons.taniwha.entity.golem.PlayerCreatable;
 
@@ -115,7 +116,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
         {
             ItemStack playerStack = player.getItemInHand(hand);
 
-            if(!playerStack.isEmpty() && playerStack.getItem() == BMBlocks.CLADDED_STONE.get().asItem())
+            if(!playerStack.isEmpty() && playerStack.is(BMItems.HEALS_STONE_GOLEM))
             {
                 float currentHealth = this.getHealth();
                 this.heal(15.0F);

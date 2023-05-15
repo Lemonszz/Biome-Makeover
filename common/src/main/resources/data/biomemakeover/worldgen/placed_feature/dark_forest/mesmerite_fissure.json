@@ -2,7 +2,7 @@
   "feature": "biomemakeover:dark_forest/mesmerite_fissure",
   "placement": [
     {
-      "chance": 16,
+      "chance": 22,
       "type": "minecraft:rarity_filter"
     },
     {

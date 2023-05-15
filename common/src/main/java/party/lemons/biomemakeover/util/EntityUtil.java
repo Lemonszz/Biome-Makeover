@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.apache.commons.lang3.mutable.MutableInt;
 import party.lemons.biomemakeover.init.BMEntities;
+import party.lemons.biomemakeover.init.BMItems;
 
 import java.util.Collection;
 
@@ -76,29 +77,5 @@ public final class EntityUtil
         }
 
         return false;
-    }
-
-    public static void scatterItemStack(Entity e, ItemStack stack)
-    {
-        Containers.dropItemStack(e.level, e.getX(), e.getY(), e.getZ(), stack);
-    }
-
-    public static void dropFromLootTable(LivingEntity living, ResourceLocation table, LootContext.Builder context) {
-        LootTable lootTable = living.getLevel().getServer().getLootTables().get(table);
-        lootTable.getRandomItems(context.create(LootContextParamSets.ENTITY), living::spawnAtLocation);
-    }
-
-    public static void dropFromLootTable(LivingEntity living, ResourceLocation table)
-    {
-        LootContext.Builder context = new LootContext.Builder((ServerLevel)living.level)
-                .withRandom(living.getRandom())
-                .withParameter(LootContextParams.THIS_ENTITY, living)
-                .withParameter(LootContextParams.ORIGIN, living.position());
-
-        if (living.getLastAttacker() != null && living.getLastAttacker() instanceof Player attackingPlayer) {
-            context = context.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, attackingPlayer).withLuck(attackingPlayer.getLuck());
-        }
-
-        dropFromLootTable(living, table, context);
     }
 }

@@ -1,4 +1,5 @@
 {
+  "type": "taniwha:generic_entity",
   "pools": [
     {
       "rolls": 1,

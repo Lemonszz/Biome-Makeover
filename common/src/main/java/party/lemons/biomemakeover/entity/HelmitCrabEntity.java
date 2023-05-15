@@ -33,6 +33,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -306,8 +307,11 @@ public class HelmitCrabEntity extends Animal
 
 	public void setShellItem(ItemStack stack)
 	{
+		ItemStack old = getShellItemStack();
 		getEntityData().set(SHELL_ITEM, stack);
+		onEquipItem(EquipmentSlot.HEAD, old, stack);
 
+		/*
 		if (!stack.isEmpty()) {
 			SoundEvent soundEvent = SoundEvents.ARMOR_EQUIP_GENERIC;
 			Item item = stack.getItem();
@@ -317,7 +321,7 @@ public class HelmitCrabEntity extends Animal
 				soundEvent = SoundEvents.ARMOR_EQUIP_ELYTRA;
 			}
 			this.playSound(soundEvent, 1.0F, 1.0F);
-		}
+		}*/
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -706,6 +710,7 @@ public class HelmitCrabEntity extends Animal
 					if(!getShellItemStack().isEmpty())
 						spawnAtLocation(getShellItemStack());
 					setShellItem(itemEntity.getItem());
+
 					shellChangeCooldown = 500 + random.nextInt(300);
 				}
 			}

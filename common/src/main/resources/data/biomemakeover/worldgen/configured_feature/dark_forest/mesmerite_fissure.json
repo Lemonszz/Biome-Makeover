@@ -37,7 +37,7 @@
         ],
         "firstOctave": -3
       },
-      "scale": 1.0,
+      "scale": 0.5,
       "seed": 2345,
       "slow_noise": {
         "amplitudes": [
@@ -49,6 +49,9 @@
       "states": [
         {
           "Name": "biomemakeover:mesmerite"
+        },
+        {
+          "Name": "biomemakeover:illunite_block"
         },
         {
           "Name": "biomemakeover:illunite_block"
@@ -81,7 +84,7 @@
         ],
         "firstOctave": -3
       },
-      "scale": 1.0,
+      "scale": 0.5,
       "seed": 2345,
       "slow_noise": {
         "amplitudes": [
@@ -93,6 +96,9 @@
       "states": [
         {
           "Name": "biomemakeover:mesmerite"
+        },
+        {
+          "Name": "biomemakeover:budding_illunite"
         },
         {
           "Name": "biomemakeover:budding_illunite"

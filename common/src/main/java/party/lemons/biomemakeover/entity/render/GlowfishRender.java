@@ -57,7 +57,7 @@ public class GlowfishRender extends SalmonRenderer {
 
                 pose.translate(0.0D, 0, 0.5F);
                 pose.mulPose(Axis.XP.rotationDegrees(-90));
-                pose.scale(-1.0F, -1.0F, 1.0F);
+                pose.scale(-0.75F, -0.75F, 0.75F);
                 pose.translate(-0.5D, 0.0D, -0.5D);
                 blockRenderManager.renderSingleBlock(shroom, pose, multiBufferSource, i, m);
                 pose.popPose();

@@ -3,9 +3,11 @@ package party.lemons.biomemakeover.block.blockentity;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
@@ -34,11 +36,11 @@ import party.lemons.biomemakeover.block.AltarBlock;
 import party.lemons.biomemakeover.crafting.AltarMenu;
 import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
+import party.lemons.biomemakeover.init.BMEnchantments;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.RandomUtil;
 import party.lemons.biomemakeover.util.effect.BiomeMakeoverEffect;
 import party.lemons.biomemakeover.util.effect.EffectHelper;
-import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 
 import java.util.List;
 import java.util.Map;
@@ -241,7 +243,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         boolean hasNewCompatibleCurse = false;
         for(Enchantment enchantment : enchantments.keySet())
         {
-            if(enchantment.getMaxLevel() > 1 && !enchantment.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(enchantment) < enchantment.getMaxLevel() + 1)) return true;
+            if(!BuiltInRegistries.ENCHANTMENT.wrapAsHolder(enchantment).is(BMEnchantments.ALTAR_CANT_UPGRADE) && enchantment.getMaxLevel() > 1 && !enchantment.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(enchantment) < enchantment.getMaxLevel() + 1)) return true;
 
             if(enchantment.isCurse() && enchantment.canEnchant(stack) && !enchantments.containsKey(enchantment))
                 hasNewCompatibleCurse = true;
@@ -253,7 +255,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
     {
         if(curses.isEmpty())
         {
-            curses.addAll(registryAccess.registryOrThrow(Registries.ENCHANTMENT).stream().filter(Enchantment::isCurse).toList());
+            curses.addAll(registryAccess.registryOrThrow(Registries.ENCHANTMENT).stream().filter(e->e.isCurse() && !BuiltInRegistries.ENCHANTMENT.wrapAsHolder(e).is(BMEnchantments.ALTAR_CURSE_EXCLUDED)).toList());
         }
         if(curses.isEmpty())
             return null;
@@ -267,7 +269,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
         {
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
             List<Enchantment> validEnchants = enchantments.keySet().stream().filter(
-                    e -> e.getMaxLevel() > 1 && !e.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(e) < e.getMaxLevel() + 1)
+                    e -> !BuiltInRegistries.ENCHANTMENT.wrapAsHolder(e).is(BMEnchantments.ALTAR_CANT_UPGRADE) && e.getMaxLevel() > 1 && !e.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(e) < e.getMaxLevel() + 1)
             ).toList();
 
             Enchantment toUpgrade = validEnchants.get(random.nextInt(validEnchants.size()));

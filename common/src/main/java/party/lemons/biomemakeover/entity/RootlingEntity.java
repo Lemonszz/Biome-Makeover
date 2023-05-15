@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,9 +38,8 @@ import party.lemons.biomemakeover.entity.event.EntityEvent;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
-import party.lemons.taniwha.item.types.TItem;
+import party.lemons.taniwha.util.EntityUtil;
 
 import java.util.EnumSet;
 import java.util.List;

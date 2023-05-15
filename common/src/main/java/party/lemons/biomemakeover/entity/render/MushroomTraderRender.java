@@ -34,17 +34,11 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
         this.addLayer(new MushroomTraderOverlay(this, new VillagerModel<>(context.bakeLayer(ModelLayers.VILLAGER))));
         this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
         this.addLayer(new CrossedArmsItemLayer<>(this, context.getItemInHandRenderer()));
-        this.addLayer(new MushroomTraderFeatures(this));
     }
 
     @Override
     public ResourceLocation getTextureLocation(MushroomVillagerEntity entity) {
         return TEXTURE;
-    }
-
-    @Override
-    protected int getBlockLightLevel(MushroomVillagerEntity entity, BlockPos blockPos) {
-        return 15;
     }
 
     protected void scale(MushroomVillagerEntity wanderingTraderEntity, PoseStack matrixStack, float f)
@@ -67,70 +61,7 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
 
         @Override
         public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, MushroomVillagerEntity entity, float f, float g, float h, float j, float k, float l) {
-            int light = getPackedLightCoords(entity, l);
-            getParentModel().copyPropertiesTo(model);
-            model.setupAnim(entity, f, g, j, k, l);
-
-            renderColoredCutoutModel(model, TEXTURE, poseStack, multiBufferSource, light, entity, 1.0F, 1.0F,1.0F);
-        }
-
-        public final int getPackedLightCoords(MushroomVillagerEntity entity, float f) {
-            BlockPos blockPos = BlockPos.containing(entity.getLightProbePosition(f));
-            return LightTexture.pack(this.getBlockLightLevel(entity, blockPos), this.getSkyLightLevel(entity, blockPos));
-        }
-
-        protected int getSkyLightLevel(MushroomVillagerEntity entity, BlockPos blockPos) {
-            return entity.level.getBrightness(LightLayer.SKY, blockPos);
-        }
-
-        protected int getBlockLightLevel(MushroomVillagerEntity entity, BlockPos blockPos) {
-            if (entity.isOnFire()) {
-                return 15;
-            }
-            return entity.level.getBrightness(LightLayer.BLOCK, blockPos);
-        }
-
-
-        protected int getOverlayLight(MushroomVillagerEntity entity, BlockPos blockPos) {
-            if (entity.isOnFire()) {
-                return 15;
-            }
-            return entity.level.getBrightness(LightLayer.BLOCK, blockPos);
-        }
-    }
-
-    private static class MushroomTraderFeatures extends RenderLayer<MushroomVillagerEntity, VillagerModel<MushroomVillagerEntity>> {
-        public MushroomTraderFeatures(MushroomTraderRender mushroomTraderRender) {
-            super(mushroomTraderRender);
-        }
-
-        @Override
-        public void render(PoseStack pose, MultiBufferSource mbs, int i, MushroomVillagerEntity e, float f, float g, float h, float j, float k, float l) {
-            if(!e.isBaby() && !e.isInvisible())
-            {
-                BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
-                BlockState shroom = BMBlocks.GREEN_GLOWSHROOM.get().defaultBlockState();
-                int m = LivingEntityRenderer.getOverlayCoords(e, 0.0F);
-
-                pose.pushPose();
-                this.getParentModel().getHead().translateAndRotate(pose);
-                pose.translate(0.0D, -1, 0);
-                pose.mulPose(Axis.YP.rotationDegrees(-78.0F));
-                pose.scale(-1.0F, -1.0F, 1.0F);
-                pose.translate(-0.5D, -0.5D, -0.5D);
-                blockRenderManager.renderSingleBlock(shroom, pose, mbs, i, m);
-                pose.popPose();
-
-                pose.pushPose();
-                this.getParentModel().getHead().translateAndRotate(pose);
-                pose.translate(-0.4D, -0.5, -0.5);
-                pose.mulPose(Axis.XP.rotationDegrees(75));
-                pose.mulPose(Axis.ZN.rotationDegrees(30));
-                pose.scale(-1.0F, -1.0F, 1.0F);
-                pose.translate(-0.5D, -0.5D, -0.5D);
-                blockRenderManager.renderSingleBlock(shroom, pose, mbs, i, m);
-                pose.popPose();
-            }
+            renderColoredCutoutModel(model, TEXTURE, poseStack, multiBufferSource, i, entity, 1.0F, 1.0F,1.0F);
         }
     }
 }

@@ -8,8 +8,8 @@ import party.lemons.biomemakeover.level.feature.mansion.processor.CorridorReplac
 import party.lemons.biomemakeover.level.feature.mansion.processor.FloorRoomReplaceProcessor;
 import party.lemons.biomemakeover.level.feature.mansion.processor.GardenRoomReplaceProcessor;
 import party.lemons.biomemakeover.level.feature.mansion.room.*;
-import party.lemons.biomemakeover.util.BMUtil;
 import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.taniwha.util.MathUtils;
 import party.lemons.taniwha.util.collections.Grid;
 
 import java.util.*;
@@ -149,7 +149,7 @@ public class MansionLayout
             MansionRoom currentRoom = allRooms.get(i);
             if(currentRoom.active && currentRoom.getRoomType() == RoomType.ROOM)
             {
-                for(Direction dir : BMUtil.randomOrderedHorizontals())
+                for(Direction dir : MathUtils.randomOrderedHorizontals())
                 {
                     BlockPos offset = currentRoom.getPosition().relative(dir);
                     if(getLayout().contains(offset))
@@ -282,7 +282,7 @@ public class MansionLayout
         BlockPos dungeonStart = new BlockPos(dungeonPos);   //Dungeon start position (bottom of stairs)
 
         //Boss room will be at the end of a corridor, this is always straight from the stairs to ensure no collisions with any other room.
-        Direction bossDir = BMUtil.randomHorizontal();  //Direction to boss room
+        Direction bossDir = MathUtils.randomHorizontal(random);  //Direction to boss room
         List<MansionRoom> dungeonRooms = Lists.newArrayList();
         dungeonRooms.add(dungeonStairsBottom);
         int dungeonCorridorLength = RandomUtil.randomRange(4, 6); //Length of the corridor
@@ -312,7 +312,7 @@ public class MansionLayout
 
             Direction dir;
             do{
-                dir = BMUtil.randomHorizontal();
+                dir = MathUtils.randomHorizontal(random);
             }while(dir == bossDir || dir == bossDir.getOpposite()); //Only create rooms sideways.
 
             //Place room
@@ -371,7 +371,7 @@ public class MansionLayout
     {
         BlockPos nextPos = corridors.get(random.nextInt(corridors.size())).getPosition();
         BlockPos checkPos = nextPos;
-        for(Direction dir : BMUtil.randomOrderedHorizontals())
+        for(Direction dir : MathUtils.randomOrderedHorizontals())
         {
             checkPos = nextPos.relative(dir);
             if(y == 0 || (layout.contains(checkPos.below()) && layout.get(checkPos.below()).canSupportRoof())) break;

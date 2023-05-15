@@ -140,7 +140,7 @@ public class ToadEntity extends Animal {
                 if(tongueDistance > targetTongueDistance) speed *= 2;
 
                 tongueDistance = MathUtils.approachValue(tongueDistance, targetTongueDistance, speed);
-            }else//TODO: clean this
+            }else
             {
                 targetTongueDistance = 0;
                 tongueDistance = MathUtils.approachValue(tongueDistance, 0, 20);

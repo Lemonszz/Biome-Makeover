@@ -313,7 +313,7 @@
           {"effect": "minecraft:resistance", "duration": 480},
           {"effect": "minecraft:levitation", "duration": 200},
           {"effect": "minecraft:weakness", "duration": 360},
-          {"effect": "minecraft:nocturnal", "duration": 320}
+          {"effect": "biomemakeover:nocturnal", "duration": 320}
         ],
         "max_uses": 4
       }
