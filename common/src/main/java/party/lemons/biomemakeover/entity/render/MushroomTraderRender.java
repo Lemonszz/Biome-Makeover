@@ -14,9 +14,16 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CrossedArmsItemLayer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.resources.metadata.animation.VillagerMetaDataSection;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerDataHolder;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import party.lemons.biomemakeover.BiomeMakeover;
@@ -59,9 +66,11 @@ public class MushroomTraderRender extends MobRenderer<MushroomVillagerEntity, Vi
             this.model = model;
         }
 
-        @Override
-        public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, MushroomVillagerEntity entity, float f, float g, float h, float j, float k, float l) {
-            renderColoredCutoutModel(model, TEXTURE, poseStack, multiBufferSource, i, entity, 1.0F, 1.0F,1.0F);
+        public void render(PoseStack arg, MultiBufferSource arg2, int i, MushroomVillagerEntity entity, float f, float g, float h, float j, float k, float l) {
+            if (!entity.isInvisible()) {
+                model.setupAnim(entity, f, g, j, k, l);
+                renderColoredCutoutModel(model, TEXTURE, arg, arg2, i, entity, 1.0F, 1.0F, 1.0F);
+            }
         }
     }
 }

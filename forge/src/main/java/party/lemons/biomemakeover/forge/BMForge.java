@@ -24,7 +24,6 @@ public class BMForge
 
         BiomeMakeover.init();
         if (Platform.getEnvironment() == Env.CLIENT) {
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(BMForge::particleSetup);
             BiomeMakeoverClient.init();
         }
     }
