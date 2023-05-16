@@ -62,11 +62,11 @@ public class FangBarragePhase extends TimedPhase
 
         do {
             BlockPos blockPos2 = blockPos.below();
-            BlockState blockState = adjudicator.level.getBlockState(blockPos2);
-            if (blockState.isFaceSturdy(adjudicator.level, blockPos2, Direction.UP)) {
-                if (!adjudicator.level.isEmptyBlock(blockPos)) {
-                    BlockState blockState2 = adjudicator.level.getBlockState(blockPos);
-                    VoxelShape voxelShape = blockState2.getCollisionShape(adjudicator.level, blockPos);
+            BlockState blockState = adjudicator.level().getBlockState(blockPos2);
+            if (blockState.isFaceSturdy(adjudicator.level(), blockPos2, Direction.UP)) {
+                if (!adjudicator.level().isEmptyBlock(blockPos)) {
+                    BlockState blockState2 = adjudicator.level().getBlockState(blockPos);
+                    VoxelShape voxelShape = blockState2.getCollisionShape(adjudicator.level(), blockPos);
                     if (!voxelShape.isEmpty()) {
                         d = voxelShape.max(Direction.Axis.Y);
                     }
@@ -80,7 +80,7 @@ public class FangBarragePhase extends TimedPhase
         } while(blockPos.getY() >= Mth.floor(maxY) - 1);
 
         if (bl) {
-            adjudicator.level.addFreshEntity(new EvokerFangs(adjudicator.level, x, (double)blockPos.getY() + d, z, yaw, warmup, adjudicator));
+            adjudicator.level().addFreshEntity(new EvokerFangs(adjudicator.level(), x, (double)blockPos.getY() + d, z, yaw, warmup, adjudicator));
         }
 
     }

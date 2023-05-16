@@ -99,7 +99,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
     protected void customServerAiStep() {
         super.customServerAiStep();
 
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             if(!hasAction()) actionCooldown--;
             if(growTime > 0)
@@ -126,7 +126,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
         ItemStack itemStack = player.getItemInHand(hand);
         if(itemStack.getItem() == Items.SHEARS)
         {
-            if(!this.level.isClientSide() && this.readyForShearing())
+            if(!this.level().isClientSide() && this.readyForShearing())
             {
                 this.shear(SoundSource.PLAYERS);
                 itemStack.hurtAndBreak(1, player, (p)->p.broadcastBreakEvent(hand));
@@ -139,7 +139,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
         {
             if(!hasFlower())
             {
-                if(level.isClientSide())
+                if(level().isClientSide())
                 {
                     return InteractionResult.CONSUME;
                 }else
@@ -232,7 +232,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     @Override
     public void shear(SoundSource soundSource) {
-        this.level.playSound(null, this, SoundEvents.SHEEP_SHEAR, soundSource, 1.0F, 1.0F);
+        this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, soundSource, 1.0F, 1.0F);
         this.setFlowered(false);
         growTime = RandomUtil.randomRange(600, 1200);
     }
@@ -319,7 +319,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
         @Override
         public boolean canContinueToUse() {
-            BlockState st = level.getBlockState(targetPos);
+            BlockState st = level().getBlockState(targetPos);
             if(st != targetState) return false;
             return timer <= MAX_INSPECT_TIME;
         }
@@ -349,7 +349,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
                 for(int z = startPos.getZ() - 2; z < startPos.getZ() + 2; z++)
                 {
                     m.set(x, startPos.getY(), z);
-                    BlockState checkState = level.getBlockState(m);
+                    BlockState checkState = level().getBlockState(m);
                     if(checkState.is(BlockTags.FLOWERS))
                     {
                         spots.add(new BlockPos(m.getX(), m.getY(), m.getZ()));
@@ -359,7 +359,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
             if(spots.isEmpty()) return null;
 
             BlockPos pos = spots.get(random.nextInt(spots.size()));
-            if(pos != null) targetState = level.getBlockState(pos);
+            if(pos != null) targetState = level().getBlockState(pos);
 
             return pos;
         }
@@ -419,7 +419,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
         private LivingEntity findFollowPartner()
         {
-            List<Animal> list = level.getNearbyEntities(Animal.class, VALID_ROOTLING_PARTNER, RootlingEntity.this, getBoundingBox().inflate(8.0D));
+            List<Animal> list = level().getNearbyEntities(Animal.class, VALID_ROOTLING_PARTNER, RootlingEntity.this, getBoundingBox().inflate(8.0D));
             double minDistance = Double.MAX_VALUE;
             LivingEntity closestPossible = null;
 
@@ -489,7 +489,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
         private RootlingEntity findPartner()
         {
-            List<RootlingEntity> list = level.getNearbyEntities(RootlingEntity.class, VALID_ROOTLING_PARTNER, RootlingEntity.this, getBoundingBox().inflate(8.0D));
+            List<RootlingEntity> list = level().getNearbyEntities(RootlingEntity.class, VALID_ROOTLING_PARTNER, RootlingEntity.this, getBoundingBox().inflate(8.0D));
             double minDistance = Double.MAX_VALUE;
             RootlingEntity closestPossible = null;
 
@@ -531,7 +531,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
         public boolean canUse()
         {
-            if(level.isRaining() && !level.canSeeSky(getOnPos())) return true;
+            if(level().isRaining() && !level().canSeeSky(getOnPos())) return true;
 
             return this.targetSkyPos();
         }
@@ -569,7 +569,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
             for(int i = 0; i < 10; ++i)
             {
                 BlockPos blockPos2 = blockPos.offset(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-                if(level.canSeeSky(blockPos2) && getWalkTargetValue(blockPos2) < 0.0F)
+                if(level().canSeeSky(blockPos2) && getWalkTargetValue(blockPos2) < 0.0F)
                 {
                     return Vec3.atBottomCenterOf(blockPos2);
                 }
@@ -592,7 +592,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
         @Override
         public boolean canUse() {
-            this.toAvoid = this.mob.level.getNearestEntity(this.avoidClass, this.withinRangePredicate, this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), this.mob.getBoundingBox().inflate(this.maxDist, 3.0D, this.maxDist));
+            this.toAvoid = this.mob.level().getNearestEntity(this.avoidClass, this.withinRangePredicate, this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), this.mob.getBoundingBox().inflate(this.maxDist, 3.0D, this.maxDist));
             if (this.toAvoid == null) {
                 return false;
             } else {

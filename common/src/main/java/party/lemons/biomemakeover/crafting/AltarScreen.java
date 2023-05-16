@@ -5,7 +5,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexSorting;
 import com.mojang.math.Axis;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -51,15 +53,13 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float delta, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics g, float delta, int mouseX, int mouseY) {
         Lighting.setupForFlatItems();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, TEXTURE);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
+        g.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         int progress = this.getMenu().getProgress();
         float progressPerc = (float) progress / AltarBlockEntity.MAX_TIME;
@@ -67,12 +67,12 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
             int n = (int) (28.0F * (1.0F - (float) progress / (float) AltarBlockEntity.MAX_TIME));
             if (n > 0) {
                 int perc = (int) (progressPerc * 29F);
-                this.blit(poseStack, x + 99, y + 55 - perc, 189, 29 - perc, 9, perc);
+                g.blit(TEXTURE, x + 99, y + 55 - perc, 189, 29 - perc, 9, perc);
             }
 
             n = GYLPH_PROGRESS[progress / 2 % 13];
             if (n > 0) {
-                this.blit(poseStack, x + 68, y + 16 + 53 - n, 177, 53 - n, 12, n);
+                g.blit(TEXTURE, x + 68, y + 16 + 53 - n, 177, 53 - n, 12, n);
             }
         }
 
@@ -83,20 +83,20 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
         Matrix4f matrix4f = new Matrix4f().translation(-0.34F, 0.23F, 0.0F).perspective((float) (Math.PI / 2), 1.3333334F, 9.0F, 80.0F);
 
         RenderSystem.backupProjectionMatrix();
-        RenderSystem.setProjectionMatrix(matrix4f);
-        poseStack.pushPose();
-        poseStack.setIdentity();
+        RenderSystem.setProjectionMatrix(matrix4f, VertexSorting.DISTANCE_TO_ORIGIN);
+        g.pose().pushPose();
+        g.pose().setIdentity();
 
-        poseStack.translate(0.0, 2, 1984.0);
+        g.pose().translate(0.0, 2, 1984.0);
         float scale = 5.0f;
-        poseStack.scale(scale, scale, scale);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0f));
-        poseStack.mulPose(Axis.XP.rotationDegrees(20.0f));
+        g.pose().scale(scale, scale, scale);
+        g.pose().mulPose(Axis.ZP.rotationDegrees(180.0f));
+        g.pose().mulPose(Axis.XP.rotationDegrees(20.0f));
         float h = Mth.lerp(delta, this.pageTurningSpeed, this.nextPageTurningSpeed);
-        poseStack.translate((1.0f - h) * 0.2f, (1.0f - h) * 0.1f, (1.0f - h) * 0.25f);
+        g.pose().translate((1.0f - h) * 0.2f, (1.0f - h) * 0.1f, (1.0f - h) * 0.25f);
         float n = -(1.0f - h) * 90.0f - 90.0f;
-        poseStack.mulPose(Axis.YP.rotationDegrees(n));
-        poseStack.mulPose(Axis.XP.rotationDegrees(180.0f));
+        g.pose().mulPose(Axis.YP.rotationDegrees(n));
+        g.pose().mulPose(Axis.XP.rotationDegrees(180.0f));
         float o = Mth.lerp(delta, this.pageAngle, this.nextPageAngle) + 0.25f;
         float p = Mth.lerp(delta, this.pageAngle, this.nextPageAngle) + 0.75f;
         o = (o - (float) Mth.floor(o)) * 1.6f - 0.3f;
@@ -116,9 +116,9 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
         this.bookModel.setupAnim(0.0f, o, p, h);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
         VertexConsumer vertexConsumer = bufferSource.getBuffer(this.bookModel.renderType(BOOK_TEXTURE));
-        this.bookModel.renderToBuffer(poseStack, vertexConsumer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        this.bookModel.renderToBuffer(g.pose(), vertexConsumer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
         bufferSource.endBatch();
-        poseStack.popPose();
+        g.pose().popPose();
         RenderSystem.viewport(0, 0, this.minecraft.getWindow().getWidth(), this.minecraft.getWindow().getHeight());
         RenderSystem.restoreProjectionMatrix();
         Lighting.setupFor3DItems();
@@ -126,7 +126,7 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
     }
 
     @Override
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         this.renderTooltip(matrices, mouseX, mouseY);
@@ -141,7 +141,7 @@ public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
     public void doTick()
     {
         ItemStack itemStack = this.getMenu().getSlot(0).getItem();
-        if(!ItemStack.isSame(itemStack, this.stack))
+        if(!ItemStack.isSameItemSameTags(itemStack, this.stack))
         {
             this.stack = itemStack;
 

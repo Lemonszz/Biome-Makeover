@@ -64,14 +64,14 @@ public class LightningBottleEntity extends ThrowableItemProjectile
     protected void onHit(HitResult hitResult)
     {
         super.onHit(hitResult);
-        NetworkUtil.doLightningSplash(level, true, getOnPos());
+        NetworkUtil.doLightningSplash(level(), true, getOnPos());
 
-        if(!this.level.isClientSide())
+        if(!this.level().isClientSide())
         {
-            level.playSound(null, getOnPos(), BMEffects.BOTTLE_THUNDER.get(), SoundSource.NEUTRAL, 50F, 0.8F + this.random.nextFloat() * 0.2F);
+            level().playSound(null, getOnPos(), BMEffects.BOTTLE_THUNDER.get(), SoundSource.NEUTRAL, 50F, 0.8F + this.random.nextFloat() * 0.2F);
 
             AABB box = this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D);
-            List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, box, EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+            List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, box, EntitySelector.LIVING_ENTITY_STILL_ALIVE);
             if(!entities.isEmpty())
             {
                 for (LivingEntity e : entities)
@@ -81,10 +81,10 @@ public class LightningBottleEntity extends ThrowableItemProjectile
                         int fireTicks = e.getRemainingFireTicks();
                         boolean isInvul = e.isInvulnerable();
 
-                        LightningBolt dummyLightning = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                        LightningBolt dummyLightning = new LightningBolt(EntityType.LIGHTNING_BOLT, level());
                         dummyLightning.setPos(e.getX(), e.getY(), e.getZ());
                         e.setInvulnerable(true);
-                        e.thunderHit((ServerLevel) level, dummyLightning);
+                        e.thunderHit((ServerLevel) level(), dummyLightning);
 
                         e.setRemainingFireTicks(fireTicks);
                         e.setInvulnerable(isInvul);
@@ -94,21 +94,21 @@ public class LightningBottleEntity extends ThrowableItemProjectile
             }
 
             //Loop through again to grab transformed entities for damage & effect
-            entities = this.level.getEntitiesOfClass(LivingEntity.class, box, EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+            entities = this.level().getEntitiesOfClass(LivingEntity.class, box, EntitySelector.LIVING_ENTITY_STILL_ALIVE);
             if(!entities.isEmpty())
             {
 
                 for (LivingEntity e : entities) {
                     double distance = this.distanceToSqr(e);
                     if (distance < 16.0D) {
-                        NetworkUtil.doLightningEntity(level, e, 100);
+                        NetworkUtil.doLightningEntity(level(), e, 100);
 
                         if (!e.hasEffect(BMPotions.SHOCKED.get())) {
                             e.addEffect(new MobEffectInstance(BMPotions.SHOCKED.get(), 1000, 0));
                         } else {
                             e.addEffect(new MobEffectInstance(BMPotions.SHOCKED.get(), 1000, Math.min(3, e.getEffect(BMPotions.SHOCKED.get()).getAmplifier() + 1)));
                         }
-                        e.hurt(level.damageSources().indirectMagic(this, this.getOwner()), 0);
+                        e.hurt(level().damageSources().indirectMagic(this, this.getOwner()), 0);
                         if (getOwner() instanceof LivingEntity) {
                             e.setLastHurtByMob((LivingEntity) getOwner());
                         }
@@ -121,11 +121,11 @@ public class LightningBottleEntity extends ThrowableItemProjectile
             if(hitResult instanceof BlockHitResult blockHitResult) {
                 BlockPos hitPos = blockPosition().relative(blockHitResult.getDirection().getOpposite());
 
-                BlockState blockState = this.level.getBlockState(hitPos);
+                BlockState blockState = this.level().getBlockState(hitPos);
                 if (blockState.is(Blocks.LIGHTNING_ROD)) {
-                    ((LightningRodBlock)blockState.getBlock()).onLightningStrike(blockState, this.level, hitPos);
+                    ((LightningRodBlock)blockState.getBlock()).onLightningStrike(blockState, this.level(), hitPos);
                 }
-                LightningBolt.clearCopperOnLightningStrike(level, hitPos);
+                LightningBolt.clearCopperOnLightningStrike(level(), hitPos);
             }
             this.remove(RemovalReason.DISCARDED);
 

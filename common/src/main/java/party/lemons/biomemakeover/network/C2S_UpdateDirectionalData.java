@@ -44,7 +44,7 @@ public class C2S_UpdateDirectionalData extends BaseC2SMessage
             if(!context.getPlayer().isCreative())
                 return;
 
-            Level level = context.getPlayer().level;
+            Level level = context.getPlayer().level();
             if(level.getBlockEntity(pos) instanceof DirectionalDataBlockEntity data)
             {
                 data.setMetadata(value);

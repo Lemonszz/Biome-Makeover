@@ -16,7 +16,7 @@ public class NocturnalMobEffect extends MobEffect
     public void applyEffectTick(LivingEntity livingEntity, int i) {
         super.applyEffectTick(livingEntity, i);
 
-        if(!livingEntity.level.isClientSide() && livingEntity instanceof Player player)
+        if(!livingEntity.level().isClientSide() && livingEntity instanceof Player player)
         {
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
         }

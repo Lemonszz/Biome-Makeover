@@ -66,7 +66,7 @@ public class S2C_DoEntityParticle extends BaseS2CMessage
     @Override
     public void handle(NetworkManager.PacketContext context)
     {
-        Entity entity = context.getPlayer().level.getEntity(entityID);
+        Entity entity = context.getPlayer().level().getEntity(entityID);
         if(entity == null)
             return;
         if(effect == null)
@@ -79,7 +79,7 @@ public class S2C_DoEntityParticle extends BaseS2CMessage
                 double xx = RandomUtil.randomRange(bb.minX - offset, bb.maxX + offset);
                 double yy = RandomUtil.randomRange(bb.minY - offset, bb.maxY + offset);
                 double zz = RandomUtil.randomRange(bb.minZ - offset, bb.maxZ + offset);
-                entity.level.addParticle(effect, xx, yy, zz, velX, velY, velZ);
+                entity.level().addParticle(effect, xx, yy, zz, velX, velY, velZ);
             }
         });
     }

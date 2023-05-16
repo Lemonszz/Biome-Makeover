@@ -33,7 +33,7 @@ public abstract class LivingEntityMixin extends Entity
     @Inject(at = @At("TAIL"), method = "tick")
     public void tick(CallbackInfo cbi)
     {
-        if(!getLevel().isClientSide())
+        if(!level().isClientSide())
         {
             Iterator<Pair<EquipmentSlot, ItemStack>> it = attributeStacks.iterator();
             while(it.hasNext())

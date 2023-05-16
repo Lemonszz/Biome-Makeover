@@ -6,11 +6,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.PushReaction;
 import party.lemons.biomemakeover.init.BMBlocks;
 
 public class BuddingIlluniteBlock extends IlluniteBlock
@@ -18,11 +16,6 @@ public class BuddingIlluniteBlock extends IlluniteBlock
 	public BuddingIlluniteBlock(Properties properties)
 	{
 		super(properties);
-	}
-
-	@Override
-	public PushReaction getPistonPushReaction(BlockState blockState) {
-		return PushReaction.DESTROY;
 	}
 
 	@Override

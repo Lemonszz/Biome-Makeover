@@ -122,7 +122,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
                 this.heal(15.0F);
                 if(this.getHealth() == currentHealth)
                 {
-                    return InteractionResult.sidedSuccess(this.level.isClientSide());
+                    return InteractionResult.sidedSuccess(this.level().isClientSide());
                 }
                 else
                 {
@@ -133,12 +133,12 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
                         playerStack.shrink(1);
                     }
 
-                    return InteractionResult.sidedSuccess(this.level.isClientSide());
+                    return InteractionResult.sidedSuccess(this.level().isClientSide());
                 }
             }
             else if(isHolding() && holdCooldown <= 0)
             {
-                if(!level.isClientSide()) {
+                if(!level().isClientSide()) {
                     player.getInventory().placeItemBackInInventory(getItemBySlot(EquipmentSlot.MAINHAND).copy());
                     setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 }
@@ -150,7 +150,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
                 {
                     if(playerStack.getItem() == Items.CROSSBOW)
                     {
-                        if(!level.isClientSide())
+                        if(!level().isClientSide())
                         {
                             ItemStack newStack = playerStack.copy();
                             newStack.setCount(1);
@@ -173,7 +173,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
         super.tick();
         holdCooldown = 0;
 
-        if(yBodyRot != yBodyRotO && level.isClientSide())
+        if(yBodyRot != yBodyRotO && level().isClientSide())
         {
             playRotateSound();
         }
@@ -252,7 +252,7 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setPlayerCreated(tag.getBoolean("PlayerCreated"));
-        this.readPersistentAngerSaveData(this.level, tag);
+        this.readPersistentAngerSaveData(this.level(), tag);
     }
 
     @Override

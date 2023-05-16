@@ -23,7 +23,7 @@ public class ConductivityCurseEnchantment extends BMEnchantment {
     @Override
     public void onTick(LivingEntity entity, ItemStack stack, int level)
     {
-        ServerLevel world = (ServerLevel) entity.level;
+        ServerLevel world = (ServerLevel) entity.level();
         RandomSource random = world.random;
 
         if(random.nextInt(11000 - (level * 1000)) == 0 && world.isThundering())

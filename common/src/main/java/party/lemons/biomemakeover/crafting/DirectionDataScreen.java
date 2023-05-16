@@ -2,6 +2,7 @@ package party.lemons.biomemakeover.crafting;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -66,7 +67,7 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float f, int i, int j) {
+    protected void renderBg(GuiGraphics poseStack, float f, int i, int j) {
         renderBackground(poseStack);
 
     }
@@ -84,7 +85,7 @@ public class DirectionDataScreen extends AbstractContainerScreen<DirectionalData
     }
 
     @Override
-    public void render(PoseStack poseStack, int i, int j, float f) {
+    public void render(GuiGraphics poseStack, int i, int j, float f) {
         super.render(poseStack, i, j, f);
     }
 

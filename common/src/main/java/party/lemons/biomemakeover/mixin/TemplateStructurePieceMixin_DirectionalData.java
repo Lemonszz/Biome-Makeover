@@ -46,13 +46,13 @@ public class TemplateStructurePieceMixin_DirectionalData
             List<StructureTemplate.StructureBlockInfo> list = this.template.filterBlocks(this.templatePosition, this.placeSettings, BMBlocks.DIRECTIONAL_DATA.get());
             for(StructureTemplate.StructureBlockInfo info : list)
             {
-                if(info.nbt != null)
+                if(info.nbt() != null)
                 {
-                    String meta = info.nbt.getString("metadata");
-                    Direction dir = info.state.getValue(DirectionalBlock.FACING);
-                    worldGenLevel.setBlock(info.pos, Blocks.AIR.defaultBlockState(), 3);
+                    String meta = info.nbt().getString("metadata");
+                    Direction dir = info.state().getValue(DirectionalBlock.FACING);
+                    worldGenLevel.setBlock(info.pos(), Blocks.AIR.defaultBlockState(), 3);
 
-                    ((DirectionalDataHandler)this).handleDirectionalMetadata(meta, dir, info.pos, worldGenLevel, randomSource);
+                    ((DirectionalDataHandler)this).handleDirectionalMetadata(meta, dir, info.pos(), worldGenLevel, randomSource);
                 }
             }
         }

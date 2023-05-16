@@ -28,14 +28,14 @@ public interface MultiPartEntity<T extends EntityPart<?>>
     {
         for(EntityPart part : e.getParts()) {
             part.remove(Entity.RemovalReason.DISCARDED);
-            ((MultipartHolder)part.level).getPartMap().remove(part.getId(), part);
+            ((MultipartHolder)part.level()).getPartMap().remove(part.getId(), part);
         }
     }
 
     static void loadParts(MultiPartEntity<?> e)
     {
         for(EntityPart part : e.getParts())
-            ((MultipartHolder)part.level).getPartMap().put(part.getId(), part);
+            ((MultipartHolder)part.level()).getPartMap().put(part.getId(), part);
     }
 
     static void onCollectOtherEntities(Entity except, AABB box, Predicate<? super Entity> predicate, MultiPartEntity<?> e, List<Entity> entityList)

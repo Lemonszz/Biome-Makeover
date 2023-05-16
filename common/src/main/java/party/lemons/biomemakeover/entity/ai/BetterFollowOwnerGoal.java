@@ -32,7 +32,7 @@ public class BetterFollowOwnerGoal extends Goal
     public BetterFollowOwnerGoal(TamableAnimal tameable, double speed, float minDistance, float maxDistance, boolean leavesAllowed)
     {
         this.tameable = tameable;
-        this.level = tameable.level;
+        this.level = tameable.level();
         this.speed = speed;
         this.navigation = tameable.getNavigation();
         this.minDistance = minDistance;

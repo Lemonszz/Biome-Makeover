@@ -65,13 +65,13 @@ public class TumbleweedEntity extends Entity
 
         double vX = 0, vY = 0, vZ = 0;
 
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             vX = step(getDeltaMovement().x(), (WindSystem.windX * windOffset), acceleration);
             vZ = step(getDeltaMovement().z(), (WindSystem.windZ * windOffset), acceleration);
             vY = getDeltaMovement().y();
 
-            if(onGround)
+            if(onGround())
             {
                 vY = Mth.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
                 this.playSound(BMEffects.TUMBLEWEED_TUMBLE.get(), 0.25F, 1.0F);
@@ -85,7 +85,7 @@ public class TumbleweedEntity extends Entity
             }
         }else
         {
-            if(onGround)
+            if(onGround())
             {
                 makeParticles(15);
                 xRot = (float) -(disX / 0.25D);
@@ -101,7 +101,7 @@ public class TumbleweedEntity extends Entity
             quaternion = new Quaternionf(rot.i(), rot.j(), rot.k(), rot.r());;
         }
 
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             setDeltaMovement(vX, vY, vZ);
             hasImpulse = true;
@@ -150,7 +150,7 @@ public class TumbleweedEntity extends Entity
     {
         for(int i = 0; i < count; i++)
         {
-            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, BMBlocks.TUMBLEWEED.get().defaultBlockState()), -0.5D + (getX() + random.nextDouble()), getY() + random.nextDouble(), -0.5D + (getZ() + random.nextDouble()), 0.0D, 0.0D, 0.0D);
+            level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, BMBlocks.TUMBLEWEED.get().defaultBlockState()), -0.5D + (getX() + random.nextDouble()), getY() + random.nextDouble(), -0.5D + (getZ() + random.nextDouble()), 0.0D, 0.0D, 0.0D);
         }
     }
 

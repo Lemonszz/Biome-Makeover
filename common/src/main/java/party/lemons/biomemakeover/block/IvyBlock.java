@@ -89,7 +89,7 @@ public class IvyBlock extends IvyShapedBlock
 
     private boolean canReplace(BlockState state)
     {
-        return !state.is(BMBlocks.IVY_TAG) && (state.isAir() || state.is(this) || (state.getMaterial().isReplaceable() && !state.getMaterial().isLiquid()));
+        return !state.is(BMBlocks.IVY_TAG) && (state.isAir() || state.is(this) || (state.canBeReplaced() && !state.liquid()));
     }
 
     private Pair<Integer, Integer> getNearbyIvyCount(Level world, BlockPos pos)

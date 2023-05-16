@@ -25,7 +25,7 @@ public class AntidoteMobEffect extends InstantenousMobEffect {
     {
         target.getActiveEffects().stream().filter((e) -> e.getEffect().getCategory() == MobEffectCategory.HARMFUL).toList().forEach(e->target.removeEffect(e.getEffect()));
 
-        if(!target.level.isClientSide())
+        if(!target.level().isClientSide())
         {
             if(target instanceof Player)
                 BMAdvancements.ANTIDOTE.trigger((ServerPlayer) target);

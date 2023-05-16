@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -34,16 +33,14 @@ import party.lemons.taniwha.item.types.FakeItem;
 
 public class BiomeMakeover {
 
-    public static CreativeTabRegistry.TabSupplier TAB;
-
     public static void init()
     {
-        TAB = CreativeTabRegistry.create(ID(Constants.MOD_ID), ()->new ItemStack(BMItems.ICON_ITEM.get()));
         BMConfig.load();
 
         BMEffects.init();
         BMEntities.init();
 
+        BMTab.init();
         BMBlocks.init();
         BMBlockEntities.init();
         BMItems.init();
@@ -79,9 +76,9 @@ public class BiomeMakeover {
                 if (item.get() instanceof FakeItem || (item.get() instanceof BlockItem bi && bi.getBlock() == BMBlocks.DIRECTIONAL_DATA.get()) || BMItems.HIDDEN_ITEMS.contains(item))
                     continue;
 
-                CreativeTabRegistry.append(TAB, item.get());
+                CreativeTabRegistry.append(BMTab.TAB, item.get());
             }
-            CreativeTabRegistry.appendStack(BiomeMakeover.TAB, CowboyEntity.getOminousBanner());
+            CreativeTabRegistry.appendStack(BMTab.TAB, CowboyEntity.getOminousBanner());
 
             BMEntities.initSpawnsAndAttributes();
 

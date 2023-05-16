@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
@@ -52,6 +54,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.adjudicator.phase.*;
 import party.lemons.biomemakeover.entity.event.EntityEventBroadcaster;
 import party.lemons.biomemakeover.init.BMEffects;
+import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.biomemakeover.util.NBTUtil;
 import party.lemons.biomemakeover.util.extension.GoalSelectorExtension;
 import party.lemons.taniwha.entity.golem.PlayerCreatable;
@@ -125,7 +128,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     @Override
     public void tick() {
         stateTime++;
-        if(!level.isClientSide() && firstTick)  //Set up arena
+        if(!level().isClientSide() && firstTick)  //Set up arena
         {
             homePos = getOnPos();    //Home pos is generally the center of the arena. The position the adjudicator.json will return to if out of combat.
 
@@ -140,9 +143,9 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
             arenaPositions.add(homePos);
             BlockPos.betweenClosed((int)roomBounds.minX, (int)roomBounds.minY, (int)roomBounds.minZ, (int)roomBounds.maxX, (int)roomBounds.maxY, (int)roomBounds.maxZ)
                     .forEach(b->{
-                        if(level.getBlockState(b).is(Blocks.SMOOTH_QUARTZ))   //TODO: make marker block
+                        if(level().getBlockState(b).is(Blocks.SMOOTH_QUARTZ))   //TODO: make marker block
                         {
-                            level.setBlock(b, Blocks.AIR.defaultBlockState(), 3);
+                            level().setBlock(b, Blocks.AIR.defaultBlockState(), 3);
                             arenaPositions.add(b.immutable());
                         }
                     });
@@ -151,7 +154,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         super.tick();
 
         //Update the phase
-        if(!level.isClientSide() && phase != null)
+        if(!level().isClientSide() && phase != null)
         {
             phase.tick();
 
@@ -166,7 +169,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         tickCastParticles();
 
         //Anti-cheese if we're out of the arena, teleport back in.
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             if(!getArenaBounds().contains(position()))
             {
@@ -184,7 +187,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
 	 */
     private void tickCastParticles()
     {
-        if (this.level.isClientSide && isCasting())
+        if (this.level().isClientSide && isCasting())
         {
             double r, g, b;
             if(getState() == AdjudicatorState.TELEPORT)
@@ -203,8 +206,8 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
             float angle = this.yBodyRot * 0.017453292F + Mth.cos((float)this.tickCount * 0.6662F) * 0.25F;
             float xOffset = Mth.cos(angle);
             float zOffset = Mth.sin(angle);
-            this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() + (double)zOffset * 0.6D, r, g, b);
-            this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() - (double)zOffset * 0.6D, r, g, b);
+            this.level().addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() + (double)zOffset * 0.6D, r, g, b);
+            this.level().addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() - (double)xOffset * 0.6D, this.getY() + 1.8D, this.getZ() - (double)zOffset * 0.6D, r, g, b);
         }
     }
 
@@ -213,11 +216,11 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
 	 */
     private void updatePlayers()
     {
-        if(!active || level.isClientSide())
+        if(!active || level().isClientSide())
             return;
 
         //If there are no valid players within the arena, teleport home and reset the fight.
-        List<Player> players = level.getEntitiesOfClass(Player.class, getArenaBounds(), EntitySelector.NO_SPECTATORS);
+        List<Player> players = level().getEntitiesOfClass(Player.class, getArenaBounds(), EntitySelector.NO_SPECTATORS);
         if(players.isEmpty())
         {
             finishFightTime++;
@@ -240,7 +243,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
 			Players within the boss room get the boss health bar, those outside do not.
 		 */
         //Get all valid players + spectator
-        List<Player> playersWithSpectator = level.getEntitiesOfClass(Player.class, getArenaBounds(), (p)->true);
+        List<Player> playersWithSpectator = level().getEntitiesOfClass(Player.class, getArenaBounds(), (p)->true);
         List<ServerPlayer> toRemove = Lists.newArrayList();
 
         for(ServerPlayer playerEntity : bossBar.getPlayers()) //Loop through current players tracked by the boss bar
@@ -299,10 +302,10 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     @Override
     protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
     {
-        LootTable lootTable = level.getServer().getLootTables().get(this.getLootTable());
-        LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
-        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), (it)->{
-            ItemEntity item = spawnAtLocation(it);
+        LootTable lootTable = level().getServer().getLootData().getLootTable(this.getLootTable());
+        LootParams.Builder context = new LootParams.Builder((ServerLevel)level());
+        lootTable.getRandomItems(context.create(LootContextParamSets.EMPTY), (i) -> {
+            ItemEntity item = spawnAtLocation(i);
             if(item != null)
                 item.setExtendedLifetime();
         });
@@ -441,9 +444,9 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         LivingEntity targetEntity = null;
 
         if (targetClass != Player.class && targetClass != ServerPlayer.class) {
-            targetEntity = level.getNearestEntity(targetClass, this.targetPredicate, this, getX(), getEyeY(), getZ(), getArenaBounds());
+            targetEntity = level().getNearestEntity(targetClass, this.targetPredicate, this, getX(), getEyeY(), getZ(), getArenaBounds());
         } else {
-            targetEntity = level.getNearestPlayer(this.targetPredicate, this, getX(), getEyeY(), getZ());
+            targetEntity = level().getNearestPlayer(this.targetPredicate, this, getX(), getEyeY(), getZ());
         }
 
         if(targetEntity != null)
@@ -573,8 +576,8 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
 
     public void teleportTo(BlockPos pos)
     {
-        if(level.getBlockState(pos.below()).isAir())
-            level.setBlock(pos.below(), Blocks.COBBLESTONE.defaultBlockState(), 3);
+        if(level().getBlockState(pos.below()).isAir())
+            level().setBlock(pos.below(), Blocks.COBBLESTONE.defaultBlockState(), 3);
 
         this.moveTo(pos.getX() + 0.5F, pos.getY() + 1F, pos.getZ() + 0.5F);
         clearArea(this);
@@ -585,7 +588,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
 	 */
     public void clearArea(Entity e)
     {
-        if(this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
+        if(this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
         {
             AABB hitBox = e.getBoundingBox();
             destroyArea(hitBox);
@@ -605,10 +608,10 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
                         new BlockPos((int) hitBox.maxX, (int) hitBox.maxY, (int) hitBox.maxZ))
                 .forEach(b->
                 {
-                    if(WitherBoss.canDestroy(level.getBlockState(b)))
+                    if(WitherBoss.canDestroy(level().getBlockState(b)))
                     {
-                        this.level.destroyBlock(b, true, this);
-                        this.level.levelEvent(null, 1022, b, 0);
+                        this.level().destroyBlock(b, true, this);
+                        this.level().levelEvent(null, 1022, b, 0);
                     }
                 });
     }
@@ -683,10 +686,10 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
             double distanceZ = target.getZ() - this.getZ();
 
             double arc = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
-            arrow.shoot(distanceX, distanceY + arc * 0.2F, distanceZ, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+            arrow.shoot(distanceX, distanceY + arc * 0.2F, distanceZ, 1.6F, (float) (14 - this.level().getDifficulty().getId() * 4));
 
             this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-            this.level.addFreshEntity(arrow);
+            this.level().addFreshEntity(arrow);
         }
     }
 

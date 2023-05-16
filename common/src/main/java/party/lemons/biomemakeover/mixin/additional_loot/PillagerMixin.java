@@ -12,6 +12,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.spongepowered.asm.mixin.Mixin;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.util.extension.LootBlocker;
+import party.lemons.taniwha.util.EntityUtil;
+import party.lemons.taniwha.util.ItemUtil;
 
 @Mixin(Pillager.class)
 public abstract class PillagerMixin extends AbstractIllager
@@ -36,10 +38,7 @@ public abstract class PillagerMixin extends AbstractIllager
 
 		//If is leader and not in raid, use leader table, otherwise use regular table
 		ResourceLocation tableLocation = (isPatrolLeader() && !hasActiveRaid()) ? ADDITIONAL_LOOT_LEADER : ADDITIONAL_LOOT;
-
-		LootTable lootTable = level.getServer().getLootTables().get(tableLocation);
-		LootContext.Builder builder = createLootContext(true, damageSource);
-		lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+		EntityUtil.dropFromLootTable(this, tableLocation);
 	}
 
 	private PillagerMixin(EntityType<? extends AbstractIllager> entityType, Level level)

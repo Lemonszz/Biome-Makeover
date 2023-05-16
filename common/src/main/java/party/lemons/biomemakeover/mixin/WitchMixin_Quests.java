@@ -14,11 +14,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableWitchTargetGoa
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,6 +30,8 @@ import party.lemons.biomemakeover.entity.ai.WitchLookAtCustomerGoal;
 import party.lemons.biomemakeover.entity.ai.WitchStopFollowingCustomerGoal;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.util.extension.LootBlocker;
+import party.lemons.taniwha.util.EntityUtil;
+import party.lemons.taniwha.util.ItemUtil;
 
 @Mixin(Witch.class)
 public abstract class WitchMixin_Quests extends Raider implements WitchQuestEntity
@@ -69,13 +67,13 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         if(this.isAlive() && !this.hasCustomer() && canInteract(player))
         {
-            if(!this.level.isClientSide())
+            if(!this.level().isClientSide())
             {
                 despawnShield = 12000;
                 this.setCurrentCustomer(player);
                 this.sendQuests(player, this.getDisplayName());
             }
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.sidedSuccess(level().isClientSide());
         }else
         {
             return super.mobInteract(player, hand);
@@ -92,16 +90,14 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
             if(WITCH_HAT_TABLE == null)
                 WITCH_HAT_TABLE = BiomeMakeover.ID("entities/witch_hat");
 
-            LootTable lootTable = level.getServer().getLootTables().get(WITCH_HAT_TABLE);
-            LootContext.Builder builder = createLootContext(causedByPlayer, damageSource);
-            lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+            EntityUtil.dropFromLootTable(this, WITCH_HAT_TABLE);
         }
     }
 
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             if(despawnShield > 0) despawnShield--;
 
@@ -176,7 +172,7 @@ public abstract class WitchMixin_Quests extends Raider implements WitchQuestEnti
     @Override
     public Level getWitchLevel()
     {
-        return level;
+        return level();
     }
 
     public SoundEvent getYesSound()

@@ -43,7 +43,7 @@ public class EnchantedTotemItem extends Item implements TotemItem
             entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 3));
             entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2000, 0));
             entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 2000, 0));
-            entity.level.broadcastEntityEvent(entity, (byte)35);
+            entity.level().broadcastEntityEvent(entity, (byte)35);
         }
     }
 }

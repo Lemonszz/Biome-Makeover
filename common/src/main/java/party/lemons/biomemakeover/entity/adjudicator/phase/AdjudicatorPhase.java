@@ -24,7 +24,7 @@ public abstract class AdjudicatorPhase
     {
         this.phaseID = phaseID;
         this.adjudicator = adjudicator;
-        this.level = adjudicator.level;
+        this.level = adjudicator.level();
         this.random = level.random;
 
         goalSelector = new GoalSelector(level.getProfilerSupplier());

@@ -67,7 +67,7 @@ public class MesmeriteBoulderFeature extends Feature<BlockStateConfiguration>
                         BlockState belowState = level.getBlockState(placePos.below());
                         int maxAttempts = 100;
 
-                        while(maxAttempts > 0 && (belowState.getMaterial().isReplaceable() || belowState.is(BlockTags.LOGS) || belowState.is(BlockTags.LEAVES)))
+                        while(maxAttempts > 0 && (belowState.canBeReplaced() || belowState.is(BlockTags.LOGS) || belowState.is(BlockTags.LEAVES)))
                         {
                             placePos = placePos.below();
                             belowState = level.getBlockState(placePos.below());

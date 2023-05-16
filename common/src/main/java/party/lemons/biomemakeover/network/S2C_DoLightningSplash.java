@@ -58,7 +58,7 @@ public class S2C_DoLightningSplash extends BaseS2CMessage
         context.queue(()->{
             Vec3 dir = Vec3.atBottomCenterOf(pos);
             RandomSource random = context.getPlayer().getRandom();
-            Level level =  context.getPlayer().level;
+            Level level =  context.getPlayer().level();
 
             if(doBottle)
             {

@@ -65,11 +65,6 @@ public class LightningBugBottleBlock extends TBlock implements EntityBlock, Simp
     }
 
     @Override
-    public PushReaction getPistonPushReaction(BlockState blockState) {
-        return PushReaction.DESTROY;
-    }
-
-    @Override
     public boolean isPathfindable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, PathComputationType pathComputationType) {
         return false;
     }

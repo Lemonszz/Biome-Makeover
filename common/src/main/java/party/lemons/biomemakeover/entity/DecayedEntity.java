@@ -83,7 +83,7 @@ public class DecayedEntity extends Zombie
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0));
         this.goalSelector.addGoal(2, new ZombieAttackGoal(this, 1.0, false));
         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0, this.level.getSeaLevel()));
+        this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0, this.level().getSeaLevel()));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Drowned.class).setAlertOthers(ZombifiedPiglin.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (e) -> true));
@@ -118,7 +118,7 @@ public class DecayedEntity extends Zombie
         }
         else stopUsingItem();
 
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             if(shieldDisableTime > 0)
             {
@@ -136,7 +136,7 @@ public class DecayedEntity extends Zombie
 
     @Override
     public void hurtCurrentlyUsedShield(float amount) {
-        if(level.isClientSide() || !(this.useItem.getItem() instanceof ShieldItem)) return;
+        if(level().isClientSide() || !(this.useItem.getItem() instanceof ShieldItem)) return;
 
         shieldHealth -= amount;
         if(shieldHealth <= 0)
@@ -160,7 +160,7 @@ public class DecayedEntity extends Zombie
         if(this.random.nextFloat() < 0.15F * (difficulty.getSpecialMultiplier() + 1))
         {
             int armourLevel = 0;
-            float stopChance = this.level.getDifficulty() == Difficulty.HARD ? 0.05F : 0.1F;
+            float stopChance = this.level().getDifficulty() == Difficulty.HARD ? 0.05F : 0.1F;
             if(this.random.nextFloat() < 0.2F)
             {
                 ++armourLevel;
@@ -305,7 +305,7 @@ public class DecayedEntity extends Zombie
 
     @Override
     public void updateSwimming() {
-        if (!this.level.isClientSide)
+        if (!this.level().isClientSide)
         {
             if(isInWater())
                 setMaxUpStep(1);
@@ -402,7 +402,7 @@ public class DecayedEntity extends Zombie
                 this.drowned.setSpeed(j);
                 this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add((double)j * d * 0.005, (double)j * e * 0.1, (double)j * f * 0.005));
             } else {
-                if (!this.drowned.onGround) {
+                if (!this.drowned.onGround()) {
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0, -0.008, 0.0));
                 }
                 super.tick();
@@ -441,7 +441,7 @@ public class DecayedEntity extends Zombie
 
         @Override
         public boolean canUse() {
-            return super.canUse() && !this.decayed.level.isDay() && this.decayed.isInWater() && this.decayed.getY() >= (double) (this.decayed.level.getSeaLevel() - 3);
+            return super.canUse() && !this.decayed.level().isDay() && this.decayed.isInWater() && this.decayed.getY() >= (double) (this.decayed.level().getSeaLevel() - 3);
         }
 
         @Override
@@ -482,7 +482,7 @@ public class DecayedEntity extends Zombie
 
         @Override
         public boolean canUse() {
-            return !this.drowned.level.isDay() && this.drowned.isInWater() && this.drowned.getY() < (double)(this.seaLevel - 2);
+            return !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() < (double)(this.seaLevel - 2);
         }
 
         @Override

@@ -120,7 +120,7 @@ public class MothEntity extends Monster
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (this.findAttractionCooldown > 0) {
                 --this.findAttractionCooldown;
             }
@@ -158,7 +158,7 @@ public class MothEntity extends Monster
         if (this.isInvulnerableTo(damageSource)) {
             return false;
         } else {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.hugAttractionGoal.stopHugging();
             }
 
@@ -184,7 +184,7 @@ public class MothEntity extends Monster
         {
             if(mult == 1F)
             {
-                BlockState velBlock = this.level.getBlockState(this.getBlockPosBelowThatAffectsMyMovement());
+                BlockState velBlock = this.level().getBlockState(this.getBlockPosBelowThatAffectsMyMovement());
                 if(!velBlock.is(BMBlocks.ITCHING_IVY_TAG))
                 {
                     return  velBlock.getBlock().getSpeedFactor();
@@ -270,7 +270,7 @@ public class MothEntity extends Monster
 
     public boolean isValidAttraction(BlockPos pos)
     {
-        return this.level.isLoaded(pos) && isAttractive(level.getBlockState(pos));
+        return this.level().isLoaded(pos) && isAttractive(level().getBlockState(pos));
     }
 
     abstract class BaseAttractionGoal extends Goal {
@@ -436,7 +436,7 @@ public class MothEntity extends Monster
                     for(int x = 0; x <= j; x = x > 0 ? -x : 1 - x) {
                         for(int z = x < j && x > -j ? j : 0; z <= j; z = z > 0 ? -z : 1 - z) {
                             pos.setWithOffset(mothPos, x, y - 1, z);
-                            if (mothPos.closerThan(pos, d) && predicate.test(MothEntity.this.level.getBlockState(pos))) {
+                            if (mothPos.closerThan(pos, d) && predicate.test(MothEntity.this.level().getBlockState(pos))) {
                                 return Optional.of(pos);
                             }
                         }

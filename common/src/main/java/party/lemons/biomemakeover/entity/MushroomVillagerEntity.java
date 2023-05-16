@@ -70,16 +70,16 @@ public class MushroomVillagerEntity extends AbstractVillager {
 
             if(this.getOffers().isEmpty())
             {
-                return InteractionResult.sidedSuccess(this.level.isClientSide());
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }else
             {
-                if(!this.level.isClientSide())
+                if(!this.level().isClientSide())
                 {
                     this.setTradingPlayer(player);
                     this.openTradingScreen(player, this.getDisplayName(), 1);
                 }
 
-                return InteractionResult.sidedSuccess(this.level.isClientSide());
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }
         }else
         {
@@ -104,7 +104,7 @@ public class MushroomVillagerEntity extends AbstractVillager {
         if(merchantOffer.shouldRewardExp())
         {
             int i = 3 + this.random.nextInt(4);
-            this.level.addFreshEntity(new ExperienceOrb(this.level, this.getX(), this.getY() + 0.5D, this.getZ(), i));
+            this.level().addFreshEntity(new ExperienceOrb(this.level(), this.getX(), this.getY() + 0.5D, this.getZ(), i));
         }
     }
 

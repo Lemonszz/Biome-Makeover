@@ -13,10 +13,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.network.S2C_DoPoltergeistParticle;
@@ -33,12 +33,13 @@ public class PoltergeistHandler {
     {
         registerBehaviour(BlockTags.DOORS, ((level, poltergeist, pos, state)->
         {
-            if(state.getValue(DoorBlock.HALF) != DoubleBlockHalf.LOWER || state.getMaterial() == Material.METAL) return false;
+            BlockSetType type = BlockSetHolder.get(state.getBlock());
+            if(type != null && !type.canOpenByHand())
+                return false;
 
             BlockState newState = state.cycle(DoorBlock.OPEN);
             level.setBlock(pos, newState, 10);
 
-            BlockSetType type = BlockSetHolder.get(state.getBlock());
             if(type != null)
                 level.playSound(null, pos,  state.getValue(DoorBlock.OPEN) ? type.doorOpen() : type.doorClose(), SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
             else
@@ -64,7 +65,9 @@ public class PoltergeistHandler {
 
         registerBehaviour(BlockTags.TRAPDOORS, ((level, poltergeist, pos, state)->
         {
-            if(state.getMaterial() == Material.METAL) return false;
+            BlockSetType type = BlockSetHolder.get(state.getBlock());
+            if(type != null && !type.canOpenByHand())
+                return false;
 
             BlockState newState = state.cycle(TrapDoorBlock.OPEN);
             level.setBlock(pos, newState, 2);
@@ -72,7 +75,6 @@ public class PoltergeistHandler {
             if(newState.getValue(TrapDoorBlock.WATERLOGGED))
                 level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
-            BlockSetType type = BlockSetHolder.get(state.getBlock());
 
             if(type != null)
             {
@@ -100,7 +102,7 @@ public class PoltergeistHandler {
 
         registerBehaviour(Blocks.NOTE_BLOCK, ((level, poltergeist, pos, state)->
         {
-            if (!state.getValue(NoteBlock.INSTRUMENT).requiresAirAbove() || level.getBlockState(pos.above()).isAir())
+            if (state.getValue(NoteBlock.INSTRUMENT).worksAboveNoteBlock() || level.getBlockState(pos.above()).isAir())
             {
                 level.blockEvent(pos, state.getBlock(), 0, 0);
                 level.gameEvent(poltergeist, GameEvent.NOTE_BLOCK_PLAY, pos);

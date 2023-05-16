@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 public enum EntityEvent
 {
     BONEMEAL_PARTICLE(e->entityParticles(e, ParticleTypes.HAPPY_VILLAGER, 15, 0.02F, 0,0, 0)),
-    ENDER_PARTICLES(e->entityParticles(e, ParticleTypes.PORTAL, 10, 0.5F, (e.level.random.nextDouble() - 0.5D),  -e.level.random.nextDouble(), (e.level.random.nextDouble() - 0.5D) * 2.0D)),
-    TELEPORT_PARTICLES(e->centeredEntityParticles(e, BMEffects.TELEPORT.get(), 10, true, e.level.random.nextGaussian() * 0.02D, e.level.random.nextGaussian() * 0.02D, e.level.random.nextGaussian() * 0.02D));
+    ENDER_PARTICLES(e->entityParticles(e, ParticleTypes.PORTAL, 10, 0.5F, (e.level().random.nextDouble() - 0.5D),  -e.level().random.nextDouble(), (e.level().random.nextDouble() - 0.5D) * 2.0D)),
+    TELEPORT_PARTICLES(e->centeredEntityParticles(e, BMEffects.TELEPORT.get(), 10, true, e.level().random.nextGaussian() * 0.02D, e.level().random.nextGaussian() * 0.02D, e.level().random.nextGaussian() * 0.02D));
 
     private static void centeredEntityParticles(Entity entity, SimpleParticleType particle, int count, boolean varyY, double vX, double vY, double vZ)
     {
@@ -28,7 +28,7 @@ public enum EntityEvent
             else
                 yy = bb.minY;
 
-            entity.getLevel().addParticle(particle,
+            entity.level().addParticle(particle,
                     xx,
                     yy,
                     xx,
@@ -41,7 +41,7 @@ public enum EntityEvent
     {
         for(int i = 0; i < count; i++)
         {
-            entity.getLevel().addParticle(particle,
+            entity.level().addParticle(particle,
                     entity.getRandomX(offset),
                     entity.getRandomY(),
                     entity.getRandomZ(offset),
@@ -53,17 +53,17 @@ public enum EntityEvent
     {
         for(int i = 0; i < 10; i++)
         {
-            entity.getLevel().addParticle(ParticleTypes.PORTAL,
+            entity.level().addParticle(ParticleTypes.PORTAL,
                     entity.getRandomX(0.5F),
                     entity.getRandomY(),
                     entity.getRandomZ(0.5F),
-                    (entity.level.random.nextDouble() - 0.5D) * 2.0D, -entity.level.random.nextDouble(), (entity.level.random.nextDouble() - 0.5D) * 2.0D);
+                    (entity.level().random.nextDouble() - 0.5D) * 2.0D, -entity.level().random.nextDouble(), (entity.level().random.nextDouble() - 0.5D) * 2.0D);
         }
     }
 
     private static void entityBonemeal(Entity entity)
     {
-        entity.getLevel().addParticle(ParticleTypes.HAPPY_VILLAGER, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
+        entity.level().addParticle(ParticleTypes.HAPPY_VILLAGER, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
 
         for(int i = 0; i < 15; i++)
         {
@@ -71,7 +71,7 @@ public enum EntityEvent
             double yy = entity.getRandomY();
             double zz = entity.getRandomZ(0.02D);
 
-            entity.getLevel().addParticle(ParticleTypes.HAPPY_VILLAGER, xx, yy, zz, 0, 0, 0);
+            entity.level().addParticle(ParticleTypes.HAPPY_VILLAGER, xx, yy, zz, 0, 0, 0);
         }
     }
 

@@ -89,7 +89,7 @@ public class MothBlossomBlock extends IvyShapedBlock{
         {
             BlockPos offsetPos = pos.relative(direction);
             BlockState placePosState = level.getBlockState(offsetPos);
-            if((placePosState.isAir() || (placePosState.getMaterial().isReplaceable() && !placePosState.is(BMBlocks.ITCHING_IVY.get()))) && IvyBlock.isValidPlaceFace(level, Direction.DOWN, pos.relative(direction), level.getBlockState(pos.relative(direction).below())))
+            if((placePosState.isAir() || (placePosState.canBeReplaced() && !placePosState.is(BMBlocks.ITCHING_IVY.get()))) && IvyBlock.isValidPlaceFace(level, Direction.DOWN, pos.relative(direction), level.getBlockState(pos.relative(direction).below())))
             {
                 level.setBlock(offsetPos, BMBlocks.ITCHING_IVY.get().defaultBlockState().setValue(IvyBlock.getPropertyForDirection(Direction.DOWN), true), 3);
                 level.scheduleTick(offsetPos, BMBlocks.ITCHING_IVY.get(), 4);

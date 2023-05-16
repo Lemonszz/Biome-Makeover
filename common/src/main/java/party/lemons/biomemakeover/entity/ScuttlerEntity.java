@@ -126,7 +126,7 @@ public class ScuttlerEntity extends Animal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         Item item = itemStack.getItem();
-        if(this.level.isClientSide())
+        if(this.level().isClientSide())
         {
             if(this.isFood(itemStack))
             {
@@ -138,20 +138,20 @@ public class ScuttlerEntity extends Animal {
             {
                 if(item.getFoodProperties() != null && this.isFood(itemStack) && this.getHealth() < this.getMaxHealth())
                 {
-                    this.eat(level, itemStack);
+                    this.eat(level(), itemStack);
                     this.heal((float) item.getFoodProperties().getNutrition());
                     return InteractionResult.CONSUME;
                 }
             }else if(this.isFood(itemStack))
             {
-                this.eat(level, itemStack);
+                this.eat(level(), itemStack);
                 if(this.random.nextInt(3) == 0)
                 {
                     entityData.set(PASSIVE, true);
-                    this.level.broadcastEntityEvent(this, (byte) 7);
+                    this.level().broadcastEntityEvent(this, (byte) 7);
                 }else
                 {
-                    this.level.broadcastEntityEvent(this, (byte) 6);
+                    this.level().broadcastEntityEvent(this, (byte) 6);
                 }
                 this.setPersistenceRequired();
                 return InteractionResult.CONSUME;
@@ -220,7 +220,7 @@ public class ScuttlerEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos blockPos, BlockState state) {
-        if(!state.getMaterial().isLiquid())
+        if(!state.liquid())
         {
             playSound(BMEffects.SCUTTLER_STEP.get(), 0.10F, 1.25F + random.nextFloat());
             spawnSprintParticle();
@@ -283,7 +283,7 @@ public class ScuttlerEntity extends Animal {
         {
             if(scuttler.isInWater() || scuttler.isPassive()) return false;
 
-            this.targetEntity = scuttler.level.
+            this.targetEntity = scuttler.level().
                     getNearestEntity(targetClass, this.withinRangePredicate, this.scuttler, this.scuttler.getX(), this.scuttler.getY(), this.scuttler.getZ(), this.scuttler.getBoundingBox().inflate(this.distance, 3.0D, this.distance));
             if(this.targetEntity == null || !scuttler.hasLineOfSight(targetEntity) || !targetEntity.hasLineOfSight(scuttler))
             {
@@ -348,7 +348,7 @@ public class ScuttlerEntity extends Animal {
                 {
                     this.timer = 100;
                     BlockPos pos = this.mob.blockPosition();
-                    return ScuttlerEntity.this.level.isDay() && ScuttlerEntity.this.level.canSeeSky(pos) && this.setWantedPos();
+                    return ScuttlerEntity.this.level().isDay() && ScuttlerEntity.this.level().canSeeSky(pos) && this.setWantedPos();
                 }
             }else
             {
@@ -389,14 +389,14 @@ public class ScuttlerEntity extends Animal {
 
             if(eatTime <= 1)
             {
-                BlockState st = level.getBlockState(eatTarget);
+                BlockState st = level().getBlockState(eatTarget);
                 if(st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                 {
                     BlockState setState = BMBlocks.BARREL_CACTUS.get().defaultBlockState();
-                    level.blockEvent(eatTarget, BMBlocks.BARREL_CACTUS.get(), 1, 0);
-                    level.setBlock(eatTarget, setState, Block.UPDATE_CLIENTS);
-                    level.gameEvent(GameEvent.BLOCK_CHANGE, eatTarget, GameEvent.Context.of(setState));
-                    ItemUtil.dropLootTable(level, eatTarget.getX(), eatTarget.getY(), eatTarget.getZ(), EAT_LOOT_TABLE);
+                    level().blockEvent(eatTarget, BMBlocks.BARREL_CACTUS.get(), 1, 0);
+                    level().setBlock(eatTarget, setState, Block.UPDATE_CLIENTS);
+                    level().gameEvent(GameEvent.BLOCK_CHANGE, eatTarget, GameEvent.Context.of(setState));
+                    ItemUtil.dropLootTable(level(), eatTarget.getX(), eatTarget.getY(), eatTarget.getZ(), EAT_LOOT_TABLE);
                 }
                 eatTarget = null;
             }
@@ -408,7 +408,7 @@ public class ScuttlerEntity extends Animal {
             if(!canUse())
                 return false;
 
-            BlockState st = level.getBlockState(eatTarget);
+            BlockState st = level().getBlockState(eatTarget);
             return st.is(BMBlocks.BARREL_CACTUS_FLOWERED.get());
         }
 
@@ -461,7 +461,7 @@ public class ScuttlerEntity extends Animal {
                 for(int z = startPos.getZ() - range; z < startPos.getZ() + range; z++)
                 {
                     m.set(x, startPos.getY(), z);
-                    BlockState checkState = level.getBlockState(m);
+                    BlockState checkState = level().getBlockState(m);
                     if(checkState.is(BMBlocks.BARREL_CACTUS_FLOWERED.get()))
                     {
                         spots.add(new BlockPos(m.getX(), m.getY(), m.getZ()));

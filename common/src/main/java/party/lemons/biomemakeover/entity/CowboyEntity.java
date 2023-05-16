@@ -56,9 +56,9 @@ public class CowboyEntity extends Pillager {
     public void die(DamageSource damageSource)
     {
         //Doesn't trigger bad omen without this since it checks if the banner == raid banner
-        if (this.level instanceof ServerLevel) {
+        if (this.level() instanceof ServerLevel) {
             Entity entity = damageSource.getEntity();
-            if (this.isPatrolLeader() && raid == null && ((ServerLevel)this.level).getRaidAt(this.blockPosition()) == null) {
+            if (this.isPatrolLeader() && raid == null && ((ServerLevel)this.level()).getRaidAt(this.blockPosition()) == null) {
                 ItemStack itemStack = this.getItemBySlot(EquipmentSlot.HEAD);
                 Player player = null;
                 Entity entity2 = entity;
@@ -84,7 +84,7 @@ public class CowboyEntity extends Pillager {
                     }
                     i = Mth.clamp(i, 0, 4);
                     MobEffectInstance mobEffectInstance2 = new MobEffectInstance(MobEffects.BAD_OMEN, 120000, i, false, false, true);
-                    if (!this.level.getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS)) {
+                    if (!this.level().getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS)) {
                         player.addEffect(mobEffectInstance2);
                     }
                 }

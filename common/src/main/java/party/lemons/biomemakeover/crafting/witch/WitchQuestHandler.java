@@ -43,7 +43,7 @@ public class WitchQuestHandler
 
     public static void sendQuests(Player player, int index, WitchQuestList quests)
     {
-        if(player.level.isClientSide()) return;
+        if(player.level().isClientSide()) return;
 
         new S2C_HandleWitchQuests(index, quests).sendTo((ServerPlayer) player);
     }

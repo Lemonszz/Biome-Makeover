@@ -88,7 +88,7 @@ public class ToadModel extends EntityModel<ToadEntity>
         this.frontlegw.xRot = Mth.cos(limbAngle * 1) * 1.4F * limbDistance;
         this.backlegw.xRot = Mth.cos(limbAngle * 1 + pi) * legAmount * limbDistance;
 
-        if(!entity.isOnGround())
+        if(!entity.onGround())
         {
             this.backlegw.xRot = 2F;
             this.backlege.xRot = 2F;
@@ -97,7 +97,7 @@ public class ToadModel extends EntityModel<ToadEntity>
         if(entity.hasTongueEntity())
         {
             entity.mouthDistance = MathUtils.approachValue(entity.mouthDistance, 1, 0.5F);
-            Entity e = entity.level.getEntity(entity.getTongueEntityID());
+            Entity e = entity.level().getEntity(entity.getTongueEntityID());
             if(e != null && entity.isTongueReady())
             {
                 tongueDistance = (entity.distanceTo(e) * 16) - ((float) (e.getBoundingBox().maxX - e.getBoundingBox().minX) * 16F);

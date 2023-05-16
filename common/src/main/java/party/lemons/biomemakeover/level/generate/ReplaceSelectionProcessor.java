@@ -37,11 +37,11 @@ public class ReplaceSelectionProcessor extends StructureProcessor
 	@Override
 	public StructureTemplate.StructureBlockInfo processBlock(LevelReader levelReader, BlockPos blockPos, BlockPos blockPos2, StructureTemplate.StructureBlockInfo structureBlockInfo, StructureTemplate.StructureBlockInfo input, StructurePlaceSettings structurePlaceSettings)
 	{
-		BlockState blockState = input.state;
+		BlockState blockState = input.state();
 		if(blockState.is(target))
 		{
-			BlockState newState = output.getState(structurePlaceSettings.getRandom(input.pos), input.pos);
-			return new StructureTemplate.StructureBlockInfo(input.pos, newState, input.nbt);
+			BlockState newState = output.getState(structurePlaceSettings.getRandom(input.pos()), input.pos());
+			return new StructureTemplate.StructureBlockInfo(input.pos(), newState, input.nbt());
 		}
 
 		return input;

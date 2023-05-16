@@ -84,7 +84,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
 
         if(!heldStack.isEmpty() && (heldStack.getItem() == Items.GLASS_BOTTLE || heldStack.getItem() == Items.EXPERIENCE_BOTTLE))
         {
-            if(!level.isClientSide())
+            if(!level().isClientSide())
             {
                 ItemStack result = ItemUtils.createFilledResult(heldStack, player, new ItemStack(heldStack.getItem() == Items.GLASS_BOTTLE ? BMBlocks.LIGHTNING_BUG_BOTTLE.get() : BMItems.LIGHTNING_BOTTLE.get()));
                 player.setItemInHand(hand, result);
@@ -102,10 +102,10 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         {
             for(int i = 0; i < random.nextInt(5); i++)
             {
-                LightningBugEntity alternate = BMEntities.LIGHTNING_BUG_ALTERNATE.get().create(level);
+                LightningBugEntity alternate = BMEntities.LIGHTNING_BUG_ALTERNATE.get().create(level());
                 alternate.isAlternate = true;
                 alternate.moveTo(getX(), getY(), getZ());
-                level.addFreshEntity(alternate);
+                level().addFreshEntity(alternate);
             }
         }
 
@@ -202,7 +202,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
         super.tick();
         if(this.hasOthersInGroup() && this.random.nextInt(200) == 1)
         {
-            List<LightningBugEntity> list = this.level.getEntitiesOfClass(LightningBugEntity.class, this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
+            List<LightningBugEntity> list = this.level().getEntitiesOfClass(LightningBugEntity.class, this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
             if(list.size() <= 1)
             {
                 this.groupSize = 1;
@@ -223,7 +223,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
     public void aiStep() {
         super.aiStep();
 
-        if(random.nextInt(200) == 0) NetworkUtil.doLightningEntity(level, this, 2);
+        if(random.nextInt(200) == 0) NetworkUtil.doLightningEntity(level(), this, 2);
     }
 
     public void moveTowardLeader()
@@ -301,7 +301,7 @@ public class LightningBugEntity extends ToadTargetEntity implements FlyingAnimal
             {
                 this.checkSurroundingDelay = this.getSurroundingSearchDelay(this.entity);
                 Predicate<LightningBugEntity> predicate = (e)->e.canHaveMoreInGroup() || !e.hasLeader();
-                List<LightningBugEntity> list = this.entity.level.getEntitiesOfClass(LightningBugEntity.class, this.entity.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), predicate);
+                List<LightningBugEntity> list = this.entity.level().getEntitiesOfClass(LightningBugEntity.class, this.entity.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), predicate);
                 LightningBugEntity e = list.stream().filter(LightningBugEntity::canHaveMoreInGroup).findAny().orElse(this.entity);
                 e.pullInOthers(list.stream().filter((lnb)->!lnb.hasLeader()));
                 return this.entity.hasLeader();

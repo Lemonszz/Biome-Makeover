@@ -3,23 +3,16 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
-import net.minecraft.world.level.lighting.LayerLightEngine;
-import party.lemons.biomemakeover.level.feature.config.GrassPatchFeatureConfig;
-import party.lemons.biomemakeover.util.RandomUtil;
+import net.minecraft.world.level.lighting.LightEngine;
 
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class GrassPatchFeature extends VegetationPatchFeature
@@ -53,6 +46,7 @@ public class GrassPatchFeature extends VegetationPatchFeature
         }
         return true;
     }
+
     private static boolean canBeGrass(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
         BlockPos blockPos2 = blockPos.above();
         BlockState blockState2 = levelReader.getBlockState(blockPos2);
@@ -62,7 +56,7 @@ public class GrassPatchFeature extends VegetationPatchFeature
         if (blockState2.getFluidState().getAmount() == 8) {
             return false;
         }
-        int i = LayerLightEngine.getLightBlockInto(levelReader, blockState, blockPos, blockState2, blockPos2, Direction.UP, blockState2.getLightBlock(levelReader, blockPos2));
+        int i = LightEngine.getLightBlockInto(levelReader, blockState, blockPos, blockState2, blockPos2, Direction.UP, blockState2.getLightBlock(levelReader, blockPos2));
         return i < levelReader.getMaxLightLevel();
     }
 

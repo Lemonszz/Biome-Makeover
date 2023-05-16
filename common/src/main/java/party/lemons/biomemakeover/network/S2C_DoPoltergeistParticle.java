@@ -39,17 +39,17 @@ public class S2C_DoPoltergeistParticle extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext context) {
         context.queue(()->{
-            if(context.getPlayer().level == null)
+            if(context.getPlayer().level() == null)
                 return;
 
-            RandomSource random = context.getPlayer().level.random;
+            RandomSource random = context.getPlayer().level().random;
             int x = pos.getX();
             int y = pos.getY();
             int z = pos.getZ();
 
             for(int i = 0; i < 2; i++)
             {
-                context.getPlayer().level.addParticle(BMEffects.POLTERGEIST.get(), x + random.nextDouble(), y + random.nextDouble(), z + random.nextDouble(), (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F), 0.025F, (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F));
+                context.getPlayer().level().addParticle(BMEffects.POLTERGEIST.get(), x + random.nextDouble(), y + random.nextDouble(), z + random.nextDouble(), (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F), 0.025F, (random.nextDouble() / 20D) * RandomUtil.randomDirection(1F));
             }
         });
     }

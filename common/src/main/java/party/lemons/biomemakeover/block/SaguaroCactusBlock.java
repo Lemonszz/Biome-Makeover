@@ -104,7 +104,7 @@ public class SaguaroCactusBlock extends TBlock implements BonemealableBlock
         }else
         {
             BlockState checkState = levelReader.getBlockState(blockPos.below());
-            return checkState.is(BMBlocks.SAGUARO_CACTUS_PLANTABLE) && !levelReader.getBlockState(blockPos.above()).getMaterial().isLiquid();
+            return checkState.is(BMBlocks.SAGUARO_CACTUS_PLANTABLE) && !levelReader.getBlockState(blockPos.above()).liquid();
         }
 
         return super.canSurvive(state, levelReader, blockPos);

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -76,28 +77,27 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
     }
 
     @Override
-    protected void renderLabels(PoseStack matrices, int mouseX, int mouseY)
+    protected void renderLabels(GuiGraphics g, int mouseX, int mouseY)
     {
-        this.font.draw(matrices, this.title, (float) (49 + this.imageWidth / 2 - this.font.width(this.title) / 2), 6.0F, 4210752);
+        g.drawString(this.font, this.title, (49 + this.imageWidth / 2 - this.font.width(this.title) / 2), 6, 4210752, false);
+        g.drawString(this.font, this.inventory.getDisplayName(), this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
 
-        this.font.draw(matrices, this.inventory.getDisplayName(), (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
+
         int l = this.font.width(QUESTS_TEXT);
-        this.font.draw(matrices, QUESTS_TEXT, (float) (5 - l / 2 + 48), 6.0F, 4210752);
+        g.drawString(this.font, QUESTS_TEXT, (5 - l / 2 + 48), 6, 4210752, false);
     }
 
     @Override
-    protected void renderBg(PoseStack matrices, float delta, int mouseX, int mouseY)
+    protected void renderBg(GuiGraphics g, float delta, int mouseX, int mouseY)
     {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, TEXTURE);
         int k = (this.width - this.imageWidth) / 2;
         int l = (this.height - this.imageHeight) / 2;
-        MerchantScreen.blit(matrices, k, l, 0, 0.0f, 0.0f, this.imageWidth, this.imageHeight, 512, 256);
+        g.blit(TEXTURE, k, l, 0, 0.0f, 0.0f, this.imageWidth, this.imageHeight, 512, 256);
     }
 
     @Override
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         this.renderTooltip(matrices, mouseX, mouseY);
@@ -125,11 +125,9 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
         }
 
         @Override
-        public void renderWidget(PoseStack poseStack, int x, int y, float delta)
+        public void renderWidget(GuiGraphics g, int x, int y, float delta)
         {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-            RenderSystem.setShaderTexture(0, TEXTURE);
             int drawTextureIndex = 1;
             if(quest.hasItems(Minecraft.getInstance().player.getInventory()))
             {
@@ -139,34 +137,34 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.enableDepthTest();
-            blit(poseStack, this.getX(), this.getY(), 174, drawTextureIndex * 26, this.width, this.height, 512, 256);
+            g.blit(TEXTURE, this.getX(), this.getY(), 174, drawTextureIndex * 26, this.width, this.height, 512, 256);
 
             int rarityY = 7 + (questRarity.ordinal() * 5);
-            blit(poseStack, getX() + 4, getY() + 11, 278, rarityY, 5, 5, 512, 256);
+            g.blit(TEXTURE, getX() + 4, getY() + 11, 278, rarityY, 5, 5, 512, 256);
 
             int itemXX = getX() + 11;
             ItemRenderer itemRenderer = minecraft.getItemRenderer();
             for(ItemStack stack : quest.getRequiredItems())
             {
-                itemRenderer.renderAndDecorateItem(poseStack, stack, itemXX, getY() + 5);
-                itemRenderer.renderGuiItemDecorations(poseStack, minecraft.font,stack, itemXX, getY() + 5, String.valueOf(stack.getCount()));
+                g.renderItem(stack, itemXX, getY() + 5);
+                g.renderItemDecorations(minecraft.font,stack, itemXX, getY() + 5, String.valueOf(stack.getCount()));
                 itemXX += 18;
             }
         }
 
         //TODO:PORT
-        public void renderToolTip(PoseStack matrices, int mouseX, int mouseY) {
+        public void renderToolTip(GuiGraphics g, int mouseX, int mouseY) {
             int xx = mouseX - getX();
             int yy = mouseY - getY();
 
             if(isHoveredOrFocused() && xx > 5 && yy < 19)
             {
-                if(xx > 2 && xx < 9) renderTooltip(matrices, questRarity.getTooltipText(), mouseX, mouseY);
+                if(xx > 2 && xx < 9) g.renderTooltip(font, questRarity.getTooltipText(), mouseX, mouseY);
 
                 if(xx > 11)
                 {
-                    matrices.pushPose();
-                    matrices.translate(0.0, 0.0, 400.0f);
+                    g.pose().pushPose();
+                    g.pose().translate(0.0, 0.0, 400.0f);
 
                     xx -= 11;
                     int index = xx / 18;
@@ -176,12 +174,12 @@ public class WitchScreen extends AbstractContainerScreen<WitchMenu>
                         int bgY = getY() + 5;
 
                         RenderSystem.colorMask(true, true, true, false);
-                        this.fillGradient(matrices, bgX, bgY, bgX + 16, bgY + 16, -2130706433, -2130706433);
+                        g.fillGradient(bgX, bgY, bgX + 16, bgY + 16, -2130706433, -2130706433);
                         RenderSystem.colorMask(true, true, true, true);
 
-                        renderTooltip(matrices, quest.getRequiredItems()[index], mouseX, mouseY);
+                        g.renderTooltip(font, quest.getRequiredItems()[index], mouseX, mouseY);
                     }
-                    matrices.popPose();
+                    g.pose().popPose();
                 }
             }
         }

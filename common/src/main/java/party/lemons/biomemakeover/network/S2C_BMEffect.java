@@ -39,7 +39,7 @@ public class S2C_BMEffect extends BaseS2CMessage {
     public void handle(NetworkManager.PacketContext context) {
         context.queue(()->{
             BiomeMakeoverEffect ef = BiomeMakeoverEffect.values()[effect];
-            ef.execute(context.getPlayer().getLevel(), pos);
+            ef.execute(context.getPlayer().level(), pos);
         });
     }
 }

@@ -28,7 +28,7 @@ public class WitchStopFollowingCustomerGoal extends Goal
         }else if(this.witch.isInWater())
         {
             return false;
-        }else if(!this.witch.isOnGround())
+        }else if(!this.witch.onGround())
         {
             return false;
         }else if(this.witch.hurtMarked)

@@ -26,14 +26,14 @@ public class GhostTownLootProcessor extends StructureProcessor
 	@Override
 	public StructureTemplate.StructureBlockInfo processBlock(LevelReader worldView, BlockPos pos, BlockPos blockPos, StructureTemplate.StructureBlockInfo info, StructureTemplate.StructureBlockInfo info2, StructurePlaceSettings data)
 	{
-		BlockState blockState = info2.state;
+		BlockState blockState = info2.state();
 		if(blockState.getBlock() == Blocks.BARREL)
 		{
-			if(info2.nbt == null)
-				info2 = new StructureTemplate.StructureBlockInfo(blockPos, info2.state, new CompoundTag());
+			if(info2.nbt() == null)
+				info2 = new StructureTemplate.StructureBlockInfo(blockPos, info2.state(), new CompoundTag());
 
-			if(!info2.nbt.contains("LootTable"))
-				info2.nbt.putString("LootTable", BiomeMakeover.ID("ghost_town/loot_" + RandomUtil.RANDOM.nextInt(3)).toString());
+			if(!info2.nbt().contains("LootTable"))
+				info2.nbt().putString("LootTable", BiomeMakeover.ID("ghost_town/loot_" + RandomUtil.RANDOM.nextInt(3)).toString());
 
 			/*
 			BlockEntity be = worldView.getBlockEntity(pos);

@@ -23,7 +23,7 @@ public class EntityPart<T extends LivingEntity & MultiPartEntity> extends Entity
     private boolean collides = false;
 
     public EntityPart(T owner, float width, float height, double offsetX, double offsetY, double offsetZ) {
-        super(owner.getType(), owner.getLevel());
+        super(owner.getType(), owner.level());
 
         this.partDimensions = EntityDimensions.scalable(width, height);
         this.refreshDimensions();

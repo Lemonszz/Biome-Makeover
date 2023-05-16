@@ -66,6 +66,6 @@ public class SimpleWitch implements WitchQuestEntity
 
     @Override
     public Level getWitchLevel() {
-        return player.level;
+        return player.level();
     }
 }

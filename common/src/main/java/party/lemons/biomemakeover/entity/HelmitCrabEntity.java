@@ -139,7 +139,7 @@ public class HelmitCrabEntity extends Animal
 	}
 
 	public void updateSwimming() {
-		if (!this.level.isClientSide()) {
+		if (!this.level().isClientSide()) {
 			this.setSwimming(this.isEffectiveAi() && this.isInWater() && this.isTargetingUnderwater());
 		}
 	}
@@ -412,13 +412,13 @@ public class HelmitCrabEntity extends Animal
 				d = 0.01;
 				this.resetFallDistance();
 			}
-			FluidState fluidState = this.level.getFluidState(this.blockPosition());
+			FluidState fluidState = this.level().getFluidState(this.blockPosition());
 			if (this.isInWater() && this.isAffectedByFluids() && !this.canStandOnFluid(fluidState)) {
 				if(getNavigation().getTargetPos() != null && getNavigation().getTargetPos().getY() > getY())
 					getJumpControl().jump();
 
 				//Move towards sea floor rather than float slowly
-				if(!onGround && !jumping && getDeltaMovement().y() > -0.1F)
+				if(!onGround() && !jumping && getDeltaMovement().y() > -0.1F)
 					setDeltaMovement(getDeltaMovement().add(0, -0.025F, 0));
 
 				double e = this.getY();
@@ -428,7 +428,7 @@ public class HelmitCrabEntity extends Animal
 				if (h > 3.0f) {
 					h = 3.0f;
 				}
-				if (!this.onGround) {
+				if (!this.onGround()) {
 					h *= 0.5f;
 				}
 				if (h > 0.0f) {
@@ -498,28 +498,28 @@ public class HelmitCrabEntity extends Animal
 				}
 				this.setDeltaMovement(vec35.multiply(0.99f, 0.98f, 0.99f));
 				this.move(MoverType.SELF, this.getDeltaMovement());
-				if (this.horizontalCollision && !this.level.isClientSide && (o = (float)((n = j - (m = this.getDeltaMovement().horizontalDistance())) * 10.0 - 3.0)) > 0.0f) {
+				if (this.horizontalCollision && !this.level().isClientSide && (o = (float)((n = j - (m = this.getDeltaMovement().horizontalDistance())) * 10.0 - 3.0)) > 0.0f) {
 					this.playSound(o > 4 ? this.getFallSounds().big() : this.getFallSounds().small(), 1.0f, 1.0f);
-					this.hurt(level.damageSources().flyIntoWall(), o);
+					this.hurt(level().damageSources().flyIntoWall(), o);
 				}
-				if (this.onGround && !this.level.isClientSide) {
+				if (this.onGround() && !this.level().isClientSide) {
 					this.setSharedFlag(7, false);
 				}
 			} else {
 				BlockPos blockPos = this.getBlockPosBelowThatAffectsMyMovement();
-				float p = this.level.getBlockState(blockPos).getBlock().getFriction();
-				float f = this.onGround ? p * 0.91f : 0.91f;
+				float p = this.level().getBlockState(blockPos).getBlock().getFriction();
+				float f = this.onGround() ? p * 0.91f : 0.91f;
 				Vec3 vec37 = this.handleRelativeFrictionAndCalculateMovement(vec3, p);
 				double q = vec37.y;
 				if (this.hasEffect(MobEffects.LEVITATION)) {
 					q += (0.05 * (double)(this.getEffect(MobEffects.LEVITATION).getAmplifier() + 1) - vec37.y) * 0.2;
 					this.resetFallDistance();
-				} else if (!this.level.isClientSide || this.level.hasChunkAt(blockPos)) {
+				} else if (!this.level().isClientSide || this.level().hasChunkAt(blockPos)) {
 					if (!this.isNoGravity()) {
 						q -= d;
 					}
 				} else {
-					q = this.getY() > (double)this.level.getMinBuildHeight() ? -0.1 : 0.0;
+					q = this.getY() > (double)this.level().getMinBuildHeight() ? -0.1 : 0.0;
 				}
 				if (this.shouldDiscardFriction()) {
 					this.setDeltaMovement(vec37.x, q, vec37.z);
@@ -567,7 +567,7 @@ public class HelmitCrabEntity extends Animal
 			{
 				if (this.mob.isOnFire())
 				{
-					BlockPos blockPos = this.lookForWater(this.mob.level, this.mob, 5);
+					BlockPos blockPos = this.lookForWater(this.mob.level(), this.mob, 5);
 					if (blockPos != null) {
 						this.posX = blockPos.getX();
 						this.posY = blockPos.getY();
@@ -729,7 +729,7 @@ public class HelmitCrabEntity extends Animal
 
 		private void seekShell()
 		{
-			List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(5D), i-> prefersShell(i.getItem()));
+			List<ItemEntity> entities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(5D), i-> prefersShell(i.getItem()));
 			if(!entities.isEmpty())
 			{
 				itemEntity = entities.get(random.nextInt(entities.size()));

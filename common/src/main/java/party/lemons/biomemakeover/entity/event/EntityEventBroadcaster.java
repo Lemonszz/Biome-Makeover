@@ -14,6 +14,6 @@ public interface EntityEventBroadcaster
     }
 
     default void broadcastEvent(Entity entity, EntityEvent event){
-        new S2C_EntityEvent(entity, event).sendToChunkListeners(entity.level.getChunkAt(entity.getOnPos()));
+        new S2C_EntityEvent(entity, event).sendToChunkListeners(entity.level().getChunkAt(entity.getOnPos()));
     }
 }

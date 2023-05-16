@@ -15,7 +15,7 @@ public class NetworkUtil
     {
         if(world.isClientSide()) return;
 
-        new S2C_DoEntityParticle(e, effect, count, offset).sendToChunkListeners(e.getLevel().getChunkAt(e.getOnPos()));
+        new S2C_DoEntityParticle(e, effect, count, offset).sendToChunkListeners(e.level().getChunkAt(e.blockPosition()));
     }
 
     public static void doLightningSplash(Level level, boolean doBottle, BlockPos pos)
@@ -29,6 +29,6 @@ public class NetworkUtil
     {
         if(level.isClientSide()) return;
 
-        new S2C_DoLightningEntity(entity.getId(), count).sendToChunkListeners(level.getChunkAt(entity.getOnPos()));
+        new S2C_DoLightningEntity(entity.getId(), count).sendToChunkListeners(level.getChunkAt(entity.blockPosition()));
     }
 }

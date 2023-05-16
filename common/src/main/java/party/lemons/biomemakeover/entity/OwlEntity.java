@@ -134,17 +134,12 @@ public class OwlEntity extends ShoulderRidingEntity
     @Override
     public void tick() {
         super.tick();
-        setStandingState(onGround || isInWater() || isOrderedToSit() ? StandingState.STANDING : StandingState.FLYING);
+        setStandingState(onGround() || isInWater() || isOrderedToSit() ? StandingState.STANDING : StandingState.FLYING);
 
         lastLeaningPitch = leaningPitch;
-        switch(getStandingState())
-        {
-            case STANDING:
-                this.leaningPitch = Math.max(0.0F, this.leaningPitch - 2F);
-                break;
-            case FLYING:
-                this.leaningPitch = Math.min(7F, this.leaningPitch + 1.5F);
-                break;
+        switch (getStandingState()) {
+            case STANDING -> this.leaningPitch = Math.max(0.0F, this.leaningPitch - 2F);
+            case FLYING -> this.leaningPitch = Math.min(7F, this.leaningPitch + 1.5F);
         }
 
     }
@@ -153,7 +148,7 @@ public class OwlEntity extends ShoulderRidingEntity
     public void aiStep() {
         super.aiStep();
         Vec3 velocity = this.getDeltaMovement();
-        if (!this.onGround && velocity.y < 0.0D) {
+        if (!this.onGround() && velocity.y < 0.0D) {
             this.setDeltaMovement(velocity.multiply(1.0D, 0.75D, 1.0D));
         }
     }
@@ -184,7 +179,7 @@ public class OwlEntity extends ShoulderRidingEntity
         {
             if(this.isFood(stack) && this.getHealth() < this.getMaxHealth())
             {
-                if(!level.isClientSide())
+                if(!level().isClientSide())
                 {
                     if(!player.isCreative())
                     {
@@ -199,7 +194,7 @@ public class OwlEntity extends ShoulderRidingEntity
             InteractionResult actionResult = super.mobInteract(player, hand);
             if((!actionResult.consumesAction() || this.isBaby()) && this.isOwnedBy(player))
             {
-                if(!level.isClientSide())
+                if(!level().isClientSide())
                 {
                     setOrderedToSit(!isOrderedToSit());
                     this.jumping = false;
@@ -214,7 +209,7 @@ public class OwlEntity extends ShoulderRidingEntity
         {
             if(isFood(stack) && this.getTarget() == null)
             {
-                if(!level.isClientSide())
+                if(!level().isClientSide())
                 {
                     if(!player.isCreative())
                     {
@@ -227,11 +222,11 @@ public class OwlEntity extends ShoulderRidingEntity
                         this.navigation.stop();
                         this.setTarget(null);
                         setOrderedToSit(true);
-                        this.level.broadcastEntityEvent(this, (byte) 7);
+                        this.level().broadcastEntityEvent(this, (byte) 7);
                     }
                     else
                     {
-                        this.level.broadcastEntityEvent(this, (byte) 6);
+                        this.level().broadcastEntityEvent(this, (byte) 6);
                     }
                 }
                 return InteractionResult.SUCCESS;
@@ -379,10 +374,10 @@ public class OwlEntity extends ShoulderRidingEntity
                 }
                 while(blockPos.equals(blockPos2));
 
-                BlockState blockState = this.mob.level.getBlockState(mutable2.setWithOffset(blockPos2, Direction.DOWN));
+                BlockState blockState = this.mob.level().getBlockState(mutable2.setWithOffset(blockPos2, Direction.DOWN));
                 bl = blockState.getBlock() instanceof LeavesBlock || blockState.is(BlockTags.LOGS);
             }
-            while(!bl || !this.mob.level.isEmptyBlock(blockPos2) || !this.mob.level.isEmptyBlock(mutable.setWithOffset(blockPos2, Direction.UP)));
+            while(!bl || !this.mob.level().isEmptyBlock(blockPos2) || !this.mob.level().isEmptyBlock(mutable.setWithOffset(blockPos2, Direction.UP)));
 
             return Vec3.atBottomCenterOf(blockPos2);
         }

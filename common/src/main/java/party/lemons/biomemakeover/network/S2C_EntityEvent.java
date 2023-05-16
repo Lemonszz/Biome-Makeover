@@ -44,7 +44,7 @@ public class S2C_EntityEvent extends BaseS2CMessage {
     public void handle(NetworkManager.PacketContext context)
     {
         context.queue(()->{
-            Entity e = context.getPlayer().level.getEntity(entityID);
+            Entity e = context.getPlayer().level().getEntity(entityID);
             EntityEvent ev = EntityEvent.values()[event];
             if(e == null)
                 return;

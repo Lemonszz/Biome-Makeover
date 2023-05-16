@@ -121,7 +121,7 @@ public class GhostEntity extends Monster implements NeutralMob
             this.maybePlayFirstAngerSound();
         }
 
-        this.updatePersistentAnger((ServerLevel) this.level, true);
+        this.updatePersistentAnger((ServerLevel) this.level(), true);
         if(this.getTarget() != null)
         {
             this.checkAlertTime();
@@ -160,7 +160,7 @@ public class GhostEntity extends Monster implements NeutralMob
         BlockPos pos = getOnPos();
 
         AABB alertBounds = AABB.unitCubeFromLowerCorner(new Vec3(pos.getX(), pos.getY(), pos.getZ())).inflate(alertRange, 10.0D, alertRange);
-        this.level.getEntitiesOfClass(GhostEntity.class, alertBounds).stream().filter((e)->e != this).filter((e)->e.getTarget() == null).filter((e)->getTarget() != null && !e.isAlliedTo(this.getTarget())).forEach((e)->e.setTarget(this.getTarget()));
+        this.level().getEntitiesOfClass(GhostEntity.class, alertBounds).stream().filter((e)->e != this).filter((e)->e.getTarget() == null).filter((e)->getTarget() != null && !e.isAlliedTo(this.getTarget())).forEach((e)->e.setTarget(this.getTarget()));
     }
 
     @Override
@@ -232,7 +232,7 @@ public class GhostEntity extends Monster implements NeutralMob
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.readPersistentAngerSaveData(this.level, tag);
+        this.readPersistentAngerSaveData(this.level(), tag);
 
         if(tag.contains("HomeX"))
         {
@@ -361,7 +361,7 @@ public class GhostEntity extends Monster implements NeutralMob
             {
                 BlockPos randomTarget = homePosition.offset(WANDER_RANGE_HORIZONTAL.sample(random), WANDER_RANGE_VERTICAL.sample(random), WANDER_RANGE_HORIZONTAL.sample(random));
 
-                if(GhostEntity.this.level.isEmptyBlock(randomTarget))
+                if(GhostEntity.this.level().isEmptyBlock(randomTarget))
                 {
                     GhostEntity.this.moveControl.setWantedPosition((double) randomTarget.getX() + 0.5D, (double) randomTarget.getY() + 0.5D, (double) randomTarget.getZ() + 0.5D, 0.25D);
 
@@ -443,7 +443,7 @@ public class GhostEntity extends Monster implements NeutralMob
         {
             for(int i = 0; i < 4; i++)
             {
-                PoltergeistHandler.doPoltergeist(level, GhostEntity.this, getOnPos(), POLTERGEIST_RANGE);
+                PoltergeistHandler.doPoltergeist(level(), GhostEntity.this, getOnPos(), POLTERGEIST_RANGE);
             }
 
             super.tick();

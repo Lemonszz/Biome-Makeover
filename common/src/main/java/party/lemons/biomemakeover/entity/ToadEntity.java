@@ -88,7 +88,7 @@ public class ToadEntity extends Animal {
     {
         getEntityData().set(TONGUE_ENTITY, e.getId());
         e.setEatenBy(this);
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             this.playSound(BMEffects.TOAD_MOUTH.get(), 1F, 1F + ((float) random.nextGaussian() / 5F));
         }
@@ -106,8 +106,8 @@ public class ToadEntity extends Animal {
 
     public void clearTongueEntity()
     {
-        if(level.getEntity(getTongueEntityID()) != null)
-            ((ToadTargetEntity) level.getEntity(getTongueEntityID())).setEatenBy(null);
+        if(level().getEntity(getTongueEntityID()) != null)
+            ((ToadTargetEntity) level().getEntity(getTongueEntityID())).setEatenBy(null);
 
         getEntityData().set(TONGUE_ENTITY, -1);
     }
@@ -127,7 +127,7 @@ public class ToadEntity extends Animal {
 
         if(hasTongueEntity())
         {
-            Entity e = level.getEntity(getTongueEntityID());
+            Entity e = level().getEntity(getTongueEntityID());
             if(e != null && !e.isPassenger())
             {
                 getLookControl().setLookAt(e.getX(), (e.getBoundingBox().minY + 0.25F), e.getZ(), 100, 100);
@@ -193,8 +193,8 @@ public class ToadEntity extends Animal {
         eatCooldown--;
         if(eatCooldown <= 0 && !hasTongueEntity())
         {
-            List<ToadTargetEntity> targets = level.getEntitiesOfClass(ToadTargetEntity.class, getBoundingBox().inflate(3, 3, 3), (e)->hasLineOfSight(e) && !e.isBeingEaten());
-            ToadTargetEntity closest = level.getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
+            List<ToadTargetEntity> targets = level().getEntitiesOfClass(ToadTargetEntity.class, getBoundingBox().inflate(3, 3, 3), (e)->hasLineOfSight(e) && !e.isBeingEaten());
+            ToadTargetEntity closest = level().getNearestEntity(targets, predicate, this, getX(), getY(), getZ());
 
             if(!canUseTongue() || closest == null || closest.isPassenger() || targets.isEmpty()) clearTongueEntity();
             else
@@ -204,7 +204,7 @@ public class ToadEntity extends Animal {
             }
         }else
         {
-            Entity e = level.getEntity(getTongueEntityID());
+            Entity e = level().getEntity(getTongueEntityID());
             if(!canUseTongue() || e == null || !e.isAlive()) clearTongueEntity();
         }
 
@@ -224,12 +224,12 @@ public class ToadEntity extends Animal {
             this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
         }
 
-        if(onGround && !onGroundPrev)
+        if(onGround() && !onGroundPrev)
         {
             this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(JUMP_SPEED_BOOST_MOD);
         }
 
-        onGroundPrev = onGround;
+        onGroundPrev = onGround();
     }
 
     protected SoundEvent getJumpSound()
@@ -367,7 +367,7 @@ public class ToadEntity extends Animal {
 
             if(toad.isInWater())
             {
-                ServerLevel world = (ServerLevel) this.toad.level;
+                ServerLevel world = (ServerLevel) this.toad.level();
                 this.toad.setHasBaby(false);
 
                 TadpoleEntity tadpole = BMEntities.TADPOLE.get().create(world);

@@ -137,7 +137,7 @@ public class WitchMenu extends AbstractContainerMenu {
                 playerEntity.drop(container.getItem(0), true);
             }
 
-            if(!playerEntity.level.isClientSide()) BMAdvancements.WITCH_TRADE.trigger((ServerPlayer) playerEntity);
+            if(!playerEntity.level().isClientSide()) BMAdvancements.WITCH_TRADE.trigger((ServerPlayer) playerEntity);
 
             ItemStack reward = WitchQuestHandler.getRewardFor(quest, playerEntity.getRandom());
             witch.completeQuest(quest);

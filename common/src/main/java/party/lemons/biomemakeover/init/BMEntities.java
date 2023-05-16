@@ -31,10 +31,8 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
-import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.material.Material;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.block.blockentity.render.TapestryRenderer;
@@ -89,11 +87,11 @@ public class BMEntities
                     BlockPatternBuilder.start().aisle("~^~", "###", "~#~")
                             .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.CARVED_PUMPKIN)))
                             .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE.get())))
-                            .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
+                            .where('~', (block) -> block.getState().isAir()
                             ).build(),
                     BlockPatternBuilder.start().aisle("~ ~", "###", "~#~")
                             .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(BMBlocks.CLADDED_STONE.get())))
-                            .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))
+                            .where('~', (block) -> block.getState().isAir()
                             ).build(),
                     new GolemHandler.SummonGolemResult<>(BMEntities.STONE_GOLEM.get()));
         });

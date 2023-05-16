@@ -33,16 +33,16 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
     public void tick() {
         super.tick();
 
-        if(!level.isClientSide())
+        if(!level().isClientSide())
         {
             if(!isStunted())
                 babyTime++;
             if(!isBaby())
             {
-                ToadEntity toad = BMEntities.TOAD.get().create(level);
+                ToadEntity toad = BMEntities.TOAD.get().create(level());
                 toad.moveTo(this.getX(), this.getY(), this.getZ(), yBodyRot, getXRot());
                 toad.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
-                ((ServerLevel) level).addFreshEntityWithPassengers(toad);
+                ((ServerLevel) level()).addFreshEntityWithPassengers(toad);
 
                 remove(RemovalReason.DISCARDED);
             }
@@ -59,10 +59,10 @@ public class TadpoleEntity extends AbstractFish implements Stuntable {
             {
                 itemStack.shrink(1);
                 this.growUp(Math.abs(babyTime / 20));
-                return InteractionResult.sidedSuccess(level.isClientSide());
+                return InteractionResult.sidedSuccess(level().isClientSide());
             }
 
-            if(this.level.isClientSide())
+            if(this.level().isClientSide())
             {
                 return InteractionResult.CONSUME;
             }

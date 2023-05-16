@@ -75,7 +75,7 @@ public abstract class WitchMixin_Antidote extends Raider
                     this.setUsingItem(true);
                     if(!this.isSilent())
                     {
-                        this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_DRINK, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
+                        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_DRINK, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
                     }
 
                     AttributeInstance attributeInstance = this.getAttribute(Attributes.MOVEMENT_SPEED);

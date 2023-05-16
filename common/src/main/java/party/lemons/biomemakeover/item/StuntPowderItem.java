@@ -25,7 +25,7 @@ public class StuntPowderItem extends Item
             if(!stack.isEmpty() && stack.getItem() == this && entity instanceof LivingEntity) {
 
                 if(stuntEntity(stack, player, (LivingEntity) entity, hand).consumesAction()) {
-                    player.level.gameEvent(entity, GameEvent.ENTITY_INTERACT, entity.position());
+                    player.level().gameEvent(entity, GameEvent.ENTITY_INTERACT, entity.position());
                     return EventResult.interruptTrue();
                 }
             }
@@ -39,10 +39,10 @@ public class StuntPowderItem extends Item
         {
             if((entity.isBaby() || stuntable.isAlwaysBaby()) && !stuntable.isStunted())
             {
-                if(!entity.level.isClientSide())
+                if(!entity.level().isClientSide())
                 {
                     stuntable.setStunted(true);
-                    NetworkUtil.doEntityParticle(user.level, ParticleTypes.WARPED_SPORE, entity, 15, 0.2F);
+                    NetworkUtil.doEntityParticle(user.level(), ParticleTypes.WARPED_SPORE, entity, 15, 0.2F);
                     ItemUtil.shrinkStack(stack, user);
                 }
                 return InteractionResult.SUCCESS;
