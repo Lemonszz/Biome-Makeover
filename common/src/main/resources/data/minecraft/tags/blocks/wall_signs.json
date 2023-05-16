@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:blighted_balsa_wall_sign",
+    "biomemakeover:willow_wall_sign",
+    "biomemakeover:swamp_cypress_wall_sign",
+    "biomemakeover:ancient_oak_wall_sign"
+  ]
+}

@@ -12,6 +12,7 @@ public class BMFabric implements ModInitializer
     @Override
     public void onInitialize() {
         BiomeMakeover.init();
+
         if (Platform.getEnvironment() == Env.CLIENT) {
             BiomeMakeoverClient.init();
         }

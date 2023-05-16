@@ -9,7 +9,7 @@ architectury {
 
 configurations {
     common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentFabric.extendsFrom common
@@ -26,7 +26,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
     include("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
@@ -49,19 +48,19 @@ processResources {
 }
 
 shadowJar {
-    //configurations = [project.configurations.shadowCommon]
-    //classifier "dev-shadow"
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
 }
 
 remapJar {
     injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-//    classifier null
+    classifier null
 }
 
 jar {
-//    classifier "dev"
+    classifier "dev"
     setArchivesBaseName("biomemakeover-FABRIC");
 }
 
