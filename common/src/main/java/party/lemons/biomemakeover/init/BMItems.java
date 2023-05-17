@@ -240,6 +240,7 @@ public class BMItems
     private static Item createCladdingTemplate()
     {
         final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
+        final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
         return new SmithingTemplateItem(
                 Component.translatable(
                                 Util.makeDescriptionId("item", BiomeMakeover.ID("smithing_template.cladding_upgrade.applies_to"))
@@ -249,7 +250,7 @@ public class BMItems
                                 Util.makeDescriptionId("item",  BiomeMakeover.ID("smithing_template.cladding_upgrade.ingredients"))
                         )
                         .withStyle(DESCRIPTION_FORMAT),
-                Component.translatable(Util.makeDescriptionId("upgrade",  BiomeMakeover.ID("cladding_upgrade"))),
+                Component.translatable(Util.makeDescriptionId("upgrade",  BiomeMakeover.ID("cladding_upgrade"))).withStyle(TITLE_FORMAT),
                 Component.translatable(
                         Util.makeDescriptionId("item",  BiomeMakeover.ID("smithing_template.cladding_upgrade.base_slot_description"))
                 ),

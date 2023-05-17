@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:item/cladded_chestplate",
-    "layer1": "minecraft:trims/items/chestplate_trim_gold"
+    "layer0": "biomemakeover:item/cladded_helmet",
+    "layer1": "minecraft:trims/items/helmet_trim_gold"
   }
 }
