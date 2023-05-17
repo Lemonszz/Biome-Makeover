@@ -9,8 +9,11 @@ import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
@@ -108,6 +111,7 @@ public class BMItems
     public static final RegistrySupplier<Item> STUNT_POWDER = registerItem("stunt_powder", ()->new StuntPowderItem(properties()));
     public static final RegistrySupplier<Item> CRUDE_CLADDING = registerItem("crude_cladding", ()->new Item(properties()));
     public static final RegistrySupplier<Item> CRUDE_FRAGMENT = registerItem("crude_fragment", ()->new Item(properties()));
+    public static final RegistrySupplier<Item> CLADDING_UPGRADE_SMITHING_TEMPLATE = registerItem("cladding_upgrade_smithing_template", ()->createCladdingTemplate());
 
     public static final RegistrySupplier<Item> ENCHANTED_TOTEM = registerItem("enchanted_totem", ()->new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1)));
 
@@ -231,5 +235,29 @@ public class BMItems
         {
             return 0.07F;
         }
+    }
+
+    private static Item createCladdingTemplate()
+    {
+        final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
+        return new SmithingTemplateItem(
+                Component.translatable(
+                                Util.makeDescriptionId("item", BiomeMakeover.ID("smithing_template.cladding_upgrade.applies_to"))
+                        )
+                        .withStyle(DESCRIPTION_FORMAT),
+                Component.translatable(
+                                Util.makeDescriptionId("item",  BiomeMakeover.ID("smithing_template.cladding_upgrade.ingredients"))
+                        )
+                        .withStyle(DESCRIPTION_FORMAT),
+                Component.translatable(Util.makeDescriptionId("upgrade",  BiomeMakeover.ID("cladding_upgrade"))),
+                Component.translatable(
+                        Util.makeDescriptionId("item",  BiomeMakeover.ID("smithing_template.cladding_upgrade.base_slot_description"))
+                ),
+                Component.translatable(
+                        Util.makeDescriptionId("item",  BiomeMakeover.ID("smithing_template.cladding_upgrade.additions_slot_description"))
+                ),
+                List.of(new ResourceLocation("item/empty_armor_slot_helmet"), new ResourceLocation("item/empty_armor_slot_chestplate"), new ResourceLocation("item/empty_armor_slot_leggings"), new ResourceLocation("item/empty_armor_slot_boots")),
+                List.of(new ResourceLocation("item/empty_slot_ingot"))
+        );
     }
 }

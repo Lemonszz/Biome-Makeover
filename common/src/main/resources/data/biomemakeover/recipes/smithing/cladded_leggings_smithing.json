@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "biomemakeover:crude_cladding"
+  },
+  "base": {
+    "item": "minecraft:leather_leggings"
+  },
+  "result": {
+    "item": "biomemakeover:cladded_leggings"
+  },
+  "template": {
+    "item": "biomemakeover:cladding_upgrade_smithing_template"
+  }
+}

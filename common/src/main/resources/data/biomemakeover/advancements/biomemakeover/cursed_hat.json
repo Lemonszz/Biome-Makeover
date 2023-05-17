@@ -17,7 +17,7 @@
   },
   "criteria": {
     "wear_hat": {
-      "trigger": "biomemakeover:wear_armor",
+      "trigger": "taniwha:wear_armor",
       "conditions": {
         "item": {
           "items": ["biomemakeover:cowboy_hat"],
