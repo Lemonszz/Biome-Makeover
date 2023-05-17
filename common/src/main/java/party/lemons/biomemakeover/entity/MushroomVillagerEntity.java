@@ -110,6 +110,9 @@ public class MushroomVillagerEntity extends AbstractVillager {
 
     @Override
     protected void updateTrades() {
+        if(level().isClientSide())
+            return;
+
         TradeList trades = TradeLists.get(BiomeMakeover.ID("mushroom_trader"));
 
         List<TItemListing> tradesCommon = trades.getListingsForLevel(1);
