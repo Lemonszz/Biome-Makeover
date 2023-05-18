@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/root",
+  "parent": "biomemakeover:biomemakeover/enter_swamp",
   "display": {
     "icon": {
       "item": "biomemakeover:lightning_bug_bottle"

@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/badlands_disc",
+  "parent": "biomemakeover:biomemakeover/enter_swamp",
   "display": {
     "icon": {
       "item": "biomemakeover:swamp_jives_music_disk"

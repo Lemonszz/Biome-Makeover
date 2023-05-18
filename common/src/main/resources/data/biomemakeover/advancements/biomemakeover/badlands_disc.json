@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/mushroom_disc",
+  "parent": "biomemakeover:biomemakeover/enter_badlands",
   "display": {
     "icon": {
       "item": "biomemakeover:ghost_town_music_disk"

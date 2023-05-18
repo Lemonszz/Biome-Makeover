@@ -1,0 +1,58 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:lily_pad"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.enter_swamp.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.enter_swamp.description"
+    },
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "enter_swamp1": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "minecraft:mangrove_swamp"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "enter_swamp2": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "minecraft:swamp"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "enter_swamp1",
+      "enter_swamp2"
+    ]
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/blighted_balsa_sapling",
+  "parent": "biomemakeover:biomemakeover/enter_mushroom_fields",
   "display": {
     "icon": {
       "item": "biomemakeover:purple_glowshroom"

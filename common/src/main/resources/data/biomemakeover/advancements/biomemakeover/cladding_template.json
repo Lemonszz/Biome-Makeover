@@ -1,14 +1,14 @@
 {
-  "parent": "biomemakeover:biomemakeover/enter_mushroom_fields",
+  "parent": "biomemakeover:biomemakeover/crude_cladding",
   "display": {
     "icon": {
-      "item": "biomemakeover:blighted_balsa_sapling"
+      "item": "biomemakeover:cladding_upgrade_smithing_template"
     },
     "title": {
-      "translate": "advancements.biomemakeover.blighted_balsa_sapling.title"
+      "translate": "advancements.biomemakeover.cladding_template.title"
     },
     "description": {
-      "translate": "advancements.biomemakeover.blighted_balsa_sapling.description"
+      "translate": "advancements.biomemakeover.cladding_template.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "get_stew": {
+    "get_disc": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["biomemakeover:blighted_balsa_sapling"]
+            "items": ["biomemakeover:cladding_upgrade_smithing_template"]
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "get_stew"
+      "get_disc"
     ]
   ]
 }

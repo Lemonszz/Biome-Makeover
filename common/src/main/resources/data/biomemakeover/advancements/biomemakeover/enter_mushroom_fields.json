@@ -1,0 +1,41 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:mycelium"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.enter_mushroom_fields.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.enter_mushroom_fields.description"
+    },
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "enter_mushroom_fields": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "minecraft:mushroom_fields"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "enter_mushroom_fields"
+    ]
+  ]
+}

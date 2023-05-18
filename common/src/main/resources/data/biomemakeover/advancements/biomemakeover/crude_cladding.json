@@ -1,14 +1,14 @@
 {
-  "parent": "biomemakeover:biomemakeover/enter_mushroom_fields",
+  "parent": "biomemakeover:biomemakeover/enter_dark_forest",
   "display": {
     "icon": {
-      "item": "biomemakeover:blighted_balsa_sapling"
+      "item": "biomemakeover:crude_cladding"
     },
     "title": {
-      "translate": "advancements.biomemakeover.blighted_balsa_sapling.title"
+      "translate": "advancements.biomemakeover.crude_cladding.title"
     },
     "description": {
-      "translate": "advancements.biomemakeover.blighted_balsa_sapling.description"
+      "translate": "advancements.biomemakeover.crude_cladding.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "get_stew": {
+    "get_disc": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["biomemakeover:blighted_balsa_sapling"]
+            "items": ["biomemakeover:crude_cladding"]
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "get_stew"
+      "get_disc"
     ]
   ]
 }

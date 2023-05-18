@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/root",
+  "parent": "biomemakeover:biomemakeover/enter_badlands",
   "display": {
     "icon": {
       "item": "biomemakeover:ectoplasm"

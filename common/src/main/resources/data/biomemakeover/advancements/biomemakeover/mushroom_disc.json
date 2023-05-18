@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/root",
+  "parent": "biomemakeover:biomemakeover/enter_mushroom_fields",
   "display": {
     "icon": {
       "item": "biomemakeover:button_mushrooms_music_disk"

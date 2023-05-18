@@ -1,22 +1,22 @@
 {
+  "parent": "biomemakeover:biomemakeover/root",
   "display": {
     "icon": {
-      "item": "biomemakeover:icon_item"
+      "item": "minecraft:dead_bush"
     },
     "title": {
-      "translate": "advancements.biomemakeover.root.title"
+      "translate": "advancements.biomemakeover.enter_badlands.title"
     },
     "description": {
-      "translate": "advancements.biomemakeover.root.description"
+      "translate": "advancements.biomemakeover.enter_badlands.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": false,
     "announce_to_chat": false,
-    "hidden": false,
-    "background": "biomemakeover:textures/gui/advancements.png"
+    "hidden": false
   },
   "criteria": {
-    "enter_badlands": {
+    "enter_badlands1": {
       "conditions": {
         "player": [
           {
@@ -32,7 +32,7 @@
       },
       "trigger": "minecraft:location"
     },
-    "enter_mushroom_fields": {
+    "enter_badlands2": {
       "conditions": {
         "player": [
           {
@@ -40,7 +40,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "minecraft:mushroom_fields"
+                "biome": "minecraft:eroded_badlands"
               }
             }
           }
@@ -48,7 +48,7 @@
       },
       "trigger": "minecraft:location"
     },
-    "enter_swamp": {
+    "enter_badlands3": {
       "conditions": {
         "player": [
           {
@@ -56,23 +56,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "minecraft:swamp"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:location"
-    },
-    "enter_dark_forest": {
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "biome": "minecraft:dark_forest"
+                "biome": "minecraft:wooded_badlands"
               }
             }
           }
@@ -83,10 +67,9 @@
   },
   "requirements": [
     [
-      "enter_badlands",
-      "enter_mushroom_fields",
-      "enter_swamp",
-      "enter_dark_forest"
+      "enter_badlands1",
+      "enter_badlands2",
+      "enter_badlands3"
     ]
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/all_glowshrooms",
+  "parent": "biomemakeover:biomemakeover/enter_mushroom_fields",
   "display": {
     "icon": {
       "item": "biomemakeover:blighted_cobblestone"

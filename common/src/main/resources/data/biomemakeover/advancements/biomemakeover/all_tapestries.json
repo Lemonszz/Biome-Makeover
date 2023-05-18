@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/enchanted_totem",
+  "parent": "biomemakeover:biomemakeover/mansion",
   "display": {
     "icon": {
       "item": "biomemakeover:adjudicator_tapestry"

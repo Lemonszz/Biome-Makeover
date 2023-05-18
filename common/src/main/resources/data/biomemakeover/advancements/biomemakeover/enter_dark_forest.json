@@ -1,0 +1,41 @@
+{
+  "parent": "biomemakeover:biomemakeover/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:dark_oak_sapling"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.enter_dark_forest.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.enter_dark_forest.description"
+    },
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "enter_dark_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "minecraft:dark_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "enter_dark_forest"
+    ]
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "parent": "biomemakeover:biomemakeover/root",
+  "parent": "biomemakeover:biomemakeover/enter_dark_forest",
   "display": {
     "icon": {
       "item": "biomemakeover:rootling_seeds"
