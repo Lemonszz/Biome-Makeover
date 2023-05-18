@@ -207,6 +207,19 @@
           "name": "biomemakeover:cladded_leggings"
         }
       ]
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:vex_armor_trim_smithing_template"
+        }
+      ],
+      "rolls": 1.0
     }
   ]
 }
