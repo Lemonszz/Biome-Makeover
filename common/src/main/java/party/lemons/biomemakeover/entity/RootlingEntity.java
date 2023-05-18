@@ -43,9 +43,7 @@ import party.lemons.taniwha.util.EntityUtil;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class RootlingEntity extends Animal implements Shearable, EntityEventBroadcaster {
 
@@ -256,7 +254,7 @@ public class RootlingEntity extends Animal implements Shearable, EntityEventBroa
 
     public void randomizeFlower()
     {
-        getEntityData().set(FLOWER_TYPE, random.nextInt(BMItems.ROOTLING_PETALS.size()));
+        getEntityData().set(FLOWER_TYPE, random.nextInt(BMItems.ROOTLING_BUDS.size()));
     }
 
     @Override

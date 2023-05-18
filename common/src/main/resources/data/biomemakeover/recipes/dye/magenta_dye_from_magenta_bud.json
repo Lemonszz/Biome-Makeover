@@ -5,11 +5,11 @@
   ],
   "key": {
     "#": {
-      "item": "biomemakeover:water_lily"
+      "item": "biomemakeover:magenta_bud"
     }
   },
   "result": {
-    "item": "biomemakeover:magenta_petals",
-    "count": 2
+    "item": "minecraft:magenta_dye",
+    "count": 1
   }
 }

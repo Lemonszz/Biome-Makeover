@@ -5,11 +5,11 @@
   ],
   "key": {
     "#": {
-      "item": "biomemakeover:light_blue_petals"
+      "item": "biomemakeover:blue_bud"
     }
   },
   "result": {
-    "item": "minecraft:light_blue_dye",
+    "item": "minecraft:blue_dye",
     "count": 1
   }
 }

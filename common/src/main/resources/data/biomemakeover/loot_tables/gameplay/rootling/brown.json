@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "biomemakeover:brown_petals",
+          "name": "biomemakeover:brown_bud",
           "functions": [
             {
               "function": "minecraft:set_count",

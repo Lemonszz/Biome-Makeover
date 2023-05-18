@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import dev.architectury.core.item.ArchitecturyMobBucketItem;
 import dev.architectury.core.item.ArchitecturyRecordItem;
 import dev.architectury.core.item.ArchitecturySpawnEggItem;
-import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -24,9 +23,6 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.crafting.SuspiciousStewListing;
@@ -45,7 +41,7 @@ import java.util.function.Supplier;
 public class BMItems
 {
     public static final Set<RegistrySupplier<Item>> HIDDEN_ITEMS = Sets.newHashSet();
-    public static final List<Supplier<Item>> ROOTLING_PETALS = Lists.newArrayList();
+    public static final List<Supplier<Item>> ROOTLING_BUDS = Lists.newArrayList();
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registries.ITEM);
     public static final DeferredRegister<TradeTypes.TradeType<?>> TRADE_TYPES = DeferredRegister.create(Constants.MOD_ID, TradeTypes.KEY);
@@ -85,15 +81,15 @@ public class BMItems
     public static final RegistrySupplier<Item> COWBOY_HAT = registerItem("cowboy_hat", ()->new HatItem(BiomeMakeover.ID("textures/misc/cowboy_hat.png"), properties()));
     public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", ()->new HatItem(BiomeMakeover.ID("textures/misc/witch_hat.png"), properties()));
 
-    public static final RegistrySupplier<Item> MAGENTA_PETALS = registerItem("magenta_petals", ()->new TItem(properties()));
-    public static final RegistrySupplier<Item> PINK_PETALS = registerItem("pink_petals", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> MAGENTA_BUD = registerItem("magenta_bud", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> PINK_BUD = registerItem("pink_bud", ()->new TItem(properties()));
 
-    public static final RegistrySupplier<Item> BLUE_PETALS = registerRootlingPetal("blue_petals", ()->new TItem(properties()));
-    public static final RegistrySupplier<Item> BROWN_PETALS = registerRootlingPetal("brown_petals", ()->new TItem(properties()));
-    public static final RegistrySupplier<Item> CYAN_PETALS = registerRootlingPetal("cyan_petals", ()->new TItem(properties()));
-    public static final RegistrySupplier<Item> GRAY_PETALS = registerRootlingPetal("gray_petals", ()->new TItem(properties()));
-    public static final RegistrySupplier<Item> LIGHT_BLUE_PETALS = registerRootlingPetal("light_blue_petals", ()->new TItem(properties()));
-    public static final RegistrySupplier<Item> PURPLE_PETALS = registerRootlingPetal("purple_petals", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> BLUE_BUD = registerRootlingBud("blue_bud", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> BROWN_BUD = registerRootlingBud("brown_bud", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> CYAN_BUD = registerRootlingBud("cyan_bud", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> GRAY_BUD = registerRootlingBud("gray_bud", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> LIGHT_BLUE_BUD = registerRootlingBud("light_blue_bud", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> PURPLE_BUD = registerRootlingBud("purple_bud", ()->new TItem(properties()));
 
     public static final RegistrySupplier<Item> SCUTTLER_TAIL = registerItem("scuttler_tail", ()->new TItem(properties()));
     public static final RegistrySupplier<Item> ECTOPLASM = registerItem("ectoplasm", ()->new EctoplasmItem(properties()));
@@ -166,9 +162,9 @@ public class BMItems
         return ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(id), item);
     }
 
-    private static RegistrySupplier<Item> registerRootlingPetal(String id, Supplier<Item> item) {
+    private static RegistrySupplier<Item> registerRootlingBud(String id, Supplier<Item> item) {
         RegistrySupplier<Item> registered = registerItem(id, item);
-        ROOTLING_PETALS.add(registered);
+        ROOTLING_BUDS.add(registered);
         return registered;
     }
 

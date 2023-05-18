@@ -2,13 +2,13 @@
   "parent": "biomemakeover:biomemakeover/cacti",
   "display": {
     "icon": {
-      "item": "biomemakeover:pink_petals"
+      "item": "biomemakeover:pink_bud"
     },
     "title": {
-      "translate": "advancements.biomemakeover.pink_petal.title"
+      "translate": "advancements.biomemakeover.pink_bud.title"
     },
     "description": {
-      "translate": "advancements.biomemakeover.pink_petal.description"
+      "translate": "advancements.biomemakeover.pink_bud.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": ["biomemakeover:pink_petals"]
+            "items": ["biomemakeover:pink_bud"]
           }
         ]
       }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:item/brown_petals"
+    "layer0": "biomemakeover:item/blue_bud"
   }
 }
