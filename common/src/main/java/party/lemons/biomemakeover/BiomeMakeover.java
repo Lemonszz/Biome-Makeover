@@ -14,8 +14,10 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
@@ -86,13 +88,23 @@ public class BiomeMakeover {
         });
 
         final ResourceLocation evokerTable = new ResourceLocation("minecraft", "entities/evoker");
+        final ResourceLocation pillagerOutpostTable = new ResourceLocation("minecraft", "chests/pillager_outpost");
         LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-            if (builtin && id.equals(evokerTable)) {
-                LootPool.Builder pool = LootPool.lootPool().add(
-                        LootItem.lootTableItem(BMItems.ILLUNITE_SHARD.get())
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f)))
-                ).when(LootItemKilledByPlayerCondition.killedByPlayer()).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.25F, 0.05F));
-                context.addPool(pool);
+            if (builtin)
+            {
+                if(id.equals(evokerTable)) {
+                    LootPool.Builder pool = LootPool.lootPool().add(
+                            LootItem.lootTableItem(BMItems.ILLUNITE_SHARD.get())
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f)))
+                    ).when(LootItemKilledByPlayerCondition.killedByPlayer()).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.25F, 0.05F));
+                    context.addPool(pool);
+                }else if(id.equals(pillagerOutpostTable)){
+                    LootPool.Builder pool = LootPool.lootPool().add(
+                            LootTableReference.lootTableReference(BiomeMakeover.ID("pillager_outpost_additional"))
+                    );
+                    context.addPool(pool);
+
+                }
             }
         });
 
