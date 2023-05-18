@@ -50,6 +50,31 @@
       "item": "minecraft:zombie_head",
       "max_count": 1,
       "points": 30
+    },
+    {
+      "item": "minecraft:pitcher_pod",
+      "max_count": 1,
+      "points": 10
+    },
+    {
+      "item": "minecraft:pitcher_plant",
+      "max_count": 1,
+      "points": 13
+    },
+    {
+      "item": "minecraft:torchflower",
+      "max_count": 1,
+      "points": 13
+    },
+    {
+      "item": "minecraft:torchflower_seeds",
+      "max_count": 1,
+      "points": 9
+    },
+    {
+      "item": "minecraft:sniffer_egg",
+      "max_count": 1,
+      "points": 25
     }
   ]
 }

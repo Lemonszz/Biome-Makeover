@@ -75,6 +75,11 @@
       "item": "minecraft:peony",
       "max_count": 4,
       "points": 1.0
+    },
+    {
+      "item": "minecraft:pink_petals",
+      "max_count": 4,
+      "points": 2.0
     }
   ]
 }
