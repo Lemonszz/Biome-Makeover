@@ -236,7 +236,7 @@ public class ScuttlerEntity extends Animal {
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BMEffects.SCUTTLER_RATTLE.get();
+        return BMEffects.SCUTTLER_HURT.get();
     }
 
     @Override

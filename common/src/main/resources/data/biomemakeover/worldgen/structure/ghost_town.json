@@ -10,9 +10,9 @@
       "spawns": [
         {
           "type": "biomemakeover:ghost",
-          "weight": 8,
-          "minCount": 1,
-          "maxCount": 3
+          "weight": 150,
+          "minCount": 2,
+          "maxCount": 4
         }
       ]
     }
