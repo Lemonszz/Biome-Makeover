@@ -15,7 +15,6 @@
   "mixins": [
     "AgeableMobMixin_Stuntable",
     "BeardifierMixin_Mansion",
-    "BellBlockMixin",
     "CamelMixin",
     "ComposterBlockMixin",
     "DarkOakTreeGrowerMixin_SingleTree",
@@ -36,6 +35,8 @@
     "WitchMixin_Quests",
     "additional_loot.PillagerMixin",
     "badlands.HorseMixin",
+    "bugfix.BellBlockMixin",
+    "bugfix.ChiseledBookshelfMixin",
     "enchantment.BowItemMixin",
     "enchantment.EntityMixin",
     "enchantment.ItemStackMixin",

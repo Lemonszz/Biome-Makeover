@@ -10,6 +10,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.level.feature.SunkenRuinFeature;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
+import party.lemons.biomemakeover.level.generate.FillBookshelvesProcessor;
 import party.lemons.biomemakeover.level.generate.GhostTownLootProcessor;
 import party.lemons.biomemakeover.level.generate.ReplaceSelectionProcessor;
 
@@ -27,6 +28,7 @@ public class BMStructures
 	public static final RegistrySupplier<StructureProcessorType<GhostTownLootProcessor>> GHOST_TOWN_LOOT_PROCESSOR = PROCESSOR_TYPES.register(BiomeMakeover.ID("ghost_town_loot"), ()->()->GhostTownLootProcessor.CODEC);
 
 	public static final RegistrySupplier<StructureProcessorType<ReplaceSelectionProcessor>> REPLACE_SELECTION = PROCESSOR_TYPES.register(BiomeMakeover.ID("replace_selection"), ()->()-> ReplaceSelectionProcessor.CODEC);
+	public static final RegistrySupplier<StructureProcessorType<FillBookshelvesProcessor>> FILL_BOOKSHELVES = PROCESSOR_TYPES.register(BiomeMakeover.ID("fill_bookshelves"), ()->()-> FillBookshelvesProcessor.CODEC);
 
 	public static void init()
 	{

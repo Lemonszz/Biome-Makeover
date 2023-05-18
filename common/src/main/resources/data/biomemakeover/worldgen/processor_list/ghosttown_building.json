@@ -4,6 +4,104 @@
       "processor_type": "biomemakeover:ghost_town_loot"
     },
     {
+      "processor_type": "biomemakeover:fill_bookshelves",
+      "replace_chance": 0.65,
+      "fill_chance": 0.6,
+      "enchant_chance": 0.35,
+      "book_amount": {
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": {
+              "type": "minecraft:constant",
+              "value": 1
+            },
+            "weight": 80
+          },
+          {
+            "data": {
+              "type": "minecraft:constant",
+              "value": 2
+            },
+            "weight": 70
+          },
+          {
+            "data": {
+              "type": "minecraft:constant",
+              "value": 3
+            },
+            "weight": 40
+          },
+          {
+            "data": {
+              "type": "minecraft:constant",
+              "value": 4
+            },
+            "weight": 25
+          },
+          {
+            "data": {
+              "type": "minecraft:constant",
+              "value": 5
+            },
+            "weight": 5
+          },
+          {
+            "data": {
+              "type": "minecraft:constant",
+              "value": 1
+            },
+            "weight": 1
+          }
+        ]
+      },
+      "enchantment_level": {
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": {
+              "type": "minecraft:uniform",
+              "value": {
+                "max_inclusive": 5,
+                "min_inclusive": 1
+              }
+            },
+            "weight": 20
+          },
+          {
+            "data": {
+              "type": "minecraft:uniform",
+              "value": {
+                "max_inclusive": 10,
+                "min_inclusive": 3
+              }
+            },
+            "weight": 10
+          },
+          {
+            "data": {
+              "type": "minecraft:uniform",
+              "value": {
+                "max_inclusive": 15,
+                "min_inclusive": 7
+              }
+            },
+            "weight": 4
+          },
+          {
+            "data": {
+              "type": "minecraft:uniform",
+              "value": {
+                "max_inclusive": 35,
+                "min_inclusive": 20
+              }
+            },
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
       "rules": [
         {
           "output_state": {

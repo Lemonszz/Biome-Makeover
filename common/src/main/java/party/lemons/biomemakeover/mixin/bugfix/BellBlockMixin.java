@@ -1,4 +1,4 @@
-package party.lemons.biomemakeover.mixin;
+package party.lemons.biomemakeover.mixin.bugfix;
 
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.BellBlock;
@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+
+//https://bugs.mojang.com/browse/MC-253819
 
 @Mixin(BellBlock.class)
 public abstract class BellBlockMixin extends BaseEntityBlock
