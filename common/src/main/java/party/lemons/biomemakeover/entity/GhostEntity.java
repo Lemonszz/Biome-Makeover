@@ -260,6 +260,13 @@ public class GhostEntity extends Monster implements NeutralMob
     {
         return BMEffects.GHOST_DEATH.get();
     }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource)
+    {
+        return BMEffects.GHOST_HURT.get();
+    }
+
     private void setCharging(boolean charging)
     {
         this.getEntityData().set(IsCharging, charging);
