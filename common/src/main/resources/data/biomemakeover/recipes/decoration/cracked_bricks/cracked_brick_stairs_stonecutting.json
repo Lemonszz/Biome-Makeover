@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:cracked_bricks"
+  },
+  "result": "biomemakeover:cracked_brick_stairs",
+  "count": 1
+}

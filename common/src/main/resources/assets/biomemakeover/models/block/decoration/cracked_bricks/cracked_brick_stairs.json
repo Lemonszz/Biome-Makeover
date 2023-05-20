@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/cracked_bricks",
+    "top": "biomemakeover:block/cracked_bricks",
+    "side": "biomemakeover:block/cracked_bricks"
+  }
+}

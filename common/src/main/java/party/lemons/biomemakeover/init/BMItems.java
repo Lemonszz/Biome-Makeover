@@ -22,12 +22,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.crafting.SuspiciousStewListing;
 import party.lemons.biomemakeover.item.*;
 import party.lemons.taniwha.data.trade.listing.TradeTypes;
+import party.lemons.taniwha.hooks.PotteryPatternHooks;
 import party.lemons.taniwha.item.ArmorBuilder;
 import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.item.types.FakeItem;
@@ -45,6 +47,7 @@ public class BMItems
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registries.ITEM);
     public static final DeferredRegister<TradeTypes.TradeType<?>> TRADE_TYPES = DeferredRegister.create(Constants.MOD_ID, TradeTypes.KEY);
+    public static final DeferredRegister<String> DECORATED_POT_PATTERNS = DeferredRegister.create(Constants.MOD_ID, Registries.DECORATED_POT_PATTERNS);
 
     public static final TagKey<Item> CURSE_FUEL = TagKey.create(Registries.ITEM, BiomeMakeover.ID("curse_fuel"));
     public static final TagKey<Item> ADDITIONAL_CAMEL_FOOD = TagKey.create(Registries.ITEM, BiomeMakeover.ID("additional_camel_food"));
@@ -107,7 +110,12 @@ public class BMItems
     public static final RegistrySupplier<Item> STUNT_POWDER = registerItem("stunt_powder", ()->new StuntPowderItem(properties()));
     public static final RegistrySupplier<Item> CRUDE_CLADDING = registerItem("crude_cladding", ()->new Item(properties()));
     public static final RegistrySupplier<Item> CRUDE_FRAGMENT = registerItem("crude_fragment", ()->new Item(properties()));
-    public static final RegistrySupplier<Item> CLADDING_UPGRADE_SMITHING_TEMPLATE = registerItem("cladding_upgrade_smithing_template", ()->createCladdingTemplate());
+    public static final RegistrySupplier<Item> CLADDING_UPGRADE_SMITHING_TEMPLATE = registerItem("cladding_upgrade_smithing_template", BMItems::createCladdingTemplate);
+
+    public static final RegistrySupplier<Item> CRACKED_BRICK = registerItem("cracked_brick", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> REFINED_POTTERY_SHERD = registerItem("refined_pottery_sherd", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> WORKER_POTTERY_SHERD = registerItem("worker_pottery_sherd", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> WHINNY_POTTERY_SHERD = registerItem("whinny_pottery_sherd", ()->new TItem(properties()));
 
     public static final RegistrySupplier<Item> ENCHANTED_TOTEM = registerItem("enchanted_totem", ()->new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1)));
 
@@ -138,7 +146,10 @@ public class BMItems
     public static final RegistrySupplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
 
     public static final RegistrySupplier<TradeTypes.TradeType<?>> SUSPICIOUS_STEW_TRADE = TRADE_TYPES.register(BiomeMakeover.ID("sussy_stew"), ()->new TradeTypes.TradeType<>(SuspiciousStewListing.CODEC));
-
+    public static final RegistrySupplier<String> CRACKED_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("cracked_pottery_pattern"), ()->"cracked_pottery_pattern");
+    public static final RegistrySupplier<String> REFINED_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("refined_pottery_pattern"), ()->"refined_pottery_pattern");
+    public static final RegistrySupplier<String> WORKER_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("worker_pottery_pattern"), ()->"worker_pottery_pattern");
+    public static final RegistrySupplier<String> WHINNY_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("whinny_pottery_pattern"), ()->"whinny_pottery_pattern");
 
     public static void init() {
 
@@ -152,10 +163,16 @@ public class BMItems
 
         ICON_ITEM.listen((i)->{
             FuelRegistry.register(10000, BMBlocks.DRIED_PEAT.get().asItem());
+
+            PotteryPatternHooks.addPotteryPatternItem(REFINED_POTTERY_SHERD.get(), BiomeMakeover.ID("refined_pottery_pattern"));
+            PotteryPatternHooks.addPotteryPatternItem(WORKER_POTTERY_SHERD.get(), BiomeMakeover.ID("worker_pottery_pattern"));
+            PotteryPatternHooks.addPotteryPatternItem(WHINNY_POTTERY_SHERD.get(), BiomeMakeover.ID("whinny_pottery_pattern"));
+            PotteryPatternHooks.addPotteryPatternItem(CRACKED_BRICK.get(), BiomeMakeover.ID("cracked_pottery_pattern"));
         });
 
         ITEMS.register();
         TRADE_TYPES.register();
+        DECORATED_POT_PATTERNS.register();
     }
 
     private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item) {

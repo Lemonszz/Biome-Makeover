@@ -108,6 +108,10 @@
     "biomemakeover:red_terracotta_brick_stairs",
     "biomemakeover:black_terracotta_brick_stairs",
     "biomemakeover:terracotta_brick_stairs",
-    "biomemakeover:crude_cladding_block"
+    "biomemakeover:crude_cladding_block",
+    "biomemakeover:cracked_bricks",
+    "biomemakeover:cracked_brick_stairs",
+    "biomemakeover:cracked_brick_slab",
+    "biomemakeover:cracked_brick_wall"
   ]
 }

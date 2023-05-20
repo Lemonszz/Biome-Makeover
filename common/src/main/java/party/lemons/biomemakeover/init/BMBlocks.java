@@ -18,7 +18,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,6 +43,7 @@ import party.lemons.taniwha.block.modifier.FlammableModifier;
 import party.lemons.taniwha.block.modifier.RTypeModifier;
 import party.lemons.taniwha.block.rtype.RType;
 import party.lemons.taniwha.block.types.*;
+import party.lemons.taniwha.hooks.block.entity.BlockEntityHooks;
 import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.util.BlockUtil;
 
@@ -178,8 +181,12 @@ public class BMBlocks
     public static final RegistrySupplier<Block> MOTH_BLOSSOM = registerBlockItem("moth_blossom", ()->new MothBlossomBlock(properties(0.25F).speedFactor(0.5F).noCollission().randomTicks().sound(SoundType.VINE).mapColor(MapColor.COLOR_ORANGE).pushReaction(PushReaction.DESTROY)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.IVY));
     public static final RegistrySupplier<Block> WILD_MUSHROOMS = registerBlockItem("wild_mushrooms", ()->new WildMushroomBlock(properties(0F).noCollission().instabreak().randomTicks().noOcclusion().sound(SoundType.FUNGUS).mapColor(MapColor.WOOL).pushReaction(PushReaction.DESTROY)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.IVY));
 
+    public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlockItem("suspicious_red_sand", ()->new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
+
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();
     public static final TerracottaBrickInfo TERRACOTTA_BRICKS = TerracottaBrickInfo.create();
+    public static final RegistrySupplier<Block> CRACKED_BRICKS = registerBlockItem("cracked_bricks", ()->new TBlock(properties(2F, 6F).instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED)));
+    public static final DecorationBlockFactory CRACKED_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "cracked_brick", CRACKED_BRICKS, properties(2F, 6F).instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED), BMTab.TAB).all().register(BLOCKS, ITEMS);
 
     public static final RegistrySupplier<Block> POTTED_MYCELIUM_ROOTS = pottedPlant("mycelium_roots",MYCELIUM_ROOTS);
     public static final RegistrySupplier<Block> POTTED_PURPLE_GLOWSHROOM =  litPottedPlant("purple_glowshroom", PURPLE_GLOWSHROOM, 13);
@@ -201,6 +208,10 @@ public class BMBlocks
         DIRECTIONAL_DATA.listen((b)->{
             HoeItemHooks.addTillable(PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
             HoeItemHooks.addTillable(MOSSY_PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
+        });
+
+        SUSPICIOUS_RED_SAND.listen((b)->{
+            BlockEntityHooks.addAdditionalBlock(BlockEntityType.BRUSHABLE_BLOCK, b);
         });
     }
 
