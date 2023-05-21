@@ -13,6 +13,7 @@ import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.generate.FillBookshelvesProcessor;
 import party.lemons.biomemakeover.level.generate.GhostTownLootProcessor;
 import party.lemons.biomemakeover.level.generate.ReplaceSelectionProcessor;
+import party.lemons.biomemakeover.level.generate.SuspiciousBlockProcessor;
 
 public class BMStructures
 {
@@ -29,6 +30,7 @@ public class BMStructures
 
 	public static final RegistrySupplier<StructureProcessorType<ReplaceSelectionProcessor>> REPLACE_SELECTION = PROCESSOR_TYPES.register(BiomeMakeover.ID("replace_selection"), ()->()-> ReplaceSelectionProcessor.CODEC);
 	public static final RegistrySupplier<StructureProcessorType<FillBookshelvesProcessor>> FILL_BOOKSHELVES = PROCESSOR_TYPES.register(BiomeMakeover.ID("fill_bookshelves"), ()->()-> FillBookshelvesProcessor.CODEC);
+	public static final RegistrySupplier<StructureProcessorType<SuspiciousBlockProcessor>> SUSPICIOUS_BLOCK_REPLACEMENT = PROCESSOR_TYPES.register(BiomeMakeover.ID("suspicious_block_replacement"), ()->()-> SuspiciousBlockProcessor.CODEC);
 
 	public static void init()
 	{

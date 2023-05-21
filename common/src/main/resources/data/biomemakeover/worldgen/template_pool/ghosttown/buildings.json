@@ -113,6 +113,33 @@
     {
       "weight": 15,
       "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_13",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_14",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_small_15",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
         "location": "biomemakeover:ghosttown/houses/house_medium_01",
         "processors": "biomemakeover:ghosttown_building",
         "projection": "rigid",
@@ -159,6 +186,15 @@
       "weight": 15,
       "element": {
         "location": "biomemakeover:ghosttown/houses/house_medium_06",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/houses/house_medium_07",
         "processors": "biomemakeover:ghosttown_building",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -222,6 +258,15 @@
       "weight": 15,
       "element": {
         "location": "biomemakeover:ghosttown/decoration/water_tower_2",
+        "processors": "biomemakeover:ghosttown_building",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "location": "biomemakeover:ghosttown/decoration/water_tower_3",
         "processors": "biomemakeover:ghosttown_building",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

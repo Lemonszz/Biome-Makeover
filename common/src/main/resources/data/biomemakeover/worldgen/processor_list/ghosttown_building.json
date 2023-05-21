@@ -262,7 +262,8 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           }
-        },        {
+        },
+        {
           "output_state": {
             "Name": "minecraft:purple_terracotta"
           },
@@ -286,7 +287,8 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           }
-        },        {
+        },
+        {
           "output_state": {
             "Name": "minecraft:yellow_terracotta"
           },
@@ -298,9 +300,30 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           }
+        },
+        {
+          "output_state": {
+            "Name": "biomemakeover:cracked_bricks"
+          },
+          "input_predicate": {
+            "block": "minecraft:bricks",
+            "probability": 0.25,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          }
         }
       ],
       "processor_type": "minecraft:rule"
+    },
+    {
+      "processor_type": "biomemakeover:suspicious_block_replacement",
+      "target": "minecraft:lime_concrete",
+      "output_regular": "minecraft:red_sand",
+      "output_suspicious": "biomemakeover:suspicious_red_sand",
+      "suspicious_chance": 0.15,
+      "loot_table": "biomemakeover:archaeology/ghost_town"
     }
   ]
 }
