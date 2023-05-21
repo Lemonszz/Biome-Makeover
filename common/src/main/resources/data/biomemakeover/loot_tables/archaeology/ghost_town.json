@@ -7,17 +7,17 @@
         {
           "type": "minecraft:item",
           "name": "biomemakeover:refined_pottery_sherd",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "biomemakeover:worker_pottery_sherd",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "biomemakeover:whinny_pottery_sherd",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
