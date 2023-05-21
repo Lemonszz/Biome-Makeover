@@ -30,6 +30,7 @@ import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorRoomListener;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.level.BMWorldEvents;
 import party.lemons.biomemakeover.mixin.PatrolSpawnerInvoker;
+import party.lemons.biomemakeover.util.DebugUtil;
 import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.item.types.FakeItem;
 
@@ -107,6 +108,8 @@ public class BiomeMakeover {
                 }
             }
         });
+
+        DebugUtil.init();
 
     }
     public static ResourceLocation ID(String path)

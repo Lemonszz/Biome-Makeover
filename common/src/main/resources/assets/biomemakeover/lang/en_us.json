@@ -595,5 +595,22 @@
   "tooltip.rare": "Rare",
   "tooltip.uncommon": "Uncommon",
   "upgrade.biomemakeover.cladding_upgrade": "Cladding Upgrade",
-  "witch.quests": "Quests"
+  "witch.quests": "Quests",
+  "block.biomemakeover.blighted_balsa_hanging_sign": "Blighted Balsa Hanging Sign",
+  "block.biomemakeover.blighted_balsa_wall_hanging_sign": "Blighted Balsa Hanging Sign",
+  "block.biomemakeover.willow_hanging_sign": "Willow Hanging Sign",
+  "block.biomemakeover.willow_wall_hanging_sign": "Willow Hanging Sign",
+  "block.biomemakeover.swamp_cypress_hanging_sign": "Swamp Cypress Hanging Sign",
+  "block.biomemakeover.swamp_cypress_wall_hanging_sign": "Swamp Cypress Hanging Sign",
+  "block.biomemakeover.ancient_oak_hanging_sign": "Ancient Oak Hanging Sign",
+  "block.biomemakeover.ancient_oak_wall_hanging_sign": "Ancient Oak Hanging Sign",
+  "block.biomemakeover.suspicious_red_sand": "Suspicious Red Sand",
+  "block.biomemakeover.cracked_bricks": "Cracked Bricks",
+  "block.biomemakeover.cracked_brick_slab": "Cracked Brick Slab",
+  "block.biomemakeover.cracked_brick_stairs": "Cracked Brick Stairs",
+  "block.biomemakeover.cracked_brick_wall": "Cracked Brick Wall",
+  "item.biomemakeover.cracked_brick": "Cracked Brick",
+  "item.biomemakeover.refined_pottery_sherd": "Refined Pottery Sherd",
+  "item.biomemakeover.worker_pottery_sherd": "Worker Pottery Sherd",
+  "item.biomemakeover.whinny_pottery_sherd": "Whinny Pottery Sherd"
 }
