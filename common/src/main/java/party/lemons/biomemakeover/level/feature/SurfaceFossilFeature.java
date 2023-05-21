@@ -17,6 +17,7 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import party.lemons.biomemakeover.level.generate.IgnoreAirProcessor;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Random;
@@ -41,7 +42,7 @@ public class SurfaceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
         ChunkPos chunkPos = new ChunkPos(blockPos);
         BoundingBox boundingBox = new BoundingBox(chunkPos.getMinBlockX() - 16, worldGenLevel.getMinBuildHeight(), chunkPos.getMinBlockZ() - 16, chunkPos.getMaxBlockX() + 16, worldGenLevel.getMaxBuildHeight(), chunkPos.getMaxBlockZ() + 16);
-        StructurePlaceSettings structurePlaceSettings = new StructurePlaceSettings().setRotation(rotation).setBoundingBox(boundingBox).setRandom(random);
+        StructurePlaceSettings structurePlaceSettings = new StructurePlaceSettings().addProcessor(IgnoreAirProcessor.INSTANCE).setRotation(rotation).setBoundingBox(boundingBox).setRandom(random);
         Vec3i size = structureTemplate.getSize(rotation);
 
         BlockPos position = blockPos.offset(-size.getX() / 2, 0, -size.getZ() / 2);
@@ -57,9 +58,7 @@ public class SurfaceFossilFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockPos placePotion = structureTemplate.getZeroPositionWithTransform(position.atY(yLevel), Mirror.NONE, rotation);
 
-        structurePlaceSettings.clearProcessors();
         structureTemplate.placeInWorld(worldGenLevel, placePotion, placePotion, structurePlaceSettings, random, 4);
-        structurePlaceSettings.clearProcessors();
 
         return true;
     }

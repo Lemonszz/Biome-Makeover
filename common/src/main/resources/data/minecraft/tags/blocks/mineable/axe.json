@@ -29,12 +29,20 @@
     "biomemakeover:purple_glowshroom_brick_wall",
     "biomemakeover:green_glowshroom_brick_wall",
     "biomemakeover:orange_glowshroom_brick_wall",
+    "biomemakeover:glowshroom_stem",
+    "biomemakeover:glowshroom_stem_brick",
+    "biomemakeover:glowshroom_stem_brick_slab",
+    "biomemakeover:glowshroom_stem_brick_stairs",
+    "biomemakeover:mushroom_stem_brick",
+    "biomemakeover:mushroom_stem_brick_slab",
+    "biomemakeover:mushroom_stem_brick_stairs",
     "biomemakeover:saguaro_cactus",
     "biomemakeover:ectoplasm_composter",
     "biomemakeover:ancient_oak_sign",
     "biomemakeover:blighted_balsa_sign",
     "biomemakeover:swamp_cypress_sign",
     "biomemakeover:willow_sign",
-    "#biomemakeover:tapestries"
+    "#biomemakeover:tapestries",
+    "biomemakeover:peat_composter"
   ]
 }

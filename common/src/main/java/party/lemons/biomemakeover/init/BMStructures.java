@@ -11,6 +11,7 @@ import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.level.feature.SunkenRuinFeature;
 import party.lemons.biomemakeover.level.feature.mansion.MansionFeature;
 import party.lemons.biomemakeover.level.generate.GhostTownLootProcessor;
+import party.lemons.biomemakeover.level.generate.IgnoreAirProcessor;
 import party.lemons.biomemakeover.level.generate.ReplaceSelectionProcessor;
 
 public class BMStructures
@@ -25,6 +26,7 @@ public class BMStructures
 	public static RegistrySupplier<StructureType<SunkenRuinFeature>> SUNKEN_RUIN = STRUCTURE_TYPES.register(BiomeMakeover.ID("sunken_ruin"), ()->()->SunkenRuinFeature.CODEC);
 	public static final RegistrySupplier<StructurePieceType> SUNKEN_RUIN_PIECE = STRUCTURE_PIECES.register(BiomeMakeover.ID("sunken_ruin"), ()->SunkenRuinFeature.SunkenRuinPiece::new);
 	public static final RegistrySupplier<StructureProcessorType<GhostTownLootProcessor>> GHOST_TOWN_LOOT_PROCESSOR = PROCESSOR_TYPES.register(BiomeMakeover.ID("ghost_town_loot"), ()->()->GhostTownLootProcessor.CODEC);
+	public static final RegistrySupplier<StructureProcessorType<IgnoreAirProcessor>> IGNORE_AIR = PROCESSOR_TYPES.register(BiomeMakeover.ID("ignore_air"), ()->()->IgnoreAirProcessor.CODEC);
 
 	public static final RegistrySupplier<StructureProcessorType<ReplaceSelectionProcessor>> REPLACE_SELECTION = PROCESSOR_TYPES.register(BiomeMakeover.ID("replace_selection"), ()->()-> ReplaceSelectionProcessor.CODEC);
 
