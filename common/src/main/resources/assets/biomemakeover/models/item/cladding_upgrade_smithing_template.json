@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:item/cladding_smithing_template"
+    "layer0": "biomemakeover:item/crude_cladding_upgrade_smithing_template"
   }
 }

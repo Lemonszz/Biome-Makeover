@@ -271,7 +271,7 @@ public class BMItems
                         Util.makeDescriptionId("item",  BiomeMakeover.ID("smithing_template.cladding_upgrade.additions_slot_description"))
                 ),
                 List.of(new ResourceLocation("item/empty_armor_slot_helmet"), new ResourceLocation("item/empty_armor_slot_chestplate"), new ResourceLocation("item/empty_armor_slot_leggings"), new ResourceLocation("item/empty_armor_slot_boots")),
-                List.of(new ResourceLocation("item/empty_slot_ingot"))
+                List.of(BiomeMakeover.ID("item/empty_slot_crude_cladding"))
         );
     }
 }
