@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import dev.architectury.hooks.item.tool.HoeItemHooks;
+import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.BlockPos;
@@ -45,6 +46,7 @@ import party.lemons.taniwha.block.rtype.RType;
 import party.lemons.taniwha.block.types.*;
 import party.lemons.taniwha.hooks.block.entity.BlockEntityHooks;
 import party.lemons.taniwha.item.ItemHelper;
+import party.lemons.taniwha.item.types.FakeItem;
 import party.lemons.taniwha.util.BlockUtil;
 
 import java.util.Map;
@@ -199,7 +201,7 @@ public class BMBlocks
     public static final RegistrySupplier<Block> POTTED_SWAMP_CYPRESS_SAPLING =  pottedPlant("swamp_cypress_sapling", SWAMP_CYPRESS_SAPLING);
     public static final RegistrySupplier<Block> POTTED_WILD_MUSHROOMS =  pottedPlant("wild_mushrooms", WILD_MUSHROOMS);
 
-    public static final RegistrySupplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of().strength(-1).noLootTable()));
+    public static final RegistrySupplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of().strength(-1).noLootTable()), false);
 
     public static void init() {
         BLOCKS.register();
@@ -230,9 +232,17 @@ public class BMBlocks
 
     public static RegistrySupplier<Block> registerBlockItem(String id, Supplier<Block> block)
     {
+        return registerBlockItem(id, block, true);
+    }
+
+    public static RegistrySupplier<Block> registerBlockItem(String id, Supplier<Block> block, boolean tab)
+    {
         RegistrySupplier<Block> bl = registerBlock(BLOCKS, BiomeMakeover.ID(id), block);
         RegistrySupplier<Item> it = ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(id), ()->new BlockItem(bl.get(), new Item.Properties()));
         initBlockItem(bl, it);
+
+        if(tab)
+            CreativeTabRegistry.append(BMTab.TAB, it);
 
         return bl;
     }

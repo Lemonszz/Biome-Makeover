@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import dev.architectury.core.item.ArchitecturyMobBucketItem;
 import dev.architectury.core.item.ArchitecturyRecordItem;
 import dev.architectury.core.item.ArchitecturySpawnEggItem;
+import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -143,7 +144,7 @@ public class BMItems
     public static final RegistrySupplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
     public static final RegistrySupplier<Item> HELMIT_CRAB_SPAWN_EGG = registerItem("helmit_crab_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.HELMIT_CRAB, 0xbd2520, 0xeb7b65, properties()));
 
-    public static final RegistrySupplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new);
+    public static final RegistrySupplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new, false);
 
     public static final RegistrySupplier<TradeTypes.TradeType<?>> SUSPICIOUS_STEW_TRADE = TRADE_TYPES.register(BiomeMakeover.ID("sussy_stew"), ()->new TradeTypes.TradeType<>(SuspiciousStewListing.CODEC));
     public static final RegistrySupplier<String> CRACKED_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("cracked_pottery_pattern"), ()->"cracked_pottery_pattern");
@@ -176,7 +177,16 @@ public class BMItems
     }
 
     private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item) {
-        return ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(id), item);
+        return registerItem(id, item, true);
+    }
+
+    private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item, boolean tab) {
+        RegistrySupplier<Item> registrySupplier = ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(id), item);
+
+        if(tab)
+            CreativeTabRegistry.append(BMTab.TAB, registrySupplier);
+
+        return registrySupplier;
     }
 
     private static RegistrySupplier<Item> registerRootlingBud(String id, Supplier<Item> item) {
@@ -187,9 +197,7 @@ public class BMItems
 
     private static RegistrySupplier<Item> registerHiddenItem(String id, Supplier<Item> item)
     {
-        RegistrySupplier<Item> registered = registerItem(id, item);
-        HIDDEN_ITEMS.add(registered);
-        return registered;
+        return registerItem(id, item, false);
     }
 
 
