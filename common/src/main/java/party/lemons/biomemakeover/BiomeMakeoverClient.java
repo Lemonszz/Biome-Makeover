@@ -38,7 +38,7 @@ public class BiomeMakeoverClient
     public static void init()
     {
         if (Platform.getEnvironment() == Env.CLIENT) {
-            BMEntities.registerModelLayers();;
+            BMEntities.registerModelLayers();
 
             LifecycleEvent.SETUP.register(()->{
                 BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY.get(), TapestryRenderer::new);
