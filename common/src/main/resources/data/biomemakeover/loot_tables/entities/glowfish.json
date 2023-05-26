@@ -1,35 +1,36 @@
 {
-  "type": "minecraft:entity",
-  "pools": [
+ "type": "minecraft:entity",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "biomemakeover:glowfish"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bone_meal"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.05
-        }
-      ]
+     "type": "minecraft:item",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 1
+      }
+     ],
+     "name": "biomemakeover:glowfish"
     }
-  ]
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:bone_meal"
+    }
+   ],
+   "conditions": [
+    {
+     "condition": "minecraft:random_chance",
+     "chance": 0.05
+    }
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:entities/glowfish"
 }

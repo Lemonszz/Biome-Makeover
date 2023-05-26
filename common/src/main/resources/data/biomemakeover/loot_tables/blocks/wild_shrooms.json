@@ -1,44 +1,45 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "rolls": 4,
+   "entries": [
     {
-      "rolls": 4,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:brown_mushroom",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 0.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:red_mushroom",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 0.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ]
-        }
-      ]
+     "type": "minecraft:item",
+     "name": "minecraft:brown_mushroom",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      },
+      {
+       "function": "minecraft:explosion_decay"
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:red_mushroom",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      },
+      {
+       "function": "minecraft:explosion_decay"
+      }
+     ]
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/wild_shrooms"
 }

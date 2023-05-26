@@ -1,54 +1,55 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "rolls": 1.0,
+   "bonus_rolls": 0.0,
+   "entries": [
     {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
+     "type": "minecraft:alternatives",
+     "children": [
+      {
+       "type": "minecraft:item",
+       "conditions": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
-              "name": "biomemakeover:illunite_cluster"
-            },
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": 2.0,
-                  "add": false
-                },
-                {
-                  "function": "minecraft:apply_bonus",
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:ore_drops"
-                },
-                {
-                  "function": "minecraft:explosion_decay"
-                }
-              ],
-              "name": "biomemakeover:illunite_shard"
+         "condition": "minecraft:match_tool",
+         "predicate": {
+          "enchantments": [
+           {
+            "enchantment": "minecraft:silk_touch",
+            "levels": {
+             "min": 1
             }
+           }
           ]
+         }
         }
-      ]
+       ],
+       "name": "biomemakeover:illunite_cluster"
+      },
+      {
+       "type": "minecraft:item",
+       "functions": [
+        {
+         "function": "minecraft:set_count",
+         "count": 2.0,
+         "add": false
+        },
+        {
+         "function": "minecraft:apply_bonus",
+         "enchantment": "minecraft:fortune",
+         "formula": "minecraft:ore_drops"
+        },
+        {
+         "function": "minecraft:explosion_decay"
+        }
+       ],
+       "name": "biomemakeover:illunite_shard"
+      }
+     ]
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/illunite_cluster"
 }

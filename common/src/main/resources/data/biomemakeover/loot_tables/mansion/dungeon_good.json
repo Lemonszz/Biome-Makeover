@@ -1,685 +1,686 @@
 {
-  "type": "minecraft:chest",
-  "pools": [
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": {
+    "min": 4.0,
+    "max": 10.0,
+    "type": "minecraft:uniform"
+   },
+   "entries": [
     {
-      "rolls": {
-        "min": 4.0,
-        "max": 10.0,
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 8.0,
         "type": "minecraft:uniform"
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 8.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:coal"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 6.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "biomemakeover:illunite_shard"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 6.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "biomemakeover:crude_cladding"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:saddle"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "minecraft:iron_sword"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "minecraft:iron_pickaxe"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "minecraft:iron_axe"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "minecraft:crossbow"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "minecraft:bow"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.1,
-                "max": 0.75
-              }
-            }
-          ],
-          "name": "minecraft:diamond_hoe"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.1,
-                "max": 0.75
-              }
-            }
-          ],
-          "name": "minecraft:diamond_sword"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 16,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.1,
-                "max": 0.75
-              }
-            }
-          ],
-          "name": "minecraft:diamond_pickaxe"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 15,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.1,
-                "max": 0.75
-              }
-            }
-          ],
-          "name": "minecraft:diamond_shovel"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 10,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "biomemakeover:cladded_chestplate"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 10,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "biomemakeover:cladded_leggings"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 10,
-              "treasure": true
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.75,
-                "max": 1
-              }
-            }
-          ],
-          "name": "biomemakeover:cladded_boots"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:totem_of_undying"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 6.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:gold_ingot"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 8.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:iron_ingot"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 8.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:arrow"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 3.0,
-                "max": 8.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:redstone"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:gunpowder"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:tnt"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 12,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:lapis_lazuli"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "biomemakeover:red_rose_music_disk"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:iron_horse_armor"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:golden_horse_armor"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:diamond_horse_armor"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:leather_horse_armor"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 7.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:experience_bottle"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:name_tag"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:clock"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:compass"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:obsidian"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:diamond"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:iron_block"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 2.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "biomemakeover:cladded_stone"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:flint"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 8.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:rabbit_hide"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 8.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:leather"
-        }
-      ]
+       }
+      }
+     ],
+     "name": "minecraft:coal"
     },
     {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:empty"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:vex_armor_trim_smithing_template"
-        }
-      ],
-      "rolls": 1.0
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 6.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "biomemakeover:illunite_shard"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 15,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 6.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "biomemakeover:crude_cladding"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 8,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:saddle"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 7,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "minecraft:iron_sword"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "minecraft:iron_pickaxe"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "minecraft:iron_axe"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "minecraft:crossbow"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "minecraft:bow"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.1,
+        "max": 0.75
+       }
+      }
+     ],
+     "name": "minecraft:diamond_hoe"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.1,
+        "max": 0.75
+       }
+      }
+     ],
+     "name": "minecraft:diamond_sword"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 16,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.1,
+        "max": 0.75
+       }
+      }
+     ],
+     "name": "minecraft:diamond_pickaxe"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 15,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.1,
+        "max": 0.75
+       }
+      }
+     ],
+     "name": "minecraft:diamond_shovel"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 10,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "biomemakeover:cladded_chestplate"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 10,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "biomemakeover:cladded_leggings"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_with_levels",
+       "levels": 10,
+       "treasure": true
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.75,
+        "max": 1
+       }
+      }
+     ],
+     "name": "biomemakeover:cladded_boots"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:enchant_randomly"
+      }
+     ],
+     "name": "minecraft:book"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 4,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:totem_of_undying"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 6.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:gold_ingot"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 8.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:iron_ingot"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 8.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:arrow"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 3.0,
+        "max": 8.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:redstone"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 5.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:gunpowder"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 8,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:tnt"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 12,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:lapis_lazuli"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 3,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "biomemakeover:red_rose_music_disk"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 8,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:iron_horse_armor"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 4,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:golden_horse_armor"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 3,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:diamond_horse_armor"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 2,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:leather_horse_armor"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 7,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 7.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:experience_bottle"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 4,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:name_tag"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:clock"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:compass"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 4.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:obsidian"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:diamond"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:iron_block"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 1,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 2.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "biomemakeover:cladded_stone"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 7,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 5.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:flint"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 7,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 8.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:rabbit_hide"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 7,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 8.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:leather"
     }
-  ]
+   ]
+  },
+  {
+   "bonus_rolls": 0.0,
+   "entries": [
+    {
+     "type": "minecraft:empty"
+    },
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:vex_armor_trim_smithing_template"
+    }
+   ],
+   "rolls": 1.0
+  }
+ ],
+ "random_sequence": "biomemakeover:mansion/dungeon_good"
 }

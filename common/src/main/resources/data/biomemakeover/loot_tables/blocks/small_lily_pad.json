@@ -1,58 +1,59 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
+     "type": "minecraft:item",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "conditions": [
         {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "biomemakeover:small_lily_pad",
-                  "properties": {
-                    "pads": "1"
-                  }
-                }
-              ],
-              "count": 2
-            },
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "biomemakeover:small_lily_pad",
-                  "properties": {
-                    "pads": "2"
-                  }
-                }
-              ],
-              "count": 3
-            },
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "biomemakeover:small_lily_pad",
-                  "properties": {
-                    "pads": "3"
-                  }
-                }
-              ],
-              "count": 4
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ],
-          "name": "biomemakeover:small_lily_pad"
+         "condition": "minecraft:block_state_property",
+         "block": "biomemakeover:small_lily_pad",
+         "properties": {
+          "pads": "1"
+         }
         }
-      ]
+       ],
+       "count": 2
+      },
+      {
+       "function": "minecraft:set_count",
+       "conditions": [
+        {
+         "condition": "minecraft:block_state_property",
+         "block": "biomemakeover:small_lily_pad",
+         "properties": {
+          "pads": "2"
+         }
+        }
+       ],
+       "count": 3
+      },
+      {
+       "function": "minecraft:set_count",
+       "conditions": [
+        {
+         "condition": "minecraft:block_state_property",
+         "block": "biomemakeover:small_lily_pad",
+         "properties": {
+          "pads": "3"
+         }
+        }
+       ],
+       "count": 4
+      },
+      {
+       "function": "minecraft:explosion_decay"
+      }
+     ],
+     "name": "biomemakeover:small_lily_pad"
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/small_lily_pad"
 }

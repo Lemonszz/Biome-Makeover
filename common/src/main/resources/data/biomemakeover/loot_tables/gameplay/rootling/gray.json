@@ -1,23 +1,24 @@
 {
-  "type": "taniwha:generic_entity",
-  "pools": [
+ "type": "taniwha:generic_entity",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:gray_bud",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ]
-        }
-      ]
+     "type": "minecraft:item",
+     "name": "biomemakeover:gray_bud",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 2,
+        "max": 4
+       }
+      }
+     ]
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:gameplay/rootling/gray"
 }

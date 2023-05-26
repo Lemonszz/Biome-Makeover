@@ -1,23 +1,24 @@
 {
-  "type": "minecraft:entity",
-  "pools": [
+ "type": "minecraft:entity",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:enchanted_totem"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:adjudicator_tapestry"
-        }
-      ]
+     "type": "minecraft:item",
+     "name": "biomemakeover:enchanted_totem"
     }
-  ]
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "biomemakeover:adjudicator_tapestry"
+    }
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:entities/adjudicator"
 }

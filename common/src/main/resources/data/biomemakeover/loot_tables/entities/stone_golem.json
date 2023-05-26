@@ -1,24 +1,25 @@
 {
-  "type": "minecraft:entity",
-  "pools": [
+ "type": "minecraft:entity",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "biomemakeover:cladded_stone"
-        }
-      ]
+     "type": "minecraft:item",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 2.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "biomemakeover:cladded_stone"
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:entities/stone_golem"
 }

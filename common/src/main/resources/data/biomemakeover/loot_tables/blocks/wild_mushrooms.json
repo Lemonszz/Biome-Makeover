@@ -1,35 +1,35 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
+     "type": "minecraft:alternatives",
+     "children": [
+      {
+       "type": "minecraft:item",
+       "conditions": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": [
-                      "minecraft:shears"
-                    ]
-                  }
-                }
-              ],
-              "name": "biomemakeover:wild_mushrooms"
-            },
-            {
-              "type": "minecraft:loot_table",
-              "name": "biomemakeover:blocks/wild_shrooms",
-              "conditions": [
-              ]
-            }
+         "condition": "minecraft:match_tool",
+         "predicate": {
+          "items": [
+           "minecraft:shears"
           ]
+         }
         }
-      ]
+       ],
+       "name": "biomemakeover:wild_mushrooms"
+      },
+      {
+       "type": "minecraft:loot_table",
+       "name": "biomemakeover:blocks/wild_shrooms",
+       "conditions": []
+      }
+     ]
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/wild_mushrooms"
 }

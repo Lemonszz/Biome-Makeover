@@ -1,104 +1,105 @@
 {
-  "type": "minecraft:chest",
-  "pools": [
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": {
+    "min": 1.0,
+    "max": 5.0,
+    "type": "minecraft:uniform"
+   },
+   "entries": [
     {
-      "rolls": {
+     "type": "minecraft:item",
+     "weight": 3,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
         "min": 1.0,
-        "max": 5.0,
+        "max": 1.0,
         "type": "minecraft:uniform"
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:paper"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:lapis_lazuli"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:iron_nugget"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:cobweb"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:redstone"
-        }
-      ]
+       }
+      }
+     ],
+     "name": "minecraft:book"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:paper"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:lapis_lazuli"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 3,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:iron_nugget"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 3,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 1.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:cobweb"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1.0,
+        "max": 4.0,
+        "type": "minecraft:uniform"
+       }
+      }
+     ],
+     "name": "minecraft:redstone"
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:mansion/junk"
 }

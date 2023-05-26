@@ -1,14 +1,15 @@
 {
-  "type": "minecraft:chest",
-  "pools": [
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:cladding_upgrade_smithing_template"
-        }
-      ]
+     "type": "minecraft:item",
+     "name": "biomemakeover:cladding_upgrade_smithing_template"
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:pillager_outpost_additional"
 }

@@ -1,24 +1,25 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:mycelium_sprouts"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "items": [
-              "minecraft:shears"
-            ]
-          }
-        }
-      ]
+     "type": "minecraft:item",
+     "name": "biomemakeover:mycelium_sprouts"
     }
-  ]
+   ],
+   "conditions": [
+    {
+     "condition": "minecraft:match_tool",
+     "predicate": {
+      "items": [
+       "minecraft:shears"
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/mycelium_sprouts"
 }

@@ -1,30 +1,31 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "bonus_rolls": 0.0,
+   "conditions": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:silk_touch",
-                "levels": {
-                  "min": 1
-                }
-              }
-            ]
-          }
+     "condition": "minecraft:match_tool",
+     "predicate": {
+      "enchantments": [
+       {
+        "enchantment": "minecraft:silk_touch",
+        "levels": {
+         "min": 1
         }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:large_illunite_bud"
-        }
-      ],
-      "rolls": 1.0
+       }
+      ]
+     }
     }
-  ]
+   ],
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "biomemakeover:large_illunite_bud"
+    }
+   ],
+   "rolls": 1.0
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/large_illunite_bud"
 }

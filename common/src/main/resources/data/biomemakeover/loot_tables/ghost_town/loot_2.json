@@ -1,148 +1,149 @@
 {
-  "type": "minecraft:chest",
-  "pools": [
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": {
+    "type": "minecraft:uniform",
+    "min": 2,
+    "max": 6
+   },
+   "entries": [
     {
-      "rolls": {
-        "type": "minecraft:uniform",
-        "min": 2,
-        "max": 6
-      },
-      "entries": [
+     "type": "minecraft:item",
+     "name": "minecraft:bow",
+     "functions": [
+      {
+       "function": "minecraft:enchant_randomly",
+       "conditions": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:bow",
-          "functions": [
-            {
-              "function": "minecraft:enchant_randomly",
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.5
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.1,
-                "max": 1
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:saddle"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:wheat"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "minecraft:rotten_flesh",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "minecraft:paper",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "minecraft:book",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "minecraft:string",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:crossbow",
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.5,
-                "max": 1
-              }
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:leather_boots",
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.1,
-                "max": 1
-              }
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "biomemakeover:cowboy_hat"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "biomemakeover:ghost_town_music_disk"
+         "condition": "minecraft:random_chance",
+         "chance": 0.5
         }
-      ]
+       ]
+      },
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.1,
+        "max": 1
+       }
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:saddle"
+    },
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:wheat"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "name": "minecraft:rotten_flesh",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 3
+       }
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "name": "minecraft:paper",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 3
+       }
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 6,
+     "name": "minecraft:book",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 3
+       }
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 3,
+     "name": "minecraft:string",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 3
+       }
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 2,
+     "name": "minecraft:crossbow",
+     "functions": [
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.5,
+        "max": 1
+       }
+      },
+      {
+       "function": "minecraft:enchant_randomly"
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 2,
+     "name": "minecraft:leather_boots",
+     "functions": [
+      {
+       "function": "minecraft:set_damage",
+       "damage": {
+        "min": 0.1,
+        "max": 1
+       }
+      },
+      {
+       "function": "minecraft:enchant_randomly"
+      }
+     ]
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 5,
+     "name": "biomemakeover:cowboy_hat"
+    },
+    {
+     "type": "minecraft:item",
+     "weight": 2,
+     "name": "biomemakeover:ghost_town_music_disk"
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:ghost_town/loot_2"
 }

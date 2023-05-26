@@ -1,22 +1,23 @@
 {
-  "pools": [
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:pink_bud",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ]
+     "type": "minecraft:item",
+     "name": "biomemakeover:pink_bud",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "min": 1,
+        "max": 2
+       }
+      }
+     ]
     }
-  ]
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:gameplay/scuttler_eating"
 }

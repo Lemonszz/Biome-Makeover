@@ -1,91 +1,92 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "rolls": 1.0,
+   "entries": [
     {
-      "rolls": 1.0,
-      "entries": [
+     "type": "minecraft:alternatives",
+     "children": [
+      {
+       "type": "minecraft:item",
+       "conditions": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "item": "minecraft:shears"
-                  }
-                }
-              ],
-              "name": "biomemakeover:cattail"
-            }
-          ]
+         "condition": "minecraft:match_tool",
+         "predicate": {
+          "item": "minecraft:shears"
+         }
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "biomemakeover:cattail",
-          "properties": {
-            "half": "lower"
-          }
-        },
-        {
-          "condition": "minecraft:location_check",
-          "predicate": {
-            "block": {
-              "block": "biomemakeover:cattail",
-              "state": {
-                "half": "upper"
-              }
-            }
-          },
-          "offsetY": 1
-        }
-      ]
+       ],
+       "name": "biomemakeover:cattail"
+      }
+     ]
+    }
+   ],
+   "conditions": [
+    {
+     "condition": "minecraft:block_state_property",
+     "block": "biomemakeover:cattail",
+     "properties": {
+      "half": "lower"
+     }
     },
     {
-      "rolls": 1.0,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "item": "minecraft:shears"
-                  }
-                }
-              ],
-              "name": "biomemakeover:cattail"
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "biomemakeover:cattail",
-          "properties": {
-            "half": "upper"
-          }
-        },
-        {
-          "condition": "minecraft:location_check",
-          "predicate": {
-            "block": {
-              "block": "biomemakeover:cattail",
-              "state": {
-                "half": "lower"
-              }
-            }
-          },
-          "offsetY": -1
-        }
-      ]
+     "condition": "minecraft:location_check",
+     "predicate": {
+      "block": {
+       "block": "biomemakeover:cattail",
+       "state": {
+        "half": "upper"
+       }
+      }
+     },
+     "offsetY": 1
     }
-  ]
+   ]
+  },
+  {
+   "rolls": 1.0,
+   "entries": [
+    {
+     "type": "minecraft:alternatives",
+     "children": [
+      {
+       "type": "minecraft:item",
+       "conditions": [
+        {
+         "condition": "minecraft:match_tool",
+         "predicate": {
+          "item": "minecraft:shears"
+         }
+        }
+       ],
+       "name": "biomemakeover:cattail"
+      }
+     ]
+    }
+   ],
+   "conditions": [
+    {
+     "condition": "minecraft:block_state_property",
+     "block": "biomemakeover:cattail",
+     "properties": {
+      "half": "upper"
+     }
+    },
+    {
+     "condition": "minecraft:location_check",
+     "predicate": {
+      "block": {
+       "block": "biomemakeover:cattail",
+       "state": {
+        "half": "lower"
+       }
+      }
+     },
+     "offsetY": -1
+    }
+   ]
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/cattail"
 }

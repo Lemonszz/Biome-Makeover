@@ -1,20 +1,21 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+ "type": "minecraft:block",
+ "pools": [
+  {
+   "bonus_rolls": 0.0,
+   "conditions": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "biomemakeover:willow_hanging_sign"
-        }
-      ],
-      "rolls": 1.0
+     "condition": "minecraft:survives_explosion"
     }
-  ]
+   ],
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "biomemakeover:willow_hanging_sign"
+    }
+   ],
+   "rolls": 1.0
+  }
+ ],
+ "random_sequence": "biomemakeover:blocks/willow_wall_hanging_sign"
 }
