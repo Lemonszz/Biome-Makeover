@@ -242,7 +242,7 @@ public class BMItems
         @Override
         public String getName()
         {
-            return "cladded";
+            return Constants.MOD_ID + ":cladded";
         }
 
         @Override
