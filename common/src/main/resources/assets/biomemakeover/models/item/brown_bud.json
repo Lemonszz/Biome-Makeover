@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "biomemakeover:item/brown_bud"
+    "layer0": "biomemakeover:item/buds/bud_base",
+    "layer1": "biomemakeover:item/buds/bud_brown"
   }
 }
