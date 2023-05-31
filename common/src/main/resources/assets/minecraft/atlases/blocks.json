@@ -3,18 +3,18 @@
     {
       "type": "paletted_permutations",
       "textures": [
-        "biomemakeover:item/buds/bud"
+        "biomemakeover:permutations/buds/bud"
       ],
-      "palette_key": "biomemakeover:item/buds/color_palettes/bud_palette",
+      "palette_key": "biomemakeover:permutations/buds/color_palettes/bud_palette",
       "permutations": {
-        "blue": "biomemakeover:item/buds/color_palettes/blue_bud",
-        "brown": "biomemakeover:item/buds/color_palettes/brown_bud",
-        "cyan": "biomemakeover:item/buds/color_palettes/cyan_bud",
-        "gray": "biomemakeover:item/buds/color_palettes/gray_bud",
-        "light_blue": "biomemakeover:item/buds/color_palettes/light_blue_bud",
-        "magenta": "biomemakeover:item/buds/color_palettes/magenta_bud",
-        "pink": "biomemakeover:item/buds/color_palettes/pink_bud",
-        "purple": "biomemakeover:item/buds/color_palettes/purple_bud"
+        "blue": "biomemakeover:permutations/buds/color_palettes/blue_bud",
+        "brown": "biomemakeover:permutations/buds/color_palettes/brown_bud",
+        "cyan": "biomemakeover:permutations/buds/color_palettes/cyan_bud",
+        "gray": "biomemakeover:permutations/buds/color_palettes/gray_bud",
+        "light_blue": "biomemakeover:permutations/buds/color_palettes/light_blue_bud",
+        "magenta": "biomemakeover:permutations/buds/color_palettes/magenta_bud",
+        "pink": "biomemakeover:permutations/buds/color_palettes/pink_bud",
+        "purple": "biomemakeover:permutations/buds/color_palettes/purple_bud"
       }
     }
   ]
