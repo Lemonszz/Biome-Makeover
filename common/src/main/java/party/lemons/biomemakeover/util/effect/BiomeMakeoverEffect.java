@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.util.effect;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -9,9 +8,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.util.RandomUtil;
-import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
-
-import java.util.Random;
 
 public enum BiomeMakeoverEffect
 {
