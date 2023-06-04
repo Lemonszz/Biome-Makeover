@@ -37,9 +37,7 @@
   {
     "item": "biomemakeover:tall_red_mushroom",
     "chance": 0.7
-  }
-
-,
+  },
   {
     "item": "biomemakeover:blighted_balsa_leaves",
     "chance": 0.3
@@ -134,6 +132,38 @@
   },
   {
     "item": "biomemakeover:ivy",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:pink_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:purple_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:magenta_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:cyan_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:blue_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:light_blue_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:brown_bud",
+    "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:gray_bud",
     "chance": 0.25
   }
 ]

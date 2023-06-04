@@ -9,6 +9,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import party.lemons.biomemakeover.Constants;
 
 public class HatItem extends ArmorItem
 {
@@ -60,7 +61,7 @@ public class HatItem extends ArmorItem
         @Override
         public String getName()
         {
-            return "hat";
+            return Constants.MOD_ID + ":hat";
         }
 
         @Override

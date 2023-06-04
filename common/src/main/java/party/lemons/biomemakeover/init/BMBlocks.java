@@ -152,8 +152,8 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> CATTAIL = registerBlockItem("cattail", ()->new ReedBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> REED = registerBlockItem("reed", ()->new ReedBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
-    public static final RegistrySupplier<Block> SMALL_LILY_PAD = registerLilyPad("small_lily_pad", ()->new SmallLilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT));
-    public static final RegistrySupplier<Block> WATER_LILY = registerLilyPad("water_lily", ()->new FloweredWaterlilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.COLOR_PINK)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> SMALL_LILY_PAD = registerLilyPad("small_lily_pad", ()->new SmallLilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT), true);
+    public static final RegistrySupplier<Block> WATER_LILY = registerLilyPad("water_lily", ()->new FloweredWaterlilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.COLOR_PINK)).modifiers(RTypeModifier.CUTOUT), true);
     public static final RegistrySupplier<Block> WILLOW_LEAVES = registerBlockItem("willow_leaves", ()->new TLeavesBlock(LEAF_PROPERTIES.mapColor(MapColor.TERRACOTTA_LIGHT_GREEN)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
     public static final RegistrySupplier<Block> SWAMP_CYPRESS_LEAVES = registerBlockItem("swamp_cypress_leaves", ()->new TLeavesBlock(BlockUtil.copyProperties(LEAF_PROPERTIES).mapColor(MapColor.TERRACOTTA_GREEN)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
     public static final RegistrySupplier<Block> LIGHTNING_BUG_BOTTLE = registerBlockItem("lightning_bug_bottle", ()->new LightningBugBottleBlock(properties(0.5F).pushReaction(PushReaction.DESTROY).lightLevel((b)->15).noOcclusion().mapColor(MapColor.NONE)).modifiers(RTypeModifier.CUTOUT));
@@ -175,7 +175,7 @@ public class BMBlocks
     public static final RegistrySupplier<Block> ANCIENT_OAK_LEAVES = registerBlockItem("ancient_oak_leaves", ()->new TLeavesBlock(LEAF_PROPERTIES).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
     public static final RegistrySupplier<Block> ALTAR = registerBlockItem("altar", ()->new AltarBlock(properties(5F).lightLevel((st)->st.getValue(AltarBlock.ACTIVE) ? 5 : 1).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_BLACK).noOcclusion()).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> CLADDED_STONE = registerBlockItem("cladded_stone", ()->new TBlock(properties(1.5F, 6.0F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.STONE)));
-    public static final RegistrySupplier<Block> CRUDE_CLADDING_BLOCK = registerBlockItem("crude_cladding_block", ()->new TBlock(properties(5F, 7F).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().mapColor(MapColor.WARPED_STEM)));
+    public static final RegistrySupplier<Block> CRUDE_CLADDING_BLOCK = registerBlockItem("crude_cladding_block", ()->new TBlock(properties(5F, 7F).instrument(NoteBlockInstrument.IRON_XYLOPHONE).sound(SoundType.NETHERITE_BLOCK).requiresCorrectToolForDrops().mapColor(MapColor.WARPED_STEM)));
 
     public static final RegistrySupplier<Block> ROOTLING_CROP = register("rootling_crop", ()->new RootlingCropBlock(properties(0).noCollission().randomTicks().instabreak().sound(SoundType.CROP).mapColor(MapColor.PLANT).pushReaction(PushReaction.DESTROY)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> IVY = registerBlockItem("ivy", ()->new IvyBlock(properties(0.15F).noCollission().randomTicks().replaceable().sound(SoundType.VINE).pushReaction(PushReaction.DESTROY).mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.IVY));
@@ -187,8 +187,8 @@ public class BMBlocks
 
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();
     public static final TerracottaBrickInfo TERRACOTTA_BRICKS = TerracottaBrickInfo.create();
-    public static final RegistrySupplier<Block> CRACKED_BRICKS = registerBlockItem("cracked_bricks", ()->new TBlock(properties(2F, 6F).instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED)));
-    public static final DecorationBlockFactory CRACKED_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "cracked_brick", CRACKED_BRICKS, properties(2F, 6F).instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED), BMTab.TAB).all().register(BLOCKS, ITEMS);
+    public static final RegistrySupplier<Block> CRACKED_BRICKS = registerBlockItem("cracked_bricks", ()->new TBlock(properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED)));
+    public static final DecorationBlockFactory CRACKED_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "cracked_brick", CRACKED_BRICKS, properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED), BMTab.TAB).all().register(BLOCKS, ITEMS);
 
     public static final RegistrySupplier<Block> POTTED_MYCELIUM_ROOTS = pottedPlant("mycelium_roots",MYCELIUM_ROOTS);
     public static final RegistrySupplier<Block> POTTED_PURPLE_GLOWSHROOM =  litPottedPlant("purple_glowshroom", PURPLE_GLOWSHROOM, 13);
@@ -294,11 +294,14 @@ public class BMBlocks
         return true;
     }
 
-    public static RegistrySupplier<Block> registerLilyPad(String id, Supplier<Block> block)
+    public static RegistrySupplier<Block> registerLilyPad(String id, Supplier<Block> block, boolean tab)
     {
         RegistrySupplier<Block> bl = register(id, block);
         RegistrySupplier<Item> it = ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(id), ()->new PlaceOnWaterBlockItem(bl.get(), new Item.Properties()));
         initBlockItem(bl, it);
+        if(tab)
+            CreativeTabRegistry.append(BMTab.TAB, it);
+
         return bl;
     }
 
