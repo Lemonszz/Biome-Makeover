@@ -130,7 +130,7 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
         stateTime++;
         if(!level().isClientSide() && firstTick)  //Set up arena
         {
-            homePos = getOnPos();    //Home pos is generally the center of the arena. The position the adjudicator.json will return to if out of combat.
+            homePos = blockPosition();    //Home pos is generally the center of the arena. The position the adjudicator.json will return to if out of combat.
 
             roomBounds = new AABB(homePos.below(4)).inflate(13,0, 13).expandTowards(0, 13, 0);    //Get the room bounds.
             firstTick = false;
@@ -472,6 +472,9 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
     @Override
     protected SoundEvent getHurtSound(DamageSource source)
     {
+        if(phase != null && phase.isInvulnerable())
+            return null; //TODO: custom block sound?
+
         return BMEffects.ADJUDICATOR_HURT.get();
     }
 
@@ -537,19 +540,21 @@ public class AdjudicatorEntity extends Monster implements PowerableMob, Adjudica
  */
     public BlockPos findSuitableArenaPos()
     {
-        if(arenaPositions == null)
+        if(arenaPositions == null || arenaPositions.isEmpty())
         {
             //TODO: best guess?
+            return blockPosition();
         }
         else
         {
+            int safety = 0; //24/6/23 Added safety to prevent locking lol
             BlockPos arenaPos;
             do{
+                safety++;
                 arenaPos = arenaPositions.get(random.nextInt(arenaPositions.size()));
-            }while(arenaPos.closerThan(getOnPos(), 1));
+            }while(arenaPos.closerThan(getOnPos(), 1) && safety < 100);
             return arenaPos;
         }
-        return null;
     }
 
     @Override
