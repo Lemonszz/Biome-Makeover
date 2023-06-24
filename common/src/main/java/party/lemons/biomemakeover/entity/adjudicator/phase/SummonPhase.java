@@ -143,8 +143,10 @@ public class SummonPhase extends TimedPhase
     private void populateSpawnPositions()
     {
         this.spawnPositions = new BlockPos[mobCount];
-        for(int i = 0; i < mobCount; i++)
-            spawnPositions[i] = adjudicator.findSuitableArenaPos();
+        for(int i = 0; i < mobCount; i++) {
+            BlockPos spawnPos = adjudicator.findSuitableArenaPos();
+            spawnPositions[i] = spawnPos;
+        }
     }
 
     @Override
