@@ -41,7 +41,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
             {
                 int offsetX = xx - centerPos.getX();
                 int offsetZ = zz - centerPos.getZ();
-                if(offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
+                if(offsetX * offsetX + offsetZ * offsetZ <= radius * (radius + 1))
                 {
                     BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
                     BlockState upState = level.getBlockState(placePos.above());
@@ -67,7 +67,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
                 {
                     int offsetX = xx - centerPos.getX();
                     int offsetZ = zz - centerPos.getZ();
-                    if(offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
+                    if(offsetX * offsetX + offsetZ * offsetZ <= radius * (radius + 1))
                     {
                         BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
                         BlockState upState = level.getBlockState(placePos.above());
