@@ -29,7 +29,7 @@ public class BlockEntityWithoutLevelRendererMixin {
     @Inject(at = @At("HEAD"), method = "renderByItem", cancellable = true)
     public void renderByItem(ItemStack stack, ItemDisplayContext transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo cbi) {
         if(TAPESTRY == null)
-            TAPESTRY = new TapestryBlockEntity(BlockPos.ZERO, BMBlocks.TAPESTRIES.getWallBlocks().stream().findAny().get().get().defaultBlockState());
+            TAPESTRY = new TapestryBlockEntity(BlockPos.ZERO, BMBlocks.TAPESTRIES.getWallBlocks().get(0).get().defaultBlockState());
 
         if(stack.getItem() instanceof StandingAndWallBlockItem standingBlockItem)
         {

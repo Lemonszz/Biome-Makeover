@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -12,11 +13,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.AbstractHugeMushroomFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
-import party.lemons.biomemakeover.util.RandomUtil;
 
 import java.util.Random;
 
 public class HugeOrangeGlowshroomFeature extends AbstractHugeMushroomFeature {
+    private static final int EXTRA_RADIUS_MIN = 1;
+    private static final int EXTRA_RADIUS_MAX = 2;
 
     public HugeOrangeGlowshroomFeature(Codec<HugeMushroomFeatureConfiguration> codec) {
         super(codec);
@@ -69,7 +71,7 @@ public class HugeOrangeGlowshroomFeature extends AbstractHugeMushroomFeature {
 
     @Override
     protected void makeCap(LevelAccessor level, RandomSource random, BlockPos start, int y, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration config) {
-        int size = config.foliageRadius + RandomUtil.randomRange(1, 3);
+        int size = config.foliageRadius + Mth.randomBetweenInclusive(random, EXTRA_RADIUS_MIN, EXTRA_RADIUS_MAX);
 
         for (int xx = -size; xx <= size; ++xx) {
             for (int zz = -size; zz <= size; ++zz) {

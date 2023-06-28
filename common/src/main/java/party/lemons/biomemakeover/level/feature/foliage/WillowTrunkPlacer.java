@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -46,7 +47,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
         }
         nodes.add(new FoliagePlacer.FoliageAttachment(pos.above(trunkHeight), 1, false));
 
-        BlockPos start = pos.above(RandomUtil.randomRange(trunkHeight / 2, Math.min(trunkHeight, (trunkHeight / 2) + 2)));
+        BlockPos start = pos.above(Mth.randomBetweenInclusive(random, trunkHeight / 2, Math.min(trunkHeight - 1, (trunkHeight / 2) + 1)));
         for(Direction dir : dirs)
         {
             int length = 1 + random.nextInt(4);
