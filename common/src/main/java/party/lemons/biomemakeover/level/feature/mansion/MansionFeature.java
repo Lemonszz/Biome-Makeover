@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -229,7 +230,7 @@ public class MansionFeature extends Structure
                         BlockEntity be = world.getBlockEntity(offsetPos);
                         if(be instanceof SpawnerBlockEntity spawner)
                         {
-                            spawner.setEntityId(RandomUtil.<EntityType<?>>choose(EntityType.CAVE_SPIDER, EntityType.SPIDER), random);
+                            spawner.setEntityId(random.nextBoolean() ? EntityType.CAVE_SPIDER : EntityType.SPIDER, random);
                             be.setChanged();
                         }
                     }
@@ -243,7 +244,7 @@ public class MansionFeature extends Structure
                     world.addFreshEntityWithPassengers(e);
                     break;
                 case "shroom":
-                      world.setBlock(pos, RandomUtil.choose(SHROOMS), 3);
+                      world.setBlock(pos, SHROOMS[random.nextInt(SHROOMS.length)], 3);
                     break;
             }
 
@@ -335,6 +336,7 @@ public class MansionFeature extends Structure
 
         private void handleSpawning(String meta, WorldGenLevel world, BlockPos pos, List<EntityType<?>> pool)
         {
+            RandomSource random = world.getRandom();
             String[] splits = meta.split("_");
             int chance;
             if(splits.length < 2)
@@ -349,7 +351,7 @@ public class MansionFeature extends Structure
 
             if(world.getRandom().nextInt(100) <= chance)
             {
-                EntityType<?> type = RandomUtil.choose(pool);
+                EntityType<?> type = pool.get(random.nextInt(pool.size()));
                 Entity e = type.create(world.getLevel());
                 if(e == null)
                     return;
@@ -377,12 +379,14 @@ public class MansionFeature extends Structure
             Block tapestryBlock;
             if(dir == Direction.DOWN || dir == Direction.UP)
             {
-                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRIES.getFloorBlocks()).get();
+                List<RegistrySupplier<Block>> floorBlockSuppliers = BMBlocks.TAPESTRIES.getFloorBlocks();
+                tapestryBlock = floorBlockSuppliers.get(random.nextInt(floorBlockSuppliers.size())).get();
                 world.setBlock(pos, tapestryBlock.defaultBlockState().setValue(AbstractTapestryBlock.ROTATION, Rotation.getRandom(random).ordinal()), 3);
             }
             else
             {
-                tapestryBlock = RandomUtil.choose(BMBlocks.TAPESTRIES.getWallBlocks()).get();
+                List<RegistrySupplier<Block>> wallBlockSuppliers = BMBlocks.TAPESTRIES.getWallBlocks();
+                tapestryBlock = wallBlockSuppliers.get(random.nextInt(wallBlockSuppliers.size())).get();
                 world.setBlock(pos, tapestryBlock.defaultBlockState().setValue(AbstractTapestryWallBlock.FACING, dir.getOpposite()), 3);
             }
         }

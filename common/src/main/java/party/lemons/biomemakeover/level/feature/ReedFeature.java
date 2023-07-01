@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -16,15 +15,13 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.init.BMBlocks;
-
-import java.util.Random;
+import party.lemons.biomemakeover.util.SpreadUtil;
 
 public class ReedFeature extends Feature<NoneFeatureConfiguration>
 {
     private static final int TRIES = 20;
-    private static final int SPREADX = 4;
-    private static final int SPREADZ = 4;
-    private static final int SPREADY = 0;
+    private static final float SPREAD_XZ = 5.64f;
+    private static final float SPREAD_Y = 1.23f;
     private static final BlockStateProvider STATES = new WeightedStateProvider(SimpleWeightedRandomList .<BlockState>builder()
                 .add(BMBlocks.REED.get().defaultBlockState(), 10)
                 .add(BMBlocks.CATTAIL.get().defaultBlockState(), 5)
@@ -40,7 +37,6 @@ public class ReedFeature extends Feature<NoneFeatureConfiguration>
         BlockPos origin = ctx.origin();
         RandomSource random = ctx.random();
 
-
         BlockPos centerPos = level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, origin).below();
 
         int successes = 0;
@@ -50,7 +46,10 @@ public class ReedFeature extends Feature<NoneFeatureConfiguration>
         {
             BlockState blockState = STATES.getState(random, placePos);
 
-            placePos.setWithOffset(centerPos, random.nextInt(SPREADX + 1) - random.nextInt(SPREADX + 1), random.nextInt(SPREADY + 1) - random.nextInt(SPREADY + 1), random.nextInt(SPREADZ + 1) - random.nextInt(SPREADZ + 1));
+            SpreadUtil.sampleEllipsoidalOutwardlyFadingSpread(random, SPREAD_XZ, SPREAD_Y,
+                    (dx, dy, dz) -> placePos.setWithOffset(centerPos, Math.round(dx), Math.round(dy), Math.round(dz))
+            );
+
             BlockPos genPos = placePos.below();
             BlockPos floorPos = genPos.below();
             if(level.getFluidState(genPos).getType() == Fluids.WATER && level.getFluidState(placePos).isEmpty() && level.getFluidState(floorPos).isEmpty())
