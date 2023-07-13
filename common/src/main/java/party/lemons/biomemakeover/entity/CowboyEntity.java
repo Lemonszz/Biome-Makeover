@@ -1,10 +1,14 @@
 package party.lemons.biomemakeover.entity;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -26,6 +30,8 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BannerPatterns;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.init.BMItems;
+
+import java.util.Iterator;
 
 public class CowboyEntity extends Pillager {
     public CowboyEntity(EntityType<? extends Pillager> entityType, Level level) {
@@ -60,17 +66,17 @@ public class CowboyEntity extends Pillager {
             Entity entity = damageSource.getEntity();
             if (this.isPatrolLeader() && raid == null && ((ServerLevel)this.level()).getRaidAt(this.blockPosition()) == null) {
                 ItemStack itemStack = this.getItemBySlot(EquipmentSlot.HEAD);
-                Player player = null;
+                ServerPlayer player = null;
                 Entity entity2 = entity;
-                if (entity2 instanceof Player) {
-                    player = (Player)entity2;
+                if (entity2 instanceof ServerPlayer sp) {
+                    player = sp;
                 }
                 else if (entity2 instanceof Wolf)
                 {
                     Wolf wolf = (Wolf)entity2;
                     LivingEntity livingEntity = wolf.getOwner();
-                    if (wolf.isTame() && livingEntity instanceof Player) {
-                        player = (Player)livingEntity;
+                    if (wolf.isTame() && livingEntity instanceof ServerPlayer sp) {
+                        player = sp;
                     }
                 }
                 if (!itemStack.isEmpty() && ItemStack.matches(itemStack, getOminousBanner()) && player != null) {
@@ -87,10 +93,30 @@ public class CowboyEntity extends Pillager {
                     if (!this.level().getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS)) {
                         player.addEffect(mobEffectInstance2);
                     }
+
+                    grantAdvancement(player);
                 }
             }
         }
         super.die(damageSource);
+    }
+
+    /*
+        Grants the "Voluntary Exile" advancement to player
+        This isn't automatically triggered because of the advancement specifically looking for the vanilla banner
+     */
+    private void grantAdvancement(ServerPlayer player)
+    {
+        Advancement advancement = player.level().getServer().getAdvancements().getAdvancement(new ResourceLocation("adventure/voluntary_exile"));
+        if(advancement != null)
+        {
+            AdvancementProgress advancementProgress = player.getAdvancements().getOrStartProgress(advancement);
+            if (!advancementProgress.isDone()) {
+                for (String string : advancementProgress.getRemainingCriteria()) {
+                    player.getAdvancements().award(advancement, string);
+                }
+            }
+        }
     }
 
     @Nullable
