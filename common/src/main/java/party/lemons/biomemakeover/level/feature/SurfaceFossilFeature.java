@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -73,7 +74,7 @@ public class SurfaceFossilFeature extends Feature<NoneFeatureConfiguration> {
                 yLevel = Math.min(yLevel, worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, position.getX() + xx, position.getZ() + zz));
             }
         }
-        if(fossilIndex < 4) yLevel -= RandomUtil.randomRange(1, Math.max(2, size.getY() - 2));
+        if(fossilIndex < 4) yLevel -= Mth.randomBetweenInclusive(random, 1, Math.max(1, size.getY() - 3));
 
         BlockPos placePotion = structureTemplate.getZeroPositionWithTransform(position.atY(yLevel), Mirror.NONE, rotation);
         structureTemplate.placeInWorld(worldGenLevel, placePotion, placePotion, structurePlaceSettings, random, 4);

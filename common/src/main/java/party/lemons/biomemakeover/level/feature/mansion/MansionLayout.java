@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature.mansion;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import party.lemons.biomemakeover.level.feature.mansion.processor.CorridorReplaceProcessor;
 import party.lemons.biomemakeover.level.feature.mansion.processor.FloorRoomReplaceProcessor;
@@ -285,7 +286,7 @@ public class MansionLayout
         Direction bossDir = MathUtils.randomHorizontal(random);  //Direction to boss room
         List<MansionRoom> dungeonRooms = Lists.newArrayList();
         dungeonRooms.add(dungeonStairsBottom);
-        int dungeonCorridorLength = RandomUtil.randomRange(4, 6); //Length of the corridor
+        int dungeonCorridorLength = Mth.randomBetweenInclusive(random, 4, 5); //Length of the corridor
         for(int i = 1; i < dungeonCorridorLength; i++)  //Create corridor rooms
         {
             BlockPos roomPos = dungeonStart.relative(bossDir, i);
@@ -389,7 +390,11 @@ public class MansionLayout
 
         while(attempts > 0 && roomsPlaced < roomTarget)
         {
-            BlockPos.MutableBlockPos randomPos = new BlockPos.MutableBlockPos(RandomUtil.randomRange(layout.getMinX(), layout.getMaxX()), y, RandomUtil.randomRange(layout.getMinZ(), layout.getMaxZ()));
+            BlockPos.MutableBlockPos randomPos = new BlockPos.MutableBlockPos(
+                    Mth.randomBetweenInclusive(random, layout.getMinX(), layout.getMaxX() - 1),
+                    y,
+                    Mth.randomBetweenInclusive(random, layout.getMinZ(), layout.getMaxZ() - 1)
+            );
 
             if(lastSuccess != null && random.nextFloat() < 0.10F)
             {

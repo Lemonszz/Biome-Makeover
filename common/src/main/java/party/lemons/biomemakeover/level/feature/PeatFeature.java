@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
@@ -19,6 +20,9 @@ import java.util.Random;
 
 public class PeatFeature extends Feature<NoneFeatureConfiguration>
 {
+    public static final int RADIUS_MIN = 4;
+    public static final int RADIUS_MAX = 7;
+
     public PeatFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -26,10 +30,12 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
         boolean isSuccessful = false;
-        int radius = RandomUtil.randomRange(4, 8);
+
         BlockPos origin = ctx.origin();
         WorldGenLevel level = ctx.level();
         RandomSource random = ctx.random();
+
+        int radius = Mth.randomBetweenInclusive(random, RADIUS_MIN, RADIUS_MAX);
 
         BlockPos centerPos = new BlockPos(origin.getX(), 61, origin.getZ());
         if(!isWaterNearby(ctx.level(), centerPos)) return false;
@@ -41,7 +47,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
             {
                 int offsetX = xx - centerPos.getX();
                 int offsetZ = zz - centerPos.getZ();
-                if(offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
+                if(offsetX * offsetX + offsetZ * offsetZ <= radius * (radius + 1))
                 {
                     BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
                     BlockState upState = level.getBlockState(placePos.above());
@@ -67,7 +73,7 @@ public class PeatFeature extends Feature<NoneFeatureConfiguration>
                 {
                     int offsetX = xx - centerPos.getX();
                     int offsetZ = zz - centerPos.getZ();
-                    if(offsetX * offsetX + offsetZ * offsetZ <= radius * radius)
+                    if(offsetX * offsetX + offsetZ * offsetZ <= radius * (radius + 1))
                     {
                         BlockPos placePos = new BlockPos(xx, centerPos.getY(), zz);
                         BlockState upState = level.getBlockState(placePos.above());
