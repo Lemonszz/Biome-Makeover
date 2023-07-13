@@ -6,7 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "DefaultBiomesMixin_RemoveSwampTrees",
     "LilypadBlockMixin_PlantType",
     "farmland.BushBlockMixin",
     "farmland.CropBlockMixin",
