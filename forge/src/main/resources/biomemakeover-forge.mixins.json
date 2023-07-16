@@ -6,10 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "LilypadBlockMixin_PlantType",
-    "farmland.BushBlockMixin",
-    "farmland.CropBlockMixin",
-    "farmland.StemBlockMixin"
+    "LilypadBlockMixin_PlantType"
   ],
   "injectors": {
     "defaultRequire": 1
