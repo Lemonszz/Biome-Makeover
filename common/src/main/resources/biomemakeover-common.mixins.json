@@ -5,10 +5,8 @@
   "minVersion": "0.8",
   "client": [
     "badlands.HorseRendererMixin",
-    "client.ArmorStandRendererMixin",
     "client.BlockEntityWithoutLevelRendererMixin",
     "client.LevelRendererMixin",
-    "client.PlayerRendererMixin_Hat",
     "multipart.ClientPacketListenerMixin",
     "multipart.client.EntityRenderDispatcherMixin"
   ],

@@ -22,7 +22,7 @@ public abstract class HorseRendererMixin extends AbstractHorseRenderer<Horse, Ho
 
     @Inject(at = @At("RETURN"), method = "<init>")
     public void onConstruct(EntityRendererProvider.Context context, CallbackInfo cbi) {
-        addLayer(new CowboyHatRenderLayer<Horse, HorseModel<Horse>>(this, context.getModelSet()) {
+        addLayer(new CowboyHatRenderLayer<>(this, context.getModelSet()) {
             @Override
             protected void setup(PoseStack poseStack) {
                 poseStack.scale(1.05F, 1.05F, 1.05F);
