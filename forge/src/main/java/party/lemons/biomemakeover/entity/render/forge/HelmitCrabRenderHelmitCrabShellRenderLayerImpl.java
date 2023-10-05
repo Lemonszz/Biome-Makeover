@@ -65,7 +65,6 @@ public class HelmitCrabRenderHelmitCrabShellRenderLayerImpl
 		ArmorTrim.getTrim(entity.level().registryAccess(), stack).ifPresent(arg3x -> HelmitCrabRender.renderTrim(armorItem.getMaterial(), matrices, vertexConsumers, light, arg3x, model, false));
 		if (stack.hasFoil()) {
 			model.renderToBuffer(matrices, vertexConsumers.getBuffer(RenderType.armorEntityGlint()), light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-
 		}
 
 		matrices.popPose();

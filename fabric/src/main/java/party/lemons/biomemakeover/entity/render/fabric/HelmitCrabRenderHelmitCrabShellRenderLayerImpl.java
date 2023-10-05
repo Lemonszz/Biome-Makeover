@@ -52,25 +52,22 @@ public class HelmitCrabRenderHelmitCrabShellRenderLayerImpl
 			float dyeRed = (float)(dyeColor >> 16 & 0xFF) / 255.0F;
 			float dyeGreen = (float)(dyeColor >> 8 & 0xFF) / 255.0F;
 			float dyeBlue = (float)(dyeColor & 0xFF) / 255.0F;
-			renderModel(matrices, vertexConsumers, light, stack, bipedModel, hasGlint, dyeRed, dyeGreen, dyeBlue, null);
-			renderModel(matrices, vertexConsumers, light, stack, bipedModel, hasGlint, 1.0F, 1.0F, 1.0F,  "overlay");
+			renderModel(entity, matrices, vertexConsumers, light, stack, bipedModel, hasGlint, dyeRed, dyeGreen, dyeBlue, null);
+			renderModel(entity, matrices, vertexConsumers, light, stack, bipedModel, hasGlint, 1.0F, 1.0F, 1.0F,  "overlay");
 		} else {
-			renderModel(matrices, vertexConsumers, light, stack, bipedModel, hasGlint, 1.0F, 1.0F, 1.0F, null);
+			renderModel(entity, matrices, vertexConsumers, light, stack, bipedModel, hasGlint, 1.0F, 1.0F, 1.0F, null);
 		}
 
-		if(item instanceof ArmorItem armorItem) {
-			ArmorTrim.getTrim(entity.level().registryAccess(), stack).ifPresent(arg3x -> HelmitCrabRender.renderTrim(armorItem.getMaterial(), matrices, vertexConsumers, light, arg3x, bipedModel, false));
-		}
 		matrices.popPose();
 	}
 
-	private static void renderModel(
+	private static void renderModel(HelmitCrabEntity entity,
 			PoseStack poseStack,
 			MultiBufferSource multiBufferSource,
 			int light,
-			ItemStack armorItem,
+			ItemStack stack,
 			HumanoidModel humanoidModel,
-			boolean bl,
+			boolean hasGlint,
 			float f,
 			float g,
 			float h,
@@ -79,8 +76,12 @@ public class HelmitCrabRenderHelmitCrabShellRenderLayerImpl
 		poseStack.pushPose();
 		poseStack.translate(0, 0.65, 0.05);
 		poseStack.scale(1.1F, 1F, 1F);
-		VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.armorCutoutNoCull(getArmorLocation((ArmorItem)armorItem.getItem(), bl, string)));
+		VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.armorCutoutNoCull(getArmorLocation((ArmorItem)stack.getItem(), false, string)));
 		humanoidModel.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, f, g, h, 1.0F);
+
+		if(stack.getItem() instanceof ArmorItem armorItem) {
+			ArmorTrim.getTrim(entity.level().registryAccess(), stack).ifPresent(arg3x -> HelmitCrabRender.renderTrim(armorItem.getMaterial(), poseStack, multiBufferSource, light, arg3x, humanoidModel, false));
+		}
 		poseStack.popPose();
 	}
 
