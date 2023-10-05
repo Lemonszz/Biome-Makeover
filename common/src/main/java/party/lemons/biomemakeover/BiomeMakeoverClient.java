@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
@@ -8,10 +10,13 @@ import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HorseModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +28,7 @@ import party.lemons.biomemakeover.crafting.AltarScreen;
 import party.lemons.biomemakeover.crafting.DirectionDataScreen;
 import party.lemons.biomemakeover.crafting.witch.menu.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
+import party.lemons.biomemakeover.entity.render.feature.CowboyHatRenderLayer;
 import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
@@ -32,6 +38,7 @@ import party.lemons.taniwha.client.color.ColorProviderHelper;
 import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
 import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
 import party.lemons.taniwha.client.color.StaticBlockColorProvider;
+import party.lemons.taniwha.client.model.RenderLayerInjector;
 
 public class BiomeMakeoverClient
 {
@@ -83,6 +90,20 @@ public class BiomeMakeoverClient
             EntityRendererRegistry.register(BMEntities.STONE_GOLEM, StoneGolemRender::new);
             EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
         });
+
+        RenderLayerInjector.inject(
+                EntityType.HORSE,
+                (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
+                    @Override
+                    protected void setup(PoseStack poseStack) {
+                        poseStack.scale(1.05F, 1.05F, 1.05F);
+
+                        ((ModelPart)((HorseModel)getParentModel()).headParts().iterator().next()).translateAndRotate(poseStack);
+                        poseStack.translate(0F, -0.4F, 0);
+                        poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
+                    }
+                }
+        );
     }
 
     private static void initColors()

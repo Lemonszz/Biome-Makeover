@@ -20,7 +20,7 @@ import party.lemons.biomemakeover.block.blockentity.TapestryBlockEntity;
 import party.lemons.biomemakeover.init.BMBlocks;
 
 @Mixin(BlockEntityWithoutLevelRenderer.class)
-public class BlockEntityWithoutLevelRendererMixin {
+public class  BlockEntityWithoutLevelRendererMixin {
 
     @Shadow @Final private BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     private static TapestryBlockEntity TAPESTRY;
