@@ -6,7 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "LilypadBlockMixin_PlantType"
+    "LilypadBlockMixin_PlantType",
+    "bm.HatItemForgeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

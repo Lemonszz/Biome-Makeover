@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import party.lemons.biomemakeover.entity.render.feature.HatLayer;
 
 @Mixin(ArmorStandRenderer.class)
 public abstract class ArmorStandRendererMixin extends LivingEntityRenderer<ArmorStand, ArmorStandArmorModel> {
@@ -17,7 +16,7 @@ public abstract class ArmorStandRendererMixin extends LivingEntityRenderer<Armor
     @Inject(at = @At("RETURN"), method = "<init>")
     public void onConstruct (EntityRendererProvider.Context ctx, CallbackInfo cbi)
     {
-        addLayer(new HatLayer<>(this, ctx.getModelSet()));
+     //   addLayer(new HatLayer<>(this, ctx.getModelSet()));
     }
 
 
