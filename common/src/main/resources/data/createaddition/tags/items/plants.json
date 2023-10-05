@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:purple_glowshroom",
+    "biomemakeover:orange_glowshroom",
+    "biomemakeover:green_glowshroom",
+    "biomemakeover:mycelium_sprouts",
+    "biomemakeover:mycelium_roots",
+    "biomemakeover:tall_brown_mushroom",
+    "biomemakeover:tall_red_mushroom",
+    "biomemakeover:saguaro_cactus",
+    "biomemakeover:barrel_cactus",
+    "biomemakeover:barrel_cactus_flowered",
+    "biomemakeover:willowing_branches",
+    "biomemakeover:buttonbush",
+    "biomemakeover:black_thistle",
+    "biomemakeover:foxglove",
+    "biomemakeover:cattail",
+    "biomemakeover:reed",
+    "biomemakeover:small_lily_pad",
+    "biomemakeover:water_lily",
+    "biomemakeover:ivy",
+    "biomemakeover:itching_ivy",
+    "biomemakeover:moth_blossom",
+    "biomemakeover:wild_mushrooms"
+  ]
+}
