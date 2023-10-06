@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,6 +36,7 @@ import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMScreens;
+import party.lemons.biomemakeover.util.extension.HorseHat;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 import party.lemons.taniwha.client.color.ColorProviderHelper;
 import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
@@ -103,6 +105,12 @@ public class BiomeMakeoverClient
             RenderLayerInjector.inject(
                     EntityType.HORSE,
                     (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
+
+                        @Override
+                        protected boolean hasHat(LivingEntity entity) {
+                            return ((HorseHat)entity).hasHat();
+                        }
+
                         @Override
                         protected void setup(PoseStack poseStack) {
                             poseStack.scale(1.05F, 1.05F, 1.05F);

@@ -21,8 +21,16 @@ public abstract class CowboyHatRenderLayer<T extends LivingEntity, M extends Ent
 
     }
 
+    protected boolean hasHat(T entity)
+    {
+        return true;
+    }
+
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
+        if(!hasHat(entity))
+            return;
+
         poseStack.pushPose();
         setup(poseStack);
 
