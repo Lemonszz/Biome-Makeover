@@ -32,10 +32,7 @@ import party.lemons.biomemakeover.crafting.DirectionDataScreen;
 import party.lemons.biomemakeover.crafting.witch.menu.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatRenderLayer;
-import party.lemons.biomemakeover.init.BMBlockEntities;
-import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMScreens;
+import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.extension.HorseHat;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 import party.lemons.taniwha.client.color.ColorProviderHelper;
@@ -162,7 +159,7 @@ public class BiomeMakeoverClient
             {
                 if(world instanceof ClientLevel)
                 {
-                    if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
+                    if(((ClientLevel) world).getBiome(pos).is(BMFeatures.SWAMP_BIOMES))
                     {
                         return new int[]{-10, 15, -10};
                     }
@@ -171,8 +168,7 @@ public class BiomeMakeoverClient
                 return super.getColorBoosts(world, state, pos, tintIndex);
             }
         },
-BMBlocks.WILLOW_LEAVES,
-                BMBlocks.WILLOWING_BRANCHES
+            BMBlocks.WILLOW_LEAVES, BMBlocks.WILLOWING_BRANCHES
         );
 
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),
