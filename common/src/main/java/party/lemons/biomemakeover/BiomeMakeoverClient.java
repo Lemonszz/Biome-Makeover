@@ -138,7 +138,7 @@ public class BiomeMakeoverClient
             {
                 if(world instanceof ClientLevel && pos != null)
                 {
-                    if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
+                    if(((ClientLevel) world).getBiome(pos).is(BMFeatures.SWAMP_BIOMES))
                     {
                         return new int[]{-20, 40, -20};
                     }
