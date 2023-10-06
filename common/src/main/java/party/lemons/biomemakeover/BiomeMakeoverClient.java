@@ -42,6 +42,8 @@ import party.lemons.taniwha.client.model.RenderLayerInjector;
 
 public class BiomeMakeoverClient
 {
+    //TODO: why am I doing env == client checks in here?
+
     public static void init()
     {
         if (Platform.getEnvironment() == Env.CLIENT) {
@@ -89,21 +91,23 @@ public class BiomeMakeoverClient
             EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC, AdjudicatorMimicRender::new);
             EntityRendererRegistry.register(BMEntities.STONE_GOLEM, StoneGolemRender::new);
             EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
-        });
 
-        RenderLayerInjector.inject(
-                EntityType.HORSE,
-                (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
-                    @Override
-                    protected void setup(PoseStack poseStack) {
-                        poseStack.scale(1.05F, 1.05F, 1.05F);
 
-                        ((ModelPart)((HorseModel)getParentModel()).headParts().iterator().next()).translateAndRotate(poseStack);
-                        poseStack.translate(0F, -0.4F, 0);
-                        poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
+
+            RenderLayerInjector.inject(
+                    EntityType.HORSE,
+                    (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
+                        @Override
+                        protected void setup(PoseStack poseStack) {
+                            poseStack.scale(1.05F, 1.05F, 1.05F);
+
+                            ((ModelPart)((HorseModel)getParentModel()).headParts().iterator().next()).translateAndRotate(poseStack);
+                            poseStack.translate(0F, -0.4F, 0);
+                            poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
+                        }
                     }
-                }
-        );
+            );
+        });
     }
 
     private static void initColors()

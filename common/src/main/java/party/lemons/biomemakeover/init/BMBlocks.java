@@ -342,6 +342,7 @@ public class BMBlocks
 
                 RegistrySupplier<Block> wallBlock = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_wall_tapestry"), ()->new ColorTapestryWallBlock(dye, properties(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD).dropsLike(tapestryBlock.get())));
                 RegistrySupplier<Item> it = ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new StandingAndWallBlockItem(tapestryBlock.get(), wallBlock.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON), Direction.DOWN));
+                CreativeTabRegistry.append(BMTab.TAB, it);
 
                 initBlockItem(tapestryBlock, it);
                 initBlockItem(wallBlock, it);
