@@ -9,6 +9,8 @@ import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -43,19 +45,22 @@ import party.lemons.taniwha.client.model.RenderLayerInjector;
 public class BiomeMakeoverClient
 {
     //TODO: why am I doing env == client checks in here?
-
+    @Environment(EnvType.CLIENT)
     public static void init()
     {
         if (Platform.getEnvironment() == Env.CLIENT) {
-            BMEntities.registerModelLayers();;
+            BMEntities.registerModelLayers();
 
-            LifecycleEvent.SETUP.register(()->{
+            BMBlockEntities.DIRECTIONAL_DATA.listen((b)->{
                 BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY.get(), TapestryRenderer::new);
                 BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR.get(), AltarRenderer::new);
                 BlockEntityRendererRegistry.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE.get(), LightningBugBottleRenderer::new);
+            });
 
-                initColors();
 
+            initColors();
+
+            BMScreens.DIRECTIONAL_DATA.listen((b)->{
                 MenuRegistry.registerScreenFactory(BMScreens.WITCH.get(), WitchScreen::new);
                 MenuRegistry.registerScreenFactory(BMScreens.ALTAR.get(), AltarScreen::new);
                 MenuRegistry.registerScreenFactory(BMScreens.DIRECTIONAL_DATA.get(), DirectionDataScreen::new);
@@ -65,6 +70,7 @@ public class BiomeMakeoverClient
         }
     }
 
+    @Environment(EnvType.CLIENT)
     public static void registerModels()
     {
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
