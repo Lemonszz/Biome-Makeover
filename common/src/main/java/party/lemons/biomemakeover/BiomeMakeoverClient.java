@@ -35,10 +35,7 @@ import party.lemons.biomemakeover.entity.render.feature.CowboyHatRenderLayer;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.extension.HorseHat;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
-import party.lemons.taniwha.client.color.ColorProviderHelper;
-import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
-import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
-import party.lemons.taniwha.client.color.StaticBlockColorProvider;
+import party.lemons.taniwha.client.color.*;
 import party.lemons.taniwha.client.model.RenderLayerInjector;
 
 public class BiomeMakeoverClient
@@ -127,7 +124,8 @@ public class BiomeMakeoverClient
                 BMBlocks.ANCIENT_OAK_LEAVES,
                 BMBlocks.IVY
         );
-        ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
+
+        ColorProviderHelper.registerSimpleBlockWithItem(new TemperatureGradientColorProvider(0x729460, 0x84ab6f, 0xa0ab6f),
                 BMBlocks.SWAMP_CYPRESS_LEAVES
         );
 
