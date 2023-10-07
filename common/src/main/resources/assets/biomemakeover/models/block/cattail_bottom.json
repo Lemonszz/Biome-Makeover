@@ -1,7 +1,7 @@
 {
-  "parent": "biomemakeover:block/shaded_tinted_cross",
+  "parent": "biomemakeover:block/tinted_crop",
   "ambientocclusion": true,
   "textures": {
-    "cross": "biomemakeover:block/cattail_bottom"
+    "crop": "biomemakeover:block/cattail_bottom"
   }
 }
