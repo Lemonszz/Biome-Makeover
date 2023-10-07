@@ -4,28 +4,26 @@ import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import party.lemons.biomemakeover.init.BMFeatures;
 
-import java.util.function.BiConsumer;
-
 public class WillowFoliagePlacer extends FoliagePlacer
 {
     protected final int height;
-    protected final boolean doWillows;
+    protected final float offsetChance;
 
-    public WillowFoliagePlacer(IntProvider radius, IntProvider offset, int height, boolean doWillows)
+    public WillowFoliagePlacer(IntProvider radius, IntProvider offset, int height, float offsetChance)
     {
         super(radius, offset);
         this.height = height;
-        this.doWillows = doWillows;
+        this.offsetChance = offsetChance;
     }
     @Override
     protected FoliagePlacerType<?> type() {
@@ -51,18 +49,28 @@ public class WillowFoliagePlacer extends FoliagePlacer
     }
 
 
-    protected void placeLeavesRow(LevelSimulatedReader levelSimulatedReader, FoliageSetter foliageSetter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos blockPos, int i, int j, boolean bl, BoundingBox box) {
-        int k = bl ? 1 : 0;
-        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-        for (int l = -i; l <= i + k; ++l) {
-            for (int m = -i; m <= i + k; ++m) {
-                if (this.shouldSkipLocationSigned(random, l, j, m, i, bl)) continue;
-                mutableBlockPos.setWithOffset(blockPos, l, j, m);
-                FoliagePlacer.tryPlaceLeaf(levelSimulatedReader, foliageSetter, random, treeConfiguration, mutableBlockPos);
+    protected void placeLeavesRow(LevelSimulatedReader level, FoliageSetter foliageSetter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos blockPos, int radius, int yy, boolean isBig, BoundingBox box) {
+        int offset = isBig ? 1 : 0;
+        BlockPos.MutableBlockPos placePos = new BlockPos.MutableBlockPos();
+        for (int xx = -radius; xx <= radius + offset; ++xx) {
+            for (int zz = -radius; zz <= radius + offset; ++zz) {
+                if (this.shouldSkipLocationSigned(random, xx, yy, zz, radius, isBig)) continue;
+                placePos.setWithOffset(blockPos, xx, yy, zz);
+                placeLeaf(level, foliageSetter, random, treeConfiguration, placePos, box);
 
-                box.encapsulate(new BlockPos(mutableBlockPos));
+                if(random.nextFloat() < offsetChance)
+                {
+                    Direction offsetDir = Direction.getRandom(random);
+                    placeLeaf(level, foliageSetter, random, treeConfiguration, placePos.relative(offsetDir), box);
+                }
             }
         }
+    }
+
+    protected void placeLeaf(LevelSimulatedReader level, FoliageSetter setter, RandomSource random, TreeConfiguration configuration, BlockPos placePos, BoundingBox box)
+    {
+        FoliagePlacer.tryPlaceLeaf(level, setter, random, configuration, placePos);
+        box.encapsulate(new BlockPos(placePos));
     }
 
     @Override
@@ -81,10 +89,11 @@ public class WillowFoliagePlacer extends FoliagePlacer
         }
     }
 
-    protected static <P extends WillowFoliagePlacer> Products.P4<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, Integer, Boolean> buildCodec(RecordCodecBuilder.Instance<P> instance)
-    {
-        return foliagePlacerParts(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter((cdc)->cdc.height)).and(Codec.BOOL.fieldOf("doWillows").forGetter((cdc)->cdc.doWillows));
-    }
-
-    public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create((instance)->buildCodec(instance).apply(instance, WillowFoliagePlacer::new));
+    public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create(
+            (instance)->foliagePlacerParts(instance)
+                    .and(
+                            Codec.intRange(0, 16).fieldOf("height").forGetter((cdc)->cdc.height)
+                    ).and(
+                            Codec.FLOAT.fieldOf("offset_chance").forGetter((cdc)->cdc.offsetChance)
+                    ).apply(instance, WillowFoliagePlacer::new));
 }
