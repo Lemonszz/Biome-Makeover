@@ -216,9 +216,6 @@ public class BMBlocks
         DIRECTIONAL_DATA.listen((b)->{
             HoeItemHooks.addTillable(PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
             HoeItemHooks.addTillable(MOSSY_PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
-
-           // FlammabilityRegistry.setBlockFlammable(REED_THATCH_DECORATION.get(DecorationBlockFactory.Type.SLAB).get(), 20, 30);
-           // FlammabilityRegistry.setBlockFlammable(REED_THATCH_DECORATION.get(DecorationBlockFactory.Type.STAIR).get(), 20, 30);
         });
 
         SUSPICIOUS_RED_SAND.listen((b)->{
