@@ -1,28 +1,19 @@
 package party.lemons.biomemakeover.block.blockentity;
 
-import com.google.common.collect.Lists;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.*;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,43 +22,30 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.BMConfig;
 import party.lemons.biomemakeover.block.AltarBlock;
 import party.lemons.biomemakeover.crafting.AltarMenu;
 import party.lemons.biomemakeover.init.BMBlockEntities;
 import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMEnchantments;
 import party.lemons.biomemakeover.init.BMItems;
-import party.lemons.biomemakeover.util.RandomUtil;
+import party.lemons.biomemakeover.item.Cursing;
 import party.lemons.biomemakeover.util.effect.BiomeMakeoverEffect;
 import party.lemons.biomemakeover.util.effect.EffectHelper;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class AltarBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer
 {
     public static final int MAX_TIME = 300;
     private static final double PI = Math.PI;
-    private static final double PI2 = Math.PI * 2D;
-    private static final List<Enchantment> curses = Lists.newArrayList();
+    private static final double TAU = Math.PI * 2D;
+    private static final RandomSource RANDOM = RandomSource.create();
 
     private NonNullList<ItemStack> inventory = NonNullList.withSize(2, ItemStack.EMPTY);
     private int progress = 0;
     protected final ContainerData data;
     public int ticks;
-    public float nextPageAngle;
-    public float pageAngle;
-    public float nextPageTurn;
-    public float angleChange;
-    public float nextPageTurningSpeed;
-    public float pageTurningSpeed;
-    public float currentAngle;
-    public float lastAngle;
-    public float nextAngle;
-    private static final Random RANDOM = new Random();
+    public float nextPageAngle, pageAngle, nextPageTurn, angleChange, nextPageTurningSpeed, pageTurningSpeed, currentAngle, lastAngle, nextAngle;
+
     private boolean workingPrevious = false;
 
     public AltarBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -115,24 +93,22 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                 progress++;
                 if(progress >= MAX_TIME)
                 {
-                    if(getItem(0).getItem() == Items.BOOK)
+                    ItemStack cursedItem = Cursing.curseItemStack(level, getItem(0), level.random);
+                    if(cursedItem.isEmpty())
                     {
-                        ItemStack newStack = new ItemStack(Items.ENCHANTED_BOOK);
-                        Enchantment curse = getRandomCurse(level.registryAccess(), level.random);
-                        if(curse == null)
-                            return;
-                        EnchantedBookItem.addEnchantment(newStack, new EnchantmentInstance(curse, 1));
-                        inventory.set(0, newStack);
-                    }else if(!curseItemStack(level, getItem(0), level.random))
-                    {
+                        //Cursing failed, get rid of the item
                         Block.popResource(level, getBlockPos(), getItem(0).copy());
                         getItem(0).shrink(1);
+                    }
+                    else {
+                        setItem(0, cursedItem);
                     }
                     progress = 0;
                     getItem(1).shrink(1);
                 }
             }
-        }else if(!level.isClientSide())
+        }
+        else if(!level.isClientSide())
         {
             progress = 0;
             working = false;
@@ -188,32 +164,32 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
 
         while(this.currentAngle >= PI)
         {
-            this.currentAngle -= PI2;
+            this.currentAngle -= TAU;
         }
 
         while(this.currentAngle < -PI)
         {
-            this.currentAngle += PI2;
+            this.currentAngle += TAU;
         }
 
         while(this.nextAngle >= PI)
         {
-            this.nextAngle -= PI2;
+            this.nextAngle -= TAU;
         }
 
         while(this.nextAngle < -PI)
         {
-            this.nextAngle += PI2;
+            this.nextAngle += TAU;
         }
 
         float rotation;
-        for(rotation = this.nextAngle - this.currentAngle; rotation >= PI; rotation -= PI2)
+        for(rotation = this.nextAngle - this.currentAngle; rotation >= PI; rotation -= TAU)
         {
         }
 
         while(rotation < -PI)
         {
-            rotation += PI2;
+            rotation += TAU;
         }
 
         this.currentAngle += rotation * 0.4F;
@@ -228,99 +204,8 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
 
     public boolean canWork()
     {
-        return isValidForCurse(inventory.get(0)) && !inventory.get(1).isEmpty();
+        return Cursing.isValidForCurse(inventory.get(0)) && !inventory.get(1).isEmpty();
     }
-
-    public static boolean isValidForCurse(ItemStack stack)
-    {
-        if(stack.isEmpty() || stack.getItem() instanceof EnchantedBookItem) return false;
-
-        if(stack.getItem() == Items.BOOK) return true;
-
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-        if(enchantments.isEmpty() || (stack.hasTag() && stack.getTag().contains("BMCursed"))) return false;
-
-        boolean hasNewCompatibleCurse = false;
-        for(Enchantment enchantment : enchantments.keySet())
-        {
-            if(!BuiltInRegistries.ENCHANTMENT.wrapAsHolder(enchantment).is(BMEnchantments.ALTAR_CANT_UPGRADE) && enchantment.getMaxLevel() > 1 && !enchantment.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(enchantment) < enchantment.getMaxLevel() + 1)) return true;
-
-            if(enchantment.isCurse() && enchantment.canEnchant(stack) && !enchantments.containsKey(enchantment))
-                hasNewCompatibleCurse = true;
-        }
-        return hasNewCompatibleCurse;
-    }
-
-    public static Enchantment getRandomCurse(RegistryAccess registryAccess, RandomSource random)
-    {
-        if(curses.isEmpty())
-        {
-            curses.addAll(registryAccess.registryOrThrow(Registries.ENCHANTMENT).stream().filter(e->e.isCurse() && !BuiltInRegistries.ENCHANTMENT.wrapAsHolder(e).is(BMEnchantments.ALTAR_CURSE_EXCLUDED)).toList());
-        }
-        if(curses.isEmpty())
-            return null;
-
-        return curses.get(random.nextInt(curses.size()));
-    }
-
-    public static boolean curseItemStack(Level level, ItemStack stack, RandomSource random)
-    {
-        if(isValidForCurse(stack))
-        {
-            Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-            List<Enchantment> validEnchants = enchantments.keySet().stream().filter(
-                    e -> !BuiltInRegistries.ENCHANTMENT.wrapAsHolder(e).is(BMEnchantments.ALTAR_CANT_UPGRADE) && e.getMaxLevel() > 1 && !e.isCurse() && (!BMConfig.INSTANCE.strictAltarCursing || enchantments.get(e) < e.getMaxLevel() + 1)
-            ).toList();
-
-            Enchantment toUpgrade = validEnchants.get(random.nextInt(validEnchants.size()));
-            enchantments.put(toUpgrade, enchantments.get(toUpgrade) + 1);
-
-            Enchantment curse = getRandomCurse(level.registryAccess(), random);
-            if(curse == null)
-                return false;
-
-            int attempts = 0;   //Attempts is to stop a potential infinite loop, if code is up to this point we SHOULD have a curse that's compatible, we gonna brute force it at this point lol
-            while(enchantments.containsKey(curse) || !curse.canEnchant(stack))
-            {
-                curse = getRandomCurse(level.registryAccess(), random);
-                if(curse == null)
-                    return false;
-
-                attempts++;
-                if(attempts >= 100)
-                {
-                    curse = null;
-                    break;
-                }
-            }
-
-            //Brute force tactic
-            if(curse == null)
-            {
-                for(Enchantment enchantment : level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).stream().sorted((e, e1)-> RandomUtil.randomRange(-1, 1)).collect(Collectors.toList()))
-                {
-                    if(enchantment.isCurse() && enchantment.canEnchant(stack) && !enchantments.containsKey(enchantment))
-                        curse = enchantment;
-                }
-            }
-
-            if(curse == null)
-                return false;
-
-            int curseLevel = curse.getMaxLevel() == 1 ? 1 : RandomUtil.randomRange(curse.getMinLevel(), curse.getMaxLevel());
-            enchantments.put(curse, curseLevel);
-            CompoundTag tag = stack.getOrCreateTag();
-            tag.putBoolean("BMCursed", true);
-            stack.setTag(tag);
-            stack.setRepairCost(39);
-
-            EnchantmentHelper.setEnchantments(enchantments, stack);
-            return true;
-        }
-
-        return false;
-    }
-
 
     @Override
     public int[] getSlotsForFace(Direction direction) {
@@ -330,7 +215,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
 
     @Override
     public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
-        if(slot == 0 && isValidForCurse(stack)) return true;
+        if(slot == 0 && Cursing.isValidForCurse(stack)) return true;
         else return slot == 1 && stack.is(BMItems.CURSE_FUEL);
     }
 
