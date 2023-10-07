@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "biomemakeover:block/reed_thatch",
+    "end": "biomemakeover:block/reed_thatch_top"
+  }
+}

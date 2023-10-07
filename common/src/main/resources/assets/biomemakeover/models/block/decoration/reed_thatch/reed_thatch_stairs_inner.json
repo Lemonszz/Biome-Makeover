@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/reed_thatch",
+    "top": "biomemakeover:block/reed_thatch",
+    "side": "biomemakeover:block/reed_thatch"
+  }
+}

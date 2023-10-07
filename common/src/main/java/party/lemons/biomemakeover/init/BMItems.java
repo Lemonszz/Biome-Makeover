@@ -29,6 +29,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.crafting.SuspiciousStewListing;
 import party.lemons.biomemakeover.item.*;
+import party.lemons.taniwha.block.DecorationBlockFactory;
 import party.lemons.taniwha.data.trade.listing.TradeTypes;
 import party.lemons.taniwha.hooks.PotteryPatternHooks;
 import party.lemons.taniwha.item.ArmorBuilder;
@@ -164,6 +165,7 @@ public class BMItems
 
         ICON_ITEM.listen((i)->{
             FuelRegistry.register(10000, BMBlocks.DRIED_PEAT.get().asItem());
+            FuelRegistry.register(220, BMBlocks.REED_THATCH.get().asItem());
 
             PotteryPatternHooks.addPotteryPatternItem(REFINED_POTTERY_SHERD.get(), BiomeMakeover.ID("refined_pottery_pattern"));
             PotteryPatternHooks.addPotteryPatternItem(WORKER_POTTERY_SHERD.get(), BiomeMakeover.ID("worker_pottery_pattern"));

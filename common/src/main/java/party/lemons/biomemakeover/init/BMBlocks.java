@@ -1,8 +1,10 @@
 package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
 import dev.architectury.hooks.item.tool.HoeItemHooks;
 import dev.architectury.registry.CreativeTabRegistry;
+import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.BlockPos;
@@ -36,6 +38,7 @@ import party.lemons.biomemakeover.level.generate.foliage.WillowSaplingGenerator;
 import party.lemons.biomemakeover.util.BMSoundType;
 import party.lemons.taniwha.block.BlockHelper;
 import party.lemons.taniwha.block.DecorationBlockFactory;
+import party.lemons.taniwha.block.FlammabilityRegistry;
 import party.lemons.taniwha.block.WoodBlockFactory;
 import party.lemons.taniwha.block.modifier.BlockModifier;
 import party.lemons.taniwha.block.modifier.FlammableModifier;
@@ -47,6 +50,7 @@ import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.util.BlockUtil;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class BMBlocks
@@ -66,6 +70,7 @@ public class BMBlocks
     private static final BlockBehaviour.Properties LEAF_PROPERTIES = properties(0.2F)
         .mapColor(MapColor.PLANT)
 				.randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating(BMBlocks::never).isViewBlocking(BMBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(BMBlocks::never);
+    private static final BlockBehaviour.Properties THATCH_PROPERTIES = properties(0.5F).instrument(NoteBlockInstrument.BANJO).mapColor(MapColor.PODZOL).sound(SoundType.GRASS);
 
     private static final BlockModifier[] LEAF_MODIFIERS = new BlockModifier[]{RTypeModifier.create(RType.CUTOUT),FlammableModifier.LEAVES};
 
@@ -147,6 +152,12 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> CATTAIL = registerBlockItem("cattail", ()->new ReedBlock(properties(0).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> REED = registerBlockItem("reed", ()->new ReedBlock(properties(0).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
+
+    public static final RegistrySupplier<Block> REED_THATCH = registerBlockItem("reed_thatch", ()->new TBlock(THATCH_PROPERTIES).modifiers(FlammableModifier.create(20, 30)));
+    public static final DecorationBlockFactory REED_THATCH_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "reed_thatch", REED_THATCH, THATCH_PROPERTIES, BMTab.TAB,
+            out -> out.getSecond().listen((i)-> FuelRegistry.register(73, i)))
+            .modifiers(FlammableModifier.create(20, 30)).slab().stair().register(BLOCKS, ITEMS);
+
     public static final RegistrySupplier<Block> SMALL_LILY_PAD = registerLilyPad("small_lily_pad", ()->new SmallLilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT), true);
     public static final RegistrySupplier<Block> WATER_LILY = registerLilyPad("water_lily", ()->new FloweredWaterlilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.COLOR_PINK)).modifiers(RTypeModifier.CUTOUT), true);
     public static final RegistrySupplier<Block> WILLOW_LEAVES = registerBlockItem("willow_leaves", ()->new TLeavesBlock(LEAF_PROPERTIES.mapColor(MapColor.TERRACOTTA_LIGHT_GREEN)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
@@ -205,6 +216,9 @@ public class BMBlocks
         DIRECTIONAL_DATA.listen((b)->{
             HoeItemHooks.addTillable(PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
             HoeItemHooks.addTillable(MOSSY_PEAT.get(), HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(PEAT_FARMLAND.get().defaultBlockState()), (c)->PEAT_FARMLAND.get().defaultBlockState());
+
+           // FlammabilityRegistry.setBlockFlammable(REED_THATCH_DECORATION.get(DecorationBlockFactory.Type.SLAB).get(), 20, 30);
+           // FlammabilityRegistry.setBlockFlammable(REED_THATCH_DECORATION.get(DecorationBlockFactory.Type.STAIR).get(), 20, 30);
         });
 
         SUSPICIOUS_RED_SAND.listen((b)->{
