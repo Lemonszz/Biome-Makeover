@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.block.blockentity.PoltergeistBlockEntity;
+import party.lemons.biomemakeover.init.BMAdvancements;
 import party.lemons.biomemakeover.init.BMEffects;
 import party.lemons.biomemakeover.init.BMPotions;
 import party.lemons.biomemakeover.level.PoltergeistHandler;
@@ -141,6 +143,9 @@ public class PoltergeistBlock extends TBlock implements EntityBlock
                     MobEffectInstance newEffect = new MobEffectInstance(BMPotions.POSSESSED.get(), instance.getDuration() + 2, nextLevel);
                     instance.update(newEffect);
                 }
+
+                if(living instanceof ServerPlayer player)
+                    BMAdvancements.POLTERGEIST_YOURSELF.trigger(player);
             }
         }
     }

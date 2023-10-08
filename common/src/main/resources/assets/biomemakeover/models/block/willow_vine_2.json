@@ -1,7 +1,7 @@
 {
-  "parent": "biomemakeover:block/shaded_tinted_cross",
+  "parent": "biomemakeover:block/tinted_crop",
   "ambientocclusion": false,
   "textures": {
-    "cross": "biomemakeover:block/willow_vine_2"
+    "crop": "biomemakeover:block/willow_vine_2"
   }
 }
