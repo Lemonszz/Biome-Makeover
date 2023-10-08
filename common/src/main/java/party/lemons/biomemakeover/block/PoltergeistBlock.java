@@ -126,10 +126,10 @@ public class PoltergeistBlock extends TBlock implements EntityBlock
 
     @Override
     public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity) {
-        final int maxTime = 600;
+        final int maxTime = 900;
         final int maxLevel = 4;
 
-        if (blockState.getValue(ENABLED) && entity.getY() < (double)blockPos.getY() + 0.9375 && entity.getBoundingBox().maxY > (double)blockPos.getY() + 0.25) {
+        if (blockState.getValue(ENABLED) && entity.getY() < (double)blockPos.getY() + 0.8 && entity.getBoundingBox().maxY > (double)blockPos.getY() + 0.25) {
             if(entity instanceof LivingEntity living)
             {
                 MobEffectInstance instance = living.getEffect(BMPotions.POSSESSED.get());
