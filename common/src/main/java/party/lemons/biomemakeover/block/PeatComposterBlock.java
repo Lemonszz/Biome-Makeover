@@ -38,6 +38,9 @@ public class PeatComposterBlock extends TBlock implements WorldlyContainerHolder
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult)
     {
         EctoplasmComposterBlock.emptyFullComposter(level, pos,  new ItemStack(BMBlocks.PEAT.get()));
+        if(!level.isClientSide())
+            BMAdvancements.PEAT_COMPOST.trigger((ServerPlayer) player);
+
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 }

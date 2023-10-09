@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/obtain_peat",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:dried_peat"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.obtain_dried_peat.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.obtain_dried_peat.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_disc": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:dried_peat"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_disc"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "biomemakeover:biomemakeover/enter_swamp",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:peat"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.obtain_peat.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.obtain_peat.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "create_peat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["biomemakeover:peat"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "create_peat"
+    ]
+  ]
+}
