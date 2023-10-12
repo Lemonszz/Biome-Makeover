@@ -6,11 +6,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import party.lemons.biomemakeover.BMConfig;
 
-public class InsomniaCurseEnchantment extends BMEnchantment
+import java.util.function.Supplier;
+
+public class InsomniaCurseEnchantment extends TickableAttributeEnchantment
 {
-    public InsomniaCurseEnchantment() {
-        super(Rarity.UNCOMMON, EnchantmentCategory.ARMOR, new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET});
+    public InsomniaCurseEnchantment(Supplier<BMConfig.EnchantConfig> config) {
+        super(config, true, Rarity.UNCOMMON, EnchantmentCategory.ARMOR, new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET});
     }
 
     @Override
@@ -23,42 +26,5 @@ public class InsomniaCurseEnchantment extends BMEnchantment
                 player.awardStat(Stats.TIME_SINCE_REST, level);
             }
         }
-    }
-
-    @Override
-    public int getMinCost(int i) {
-        return 25;
-    }
-
-    @Override
-    public int getMaxCost(int i) {
-        return 50;
-    }
-
-    @Override
-    public int getMaxLevel()
-    {
-        return 5;
-    }
-
-    @Override
-    public boolean isTreasureOnly() {
-        return true;
-    }
-
-    @Override
-    public boolean isCurse() {
-        return true;
-    }
-
-    @Override
-    public boolean isDiscoverable() {
-        return false;
-    }
-
-    @Override
-    public boolean isTradeable()
-    {
-        return false;
     }
 }

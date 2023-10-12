@@ -8,16 +8,16 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.phys.Vec3;
+import party.lemons.biomemakeover.BMConfig;
 
-import java.util.Random;
+import java.util.function.Supplier;
 
-public class ConductivityCurseEnchantment extends BMEnchantment {
+public class ConductivityCurseEnchantment extends TickableAttributeEnchantment {
 
-    public ConductivityCurseEnchantment() {
-        super(Rarity.UNCOMMON, EnchantmentCategory.ARMOR, new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET});
+    public ConductivityCurseEnchantment(Supplier<BMConfig.EnchantConfig> config) {
+        super(config, true, Rarity.UNCOMMON, EnchantmentCategory.ARMOR, new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET});
     }
 
     @Override
@@ -36,42 +36,5 @@ public class ConductivityCurseEnchantment extends BMEnchantment {
                 world.addFreshEntity(lightningEntity);
             }
         }
-    }
-
-    @Override
-    public int getMinCost(int i) {
-        return 25;
-    }
-
-    @Override
-    public int getMaxCost(int i) {
-        return 50;
-    }
-
-    @Override
-    public int getMaxLevel()
-    {
-        return 5;
-    }
-
-    @Override
-    public boolean isTreasureOnly() {
-        return true;
-    }
-
-    @Override
-    public boolean isCurse() {
-        return true;
-    }
-
-    @Override
-    public boolean isDiscoverable() {
-        return false;
-    }
-
-    @Override
-    public boolean isTradeable()
-    {
-        return false;
     }
 }
