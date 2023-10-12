@@ -35,6 +35,16 @@ public class PeatComposterBlock extends TBlock implements WorldlyContainerHolder
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState blockState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos blockPos) {
+        return 9;
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult)
     {
         EctoplasmComposterBlock.emptyFullComposter(level, pos,  new ItemStack(BMBlocks.PEAT.get()));
