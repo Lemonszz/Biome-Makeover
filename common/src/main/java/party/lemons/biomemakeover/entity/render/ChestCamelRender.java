@@ -37,14 +37,13 @@ public class ChestCamelRender extends CamelRenderer {
 
     private static class CamelChestLayer extends RenderLayer<Camel, CamelModel<Camel>>
     {
-        private final BlockState STATE = Blocks.CHEST.defaultBlockState();
         private final ChestBlockEntity chestDummy;
         private float openness = 0.0F;
 
         public CamelChestLayer(EntityRendererProvider.Context context, RenderLayerParent<Camel, CamelModel<Camel>> renderLayerParent) {
             super(renderLayerParent);
 
-            chestDummy = new ChestBlockEntity(BlockPos.ZERO, STATE){
+            chestDummy = new ChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState()){
                 @Override
                 public float getOpenNess(float f) {
                     return openness;
