@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -86,7 +87,7 @@ public class AncientOakTrunkPlacer extends TrunkPlacer
         List<HorizontalDirection> directions = Lists.newArrayList();
         for(int i = 0; i < 1 + random.nextInt(4); i++)
         {
-            makeBranch(level,biConsumer, random, list, directions, foliageX, y, foliageZ, RandomUtil.randomRange(trunkHeight - 13, trunkHeight - 7), trunkHeight, treeConfiguration);
+            makeBranch(level, biConsumer, random, list, directions, foliageX, y, foliageZ, trunkHeight - Mth.randomBetweenInclusive(random, 8, 13), trunkHeight, treeConfiguration);
         }
 
         return list;

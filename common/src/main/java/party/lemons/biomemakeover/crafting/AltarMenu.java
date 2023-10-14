@@ -9,9 +9,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.init.BMItems;
 import party.lemons.biomemakeover.init.BMScreens;
+import party.lemons.biomemakeover.item.Cursing;
 
 public class AltarMenu extends AbstractContainerMenu
 {
@@ -112,7 +112,7 @@ public class AltarMenu extends AbstractContainerMenu
         @Override
         public boolean mayPlace(ItemStack stack)
         {
-            return AltarBlockEntity.isValidForCurse(stack);
+            return Cursing.isValidForCurse(stack);
         }
 
         @Override

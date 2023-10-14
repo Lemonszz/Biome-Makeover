@@ -4,55 +4,21 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import party.lemons.biomemakeover.BMConfig;
 
 import java.util.UUID;
+import java.util.function.Supplier;
 
-public class EnfeeblementCurseEnchantment extends BMEnchantment
+public class EnfeeblementCurseEnchantment extends TickableAttributeEnchantment
 {
-    public EnfeeblementCurseEnchantment()
+    public EnfeeblementCurseEnchantment(Supplier<BMConfig.EnchantConfig> config)
     {
-        super(Rarity.UNCOMMON, EnchantmentCategory.VANISHABLE, EquipmentSlot.values());
+        super(config, true, Rarity.UNCOMMON, EnchantmentCategory.VANISHABLE, EquipmentSlot.values());
     }
 
     @Override
     public void initAttributes()
     {
         addAttributeModifier(Attributes.MAX_HEALTH, UUID.randomUUID().toString(), -2, AttributeModifier.Operation.ADDITION);
-    }
-
-    @Override
-    public int getMinCost(int i) {
-        return 25;
-    }
-
-    @Override
-    public int getMaxCost(int i) {
-        return 50;
-    }
-
-    public int getMaxLevel()
-    {
-        return 5;
-    }
-
-    @Override
-    public boolean isTreasureOnly() {
-        return true;
-    }
-
-    @Override
-    public boolean isCurse() {
-        return true;
-    }
-
-    @Override
-    public boolean isDiscoverable() {
-        return false;
-    }
-
-    @Override
-    public boolean isTradeable()
-    {
-        return false;
     }
 }

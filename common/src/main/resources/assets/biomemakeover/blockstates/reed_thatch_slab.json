@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/decoration/reed_thatch/reed_thatch_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/decoration/reed_thatch/reed_thatch"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/decoration/reed_thatch/reed_thatch_slab_top"
+    }
+  }
+}

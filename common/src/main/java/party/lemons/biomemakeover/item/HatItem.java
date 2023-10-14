@@ -21,7 +21,6 @@ public class HatItem extends ArmorItem
         super(MATERIAL, Type.HELMET, properties);
         this.hatTexture = hatTexture;
     }
-
     public ResourceLocation getHatTexture()
     {
         return hatTexture;

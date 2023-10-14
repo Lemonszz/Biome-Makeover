@@ -63,7 +63,7 @@
       "radius": 1,
       "offset": 1,
       "height": 3,
-      "doWillows": false,
+      "offset_chance": 0.5,
       "type": "biomemakeover:willow_foliage"
     }
   },

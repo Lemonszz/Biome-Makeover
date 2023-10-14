@@ -16,6 +16,7 @@ import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.mobeffect.AntidoteMobEffect;
 import party.lemons.biomemakeover.mobeffect.NocturnalMobEffect;
+import party.lemons.biomemakeover.mobeffect.PossessedEffect;
 import party.lemons.taniwha.entity.effect.TMobEffect;
 import party.lemons.taniwha.mixin.brewing.PotionBrewingInvoker;
 
@@ -30,6 +31,7 @@ public class BMPotions
     public static final Supplier<MobEffect> SHOCKED = EFFECTS.register(BiomeMakeover.ID("shocked"), ()->new TMobEffect(MobEffectCategory.HARMFUL, 0x6effff).addAttributeModifier(Attributes.MAX_HEALTH, "ad5a6d44-4a23-11eb-b378-0242ac130002", -2D,AttributeModifier.Operation.ADDITION));
     public static final Supplier<MobEffect>  ANTIDOTE = EFFECTS.register(BiomeMakeover.ID("antidote"), AntidoteMobEffect::new);
     public static final Supplier<MobEffect>  NOCTURNAL = EFFECTS.register(BiomeMakeover.ID("nocturnal"), NocturnalMobEffect::new);
+    public static final Supplier<MobEffect>  POSSESSED = EFFECTS.register(BiomeMakeover.ID("possessed"), PossessedEffect::new);
 
     public static final Supplier<Potion> ADRENALINE = POTIONS.register(BiomeMakeover.ID("adrenaline"), ()->new Potion("adrenaline", new MobEffectInstance(MobEffects.DAMAGE_BOOST, 2400, 1), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2400, 1), new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 2400)));
     public static final Supplier<Potion> ASSASSIN = POTIONS.register(BiomeMakeover.ID("assassin"), ()->new Potion("assassin", new MobEffectInstance(MobEffects.INVISIBILITY, 2400), new MobEffectInstance(MobEffects.SLOW_FALLING, 2400, 1), new MobEffectInstance(MobEffects.JUMP, 2400, 2)));

@@ -2,25 +2,22 @@ package party.lemons.biomemakeover.level.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TallSeagrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import party.lemons.biomemakeover.init.BMBlocks;
-
-import java.util.Random;
+import party.lemons.biomemakeover.util.SpreadUtil;
 
 public class OrangeGlowshroomFeature extends Feature<ProbabilityFeatureConfiguration>
 {
+    private static final float SPREAD_RADIUS = 9.0f;
+
     public OrangeGlowshroomFeature(Codec<ProbabilityFeatureConfiguration> codec) {
         super(codec);
     }
@@ -31,11 +28,14 @@ public class OrangeGlowshroomFeature extends Feature<ProbabilityFeatureConfigura
         RandomSource random = featurePlaceContext.random();
         WorldGenLevel level = featurePlaceContext.level();
         BlockPos pos = featurePlaceContext.origin();
-        int xOffset = random.nextInt(8) - random.nextInt(8);
-        int zOffset = random.nextInt(8) - random.nextInt(8);
-        int yLevel = level.getHeight(Heightmap.Types.OCEAN_FLOOR, pos.getX() + xOffset, pos.getZ() + zOffset);
 
-        BlockPos placePos = new BlockPos(pos.getX() + xOffset, yLevel, pos.getZ() + zOffset);
+        BlockPos placePos = SpreadUtil.sampleCircularOutwardlyFadingSpread(random, SPREAD_RADIUS, (dx, dz) -> {
+            int xOffset = Math.round(dx);
+            int zOffset = Math.round(dz);
+            int yLevel = level.getHeight(Heightmap.Types.OCEAN_FLOOR, pos.getX() + xOffset, pos.getZ() + zOffset);
+            return new BlockPos(pos.getX() + xOffset, yLevel, pos.getZ() + zOffset);
+        });
+
         if (level.getBlockState(placePos).is(Blocks.WATER))
         {
             BlockState state = BMBlocks.ORANGE_GLOWSHROOM.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);

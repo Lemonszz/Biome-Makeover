@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:reed_thatch"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:reed_thatch_stairs",
+    "count": 4
+  }
+}

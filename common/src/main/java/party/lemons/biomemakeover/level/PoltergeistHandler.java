@@ -172,7 +172,8 @@ public class PoltergeistHandler {
 
     public static void doParticles(Level world, BlockPos pos)
     {
-        new S2C_DoPoltergeistParticle(pos).sendToChunkListeners(world.getChunkAt(pos));
+        if(!world.isClientSide())
+           new S2C_DoPoltergeistParticle(pos).sendToChunkListeners(world.getChunkAt(pos));
     }
 
     public static boolean doBehaviour(Level level, @Nullable Entity poltergeist, BlockPos pos)

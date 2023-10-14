@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import party.lemons.biomemakeover.init.BMEnchantments;
-import party.lemons.biomemakeover.item.enchantment.BMEnchantment;
+import party.lemons.biomemakeover.item.enchantment.TickableAttributeEnchantment;
 import party.lemons.taniwha.util.ItemUtil;
 
 import java.util.Collection;
@@ -44,9 +44,9 @@ public abstract class LivingEntityMixin extends Entity
                 {
                     ItemUtil.forEachEnchantment((en, stack, lvl)->
                     {
-                        if(en instanceof BMEnchantment)
+                        if(en instanceof TickableAttributeEnchantment)
                         {
-                            ((BMEnchantment) en).removeAttributes((LivingEntity) (Object) this, pair.getFirst());
+                            ((TickableAttributeEnchantment) en).removeAttributes((LivingEntity) (Object) this, pair.getFirst());
                         }
                     }, st, true);
                     it.remove();
@@ -60,10 +60,10 @@ public abstract class LivingEntityMixin extends Entity
                 {
                     ItemUtil.forEachEnchantment((en, st, lvl)->
                     {
-                        if(en instanceof BMEnchantment)
+                        if(en instanceof TickableAttributeEnchantment)
                         {
-                            ((BMEnchantment) en).onTick((LivingEntity) (Object) this, st, lvl);
-                            if(!hasAttributeStack(st) && ((BMEnchantment) en).addAttributes((LivingEntity) (Object) this, st, slot, lvl))
+                            ((TickableAttributeEnchantment) en).onTick((LivingEntity) (Object) this, st, lvl);
+                            if(!hasAttributeStack(st) && ((TickableAttributeEnchantment) en).addAttributes((LivingEntity) (Object) this, st, slot, lvl))
                             {
                                 attributeStacks.add(new Pair<>(slot, st));
                             }

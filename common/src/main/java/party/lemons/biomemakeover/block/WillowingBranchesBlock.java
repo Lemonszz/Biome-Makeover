@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -219,7 +220,13 @@ public class WillowingBranchesBlock extends TBlock implements SimpleWaterloggedB
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext)
     {
-        return SHAPES[blockState.getValue(STAGE)];
+        Vec3 offset = blockState.getOffset(blockGetter, blockPos);
+        return SHAPES[blockState.getValue(STAGE)].move(offset.x, offset.y, offset.z);
+    }
+
+    @Override
+    public float getMaxHorizontalOffset() {
+        return 0.10F;
     }
 
     @Override

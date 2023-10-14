@@ -174,6 +174,7 @@ public class BiomeMakeover {
     }
     public static ResourceLocation ID(String path)
     {
+        //TODO: move this from this class so it can be safely be called before full class loading
         return new ResourceLocation(Constants.MOD_ID, path);
     }
 }

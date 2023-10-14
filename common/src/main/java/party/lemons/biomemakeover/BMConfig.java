@@ -16,6 +16,40 @@ public class BMConfig
 	public String info = "You have found the config file for Biome Makeover!. This mod is made to be customised via datapack, so options in here may be limited. We have added additional functionality to datapacks, so you may find what you're looking for in our docs.";
 
 	public boolean strictAltarCursing = false;
+	public EnchantmentsConfig enchantmentConfig = new EnchantmentsConfig();
+
+
+
+	public static class EnchantmentsConfig
+	{
+		public final EnchantConfig DECAY = new EnchantConfig(5, 25, 50, true, false, false);
+		public final EnchantConfig INSOMNIA = new EnchantConfig(5, 25, 50, true, false, false);
+		public final EnchantConfig CONDUCTIVITY = new EnchantConfig(5, 25, 50, true, false, false);
+		public final EnchantConfig ENFEEBLEMENT = new EnchantConfig(5, 25, 50, true, false, false);
+		public final EnchantConfig DEPTHS = new EnchantConfig(3, 25, 50, true, false, false);
+		public final EnchantConfig FLAMMABILITY = new EnchantConfig(3, 25, 50, true, false, false);
+		public final EnchantConfig SUFFOCATION = new EnchantConfig(3, 25, 50, true, false, false);
+		public final EnchantConfig UNWIELDINESS = new EnchantConfig(3, 25, 50, true, false, false);
+		public final EnchantConfig INACCURACY = new EnchantConfig(3, 25, 50, true, false, false);
+		public final EnchantConfig BUCKLING = new EnchantConfig(3, 25, 50, true, false, false);
+	}
+
+	public static class EnchantConfig
+	{
+		public final int maxLevel, minCost, maxCost;
+		public final boolean isTreasureOnly, isDiscoverable, isTradeable;
+
+		public EnchantConfig(int maxLevel, int minCost, int maxCost, boolean isTreasureOnly, boolean isDiscoverable, boolean isTradeable)
+		{
+			this.maxLevel = maxLevel;
+			this.minCost = minCost;
+			this.maxCost = maxCost;
+			this.isTreasureOnly = isTreasureOnly;
+			this.isDiscoverable = isDiscoverable;
+			this.isTradeable = isTradeable;
+		}
+	}
+
 
 	public static BMConfig INSTANCE;
 	public static void load()

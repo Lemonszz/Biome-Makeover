@@ -1,20 +1,23 @@
 package party.lemons.biomemakeover;
 
-import dev.architectury.event.events.common.LifecycleEvent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.HorseModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,33 +29,37 @@ import party.lemons.biomemakeover.crafting.AltarScreen;
 import party.lemons.biomemakeover.crafting.DirectionDataScreen;
 import party.lemons.biomemakeover.crafting.witch.menu.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
-import party.lemons.biomemakeover.entity.render.feature.HatLayer;
+import party.lemons.biomemakeover.entity.render.feature.CowboyHatRenderLayer;
 import party.lemons.biomemakeover.entity.render.feature.ScarabElytraLayer;
-import party.lemons.biomemakeover.init.BMBlockEntities;
-import party.lemons.biomemakeover.init.BMBlocks;
-import party.lemons.biomemakeover.init.BMEntities;
-import party.lemons.biomemakeover.init.BMScreens;
+import party.lemons.biomemakeover.init.*;
+import party.lemons.biomemakeover.util.extension.HorseHat;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
 import party.lemons.taniwha.client.color.ColorProviderHelper;
 import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
 import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
-import party.lemons.taniwha.client.color.StaticBlockColorProvider;
+import party.lemons.taniwha.client.color.TemperatureGradientColorProvider;
+import party.lemons.taniwha.client.model.RenderLayerInjector;
 import party.lemons.taniwha.hooks.TClientEvents;
 
 public class BiomeMakeoverClient
 {
+    //TODO: why am I doing env == client checks in here?
+    @Environment(EnvType.CLIENT)
     public static void init()
     {
         if (Platform.getEnvironment() == Env.CLIENT) {
-            BMEntities.registerModelLayers();;
+            BMEntities.registerModelLayers();
 
-            LifecycleEvent.SETUP.register(()->{
+            BMBlockEntities.DIRECTIONAL_DATA.listen((b)->{
                 BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY.get(), TapestryRenderer::new);
                 BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR.get(), AltarRenderer::new);
                 BlockEntityRendererRegistry.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE.get(), LightningBugBottleRenderer::new);
+            });
 
-                initColors();
 
+            initColors();
+
+            BMScreens.DIRECTIONAL_DATA.listen((b)->{
                 MenuRegistry.registerScreenFactory(BMScreens.WITCH.get(), WitchScreen::new);
                 MenuRegistry.registerScreenFactory(BMScreens.ALTAR.get(), AltarScreen::new);
                 MenuRegistry.registerScreenFactory(BMScreens.DIRECTIONAL_DATA.get(), DirectionDataScreen::new);
@@ -62,6 +69,7 @@ public class BiomeMakeoverClient
         }
     }
 
+    @Environment(EnvType.CLIENT)
     public static void registerModels()
     {
         EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
@@ -92,7 +100,26 @@ public class BiomeMakeoverClient
             EntityRendererRegistry.register(BMEntities.BANNER_CAMEL, BannerCamelRender::new);
 
             TClientEvents.LAYERS.add((renderLayerParent, entityModelSet) -> new ScarabElytraLayer(renderLayerParent, entityModelSet));
-            TClientEvents.LAYERS.add((renderLayerParent, entityModelSet) -> new HatLayer(renderLayerParent, entityModelSet));
+
+            RenderLayerInjector.inject(
+                    EntityType.HORSE,
+                    (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
+
+                        @Override
+                        protected boolean hasHat(LivingEntity entity) {
+                            return ((HorseHat)entity).hasHat();
+                        }
+
+                        @Override
+                        protected void setup(PoseStack poseStack) {
+                            poseStack.scale(1.05F, 1.05F, 1.05F);
+
+                            ((ModelPart)((HorseModel)getParentModel()).headParts().iterator().next()).translateAndRotate(poseStack);
+                            poseStack.translate(0F, -0.4F, 0);
+                            poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
+                        }
+                    }
+            );
         });
     }
 
@@ -102,7 +129,8 @@ public class BiomeMakeoverClient
                 BMBlocks.ANCIENT_OAK_LEAVES,
                 BMBlocks.IVY
         );
-        ColorProviderHelper.registerSimpleBlockWithItem(new StaticBlockColorProvider(0x84ab6f),
+
+        ColorProviderHelper.registerSimpleBlockWithItem(new TemperatureGradientColorProvider(0x729460, 0x84ab6f, 0xa0ab6f),
                 BMBlocks.SWAMP_CYPRESS_LEAVES
         );
 
@@ -113,7 +141,7 @@ public class BiomeMakeoverClient
             {
                 if(world instanceof ClientLevel && pos != null)
                 {
-                    if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
+                    if(((ClientLevel) world).getBiome(pos).is(BMFeatures.SWAMP_BIOMES))
                     {
                         return new int[]{-20, 40, -20};
                     }
@@ -134,7 +162,7 @@ public class BiomeMakeoverClient
             {
                 if(world instanceof ClientLevel)
                 {
-                    if(((ClientLevel) world).getBiome(pos).is(BiomeTags.HAS_SWAMP_HUT))
+                    if(((ClientLevel) world).getBiome(pos).is(BMFeatures.SWAMP_BIOMES))
                     {
                         return new int[]{-10, 15, -10};
                     }
@@ -143,8 +171,7 @@ public class BiomeMakeoverClient
                 return super.getColorBoosts(world, state, pos, tintIndex);
             }
         },
-BMBlocks.WILLOW_LEAVES,
-                BMBlocks.WILLOWING_BRANCHES
+            BMBlocks.WILLOW_LEAVES, BMBlocks.WILLOWING_BRANCHES
         );
 
         ColorProviderHelper.registerSimpleBlockWithItem(new FoliageShiftBlockColorProvider(35, -10, -5),

@@ -165,5 +165,17 @@
   {
     "item": "biomemakeover:gray_bud",
     "chance": 0.25
+  },
+  {
+    "item": "biomemakeover:reed_thatch",
+    "chance": 0.8
+  },
+  {
+    "item": "biomemakeover:reed_thatch_slab",
+    "chance": 0.266
+  },
+  {
+    "item": "biomemakeover:reed_thatch_stairs",
+    "chance": 0.45
   }
 ]

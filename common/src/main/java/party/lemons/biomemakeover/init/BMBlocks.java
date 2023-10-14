@@ -1,10 +1,10 @@
 package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import com.mojang.datafixers.util.Pair;
 import dev.architectury.hooks.item.tool.HoeItemHooks;
 import dev.architectury.registry.CreativeTabRegistry;
+import dev.architectury.registry.fuel.FuelRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.BlockPos;
@@ -38,6 +38,7 @@ import party.lemons.biomemakeover.level.generate.foliage.WillowSaplingGenerator;
 import party.lemons.biomemakeover.util.BMSoundType;
 import party.lemons.taniwha.block.BlockHelper;
 import party.lemons.taniwha.block.DecorationBlockFactory;
+import party.lemons.taniwha.block.FlammabilityRegistry;
 import party.lemons.taniwha.block.WoodBlockFactory;
 import party.lemons.taniwha.block.modifier.BlockModifier;
 import party.lemons.taniwha.block.modifier.FlammableModifier;
@@ -46,11 +47,10 @@ import party.lemons.taniwha.block.rtype.RType;
 import party.lemons.taniwha.block.types.*;
 import party.lemons.taniwha.hooks.block.entity.BlockEntityHooks;
 import party.lemons.taniwha.item.ItemHelper;
-import party.lemons.taniwha.item.types.FakeItem;
 import party.lemons.taniwha.util.BlockUtil;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class BMBlocks
@@ -65,12 +65,12 @@ public class BMBlocks
     public static final TagKey<Block> BARREL_CACTUS_PLANTABLE = blockTag("barrel_cactus_plantable_on");
     public static final TagKey<Block> SAGUARO_CACTUS_PLANTABLE = blockTag("saguaro_cactus_plantable_on");
 
-    public static final Map<RegistrySupplier<Block>, RegistrySupplier<Item>> BLOCK_ITEMS = Maps.newHashMap();
+    public static final Map<RegistrySupplier<Block>, RegistrySupplier<Item>> BLOCK_ITEMS = new HashMap<>();
 
     private static final BlockBehaviour.Properties LEAF_PROPERTIES = properties(0.2F)
         .mapColor(MapColor.PLANT)
 				.randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(BMBlocks::canSpawnOnLeaves).isSuffocating(BMBlocks::never).isViewBlocking(BMBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(BMBlocks::never);
-
+    private static final BlockBehaviour.Properties THATCH_PROPERTIES = properties(0.5F).instrument(NoteBlockInstrument.BANJO).mapColor(MapColor.PODZOL).sound(SoundType.GRASS);
 
     private static final BlockModifier[] LEAF_MODIFIERS = new BlockModifier[]{RTypeModifier.create(RType.CUTOUT),FlammableModifier.LEAVES};
 
@@ -125,14 +125,14 @@ public class BMBlocks
     public static final RegistrySupplier<Block> BARREL_CACTUS = registerBlockItem("barrel_cactus", ()->new BarrelCactusBlock(false, properties(0).mapColor(MapColor.PLANT).pushReaction(PushReaction.DESTROY).randomTicks().sound(SoundType.WOOL).noOcclusion().instabreak().noCollission()).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> BARREL_CACTUS_FLOWERED = registerBlockItem("barrel_cactus_flowered", ()->new BarrelCactusBlock(true, properties(0).pushReaction(PushReaction.DESTROY).mapColor(MapColor.COLOR_PINK).sound(SoundType.WOOL).noOcclusion().instabreak().noCollission()).modifiers(RTypeModifier.CUTOUT));
 
-    public static final RegistrySupplier<Block> POLTERGEIST = registerBlockItem("poltergeist", ()->new PoltergeistBlock(properties(1.0F).pushReaction(PushReaction.BLOCK).lightLevel((bs)->bs.getValue(PoltergeistBlock.ENABLED) ? 7 : 0).mapColor(MapColor.WARPED_WART_BLOCK).sound(SoundType.LODESTONE)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> POLTERGEIST = registerBlockItem("poltergeist", ()->new PoltergeistBlock(properties(1.0F).pushReaction(PushReaction.BLOCK).lightLevel((bs)->bs.getValue(PoltergeistBlock.ENABLED) ? 7 : 0).noOcclusion().mapColor(MapColor.WARPED_WART_BLOCK).sound(SoundType.LODESTONE)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> ECTOPLASM_COMPOSTER = BLOCKS.register(BiomeMakeover.ID("ectoplasm_composter"), ()->new EctoplasmComposterBlock(properties(0.6F).ignitedByLava().sound(SoundType.WOOD).mapColor(MapColor.WOOD)));
     public static final RegistrySupplier<Block> PEAT_COMPOSTER = BLOCKS.register(BiomeMakeover.ID("peat_composter"), ()->new PeatComposterBlock(properties(0.6F).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).ignitedByLava().mapColor(MapColor.WOOD)));
 
     public static final WoodBlockFactory WILLOW_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "willow", BMTab.TAB).color(MapColor.TERRACOTTA_GRAY, MapColor.SAND).all(()->BMBoats.WILLOW).register(BLOCKS, ITEMS);
     public static final WoodBlockFactory SWAMP_CYPRESS_WOOD_INFO = new WoodBlockFactory(Constants.MOD_ID, "swamp_cypress", BMTab.TAB).color(MapColor.TERRACOTTA_BROWN, MapColor.TERRACOTTA_ORANGE).all(()->BMBoats.SWAMP_CYPRESS).register(BLOCKS, ITEMS);
 
-    public static final RegistrySupplier<Block> WILLOWING_BRANCHES = registerBlockItem("willowing_branches", ()->new WillowingBranchesBlock(properties(0.1F).pushReaction(PushReaction.DESTROY).randomTicks().sound(SoundType.VINE).noCollission().noOcclusion().ignitedByLava().mapColor(MapColor.PLANT)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), new FlammableModifier(15, 100)));
+    public static final RegistrySupplier<Block> WILLOWING_BRANCHES = registerBlockItem("willowing_branches", ()->new WillowingBranchesBlock(properties(0.1F).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).randomTicks().sound(SoundType.VINE).noCollission().noOcclusion().ignitedByLava().mapColor(MapColor.PLANT)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), new FlammableModifier(15, 100)));
     public static final RegistrySupplier<Block> WILLOW_SAPLING = registerBlockItem("willow_sapling", ()->new WaterSaplingBlock(new WillowSaplingGenerator(), 1, properties(0).noCollission().randomTicks().pushReaction(PushReaction.DESTROY).instabreak().mapColor(MapColor.PLANT).sound(SoundType.GRASS)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> SWAMP_CYPRESS_SAPLING = registerBlockItem("swamp_cypress_sapling", ()->new WaterSaplingBlock(new SwampCypressSaplingGenerator(), 3, properties(0).pushReaction(PushReaction.DESTROY).noCollission().randomTicks().mapColor(MapColor.PLANT).instabreak().sound(SoundType.GRASS)).modifiers(RTypeModifier.CUTOUT));
     public static final RegistrySupplier<Block> PEAT = registerBlockItem("peat", ()->new TBlock(properties(0.5F).sound(SoundType.WET_GRASS).mapColor(MapColor.TERRACOTTA_GRAY)));
@@ -150,8 +150,14 @@ public class BMBlocks
     public static final RegistrySupplier<Block> BLACK_THISTLE = registerBlockItem("black_thistle", ()->new BlackThistleBlock(properties(0).pushReaction(PushReaction.DESTROY).noCollission().instabreak().sound(SoundType.GRASS).mapColor(MapColor.TERRACOTTA_BLACK)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.TALL_FLOWER));
     public static final RegistrySupplier<Block> FOXGLOVE = registerBlockItem("foxglove", ()->new TTallFlowerBlock(properties(0).pushReaction(PushReaction.DESTROY).noCollission().instabreak().sound(SoundType.GRASS).mapColor(MapColor.COLOR_PINK)).modifiers(RTypeModifier.CUTOUT, FlammableModifier.TALL_FLOWER));
 
-    public static final RegistrySupplier<Block> CATTAIL = registerBlockItem("cattail", ()->new ReedBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
-    public static final RegistrySupplier<Block> REED = registerBlockItem("reed", ()->new ReedBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> CATTAIL = registerBlockItem("cattail", ()->new ReedBlock(properties(0).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
+    public static final RegistrySupplier<Block> REED = registerBlockItem("reed", ()->new ReedBlock(properties(0).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).instabreak().noCollission().sound(SoundType.GRASS).mapColor(MapColor.GLOW_LICHEN)).modifiers(RTypeModifier.CUTOUT));
+
+    public static final RegistrySupplier<Block> REED_THATCH = registerBlockItem("reed_thatch", ()->new TBlock(THATCH_PROPERTIES).modifiers(FlammableModifier.create(20, 30)));
+    public static final DecorationBlockFactory REED_THATCH_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "reed_thatch", REED_THATCH, THATCH_PROPERTIES, BMTab.TAB,
+            out -> out.getSecond().listen((i)-> FuelRegistry.register(73, i)))
+            .modifiers(FlammableModifier.create(20, 30)).slab().stair().register(BLOCKS, ITEMS);
+
     public static final RegistrySupplier<Block> SMALL_LILY_PAD = registerLilyPad("small_lily_pad", ()->new SmallLilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT), true);
     public static final RegistrySupplier<Block> WATER_LILY = registerLilyPad("water_lily", ()->new FloweredWaterlilyPadBlock(properties(0).pushReaction(PushReaction.DESTROY).instabreak().sound(BM_LILY_PAD_SOUND).mapColor(MapColor.COLOR_PINK)).modifiers(RTypeModifier.CUTOUT), true);
     public static final RegistrySupplier<Block> WILLOW_LEAVES = registerBlockItem("willow_leaves", ()->new TLeavesBlock(LEAF_PROPERTIES.mapColor(MapColor.TERRACOTTA_LIGHT_GREEN)).modifiers(RTypeModifier.create(RType.CUTOUT_MIPPED), FlammableModifier.LEAVES));
@@ -305,7 +311,7 @@ public class BMBlocks
         return bl;
     }
 
-    public static void initBlockItem(RegistrySupplier<Block> block, RegistrySupplier<Item> item)
+    private static void initBlockItem(RegistrySupplier<Block> block, RegistrySupplier<Item> item)
     {
         BLOCK_ITEMS.put(block, item);
     }
@@ -322,35 +328,40 @@ public class BMBlocks
 
     public static final class TapestryInfo
     {
-        private TapestryInfo(){}
+        private final List<RegistrySupplier<Block>> allBlocks;
+        private final List<RegistrySupplier<Block>> wallBlocks;
+        private final List<RegistrySupplier<Block>> floorBlocks;
+        private final RegistrySupplier<Block> adjudicator;
 
-        private final Set<RegistrySupplier<Block>> allBlocks = Sets.newHashSet();
-        private final Set<RegistrySupplier<Block>> wallBlocks = Sets.newHashSet();
-        private final Set<RegistrySupplier<Block>> floorBlocks = Sets.newHashSet();
-        private RegistrySupplier<Block> adjudicator;
-
-        public static TapestryInfo create()
+        static TapestryInfo create()
         {
-            return new TapestryInfo().init();
+            return new TapestryInfo();
         }
 
-        public TapestryInfo init()
+        private TapestryInfo()
         {
+            List<RegistrySupplier<Block>> allBlocks = new ArrayList<>();
+            List<RegistrySupplier<Block>> wallBlocks = new ArrayList<>();
+            List<RegistrySupplier<Block>> floorBlocks = new ArrayList<>();
+            Set<RegistrySupplier<Block>> allBlocksSet = new HashSet<>();
+            Set<RegistrySupplier<Block>> wallBlocksSet = new HashSet<>();
+            Set<RegistrySupplier<Block>> floorBlocksSet = new HashSet<>();
+
             for(DyeColor dye : DyeColor.values())
             {
-                RegistrySupplier<Block> tap = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new ColorTapestryBlock(dye, properties(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD)));
+                RegistrySupplier<Block> tapestryBlock = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new ColorTapestryBlock(dye, properties(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD)));
 
-                RegistrySupplier<Block> wallBlock = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_wall_tapestry"), ()->new ColorTapestryWallBlock(dye, properties(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD).dropsLike(tap.get())));
-                RegistrySupplier<Item> it = ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new StandingAndWallBlockItem(tap.get(), wallBlock.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON), Direction.DOWN));
+                RegistrySupplier<Block> wallBlock = BLOCKS.register(BiomeMakeover.ID(dye.getName() + "_wall_tapestry"), ()->new ColorTapestryWallBlock(dye, properties(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD).dropsLike(tapestryBlock.get())));
+                RegistrySupplier<Item> it = ItemHelper.registerItem(ITEMS, BiomeMakeover.ID(dye.getName() + "_tapestry"), ()->new StandingAndWallBlockItem(tapestryBlock.get(), wallBlock.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON), Direction.DOWN));
+                CreativeTabRegistry.append(BMTab.TAB, it);
 
-                initBlockItem(tap, it);
+                initBlockItem(tapestryBlock, it);
                 initBlockItem(wallBlock, it);
 
-
-                allBlocks.add(tap);
-                allBlocks.add(wallBlock);
-                floorBlocks.add(tap);
-                this.wallBlocks.add(wallBlock);
+                addIfNew(allBlocks, allBlocksSet, tapestryBlock);
+                addIfNew(allBlocks, allBlocksSet, wallBlock);
+                addIfNew(floorBlocks, floorBlocksSet, tapestryBlock);
+                addIfNew(wallBlocks, wallBlocksSet, wallBlock);
             }
             adjudicator = BLOCKS.register(BiomeMakeover.ID("adjudicator_tapestry"), ()->new AdjudicatorTapestryBlock(properties(1F).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD)));
 
@@ -363,22 +374,30 @@ public class BMBlocks
             allBlocks.add(adjudicator);
             allBlocks.add(adjWall);
 
-            return this;
+            this.allBlocks = Collections.unmodifiableList(allBlocks);
+            this.wallBlocks = Collections.unmodifiableList(wallBlocks);
+            this.floorBlocks = Collections.unmodifiableList(floorBlocks);
         }
 
-        public Set<RegistrySupplier<Block>> getWallBlocks(){
+        private static void addIfNew(List<RegistrySupplier<Block>> list, Set<RegistrySupplier<Block>> set, RegistrySupplier<Block> block) {
+            if (set.add(block)) {
+                list.add(block);
+            }
+        }
+
+        public List<RegistrySupplier<Block>> getWallBlocks() {
             return wallBlocks;
         }
 
-        public Set<RegistrySupplier<Block>> getFloorBlocks(){
+        public List<RegistrySupplier<Block>> getFloorBlocks() {
             return floorBlocks;
         }
 
-        public Set<RegistrySupplier<Block>> getBlocks(){
+        public List<RegistrySupplier<Block>> getBlocks() {
             return allBlocks;
         }
 
-        public RegistrySupplier<Block> getAdjudicatorTapestry(){
+        public RegistrySupplier<Block> getAdjudicatorTapestry() {
             return adjudicator;
         }
     }
@@ -425,7 +444,6 @@ public class BMBlocks
             }
             return this;
         }
-
 
     }
 

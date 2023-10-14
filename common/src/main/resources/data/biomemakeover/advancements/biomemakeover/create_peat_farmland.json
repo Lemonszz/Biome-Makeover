@@ -1,0 +1,46 @@
+{
+  "parent": "biomemakeover:biomemakeover/obtain_peat",
+  "display": {
+    "icon": {
+      "item": "biomemakeover:peat_farmland"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.create_peat_farmland.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.create_peat_farmland.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "create_peat": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tag": "minecraft:hoes"
+            }
+          },
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "block": "biomemakeover:peat_farmland"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "create_peat"
+    ]
+  ]
+}

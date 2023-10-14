@@ -64,7 +64,7 @@ public class HelmitCrabEntity extends Animal
 		setPathfindingMalus(BlockPathTypes.WATER, 0);
 		setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0);
 		getNavigation().setCanFloat(true);
-		armorDropChances[0] = 1.0F;
+		armorDropChances[0] = 0.0F;
 	}
 	private int hideTime = 0;
 
@@ -191,6 +191,15 @@ public class HelmitCrabEntity extends Animal
 	}
 
 	@Override
+	protected void dropCustomDeathLoot(DamageSource damageSource, int i, boolean bl) {
+		super.dropCustomDeathLoot(damageSource, i, bl);
+
+		if(!EnchantmentHelper.hasVanishingCurse(getShellItemStack()))
+			spawnAtLocation(getShellItemStack());
+		setShellItem(ItemStack.EMPTY);
+	}
+
+	@Override
 	public boolean isFood(ItemStack stack)
 	{
 		return stack.is(ItemTags.FISHES);
@@ -310,18 +319,6 @@ public class HelmitCrabEntity extends Animal
 		ItemStack old = getShellItemStack();
 		getEntityData().set(SHELL_ITEM, stack);
 		onEquipItem(EquipmentSlot.HEAD, old, stack);
-
-		/*
-		if (!stack.isEmpty()) {
-			SoundEvent soundEvent = SoundEvents.ARMOR_EQUIP_GENERIC;
-			Item item = stack.getItem();
-			if (item instanceof ArmorItem) {
-				soundEvent = ((ArmorItem)item).getMaterial().getEquipSound();
-			} else if (item == Items.ELYTRA) {
-				soundEvent = SoundEvents.ARMOR_EQUIP_ELYTRA;
-			}
-			this.playSound(soundEvent, 1.0F, 1.0F);
-		}*/
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

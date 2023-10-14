@@ -25,6 +25,7 @@ public abstract class PillagerMixin extends AbstractIllager
 	@Override
 	protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
 	{
+		//TODO: just directly use the ResourceLocation constructor???
 		if(ADDITIONAL_LOOT_LEADER == null)	//These are set here to prevent early loading of BiomeMakeover class
 		{
 			ADDITIONAL_LOOT_LEADER = BiomeMakeover.ID("entities/pillager_leader_additional");

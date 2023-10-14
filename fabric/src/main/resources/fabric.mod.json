@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "party.lemons.biomemakeover.fabric.BMFabric"
+    ],
+    "client": [
+      "party.lemons.biomemakeover.fabric.BMFabricClient"
     ]
   },
   "mixins": ["biomemakeover.mixins.json", "biomemakeover-common.mixins.json"],

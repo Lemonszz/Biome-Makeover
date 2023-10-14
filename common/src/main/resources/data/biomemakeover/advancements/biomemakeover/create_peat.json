@@ -1,0 +1,28 @@
+{
+  "parent": "biomemakeover:biomemakeover/obtain_peat",
+  "display": {
+    "icon": {
+      "item": "minecraft:composter"
+    },
+    "title": {
+      "translate": "advancements.biomemakeover.create_peat.title"
+    },
+    "description": {
+      "translate": "advancements.biomemakeover.create_peat.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "create_peat": {
+      "trigger": "biomemakeover:peat_compost"
+    }
+  },
+  "requirements": [
+    [
+      "create_peat"
+    ]
+  ]
+}

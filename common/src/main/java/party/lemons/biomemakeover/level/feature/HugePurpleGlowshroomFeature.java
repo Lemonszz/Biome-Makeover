@@ -3,6 +3,7 @@ package party.lemons.biomemakeover.level.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -16,6 +17,8 @@ import java.util.Random;
 
 public class HugePurpleGlowshroomFeature extends AbstractHugeMushroomFeature
 {
+    private static final int EXTRA_RADIUS_MIN = 1;
+    private static final int EXTRA_RADIUS_MAX = 2;
 
     public HugePurpleGlowshroomFeature(Codec<HugeMushroomFeatureConfiguration> codec) {
         super(codec);
@@ -78,7 +81,7 @@ public class HugePurpleGlowshroomFeature extends AbstractHugeMushroomFeature
 
     @Override
     protected void makeCap(LevelAccessor level, RandomSource random, BlockPos start, int y, BlockPos.MutableBlockPos mutable, HugeMushroomFeatureConfiguration config) {
-        int size = config.foliageRadius + RandomUtil.randomRange(1, 3);
+        int size = config.foliageRadius + Mth.randomBetweenInclusive(random, EXTRA_RADIUS_MIN, EXTRA_RADIUS_MAX);
 
         for(int xx = -size; xx <= size; ++xx)
         {

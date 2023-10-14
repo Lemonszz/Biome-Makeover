@@ -6,11 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "DefaultBiomesMixin_RemoveSwampTrees",
     "LilypadBlockMixin_PlantType",
-    "farmland.BushBlockMixin",
-    "farmland.CropBlockMixin",
-    "farmland.StemBlockMixin"
+    "bm.HatItemForgeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -450,7 +450,7 @@ public class GhostEntity extends Monster implements NeutralMob
         {
             for(int i = 0; i < 4; i++)
             {
-                PoltergeistHandler.doPoltergeist(level(), GhostEntity.this, getOnPos(), POLTERGEIST_RANGE);
+                PoltergeistHandler.doPoltergeist(level(), GhostEntity.this, blockPosition(), POLTERGEIST_RANGE);
             }
 
             super.tick();

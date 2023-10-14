@@ -1,84 +1,56 @@
 package party.lemons.biomemakeover.item.enchantment;
 
-import com.google.common.collect.Maps;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import party.lemons.taniwha.util.MathUtils;
+import party.lemons.biomemakeover.BMConfig;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.function.Supplier;
 
 public class BMEnchantment extends Enchantment
 {
-    private final Map<Attribute, AttributeModifier> attributeModifiers = Maps.newHashMap();
+    private final Supplier<BMConfig.EnchantConfig> config;
+    private final boolean isCurse;
 
-    public BMEnchantment(Rarity weight, EnchantmentCategory type, EquipmentSlot[] slotTypes)
-    {
-        super(weight, type, slotTypes);
+    public BMEnchantment(Supplier<BMConfig.EnchantConfig> config, boolean isCurse, Rarity rarity, EnchantmentCategory enchantmentCategory, EquipmentSlot[] equipmentSlots) {
+        super(rarity, enchantmentCategory, equipmentSlots);
 
-        initAttributes();
+        this.config = config;
+        this.isCurse = isCurse;
     }
 
-    public void initAttributes()
-    {
-
+    @Override
+    public boolean isCurse() {
+        return isCurse;
     }
 
-    public void onTick(LivingEntity entity, ItemStack stack, int level)
-    {
-
+    @Override
+    public int getMaxLevel() {
+        return config.get().maxLevel;
     }
 
-    protected void addAttributeModifier(Attribute attribute, String uuid, double amount, AttributeModifier.Operation operation)
-    {
-        AttributeModifier entityAttributeModifier = new AttributeModifier(UUID.fromString(uuid), this::getDescriptionId, amount, operation);
-        this.attributeModifiers.put(attribute, entityAttributeModifier);
+    @Override
+    public int getMinCost(int i) {
+        return config.get().minCost;
     }
 
-    public boolean addAttributes(LivingEntity entity, ItemStack stack, EquipmentSlot slot, int level)
-    {
-        if(attributeModifiers.size() <= 0 || stack.isEmpty()) return false;
-
-        for(Map.Entry<Attribute, AttributeModifier> attributeEntry : this.attributeModifiers.entrySet())
-        {
-            UUID id = MathUtils.uuidFromString(slot.toString());
-            AttributeInstance entityAttributeInstance = entity.getAttributes().getInstance(attributeEntry.getKey());
-            if(entityAttributeInstance != null)
-            {
-                AttributeModifier mod = attributeEntry.getValue();
-                entityAttributeInstance.removeModifier(mod);
-                entityAttributeInstance.addTransientModifier(new AttributeModifier(id, this.getDescriptionId() + " " + level, this.adjustModifierAmount(level, mod), mod.getOperation()));
-
-            }
-        }
-        return true;
+    @Override
+    public int getMaxCost(int i) {
+        return config.get().maxCost;
     }
 
-    public double adjustModifierAmount(int amplifier, AttributeModifier modifier)
-    {
-        return modifier.getAmount() * (double) (amplifier);
+    @Override
+    public boolean isTreasureOnly() {
+        return config.get().isTreasureOnly;
     }
 
-    public void removeAttributes(LivingEntity entity, EquipmentSlot slot)
-    {
-        for(Map.Entry<Attribute, AttributeModifier> attributeEntry : this.attributeModifiers.entrySet())
-        {
-            UUID slotID = MathUtils.uuidFromString(slot.toString());
-            AttributeInstance entityAttributeInstance = entity.getAttributes().getInstance(attributeEntry.getKey());
-            if(entityAttributeInstance != null)
-            {
-                AttributeModifier mod = entityAttributeInstance.getModifier(slotID);
-                if(mod != null)
-                    entityAttributeInstance.removeModifier(mod);
-                else
-                    System.out.println("ERROR REMOVING MODIFIER: DOESNT EXIST??? : " + entityAttributeInstance.getAttribute().getDescriptionId());
-            }
-        }
+    @Override
+    public boolean isDiscoverable() {
+        return config.get().isDiscoverable;
+    }
+
+    @Override
+    public boolean isTradeable() {
+        return config.get().isTradeable;
     }
 }

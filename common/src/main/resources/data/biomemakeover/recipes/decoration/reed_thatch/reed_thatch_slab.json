@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:reed_thatch"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:reed_thatch_slab",
+    "count": 6
+  }
+}

@@ -33,7 +33,7 @@ public class GhostTownLootProcessor extends StructureProcessor
 				info2 = new StructureTemplate.StructureBlockInfo(blockPos, info2.state(), new CompoundTag());
 
 			if(!info2.nbt().contains("LootTable"))
-				info2.nbt().putString("LootTable", BiomeMakeover.ID("ghost_town/loot_" + RandomUtil.RANDOM.nextInt(3)).toString());
+				info2.nbt().putString("LootTable", BiomeMakeover.ID("ghost_town/loot_" + data.getRandom(blockPos).nextInt(3)).toString());
 
 			/*
 			BlockEntity be = worldView.getBlockEntity(pos);
