@@ -196,8 +196,16 @@ public class StoneGolemEntity extends AbstractGolem implements CrossbowAttackMob
 
         RandomSource randomSource = serverLevelAccessor.getRandom();
 
-        this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
-        this.populateDefaultEquipmentEnchantments(randomSource, difficultyInstance);
+        //Make "Unnatural" spawns player owned and don't give a crossbow
+        if(mobSpawnType == MobSpawnType.COMMAND || mobSpawnType == MobSpawnType.MOB_SUMMONED || mobSpawnType == MobSpawnType.SPAWN_EGG || mobSpawnType == MobSpawnType.DISPENSER)
+            setPlayerCreated(true);
+        else {
+            this.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
+            this.populateDefaultEquipmentEnchantments(randomSource, difficultyInstance);
+        }
+
+
+
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 

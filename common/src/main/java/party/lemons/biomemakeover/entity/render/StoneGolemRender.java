@@ -38,6 +38,12 @@ public class StoneGolemRender extends MobRenderer<StoneGolemEntity, StoneGolemMo
     public void render(StoneGolemEntity entity, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
 
         poseStack.pushPose();
+        if(isEntityUpsideDown(entity))  //pᴉuuǝɹqouǝ/ƃɹnɯɯ ɟᴉxǝs
+        {
+            poseStack.translate(0.0F, entity.getBbHeight() + 0.1F, 0.0F);
+            poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+        }
+
         boolean visible = this.isBodyVisible(entity);
         boolean isInvis = !visible && !entity.isInvisibleTo(Minecraft.getInstance().player);
         boolean outline = Minecraft.getInstance().shouldEntityAppearGlowing(entity);

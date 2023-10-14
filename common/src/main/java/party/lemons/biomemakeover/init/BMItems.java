@@ -143,6 +143,7 @@ public class BMItems
     public static final RegistrySupplier<Item> ROOTLING_SPAWN_EGG = registerItem("rootling_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.ROOTLING, 0x2b2924, 0xa17b1f, properties()));
     public static final RegistrySupplier<Item> MOTH_SPAWN_EGG = registerItem("moth_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.MOTH, 0x7d5699, 0x968e9c, properties()));
     public static final RegistrySupplier<Item> HELMIT_CRAB_SPAWN_EGG = registerItem("helmit_crab_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.HELMIT_CRAB, 0xbd2520, 0xeb7b65, properties()));
+    public static final RegistrySupplier<Item> STONE_GOLEM_SPAWN_EGG = registerItem("stone_golem_spawn_egg", ()->new ArchitecturySpawnEggItem(BMEntities.STONE_GOLEM, 0xB0B0B0, 0x7A9996, properties()));
 
     public static final RegistrySupplier<Item> ICON_ITEM = registerItem("icon_item", FakeItem::new, false);
 

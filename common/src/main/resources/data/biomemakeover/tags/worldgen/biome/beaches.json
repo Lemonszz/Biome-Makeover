@@ -5,9 +5,7 @@
       "id": "#c:beach",
       "required": false
     },
-    {
-      "id": "#forge:is_beach",
-      "required": false
-    }
+    "minecraft:beach",
+    "minecraft:stony_shore"
   ]
 }
