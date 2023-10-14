@@ -44,7 +44,6 @@ import java.util.function.Supplier;
 
 public class BMItems
 {
-    public static final Set<RegistrySupplier<Item>> HIDDEN_ITEMS = Sets.newHashSet();
     public static final List<Supplier<Item>> ROOTLING_BUDS = Lists.newArrayList();
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registries.ITEM);

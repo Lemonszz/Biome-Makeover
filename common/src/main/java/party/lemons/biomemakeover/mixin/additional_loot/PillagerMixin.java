@@ -11,6 +11,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.spongepowered.asm.mixin.Mixin;
 import party.lemons.biomemakeover.BiomeMakeover;
+import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.util.extension.LootBlocker;
 import party.lemons.taniwha.util.EntityUtil;
 import party.lemons.taniwha.util.ItemUtil;
@@ -18,20 +19,12 @@ import party.lemons.taniwha.util.ItemUtil;
 @Mixin(Pillager.class)
 public abstract class PillagerMixin extends AbstractIllager
 {
-	private static ResourceLocation ADDITIONAL_LOOT_LEADER = null;
-	private static ResourceLocation ADDITIONAL_LOOT = null;
-
+	private static ResourceLocation ADDITIONAL_LOOT_LEADER = new ResourceLocation(Constants.MOD_ID, "entities/pillager_leader_additional");
+	private static ResourceLocation ADDITIONAL_LOOT = new ResourceLocation(Constants.MOD_ID, "entities/pillager_additional");
 
 	@Override
 	protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer)
 	{
-		//TODO: just directly use the ResourceLocation constructor???
-		if(ADDITIONAL_LOOT_LEADER == null)	//These are set here to prevent early loading of BiomeMakeover class
-		{
-			ADDITIONAL_LOOT_LEADER = BiomeMakeover.ID("entities/pillager_leader_additional");
-			ADDITIONAL_LOOT = BiomeMakeover.ID("entities/pillager_additional");
-		}
-
 		super.dropFromLootTable(damageSource, causedByPlayer);
 
 		if(!causedByPlayer || LootBlocker.isBlocked(this))

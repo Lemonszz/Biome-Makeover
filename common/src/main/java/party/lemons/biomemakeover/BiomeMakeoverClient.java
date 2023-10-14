@@ -40,82 +40,74 @@ import party.lemons.taniwha.client.model.RenderLayerInjector;
 
 public class BiomeMakeoverClient
 {
-    //TODO: why am I doing env == client checks in here?
     @Environment(EnvType.CLIENT)
     public static void init()
     {
-        if (Platform.getEnvironment() == Env.CLIENT) {
-            BMEntities.registerModelLayers();
+        BMEntities.registerModelLayers();
 
-            BMBlockEntities.DIRECTIONAL_DATA.listen((b)->{
-                BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY.get(), TapestryRenderer::new);
-                BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR.get(), AltarRenderer::new);
-                BlockEntityRendererRegistry.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE.get(), LightningBugBottleRenderer::new);
-            });
+        BMBlockEntities.DIRECTIONAL_DATA.listen((b)->{
+            BlockEntityRendererRegistry.register(BMBlockEntities.TAPESTRY.get(), TapestryRenderer::new);
+            BlockEntityRendererRegistry.register(BMBlockEntities.ALTAR.get(), AltarRenderer::new);
+            BlockEntityRendererRegistry.register(BMBlockEntities.LIGHTNING_BUG_BOTTLE.get(), LightningBugBottleRenderer::new);
+        });
 
 
-            initColors();
+        initColors();
 
-            BMScreens.DIRECTIONAL_DATA.listen((b)->{
-                MenuRegistry.registerScreenFactory(BMScreens.WITCH.get(), WitchScreen::new);
-                MenuRegistry.registerScreenFactory(BMScreens.ALTAR.get(), AltarScreen::new);
-                MenuRegistry.registerScreenFactory(BMScreens.DIRECTIONAL_DATA.get(), DirectionDataScreen::new);
-            });
+        BMScreens.DIRECTIONAL_DATA.listen((b)->{
+            MenuRegistry.registerScreenFactory(BMScreens.WITCH.get(), WitchScreen::new);
+            MenuRegistry.registerScreenFactory(BMScreens.ALTAR.get(), AltarScreen::new);
+            MenuRegistry.registerScreenFactory(BMScreens.DIRECTIONAL_DATA.get(), DirectionDataScreen::new);
+        });
 
-            registerModels();
-        }
+        registerModels();
     }
 
     @Environment(EnvType.CLIENT)
     public static void registerModels()
     {
-        EnvExecutor.runInEnv(Env.CLIENT, ()->()->{
+        EntityRendererRegistry.register(BMEntities.TUMBLEWEED, TumbleweedRender::new);
+        EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE, ThrownItemRenderer::new);
 
-            EntityRendererRegistry.register(BMEntities.TUMBLEWEED, TumbleweedRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BOTTLE, ThrownItemRenderer::new);
+        EntityRendererRegistry.register(BMEntities.GLOWFISH, GlowfishRender::new);
+        EntityRendererRegistry.register(BMEntities.BLIGHTBAT, BlightBatRender::new);
+        EntityRendererRegistry.register(BMEntities.MUSHROOM_TRADER, MushroomTraderRender::new);
+        EntityRendererRegistry.register(BMEntities.SCUTTLER, ScuttlerRender::new);
+        EntityRendererRegistry.register(BMEntities.GHOST, GhostRender::new);
+        EntityRendererRegistry.register(BMEntities.COWBOY, CowboyRender::new);
+        EntityRendererRegistry.register(BMEntities.DECAYED, DecayedRender::new);
+        EntityRendererRegistry.register(BMEntities.DRAGONFLY, DragonflyRender::new);
+        EntityRendererRegistry.register(BMEntities.TOAD, ToadRender::new);
+        EntityRendererRegistry.register(BMEntities.TADPOLE, TadpoleRender::new);
+        EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG, LightningBugRender::new);
+        EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG_ALTERNATE, LightningBugRender::new);
+        EntityRendererRegistry.register(BMEntities.OWL, OwlRender::new);
+        EntityRendererRegistry.register(BMEntities.MOTH, MothRender::new);
+        EntityRendererRegistry.register(BMEntities.ROOTLING, RootlingRender::new);
+        EntityRendererRegistry.register(BMEntities.ADJUDICATOR, AdjudicatorRender::new);
+        EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC, AdjudicatorMimicRender::new);
+        EntityRendererRegistry.register(BMEntities.STONE_GOLEM, StoneGolemRender::new);
+        EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
 
-            EntityRendererRegistry.register(BMEntities.GLOWFISH, GlowfishRender::new);
-            EntityRendererRegistry.register(BMEntities.BLIGHTBAT, BlightBatRender::new);
-            EntityRendererRegistry.register(BMEntities.MUSHROOM_TRADER, MushroomTraderRender::new);
-            EntityRendererRegistry.register(BMEntities.SCUTTLER, ScuttlerRender::new);
-            EntityRendererRegistry.register(BMEntities.GHOST, GhostRender::new);
-            EntityRendererRegistry.register(BMEntities.COWBOY, CowboyRender::new);
-            EntityRendererRegistry.register(BMEntities.DECAYED, DecayedRender::new);
-            EntityRendererRegistry.register(BMEntities.DRAGONFLY, DragonflyRender::new);
-            EntityRendererRegistry.register(BMEntities.TOAD, ToadRender::new);
-            EntityRendererRegistry.register(BMEntities.TADPOLE, TadpoleRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG, LightningBugRender::new);
-            EntityRendererRegistry.register(BMEntities.LIGHTNING_BUG_ALTERNATE, LightningBugRender::new);
-            EntityRendererRegistry.register(BMEntities.OWL, OwlRender::new);
-            EntityRendererRegistry.register(BMEntities.MOTH, MothRender::new);
-            EntityRendererRegistry.register(BMEntities.ROOTLING, RootlingRender::new);
-            EntityRendererRegistry.register(BMEntities.ADJUDICATOR, AdjudicatorRender::new);
-            EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC, AdjudicatorMimicRender::new);
-            EntityRendererRegistry.register(BMEntities.STONE_GOLEM, StoneGolemRender::new);
-            EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
+        RenderLayerInjector.inject(
+                EntityType.HORSE,
+                (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
 
-
-
-            RenderLayerInjector.inject(
-                    EntityType.HORSE,
-                    (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
-
-                        @Override
-                        protected boolean hasHat(LivingEntity entity) {
-                            return ((HorseHat)entity).hasHat();
-                        }
-
-                        @Override
-                        protected void setup(PoseStack poseStack) {
-                            poseStack.scale(1.05F, 1.05F, 1.05F);
-
-                            ((ModelPart)((HorseModel)getParentModel()).headParts().iterator().next()).translateAndRotate(poseStack);
-                            poseStack.translate(0F, -0.4F, 0);
-                            poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
-                        }
+                    @Override
+                    protected boolean hasHat(LivingEntity entity) {
+                        return ((HorseHat)entity).hasHat();
                     }
-            );
-        });
+
+                    @Override
+                    protected void setup(PoseStack poseStack) {
+                        poseStack.scale(1.05F, 1.05F, 1.05F);
+
+                        ((ModelPart)((HorseModel)getParentModel()).headParts().iterator().next()).translateAndRotate(poseStack);
+                        poseStack.translate(0F, -0.4F, 0);
+                        poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
+                    }
+                }
+        );
     }
 
     private static void initColors()
@@ -173,8 +165,6 @@ public class BiomeMakeoverClient
                 BMBlocks.MOTH_BLOSSOM, BMBlocks.ITCHING_IVY
         );
     }
-
-    //TODO: Find somewhere else for this
     public static void curseSound(AltarBlockEntity altar)
     {
         AltarCursingSoundInstance sound = new AltarCursingSoundInstance(altar, altar.getLevel().getRandom());
