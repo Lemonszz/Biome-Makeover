@@ -27,7 +27,6 @@ import party.lemons.biomemakeover.crafting.DirectionDataScreen;
 import party.lemons.biomemakeover.crafting.witch.menu.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatRenderLayer;
-import party.lemons.biomemakeover.entity.render.feature.HatLayer;
 import party.lemons.biomemakeover.entity.render.feature.ScarabElytraLayer;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.extension.HorseHat;
