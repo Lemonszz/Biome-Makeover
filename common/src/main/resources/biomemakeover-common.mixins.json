@@ -5,10 +5,9 @@
   "minVersion": "0.8",
   "client": [
     "badlands.HorseRendererMixin",
-    "client.ArmorStandRendererMixin",
+    "caravan.HorseInventoryScreenMixin",
     "client.BlockEntityWithoutLevelRendererMixin",
     "client.LevelRendererMixin",
-    "client.PlayerRendererMixin_Hat",
     "multipart.ClientPacketListenerMixin",
     "multipart.client.EntityRenderDispatcherMixin"
   ],
@@ -37,6 +36,10 @@
     "badlands.HorseMixin",
     "bugfix.BellBlockMixin",
     "bugfix.ChiseledBookshelfMixin",
+    "caravan.AnimalMakeLoveMixin",
+    "caravan.CamelMixin",
+    "caravan.HorseInventoryMenuMixin",
+    "caravan.LlamaMixin",
     "enchantment.BowItemMixin",
     "enchantment.EntityMixin",
     "enchantment.ItemStackMixin",
