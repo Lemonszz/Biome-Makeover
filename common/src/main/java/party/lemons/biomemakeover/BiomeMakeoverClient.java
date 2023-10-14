@@ -2,13 +2,9 @@ package party.lemons.biomemakeover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
-import dev.architectury.utils.Env;
-import dev.architectury.utils.EnvExecutor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -17,7 +13,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -32,11 +27,17 @@ import party.lemons.biomemakeover.crafting.DirectionDataScreen;
 import party.lemons.biomemakeover.crafting.witch.menu.WitchScreen;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatRenderLayer;
+import party.lemons.biomemakeover.entity.render.feature.HatLayer;
+import party.lemons.biomemakeover.entity.render.feature.ScarabElytraLayer;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.extension.HorseHat;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
-import party.lemons.taniwha.client.color.*;
+import party.lemons.taniwha.client.color.ColorProviderHelper;
+import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
+import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
+import party.lemons.taniwha.client.color.TemperatureGradientColorProvider;
 import party.lemons.taniwha.client.model.RenderLayerInjector;
+import party.lemons.taniwha.hooks.TClientEvents;
 
 public class BiomeMakeoverClient
 {
@@ -88,7 +89,10 @@ public class BiomeMakeoverClient
         EntityRendererRegistry.register(BMEntities.ADJUDICATOR_MIMIC, AdjudicatorMimicRender::new);
         EntityRendererRegistry.register(BMEntities.STONE_GOLEM, StoneGolemRender::new);
         EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
+        EntityRendererRegistry.register(BMEntities.CHEST_CAMEL, ChestCamelRender::new);
+        EntityRendererRegistry.register(BMEntities.BANNER_CAMEL, BannerCamelRender::new);
 
+        TClientEvents.LAYERS.add((renderLayerParent, entityModelSet) -> new ScarabElytraLayer(renderLayerParent, entityModelSet));
         RenderLayerInjector.inject(
                 EntityType.HORSE,
                 (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {

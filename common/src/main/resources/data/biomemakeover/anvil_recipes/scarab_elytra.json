@@ -1,0 +1,14 @@
+{
+  "ingredient_a": {
+    "item": "minecraft:elytra"
+  },
+  "ingredient_b": {
+    "item": "biomemakeover:scarab_wing"
+  },
+  "result": {
+    "id": "biomemakeover:scarab_wing_elytra",
+    "Count": 1
+  },
+  "xp_cost": 1,
+  "type": "taniwha:simple"
+}

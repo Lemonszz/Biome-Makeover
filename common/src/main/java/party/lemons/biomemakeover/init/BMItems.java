@@ -35,6 +35,7 @@ import party.lemons.taniwha.hooks.PotteryPatternHooks;
 import party.lemons.taniwha.item.ArmorBuilder;
 import party.lemons.taniwha.item.ItemHelper;
 import party.lemons.taniwha.item.types.FakeItem;
+import party.lemons.taniwha.item.types.TElytraItem;
 import party.lemons.taniwha.item.types.TItem;
 import party.lemons.taniwha.item.types.TItemNameBlockItem;
 
@@ -57,6 +58,8 @@ public class BMItems
     public static final TagKey<Item> WITCH_HATS = TagKey.create(Registries.ITEM, BiomeMakeover.ID("witch_hats"));
     public static final TagKey<Item> SCUTTLER_FOOD = TagKey.create(Registries.ITEM, BiomeMakeover.ID("scuttler_food"));
     public static final TagKey<Item> HEALS_STONE_GOLEM = TagKey.create(Registries.ITEM, BiomeMakeover.ID("heals_stone_golem"));
+    public static final TagKey<Item> CAMEL_CHESTS = TagKey.create(Registries.ITEM, BiomeMakeover.ID("camel_chests"));
+    public static final TagKey<Item> SCARAB_ELYTRA_REPAIRABLES = TagKey.create(Registries.ITEM, BiomeMakeover.ID("scarab_elytra_repairables"));
 
     public static final FoodProperties GLOWSHROOM_SOUP_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.6F).nutrition(5).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0), 1).effect(new MobEffectInstance(MobEffects.GLOWING, 1200, 0), 1).build();
     public static final FoodProperties GLOWFISH_FOOD = new FoodProperties.Builder().alwaysEat().saturationMod(0.1F).nutrition(1).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200, 0), 0.5F).effect(new MobEffectInstance(MobEffects.GLOWING, 200, 0), 0.5F).build();
@@ -119,6 +122,9 @@ public class BMItems
     public static final RegistrySupplier<Item> WHINNY_POTTERY_SHERD = registerItem("whinny_pottery_sherd", ()->new TItem(properties()));
 
     public static final RegistrySupplier<Item> ENCHANTED_TOTEM = registerItem("enchanted_totem", ()->new EnchantedTotemItem(properties().rarity(Rarity.EPIC).stacksTo(1)));
+
+    public static final RegistrySupplier<Item> SCARAB_WING = registerItem("scarab_wing", ()->new TItem(properties()));
+    public static final RegistrySupplier<Item> SCARAB_WING_ELYTRA = registerItem("scarab_wing_elytra", ()->new TElytraItem(properties().durability(432).rarity(Rarity.RARE), SCARAB_ELYTRA_REPAIRABLES));
 
     public static final RegistrySupplier<Item> BUTTON_MUSHROOMS_MUSIC_DISK = registerItem("button_mushrooms_music_disk", ()->new ArchitecturyRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE), 115));
     public static final RegistrySupplier<Item> GHOST_TOWN_MUSIC_DISK = registerItem("ghost_town_music_disk", ()->new ArchitecturyRecordItem(15, BMEffects.GHOST_TOWN, properties().stacksTo(1).rarity(Rarity.RARE), 270));

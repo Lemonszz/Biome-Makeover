@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
+    "caravan.HorseInventoryScreenMixin",
     "client.BlockEntityWithoutLevelRendererMixin",
     "client.LevelRendererMixin",
     "multipart.ClientPacketListenerMixin",
@@ -34,6 +35,10 @@
     "badlands.HorseMixin",
     "bugfix.BellBlockMixin",
     "bugfix.ChiseledBookshelfMixin",
+    "caravan.AnimalMakeLoveMixin",
+    "caravan.CamelMixin",
+    "caravan.HorseInventoryMenuMixin",
+    "caravan.LlamaMixin",
     "enchantment.BowItemMixin",
     "enchantment.EntityMixin",
     "enchantment.ItemStackMixin",

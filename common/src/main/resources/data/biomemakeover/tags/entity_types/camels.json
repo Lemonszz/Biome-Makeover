@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:camel",
+    "biomemakeover:chest_camel",
+    "biomemakeover:banner_camel"
+  ]
+}

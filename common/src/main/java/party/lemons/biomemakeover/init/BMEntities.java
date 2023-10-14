@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -39,6 +40,8 @@ import party.lemons.biomemakeover.block.blockentity.render.TapestryRenderer;
 import party.lemons.biomemakeover.entity.*;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorEntity;
 import party.lemons.biomemakeover.entity.adjudicator.AdjudicatorMimicEntity;
+import party.lemons.biomemakeover.entity.camel.ChestCamelEntity;
+import party.lemons.biomemakeover.entity.camel.EquipmentCamelEntity;
 import party.lemons.biomemakeover.entity.render.*;
 import party.lemons.biomemakeover.entity.render.feature.CowboyHatModel;
 import party.lemons.biomemakeover.entity.render.feature.WitchHatModel;
@@ -73,6 +76,8 @@ public class BMEntities
     public static final RegistrySupplier<EntityType<AdjudicatorMimicEntity>> ADJUDICATOR_MIMIC = ENTITIES.register(BiomeMakeover.ID("adjudicator_mimic"), ()->TEntityTypeBuilder.of(AdjudicatorMimicEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.95F).clientTrackingRange(12).noSummon().build());
     public static final RegistrySupplier<EntityType<StoneGolemEntity>> STONE_GOLEM = ENTITIES.register(BiomeMakeover.ID("stone_golem"), ()->TEntityTypeBuilder.of(StoneGolemEntity::new, MobCategory.MISC).sized(1.6F, 2.5F).clientTrackingRange(12).build());
     public static final RegistrySupplier<EntityType<HelmitCrabEntity>> HELMIT_CRAB = ENTITIES.register(BiomeMakeover.ID("helmit_crab"), ()->TEntityTypeBuilder.of(HelmitCrabEntity::new, MobCategory.CREATURE).sized(0.825F, 0.5F).clientTrackingRange(12).build());
+    public static final RegistrySupplier<EntityType<ChestCamelEntity>> CHEST_CAMEL = ENTITIES.register(BiomeMakeover.ID("chest_camel"), ()->TEntityTypeBuilder.of(ChestCamelEntity::new, MobCategory.CREATURE).sized(1.7F, 2.375F).clientTrackingRange(10).build());
+    public static final RegistrySupplier<EntityType<EquipmentCamelEntity>> BANNER_CAMEL = ENTITIES.register(BiomeMakeover.ID("banner_camel"), ()->TEntityTypeBuilder.of(EquipmentCamelEntity::new, MobCategory.CREATURE).sized(1.7F, 2.375F).clientTrackingRange(10).build());
 
 
     public static final RegistrySupplier<Attribute> ATT_PROJECTILE_RESISTANCE = ATTRIBUTES.register(BiomeMakeover.ID("projectile_resistance"), ()->new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D));
@@ -124,6 +129,8 @@ public class BMEntities
         EntityAttributeRegistry.register(ADJUDICATOR_MIMIC, AdjudicatorMimicEntity::createAttributes);
         EntityAttributeRegistry.register(STONE_GOLEM, StoneGolemEntity::createAttributes);
         EntityAttributeRegistry.register(HELMIT_CRAB, HelmitCrabEntity::createAttributes);
+        EntityAttributeRegistry.register(CHEST_CAMEL, Camel::createAttributes);
+        EntityAttributeRegistry.register(BANNER_CAMEL, Camel::createAttributes);
     }
 
     private static void initSpawns()
@@ -200,7 +207,7 @@ public class BMEntities
         EntityModelLayerRegistry.register(AdjudicatorModel.LAYER_LOCATION, AdjudicatorModel::createBodyLayer);
         EntityModelLayerRegistry.register(StoneGolemModel.LAYER_LOCATION, StoneGolemModel::createBodyLayer);
         EntityModelLayerRegistry.register(HelmitCrabModel.LAYER_LOCATION, HelmitCrabModel::createBodyLayer);
-
+        EntityModelLayerRegistry.register(ChestCamelRender.CamelChestModel.LAYER_LOCATION, ChestCamelRender.CamelChestModel::createBodyLayer);
     }
 
     private static void registerSpawn(TagKey<Biome> tag, EntityType<?> type, MobCategory category, int weight, int min, int max)
@@ -210,6 +217,7 @@ public class BMEntities
 
     public static final TagKey<EntityType<?>> LIGHTNING_BUG_TAG = TagKey.create(Registries.ENTITY_TYPE, BiomeMakeover.ID("lightning_bugs"));
     public static final TagKey<EntityType<?>> OWL_TARGETS = TagKey.create(Registries.ENTITY_TYPE, BiomeMakeover.ID("owl_targets"));
+    public static final TagKey<EntityType<?>> CAMELS = TagKey.create(Registries.ENTITY_TYPE, BiomeMakeover.ID("camels"));
 
     public static final TagKey<DamageType> GHOST_IMMUNE_DAMAGE = TagKey.create(Registries.DAMAGE_TYPE, BiomeMakeover.ID("ghost_immune_to"));
     public static final TagKey<DamageType> SCUTTLER_IMMUNE_DAMAGE = TagKey.create(Registries.DAMAGE_TYPE, BiomeMakeover.ID("scuttler_immune_to"));
