@@ -16,16 +16,19 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.level.feature.*;
 import party.lemons.biomemakeover.level.feature.foliage.*;
 import party.lemons.biomemakeover.level.feature.foliage.WillowTrunkPlacer;
+import party.lemons.biomemakeover.level.feature.placement.NearWaterPlacement;
 
 import java.util.function.Supplier;
 
 public class BMFeatures {
     private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Constants.MOD_ID, Registries.FEATURE);
+    private static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIER = DeferredRegister.create(Constants.MOD_ID, Registries.PLACEMENT_MODIFIER_TYPE);
     private static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE = DeferredRegister.create(Constants.MOD_ID, Registries.FOLIAGE_PLACER_TYPE);
     private static final DeferredRegister<TreeDecoratorType<?>> DECORATOR = DeferredRegister.create(Constants.MOD_ID, Registries.TREE_DECORATOR_TYPE);
     private static final DeferredRegister<TrunkPlacerType<?>> TRUNK = DeferredRegister.create(Constants.MOD_ID, Registries.TRUNK_PLACER_TYPE);
@@ -58,11 +61,14 @@ public class BMFeatures {
     public static final RegistrySupplier<TrunkPlacerType<WillowTrunkPlacer>> WILLOW_TRUNK = TRUNK.register(BiomeMakeover.ID("willow"), ()->new TrunkPlacerType<>(WillowTrunkPlacer.CODEC));
     public static final RegistrySupplier<TrunkPlacerType<BalsaTrunkPlacer>> BLIGHTED_BALSA_TRUNK = TRUNK.register(BiomeMakeover.ID("blighted_balsa"), ()->new TrunkPlacerType<>(BalsaTrunkPlacer.CODEC));
 
+    public static final RegistrySupplier<PlacementModifierType<NearWaterPlacement>> NEAR_WATER_PLACEMENT = PLACEMENT_MODIFIER.register(BiomeMakeover.ID("near_water"), ()->()-> NearWaterPlacement.CODEC);
+
     public static TagKey<Biome> DARK_FOREST_BIOMES = TagKey.create(Registries.BIOME, BiomeMakeover.ID("dark_forest"));
     public static TagKey<Biome> SWAMP_BIOMES = TagKey.create(Registries.BIOME, BiomeMakeover.ID("swamps"));
     public static TagKey<Biome> BADLANDS_BIOMES = TagKey.create(Registries.BIOME, BiomeMakeover.ID("badlands"));
     public static TagKey<Biome> MUSHROOM_FIELD_BIOMES = TagKey.create(Registries.BIOME, BiomeMakeover.ID("mushroom_fields"));
     public static TagKey<Biome> BEACH_BIOMES = TagKey.create(Registries.BIOME, BiomeMakeover.ID("beaches"));
+    public static TagKey<Biome> DESERT_BIOMES = TagKey.create(Registries.BIOME, BiomeMakeover.ID("deserts"));
 
     public static TagKey<Biome> HAS_TUMBLEWEED = TagKey.create(Registries.BIOME, BiomeMakeover.ID("spawns_tumbleweed"));
     public static TagKey<Biome> SWAMP_BONEMEAL = TagKey.create(Registries.BIOME, BiomeMakeover.ID("swamp_bonemeal"));
@@ -75,6 +81,7 @@ public class BMFeatures {
         FOLIAGE.register();
         DECORATOR.register();
         TRUNK.register();
+        PLACEMENT_MODIFIER.register();
 
         BiomeModifications.addProperties(biomeContext -> biomeContext.hasTag(MUSHROOM_FIELD_BIOMES), (biomeContext, mutable) -> {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, key("mushroom_fields/underground_mycelium"));
@@ -121,6 +128,10 @@ public class BMFeatures {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, key("dark_forest/wild_mushrooms"));
 
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, key("dark_forest/mesmerite_fissure"));
+        });
+
+        BiomeModifications.addProperties(biomeContext -> biomeContext.hasTag(DESERT_BIOMES), (biomeContext, mutable) -> {
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("desert/aloe_vera"));
         });
     }
 

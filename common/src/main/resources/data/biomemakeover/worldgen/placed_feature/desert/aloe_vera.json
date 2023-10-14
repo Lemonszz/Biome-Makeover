@@ -1,0 +1,20 @@
+{
+  "feature": "biomemakeover:desert/aloe_vera",
+  "placement": [
+    {
+      "chance": 1,
+      "type": "minecraft:rarity_filter"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "heightmap": "WORLD_SURFACE_WG",
+      "type": "minecraft:heightmap"
+    },
+    {
+      "type": "biomemakeover:near_water",
+      "range": 5
+    }
+  ]
+}

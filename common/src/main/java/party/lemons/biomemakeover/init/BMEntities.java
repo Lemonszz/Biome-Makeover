@@ -207,7 +207,6 @@ public class BMEntities
         EntityModelLayerRegistry.register(AdjudicatorModel.LAYER_LOCATION, AdjudicatorModel::createBodyLayer);
         EntityModelLayerRegistry.register(StoneGolemModel.LAYER_LOCATION, StoneGolemModel::createBodyLayer);
         EntityModelLayerRegistry.register(HelmitCrabModel.LAYER_LOCATION, HelmitCrabModel::createBodyLayer);
-        EntityModelLayerRegistry.register(ChestCamelRender.CamelChestModel.LAYER_LOCATION, ChestCamelRender.CamelChestModel::createBodyLayer);
     }
 
     private static void registerSpawn(TagKey<Biome> tag, EntityType<?> type, MobCategory category, int weight, int min, int max)
