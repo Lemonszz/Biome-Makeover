@@ -2,6 +2,10 @@ package party.lemons.biomemakeover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+<<<<<<< HEAD
+=======
+import dev.architectury.platform.Platform;
+>>>>>>> 5b87cfb281a0e7eb5aeafab6483f7d282ba38fc6
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -90,8 +94,8 @@ public class BiomeMakeoverClient
         EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
         EntityRendererRegistry.register(BMEntities.CHEST_CAMEL, ChestCamelRender::new);
         EntityRendererRegistry.register(BMEntities.BANNER_CAMEL, BannerCamelRender::new);
-
         TClientEvents.LAYERS.add((renderLayerParent, entityModelSet) -> new ScarabElytraLayer(renderLayerParent, entityModelSet));
+
         RenderLayerInjector.inject(
                 EntityType.HORSE,
                 (ctx)->new CowboyHatRenderLayer(ctx.entityRenderer(), ctx.modelSet()) {
@@ -109,8 +113,7 @@ public class BiomeMakeoverClient
                         poseStack.translate(0F, -0.4F, 0);
                         poseStack.mulPose(Axis.XP.rotationDegrees(-25F));
                     }
-                }
-        );
+            });
     }
 
     private static void initColors()

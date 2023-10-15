@@ -1,18 +1,11 @@
 package party.lemons.biomemakeover.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.CamelModel;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.CamelRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -24,9 +17,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
-import party.lemons.biomemakeover.BiomeMakeover;
 
 public class ChestCamelRender extends CamelRenderer {
     public ChestCamelRender(EntityRendererProvider.Context context) {
@@ -35,15 +25,14 @@ public class ChestCamelRender extends CamelRenderer {
         addLayer(new CamelChestLayer(context, this));
     }
 
-    private static class CamelChestLayer extends RenderLayer<Camel, CamelModel<Camel>>
-    {
+    private static class CamelChestLayer extends RenderLayer<Camel, CamelModel<Camel>> {
         private final ChestBlockEntity chestDummy;
         private float openness = 0.0F;
 
         public CamelChestLayer(EntityRendererProvider.Context context, RenderLayerParent<Camel, CamelModel<Camel>> renderLayerParent) {
             super(renderLayerParent);
 
-            chestDummy = new ChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState()){
+            chestDummy = new ChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState()) {
                 @Override
                 public float getOpenNess(float f) {
                     return openness;
@@ -62,9 +51,6 @@ public class ChestCamelRender extends CamelRenderer {
 
             openness = Mth.abs(getParentModel().root().zRot) / 2F;
             Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(chestDummy).render(chestDummy, delta, poseStack, multiBufferSource, light, OverlayTexture.NO_OVERLAY);
-
-            poseStack.popPose();
-
         }
     }
 }
