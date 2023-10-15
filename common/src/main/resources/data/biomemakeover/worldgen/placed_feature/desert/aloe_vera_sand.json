@@ -1,6 +1,10 @@
 {
-  "feature": "biomemakeover:desert/aloe_vera",
+  "feature": "biomemakeover:desert/aloe_vera_sand",
   "placement": [
+    {
+      "chance": 8,
+      "type": "minecraft:rarity_filter"
+    },
     {
       "type": "minecraft:in_square"
     },
@@ -10,7 +14,10 @@
     },
     {
       "type": "biomemakeover:near_water",
-      "range": 5
+      "range": 3
+    },
+    {
+      "type": "minecraft:biome"
     }
   ]
 }

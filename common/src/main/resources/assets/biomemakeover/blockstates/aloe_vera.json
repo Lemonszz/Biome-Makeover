@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "biomemakeover:block/aloe_vera/aloe_vera_0"
+    },
+    "age=1": {
+      "model": "biomemakeover:block/aloe_vera/aloe_vera_1"
+    },
+    "age=2": {
+      "model": "biomemakeover:block/aloe_vera/aloe_vera_2"
+    },
+    "age=3": {
+      "model": "biomemakeover:block/aloe_vera/aloe_vera_3"
+    },
+    "age=4": {
+      "model": "biomemakeover:block/aloe_vera/aloe_vera_4"
+    }
+  }
+}

@@ -132,6 +132,7 @@ public class BMFeatures {
 
         BiomeModifications.addProperties(biomeContext -> biomeContext.hasTag(DESERT_BIOMES), (biomeContext, mutable) -> {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("desert/aloe_vera"));
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("desert/aloe_vera_sand"));
         });
     }
 

@@ -1,6 +1,6 @@
 {
   "config": {
-    "tries": 30,
+    "tries": 15,
     "xz_spread": 4,
     "y_spread": 3,
     "feature": {
@@ -25,18 +25,6 @@
               "minecraft:air"
             ],
             "type": "minecraft:matching_blocks"
-          },
-          "type": "minecraft:block_predicate_filter"
-        },
-        {
-          "predicate": {
-            "state": {
-              "Properties": {
-                "stage": "0"
-              },
-              "Name": "biomemakeover:ancient_oak_sapling"
-            },
-            "type": "minecraft:would_survive"
           },
           "type": "minecraft:block_predicate_filter"
         }

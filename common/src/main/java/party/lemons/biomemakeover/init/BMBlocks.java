@@ -64,6 +64,7 @@ public class BMBlocks
     public static final TagKey<Block> FISSURE_NO_REPLACE = blockTag("fissure_no_replace");
     public static final TagKey<Block> BARREL_CACTUS_PLANTABLE = blockTag("barrel_cactus_plantable_on");
     public static final TagKey<Block> SAGUARO_CACTUS_PLANTABLE = blockTag("saguaro_cactus_plantable_on");
+    public static final TagKey<Block> ALOE_VERA_PLANTABLE = blockTag("aloe_vera_plantable_on");
 
     public static final Map<RegistrySupplier<Block>, RegistrySupplier<Item>> BLOCK_ITEMS = new HashMap<>();
 
@@ -191,6 +192,9 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlockItem("suspicious_red_sand", ()->new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
 
+    public static final RegistrySupplier<Block> ALOE_VERA = registerBlockItemPot("aloe_vera", ()->new AloeVeraBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT)));
+
+    //////////////////////////
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();
     public static final TerracottaBrickInfo TERRACOTTA_BRICKS = TerracottaBrickInfo.create();
     public static final RegistrySupplier<Block> CRACKED_BRICKS = registerBlockItem("cracked_bricks", ()->new TBlock(properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED)));
@@ -230,7 +234,7 @@ public class BMBlocks
 
     public static RegistrySupplier<Block> registerBlockItemPot(String id, Supplier<Block> block)
     {
-        RegistrySupplier<Block> baseBlock = registerBlockItem(id, block);
+        RegistrySupplier<Block> baseBlock = registerBlockItem(id, block, true);
         pottedPlant(id, baseBlock);
 
         return baseBlock;
