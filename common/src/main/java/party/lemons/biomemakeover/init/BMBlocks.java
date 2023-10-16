@@ -192,7 +192,7 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlockItem("suspicious_red_sand", ()->new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
 
-    public static final RegistrySupplier<Block> ALOE_VERA = registerBlockItemPot("aloe_vera", ()->new AloeVeraBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT)));
+    public static final RegistrySupplier<Block> ALOE_VERA = register("aloe_vera", ()->new AloeVeraBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT)));
 
     //////////////////////////
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();
@@ -210,6 +210,7 @@ public class BMBlocks
     public static final RegistrySupplier<Block> POTTED_WILLOW_SAPLING =  pottedPlant("willow_sapling", WILLOW_SAPLING);
     public static final RegistrySupplier<Block> POTTED_SWAMP_CYPRESS_SAPLING =  pottedPlant("swamp_cypress_sapling", SWAMP_CYPRESS_SAPLING);
     public static final RegistrySupplier<Block> POTTED_WILD_MUSHROOMS =  pottedPlant("wild_mushrooms", WILD_MUSHROOMS);
+    public static final RegistrySupplier<Block> POTTED_ALOE_VERA =  pottedPlant("aloe_vera", ALOE_VERA);
 
     public static final RegistrySupplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of().strength(-1).noLootTable()), false);
 

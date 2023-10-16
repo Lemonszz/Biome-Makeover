@@ -2,10 +2,6 @@ package party.lemons.biomemakeover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-<<<<<<< HEAD
-=======
-import dev.architectury.platform.Platform;
->>>>>>> 5b87cfb281a0e7eb5aeafab6483f7d282ba38fc6
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -17,8 +13,11 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,6 +40,7 @@ import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
 import party.lemons.taniwha.client.color.TemperatureGradientColorProvider;
 import party.lemons.taniwha.client.model.RenderLayerInjector;
 import party.lemons.taniwha.hooks.TClientEvents;
+import party.lemons.taniwha.item.animation.CustomUseAnimationRegistry;
 
 public class BiomeMakeoverClient
 {
@@ -65,6 +65,31 @@ public class BiomeMakeoverClient
         });
 
         registerModels();
+
+        registerAnimations();
+    }
+
+    private static void registerAnimations()
+    {
+        CustomUseAnimationRegistry.register(BMItems.ALOE_VERA, new CustomUseAnimationRegistry.CustomUseAnimation(){
+            @Override
+            public void transform(Minecraft minecraft, PoseStack poseStack, float f, float swing, HumanoidArm humanoidArm, ItemStack itemStack) {
+                this.applyItemArmTransform(poseStack, humanoidArm, swing);
+
+                float time = (float)minecraft.player.getUseItemRemainingTicks() - f + 1.0F;
+                float totalTime = time / (float)itemStack.getUseDuration();
+
+                float zz = 1.0F - (float)Math.pow(totalTime, 27.0);
+                int xDirection = humanoidArm == HumanoidArm.RIGHT ? 1 : -1;
+
+
+                float xx = (-0.5F * xDirection) + Mth.sin((xDirection - totalTime) * 8) / 2F;
+                float yy = Mth.sin((totalTime) * 10) / 2F;
+
+                poseStack.translate(xx + yy * 0.6F * (float)xDirection, yy * -0.5F, 0.0F);
+                poseStack.mulPose(Axis.YP.rotationDegrees((float)xDirection * zz * 90.0F));
+                poseStack.mulPose(Axis.XP.rotationDegrees(zz * 10.0F));            }
+        });
     }
 
     @Environment(EnvType.CLIENT)

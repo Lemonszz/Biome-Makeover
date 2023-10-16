@@ -1,5 +1,7 @@
 package party.lemons.biomemakeover.util;
 
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.mutable.MutableInt;
 import party.lemons.biomemakeover.init.BMEntities;
 import party.lemons.biomemakeover.init.BMItems;
@@ -77,5 +80,20 @@ public final class EntityUtil
         }
 
         return false;
+    }
+
+    public static void spawnItemParticles(LivingEntity livingEntity, ItemStack stack, int count)
+    {
+        for(int i = 0; i < count; ++i) {
+            Vec3 speed = new Vec3(((double)livingEntity.getRandom().nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
+            speed = speed.xRot(-livingEntity.getXRot() * (float) (Math.PI / 180.0));
+            speed = speed.yRot(-livingEntity.getYRot() * (float) (Math.PI / 180.0));
+            double height = (double)(-livingEntity.getRandom().nextFloat()) * 0.6 - 0.3;
+            Vec3 position = new Vec3(((double)livingEntity.getRandom().nextFloat() - 0.5) * 0.3, height, 0.6);
+            position = position.xRot(-livingEntity.getXRot() * (float) (Math.PI / 180.0));
+            position = position.yRot(-livingEntity.getYRot() * (float) (Math.PI / 180.0));
+            position = position.add(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
+            livingEntity.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), position.x, position.y, position.z, speed.x, speed.y + 0.05, speed.z);
+        }
     }
 }

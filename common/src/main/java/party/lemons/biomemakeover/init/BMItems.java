@@ -125,6 +125,7 @@ public class BMItems
 
     public static final RegistrySupplier<Item> SCARAB_WING = registerItem("scarab_wing", ()->new TItem(properties()));
     public static final RegistrySupplier<Item> SCARAB_WING_ELYTRA = registerItem("scarab_wing_elytra", ()->new TElytraItem(properties().durability(432).rarity(Rarity.RARE), SCARAB_ELYTRA_REPAIRABLES));
+    public static final RegistrySupplier<Item> ALOE_VERA = registerItem("aloe_vera", ()->new AloeVeraItem(BMBlocks.ALOE_VERA.get(), properties()));
 
     public static final RegistrySupplier<Item> BUTTON_MUSHROOMS_MUSIC_DISK = registerItem("button_mushrooms_music_disk", ()->new ArchitecturyRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE), 115));
     public static final RegistrySupplier<Item> GHOST_TOWN_MUSIC_DISK = registerItem("ghost_town_music_disk", ()->new ArchitecturyRecordItem(15, BMEffects.GHOST_TOWN, properties().stacksTo(1).rarity(Rarity.RARE), 270));
