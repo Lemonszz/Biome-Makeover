@@ -39,6 +39,12 @@ public class SucculentBlock extends TBushBlock {
         this.shapesCache = this.getShapeForEachState(SucculentBlock::calculateShapes);
     }
 
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState)
+    {
+        return super.getCloneItemStack(blockGetter, blockPos, blockState);
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {

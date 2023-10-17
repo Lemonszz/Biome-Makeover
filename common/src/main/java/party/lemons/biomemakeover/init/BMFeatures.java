@@ -48,6 +48,7 @@ public class BMFeatures {
     public static final Supplier<Feature<NoneFeatureConfiguration>> PEAT_FEATURE = FEATURES.register(BiomeMakeover.ID("peat"), ()->new PeatFeature(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<NoneFeatureConfiguration>> REED_FEATURE =  FEATURES.register(BiomeMakeover.ID("reeds"), ()->new ReedFeature(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<FissureFeature.FissureConfig>> FISSURE =  FEATURES.register(BiomeMakeover.ID("fissure"), ()->new FissureFeature(FissureFeature.FissureConfig.CODEC));
+    public static final Supplier<Feature<NoneFeatureConfiguration>> SUCCULENT =  FEATURES.register(BiomeMakeover.ID("succulent"), ()->new SucculentFeature(NoneFeatureConfiguration.CODEC));
 
     public static final Supplier<FoliagePlacerType<WillowFoliagePlacer>> WILLOW_FOLIAGE = FOLIAGE.register(BiomeMakeover.ID("willow_foliage"), ()->new FoliagePlacerType<>(WillowFoliagePlacer.CODEC));
     public static final Supplier<TreeDecoratorType<HangingLeavesDecorator>> HANGING_LEAVES_DECORATOR = DECORATOR.register(BiomeMakeover.ID("hanging_leaves_decorator"), ()->new TreeDecoratorType<>(HangingLeavesDecorator.CODEC));
@@ -133,6 +134,7 @@ public class BMFeatures {
         BiomeModifications.addProperties(biomeContext -> biomeContext.hasTag(DESERT_BIOMES), (biomeContext, mutable) -> {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("desert/aloe_vera"));
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("desert/aloe_vera_sand"));
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, key("desert/succulent"));
         });
     }
 

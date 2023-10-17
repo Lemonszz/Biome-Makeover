@@ -1,0 +1,37 @@
+{
+  "config": {
+    "tries": 30,
+    "xz_spread": 4,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "config": {
+        },
+        "type": "biomemakeover:succulent"
+      },
+      "placement": [
+        {
+          "predicate": {
+            "blocks": [
+              "minecraft:air"
+            ],
+            "type": "minecraft:matching_blocks"
+          },
+          "type": "minecraft:block_predicate_filter"
+        },
+        {
+          "predicate": {
+            "state": {
+              "Properties": {
+              },
+              "Name": "biomemakeover:succulent"
+            },
+            "type": "minecraft:would_survive"
+          },
+          "type": "minecraft:block_predicate_filter"
+        }
+      ]
+    }
+  },
+  "type": "minecraft:random_patch"
+}
