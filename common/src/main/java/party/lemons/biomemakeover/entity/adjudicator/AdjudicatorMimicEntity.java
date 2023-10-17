@@ -78,7 +78,7 @@ public class AdjudicatorMimicEntity extends Monster  implements AdjudicatorState
         remove(RemovalReason.DISCARDED);
 
         if(!level().isClientSide())
-            EffectHelper.doEffect(level(), BiomeMakeoverEffect.BLOCK_ENDER_PARTICLES, getOnPos());
+            EffectHelper.doEffect(level(), BiomeMakeoverEffect.BLOCK_ENDER_PARTICLES, getOnPos(), getBlockStateOn());
 
         super.die(damageSource);
     }

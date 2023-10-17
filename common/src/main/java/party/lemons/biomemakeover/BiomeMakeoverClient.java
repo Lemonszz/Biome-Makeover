@@ -11,16 +11,26 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.TerrainParticle;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import party.lemons.biomemakeover.block.SucculentBlock;
+import party.lemons.biomemakeover.block.SucculentType;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.block.blockentity.render.AltarRenderer;
 import party.lemons.biomemakeover.block.blockentity.render.LightningBugBottleRenderer;
@@ -200,5 +210,55 @@ public class BiomeMakeoverClient
     {
         AltarCursingSoundInstance sound = new AltarCursingSoundInstance(altar, altar.getLevel().getRandom());
         Minecraft.getInstance().getSoundManager().play(sound);
+    }
+
+    public static void succulentBreakParticles(Level level, BlockPos pos, BlockState state)
+    {
+        SoundType soundtype = state.getSoundType();
+        level.playLocalSound(pos, soundtype.getBreakSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F, false);
+
+        VoxelShape voxelShape = state.getShape(level, pos);
+
+        for(EnumProperty<SucculentType> property : SucculentBlock.TYPES) {
+            if (SucculentBlock.isActive(state, property)) {
+                TextureAtlasSprite particleTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
+                        .apply(BiomeMakeover.ID("block/succulent/" + state.getValue(property).getSerializedName()));
+
+                float count = 0.5F;
+                voxelShape.forAllBoxes(
+                        (x1, y1, z1, x2, y2, z2) -> {
+                            double xSize = Math.min(1.0, x2 - x1);
+                            double ySize = Math.min(1.0, y2 - y1);
+                            double zSize = Math.min(1.0, z2 - z1);
+                            int xCount = Math.max(2, Mth.ceil(xSize / count));
+                            int yCount = Math.max(2, Mth.ceil(ySize / count));
+                            int zCount = Math.max(2, Mth.ceil(zSize / count));
+
+                            for (int xx = 0; xx < xCount; ++xx) {
+                                for (int yy = 0; yy < yCount; ++yy) {
+                                    for (int zz = 0; zz < zCount; ++zz) {
+                                        double vX = ((double) xx + 0.5) / (double) xCount;
+                                        double vY = ((double) yy + 0.5) / (double) yCount;
+                                        double vZ = ((double) zz + 0.5) / (double) zCount;
+                                        double xOffset = vX * xSize + x1;
+                                        double yOffset = vY * ySize + y1;
+                                        double zOffset = vZ * zSize + z1;
+                                        TerrainParticle particle = new TerrainParticle(
+                                                (ClientLevel) level,
+                                                (double) pos.getX() + xOffset,
+                                                (double) pos.getY() + yOffset,
+                                                (double) pos.getZ() + zOffset,
+                                                vX - 0.5, vY - 0.5, vZ - 0.5, state, pos
+                                        );
+                                        particle.setSprite(particleTexture);
+
+                                        Minecraft.getInstance().particleEngine.add(particle);
+                                    }
+                                }
+                            }
+                        }
+                );
+            }
+        }
     }
 }

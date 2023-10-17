@@ -37,7 +37,7 @@ public class TeleportingPhase extends TimedPhase
         super.tick();
         adjudicator.broadcastEvent(adjudicator, EntityEvent.ENDER_PARTICLES);
         adjudicator.broadcastEvent(adjudicator, EntityEvent.TELEPORT_PARTICLES);
-        EffectHelper.doEffect(level, BiomeMakeoverEffect.BLOCK_ENDER_PARTICLES, teleportPos);
+        EffectHelper.doEffect(level, BiomeMakeoverEffect.BLOCK_ENDER_PARTICLES, teleportPos, adjudicator.getBlockStateOn());
     }
 
     @Override

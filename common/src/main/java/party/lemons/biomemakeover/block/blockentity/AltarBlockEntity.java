@@ -87,7 +87,7 @@ public class AltarBlockEntity extends RandomizableContainerBlockEntity implement
                 if(!workingPrevious)
                 {
                     level.setBlock(pos, level.getBlockState(pos).setValue(AltarBlock.ACTIVE, true), 3);
-                    EffectHelper.doEffect(level, BiomeMakeoverEffect.PLAY_CURSE_SOUND, pos);
+                    EffectHelper.doEffect(level, BiomeMakeoverEffect.PLAY_CURSE_SOUND, pos, getBlockState());
                 }
 
                 progress++;

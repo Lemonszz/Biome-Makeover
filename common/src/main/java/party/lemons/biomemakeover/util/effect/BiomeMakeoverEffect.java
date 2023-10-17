@@ -1,20 +1,43 @@
 package party.lemons.biomemakeover.util.effect;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.TerrainParticle;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.BiomeMakeoverClient;
+import party.lemons.biomemakeover.block.SucculentBlock;
+import party.lemons.biomemakeover.block.SucculentType;
 import party.lemons.biomemakeover.block.blockentity.AltarBlockEntity;
 import party.lemons.biomemakeover.util.RandomUtil;
 
 public enum BiomeMakeoverEffect
 {
     PLAY_CURSE_SOUND(BiomeMakeoverEffect::playCurseSound),
-    BLOCK_ENDER_PARTICLES(BiomeMakeoverEffect::createEnderParticles);
+    BLOCK_ENDER_PARTICLES(BiomeMakeoverEffect::createEnderParticles),
+    DESTROY_SUCCULENT(BiomeMakeoverEffect::succulentParticles)
 
-    private static void createEnderParticles(Level level, BlockPos pos)
+    ;
+
+    private static void succulentParticles(Level level, BlockPos pos, BlockState state)
+    {
+        if(level.isClientSide() && state.getBlock() instanceof SucculentBlock)
+        {
+            BiomeMakeoverClient.succulentBreakParticles(level, pos, state);
+        }
+    }
+
+    private static void createEnderParticles(Level level, BlockPos pos, BlockState state)
     {
         RandomSource random = RandomUtil.RANDOM;
         for(int i = 0; i < 5; ++i) {
@@ -30,7 +53,7 @@ public enum BiomeMakeoverEffect
         }
     }
 
-    private static void playCurseSound(Level world, BlockPos pos)
+    private static void playCurseSound(Level world, BlockPos pos, BlockState state)
     {
         BlockEntity be = world.getBlockEntity(pos);
         if(be instanceof AltarBlockEntity altar && world.isClientSide())
@@ -45,15 +68,15 @@ public enum BiomeMakeoverEffect
         this.event = event;
     }
 
-    public void execute(Level world, BlockPos pos)
+    public void execute(Level world, BlockPos pos, BlockState state)
     {
-        event.execute(world, pos);
+        event.execute(world, pos, state);
     }
 
 
 
     public interface Event
     {
-        void execute(Level world, BlockPos pos);
+        void execute(Level world, BlockPos pos, BlockState state);
     }
 }

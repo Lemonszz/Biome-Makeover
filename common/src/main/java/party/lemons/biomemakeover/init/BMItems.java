@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.material.Fluids;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
+import party.lemons.biomemakeover.block.SucculentType;
 import party.lemons.biomemakeover.crafting.SuspiciousStewListing;
 import party.lemons.biomemakeover.item.*;
 import party.lemons.taniwha.block.DecorationBlockFactory;
@@ -127,6 +128,8 @@ public class BMItems
     public static final RegistrySupplier<Item> SCARAB_WING_ELYTRA = registerItem("scarab_wing_elytra", ()->new TElytraItem(properties().durability(432).rarity(Rarity.RARE), SCARAB_ELYTRA_REPAIRABLES));
     public static final RegistrySupplier<Item> ALOE_VERA = registerItem("aloe_vera", ()->new AloeVeraItem(BMBlocks.ALOE_VERA.get(), properties()));
 
+    public static final RegistrySupplier<Item>[] SUCCULENTS = registerSucculents();
+
     public static final RegistrySupplier<Item> BUTTON_MUSHROOMS_MUSIC_DISK = registerItem("button_mushrooms_music_disk", ()->new ArchitecturyRecordItem(14, BMEffects.BUTTON_MUSHROOMS, properties().stacksTo(1).rarity(Rarity.RARE), 115));
     public static final RegistrySupplier<Item> GHOST_TOWN_MUSIC_DISK = registerItem("ghost_town_music_disk", ()->new ArchitecturyRecordItem(15, BMEffects.GHOST_TOWN, properties().stacksTo(1).rarity(Rarity.RARE), 270));
     public static final RegistrySupplier<Item> SWAMP_JIVES_MUSIC_DISK = registerItem("swamp_jives_music_disk", ()->new ArchitecturyRecordItem(1, BMEffects.SWAMP_JIVES, properties().stacksTo(1).rarity(Rarity.RARE), 277));
@@ -202,6 +205,18 @@ public class BMItems
         RegistrySupplier<Item> registered = registerItem(id, item);
         ROOTLING_BUDS.add(registered);
         return registered;
+    }
+
+    private static RegistrySupplier<Item>[] registerSucculents()
+    {
+        RegistrySupplier<Item>[] succs = new RegistrySupplier[SucculentType.values().length - 1];
+        for(int i = 1; i < SucculentType.values().length; i++)
+        {
+            SucculentType type = SucculentType.values()[i];
+            succs[i - 1] = registerItem(type.getSerializedName(), ()->new SucculentItem(type, properties()));
+        }
+
+        return succs;
     }
 
     private static RegistrySupplier<Item> registerHiddenItem(String id, Supplier<Item> item)

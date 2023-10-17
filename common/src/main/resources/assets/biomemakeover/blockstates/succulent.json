@@ -1,0 +1,117 @@
+{
+  "multipart":[
+    {
+      "when": {
+        "north_east": "echeveria"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/echeveria"
+      }
+    },
+    {
+      "when": {
+        "south_east": "echeveria"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/echeveria",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south_west": "echeveria"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/echeveria",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "north_west": "echeveria"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/echeveria",
+        "y": 270
+      }
+    },
+
+
+
+
+    {
+      "when": {
+        "north_east": "crown_of_thorns"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/crown_of_thorns"
+      }
+    },
+    {
+      "when": {
+        "south_east": "crown_of_thorns"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/crown_of_thorns",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south_west": "crown_of_thorns"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/crown_of_thorns",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "north_west": "crown_of_thorns"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/crown_of_thorns",
+        "y": 270
+      }
+    },
+
+
+
+
+    {
+      "when": {
+        "north_east": "snake_grass"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/snake_grass"
+      }
+    },
+    {
+      "when": {
+        "south_east": "snake_grass"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/snake_grass",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south_west": "snake_grass"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/snake_grass",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "north_west": "snake_grass"
+      },
+      "apply": {
+        "model": "biomemakeover:block/succulent/snake_grass",
+        "y": 270
+      }
+    }
+  ]
+}

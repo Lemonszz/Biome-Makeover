@@ -67,7 +67,7 @@ public class SummonPhase extends TimedPhase
         }
 
         for(int i = spawnIndex; i < mobCount; i++)
-            EffectHelper.doEffect(level, BiomeMakeoverEffect.BLOCK_ENDER_PARTICLES, spawnPositions[i]);
+            EffectHelper.doEffect(level, BiomeMakeoverEffect.BLOCK_ENDER_PARTICLES, spawnPositions[i], adjudicator.getBlockStateOn());
     }
 
     @Override

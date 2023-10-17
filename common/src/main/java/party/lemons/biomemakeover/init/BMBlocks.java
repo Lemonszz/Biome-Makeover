@@ -65,6 +65,7 @@ public class BMBlocks
     public static final TagKey<Block> BARREL_CACTUS_PLANTABLE = blockTag("barrel_cactus_plantable_on");
     public static final TagKey<Block> SAGUARO_CACTUS_PLANTABLE = blockTag("saguaro_cactus_plantable_on");
     public static final TagKey<Block> ALOE_VERA_PLANTABLE = blockTag("aloe_vera_plantable_on");
+    public static final TagKey<Block> SUCCULENT_PLANTABLE = blockTag("succulent_plantable_on");
 
     public static final Map<RegistrySupplier<Block>, RegistrySupplier<Item>> BLOCK_ITEMS = new HashMap<>();
 
@@ -192,7 +193,9 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlockItem("suspicious_red_sand", ()->new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
 
-    public static final RegistrySupplier<Block> ALOE_VERA = register("aloe_vera", ()->new AloeVeraBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT)));
+    public static final RegistrySupplier<Block> ALOE_VERA = register("aloe_vera", ()->new AloeVeraBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT));
+
+    public static final RegistrySupplier<Block> SUCCULENT  = register("succulent", ()->new SucculentBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT).sound(SoundType.CHERRY_SAPLING)).modifiers(RTypeModifier.CUTOUT));
 
     //////////////////////////
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();

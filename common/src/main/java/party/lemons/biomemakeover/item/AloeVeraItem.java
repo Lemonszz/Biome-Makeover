@@ -1,6 +1,5 @@
 package party.lemons.biomemakeover.item;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.util.EntityUtil;
 import party.lemons.taniwha.item.animation.CustomUseAnimationItem;
 
