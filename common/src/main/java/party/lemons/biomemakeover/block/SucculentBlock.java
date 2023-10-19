@@ -38,13 +38,7 @@ public class SucculentBlock extends TBushBlock {
         registerDefaultState(getStateDefinition().any().setValue(NORTH_EAST, SucculentType.NONE).setValue(SOUTH_EAST, SucculentType.NONE).setValue(SOUTH_WEST, SucculentType.NONE).setValue(NORTH_WEST, SucculentType.NONE));
         this.shapesCache = this.getShapeForEachState(SucculentBlock::calculateShapes);
     }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState)
-    {
-        return super.getCloneItemStack(blockGetter, blockPos, blockState);
-    }
-
+    
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
