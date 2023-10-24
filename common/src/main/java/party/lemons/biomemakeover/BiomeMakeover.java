@@ -48,6 +48,8 @@ public class BiomeMakeover {
         BMConfig.load();
 
         BMEffects.init();
+
+        BMAi.init();
         BMEntities.init();
 
         BMTab.init();

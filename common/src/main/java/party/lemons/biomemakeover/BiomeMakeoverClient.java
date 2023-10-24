@@ -129,6 +129,7 @@ public class BiomeMakeoverClient
         EntityRendererRegistry.register(BMEntities.HELMIT_CRAB, HelmitCrabRender::new);
         EntityRendererRegistry.register(BMEntities.CHEST_CAMEL, ChestCamelRender::new);
         EntityRendererRegistry.register(BMEntities.BANNER_CAMEL, BannerCamelRender::new);
+        EntityRendererRegistry.register(BMEntities.DUST_DEVIL, DustDevilRenderer::new);
         TClientEvents.LAYERS.add((renderLayerParent, entityModelSet) -> new ScarabElytraLayer(renderLayerParent, entityModelSet));
 
         RenderLayerInjector.inject(

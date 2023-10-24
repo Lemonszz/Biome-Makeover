@@ -78,6 +78,7 @@ public class BMEntities
     public static final RegistrySupplier<EntityType<HelmitCrabEntity>> HELMIT_CRAB = ENTITIES.register(BiomeMakeover.ID("helmit_crab"), ()->TEntityTypeBuilder.of(HelmitCrabEntity::new, MobCategory.CREATURE).sized(0.825F, 0.5F).clientTrackingRange(12).build());
     public static final RegistrySupplier<EntityType<ChestCamelEntity>> CHEST_CAMEL = ENTITIES.register(BiomeMakeover.ID("chest_camel"), ()->TEntityTypeBuilder.of(ChestCamelEntity::new, MobCategory.CREATURE).sized(1.7F, 2.375F).clientTrackingRange(10).build());
     public static final RegistrySupplier<EntityType<EquipmentCamelEntity>> BANNER_CAMEL = ENTITIES.register(BiomeMakeover.ID("banner_camel"), ()->TEntityTypeBuilder.of(EquipmentCamelEntity::new, MobCategory.CREATURE).sized(1.7F, 2.375F).clientTrackingRange(10).build());
+    public static final RegistrySupplier<EntityType<DustDevilEntity>> DUST_DEVIL = ENTITIES.register(BiomeMakeover.ID("dust_devil"), ()->TEntityTypeBuilder.of(DustDevilEntity::new, MobCategory.MONSTER).sized(0.35F, 0.9F).clientTrackingRange(8).updateInterval(2).build());
 
 
     public static final RegistrySupplier<Attribute> ATT_PROJECTILE_RESISTANCE = ATTRIBUTES.register(BiomeMakeover.ID("projectile_resistance"), ()->new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D));
@@ -131,6 +132,7 @@ public class BMEntities
         EntityAttributeRegistry.register(HELMIT_CRAB, HelmitCrabEntity::createAttributes);
         EntityAttributeRegistry.register(CHEST_CAMEL, Camel::createAttributes);
         EntityAttributeRegistry.register(BANNER_CAMEL, Camel::createAttributes);
+        EntityAttributeRegistry.register(DUST_DEVIL, DustDevilEntity::createAttributes);
     }
 
     private static void initSpawns()
@@ -173,6 +175,9 @@ public class BMEntities
 
         registerSpawn(BMFeatures.BEACH_BIOMES, HELMIT_CRAB.get(), MobCategory.CREATURE, 6, 2, 5);
         SpawnPlacementsInvoker.callRegister(HELMIT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, HelmitCrabEntity::checkSpawnRules);
+
+        registerSpawn(BMFeatures.DESERT_BIOMES, DUST_DEVIL.get(), MobCategory.MONSTER, 6, 1, 1);
+        SpawnPlacementsInvoker.callRegister(DUST_DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Monster::checkMonsterSpawnRules);
     }
 
     private static boolean checkDFSpawnRules(EntityType<?> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource)
@@ -207,6 +212,7 @@ public class BMEntities
         EntityModelLayerRegistry.register(AdjudicatorModel.LAYER_LOCATION, AdjudicatorModel::createBodyLayer);
         EntityModelLayerRegistry.register(StoneGolemModel.LAYER_LOCATION, StoneGolemModel::createBodyLayer);
         EntityModelLayerRegistry.register(HelmitCrabModel.LAYER_LOCATION, HelmitCrabModel::createBodyLayer);
+        EntityModelLayerRegistry.register(DustDevilModel.LAYER_LOCATION, DustDevilModel::createBodyLayer);
     }
 
     private static void registerSpawn(TagKey<Biome> tag, EntityType<?> type, MobCategory category, int weight, int min, int max)
