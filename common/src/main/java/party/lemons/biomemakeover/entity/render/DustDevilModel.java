@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.HumanoidArm;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DustDevilEntity;
@@ -24,6 +25,7 @@ public class DustDevilModel extends HierarchicalModel<DustDevilEntity> implement
     private final ModelPart left_arm;
 
     public DustDevilModel(ModelPart root) {
+        super(RenderType::entityTranslucent);
         this.root = root.getChild("dust_devil");
         this.body = this.root.getChild("body");
         this.cloud = this.root.getChild("cloud");
@@ -82,6 +84,8 @@ public class DustDevilModel extends HierarchicalModel<DustDevilEntity> implement
         this.head.yRot = headYaw * (float) (Math.PI / 180.0);
 
         this.animate(entity.idleAnimation, DustDevilRenderer.DUST_DEVIL_IDLE, age, 1F);
+        this.animate(entity.tornadoStartAnimation, DustDevilRenderer.DUST_DEVIL_CHARGING, age, 1F);
+        this.animate(entity.tornadoAnimation, DustDevilRenderer.DUST_DEVIL_TORNADOING, age, 1F);
 
         float movementRotation = Math.min(swingAmount / 0.3F, 1.0F);
 

@@ -1,13 +1,13 @@
 package party.lemons.biomemakeover.init;
 
+import com.mojang.serialization.Codec;
 import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
@@ -15,10 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
-import party.lemons.biomemakeover.level.particle.BlossomParticle;
-import party.lemons.biomemakeover.level.particle.LightningSparkParticle;
-import party.lemons.biomemakeover.level.particle.PoltergeistParticle;
-import party.lemons.biomemakeover.level.particle.TeleportParticle;
+import party.lemons.biomemakeover.level.particle.*;
 
 import java.util.function.Supplier;
 
@@ -107,6 +104,12 @@ public class BMEffects
     public static final RegistrySupplier<SimpleParticleType> POLTERGEIST = register("poltergeist", () -> new SimpleParticleType(true));
     public static final RegistrySupplier<SimpleParticleType> BLOSSOM = register("blossom", () -> new SimpleParticleType(true));
     public static final RegistrySupplier<SimpleParticleType> TELEPORT = register("teleport", () -> new SimpleParticleType(true));
+    public static final RegistrySupplier<ParticleType<BlockParticleOption>> SIMPLE_BLOCK = register("simple_block", () -> new ParticleType<>(false, BlockParticleOption.DESERIALIZER){
+        @Override
+        public Codec<BlockParticleOption> codec() {
+            return BlockParticleOption.codec(this);
+        }
+    });
 
     public static void init()
     {
@@ -119,6 +122,7 @@ public class BMEffects
             ParticleProviderRegistry.register(POLTERGEIST, PoltergeistParticle.Provider::new);
             ParticleProviderRegistry.register(BLOSSOM, BlossomParticle.Provider::new);
             ParticleProviderRegistry.register(TELEPORT, TeleportParticle.Provider::new);
+            ParticleProviderRegistry.register(SIMPLE_BLOCK, (s)->new SimpleTerrainParticle.Provider());
             ClientLifecycleEvent.CLIENT_SETUP.register(instance -> {
         });
         }
