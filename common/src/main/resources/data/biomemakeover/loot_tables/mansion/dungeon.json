@@ -2,6 +2,21 @@
  "type": "minecraft:chest",
  "pools": [
   {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:loot_table",
+     "name": "minecraft:chests/woodland_mansion",
+     "conditions": [
+      {
+       "condition": "minecraft:random_chance",
+       "chance": 0.05
+      }
+     ]
+    }
+   ]
+  },
+  {
    "rolls": {
     "min": 3.0,
     "max": 7.0,
@@ -10,7 +25,7 @@
    "entries": [
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -25,7 +40,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 9,
+     "weight": 18,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -40,7 +55,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 9,
+     "weight": 18,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -55,7 +70,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 9,
+     "weight": 18,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -70,7 +85,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 5,
+     "weight": 10,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -85,7 +100,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 5,
+     "weight": 10,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -100,7 +115,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 5,
+     "weight": 10,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -115,7 +130,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 12,
+     "weight": 24,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -130,7 +145,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 12,
+     "weight": 24,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -145,7 +160,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -160,7 +175,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 8,
+     "weight": 16,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -175,7 +190,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -190,7 +205,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 1,
+     "weight": 2,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -212,7 +227,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 1,
+     "weight": 2,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -234,7 +249,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 1,
+     "weight": 2,
      "functions": [
       {
        "function": "minecraft:set_count",

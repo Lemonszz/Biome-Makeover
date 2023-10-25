@@ -10,7 +10,7 @@
    "entries": [
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -25,7 +25,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -40,7 +40,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -55,7 +55,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 3,
+     "weight": 6,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -70,7 +70,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 3,
+     "weight": 6,
      "functions": [
       {
        "function": "minecraft:set_count",
@@ -85,7 +85,7 @@
     },
     {
      "type": "minecraft:item",
-     "weight": 6,
+     "weight": 12,
      "functions": [
       {
        "function": "minecraft:set_count",

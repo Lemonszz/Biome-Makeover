@@ -2,6 +2,21 @@
  "type": "minecraft:chest",
  "pools": [
   {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:loot_table",
+     "name": "minecraft:chests/woodland_mansion",
+     "conditions": [
+      {
+       "condition": "minecraft:random_chance",
+       "chance": 0.05
+      }
+     ]
+    }
+   ]
+  },
+  {
    "rolls": {
     "min": 3.0,
     "max": 7.0,
