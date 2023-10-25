@@ -5,12 +5,12 @@
    "rolls": 1,
    "entries": [
     {
-     "type": "minecraft:loot_table",
+     "type": "biomemakeover:loot_table",
      "name": "minecraft:chests/woodland_mansion",
      "conditions": [
       {
        "condition": "minecraft:random_chance",
-       "chance": 0.1
+       "chance": 0.25
       }
      ]
     }

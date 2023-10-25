@@ -1,7 +1,6 @@
 package party.lemons.biomemakeover.init;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import dev.architectury.core.item.ArchitecturyMobBucketItem;
 import dev.architectury.core.item.ArchitecturyRecordItem;
 import dev.architectury.core.item.ArchitecturySpawnEggItem;
@@ -23,13 +22,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.Constants;
 import party.lemons.biomemakeover.crafting.SuspiciousStewListing;
 import party.lemons.biomemakeover.item.*;
-import party.lemons.taniwha.block.DecorationBlockFactory;
+import party.lemons.biomemakeover.util.loot.BetterLootTableReference;
 import party.lemons.taniwha.data.trade.listing.TradeTypes;
 import party.lemons.taniwha.hooks.PotteryPatternHooks;
 import party.lemons.taniwha.item.ArmorBuilder;
@@ -39,7 +38,6 @@ import party.lemons.taniwha.item.types.TItem;
 import party.lemons.taniwha.item.types.TItemNameBlockItem;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Supplier;
 
 public class BMItems
@@ -47,6 +45,7 @@ public class BMItems
     public static final List<Supplier<Item>> ROOTLING_BUDS = Lists.newArrayList();
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Constants.MOD_ID, Registries.ITEM);
+    public static final DeferredRegister<LootPoolEntryType> LOOT_POOL_ENTRIES = DeferredRegister.create(Constants.MOD_ID, Registries.LOOT_POOL_ENTRY_TYPE);
     public static final DeferredRegister<TradeTypes.TradeType<?>> TRADE_TYPES = DeferredRegister.create(Constants.MOD_ID, TradeTypes.KEY);
     public static final DeferredRegister<String> DECORATED_POT_PATTERNS = DeferredRegister.create(Constants.MOD_ID, Registries.DECORATED_POT_PATTERNS);
 
@@ -153,6 +152,8 @@ public class BMItems
     public static final RegistrySupplier<String> WORKER_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("worker_pottery_pattern"), ()->"worker_pottery_pattern");
     public static final RegistrySupplier<String> WHINNY_PATTERN = DECORATED_POT_PATTERNS.register(BiomeMakeover.ID("whinny_pottery_pattern"), ()->"whinny_pottery_pattern");
 
+    public static final RegistrySupplier<LootPoolEntryType> BETTER_LOOTTABLE_REFERENCE = LOOT_POOL_ENTRIES.register(BiomeMakeover.ID("loot_table"), ()->new LootPoolEntryType(new BetterLootTableReference.Serializer()));
+
     public static void init() {
 
         BMEntities.ATT_PROJECTILE_RESISTANCE.listen(a->{
@@ -176,6 +177,7 @@ public class BMItems
         ITEMS.register();
         TRADE_TYPES.register();
         DECORATED_POT_PATTERNS.register();
+        LOOT_POOL_ENTRIES.register();
     }
 
     private static RegistrySupplier<Item> registerItem(String id, Supplier<Item> item) {
