@@ -3,15 +3,19 @@ package party.lemons.biomemakeover.entity;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -28,6 +32,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import party.lemons.biomemakeover.entity.behavior.DustDevilAI;
 import party.lemons.biomemakeover.init.BMEffects;
 
@@ -36,7 +41,7 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
     private static final EntityDataAccessor<Boolean> IS_TORNADO = SynchedEntityData.defineId(DustDevilEntity.class, EntityDataSerializers.BOOLEAN);
     private static final int ANIM_CHARGE_TIME = 78;
 
-
+    public boolean hasPlayedLoop = false;
     private final SimpleContainer inventory = new SimpleContainer(1);
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState tornadoStartAnimation = new AnimationState();
@@ -246,5 +251,25 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
     @Override
     public SimpleContainer getInventory() {
         return this.inventory;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BMEffects.DUST_DEVIL_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BMEffects.DUST_DEVIL_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BMEffects.DUST_DEVIL_HURT.get();
+    }
+
+    protected float getSoundVolume() {
+        return 0.4F;
     }
 }

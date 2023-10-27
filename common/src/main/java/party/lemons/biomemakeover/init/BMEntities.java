@@ -78,7 +78,7 @@ public class BMEntities
     public static final RegistrySupplier<EntityType<HelmitCrabEntity>> HELMIT_CRAB = ENTITIES.register(BiomeMakeover.ID("helmit_crab"), ()->TEntityTypeBuilder.of(HelmitCrabEntity::new, MobCategory.CREATURE).sized(0.825F, 0.5F).clientTrackingRange(12).build());
     public static final RegistrySupplier<EntityType<ChestCamelEntity>> CHEST_CAMEL = ENTITIES.register(BiomeMakeover.ID("chest_camel"), ()->TEntityTypeBuilder.of(ChestCamelEntity::new, MobCategory.CREATURE).sized(1.7F, 2.375F).clientTrackingRange(10).build());
     public static final RegistrySupplier<EntityType<EquipmentCamelEntity>> BANNER_CAMEL = ENTITIES.register(BiomeMakeover.ID("banner_camel"), ()->TEntityTypeBuilder.of(EquipmentCamelEntity::new, MobCategory.CREATURE).sized(1.7F, 2.375F).clientTrackingRange(10).build());
-    public static final RegistrySupplier<EntityType<DustDevilEntity>> DUST_DEVIL = ENTITIES.register(BiomeMakeover.ID("dust_devil"), ()->TEntityTypeBuilder.of(DustDevilEntity::new, MobCategory.MONSTER).sized(0.35F, 0.9F).clientTrackingRange(8).updateInterval(2).build());
+    public static final RegistrySupplier<EntityType<DustDevilEntity>> DUST_DEVIL = ENTITIES.register(BiomeMakeover.ID("dust_devil"), ()->TEntityTypeBuilder.of(DustDevilEntity::new, MobCategory.MONSTER).sized(0.5F, 0.9F).clientTrackingRange(8).updateInterval(2).build());
 
 
     public static final RegistrySupplier<Attribute> ATT_PROJECTILE_RESISTANCE = ATTRIBUTES.register(BiomeMakeover.ID("projectile_resistance"), ()->new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D));

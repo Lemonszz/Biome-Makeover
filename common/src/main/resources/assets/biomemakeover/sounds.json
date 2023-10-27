@@ -810,5 +810,53 @@
       "biomemakeover:crab/snip2"
     ],
     "subtitle": "subtitles.biomemakeover.crab_snip"
+  },
+  "dust_devil_death": {
+    "subtitle": "subtitles.biomemakeover.dust_devil.death",
+    "sounds": [
+      "biomemakeover:dust_devil/death1",
+      "biomemakeover:dust_devil/death2",
+      "biomemakeover:dust_devil/death3",
+      "biomemakeover:dust_devil/death4"
+    ]
+  },
+  "dust_devil_hurt": {
+    "subtitle": "subtitles.biomemakeover.dust_devil.hurt",
+    "sounds": [
+      "biomemakeover:dust_devil/hurt1",
+      "biomemakeover:dust_devil/hurt2",
+      "biomemakeover:dust_devil/hurt3",
+      "biomemakeover:dust_devil/hurt4"
+    ]
+  },
+  "dust_devil_idle": {
+    "subtitle": "subtitles.biomemakeover.dust_devil.idle",
+    "sounds": [
+      "biomemakeover:dust_devil/idle1",
+      "biomemakeover:dust_devil/idle2",
+      "biomemakeover:dust_devil/idle3",
+      "biomemakeover:dust_devil/idle4"
+    ]
+  },
+  "dust_devil_wind": {
+    "sounds": [
+      "biomemakeover:dust_devil/wind"
+    ]
+  },
+  "dust_devil_wind_grinding": {
+    "sounds": [
+      "biomemakeover:dust_devil/wind_grinding"
+    ]
+  },
+  "dust_devil_wind_idle": {
+    "sounds": [
+      "biomemakeover:dust_devil/wind_idle"
+    ]
+  },
+  "dust_devil_grind_finished": {
+    "subtitle": "subtitles.biomemakeover.dust_devil.grind_finished",
+    "sounds": [
+      "biomemakeover:dust_devil/wind_idle"
+    ]
   }
 }

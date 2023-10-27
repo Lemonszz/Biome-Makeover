@@ -14,9 +14,11 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 import party.lemons.biomemakeover.BiomeMakeover;
 import party.lemons.biomemakeover.entity.DustDevilEntity;
+import party.lemons.biomemakeover.util.sound.DustDevilIdleWindSoundInstance;
+import party.lemons.biomemakeover.util.sound.LoopingAlternatingEntitySound;
 
 public class DustDevilRenderer extends MobRenderer<DustDevilEntity, DustDevilModel>
 {
@@ -29,7 +31,13 @@ public class DustDevilRenderer extends MobRenderer<DustDevilEntity, DustDevilMod
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DustDevilEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(DustDevilEntity entity) {
+        if(!entity.hasPlayedLoop)
+        {
+            entity.hasPlayedLoop = true;
+            Minecraft.getInstance().getSoundManager().play(new DustDevilIdleWindSoundInstance(entity));
+        }
+
         return TEXTURE;
     }
 

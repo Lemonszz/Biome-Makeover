@@ -9,8 +9,6 @@ import net.minecraft.world.entity.LivingEntity;
 public class EntityLoopSoundInstance extends AbstractTickableSoundInstance
 {
     protected final LivingEntity entity;
-    private boolean replaced;
-
     public EntityLoopSoundInstance(LivingEntity entity, SoundEvent soundEvent, RandomSource randomSource) {
         super(soundEvent, entity.getSoundSource(), randomSource);
 
@@ -26,7 +24,7 @@ public class EntityLoopSoundInstance extends AbstractTickableSoundInstance
     @Override
     public void tick()
     {
-        if(!this.entity.isRemoved() && !this.replaced)
+        if(!this.entity.isRemoved())
         {
             this.x = (float) this.entity.getX();
             this.y = (float) this.entity.getY();

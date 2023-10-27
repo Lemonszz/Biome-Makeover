@@ -98,6 +98,13 @@ public class BMEffects
     public static final Supplier<SoundEvent> CRAB_HURT = registerSound(BiomeMakeover.ID("crab_hurt"));
     public static final Supplier<SoundEvent> CRAB_SCUTTLE = registerSound(BiomeMakeover.ID("crab_scuttle"));
     public static final Supplier<SoundEvent> CRAB_SNIP = registerSound(BiomeMakeover.ID("crab_snip"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_DEATH = registerSound(BiomeMakeover.ID("dust_devil_death"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_HURT = registerSound(BiomeMakeover.ID("dust_devil_hurt"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_IDLE = registerSound(BiomeMakeover.ID("dust_devil_idle"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_WIND = registerSound(BiomeMakeover.ID("dust_devil_wind"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_WIND_GRINDING = registerSound(BiomeMakeover.ID("dust_devil_wind_grinding"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_WIND_IDLE = registerSound(BiomeMakeover.ID("dust_devil_wind_idle"));
+    public static final Supplier<SoundEvent> DUST_DEVIL_GRIND_FINISHED = registerSound(BiomeMakeover.ID("dust_devil_grind_finished"));
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Constants.MOD_ID, Registries.PARTICLE_TYPE);
     public static final RegistrySupplier<SimpleParticleType> LIGHTNING_SPARK = register("lightning_spark", () -> new SimpleParticleType(true));
