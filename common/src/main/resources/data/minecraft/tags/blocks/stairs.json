@@ -31,6 +31,9 @@
     "biomemakeover:polished_mesmerite_stairs",
     "biomemakeover:mesmerite_stairs",
     "biomemakeover:cracked_brick_stairs",
-    "biomemakeover:reed_thatch_stairs"
+    "biomemakeover:reed_thatch_stairs",
+    "biomemakeover:sandstone_brick_stairs",
+    "biomemakeover:cracked_sandstone_brick_stairs",
+    "biomemakeover:cracked_sandstone_stairs"
   ]
 }

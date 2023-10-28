@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:cracked_sandstone_bricks"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:cracked_sandstone_brick_wall",
+    "count": 6
+  }
+}

@@ -51,6 +51,8 @@ public class ChestCamelRender extends CamelRenderer {
 
             openness = Mth.abs(getParentModel().root().zRot) / 2F;
             Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(chestDummy).render(chestDummy, delta, poseStack, multiBufferSource, light, OverlayTexture.NO_OVERLAY);
+            poseStack.popPose();
+
         }
     }
 }

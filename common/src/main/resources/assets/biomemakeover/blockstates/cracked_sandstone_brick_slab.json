@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/decoration/cracked_sandstone_brick/cracked_sandstone_brick_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/decoration/cracked_sandstone_brick/cracked_sandstone_bricks"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/decoration/cracked_sandstone_brick/cracked_sandstone_brick_slab_top"
+    }
+  }
+}

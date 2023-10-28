@@ -32,6 +32,9 @@
     "biomemakeover:mesmerite_wall",
     "biomemakeover:cracked_dried_peat_brick_wall",
     "biomemakeover:mossy_dried_peat_brick_wall",
-    "biomemakeover:cracked_brick_wall"
+    "biomemakeover:cracked_brick_wall",
+    "biomemakeover:sandstone_brick_wall",
+    "biomemakeover:cracked_sandstone_brick_wall",
+    "biomemakeover:cracked_sandstone_wall"
   ]
 }

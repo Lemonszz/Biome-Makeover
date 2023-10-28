@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "biomemakeover:block/gilded_lapis/gilded_lapis_pillar_top",
+    "side": "biomemakeover:block/gilded_lapis/gilded_lapis_pillar_side"
+  }
+}

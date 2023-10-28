@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:sandstone_brick_wall",
+    "biomemakeover:cracked_sandstone_brick_wall",
+    "biomemakeover:cracked_sandstone_wall"
+  ]
+}

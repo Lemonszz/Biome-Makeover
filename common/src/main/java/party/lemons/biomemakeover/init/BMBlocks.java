@@ -193,15 +193,32 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> SUSPICIOUS_RED_SAND = registerBlockItem("suspicious_red_sand", ()->new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
 
+    public static final RegistrySupplier<Block> CRACKED_BRICKS = registerBlockItem("cracked_bricks", ()->new TBlock(properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED)));
+    public static final DecorationBlockFactory CRACKED_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "cracked_brick", CRACKED_BRICKS, properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED), BMTab.TAB).all().register(BLOCKS, ITEMS);
+
     public static final RegistrySupplier<Block> ALOE_VERA = register("aloe_vera", ()->new AloeVeraBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT)).modifiers(RTypeModifier.CUTOUT));
 
     public static final RegistrySupplier<Block> SUCCULENT  = register("succulent", ()->new SucculentBlock(BlockBehaviour.Properties.of().instabreak().noCollission().noOcclusion().mapColor(MapColor.PLANT).sound(SoundType.CHERRY_SAPLING)).modifiers(RTypeModifier.CUTOUT));
 
+    public static final RegistrySupplier<Block> SANDSTONE_BRICKS = registerBlockItem("sandstone_bricks", ()->new TBlock(properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()));
+    public static final DecorationBlockFactory SANDSTONE_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "sandstone_brick", SANDSTONE_BRICKS, properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops(), BMTab.TAB).all().register(BLOCKS, ITEMS);
+
+    public static final RegistrySupplier<Block> CRACKED_SANDSTONE = registerBlockItem("cracked_sandstone", ()->new TBlock(properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()));
+    public static final DecorationBlockFactory CRACKED_SANDSTONE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "cracked_sandstone", CRACKED_SANDSTONE, properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops(), BMTab.TAB).all().register(BLOCKS, ITEMS);
+
+    public static final RegistrySupplier<Block> CRACKED_SANDSTONE_BRICKS = registerBlockItem("cracked_sandstone_bricks", ()->new TBlock(properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()));
+    public static final DecorationBlockFactory CRACKED_SANDSTONE_BRICK_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "cracked_sandstone_brick", CRACKED_SANDSTONE_BRICKS, properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops(), BMTab.TAB).all().register(BLOCKS, ITEMS);
+
+    public static final RegistrySupplier<Block> CHISELED_SMOOTH_SANDSTONE = registerBlockItem("chiseled_smooth_sandstone", ()->new TBlock(properties(0.8F).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> GILDED_LAPIS_BLOCK = registerBlockItem("gilded_lapis_block", ()->new TBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> GILDED_LAPIS_PILLAR = registerBlockItem("gilded_lapis_pillar", ()->new TPillarBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> GILDED_LAPIS_TILE = registerBlockItem("gilded_lapis_tile", ()->new TBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> GILDED_LAPIS_TRIM = registerBlockItem("gilded_lapis_trim", ()->new TPillarBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+
     //////////////////////////
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();
     public static final TerracottaBrickInfo TERRACOTTA_BRICKS = TerracottaBrickInfo.create();
-    public static final RegistrySupplier<Block> CRACKED_BRICKS = registerBlockItem("cracked_bricks", ()->new TBlock(properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED)));
-    public static final DecorationBlockFactory CRACKED_BRICKS_DECORATION = new DecorationBlockFactory(Constants.MOD_ID, "cracked_brick", CRACKED_BRICKS, properties(2F, 6F).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_RED), BMTab.TAB).all().register(BLOCKS, ITEMS);
 
     public static final RegistrySupplier<Block> POTTED_MYCELIUM_ROOTS = pottedPlant("mycelium_roots",MYCELIUM_ROOTS);
     public static final RegistrySupplier<Block> POTTED_PURPLE_GLOWSHROOM =  litPottedPlant("purple_glowshroom", PURPLE_GLOWSHROOM, 13);

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:sandstone_bricks"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:sandstone_brick_stairs",
+    "count": 4
+  }
+}

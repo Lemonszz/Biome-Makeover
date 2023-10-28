@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:cracked_sandstone"
+  },
+  "result": "biomemakeover:cracked_sandstone_slab",
+  "count": 2
+}

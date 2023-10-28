@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "biomemakeover:block/sandstone_bricks",
+    "top": "biomemakeover:block/sandstone_bricks",
+    "side": "biomemakeover:block/sandstone_bricks"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:cracked_sandstone"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:cracked_sandstone_stairs",
+    "count": 4
+  }
+}

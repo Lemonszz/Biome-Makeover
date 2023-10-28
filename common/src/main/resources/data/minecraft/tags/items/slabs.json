@@ -30,6 +30,9 @@
     "biomemakeover:dried_peat_bricks_slab",
     "biomemakeover:mesmerite_slab",
     "biomemakeover:polished_mesmerite_slab",
-    "biomemakeover:cracked_brick_slab"
+    "biomemakeover:cracked_brick_slab",
+    "biomemakeover:sandstone_brick_slab",
+    "biomemakeover:cracked_sandstone_brick_slab",
+    "biomemakeover:cracked_sandstone_slab"
   ]
 }

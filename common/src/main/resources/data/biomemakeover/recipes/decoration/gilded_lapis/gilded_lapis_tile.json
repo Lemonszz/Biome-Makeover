@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GG",
+    "GG"
+  ],
+  "key": {
+    "G": {
+      "item": "biomemakeover:gilded_lapis_block"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:gilded_lapis_tile",
+    "count": 4
+  }
+}

@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import party.lemons.taniwha.util.TaniwhaTags;
 
 public class SimpleTerrainParticle extends TextureSheetParticle {
     private final BlockPos pos;
@@ -25,6 +26,13 @@ public class SimpleTerrainParticle extends TextureSheetParticle {
         this.rCol = 0.6F;
         this.gCol = 0.6F;
         this.bCol = 0.6F;
+
+        if (!state.is(TaniwhaTags.BLOCK_PARTICLE_EXCEPTION)) {
+            int j = Minecraft.getInstance().getBlockColors().getColor(state, level, pos, 0);
+            this.rCol *= (float)(j >> 16 & 0xFF) / 255.0F;
+            this.gCol *= (float)(j >> 8 & 0xFF) / 255.0F;
+            this.bCol *= (float)(j & 0xFF) / 255.0F;
+        }
 
         this.gravity = 0.25F;
 

@@ -30,6 +30,9 @@
     "biomemakeover:dried_peat_bricks_stairs",
     "biomemakeover:polished_mesmerite_stairs",
     "biomemakeover:mesmerite_stairs",
-    "biomemakeover:cracked_brick_stairs"
+    "biomemakeover:cracked_brick_stairs",
+    "biomemakeover:sandstone_brick_stairs",
+    "biomemakeover:cracked_sandstone_brick_stairs",
+    "biomemakeover:cracked_sandstone_stairs"
   ]
 }

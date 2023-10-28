@@ -31,6 +31,9 @@
     "biomemakeover:mesmerite_slab",
     "biomemakeover:polished_mesmerite_slab",
     "biomemakeover:cracked_brick_slab",
-    "biomemakeover:reed_thatch_slab"
+    "biomemakeover:reed_thatch_slab",
+    "biomemakeover:sandstone_brick_slab",
+    "biomemakeover:cracked_sandstone_brick_slab",
+    "biomemakeover:cracked_sandstone_slab"
   ]
 }

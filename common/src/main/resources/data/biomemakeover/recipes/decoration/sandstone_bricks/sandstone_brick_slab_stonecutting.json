@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:sandstone_bricks"
+  },
+  "result": "biomemakeover:sandstone_brick_slab",
+  "count": 2
+}

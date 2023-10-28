@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:smooth_sandstone_slab"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:chiseled_smooth_sandstone",
+    "count": 1
+  }
+}
