@@ -1,0 +1,33 @@
+{
+  "type": "biomemakeover:grinding",
+  "ingredient": {
+    "item": "minecraft:blaze_rod"
+  },
+  "results": [
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 1,
+      "weight": 5
+    },
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 2,
+      "weight": 5
+    },
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 3,
+      "weight": 60
+    },
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 4,
+      "weight": 20
+    },
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 6,
+      "weight": 10
+    }
+  ]
+}

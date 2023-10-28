@@ -4,6 +4,10 @@ dependencies {
     modApi("party.lemons:taniwha-fabric:${rootProject.taniwha_version}"){
         transitive = true
     }
+
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
+
 }
 
 architectury {

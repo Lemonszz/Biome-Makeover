@@ -39,6 +39,10 @@ dependencies {
         transitive = true;
     }
 
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:${rootProject.rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-forge:${rootProject.rei_version}"
+
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }

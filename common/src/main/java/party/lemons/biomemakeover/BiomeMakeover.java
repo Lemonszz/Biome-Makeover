@@ -65,6 +65,7 @@ public class BiomeMakeover {
         BMEnchantments.init();
         BMBoats.init();
         QuestRewardItem.init();
+        BMCrafting.init();
 
         AdjudicatorRoomListener.init();
         BMWorldEvents.init();

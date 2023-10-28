@@ -35,6 +35,11 @@ dependencies {
         transitive = true;
     }
 
+
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rootProject.rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rootProject.rei_version}"
+
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }

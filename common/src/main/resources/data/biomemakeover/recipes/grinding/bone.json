@@ -1,0 +1,33 @@
+{
+  "type": "biomemakeover:grinding",
+  "ingredient": {
+    "item": "minecraft:bone"
+  },
+  "results": [
+    {
+      "item": "minecraft:bone_meal",
+      "count": 1,
+      "weight": 5
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 2,
+      "weight": 5
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 3,
+      "weight": 60
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 4,
+      "weight": 20
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 6,
+      "weight": 10
+    }
+  ]
+}

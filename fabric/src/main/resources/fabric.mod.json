@@ -21,6 +21,12 @@
     ],
     "client": [
       "party.lemons.biomemakeover.fabric.BMFabricClient"
+    ],
+    "rei_common": [
+      "party.lemons.biomemakeover.fabric.compat.BMReiServerFabric"
+    ],
+    "rei_client": [
+      "party.lemons.biomemakeover.fabric.compat.BMReiClientFabric"
     ]
   },
   "mixins": ["biomemakeover.mixins.json", "biomemakeover-common.mixins.json"],

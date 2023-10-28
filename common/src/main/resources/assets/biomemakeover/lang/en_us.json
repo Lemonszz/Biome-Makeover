@@ -638,5 +638,7 @@
   "item.biomemakeover.cracked_brick": "Cracked Brick",
   "item.biomemakeover.refined_pottery_sherd": "Refined Pottery Sherd",
   "item.biomemakeover.worker_pottery_sherd": "Worker Pottery Sherd",
-  "item.biomemakeover.whinny_pottery_sherd": "Whinny Pottery Sherd"
+  "item.biomemakeover.whinny_pottery_sherd": "Whinny Pottery Sherd",
+  "text.biomemakeover.chance": "§e%d%% Chance",
+  "text.biomemakeover.rei.grinding": "Dust Devil Grinding"
 }

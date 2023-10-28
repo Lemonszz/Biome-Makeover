@@ -1,0 +1,8 @@
+{
+  "type": "biomemakeover:grinding",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "result": "minecraft:clay_ball",
+  "count": 4
+}

@@ -10,3 +10,4 @@ accessible method net/minecraft/world/entity/LightningBolt clearCopperOnLightnin
 accessible method net/minecraft/world/level/storage/loot/parameters/LootContextParamSets register (Ljava/lang/String;Ljava/util/function/Consumer;)Lnet/minecraft/world/level/storage/loot/parameters/LootContextParamSet;
 accessible method net/minecraft/world/level/block/DaylightDetectorBlock updateSignalStrength (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
 accessible method net/minecraft/client/particle/TextureSheetParticle setSprite (Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker;)V

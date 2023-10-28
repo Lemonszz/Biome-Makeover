@@ -1,0 +1,7 @@
+{
+  "type": "biomemakeover:grinding",
+  "ingredient": {
+    "tag": "biomemakeover:red_sandstone"
+  },
+  "result": "minecraft:red_sand"
+}

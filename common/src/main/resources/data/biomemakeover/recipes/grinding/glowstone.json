@@ -1,0 +1,8 @@
+{
+  "type": "biomemakeover:grinding",
+  "ingredient": {
+    "item": "minecraft:glowstone"
+  },
+  "result": "minecraft:glowstone_dust",
+  "count": 4
+}

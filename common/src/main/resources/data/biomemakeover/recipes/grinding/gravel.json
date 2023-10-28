@@ -1,0 +1,28 @@
+{
+  "type": "biomemakeover:grinding",
+  "ingredient": {
+    "item": "minecraft:gravel"
+  },
+  "results": [
+    {
+      "item": "minecraft:sand",
+      "count": 1,
+      "weight": 40
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 1,
+      "weight": 30
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 2,
+      "weight": 20
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 3,
+      "weight": 10
+    }
+  ]
+}
