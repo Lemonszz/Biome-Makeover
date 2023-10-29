@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "biomemakeover:gilded_lapis_tile"
+    }
+  },
+  "result": {
+    "item": "biomemakeover:gilded_lapis_tile_stairs",
+    "count": 4
+  }
+}

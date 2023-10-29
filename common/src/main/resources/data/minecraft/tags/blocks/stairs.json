@@ -34,6 +34,8 @@
     "biomemakeover:reed_thatch_stairs",
     "biomemakeover:sandstone_brick_stairs",
     "biomemakeover:cracked_sandstone_brick_stairs",
-    "biomemakeover:cracked_sandstone_stairs"
+    "biomemakeover:cracked_sandstone_stairs",
+    "biomemakeover:gilded_lapis_trim_stairs",
+    "biomemakeover:gilded_lapis_tile_stairs"
   ]
 }

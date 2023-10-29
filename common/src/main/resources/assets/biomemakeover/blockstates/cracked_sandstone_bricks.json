@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "biomemakeover:block/cracked_sandstone_bricks"
+      "model": "biomemakeover:block/decoration/cracked_sandstone_brick/cracked_sandstone_bricks"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "biomemakeover:block/gilded_lapis/gilded_lapis_tile"
+      "model": "biomemakeover:block/decoration/gilded_lapis/tile/gilded_lapis_tile"
     }
   }
 }

@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "biomemakeover:block/gilded_lapis/gilded_lapis_trim_horizontal",
+      "model": "biomemakeover:block/decoration/gilded_lapis/trim/gilded_lapis_trim_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "biomemakeover:block/gilded_lapis/gilded_lapis_trim"
+      "model": "biomemakeover:block/decoration/gilded_lapis/trim/gilded_lapis_trim"
     },
     "axis=z": {
-      "model": "biomemakeover:block/gilded_lapis/gilded_lapis_trim_horizontal",
+      "model": "biomemakeover:block/decoration/gilded_lapis/trim/gilded_lapis_trim_horizontal",
       "x": 90
     }
   }

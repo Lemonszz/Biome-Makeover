@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "biomemakeover:block/gilded_lapis/gilded_lapis_tile_top",
+    "top": "biomemakeover:block/gilded_lapis/gilded_lapis_tile_top",
+    "side": "biomemakeover:block/gilded_lapis/gilded_lapis_tile_side"
+  }
+}

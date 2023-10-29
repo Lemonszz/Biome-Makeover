@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:gilded_lapis_pillar"
+  },
+  "result": "biomemakeover:gilded_lapis_pillar_slab",
+  "count": 2
+}

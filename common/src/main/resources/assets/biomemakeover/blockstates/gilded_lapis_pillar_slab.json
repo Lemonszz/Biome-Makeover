@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "biomemakeover:block/decoration/gilded_lapis/pillar/gilded_lapis_pillar_slab"
+    },
+    "type=double": {
+      "model": "biomemakeover:block/decoration/gilded_lapis/pillar/gilded_lapis_pillar"
+    },
+    "type=top": {
+      "model": "biomemakeover:block/decoration/gilded_lapis/pillar/gilded_lapis_pillar_slab_top"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "biomemakeover:block/gilded_lapis/gilded_lapis_pillar_top",
+    "top": "biomemakeover:block/gilded_lapis/gilded_lapis_pillar_top",
+    "side": "biomemakeover:block/gilded_lapis/gilded_lapis_pillar_side"
+  }
+}

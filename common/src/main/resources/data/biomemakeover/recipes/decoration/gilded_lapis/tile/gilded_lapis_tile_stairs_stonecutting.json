@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "biomemakeover:gilded_lapis_tile"
+  },
+  "result": "biomemakeover:gilded_lapis_tile_stairs",
+  "count": 1
+}

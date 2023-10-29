@@ -213,8 +213,13 @@ public class BMBlocks
 
     public static final RegistrySupplier<Block> GILDED_LAPIS_BLOCK = registerBlockItem("gilded_lapis_block", ()->new TBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> GILDED_LAPIS_PILLAR = registerBlockItem("gilded_lapis_pillar", ()->new TPillarBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+    public static final DecorationBlockFactory GILDED_LAPIS_PILLAR_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "gilded_lapis_pillar", GILDED_LAPIS_PILLAR, properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops(), BMTab.TAB).slab().register(BLOCKS, ITEMS);
+
     public static final RegistrySupplier<Block> GILDED_LAPIS_TILE = registerBlockItem("gilded_lapis_tile", ()->new TBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+    public static final DecorationBlockFactory GILDED_LAPIS_TILE_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "gilded_lapis_tile", GILDED_LAPIS_TILE, properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops(), BMTab.TAB).slab().stair().register(BLOCKS, ITEMS);
+
     public static final RegistrySupplier<Block> GILDED_LAPIS_TRIM = registerBlockItem("gilded_lapis_trim", ()->new TPillarBlock(properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops()));
+    public static final DecorationBlockFactory GILDED_LAPIS_TRIM_DECORATION = new DecorationBlockFactory(Constants.MOD_ID,  "gilded_lapis_trim", GILDED_LAPIS_TRIM, properties(3).mapColor(MapColor.LAPIS).requiresCorrectToolForDrops(), BMTab.TAB).slab().stair().register(BLOCKS, ITEMS);
 
     //////////////////////////
     public static final TapestryInfo TAPESTRIES = TapestryInfo.create();
