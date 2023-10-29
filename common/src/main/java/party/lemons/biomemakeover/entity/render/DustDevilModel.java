@@ -66,10 +66,8 @@ public class DustDevilModel extends HierarchicalModel<DustDevilEntity> implement
     public void translateToHand(HumanoidArm arm, PoseStack pose) {
         this.root.translateAndRotate(pose);
         this.body.translateAndRotate(pose);
-        pose.translate(0.0F, 0.0625F, 0.1875F);
-        pose.mulPose(Axis.XP.rotation(this.right_arm.xRot));
+        this.right_arm.translateAndRotate(pose);
         pose.scale(0.7F, 0.7F, 0.7F);
-        pose.translate(0.0625F, 0.0F, 0.0F);
     }
     @Override
     public ModelPart root() {

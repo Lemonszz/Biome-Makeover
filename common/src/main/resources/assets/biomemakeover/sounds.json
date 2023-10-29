@@ -856,7 +856,7 @@
   "dust_devil_grind_finished": {
     "subtitle": "subtitles.biomemakeover.dust_devil.grind_finished",
     "sounds": [
-      "biomemakeover:dust_devil/wind_idle"
+      "biomemakeover:dust_devil/grind_finish"
     ]
   }
 }

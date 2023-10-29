@@ -3,6 +3,8 @@ package party.lemons.biomemakeover.entity;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,21 +12,21 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -33,12 +35,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import party.lemons.biomemakeover.crafting.grinding.GrindingRecipe;
 import party.lemons.biomemakeover.entity.behavior.DustDevilAI;
+import party.lemons.biomemakeover.init.BMCrafting;
 import party.lemons.biomemakeover.init.BMEffects;
+
+import java.util.Optional;
 
 public class DustDevilEntity extends Monster implements InventoryCarrier
 {
     private static final EntityDataAccessor<Boolean> IS_TORNADO = SynchedEntityData.defineId(DustDevilEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_GRINDING = SynchedEntityData.defineId(DustDevilEntity.class, EntityDataSerializers.BOOLEAN);
     private static final int ANIM_CHARGE_TIME = 78;
 
     public boolean hasPlayedLoop = false;
@@ -48,18 +55,25 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
     private int tornadoStartTime = 0;
     public final AnimationState tornadoAnimation = new AnimationState();
 
+    public final RecipeManager.CachedCheck<Container, GrindingRecipe> recipeCheck;
+    private Optional<GrindingRecipe> grindRecipe = null;
+
 
     public DustDevilEntity(EntityType<? extends Monster> entityType, Level level)
     {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.setCanPickUpLoot(this.canPickUpLoot());
+
+        recipeCheck = RecipeManager.createCheck(BMCrafting.GRINDING.get());
+
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_TORNADO, false);
+        this.entityData.define(IS_GRINDING, false);
     }
 
     @Override
@@ -102,6 +116,23 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
 
     public void spawnTornadoParticles()
     {
+
+        if(isGrinding() && !getMainHandItem().isEmpty()) {
+            for (int i = 0; i < 3; i++) {
+                double xPosition = this.getX() + (this.random.nextDouble() - 0.5) * this.getBoundingBox().getXsize();
+                double zPosition = this.getZ() + (this.random.nextDouble() - 0.5) * this.getBoundingBox().getZsize();
+                double yPosition = this.getY() + 0.15F + (this.random.nextDouble() - 0.5) * this.getBoundingBox().getYsize();
+                final float angleSpeed = (random.nextFloat() * 360F) * 0.0125F;
+
+                this.level().addParticle(
+                        new ItemParticleOption(ParticleTypes.ITEM, getMainHandItem()),
+                        xPosition, yPosition, zPosition,
+                        -Mth.sin(angleSpeed) / 15F, 0.25F, Mth.cos(angleSpeed) / 15F
+                );
+            }
+        }
+
+
         final int checkDepth = 3;
 
         BlockState blockState = Blocks.AIR.defaultBlockState();
@@ -120,24 +151,12 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
             int count = isTornado ? 5 : 1;
 
             Vec3 velocity = this.getDeltaMovement();
-            BlockPos position = this.blockPosition();
 
             for(int i = 0; i < count; i++) {
                 double xPosition = this.getX() + (this.random.nextDouble() - 0.5) * bounds.getXsize();
                 double zPosition = this.getZ() + (this.random.nextDouble() - 0.5) * bounds.getZsize();
                 double yPosition = this.getY() + (this.random.nextDouble() - 0.5) * bounds.getYsize();
 
-            /*
-            if (position.getX() != belowPosition.getX()) {
-                xPosition = Mth.clamp(xPosition, belowPosition.getX(), (double)belowPosition.getX() + 1.0);
-            }
-
-            if (position.getZ() != belowPosition.getZ()) {
-                zPosition = Mth.clamp(zPosition, (double)belowPosition.getZ(), (double)belowPosition.getZ() + 1.0);
-            }
-            */
-                // +
-                //   +
                 final float angleSpeed = (random.nextFloat() * 360F) * 0.0125F;
 
                 this.level().addParticle(
@@ -147,6 +166,16 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
                 );
             }
         }
+    }
+
+    public boolean isGrinding()
+    {
+        return getEntityData().get(IS_GRINDING);
+    }
+
+    public void setGrinding(boolean isGrinding)
+    {
+        getEntityData().set(IS_GRINDING, isGrinding);
     }
 
     @Override
@@ -181,7 +210,7 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
 
     @Override
     public boolean canPickUpLoot() {
-        return super.canPickUpLoot(); //TODO: cooldowns n shit
+        return true;
     }
     @Override
     protected void playStepSound(BlockPos blockPos, BlockState blockState) {
@@ -200,6 +229,59 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
             this.spawnAtLocation(itemStack);
             this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }
+    }
+
+    @Override
+    protected void pickUpItem(ItemEntity arg) {
+        this.onItemPickup(arg);
+        DustDevilAI.pickUpItem(this, arg);
+    }
+
+    public void holdItem(ItemStack stack) {
+        this.setItemSlot(EquipmentSlot.MAINHAND, stack);
+        this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+        inventory.setItem(0, stack);
+
+    }
+
+    @Override
+    public void onEquipItem(EquipmentSlot equipmentSlot, ItemStack itemStack, ItemStack itemStack2) {
+        super.onEquipItem(equipmentSlot, itemStack, itemStack2);
+
+        if(equipmentSlot == EquipmentSlot.MAINHAND)
+        {
+            grindRecipe = recipeCheck.getRecipeFor(getInventory(), level());
+        }
+    }
+
+    @Override
+    protected void dropCustomDeathLoot(DamageSource arg, int i, boolean bl) {
+        super.dropCustomDeathLoot(arg, i, bl);
+        this.inventory.removeAllItems().forEach(this::spawnAtLocation);
+    }
+
+    @Override
+    public boolean hurt(DamageSource arg, float f) {
+        boolean isHurt = super.hurt(arg, f);
+        if (this.level().isClientSide) {
+            return false;
+        } else {
+            if (isHurt && arg.getEntity() instanceof LivingEntity) {
+                DustDevilAI.wasHurtBy(this, (LivingEntity)arg.getEntity());
+            }
+
+            return isHurt;
+        }
+    }
+
+    public Optional<GrindingRecipe> getGrindRecipe()
+    {
+        return grindRecipe;
+    }
+
+    @Override
+    public boolean wantsToPickUp(ItemStack item) {
+        return this.canPickUpLoot() && DustDevilAI.wantsToPickup(this, item);
     }
 
     @Override
@@ -271,5 +353,14 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
 
     protected float getSoundVolume() {
         return 0.4F;
+    }
+
+    public void onGrindFinished(boolean success)
+    {
+        if(success)
+        {
+            playSound(BMEffects.DUST_DEVIL_GRIND_FINISHED.get(), 0.6F, 0.7F + random.nextFloat() / 6F);
+        }
+        setGrinding(false);
     }
 }

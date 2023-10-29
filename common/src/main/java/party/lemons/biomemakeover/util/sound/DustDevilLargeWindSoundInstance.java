@@ -13,11 +13,11 @@ public class DustDevilLargeWindSoundInstance extends LoopingAlternatingEntitySou
 
     @Override
     protected AbstractTickableSoundInstance getAlternativeSoundInstance() {
-        return new DustDevilIdleWindSoundInstance(devil);
+        return devil.isGrinding() ? new DustDevilGrindingWindSoundInstance(devil) : new DustDevilIdleWindSoundInstance(devil);
     }
 
     @Override
     protected boolean shouldSwitchSounds() {
-        return !(devil.tornadoStartAnimation.isStarted() || devil.tornadoAnimation.isStarted());
+        return devil.isGrinding() || !(devil.tornadoStartAnimation.isStarted() || devil.tornadoAnimation.isStarted());
     }
 }
