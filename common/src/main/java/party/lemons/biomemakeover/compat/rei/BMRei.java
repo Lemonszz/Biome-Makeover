@@ -2,7 +2,7 @@ package party.lemons.biomemakeover.compat.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import party.lemons.biomemakeover.BiomeMakeover;
-import party.lemons.biomemakeover.compat.rei.display.GrindingDisplay;
+import party.lemons.biomemakeover.compat.rei.display.grinding.GrindingDisplay;
 
 public class BMRei
 {

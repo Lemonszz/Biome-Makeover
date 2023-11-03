@@ -1,4 +1,4 @@
-package party.lemons.biomemakeover.compat.rei.display;
+package party.lemons.biomemakeover.compat.rei.display.grinding;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;

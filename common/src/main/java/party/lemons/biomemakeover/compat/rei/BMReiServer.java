@@ -5,7 +5,7 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.plugins.REIServerPlugin;
 import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.ListTag;
-import party.lemons.biomemakeover.compat.rei.display.GrindingDisplay;
+import party.lemons.biomemakeover.compat.rei.display.grinding.GrindingDisplay;
 
 public class BMReiServer extends BMRei implements REIServerPlugin
 {
