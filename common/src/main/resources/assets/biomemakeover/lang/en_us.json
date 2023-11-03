@@ -649,5 +649,18 @@
   "item.biomemakeover.worker_pottery_sherd": "Worker Pottery Sherd",
   "item.biomemakeover.whinny_pottery_sherd": "Whinny Pottery Sherd",
   "text.biomemakeover.chance": "§e%d%% Chance",
-  "text.biomemakeover.rei.grinding": "Dust Devil Grinding"
+  "text.biomemakeover.rei.grinding": "Dust Devil Grinding",
+  "block.biomemakeover.big_flower_pot": "Big Flower Pot",
+  "block.biomemakeover.big_flower_pot_coarse_dirt": "Big Coarse Dirt Flower Pot",
+  "block.biomemakeover.big_flower_pot_crimson_nylium": "Big Crimson Nylium Flower Pot",
+  "block.biomemakeover.big_flower_pot_dirt": "Big Dirt Flower Pot",
+  "block.biomemakeover.big_flower_pot_grass": "Big Grass Flower Pot",
+  "block.biomemakeover.big_flower_pot_mycelium": "Big Mycelium Flower Pot",
+  "block.biomemakeover.big_flower_pot_podzol": "Big Podzol Flower Pot",
+  "block.biomemakeover.big_flower_pot_red_sand": "Big Red Sand Flower Pot",
+  "block.biomemakeover.big_flower_pot_sand": "Big Sand Flower Pot",
+  "block.biomemakeover.big_flower_pot_warped_nylium": "Big Warped Nylium Flower Pot",
+  "block.biomemakeover.big_flower_pot_moss": "Big Moss Block Flower Pot",
+  "block.biomemakeover.big_flower_pot_mossy_peat": "Big Mossy Peat Block Flower Pot",
+  "block.biomemakeover.big_flower_pot_peat": "Big Peat Block Flower Pot"
 }

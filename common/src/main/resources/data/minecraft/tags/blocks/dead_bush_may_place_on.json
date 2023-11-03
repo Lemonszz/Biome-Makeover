@@ -1,10 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:sand",
-    "#minecraft:dirt",
-    "#c:farmland",
     "#biomemakeover:sand_plant_pots",
     "#biomemakeover:dirt_plant_pots"
   ]
-}
+}6

@@ -44,10 +44,7 @@ import party.lemons.biomemakeover.entity.render.feature.ScarabElytraLayer;
 import party.lemons.biomemakeover.init.*;
 import party.lemons.biomemakeover.util.extension.HorseHat;
 import party.lemons.biomemakeover.util.sound.AltarCursingSoundInstance;
-import party.lemons.taniwha.client.color.ColorProviderHelper;
-import party.lemons.taniwha.client.color.FoliageBlockColorProvider;
-import party.lemons.taniwha.client.color.FoliageShiftBlockColorProvider;
-import party.lemons.taniwha.client.color.TemperatureGradientColorProvider;
+import party.lemons.taniwha.client.color.*;
 import party.lemons.taniwha.client.model.RenderLayerInjector;
 import party.lemons.taniwha.hooks.TClientEvents;
 import party.lemons.taniwha.item.animation.CustomUseAnimationRegistry;
@@ -158,6 +155,11 @@ public class BiomeMakeoverClient
                 BMBlocks.ANCIENT_OAK_LEAVES,
                 BMBlocks.IVY
         );
+
+        ColorProviderHelper.registerSimpleBlockWithItem(new GrassBlockColorProvider(),
+                BMBlocks.BIG_FLOWER_POT_GRASS
+            );
+
 
         ColorProviderHelper.registerSimpleBlockWithItem(new TemperatureGradientColorProvider(0x729460, 0x84ab6f, 0xa0ab6f),
                 BMBlocks.SWAMP_CYPRESS_LEAVES

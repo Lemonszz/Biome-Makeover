@@ -1,0 +1,6 @@
+{
+	"parent": "biomemakeover:block/pot/big_flower_pot_full",
+	"textures": {
+		"dirt": "minecraft:block/red_sand"
+	}
+}

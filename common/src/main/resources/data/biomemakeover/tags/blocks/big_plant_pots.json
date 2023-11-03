@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#biomemakeover:sand_plant_pots",
+    "#biomemakeover:dirt_plant_pots",
+    "#biomemakeover:mycelium_plant_pots",
+    "#biomemakeover:nylium_plant_pots"
+  ]
+}

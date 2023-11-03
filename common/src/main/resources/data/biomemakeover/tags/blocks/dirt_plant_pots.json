@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "biomemakeover:big_flower_pot_dirt",
+    "biomemakeover:big_flower_pot_coarse_dirt",
+    "biomemakeover:big_flower_pot_grass",
+    "biomemakeover:big_flower_pot_podzol",
+    "biomemakeover:big_flower_pot_moss",
+    "biomemakeover:big_flower_pot_mossy_peat",
+    "biomemakeover:big_flower_pot_peat",
+    "#biomemakeover:mycelium_plant_pots"
+  ]
+}

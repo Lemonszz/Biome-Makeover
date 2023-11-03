@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import party.lemons.biomemakeover.block.BigFlowerPotBlock;
 import party.lemons.biomemakeover.crafting.witch.data.QuestCategoryReloadListener;
 import party.lemons.biomemakeover.crafting.witch.data.reward.QuestRewardItem;
 import party.lemons.biomemakeover.crafting.witch.data.reward.RewardTableReloadListener;
@@ -70,6 +71,7 @@ public class BiomeMakeover {
         AdjudicatorRoomListener.init();
         BMWorldEvents.init();
 
+        LifecycleEvent.SERVER_LEVEL_LOAD.register(world -> BigFlowerPotBlock.bootstrap());
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new QuestCategoryReloadListener());
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new RewardTableReloadListener());
 

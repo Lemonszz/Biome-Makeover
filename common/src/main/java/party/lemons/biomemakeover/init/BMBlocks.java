@@ -67,6 +67,12 @@ public class BMBlocks
     public static final TagKey<Block> ALOE_VERA_PLANTABLE = blockTag("aloe_vera_plantable_on");
     public static final TagKey<Block> SUCCULENT_PLANTABLE = blockTag("succulent_plantable_on");
 
+    public static final TagKey<Block> DIRT_PLANT_POTS = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("dirt_plant_pots"));
+    public static final TagKey<Block> SAND_PLANT_POTS = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("sand_plant_pots"));
+    public static final TagKey<Block> NYLIUM_PLANT_POTS = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("nylium_plant_pots"));
+    public static final TagKey<Block> MYCELIUM_PLANT_POTS = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("mycelium_plant_pots"));
+    public static final TagKey<Block> BIG_PLANT_POTS = TagKey.create(Registries.BLOCK, BiomeMakeover.ID("big_plant_pots"));
+
     public static final Map<RegistrySupplier<Block>, RegistrySupplier<Item>> BLOCK_ITEMS = new HashMap<>();
 
     private static final BlockBehaviour.Properties LEAF_PROPERTIES = properties(0.2F)
@@ -236,6 +242,24 @@ public class BMBlocks
     public static final RegistrySupplier<Block> POTTED_SWAMP_CYPRESS_SAPLING =  pottedPlant("swamp_cypress_sapling", SWAMP_CYPRESS_SAPLING);
     public static final RegistrySupplier<Block> POTTED_WILD_MUSHROOMS =  pottedPlant("wild_mushrooms", WILD_MUSHROOMS);
     public static final RegistrySupplier<Block> POTTED_ALOE_VERA =  pottedPlant("aloe_vera", ALOE_VERA);
+
+    /////////////////
+    private static final BlockBehaviour.Properties POT_PROPERTIES = properties(1F).sound(SoundType.DECORATED_POT);
+
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT = registerBlockItem("big_flower_pot", ()->new BigFlowerPotBlock(POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_DIRT = register("big_flower_pot_dirt", ()->new BigFlowerPotBlock(()->Items.DIRT, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_SAND = register("big_flower_pot_sand", ()->new BigFlowerPotBlock(()->Items.SAND, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_RED_SAND = register("big_flower_pot_red_sand", ()->new BigFlowerPotBlock(()->Items.RED_SAND, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_MYCELIUM = register("big_flower_pot_mycelium", ()->new BigFlowerPotBlock.BigFlowerPotMyceliumBlock(()->Items.MYCELIUM, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_GRASS = register("big_flower_pot_grass", ()->new BigFlowerPotBlock(()->Items.GRASS_BLOCK, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_WARPED_NYLIUM = register("big_flower_pot_warped_nylium", ()->new BigFlowerPotBlock(()->Items.WARPED_NYLIUM, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_CRIMSON_NYLIUM = register("big_flower_pot_crimson_nylium", ()->new BigFlowerPotBlock(()->Items.CRIMSON_NYLIUM, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_COARSE_DIRT = register("big_flower_pot_coarse_dirt", ()->new BigFlowerPotBlock(()->Items.COARSE_DIRT, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_PODZOL = register("big_flower_pot_podzol", ()->new BigFlowerPotBlock(()->Items.PODZOL, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_MOSS = register("big_flower_pot_moss", ()->new BigFlowerPotBlock(()->Items.MOSS_BLOCK, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_PEAT = register("big_flower_pot_peat", ()->new BigFlowerPotBlock(PEAT::get, POT_PROPERTIES));
+    public static final RegistrySupplier<Block> BIG_FLOWER_POT_MOSSY_PEAT = register("big_flower_pot_mossy_peat", ()->new BigFlowerPotBlock(MOSSY_PEAT::get, POT_PROPERTIES));
+
 
     public static final RegistrySupplier<Block> DIRECTIONAL_DATA =  registerBlockItem("directional_data", ()->new DirectionalDataBlock(BlockBehaviour.Properties.of().strength(-1).noLootTable()), false);
 

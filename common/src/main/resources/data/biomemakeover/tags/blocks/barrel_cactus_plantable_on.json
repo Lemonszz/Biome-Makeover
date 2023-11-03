@@ -3,6 +3,8 @@
   "values": [
     "#minecraft:sand",
     "minecraft:cactus",
-    "biomemakeover:saguaro_cactus"
+    "biomemakeover:saguaro_cactus",
+    "#biomemakeover:sand_plant_pots",
+    "#biomemakeover:dirt_plant_pots"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:logs"
+    "#minecraft:logs",
+    "#biomemakeover:mycelium_plant_pots"
   ]
 }
