@@ -650,6 +650,8 @@
   "item.biomemakeover.whinny_pottery_sherd": "Whinny Pottery Sherd",
   "text.biomemakeover.chance": "§e%d%% Chance",
   "text.biomemakeover.rei.grinding": "Dust Devil Grinding",
+  "text.biomemakeover.reinforced": "Reinforced",
+  "text.biomemakeover.reinforced_advanced": "Reinforced: %d/%d",
   "block.biomemakeover.big_flower_pot": "Big Flower Pot",
   "block.biomemakeover.big_flower_pot_coarse_dirt": "Big Coarse Dirt Flower Pot",
   "block.biomemakeover.big_flower_pot_crimson_nylium": "Big Crimson Nylium Flower Pot",

@@ -55,7 +55,9 @@
     "plantplacement.FungusBlockMixin",
     "plantplacement.NetherSproutsBlockMixin",
     "plantplacement.RootsBlockMixin",
-    "plantplacement.TrunkPlacerMixin"
+    "plantplacement.TrunkPlacerMixin",
+    "reinforce.ItemMixin",
+    "reinforce.ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
