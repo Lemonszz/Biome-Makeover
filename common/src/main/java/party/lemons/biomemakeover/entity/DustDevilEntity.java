@@ -58,7 +58,6 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
     public final RecipeManager.CachedCheck<Container, GrindingRecipe> recipeCheck;
     private Optional<GrindingRecipe> grindRecipe = null;
 
-
     public DustDevilEntity(EntityType<? extends Monster> entityType, Level level)
     {
         super(entityType, level);
@@ -177,6 +176,10 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
     {
         getEntityData().set(IS_GRINDING, isGrinding);
     }
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        return super.doHurtTarget(entity);
+    }
 
     @Override
     protected void customServerAiStep() {
@@ -188,8 +191,8 @@ public class DustDevilEntity extends Monster implements InventoryCarrier
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0)
-                .add(Attributes.FLYING_SPEED, 0.3F)
-                .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.FLYING_SPEED, 0.4F)
+                .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.ATTACK_DAMAGE, 2.0);
     }
 

@@ -41,6 +41,7 @@ public class DustDevilAI
             MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
             MemoryModuleType.WALK_TARGET,
             MemoryModuleType.ATTACK_TARGET,
+            MemoryModuleType.ATTACK_COOLING_DOWN,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.HURT_BY,
             MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
@@ -131,9 +132,9 @@ public class DustDevilAI
                 Activity.FIGHT,
                 10,
                 ImmutableList.of(
+                        StopAttackingIfTargetInvalid.create(),
                         SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-                        MeleeAttack.create(40),
-                        StopAttackingIfTargetInvalid.create()
+                        MeleeAttack.create(25)
                 ),
                 MemoryModuleType.ATTACK_TARGET
         );
