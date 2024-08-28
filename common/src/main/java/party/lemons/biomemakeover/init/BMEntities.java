@@ -74,8 +74,8 @@ public class BMEntities
     public static final RegistrySupplier<EntityType<StoneGolemEntity>> STONE_GOLEM = ENTITIES.register(BiomeMakeover.ID("stone_golem"), ()->TEntityTypeBuilder.of(StoneGolemEntity::new, MobCategory.MISC).sized(1.6F, 2.5F).clientTrackingRange(12).build());
     public static final RegistrySupplier<EntityType<HelmitCrabEntity>> HELMIT_CRAB = ENTITIES.register(BiomeMakeover.ID("helmit_crab"), ()->TEntityTypeBuilder.of(HelmitCrabEntity::new, MobCategory.CREATURE).sized(0.825F, 0.5F).clientTrackingRange(12).build());
 
-
-    public static final RegistrySupplier<Attribute> ATT_PROJECTILE_RESISTANCE = ATTRIBUTES.register(BiomeMakeover.ID("projectile_resistance"), ()->new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D));
+    public static final Attribute ATT_PROJECTILE_RESISTANCE = new RangedAttribute("attribute.name.biomemakeover.projectile_resistance", 0.0D, 0.0D, 30.0D);
+    public static final RegistrySupplier<Attribute> ATT_PROJECTILE_RESISTANCE_SUPPLIER = ATTRIBUTES.register(BiomeMakeover.ID("projectile_resistance"), () -> ATT_PROJECTILE_RESISTANCE);
 
     public static void init()
     {

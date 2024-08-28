@@ -15,7 +15,6 @@
     "CamelMixin",
     "ComposterBlockMixin",
     "DarkOakTreeGrowerMixin_SingleTree",
-    "EnchantmentHelperMixin",
     "GoalSelectorMixin",
     "InputContainerMixin_EctoCompost",
     "LivingEntityMixin",
