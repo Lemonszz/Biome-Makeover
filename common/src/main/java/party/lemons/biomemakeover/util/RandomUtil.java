@@ -7,7 +7,7 @@ import java.util.Set;
 
 public final class RandomUtil
 {
-    public static final RandomSource RANDOM = RandomSource.create();
+    public static final RandomSource RANDOM = RandomSource.createThreadSafe();
 
     public static int randomRange(int min, int max)
     {
